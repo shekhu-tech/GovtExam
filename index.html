@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crapd.in-All-Goverment-Job-Full-flash-Guide</title>
+    <title>Crapd.in-All-Goverment-Job-Full-Flash-Guidence</title>
     <!-- Tailwind CSS CDN for 'ultrapromax' responsive design and golden theme -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -42,6 +42,7 @@
             padding: 2.5rem;
             border-radius: 1.5rem;
             max-width: 90%;
+            /* Removed fixed width for better responsiveness on small screens */
             width: auto; 
             min-width: 300px;
             margin: 0 1rem;
@@ -99,7 +100,7 @@
 
     <div class="text-center p-8">
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold golden-text-gradient mb-4 drop-shadow-xl">
-            Welcome to Crapd.in-All-Goverment-Job-Full-flash-Guide
+            Welcome to the Golden Experience
         </h1>
         <p class="text-lg sm:text-xl text-gray-400">
             Aapka safar shuru hone wala hai.
@@ -230,30 +231,17 @@
         let userData = {};
         let transectionId = '';
         const amount = 51; // Amount in rupees
-        const googleSheetScriptURL = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
 
-        // Check for user's payment status on page load using their email
-        async function checkPaymentStatus() {
-            const storedEmail = localStorage.getItem('userEmail');
-            if (storedEmail) {
-                const url = `${googleSheetScriptURL}?email=${encodeURIComponent(storedEmail)}`;
-                try {
-                    const response = await fetch(url);
-                    const result = await response.json();
-                    if (result.hasPaid) {
-                        window.location.href = 'govt-all-services.html';
-                        return;
-                    }
-                } catch (error) {
-                    console.error('Error checking payment status:', error);
-                }
-            }
-            // If not paid or no email stored, show the popups
+        // Check for payment status in local storage on page load
+        const hasPaid = localStorage.getItem('hasPaid');
+        if (hasPaid === 'true') {
+            window.location.href = 'govt-all-services.html';
+        } else {
+            // Page load hote hi pehla popup dikhana
             document.addEventListener('DOMContentLoaded', () => {
                 popupStep1.style.display = 'flex';
             });
         }
-        checkPaymentStatus();
 
         // Step 1: Name input par event listener lagana
         nameInput.addEventListener('input', (e) => {
@@ -274,7 +262,6 @@
             userData.email = document.getElementById('email').value.trim();
 
             if (userData.name && userData.number && userData.email) {
-                localStorage.setItem('userEmail', userData.email); // Store email for future checks
                 popupStep1.style.display = 'none';
                 popupStep2.style.display = 'flex';
                 
@@ -307,7 +294,7 @@
 
         // Secret code 'Okay' button ka listener
         secretOkayButton.addEventListener('click', () => {
-            // show welcome popup
+             // show welcome popup
             showWelcomePopup();
             // send data
             const data = {
@@ -393,6 +380,7 @@
                 if (response.ok) {
                     // Data successfully sent
                     loader.style.display = 'none';
+                    localStorage.setItem('hasPaid', 'true');
                     okayButton.style.display = 'block';
                 } else {
                     console.error('Error sending data:', response.statusText);
