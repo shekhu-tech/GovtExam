@@ -13,7 +13,7 @@
     <style>
         body {
             font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-            background-color: #E6F3F7;
+            background: linear-gradient(135deg, #f0f9ff 0%, #cbebff 100%);
             color: #242424;
             display: flex;
             justify-content: center;
@@ -25,31 +25,137 @@
             max-width: 1200px;
             padding: 2rem;
         }
-        .main-heading {
-            border-bottom: 3px solid #005F73;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            color: #003642;
-        }
         .card {
             background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 95, 115, 0.1), 0 4px 6px -2px rgba(0, 95, 115, 0.05);
-            padding: 1.75rem;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid rgba(0, 95, 115, 0.1);
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1), 0 8px 15px rgba(0, 0, 0, 0.05);
+            padding: 2.25rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            text-align: center; /* Added for centering text */
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--card-color-1), var(--card-color-2));
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1;
         }
         .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 95, 115, 0.15), 0 10px 10px -5px rgba(0, 95, 115, 0.08);
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.15), 0 15px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card:hover::before {
+            opacity: 0.2;
+        }
+        .card-content {
+            position: relative;
+            z-index: 2;
         }
         .card-heading {
-            color: #003642;
-            font-weight: 700;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.75rem;
+            color: var(--card-heading-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
+        .card-sub-heading {
+            font-size: 1rem;
+            color: var(--card-sub-heading-color);
+            font-weight: 500;
+        }
+
+        /* Color Schemes for Cards */
+        .card.upsc {
+            --card-color-1: #00458a;
+            --card-color-2: #007bff;
+            --card-heading-color: #00458a;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.ssc {
+            --card-color-1: #2a7337;
+            --card-color-2: #48bb78;
+            --card-heading-color: #2a7337;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.rrb {
+            --card-color-1: #c6312a;
+            --card-color-2: #e53e3e;
+            --card-heading-color: #c6312a;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.ibps {
+            --card-color-1: #006992;
+            --card-color-2: #0096c7;
+            --card-heading-color: #006992;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.rbi {
+            --card-color-1: #8b0000;
+            --card-color-2: #d62828;
+            --card-heading-color: #8b0000;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.state {
+            --card-color-1: #805ad5;
+            --card-color-2: #a879e6;
+            --card-heading-color: #805ad5;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.armed-forces {
+            --card-color-1: #003366;
+            --card-color-2: #3a506b;
+            --card-heading-color: #003366;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.isro {
+            --card-color-1: #ff5722;
+            --card-color-2: #ff7043;
+            --card-heading-color: #ff5722;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.drdo {
+            --card-color-1: #1a237e;
+            --card-color-2: #283593;
+            --card-heading-color: #1a237e;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.finance {
+            --card-color-1: #006400;
+            --card-color-2: #228b22;
+            --card-heading-color: #006400;
+            --card-sub-heading-color: #4a5568;
+        }
+        .card.misc {
+            --card-color-1: #3b5998;
+            --card-color-2: #8b9dc3;
+            --card-heading-color: #3b5998;
+            --card-sub-heading-color: #4a5568;
+        }
+        /* New card styles */
+        .card.nta { --card-color-1: #ffc107; --card-color-2: #ffeb3b; --card-heading-color: #f57f17; --card-sub-heading-color: #616161; }
+        .card.cbse { --card-color-1: #3f51b5; --card-color-2: #5c6bc0; --card-heading-color: #3f51b5; --card-sub-heading-color: #616161; }
+        .card.ed-boards { --card-color-1: #4caf50; --card-color-2: #81c784; --card-heading-color: #4caf50; --card-sub-heading-color: #616161; }
+        .card.kvs-nvs { --card-color-1: #e91e63; --card-color-2: #ec407a; --card-heading-color: #e91e63; --card-sub-heading-color: #616161; }
+        .card.barc { --card-color-1: #4a148c; --card-color-2: #6a1b9a; --card-heading-color: #4a148c; --card-sub-heading-color: #616161; }
+        .card.lic { --card-color-1: #004d40; --card-color-2: #00695c; --card-heading-color: #004d40; --card-sub-heading-color: #616161; }
+        .card.fci { --card-color-1: #e65100; --card-color-2: #ff7043; --card-heading-color: #e65100; --card-sub-heading-color: #616161; }
+        .card.esic { --card-color-1: #01579b; --card-color-2: #0288d1; --card-heading-color: #01579b; --card-sub-heading-color: #616161; }
+        .card.nabard { --card-color-1: #33691e; --card-color-2: #558b2f; --card-heading-color: #33691e; --card-sub-heading-color: #616161; }
+        .card.sebi { --card-color-1: #212121; --card-color-2: #424242; --card-heading-color: #212121; --card-sub-heading-color: #bdbdbd; }
+        .card.psu { --card-color-1: #6a1b9a; --card-color-2: #ab47bc; --card-heading-color: #6a1b9a; --card-sub-heading-color: #616161; }
+        .card.nra { --card-color-1: #4e342e; --card-color-2: #6d4c41; --card-heading-color: #4e342e; --card-sub-heading-color: #616161; }
+
+
+        /* Modal styles */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -61,25 +167,26 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            overflow-y: auto;
-        }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 95, 115, 0.2), 0 10px 10px -5px rgba(0, 95, 115, 0.1);
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            transform: translateY(-50px);
             opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            margin: 20px 0;
+            transition: opacity 0.4s ease-in-out;
         }
         .modal-overlay.active {
             display: flex;
             opacity: 1;
-            visibility: visible;
+        }
+        .modal-content {
+            background-color: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 650px;
+            width: 95%;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
+            margin: 20px;
+            overflow-y: auto;
+            max-height: 90vh; /* Added to prevent overflow on mobile */
         }
         .modal-overlay.active .modal-content {
             transform: translateY(0);
@@ -89,30 +196,122 @@
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: none;
-            border: none;
+            background: #fff;
+            border: 1px solid #ddd;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             font-size: 1.5rem;
+            line-height: 1;
             cursor: pointer;
-            color: #003642;
-            transition: color 0.2s;
+            color: #555;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .modal-close-button:hover {
-            color: #FF0000;
+            background-color: #e53e3e;
+            color: #fff;
+            transform: rotate(90deg);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         .modal-list a {
             display: block;
-            padding: 0.75rem 1rem;
-            background-color: #EBF2F7;
+            padding: 1rem 1.25rem;
+            background-color: #f7f9fc;
             border-radius: 0.75rem;
-            margin-bottom: 0.5rem;
-            color: #003642;
+            margin-bottom: 0.75rem;
+            color: #333;
             font-weight: 500;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: all 0.2s ease-in-out;
             text-decoration: none;
+            border-left: 5px solid transparent;
         }
         .modal-list a:hover {
-            background-color: #DDEBF8;
+            background-color: #eaf1f7;
             transform: translateX(5px);
+            border-left-color: var(--link-hover-color, #007bff);
+        }
+        /* Link hover colors based on card type */
+        .modal-overlay[id="upscModal"] .modal-list a:hover { --link-hover-color: #00458a; }
+        .modal-overlay[id="sscModal"] .modal-list a:hover { --link-hover-color: #2a7337; }
+        .modal-overlay[id="rrbModal"] .modal-list a:hover { --link-hover-color: #c6312a; }
+        .modal-overlay[id="ibpsModal"] .modal-list a:hover { --link-hover-color: #006992; }
+        .modal-overlay[id="rbiModal"] .modal-list a:hover { --link-hover-color: #8b0000; }
+        .modal-overlay[id="statePSCsModal"] .modal-list a:hover { --link-hover-color: #805ad5; }
+        .modal-overlay[id="armyModal"] .modal-list a:hover { --link-hover-color: #003366; }
+        .modal-overlay[id="navyModal"] .modal-list a:hover { --link-hover-color: #003366; }
+        .modal-overlay[id="airForceModal"] .modal-list a:hover { --link-hover-color: #003366; }
+        .modal-overlay[id="isroModal"] .modal-list a:hover { --link-hover-color: #ff5722; }
+        .modal-overlay[id="drdoModal"] .modal-list a:hover { --link-hover-color: #1a237e; }
+        .modal-overlay[id="ntaModal"] .modal-list a:hover { --link-hover-color: #f57f17; }
+        .modal-overlay[id="cbseModal"] .modal-list a:hover { --link-hover-color: #3f51b5; }
+        .modal-overlay[id="stateEdBoardsModal"] .modal-list a:hover { --link-hover-color: #4caf50; }
+        .modal-overlay[id="kvsNvsModal"] .modal-list a:hover { --link-hover-color: #e91e63; }
+        .modal-overlay[id="barcModal"] .modal-list a:hover { --link-hover-color: #4a148c; }
+        .modal-overlay[id="licModal"] .modal-list a:hover { --link-hover-color: #004d40; }
+        .modal-overlay[id="fciModal"] .modal-list a:hover { --link-hover-color: #e65100; }
+        .modal-overlay[id="esicModal"] .modal-list a:hover { --link-hover-color: #01579b; }
+        .modal-overlay[id="nabardModal"] .modal-list a:hover { --link-hover-color: #33691e; }
+        .modal-overlay[id="sebiModal"] .modal-list a:hover { --link-hover-color: #212121; }
+        .modal-overlay[id="psuModal"] .modal-list a:hover { --link-hover-color: #6a1b9a; }
+        .modal-overlay[id="nraModal"] .modal-list a:hover { --link-hover-color: #4e342e; }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 1.5rem;
+            }
+            .card-heading {
+                font-size: 1.5rem;
+            }
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 4rem;
+            font-size: 1.125rem;
+            border-radius: 9999px;
+            border: 2px solid #00A896;
+            box-shadow: 0 4px 10px rgba(0, 168, 150, 0.2);
+            transition: all 0.3s ease-in-out;
+            outline: none;
+            color: #242424;
+            background-color: #fff;
+        }
+        .search-input::placeholder {
+            color: #888;
+        }
+        .search-input:focus {
+            border-color: #003642;
+            box-shadow: 0 6px 15px rgba(0, 54, 66, 0.25);
+        }
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #00A896;
+        }
+        .no-results {
+            color: #e53e3e;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
         }
     </style>
 </head>
@@ -125,159 +324,213 @@
             <p class="text-xl md:text-1xl text-[#00A896] font-semibold">अपने करियर के लिए सही परीक्षा चुनें और तैयारी शुरू करें।</p>
         </header>
 
-        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- New Search System -->
+        <div class="search-container mx-auto">
+            <input type="text" id="searchInput" class="search-input" placeholder="परीक्षा या विभाग का नाम खोजें...">
+            <span class="search-icon">🔍</span>
+            <div id="no-results-message" class="no-results">कोई परिणाम नहीं मिला।</div>
+        </div>
+
+        <main id="card-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
             <!-- UPSC Card -->
-            <div class="card" data-modal-target="upscModal">
-                <h2 class="card-heading">UPSC</h2>
-                <p class="text-sm text-gray-500">संघ लोक सेवा आयोग</p>
+            <div class="card upsc" data-modal-target="upscModal" data-keywords="upsc संघ लोक सेवा आयोग civil services ese cse ifos nda cds capf">
+                <div class="card-content">
+                    <h2 class="card-heading">UPSC</h2>
+                    <p class="card-sub-heading">संघ लोक सेवा आयोग</p>
+                </div>
             </div>
 
             <!-- SSC Card -->
-            <div class="card" data-modal-target="sscModal">
-                <h2 class="card-heading">SSC</h2>
-                <p class="text-sm text-gray-500">कर्मचारी चयन आयोग</p>
+            <div class="card ssc" data-modal-target="sscModal" data-keywords="ssc कर्मचारी चयन आयोग cgl chsl mts je cpo">
+                <div class="card-content">
+                    <h2 class="card-heading">SSC</h2>
+                    <p class="card-sub-heading">कर्मचारी चयन आयोग</p>
+                </div>
             </div>
 
             <!-- RRB Card -->
-            <div class="card" data-modal-target="rrbModal">
-                <h2 class="card-heading">RRB</h2>
-                <p class="text-sm text-gray-500">रेलवे भर्ती बोर्ड</p>
+            <div class="card rrb" data-modal-target="rrbModal" data-keywords="rrb रेलवे भर्ती बोर्ड group d ntpc alp technician je rpf">
+                <div class="card-content">
+                    <h2 class="card-heading">RRB</h2>
+                    <p class="card-sub-heading">रेलवे भर्ती बोर्ड</p>
+                </div>
             </div>
 
             <!-- IBPS Card -->
-            <div class="card" data-modal-target="ibpsModal">
-                <h2 class="card-heading">IBPS</h2>
-                <p class="text-sm text-gray-500">बैंकिंग चयन संस्थान</p>
+            <div class="card ibps" data-modal-target="ibpsModal" data-keywords="ibps बैंकिंग बैंक po clerk rrb so">
+                <div class="card-content">
+                    <h2 class="card-heading">IBPS</h2>
+                    <p class="card-sub-heading">बैंकिंग चयन संस्थान</p>
+                </div>
             </div>
 
             <!-- RBI Card -->
-            <div class="card" data-modal-target="rbiModal">
-                <h2 class="card-heading">RBI</h2>
-                <p class="text-sm text-gray-500">भारतीय रिजर्व बैंक</p>
+            <div class="card rbi" data-modal-target="rbiModal" data-keywords="rbi भारतीय रिजर्व बैंक grade b assistant">
+                <div class="card-content">
+                    <h2 class="card-heading">RBI</h2>
+                    <p class="card-sub-heading">भारतीय रिजर्व बैंक</p>
+                </div>
             </div>
 
             <!-- State PSCs, SSCs & SSSBs Card -->
-            <div class="card" data-modal-target="statePSCsModal">
-                <h2 class="card-heading">राज्य PSCs, SSCs & SSSBs</h2>
-                <p class="text-sm text-gray-500">राज्य स्तर की परीक्षाएँ</p>
+            <div class="card state" data-modal-target="statePSCsModal" data-keywords="राज्य psc ssc sssb civil services exams uppsc bpsc">
+                <div class="card-content">
+                    <h2 class="card-heading">राज्य PSCs, SSCs & SSSBs</h2>
+                    <p class="card-sub-heading">राज्य स्तर की परीक्षाएँ</p>
+                </div>
             </div>
             
             <!-- NTA Card -->
-            <div class="card" data-modal-target="ntaModal">
-                <h2 class="card-heading">NTA</h2>
-                <p class="text-sm text-gray-500">राष्ट्रीय परीक्षण एजेंसी</p>
+            <div class="card nta" data-modal-target="ntaModal" data-keywords="nta राष्ट्रीय परीक्षण एजेंसी ugc net csir net cuet jee neet">
+                <div class="card-content">
+                    <h2 class="card-heading">NTA</h2>
+                    <p class="card-sub-heading">राष्ट्रीय परीक्षण एजेंसी</p>
+                </div>
             </div>
             
             <!-- CBSE Card -->
-            <div class="card" data-modal-target="cbseModal">
-                <h2 class="card-heading">CBSE</h2>
-                <p class="text-sm text-gray-500">केंद्रीय माध्यमिक शिक्षा बोर्ड</p>
+            <div class="card cbse" data-modal-target="cbseModal" data-keywords="cbse केंद्रीय माध्यमिक शिक्षा बोर्ड ctet">
+                <div class="card-content">
+                    <h2 class="card-heading">CBSE</h2>
+                    <p class="card-sub-heading">केंद्रीय माध्यमिक शिक्षा बोर्ड</p>
+                </div>
             </div>
 
             <!-- State Education Boards Card -->
-            <div class="card" data-modal-target="stateEdBoardsModal">
-                <h2 class="card-heading">राज्य शिक्षा बोर्ड</h2>
-                <p class="text-sm text-gray-500">राज्य स्तर की शिक्षक परीक्षाएँ</p>
+            <div class="card ed-boards" data-modal-target="stateEdBoardsModal" data-keywords="राज्य शिक्षा बोर्ड tet teacher">
+                <div class="card-content">
+                    <h2 class="card-heading">राज्य शिक्षा बोर्ड</h2>
+                    <p class="card-sub-heading">राज्य स्तर की शिक्षक परीक्षाएँ</p>
+                </div>
             </div>
             
             <!-- KVS & NVS Card -->
-            <div class="card" data-modal-target="kvsNvsModal">
-                <h2 class="card-heading">KVS & NVS</h2>
-                <p class="text-sm text-gray-500">केंद्रीय विद्यालय और नवोदय विद्यालय</p>
+            <div class="card kvs-nvs" data-modal-target="kvsNvsModal" data-keywords="kvs nvs केंद्रीय विद्यालय नवोदय विद्यालय">
+                <div class="card-content">
+                    <h2 class="card-heading">KVS & NVS</h2>
+                    <p class="card-sub-heading">केंद्रीय विद्यालय और नवोदय विद्यालय</p>
+                </div>
             </div>
             
             <!-- Indian Army Card -->
-            <div class="card" data-modal-target="armyModal">
-                <h2 class="card-heading">भारतीय सेना</h2>
-                <p class="text-sm text-gray-500">राष्ट्र सेवा</p>
+            <div class="card armed-forces" data-modal-target="armyModal" data-keywords="भारतीय सेना army defence">
+                <div class="card-content">
+                    <h2 class="card-heading">भारतीय सेना</h2>
+                    <p class="card-sub-heading">राष्ट्र सेवा</p>
+                </div>
             </div>
             
             <!-- Indian Navy Card -->
-            <div class="card" data-modal-target="navyModal">
-                <h2 class="card-heading">भारतीय नौसेना</h2>
-                <p class="text-sm text-gray-500">समुद्री सेवा</p>
+            <div class="card armed-forces" data-modal-target="navyModal" data-keywords="भारतीय नौसेना navy defence">
+                <div class="card-content">
+                    <h2 class="card-heading">भारतीय नौसेना</h2>
+                    <p class="card-sub-heading">समुद्री सेवा</p>
+                </div>
             </div>
             
             <!-- Indian Air Force Card -->
-            <div class="card" data-modal-target="airForceModal">
-                <h2 class="card-heading">भारतीय वायु सेना</h2>
-                <p class="text-sm text-gray-500">आकाश सेवा</p>
+            <div class="card armed-forces" data-modal-target="airForceModal" data-keywords="भारतीय वायु सेना air force defence">
+                <div class="card-content">
+                    <h2 class="card-heading">भारतीय वायु सेना</h2>
+                    <p class="card-sub-heading">आकाश सेवा</p>
+                </div>
             </div>
             
             <!-- DRDO Card -->
-            <div class="card" data-modal-target="drdoModal">
-                <h2 class="card-heading">DRDO</h2>
-                <p class="text-sm text-gray-500">रक्षा अनुसंधान</p>
+            <div class="card drdo" data-modal-target="drdoModal" data-keywords="drdo रक्षा अनुसंधान defense research">
+                <div class="card-content">
+                    <h2 class="card-heading">DRDO</h2>
+                    <p class="card-sub-heading">रक्षा अनुसंधान</p>
+                </div>
             </div>
             
             <!-- ISRO Card -->
-            <div class="card" data-modal-target="isroModal">
-                <h2 class="card-heading">ISRO</h2>
-                <p class="text-sm text-gray-500">अंतरिक्ष अनुसंधान</p>
+            <div class="card isro" data-modal-target="isroModal" data-keywords="isro अंतरिक्ष अनुसंधान space research">
+                <div class="card-content">
+                    <h2 class="card-heading">ISRO</h2>
+                    <p class="card-sub-heading">अंतरिक्ष अनुसंधान</p>
+                </div>
             </div>
             
             <!-- BARC Card -->
-            <div class="card" data-modal-target="barcModal">
-                <h2 class="card-heading">BARC</h2>
-                <p class="text-sm text-gray-500">परमाणु अनुसंधान</p>
+            <div class="card barc" data-modal-target="barcModal" data-keywords="barc परमाणु अनुसंधान nuclear research">
+                <div class="card-content">
+                    <h2 class="card-heading">BARC</h2>
+                    <p class="card-sub-heading">परमाणु अनुसंधान</p>
+                </div>
             </div>
             
             <!-- LIC Card -->
-            <div class="card" data-modal-target="licModal">
-                <h2 class="card-heading">LIC</h2>
-                <p class="text-sm text-gray-500">जीवन बीमा निगम</p>
+            <div class="card lic" data-modal-target="licModal" data-keywords="lic जीवन बीमा निगम insurance">
+                <div class="card-content">
+                    <h2 class="card-heading">LIC</h2>
+                    <p class="card-sub-heading">जीवन बीमा निगम</p>
+                </div>
             </div>
             
             <!-- FCI Card -->
-            <div class="card" data-modal-target="fciModal">
-                <h2 class="card-heading">FCI</h2>
-                <p class="text-sm text-gray-500">भारतीय खाद्य निगम</p>
+            <div class="card fci" data-modal-target="fciModal" data-keywords="fci भारतीय खाद्य निगम food corporation">
+                <div class="card-content">
+                    <h2 class="card-heading">FCI</h2>
+                    <p class="card-sub-heading">भारतीय खाद्य निगम</p>
+                </div>
             </div>
             
             <!-- ESIC Card -->
-            <div class="card" data-modal-target="esicModal">
-                <h2 class="card-heading">ESIC</h2>
-                <p class="text-sm text-gray-500">कर्मचारी राज्य बीमा निगम</p>
+            <div class="card esic" data-modal-target="esicModal" data-keywords="esic कर्मचारी राज्य बीमा निगम">
+                <div class="card-content">
+                    <h2 class="card-heading">ESIC</h2>
+                    <p class="card-sub-heading">कर्मचारी राज्य बीमा निगम</p>
+                </div>
             </div>
             
             <!-- NABARD Card -->
-            <div class="card" data-modal-target="nabardModal">
-                <h2 class="card-heading">NABARD</h2>
-                <p class="text-sm text-gray-500">कृषि विकास बैंक</p>
+            <div class="card nabard" data-modal-target="nabardModal" data-keywords="nabard कृषि विकास बैंक agriculture bank">
+                <div class="card-content">
+                    <h2 class="card-heading">NABARD</h2>
+                    <p class="card-sub-heading">कृषि विकास बैंक</p>
+                </div>
             </div>
             
             <!-- SEBI Card -->
-            <div class="card" data-modal-target="sebiModal">
-                <h2 class="card-heading">SEBI</h2>
-                <p class="text-sm text-gray-500">पूंजी बाजार नियामक</p>
+            <div class="card sebi" data-modal-target="sebiModal" data-keywords="sebi पूंजी बाजार नियामक market regulator">
+                <div class="card-content">
+                    <h2 class="card-heading">SEBI</h2>
+                    <p class="card-sub-heading">पूंजी बाजार नियामक</p>
+                </div>
             </div>
             
             <!-- Individual PSUs Card -->
-            <div class="card" data-modal-target="psuModal">
-                <h2 class="card-heading">Individual PSUs</h2>
-                <p class="text-sm text-gray-500">सार्वजनिक क्षेत्र के उपक्रम</p>
+            <div class="card psu" data-modal-target="psuModal" data-keywords="psu सार्वजनिक क्षेत्र के उपक्रम ongc ntpc bhel">
+                <div class="card-content">
+                    <h2 class="card-heading">Individual PSUs</h2>
+                    <p class="card-sub-heading">सार्वजनिक क्षेत्र के उपक्रम</p>
+                </div>
             </div>
             
             <!-- NRA Card -->
-            <div class="card" data-modal-target="nraModal">
-                <h2 class="card-heading">NRA</h2>
-                <p class="text-sm text-gray-500">राष्ट्रीय भर्ती एजेंसी (CET)</p>
+            <div class="card nra" data-modal-target="nraModal" data-keywords="nra राष्ट्रीय भर्ती एजेंसी cet common eligibility test">
+                <div class="card-content">
+                    <h2 class="card-heading">NRA</h2>
+                    <p class="card-sub-heading">राष्ट्रीय भर्ती एजेंसी (CET)</p>
+                </div>
             </div>
 
         </main>
         
-        <footer class="text-center mt-16 border-t-2 pt-8 border-[#003642]/20">
-            <p class="text-[#242424] text-lg font-medium">&copy; 2025 सरकारी परीक्षा गाइड। आपकी सफलता के लिए हार्दिक शुभकामनाएँ।</p>
+        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-300">
+            <p class="text-gray-600 text-lg font-medium">&copy; 2025 सरकारी परीक्षा गाइड। आपकी सफलता के लिए हार्दिक शुभकामनाएँ।</p>
         </footer>
 
     </div>
 
     <!-- Modals (Popups) for each card -->
+    <!-- Modal for UPSC -->
     <div id="upscModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">UPSC परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#00458a] mb-4">UPSC परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="ese.html">Engineering Services Exam (ESE)</a>
                 <a href="cse.html">Civil Services Exam (CSE)</a>
@@ -291,10 +544,11 @@
         </div>
     </div>
     
+    <!-- Modal for SSC -->
     <div id="sscModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">SSC परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#2a7337] mb-4">SSC परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="ssc-cgl.html">Combined Graduate Level (CGL)</a>
                 <a href="ssc-chsl.html">Combined Higher Secondary Level (CHSL)</a>
@@ -306,10 +560,11 @@
         </div>
     </div>
     
+    <!-- Modal for RRB -->
     <div id="rrbModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">RRB परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#c6312a] mb-4">RRB परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="rrb-group-d.html">RRB Group D</a>
                 <a href="rrb-ntpc.html">RRB NTPC</a>
@@ -320,10 +575,11 @@
         </div>
     </div>
     
+    <!-- Modal for IBPS -->
     <div id="ibpsModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">IBPS परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#006992] mb-4">IBPS परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="ibps-po.html">IBPS PO</a>
                 <a href="ibps-clerk.html">IBPS Clerk</a>
@@ -333,10 +589,11 @@
         </div>
     </div>
 
+    <!-- Modal for RBI -->
     <div id="rbiModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">RBI परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#8b0000] mb-4">RBI परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="rbi-grade-b.html">RBI Grade B</a>
                 <a href="rbi-assistant.html">RBI Assistant</a>
@@ -344,10 +601,11 @@
         </div>
     </div>
 
+    <!-- Modal for State PSCs, SSCs & SSSBs -->
     <div id="statePSCsModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">राज्य स्तर की परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#805ad5] mb-4">राज्य स्तर की परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="state-civil-services.html">State Civil Services Exam (UPPSC, BPSC, etc.)</a>
                 <a href="state-engg-medical.html">State Engineering/Medical Exams</a>
@@ -356,10 +614,11 @@
         </div>
     </div>
 
+    <!-- Modal for NTA -->
     <div id="ntaModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">NTA परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#f57f17] mb-4">NTA परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="ugc-net.html">UGC NET</a>
                 <a href="csir-net.html">CSIR NET</a>
@@ -368,120 +627,123 @@
         </div>
     </div>
 
+    <!-- Modal for CBSE -->
     <div id="cbseModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">CBSE परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#3f51b5] mb-4">CBSE परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="ctet.html">CTET</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for State Education Boards -->
     <div id="stateEdBoardsModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">राज्य शिक्षा बोर्ड परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#4caf50] mb-4">राज्य शिक्षा बोर्ड परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="state-tet.html">State TET</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for KVS & NVS -->
     <div id="kvsNvsModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">KVS & NVS परीक्षाएँ</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#e91e63] mb-4">KVS & NVS परीक्षाएँ</h3>
             <div class="modal-list">
                 <a href="kvs-nvs.html">KVS/NVS</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for Indian Army -->
     <div id="armyModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">भारतीय सेना भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#003366] mb-4">भारतीय सेना भर्ती</h3>
             <div class="modal-list">
                
-<a href="acc.html">ACC – Army Cadet College</a><br>
-<a href="aec.html">AEC – Army Education Corps</a><br>
-<a href="amc.html">AMC – Army Medical Corps</a><br>
-<a href="aps.html">APS – Army Postal Service</a><br>
-<a href="asc.html">ASC – Army Service Corps</a><br>
-<a href="army-clerk.html">Army Clerk / Store Keeper (SKT)</a><br>
-<a href="army-catering.html">Army Catering (JCO)</a><br>
-<a href="army-civil-driver.html">Army Civil Motor Driver</a><br>
-<a href="barber.html">Barber (Tradesman)</a><br>
-<a href="cds.html">CDS – Combined Defence Services (UPSC)</a><br>
-<a href="carpenter.html">Carpenter (Tradesman)</a><br>
-<a href="civilian-clerk.html">Civilian Clerk (LDC/UDC)</a><br>
-<a href="cook.html">Cook (Tradesman)</a><br>
-<a href="dresser.html">Dresser (Tradesman)</a><br>
-<a href="draughtsman.html">Draughtsman (MES)</a><br>
-<a href="direct-entry.html">Direct Entry (Graduate/Technical)</a><br>
-<a href="eme.html">EME – Corps of Electronics & Mechanical Engineers</a><br>
-<a href="education-jco.html">Education JCO (AEC)</a><br>
-<a href="equipment-repairer.html">Equipment Repairer (Tradesman)</a><br>
-<a href="engineers.html">Engineers – Military Engineering Services</a><br>
-<a href="fireman.html">Fireman (Civilian Defence)</a><br>
-<a href="gd.html">GD – Soldier General Duty</a><br>
-<a href="gardener.html">Gardener / Mali (Tradesman)</a><br>
-<a href="housekeeper.html">Housekeeper (Tradesman)</a><br>
-<a href="jag.html">JAG – Judge Advocate General (Law Officers)</a><br>
-<a href="jco-rt.html">JCO Religious Teacher</a><br>
-<a href="jco-catering.html">JCO Catering</a><br>
-<a href="lab-assistant.html">Laboratory Assistant</a><br>
-<a href="ldc.html">Lower Division Clerk (LDC)</a><br>
-<a href="mess-keeper.html">Mess Keeper (Tradesman)</a><br>
-<a href="military-police.html">Military Police (Constable)</a><br>
-<a href="mechanic.html">Mechanic / Technician (EME)</a><br>
-<a href="medical-officer.html">Medical Officer (Doctor, AMC)</a><br>
-<a href="nda.html">NDA – National Defence Academy</a><br>
-<a href="na.html">Nursing Assistant (AMC)</a><br>
-<a href="na-vet.html">Nursing Assistant Veterinary (RVC)</a><br>
-<a href="naib-subedar.html">Naib Subedar (JCO)</a><br>
-<a href="pioneer.html">Pioneer Corps</a><br>
-<a href="painter.html">Painter (Tradesman)</a><br>
-<a href="postal-clerk.html">Postal Clerk (APS)</a><br>
-<a href="rvc.html">RVC – Remount Veterinary Corps</a><br>
-<a href="religious-teacher.html">Religious Teacher (JCO)</a><br>
-<a href="signal-corps.html">Signal Corps – Communication</a><br>
-<a href="skilled-tradesman.html">Skilled Tradesman</a><br>
-<a href="store-keeper.html">Store Keeper</a><br>
-<a href="stenographer.html">Stenographer</a><br>
-<a href="safaiwala.html">Safaiwala (Tradesman)</a><br>
-<a href="syce.html">Syce (Horse Attendant)</a><br>
-<a href="tgc.html">TGC – Technical Graduate Course</a><br>
-<a href="tes.html">TES – Technical Entry Scheme (10+2)</a><br>
-<a href="tailor.html">Tailor (Tradesman)</a><br>
-<a href="technician.html">Technician (Signals/EME)</a><br>
-<a href="tradesman.html">Tradesman (8th/10th Pass)</a><br>
-<a href="udc.html">Upper Division Clerk (UDC)</a><br>
-<a href="washerman.html">Washerman (Tradesman)</a><br>
-<a href="women-mp.html">Women Military Police</a><br>
-
-<!-- Z -->
-<a href="zoo-vet-assistant.html">Zoo Veterinary Assistant (RVC)</a><br>
-
+                <a href="acc.html">ACC – Army Cadet College</a>
+                <a href="aec.html">AEC – Army Education Corps</a>
+                <a href="amc.html">AMC – Army Medical Corps</a>
+                <a href="aps.html">APS – Army Postal Service</a>
+                <a href="asc.html">ASC – Army Service Corps</a>
+                <a href="army-clerk.html">Army Clerk / Store Keeper (SKT)</a>
+                <a href="army-catering.html">Army Catering (JCO)</a>
+                <a href="army-civil-driver.html">Army Civil Motor Driver</a>
+                <a href="barber.html">Barber (Tradesman)</a>
+                <a href="cds.html">CDS – Combined Defence Services (UPSC)</a>
+                <a href="carpenter.html">Carpenter (Tradesman)</a>
+                <a href="civilian-clerk.html">Civilian Clerk (LDC/UDC)</a>
+                <a href="cook.html">Cook (Tradesman)</a>
+                <a href="dresser.html">Dresser (Tradesman)</a>
+                <a href="draughtsman.html">Draughtsman (MES)</a>
+                <a href="direct-entry.html">Direct Entry (Graduate/Technical)</a>
+                <a href="eme.html">EME – Corps of Electronics & Mechanical Engineers</a>
+                <a href="education-jco.html">Education JCO (AEC)</a>
+                <a href="equipment-repairer.html">Equipment Repairer (Tradesman)</a>
+                <a href="engineers.html">Engineers – Military Engineering Services</a>
+                <a href="fireman.html">Fireman (Civilian Defence)</a>
+                <a href="gd.html">GD – Soldier General Duty</a>
+                <a href="gardener.html">Gardener / Mali (Tradesman)</a>
+                <a href="housekeeper.html">Housekeeper (Tradesman)</a>
+                <a href="jag.html">JAG – Judge Advocate General (Law Officers)</a>
+                <a href="jco-rt.html">JCO Religious Teacher</a>
+                <a href="jco-catering.html">JCO Catering</a>
+                <a href="lab-assistant.html">Laboratory Assistant</a>
+                <a href="ldc.html">Lower Division Clerk (LDC)</a>
+                <a href="mess-keeper.html">Mess Keeper (Tradesman)</a>
+                <a href="military-police.html">Military Police (Constable)</a>
+                <a href="mechanic.html">Mechanic / Technician (EME)</a>
+                <a href="medical-officer.html">Medical Officer (Doctor, AMC)</a>
+                <a href="nda.html">NDA – National Defence Academy</a>
+                <a href="na.html">Nursing Assistant (AMC)</a>
+                <a href="na-vet.html">Nursing Assistant Veterinary (RVC)</a>
+                <a href="naib-subedar.html">Naib Subedar (JCO)</a>
+                <a href="pioneer.html">Pioneer Corps</a>
+                <a href="painter.html">Painter (Tradesman)</a>
+                <a href="postal-clerk.html">Postal Clerk (APS)</a>
+                <a href="rvc.html">RVC – Remount Veterinary Corps</a>
+                <a href="religious-teacher.html">Religious Teacher (JCO)</a>
+                <a href="signal-corps.html">Signal Corps – Communication</a>
+                <a href="skilled-tradesman.html">Skilled Tradesman</a>
+                <a href="store-keeper.html">Store Keeper</a>
+                <a href="stenographer.html">Stenographer</a>
+                <a href="safaiwala.html">Safaiwala (Tradesman)</a>
+                <a href="syce.html">Syce (Horse Attendant)</a>
+                <a href="tgc.html">TGC – Technical Graduate Course</a>
+                <a href="tes.html">TES – Technical Entry Scheme (10+2)</a>
+                <a href="tailor.html">Tailor (Tradesman)</a>
+                <a href="technician.html">Technician (Signals/EME)</a>
+                <a href="tradesman.html">Tradesman (8th/10th Pass)</a>
+                <a href="udc.html">Upper Division Clerk (UDC)</a>
+                <a href="washerman.html">Washerman (Tradesman)</a>
+                <a href="women-mp.html">Women Military Police</a>
+                <a href="zoo-vet-assistant.html">Zoo Veterinary Assistant (RVC)</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for Indian Navy -->
     <div id="navyModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">भारतीय नौसेना भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#003366] mb-4">भारतीय नौसेना भर्ती</h3>
             <div class="modal-list">
                 <a href="navy-recruitment.html">Navy Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for Indian Air Force -->
     <div id="airForceModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">भारतीय वायु सेना भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#003366] mb-4">भारतीय वायु सेना भर्ती</h3>
             <div class="modal-list">
                 <a href="air-force-recruitment.html">Air Force Recruitment</a>
                 <a href="afcat-agniveer.html">AFCAT, Agniveer Vayu</a>
@@ -489,100 +751,110 @@
         </div>
     </div>
 
+    <!-- Modal for DRDO -->
     <div id="drdoModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">DRDO भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#1a237e] mb-4">DRDO भर्ती</h3>
             <div class="modal-list">
                 <a href="drdo-recruitment.html">DRDO Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for ISRO -->
     <div id="isroModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">ISRO भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#ff5722] mb-4">ISRO भर्ती</h3>
             <div class="modal-list">
                 <a href="isro-recruitment.html">ISRO Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for BARC -->
     <div id="barcModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">BARC भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#4a148c] mb-4">BARC भर्ती</h3>
             <div class="modal-list">
                 <a href="barc-recruitment.html">BARC Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for LIC -->
     <div id="licModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">LIC भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#004d40] mb-4">LIC भर्ती</h3>
             <div class="modal-list">
                 <a href="lic-recruitment.html">LIC AAO/ADO/Assistant</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for FCI -->
     <div id="fciModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">FCI भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#e65100] mb-4">FCI भर्ती</h3>
             <div class="modal-list">
                 <a href="fci-recruitment.html">FCI Manager/Assistant</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for ESIC -->
     <div id="esicModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">ESIC भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#01579b] mb-4">ESIC भर्ती</h3>
             <div class="modal-list">
                 <a href="esic-recruitment.html">ESIC Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for NABARD -->
     <div id="nabardModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">NABARD भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#33691e] mb-4">NABARD भर्ती</h3>
             <div class="modal-list">
                 <a href="nabard-recruitment.html">NABARD Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for SEBI -->
     <div id="sebiModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">SEBI भर्ती</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#212121] mb-4">SEBI भर्ती</h3>
             <div class="modal-list">
                 <a href="sebi-recruitment.html">SEBI Recruitment</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for Individual PSUs -->
     <div id="psuModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">Individual PSUs</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#6a1b9a] mb-4">Individual PSUs</h3>
             <div class="modal-list">
                 <a href="psu-jobs.html">PSU Jobs (ONGC, NTPC, BHEL, etc.)</a>
             </div>
         </div>
     </div>
 
+    <!-- Modal for NRA -->
     <div id="nraModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-[#003642] mb-4">NRA (CET)</h3>
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold text-[#4e342e] mb-4">NRA (CET)</h3>
             <div class="modal-list">
                 <a href="cet.html">Common Eligibility Test (CET)</a>
             </div>
@@ -594,6 +866,12 @@
             const cards = document.querySelectorAll('.card');
             const modals = document.querySelectorAll('.modal-overlay');
             const closeButtons = document.querySelectorAll('.modal-close-button');
+            const searchInput = document.getElementById('searchInput');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const cardGrid = document.getElementById('card-grid');
+
+            const allCards = Array.from(cards);
+            let visibleCards = allCards;
 
             // Function to show a modal
             const showModal = (modalId) => {
@@ -632,6 +910,35 @@
                     if (e.target === modal) {
                         closeModal(modal);
                     }
+                });
+            });
+
+            // New search functionality
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                let hasResults = false;
+
+                visibleCards.forEach(card => {
+                    card.style.display = 'none';
+                });
+
+                if (searchTerm === '') {
+                    visibleCards = allCards;
+                    noResultsMessage.style.display = 'none';
+                } else {
+                    visibleCards = allCards.filter(card => {
+                        const keywords = card.dataset.keywords ? card.dataset.keywords.toLowerCase() : '';
+                        return keywords.includes(searchTerm);
+                    });
+                    if (visibleCards.length === 0) {
+                        noResultsMessage.style.display = 'block';
+                    } else {
+                        noResultsMessage.style.display = 'none';
+                    }
+                }
+
+                visibleCards.forEach(card => {
+                    card.style.display = 'block';
                 });
             });
         });
