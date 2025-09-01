@@ -105,7 +105,7 @@
         }
         .subject-item {
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* Changed from flex-start to center */
             margin-bottom: 0.5rem;
         }
         .subject-item span {
@@ -114,7 +114,7 @@
             font-size: 1.125rem;
             line-height: 1.5rem; /* Align icon with text */
         }
-        .subject-item div {
+        .subject-item div.flex-grow {
             flex: 1;
         }
         .subject-item strong {
@@ -311,126 +311,183 @@
             color: #004AAD;
             box-shadow: 0 2px 4px rgba(0, 74, 173, 0.05);
         }
+
+        /* NEW STYLES FOR BUTTONS AND LANGUAGES */
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #004AAD;
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #003366;
+            transform: translateY(-1px);
+        }
+        .lectures-btn {
+            background-color: #E6F0F8;
+            color: #004AAD;
+            border-color: #004AAD;
+        }
+        .lectures-btn:hover {
+            background-color: #d0e1f0;
+            transform: translateY(-1px);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #004AAD;
+            color: #004AAD;
+            background-color: #FFFFFF;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #004AAD;
+            color: #FFFFFF;
+        }
     </style>
 </head>
 <body class="text-[#242424] leading-relaxed">
 
     <div class="container mx-auto p-4 md:p-8 lg:p-12" id="mainContent">
 
-        <header class="text-center mb-16">
-            <h1 class="text-3xl md:text-3xl font-extrabold text-[#004AAD] mb-4 drop-shadow-md">🚀 UPSC सिविल सेवा परीक्षा:मार्गदर्शन 🚀</h1>
-            <p class="text-xl md:text-1xl text-[#009FFD] font-semibold">आपका राष्ट्र सेवा का मार्ग - सरल और सटीक जानकारी के साथ</p>
+        <header class="text-center mb-8">
+            <h1 id="header-title" class="text-3xl md:text-3xl font-extrabold text-[#004AAD] mb-4 drop-shadow-md">🚀 UPSC सिविल सेवा परीक्षा:मार्गदर्शन 🚀</h1>
+            <p id="header-subtitle" class="text-xl md:text-1xl text-[#009FFD] font-semibold">आपका राष्ट्र सेवा का मार्ग - सरल और सटीक जानकारी के साथ</p>
         </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="hi">हिन्दी</button>
+                <button type="button" class="lang-btn" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="pa">ਪੰਜਾਬੀ</button>
+            </div>
+        </div>
 
         <main class="grid grid-cols-1 gap-10">
 
             <section class="card">
-                <h2 class="text-3xl font-bold section-heading">1. UPSC क्या है? 🤔</h2>
-                <p class="text-lg mb-6">UPSC (संघ लोक सेवा आयोग) भारत की सबसे प्रतिष्ठित सरकारी भर्ती संस्था है। इसका मुख्य काम **IAS, IPS, IFS** जैसी **20 से ज़्यादा बड़ी सरकारी नौकरियों** के लिए सबसे योग्य अधिकारियों को चुनना है, ताकि वे देश और समाज की सेवा कर सकें।</p>
+                <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. UPSC क्या है? 🤔</h2>
+                <p id="sec1-p1" class="text-lg mb-6">UPSC (संघ लोक सेवा आयोग) भारत की सबसे प्रतिष्ठित सरकारी भर्ती संस्था है। इसका मुख्य काम **IAS, IPS, IFS** जैसी **20 से ज़्यादा बड़ी सरकारी नौकरियों** के लिए सबसे योग्य अधिकारियों को चुनना है, ताकि वे देश और समाज की सेवा कर सकें।</p>
                 <div class="text-center">
                     <div class="text-7xl font-extrabold text-[#009FFD] drop-shadow-lg">20+</div>
-                    <div class="text-xl font-semibold text-[#004AAD]">विभिन्न सेवाओं के लिए भर्ती</div>
-                    <button class="modal-subject-button mt-6 inline-block" data-modal-target="serviceListModal">सभी सेवाएँ देखें</button>
+                    <div id="sec1-services-text" class="text-xl font-semibold text-[#004AAD]">विभिन्न सेवाओं के लिए भर्ती</div>
+                    <button id="sec1-services-btn" class="modal-subject-button mt-6 inline-block" data-modal-target="serviceListModal">सभी सेवाएँ देखें</button>
                 </div>
             </section>
 
             <section class="card">
-                <h2 class="text-3xl font-bold section-heading text-center">2. परीक्षा प्रक्रिया: 3 आसान और महत्वपूर्ण चरण 🎯</h2>
-                <p class="text-lg text-center mb-10 max-w-3xl mx-auto">UPSC की सिविल सेवा परीक्षा एक साल तक चलती है और इसके 3 मुख्य पड़ाव हैं। हर पड़ाव आपको अगले चरण तक ले जाता है, और अंत में आप अपनी मनचाही सेवा में पहुँचते हैं।</p>
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center">2. परीक्षा प्रक्रिया: 3 आसान और महत्वपूर्ण चरण 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">UPSC की सिविल सेवा परीक्षा एक साल तक चलती है और इसके 3 मुख्य पड़ाव हैं। हर पड़ाव आपको अगले चरण तक ले जाता है, और अंत में आप अपनी मनचाही सेवा में पहुँचते हैं।</p>
                 <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
                     <div class="text-center flex flex-col items-center">
-                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal">चरण 1:<br>प्रीलिम्स</div>
-                        <p class="mt-3 font-semibold text-[#242424]">स्क्रीनिंग टेस्ट</p>
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">चरण 1:</span><br><span id="sec2-step1-name">प्रीलिम्स</span></div>
+                        <p id="sec2-step1-desc" class="mt-3 font-semibold text-[#242424]">स्क्रीनिंग टेस्ट</p>
                     </div>
                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
                     <div class="text-center flex flex-col items-center">
-                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal">चरण 2:<br>मेन्स</div>
-                        <p class="mt-3 font-semibold text-[#242424]">लिखने वाली परीक्षा</p>
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">चरण 2:</span><br><span id="sec2-step2-name">मेन्स</span></div>
+                        <p id="sec2-step2-desc" class="mt-3 font-semibold text-[#242424]">लिखने वाली परीक्षा</p>
                     </div>
                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
                     <div class="text-center flex flex-col items-center">
-                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal">चरण 3:<br>साक्षात्कार</div>
-                        <p class="mt-3 font-semibold text-[#242424]">व्यक्तित्व टेस्ट</p>
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">चरण 3:</span><br><span id="sec2-step3-name">साक्षात्कार</span></div>
+                        <p id="sec2-step3-desc" class="mt-3 font-semibold text-[#242424]">व्यक्तित्व टेस्ट</p>
                     </div>
                 </div>
             </section>
 
             <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <div>
-                    <h2 class="text-3xl font-bold section-heading">3. कौन आवेदन कर सकता है? ✅</h2>
-                    <p class="text-lg mb-6">UPSC परीक्षा देने के लिए आपको कुछ ज़रूरी शर्तें पूरी करनी होती हैं:</p>
+                    <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. कौन आवेदन कर सकता है? ✅</h2>
+                    <p id="sec3-p1" class="text-lg mb-6">UPSC परीक्षा देने के लिए आपको कुछ ज़रूरी शर्तें पूरी करनी होती हैं:</p>
                     <ul class="space-y-4 text-base">
-                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🎓</span><div><strong class="text-[#004AAD]">पढ़ाई (Education):</strong> किसी भी मान्यता प्राप्त यूनिवर्सिटी से **ग्रेजुएट (स्नातक)** होना ज़रूरी है।</div></li>
-                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🎂</span><div><strong class="text-[#004AAD]">उम्र (Age):</strong> **न्यूनतम 21 साल**। अधिकतम आयु **सामान्य - 32 साल, OBC - 35 साल, SC/ST - 37 साल**। (उम्र 1 अगस्त को गिनी जाती है)।</div></li>
-                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🇮🇳</span><div><strong class="text-[#004AAD]">नागरिकता (Nationality):</strong> IAS/IPS के लिए **भारतीय नागरिक** होना अनिवार्य है।</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-[#004AAD]">पढ़ाई (Education):</strong> <span id="sec3-edu-desc">किसी भी मान्यता प्राप्त यूनिवर्सिटी से **ग्रेजुएट (स्नातक)** होना ज़रूरी है।</span></div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-[#004AAD]">उम्र (Age):</strong> <span id="sec3-age-desc">**न्यूनतम 21 साल**। अधिकतम आयु **सामान्य - 32 साल, OBC - 35 साल, SC/ST - 37 साल**। (उम्र 1 अगस्त को गिनी जाती है)।</span></div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#009FFD] mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-[#004AAD]">नागरिकता (Nationality):</strong> <span id="sec3-nat-desc">IAS/IPS के लिए **भारतीय नागरिक** होना अनिवार्य है।</span></div></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-[#004AAD] mb-6 border-b border-[#009FFD] pb-2">आप कितनी बार दे सकते हैं परीक्षा? 📊</h3>
-                    <p class="mb-6 text-lg">हर वर्ग के उम्मीदवारों के लिए परीक्षा देने के **प्रयासों की संख्या तय** है।</p>
+                    <h3 id="sec3-attempts-title" class="text-2xl font-bold text-[#004AAD] mb-6 border-b border-[#009FFD] pb-2">आप कितनी बार दे सकते हैं परीक्षा? 📊</h3>
+                    <p id="sec3-attempts-p1" class="mb-6 text-lg">हर वर्ग के उम्मीदवारों के लिए परीक्षा देने के **प्रयासों की संख्या तय** है।</p>
                     <div class="chart-container h-72">
                         <canvas id="attemptsChart"></canvas>
                     </div>
-                    <p class="text-sm text-center text-gray-600 mt-4">*(SC/ST के लिए उम्र सीमा तक असीमित प्रयास होते हैं।)*</p>
+                    <p id="sec3-attempts-note" class="text-sm text-center text-gray-600 mt-4">*(SC/ST के लिए उम्र सीमा तक असीमित प्रयास होते हैं।)*</p>
                 </div>
             </section>
 
             <section class="card">
-                <h2 class="text-3xl font-bold section-heading text-center">4. UPSC के मुख्य विषय: प्रीलिम्स और मेन्स 📚</h2>
-                <p class="text-lg text-center mb-8 max-w-4xl mx-auto">UPSC सिविल सेवा परीक्षा का पाठ्यक्रम बहुत बड़ा और विस्तृत है। यहाँ प्रमुख विषय दिए गए हैं, जो प्रारंभिक और मुख्य परीक्षा दोनों के लिए महत्वपूर्ण हैं, या किसी एक के लिए विशिष्ट हैं।</p>
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center">4. UPSC के मुख्य विषय: प्रीलिम्स और मेन्स 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">UPSC सिविल सेवा परीक्षा का पाठ्यक्रम बहुत बड़ा और विस्तृत है। यहाँ प्रमुख विषय दिए गए हैं, जो प्रारंभिक और मुख्य परीक्षा दोनों के लिए महत्वपूर्ण हैं, या किसी एक के लिए विशिष्ट हैं।</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- History and Culture -->
                     <div>
                         <h3 class="subject-category-heading">इतिहास और संस्कृति 📜</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">🏛️</span><div><strong class="text-lg">कला और संस्कृति:</strong> भारतीय वास्तुकला, नृत्य, संगीत और पुराने विरासत स्थलों के बारे में।</div></div>
-                            <div class="subject-item"><span class="font-bold">🗿</span><div><strong class="text-lg">प्राचीन भारत का इतिहास:</strong> पाषाण काल से मौर्य, गुप्त और दक्षिण भारत के साम्राज्यों तक की कहानी।</div></div>
-                            <div class="subject-item"><span class="font-bold">⚔️</span><div><strong class="text-lg">मध्यकालीन भारत का इतिहास:</strong> दिल्ली सल्तनत से मुगल काल तक का सफर।</div></div>
-                            <div class="subject-item"><span class="font-bold">🇮🇳</span><div><strong class="text-lg">आधुनिक भारत का इतिहास:</strong> 17वीं सदी से 1947 की आज़ादी और उसके बाद का भारत।</div></div>
-                            <div class="subject-item"><span class="font-bold">🌍</span><div><strong class="text-lg">आधुनिक विश्व का इतिहास:</strong> (केवल मेन्स के लिए) विश्व की बड़ी घटनाएँ और बदलाव।</div></div>
+                            <div class="subject-item"><span class="font-bold">🏛️</span><div class="flex-grow"><strong class="text-lg">कला और संस्कृति:</strong> भारतीय वास्तुकला, नृत्य, संगीत और पुराने विरासत स्थलों के बारे में।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🗿</span><div class="flex-grow"><strong class="text-lg">प्राचीन भारत का इतिहास:</strong> पाषाण काल से मौर्य, गुप्त और दक्षिण भारत के साम्राज्यों तक की कहानी।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">⚔️</span><div class="flex-grow"><strong class="text-lg">मध्यकालीन भारत का इतिहास:</strong> दिल्ली सल्तनत से मुगल काल तक का सफर।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🇮🇳</span><div class="flex-grow"><strong class="text-lg">आधुनिक भारत का इतिहास:</strong> 17वीं सदी से 1947 की आज़ादी और उसके बाद का भारत।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🌍</span><div class="flex-grow"><strong class="text-lg">आधुनिक विश्व का इतिहास:</strong> (केवल मेन्स के लिए) विश्व की बड़ी घटनाएँ और बदलाव।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
+                    <!-- Geography and Society -->
                     <div>
                         <h3 class="subject-category-heading">भूगोल और समाज 🏞️</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">🗺️</span><div><strong class="text-lg">भारतीय भूगोल:</strong> भारत की नदियाँ, पहाड़, जलवायु और मिट्टी।</div></div>
-                            <div class="subject-item"><span class="font-bold">🌐</span><div><strong class="text-lg">भौतिक भूगोल:</strong> विश्व की भौगोलिक बनावट, जैसे पर्वत, पठार, नदियाँ और मैपिंग।</div></div>
-                            <div class="subject-item"><span class="font-bold">👨‍👩‍👧‍👦</span><div><strong class="text-lg">मानव भूगोल:</strong> जनसंख्या, कृषि, उद्योग और शहरीकरण का अध्ययन।</div></div>
-                            <div class="subject-item"><span class="font-bold">🤝</span><div><strong class="text-lg">भारतीय समाज:</strong> सामाजिक मुद्दे, समाज की संरचना और करेंट अफेयर्स से जुड़े विषय।</div></div>
+                            <div class="subject-item"><span class="font-bold">🗺️</span><div class="flex-grow"><strong class="text-lg">भारतीय भूगोल:</strong> भारत की नदियाँ, पहाड़, जलवायु और मिट्टी।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🌐</span><div class="flex-grow"><strong class="text-lg">भौतिक भूगोल:</strong> विश्व की भौगोलिक बनावट, जैसे पर्वत, पठार, नदियाँ और मैपिंग।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">👨‍👩‍👧‍👦</span><div class="flex-grow"><strong class="text-lg">मानव भूगोल:</strong> जनसंख्या, कृषि, उद्योग और शहरीकरण का अध्ययन।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🤝</span><div class="flex-grow"><strong class="text-lg">भारतीय समाज:</strong> सामाजिक मुद्दे, समाज की संरचना और करेंट अफेयर्स से जुड़े विषय।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
+                    <!-- Polity and Governance -->
                     <div>
                         <h3 class="subject-category-heading">राजव्यवस्था और शासन 🏛️</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">🗳️</span><div><strong class="text-lg">भारतीय राजव्यवस्था:</strong> देश का संविधान, सरकार कैसे काम करती है, और नागरिकों के अधिकार।</div></div>
-                            <div class="subject-item"><span class="font-bold">⚖️</span><div><strong class="text-lg">सामाजिक न्याय:</strong> समाज के कमज़ोर वर्गों के लिए बनाई गई सरकारी नीतियाँ और योजनाएँ।</div></div>
-                            <div class="subject-item"><span class="font-bold">💼</span><div><strong class="text-lg">शासन (Governance):</strong> सरकारी नीतियाँ, काम करने के तरीके और भ्रष्टाचार से जुड़े मुद्दे।</div></div>
-                            <div class="subject-item"><span class="font-bold">🌐</span><div><strong class="text-lg">अंतर्राष्ट्रीय संबंध:</strong> भारत के अन्य देशों और विश्व के संगठनों (जैसे UN) से रिश्ते।</div></div>
+                            <div class="subject-item"><span class="font-bold">🗳️</span><div class="flex-grow"><strong class="text-lg">भारतीय राजव्यवस्था:</strong> देश का संविधान, सरकार कैसे काम करती है, और नागरिकों के अधिकार।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">⚖️</span><div class="flex-grow"><strong class="text-lg">सामाजिक न्याय:</strong> समाज के कमज़ोर वर्गों के लिए बनाई गई सरकारी नीतियाँ और योजनाएँ।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">💼</span><div class="flex-grow"><strong class="text-lg">शासन (Governance):</strong> सरकारी नीतियाँ, काम करने के तरीके और भ्रष्टाचार से जुड़े मुद्दे।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🌐</span><div class="flex-grow"><strong class="text-lg">अंतर्राष्ट्रीय संबंध:</strong> भारत के अन्य देशों और विश्व के संगठनों (जैसे UN) से रिश्ते।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
+                    <!-- Economy and Science -->
                     <div>
                         <h3 class="subject-category-heading">अर्थव्यवस्था और विज्ञान 🔬</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">💰</span><div><strong class="text-lg">भारतीय अर्थव्यवस्था:</strong> RBI, बैंक, कृषि, उद्योग, और GDP जैसे आर्थिक मुद्दे।</div></div>
-                            <div class="subject-item"><span class="font-bold">🔭</span><div><strong class="text-lg">विज्ञान और प्रौद्योगिकी:</strong> अंतरिक्ष, रक्षा, परमाणु ऊर्जा और बायोटेक्नोलॉजी में नए विकास।</div></div>
-                            <div class="subject-item"><span class="font-bold">🧬</span><div><strong class="text-lg">सामान्य विज्ञान:</strong> जीव विज्ञान (Biology), भौतिकी (Physics) और रसायन विज्ञान (Chemistry) के सामान्य सिद्धांत।</div></div>
+                            <div class="subject-item"><span class="font-bold">💰</span><div class="flex-grow"><strong class="text-lg">भारतीय अर्थव्यवस्था:</strong> RBI, बैंक, कृषि, उद्योग, और GDP जैसे आर्थिक मुद्दे।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🔭</span><div class="flex-grow"><strong class="text-lg">विज्ञान और प्रौद्योगिकी:</strong> अंतरिक्ष, रक्षा, परमाणु ऊर्जा और बायोटेक्नोलॉजी में नए विकास।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🧬</span><div class="flex-grow"><strong class="text-lg">सामान्य विज्ञान:</strong> जीव विज्ञान (Biology), भौतिकी (Physics) और रसायन विज्ञान (Chemistry) के सामान्य सिद्धांत।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
+                    <!-- Environment and Security -->
                     <div>
                         <h3 class="subject-category-heading">पर्यावरण और सुरक्षा 🌲</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">🌱</span><div><strong class="text-lg">पारिस्थितिकी और पर्यावरण:</strong> जैव विविधता, प्रदूषण और जलवायु परिवर्तन के मुद्दे।</div></div>
-                            <div class="subject-item"><span class="font-bold">🚨</span><div><strong class="text-lg">आपदा प्रबंधन:</strong> भूकंप, बाढ़ जैसी आपदाओं से निपटने की तैयारी और प्रबंधन।</div></div>
-                            <div class="subject-item"><span class="font-bold">🛡️</span><div><strong class="text-lg">आंतरिक सुरक्षा:</strong> आतंकवाद, नक्सलवाद और क्षेत्रवाद जैसे देश के अंदर के सुरक्षा मुद्दे।</div></div>
+                            <div class="subject-item"><span class="font-bold">🌱</span><div class="flex-grow"><strong class="text-lg">पारिस्थितिकी और पर्यावरण:</strong> जैव विविधता, प्रदूषण और जलवायु परिवर्तन के मुद्दे।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🚨</span><div class="flex-grow"><strong class="text-lg">आपदा प्रबंधन:</strong> भूकंप, बाढ़ जैसी आपदाओं से निपटने की तैयारी और प्रबंधन।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🛡️</span><div class="flex-grow"><strong class="text-lg">आंतरिक सुरक्षा:</strong> आतंकवाद, नक्सलवाद और क्षेत्रवाद जैसे देश के अंदर के सुरक्षा मुद्दे।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
+                    <!-- Ethics, Essay and Others -->
                     <div>
                         <h3 class="subject-category-heading">नैतिकता, निबंध और अन्य 📝</h3>
                         <div class="space-y-3">
-                            <div class="subject-item"><span class="font-bold">💡</span><div><strong class="text-lg">नीति शास्त्र (Ethics):</strong> नैतिकता के सिद्धांत और शासन में ईमानदारी का महत्व।</div></div>
-                            <div class="subject-item"><span class="font-bold">✍️</span><div><strong class="text-lg">निबंध (Essay):</strong> विभिन्न विषयों पर अपनी सोच और ज्ञान को निबंध के रूप में व्यक्त करना।</div></div>
-                            <div class="subject-item"><span class="font-bold">📰</span><div><strong class="text-lg">करेंट अफेयर्स:</strong> देश और दुनिया की ताज़ा घटनाएँ और सरकारी योजनाएँ।</div></div>
-                            <div class="subject-item"><span class="font-bold">🧠</span><div><strong class="text-lg">सीसैट (CSAT):</strong> (क्वालिफाइंग) इसमें कॉम्प्रिhension, गणित और रीजनिंग के सवाल होते हैं।</div></div>
+                            <div class="subject-item"><span class="font-bold">💡</span><div class="flex-grow"><strong class="text-lg">नीति शास्त्र (Ethics):</strong> नैतिकता के सिद्धांत और शासन में ईमानदारी का महत्व।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">✍️</span><div class="flex-grow"><strong class="text-lg">निबंध (Essay):</strong> विभिन्न विषयों पर अपनी सोच और ज्ञान को निबंध के रूप में व्यक्त करना।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">📰</span><div class="flex-grow"><strong class="text-lg">करेंट अफेयर्स:</strong> देश और दुनिया की ताज़ा घटनाएँ और सरकारी योजनाएँ।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
+                            <div class="subject-item"><span class="font-bold">🧠</span><div class="flex-grow"><strong class="text-lg">सीसैट (CSAT):</strong> (क्वालिफाइंग) इसमें कॉम्प्रिhension, गणित और रीजनिंग के सवाल होते हैं।</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></div>
                         </div>
                     </div>
                 </div>
@@ -498,48 +555,48 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-base">
                     <div>
                         <h3 class="subject-category-heading">विज्ञान और इंजीनियरिंग 🧪</h3>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li>कृषि (Agriculture)</li>
-                            <li>पशुपालन और पशु चिकित्सा विज्ञान (Animal Husbandry & Vet. Science)</li>
-                            <li>वनस्पति विज्ञान (Botany)</li>
-                            <li>रसायन विज्ञान (Chemistry)</li>
-                            <li>सिविल इंजीनियरिंग (Civil Engineering)</li>
-                            <li>विद्युत इंजीनियरिंग (Electrical Engineering)</li>
-                            <li>भूविज्ञान (Geology)</li>
-                            <li>गणित (Mathematics)</li>
-                            <li>यांत्रिक इंजीनियरिंग (Mechanical Engineering)</li>
-                            <li>चिकित्सा विज्ञान (Medical Science)</li>
-                            <li>भौतिक विज्ञान (Physics)</li>
-                            <li>सांख्यिकी (Statistics)</li>
-                            <li>प्राणी विज्ञान (Zoology)</li>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="flex justify-between items-center"><span>कृषि (Agriculture)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>पशुपालन और पशु चिकित्सा विज्ञान</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>वनस्पति विज्ञान (Botany)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>रसायन विज्ञान (Chemistry)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>सिविल इंजीनियरिंग</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>विद्युत इंजीनियरिंग</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>भूविज्ञान (Geology)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>गणित (Mathematics)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>यांत्रिक इंजीनियरिंग</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>चिकित्सा विज्ञान (Medical Science)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>भौतिक विज्ञान (Physics)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>सांख्यिकी (Statistics)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>प्राणी विज्ञान (Zoology)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="subject-category-heading">मानविकी और सामाजिक विज्ञान 🌍</h3>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li>मानवशास्त्र (Anthropology)</li>
-                            <li>वाणिज्य एवं लेखाशास्त्र (Commerce & Accountancy)</li>
-                            <li>अर्थशास्त्र (Economics)</li>
-                            <li>भूगोल (Geography)</li>
-                            <li>इतिहास (History)</li>
-                            <li>कानून (Law)</li>
-                            <li>प्रबंधन (Management)</li>
-                            <li>दर्शनशास्त्र (Philosophy)</li>
-                            <li>राजनीति विज्ञान एवं अंतर्राष्ट्रीय संबंध (Political Science & International Relations)</li>
-                            <li>मनोविज्ञान (Psychology)</li>
-                            <li>लोक प्रशासन (Public Administration)</li>
-                            <li>समाजशास्त्र (Sociology)</li>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li class="flex justify-between items-center"><span>मानवशास्त्र (Anthropology)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>वाणिज्य एवं लेखाशास्त्र</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>अर्थशास्त्र (Economics)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>भूगोल (Geography)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>इतिहास (History)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>कानून (Law)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>प्रबंधन (Management)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>दर्शनशास्त्र (Philosophy)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>राजनीति विज्ञान एवं अंतर्राष्ट्रीय संबंध</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>मनोविज्ञान (Psychology)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>लोक प्रशासन (Public Admin)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                            <li class="flex justify-between items-center"><span>समाजशास्त्र (Sociology)</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="subject-category-heading">साहित्य के विषय 📚</h3>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li>हिंदी साहित्य (Hindi Literature)</li>
-                            <li>अंग्रेजी साहित्य (English Literature)</li>
-                            <li>संस्कृत साहित्य (Sanskrit Literature)</li>
-                            <li>तमिल साहित्य (Tamil Literature)</li>
-                            <li>बंगाली साहित्य (Bengali Literature)</li>
-                            <li>और अन्य 23 भारतीय भाषाओं के साहित्य उपलब्ध हैं।</li>
+                        <ul class="list-disc list-inside space-y-2">
+                             <li class="flex justify-between items-center"><span>हिंदी साहित्य</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                             <li class="flex justify-between items-center"><span>अंग्रेजी साहित्य</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                             <li class="flex justify-between items-center"><span>संस्कृत साहित्य</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                             <li class="flex justify-between items-center"><span>तमिल साहित्य</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                             <li class="flex justify-between items-center"><span>बंगाली साहित्य</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
+                             <li class="flex justify-between items-center"><span>और अन्य 23 भारतीय भाषाएँ</span><div class="space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर्स</button></div></li>
                         </ul>
                     </div>
                 </div>
@@ -653,6 +710,68 @@
                 </div>
                 <p class="text-center text-xl font-bold text-[#004AAD] mt-10">✨ याद रखें: **ज़्यादा पढ़ने वाला नहीं, ज़्यादा रिवीजन करने वाला सफल होता है!** ✨</p>
             </section>
+
+            <!-- NEW SECTION 10 -->
+            <section class="card">
+                <h2 class="text-3xl font-bold section-heading">10. फॉर्म कब निकलते हैं और प्रक्रिया कितने दिन चलती है? 🗓️</h2>
+                <p class="text-lg mb-8">UPSC सिविल सेवा परीक्षा की प्रक्रिया लगभग एक साल तक चलती है। यह एक निश्चित कैलेंडर का पालन करती है:</p>
+                <ol class="relative border-l-4 border-[#009FFD] pl-6 space-y-6">
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#009FFD] rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">1</div>
+                        <h4 class="font-semibold text-xl text-[#004AAD] mb-1">अधिसूचना (Notification)</h4>
+                        <p class="text-base text-[#242424]"><strong class="text-gray-700">समय:</strong> आमतौर पर फरवरी में।<br>इसी समय आवेदन पत्र (Application Form) जारी किए जाते हैं और भरने के लिए लगभग 20-25 दिनों का समय मिलता है।</p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#009FFD] rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                        <h4 class="font-semibold text-xl text-[#004AAD] mb-1">प्रारंभिक परीक्षा (Prelims)</h4>
+                        <p class="text-base text-[#242424]"><strong class="text-gray-700">समय:</strong> मई के अंत या जून की शुरुआत में।<br>इसका परिणाम लगभग 15-20 दिनों में आ जाता है।</p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#009FFD] rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                        <h4 class="font-semibold text-xl text-[#004AAD] mb-1">मुख्य परीक्षा (Mains)</h4>
+                        <p class="text-base text-[#242424]"><strong class="text-gray-700">समय:</strong> सितंबर में।<br>यह परीक्षा 5 दिनों तक चलती है। इसका परिणाम दिसंबर के आसपास आता है।</p>
+                    </li>
+                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#009FFD] rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                        <h4 class="font-semibold text-xl text-[#004AAD] mb-1">साक्षात्कार (Interview)</h4>
+                        <p class="text-base text-[#242424]"><strong class="text-gray-700">समय:</strong> फरवरी से अप्रैल तक (अगले साल)।<br>साक्षात्कार दिल्ली में UPSC भवन में होते हैं।</p>
+                    </li>
+                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#009FFD] rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">5</div>
+                        <h4 class="font-semibold text-xl text-[#004AAD] mb-1">अंतिम परिणाम (Final Result)</h4>
+                        <p class="text-base text-[#242424]"><strong class="text-gray-700">समय:</strong> अप्रैल के अंत या मई की शुरुआत में।<br>इस तरह, अधिसूचना से अंतिम परिणाम तक पूरी प्रक्रिया में लगभग 14-15 महीने लगते हैं।</p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- NEW SECTION 11 -->
+            <section class="card">
+                <h2 class="text-3xl font-bold section-heading">11. कौन सी संस्थाएं तैयारी करवा रही हैं? 🏫</h2>
+                <p class="text-lg text-center mb-8 max-w-4xl mx-auto">UPSC की तैयारी के लिए देश भर में कई सरकारी और गैर-सरकारी (निजी) संस्थान हैं जो छात्रों का मार्गदर्शन कर रहे हैं।</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="subject-category-heading">🏢 सरकारी और सरकार द्वारा वित्त-पोषित</h3>
+                        <ul class="list-disc list-inside space-y-2 text-base">
+                            <li><strong>राज्य प्रशासनिक प्रशिक्षण संस्थान (ATIs):</strong> हर राज्य में ये संस्थान IAS/PCS की मुफ्त या बहुत कम फीस पर कोचिंग प्रदान करते हैं। (जैसे: Jamia Millia Islamia, Haj Committee of India)</li>
+                            <li><strong>विश्वविद्यालय और कॉलेज:</strong> कई केंद्रीय और राज्य विश्वविद्यालय सिविल सेवा के लिए विशेष कक्षाएं या मार्गदर्शन कार्यक्रम चलाते हैं।</li>
+                            <li><strong>जनजातीय अनुसंधान संस्थान:</strong> ये संस्थान विशेष रूप से आदिवासी छात्रों के लिए कोचिंग कार्यक्रम आयोजित करते हैं।</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="subject-category-heading"> निजी कोचिंग संस्थान (गैर-सरकारी)</h3>
+                        <p class="text-base mb-2">दिल्ली का पुराना राजेंद्र नगर और मुखर्जी नगर इन संस्थानों का गढ़ माना जाता है। कई संस्थान 1990 के दशक से या उससे भी पहले से तैयारी करवा रहे हैं।</p>
+                        <ul class="list-disc list-inside space-y-2 text-base">
+                            <li><strong>Vajiram & Ravi:</strong> (1976 से) - सबसे पुराने और प्रतिष्ठित संस्थानों में से एक।</li>
+                            <li><strong>Drishti IAS:</strong> (1999 से) - विशेष रूप से हिंदी माध्यम के लिए प्रसिद्ध।</li>
+                            <li><strong>Vision IAS:</strong> करेंट अफेयर्स और टेस्ट सीरीज के लिए लोकप्रिय।</li>
+                            <li><strong>Next IAS, ForumIAS, Rau's IAS Study Circle</strong> और कई अन्य संस्थान भी दशकों से इस क्षेत्र में हैं।</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="mt-8 text-center text-base font-semibold text-gray-700">नोट: यह सूची सांकेतिक है। छात्रों को किसी भी संस्थान में शामिल होने से पहले अपनी स्वयं की जांच-पड़ताल करनी चाहिए।</p>
+            </section>
+
 
         </main>
 
@@ -945,6 +1064,120 @@
     </div>
 
     <script>
+        // Store chart instances globally to destroy and recreate them
+        let attemptsChartInstance;
+        let interviewChartInstance;
+
+        // Translations object
+        const translations = {
+            'hi': {
+                'header-title': '🚀 UPSC सिविल सेवा परीक्षा:मार्गदर्शन 🚀',
+                'header-subtitle': 'आपका राष्ट्र सेवा का मार्ग - सरल और सटीक जानकारी के साथ',
+                'sec1-title': '1. UPSC क्या है? 🤔',
+                'sec1-p1': 'UPSC (संघ लोक सेवा आयोग) भारत की सबसे प्रतिष्ठित सरकारी भर्ती संस्था है। इसका मुख्य काम **IAS, IPS, IFS** जैसी **20 से ज़्यादा बड़ी सरकारी नौकरियों** के लिए सबसे योग्य अधिकारियों को चुनना है, ताकि वे देश और समाज की सेवा कर सकें।',
+                'sec1-services-text': 'विभिन्न सेवाओं के लिए भर्ती',
+                'sec1-services-btn': 'सभी सेवाएँ देखें',
+                'sec2-title': '2. परीक्षा प्रक्रिया: 3 आसान और महत्वपूर्ण चरण 🎯',
+                'sec2-p1': 'UPSC की सिविल सेवा परीक्षा एक साल तक चलती है और इसके 3 मुख्य पड़ाव हैं। हर पड़ाव आपको अगले चरण तक ले जाता है, और अंत में आप अपनी मनचाही सेवा में पहुँचते हैं।',
+                'sec2-step1-title': 'चरण 1:',
+                'sec2-step1-name': 'प्रीलिम्स',
+                'sec2-step1-desc': 'स्क्रीनिंग टेस्ट',
+                'sec2-step2-title': 'चरण 2:',
+                'sec2-step2-name': 'मेन्स',
+                'sec2-step2-desc': 'लिखने वाली परीक्षा',
+                'sec2-step3-title': 'चरण 3:',
+                'sec2-step3-name': 'साक्षात्कार',
+                'sec2-step3-desc': 'व्यक्तित्व टेस्ट',
+                'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                'sec3-p1': 'UPSC परीक्षा देने के लिए आपको कुछ ज़रूरी शर्तें पूरी करनी होती हैं:',
+                'sec3-edu-title': 'पढ़ाई (Education):',
+                'sec3-edu-desc': 'किसी भी मान्यता प्राप्त यूनिवर्सिटी से **ग्रेजुएट (स्नातक)** होना ज़रूरी है।',
+                'sec3-age-title': 'उम्र (Age):',
+                'sec3-age-desc': '**न्यूनतम 21 साल**। अधिकतम आयु **सामान्य - 32 साल, OBC - 35 साल, SC/ST - 37 साल**। (उम्र 1 अगस्त को गिनी जाती है)।',
+                'sec3-nat-title': 'नागरिकता (Nationality):',
+                'sec3-nat-desc': 'IAS/IPS के लिए **भारतीय नागरिक** होना अनिवार्य है।',
+                'sec3-attempts-title': 'आप कितनी बार दे सकते हैं परीक्षा? 📊',
+                'sec3-attempts-p1': 'हर वर्ग के उम्मीदवारों के लिए परीक्षा देने के **प्रयासों की संख्या तय** है।',
+                'sec3-attempts-note': '*(SC/ST के लिए उम्र सीमा तक असीमित प्रयास होते हैं।)*',
+                'attempts-chart-label': 'अधिकतम प्रयास',
+                'attempts-chart-cat1': 'सामान्य',
+                'attempts-chart-cat2': 'OBC',
+                'attempts-chart-cat3': 'SC / ST',
+                'attempts-chart-unlimited': 'असीमित'
+            },
+            'en': {
+                'header-title': '🚀 UPSC Civil Services Exam: Guidance 🚀',
+                'header-subtitle': 'Your path to serving the nation - with simple and accurate information',
+                'sec1-title': '1. What is UPSC? 🤔',
+                'sec1-p1': 'UPSC (Union Public Service Commission) is India\'s most prestigious government recruitment body. Its main job is to select the most qualified officers for more than **20 major government jobs** like **IAS, IPS, IFS**, so they can serve the country and society.',
+                'sec1-services-text': 'Recruitment for various services',
+                'sec1-services-btn': 'View All Services',
+                'sec2-title': '2. Exam Process: 3 Easy and Important Steps 🎯',
+                'sec2-p1': 'The UPSC Civil Services Examination lasts for a year and has 3 main stages. Each stage takes you to the next, and in the end, you reach your desired service.',
+                'sec2-step1-title': 'Step 1:',
+                'sec2-step1-name': 'Prelims',
+                'sec2-step1-desc': 'Screening Test',
+                'sec2-step2-title': 'Step 2:',
+                'sec2-step2-name': 'Mains',
+                'sec2-step2-desc': 'Written Examination',
+                'sec2-step3-title': 'Step 3:',
+                'sec2-step3-name': 'Interview',
+                'sec2-step3-desc': 'Personality Test',
+                'sec3-title': '3. Who can apply? ✅',
+                'sec3-p1': 'To appear for the UPSC exam, you need to meet some essential criteria:',
+                'sec3-edu-title': 'Education:',
+                'sec3-edu-desc': 'Must be a **Graduate** from any recognized university.',
+                'sec3-age-title': 'Age:',
+                'sec3-age-desc': '**Minimum 21 years**. Maximum age is **General - 32 years, OBC - 35 years, SC/ST - 37 years**. (Age is counted as on 1st August).',
+                'sec3-nat-title': 'Nationality:',
+                'sec3-nat-desc': 'Must be an **Indian citizen** for IAS/IPS.',
+                'sec3-attempts-title': 'How many times can you take the exam? 📊',
+                'sec3-attempts-p1': 'The number of attempts is fixed for candidates of each category.',
+                'sec3-attempts-note': '*(For SC/ST, attempts are unlimited up to the age limit.)*',
+                'attempts-chart-label': 'Maximum Attempts',
+                'attempts-chart-cat1': 'General',
+                'attempts-chart-cat2': 'OBC',
+                'attempts-chart-cat3': 'SC / ST',
+                'attempts-chart-unlimited': 'Unlimited'
+            },
+            'pa': {
+                'header-title': '🚀 UPSC ਸਿਵਲ ਸੇਵਾ ਪ੍ਰੀਖਿਆ: ਮਾਰਗਦਰਸ਼ਨ 🚀',
+                'header-subtitle': 'ਰਾਸ਼ਟਰ ਦੀ ਸੇਵਾ ਲਈ ਤੁਹਾਡਾ ਮਾਰਗ - ਸਰਲ ਅਤੇ ਸਹੀ ਜਾਣਕਾਰੀ ਨਾਲ',
+                'sec1-title': '1. UPSC ਕੀ ਹੈ? 🤔',
+                'sec1-p1': 'UPSC (ਯੂਨੀਅਨ ਪਬਲਿਕ ਸਰਵਿਸ ਕਮਿਸ਼ਨ) ਭਾਰਤ ਦੀ ਸਭ ਤੋਂ ਵੱਕਾਰੀ ਸਰਕਾਰੀ ਭਰਤੀ ਸੰਸਥਾ ਹੈ। ਇਸਦਾ ਮੁੱਖ ਕੰਮ **IAS, IPS, IFS** ਵਰਗੀਆਂ **20 ਤੋਂ ਵੱਧ ਵੱਡੀਆਂ ਸਰਕਾਰੀ ਨੌਕਰੀਆਂ** ਲਈ ਸਭ ਤੋਂ ਯੋਗ ਅਫਸਰਾਂ ਦੀ ਚੋਣ ਕਰਨਾ ਹੈ, ਤਾਂ ਜੋ ਉਹ ਦੇਸ਼ ਅਤੇ ਸਮਾਜ ਦੀ ਸੇਵਾ ਕਰ ਸਕਣ।',
+                'sec1-services-text': 'ਵੱਖ-ਵੱਖ ਸੇਵਾਵਾਂ ਲਈ ਭਰਤੀ',
+                'sec1-services-btn': 'ਸਾਰੀਆਂ ਸੇਵਾਵਾਂ ਵੇਖੋ',
+                'sec2-title': '2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ: 3 ਆਸਾਨ ਅਤੇ ਮਹੱਤਵਪੂਰਨ ਕਦਮ 🎯',
+                'sec2-p1': 'UPSC ਸਿਵਲ ਸੇਵਾਵਾਂ ਦੀ ਪ੍ਰੀਖਿਆ ਇੱਕ ਸਾਲ ਤੱਕ ਚੱਲਦੀ ਹੈ ਅਤੇ ਇਸਦੇ 3 ਮੁੱਖ ਪੜਾਅ ਹਨ। ਹਰ ਪੜਾਅ ਤੁਹਾਨੂੰ ਅਗਲੇ ਪੜਾਅ ਤੱਕ ਲੈ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਅੰਤ ਵਿੱਚ ਤੁਸੀਂ ਆਪਣੀ ਮਨਪਸੰਦ ਸੇਵਾ ਵਿੱਚ ਪਹੁੰਚਦੇ ਹੋ।',
+                'sec2-step1-title': 'ਕਦਮ 1:',
+                'sec2-step1-name': 'ਪ੍ਰੀਲਿਮਸ',
+                'sec2-step1-desc': 'ਸਕ੍ਰੀਨਿੰਗ ਟੈਸਟ',
+                'sec2-step2-title': 'ਕਦਮ 2:',
+                'sec2-step2-name': 'ਮੇਨਜ਼',
+                'sec2-step2-desc': 'ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ',
+                'sec2-step3-title': 'ਕਦਮ 3:',
+                'sec2-step3-name': 'ਇੰਟਰਵਿਊ',
+                'sec2-step3-desc': 'ਸ਼ਖਸੀਅਤ ਟੈਸਟ',
+                'sec3-title': '3. ਕੌਣ ਅਪਲਾਈ ਕਰ ਸਕਦਾ ਹੈ? ✅',
+                'sec3-p1': 'UPSC ਪ੍ਰੀਖਿਆ ਦੇਣ ਲਈ, ਤੁਹਾਨੂੰ ਕੁਝ ਜ਼ਰੂਰੀ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨੀਆਂ ਪੈਣਗੀਆਂ:',
+                'sec3-edu-title': 'ਸਿੱਖਿਆ:',
+                'sec3-edu-desc': 'ਕਿਸੇ ਵੀ ਮਾਨਤਾ ਪ੍ਰਾਪਤ ਯੂਨੀਵਰਸਿਟੀ ਤੋਂ **ਗ੍ਰੈਜੂਏਟ (ਬੈਚਲਰ ਡਿਗਰੀ)** ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ।',
+                'sec3-age-title': 'ਉਮਰ:',
+                'sec3-age-desc': '**ਘੱਟੋ-ਘੱਟ 21 ਸਾਲ**। ਵੱਧ ਤੋਂ ਵੱਧ ਉਮਰ **ਜਨਰਲ - 32 ਸਾਲ, OBC - 35 ਸਾਲ, SC/ST - 37 ਸਾਲ**। (ਉਮਰ 1 ਅਗਸਤ ਨੂੰ ਗਿਣੀ ਜਾਂਦੀ ਹੈ)।',
+                'sec3-nat-title': 'ਨਾਗਰਿਕਤਾ:',
+                'sec3-nat-desc': 'IAS/IPS ਲਈ **ਭਾਰਤੀ ਨਾਗਰਿਕ** ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ।',
+                'sec3-attempts-title': 'ਤੁਸੀਂ ਕਿੰਨੀ ਵਾਰ ਪ੍ਰੀਖਿਆ ਦੇ ਸਕਦੇ ਹੋ? 📊',
+                'sec3-attempts-p1': 'ਹਰੇਕ ਸ਼੍ਰੇਣੀ ਦੇ ਉਮੀਦਵਾਰਾਂ ਲਈ ਪ੍ਰੀਖਿਆ ਦੇਣ ਦੀ ਕੋਸ਼ਿਸ਼ਾਂ ਦੀ ਗਿਣਤੀ ਨਿਸ਼ਚਿਤ ਹੈ।',
+                'sec3-attempts-note': '*(SC/ST ਲਈ, ਉਮਰ ਸੀਮਾ ਤੱਕ ਕੋਸ਼ਿਸ਼ਾਂ ਅਸੀਮਤ ਹਨ।)*',
+                'attempts-chart-label': 'ਵੱਧ ਤੋਂ ਵੱਧ ਕੋਸ਼ਿਸ਼ਾਂ',
+                'attempts-chart-cat1': 'ਜਨਰਲ',
+                'attempts-chart-cat2': 'OBC',
+                'attempts-chart-cat3': 'SC / ST',
+                'attempts-chart-unlimited': 'ਅਸੀਮਤ'
+            }
+        };
+
+
         // Common utility function to handle label wrapping for Chart.js
         const wrapLabel = (label) => {
             const maxLength = 16;
@@ -1020,85 +1253,79 @@
             }
         };
 
-        // Initialize Charts
-        new Chart(document.getElementById('attemptsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['सामान्य', 'OBC', 'SC / ST'],
-                datasets: [{
-                    label: 'अधिकतम प्रयास',
-                    data: [6, 9, 100], /* 100 for unlimited conceptually */
-                    backgroundColor: [chartColors.blue1, chartColors.blue2, chartColors.blue3],
-                    borderColor: '#ffffff',
-                    borderWidth: 2,
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                ...defaultChartOptions,
-                indexAxis: 'y', /* Horizontal bars for better readability of categories */
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                if (value === 100) return 'असीमित';
-                                return value;
+        // Function to initialize or update the attempts chart
+        function initAttemptsChart(lang) {
+            if (attemptsChartInstance) {
+                attemptsChartInstance.destroy();
+            }
+            attemptsChartInstance = new Chart(document.getElementById('attemptsChart'), {
+                type: 'bar',
+                data: {
+                    labels: [translations[lang]['attempts-chart-cat1'], translations[lang]['attempts-chart-cat2'], translations[lang]['attempts-chart-cat3']],
+                    datasets: [{
+                        label: translations[lang]['attempts-chart-label'],
+                        data: [6, 9, 100], /* 100 for unlimited conceptually */
+                        backgroundColor: [chartColors.blue1, chartColors.blue2, chartColors.blue3],
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if (value === 100) return translations[lang]['attempts-chart-unlimited'];
+                                    return value;
+                                },
+                                color: chartColors.textGrey,
+                                font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
                             },
-                            color: chartColors.textGrey,
-                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                            grid: { color: '#e0e0e0', drawBorder: false }
                         },
-                        grid: {
-                            color: '#e0e0e0',
-                            drawBorder: false
+                        y: {
+                           ticks: {
+                                color: chartColors.textGrey,
+                                font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                            },
+                            grid: { display: false }
                         }
                     },
-                    y: {
-                       ticks: {
-                            color: chartColors.textGrey,
-                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
-                        },
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    ...defaultChartOptions.plugins,
-                    legend: {
-                        display: false
+                    plugins: {
+                        ...defaultChartOptions.plugins,
+                        legend: { display: false }
                     }
                 }
+            });
+        }
+        
+        // Function to initialize or update the interview qualities chart
+        function initInterviewChart() {
+            if (interviewChartInstance) {
+                interviewChartInstance.destroy();
             }
-        });
-
-        const interviewQualities = [
-            'मानसिक सतर्कता', 'आलोचनात्मक सोच', 'संतुलित निर्णय',
-            'संचार कौशल', 'दबाव संभालने की क्षमता', 'नेतृत्व क्षमता'
-        ];
-        const interviewLabelsWrapped = interviewQualities.map(wrapLabel);
-
-        new Chart(document.getElementById('interviewQualitiesChart'), {
+             const interviewQualities = [
+                'मानसिक सतर्कता', 'आलोचनात्मक सोच', 'संतुलित निर्णय',
+                'संचार कौशल', 'दबाव संभालने की क्षमता', 'नेतृत्व क्षमता'
+             ];
+            const interviewLabelsWrapped = interviewQualities.map(wrapLabel);
+            interviewChartInstance = new Chart(document.getElementById('interviewQualitiesChart'), {
             type: 'bubble',
             data: {
                 labels: interviewLabelsWrapped,
                 datasets: [{
                     label: 'महत्वपूर्ण गुण',
                     data: [
-                        {x: 1, y: 3, r: 25}, /* Mental Alertness */
-                        {x: 2.5, y: 1.5, r: 30}, /* Critical Thinking */
-                        {x: 4, y: 3.8, r: 28}, /* Balanced Judgment */
-                        {x: 1.8, y: 4.5, r: 22}, /* Communication Skills */
-                        {x: 3.5, y: 0.5, r: 26}, /* Pressure Handling */
-                        {x: 0.5, y: 2.5, r: 20}  /* Leadership Qualities */
+                        {x: 1, y: 3, r: 25}, {x: 2.5, y: 1.5, r: 30}, {x: 4, y: 3.8, r: 28},
+                        {x: 1.8, y: 4.5, r: 22}, {x: 3.5, y: 0.5, r: 26}, {x: 0.5, y: 2.5, r: 20}
                     ],
                     backgroundColor: [
-                        chartColors.blue1,
-                        chartColors.blue2,
-                        chartColors.blue3,
-                        chartColors.blue4,
-                        chartColors.blue1,
-                        chartColors.blue2
+                        chartColors.blue1, chartColors.blue2, chartColors.blue3,
+                        chartColors.blue4, chartColors.blue1, chartColors.blue2
                     ],
                     borderColor: 'rgba(255,255,255,0.8)',
                     borderWidth: 2
@@ -1112,24 +1339,21 @@
                  },
                  plugins: {
                     ...defaultChartOptions.plugins,
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
                         callbacks: {
                             title: tooltipTitleCallback,
                             label: function(context) {
                                 let label = context.chart.data.labels[context.dataIndex];
-                                if (Array.isArray(label)) {
-                                    return label.join(' ');
-                                }
-                                return label;
+                                return Array.isArray(label) ? label.join(' ') : label;
                             }
                         }
                     }
                  }
             }
         });
+        }
+
 
         // Service Data for Service List Modal
         const serviceDetailsData = {
@@ -1158,7 +1382,7 @@
 'iaas': { 
   icon: '💰', 
   name: 'भारतीय लेखा एवं लेखा परीक्षा सेवा (IA&AS)', 
-  description: 'IA&AS अधिकारी भारत सरकार और राज्य सरकारों के खातों का ऑडिट करते हैं। ये सुनिश्चित करते हैं कि सरकारी धन का उपयोग सही तरीके से और नियमों के अनुसार हो रहा है। इनका काम वित्तीय पारदर्शिता और जवाबदेही बनाए रखना है, जिससे भ्रष्टाचार पर अंकुश लगाया जा सके। ये CAG (भारत के नियंत्रक और महालेखा परीक्षक) के अधीन कार्य करते हैं।\n\nउदाहरण: एक IA&AS अधिकारी किसी सरकारी मंत्रालय के वार्षिक खर्चों की जांच करता है ताकि यह सुनिश्चित हो सके कि कोई वित्तीय अनियमितता नहीं हुई है।' 
+  description: 'IA&AS अधिकारी भारत सरकार और राज्य सरकारों के खातों का ऑडिट करते हैं। ये सुनिश्चित करते हैं कि सरकारी धन का उपयोग सही तरीके से और नियमों के अनुसार हो रहा है। इनका काम वित्तीय पारदर्शिता और जवाबदेही बनाए रखना है, जिससे भ्रष्टाचार पर अंकुਸ਼ लगाया जा सके। ये CAG (भारत के नियंत्रक और महालेखा परीक्षक) के अधीन कार्य करते हैं।\n\nउदाहरण: एक IA&AS अधिकारी किसी सरकारी मंत्रालय के वार्षिक खर्चों की जांच करता है ताकि यह सुनिश्चित हो सके कि कोई वित्तीय अनियमितता नहीं हुई है।' 
 }, 
 
 'icas': { 
@@ -1383,6 +1607,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderServiceCards();
             renderEighthScheduleLanguages();
+            
+            // Initialize charts with default language (Hindi)
+            initAttemptsChart('hi');
+            initInterviewChart();
 
             // Generic function to show a modal and hide others
             window.showModal = (modalId) => {
@@ -1414,8 +1642,12 @@
             // Event listeners for subject buttons within the main modals
             document.querySelectorAll('[data-modal-target][data-modal-target$="Modal"]').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    const targetId = e.target.dataset.modalTarget;
-                    showModal(targetId);
+                    // Find the actual button if an inner element was clicked
+                    const targetButton = e.target.closest('[data-modal-target]');
+                    if (targetButton) {
+                        const targetId = targetButton.dataset.modalTarget;
+                        showModal(targetId);
+                    }
                 });
             });
 
@@ -1440,6 +1672,37 @@
                     }
                 });
             });
+
+            // Language switcher functionality
+            const langButtons = document.querySelectorAll('.lang-btn');
+
+            function translatePage(lang) {
+                // Set html lang attribute
+                document.documentElement.lang = lang;
+                // Translate all elements with IDs matching the keys in the translations object
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                // Re-initialize charts with the new language
+                initAttemptsChart(lang);
+                // Note: The interview chart is visual and its text labels are not easily translatable without recreating the structure.
+                // For simplicity, we are not translating the interview chart's bubble text.
+            }
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button state
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const selectedLang = button.getAttribute('data-lang');
+                    translatePage(selectedLang);
+                });
+            });
+
         });
     </script>
 </body>
