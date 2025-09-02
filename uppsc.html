@@ -849,8 +849,11 @@
                     'servicelist-modal-title': 'UPPSC PCS के अंतर्गत आने वाले पद',
                     'servicelist-modal-p1': 'UPPSC PCS परीक्षा के माध्यम से विभिन्न प्रतिष्ठित पदों पर अधिकारियों की भर्ती की जाती है:',
                     'service-modal-back-btn': 'पीछे जाएँ',
-                    'example-title': 'उदाहरण:'
-                    // All other modal texts
+                    'example-title': 'उदाहरण:',
+                    'interviewChartData': {
+                        labels: ['मानसिक सतर्कता', 'तार्किक क्षमता', 'संतुलित निर्णय', 'संचार कौशल', 'नेतृत्व क्षमता'],
+                        data: [90, 85, 95, 80, 90]
+                    }
                 },
                 'en': {
                     // English translations for everything
@@ -866,7 +869,11 @@
                     'servicelist-modal-title': 'Posts under UPPSC PCS',
                     'servicelist-modal-p1': 'Recruitment of officers to various prestigious posts is done through the UPPSC PCS examination:',
                     'service-modal-back-btn': 'Go Back',
-                    'example-title': 'Example:'
+                    'example-title': 'Example:',
+                    'interviewChartData': {
+                        labels: ['Mental Alertness', 'Logical Ability', 'Balanced Judgment', 'Communication Skills', 'Leadership & Awareness'],
+                        data: [90, 85, 95, 80, 90]
+                    }
                 },
                 'bho': {
                     // Bhojpuri translations for everything
@@ -882,7 +889,11 @@
                     'servicelist-modal-title': 'UPPSC PCS के भीतर आवे वाला पद',
                     'servicelist-modal-p1': 'UPPSC PCS परीक्षा के माध्यम से विभिन्न प्रतिष्ठित पद पर अधिकारी लोग के भर्ती कइल जाला:',
                     'service-modal-back-btn': 'वापस जाईं',
-                    'example-title': 'उदाहरण:'
+                    'example-title': 'उदाहरण:',
+                    'interviewChartData': {
+                        labels: ['मानसिक सतर्कता', 'तार्किक क्षमता', 'संतुलित निर्णय', 'संचार कौशल', 'नेतृत्व क्षमता'],
+                        data: [90, 85, 95, 80, 90]
+                    }
                 }
             };
 
@@ -941,6 +952,73 @@
                 });
             }
 
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations[currentLang]['interviewChartData'].labels,
+                        datasets: [{
+                            label: translations[currentLang]['sec7-qualities-title'],
+                            data: translations[currentLang]['interviewChartData'].data,
+                            backgroundColor: '#004AAD',
+                            borderColor: '#004AAD',
+                            borderWidth: 1,
+                            borderRadius: 10,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: translations[currentLang]['sec7-qualities-title'],
+                                font: {
+                                    size: 16,
+                                    weight: 'bold',
+                                    family: 'Inter, sans-serif'
+                                },
+                                color: '#004AAD'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    font: {
+                                        family: 'Inter, sans-serif'
+                                    },
+                                    color: '#242424'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: {
+                                        family: 'Inter, sans-serif'
+                                    },
+                                    color: '#242424'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang]['interviewChartData'];
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.options.plugins.title.text = translations[currentLang]['sec7-qualities-title'];
+                    interviewChartInstance.update();
+                }
+            }
+
             function translatePage(lang) {
                 currentLang = lang;
                 document.documentElement.lang = lang;
@@ -956,10 +1034,10 @@
                 // Re-render dynamic content
                 renderServiceCards(lang);
                 renderCareerPath(lang);
+                translateChart(); // Update the chart with new language data
             }
 
-            // All event listeners and initial calls
-             const langButtons = document.querySelectorAll('.lang-btn');
+            const langButtons = document.querySelectorAll('.lang-btn');
             langButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     langButtons.forEach(btn => btn.classList.remove('active'));
@@ -989,7 +1067,7 @@
             });
 
             // Initial setup
-            // initInterviewChart();
+            initInterviewChart();
             translatePage('hi');
 
         });
