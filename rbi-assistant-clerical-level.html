@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBI Assistant परीक्षा: संपूर्ण मार्गदर्शिका</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="RBI Assistant (Clerical Level) परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम और तैयारी की रणनीति।">
+    <meta name="keywords" content="RBI Assistant, RBI Clerk, Reserve Bank of India, Bank Exam, सरकारी नौकरी, बैंकिंग">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .section-heading {
+            border-bottom: 3px solid #8c1515; /* RBI Maroon color */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #5c0f0f; 
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.75rem;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid #dee2e6;
+        }
+        .card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-5px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .flowchart-step {
+            border: 3px solid #5c0f0f;
+            color: #5c0f0f;
+            background-color: #fff8f8;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .flowchart-step:hover {
+            background-color: #5c0f0f;
+            color: #FFFFFF;
+            transform: scale(1.05);
+        }
+        .flowchart-arrow { color: #8c1515; }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: #FFFFFF; border-radius: 1.25rem; padding: 2rem;
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); max-width: 800px; width: 100%;
+            position: relative; transform: translateY(-50px); opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: #5c0f0f;
+        }
+        .rank-btn {
+            background-color: #fff8f8; color: #5c0f0f; border: 1px solid #8c1515;
+            padding: 0.5rem 1rem; border-radius: 9999px; cursor: pointer;
+            transition: all 0.2s; font-weight: 500;
+        }
+        .rank-btn:hover { background-color: #8c1515; color: white; }
+        .lang-btn.active { background-color: #8c1515; color: white; font-weight: bold; }
+        .action-btn {
+            background-color: #b91c1c; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem;
+            text-decoration: none; transition: background-color 0.3s; font-weight: 500;
+        }
+        .action-btn:hover { background-color: #8c1515; }
+        .action-btn-secondary { background-color: #fee2e2; color: #991b1b; }
+        .action-btn-secondary:hover { background-color: #fecaca; }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
+        
+        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
+            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
+            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
+            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
+        </div>
+
+        <header class="text-center mb-16 pt-12">
+            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#5c0f0f] mb-4 drop-shadow-md"></h1>
+            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#8c1515] font-semibold"></p>
+        </header>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- 1. परीक्षा क्या है? -->
+            <section class="card">
+                <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mt-6">
+                    <div class="p-4 bg-red-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="clericalRoleModal">
+                        <div class="text-4xl">✍️</div>
+                        <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-red-800"></div>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="panIndiaModal">
+                        <div class="text-4xl">🇮🇳</div>
+                        <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-blue-800"></div>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="workLifeModal">
+                        <div class="text-4xl">⚖️</div>
+                        <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-yellow-800"></div>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="careerPathModal">
+                        <div class="text-4xl">📈</div>
+                        <div data-lang-key="section1_card4_title" class="mt-2 font-semibold text-indigo-800"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. परीक्षा प्रक्रिया -->
+            <section class="card">
+                <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
+                <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center" data-modal-target="prelimsModal"><span data-lang-key="section2_step1_title"></span></div>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center" data-modal-target="mainsModal"><span data-lang-key="section2_step2_title"></span></div>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center" data-modal-target="lptModal"><span data-lang-key="section2_step3_title"></span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. योग्यता और परीक्षा पैटर्न -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h2 data-lang-key="section3_title" class="text-3xl font-bold section-heading"></h2>
+                    <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
+                </div>
+                <div>
+                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#5c0f0f] mb-4 text-center"></h3>
+                    <div class="chart-container h-72">
+                        <canvas id="examPatternChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. परीक्षा का विस्तृत पाठ्यक्रम -->
+            <section class="card">
+                <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
+                <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="prelimsSyllabusModal">
+                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-[#5c0f0f] mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    </div>
+                    <div class="p-6 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="mainsSyllabusModal">
+                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-[#5c0f0f] mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    </div>
+                </div>
+            </section>
+            
+             <!-- 5. परीक्षा के सभी विषय -->
+            <section class="card">
+                <h2 data-lang-key="section5_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section5_desc" class="text-lg mb-6"></p>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border">
+                        <span data-lang-key="subject1" class="font-bold text-xl text-gray-700"></span>
+                        <div class="space-x-2"><button class="action-btn action-btn-secondary" data-lang-key="notes_btn"></button><button class="action-btn action-btn-secondary" data-lang-key="lectures_btn"></button></div>
+                    </div>
+                     <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border">
+                        <span data-lang-key="subject2" class="font-bold text-xl text-gray-700"></span>
+                        <div class="space-x-2"><button class="action-btn action-btn-secondary" data-lang-key="notes_btn"></button><button class="action-btn action-btn-secondary" data-lang-key="lectures_btn"></button></div>
+                    </div>
+                     <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border">
+                        <span data-lang-key="subject3" class="font-bold text-xl text-gray-700"></span>
+                        <div class="space-x-2"><button class="action-btn action-btn-secondary" data-lang-key="notes_btn"></button><button class="action-btn action-btn-secondary" data-lang-key="lectures_btn"></button></div>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border">
+                        <span data-lang-key="subject4" class="font-bold text-xl text-gray-700"></span>
+                        <div class="space-x-2"><button class="action-btn action-btn-secondary" data-lang-key="notes_btn"></button><button class="action-btn action-btn-secondary" data-lang-key="lectures_btn"></button></div>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border">
+                        <span data-lang-key="subject5" class="font-bold text-xl text-gray-700"></span>
+                        <div class="space-x-2"><button class="action-btn action-btn-secondary" data-lang-key="notes_btn"></button><button class="action-btn action-btn-secondary" data-lang-key="lectures_btn"></button></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 6. विभाग, पोस्ट और करियर के अवसर -->
+            <section class="card">
+                <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section6_desc" class="text-lg mb-8 max-w-4xl"></p>
+                <div class="text-center">
+                    <h3 data-lang-key="section6_card_title" class="font-bold text-xl text-[#5c0f0f] mb-4"></h3>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <button class="rank-btn" data-modal-target="assistantModal"><span data-lang-key="rank_btn1"></span></button>
+                        <button class="rank-btn" data-modal-target="seniorAssistantModal"><span data-lang-key="rank_btn2"></span></button>
+                        <button class="rank-btn" data-modal-target="gradeAModal"><span data-lang-key="rank_btn3"></span></button>
+                        <button class="rank-btn" data-modal-target="gradeBModal"><span data-lang-key="rank_btn4"></span></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. आपकी तैयारी की रणनीति: स्मार्ट वर्क -->
+            <section class="card">
+                <h2 data-lang-key="section7_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section7_desc" class="text-lg mb-6"></p>
+                <ul class="list-disc list-inside space-y-3 text-lg" data-lang-key="section7_list"></ul>
+            </section>
+
+            <!-- 8. क्या नहीं करना है? -->
+            <section class="card">
+                <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base mt-6">
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg"><span class="text-3xl mr-4">❌</span><div data-lang-key="section8_item1"></div></div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg"><span class="text-3xl mr-4">❌</span><div data-lang-key="section8_item2"></div></div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg"><span class="text-3xl mr-4">❌</span><div data-lang-key="section8_item3"></div></div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg"><span class="text-3xl mr-4">❌</span><div data-lang-key="section8_item4"></div></div>
+                </div>
+            </section>
+            
+            <!-- 9. कब निकलते है और प्रोसीजर कितने दिन तक चलता है -->
+            <section class="card">
+                <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section9_desc" class="text-lg"></p>
+                <ul data-lang-key="section9_list" class="list-decimal list-inside mt-4 space-y-2 text-lg"></ul>
+                <p data-lang-key="section9_conclusion" class="text-lg mt-4 font-semibold text-red-800"></p>
+            </section>
+
+            <!-- 10. तैयारी करवाने वाली संस्थाएं -->
+            <section class="card">
+                <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section10_desc" class="text-lg mb-6"></p>
+                <div>
+                    <h3 data-lang-key="section10_subtitle1" class="text-2xl font-bold text-[#5c0f0f] mb-3"></h3>
+                    <ul data-lang-key="section10_list1" class="list-disc list-inside mt-2 space-y-1 text-lg"></ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
+            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
+        </footer>
+    </div>
+    
+    <!-- Modals -->
+    <div id="prelimsModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="prelims_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><div data-lang-key="prelims_modal_content"></div></div></div>
+    <div id="mainsModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="mains_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><div data-lang-key="mains_modal_content"></div></div></div>
+    <div id="lptModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="lpt_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><div data-lang-key="lpt_modal_content"></div></div></div>
+    <div id="prelimsSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="prelims_syllabus_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><div data-lang-key="prelims_syllabus_modal_content"></div></div></div>
+    <div id="mainsSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="mains_syllabus_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><div data-lang-key="mains_syllabus_modal_content"></div></div></div>
+    <div id="clericalRoleModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="clericalRole_modal_title" class="text-2xl font-bold text-red-800 mb-4"></h3><p data-lang-key="clericalRole_modal_desc"></p></div></div>
+    <div id="panIndiaModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="panIndia_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><p data-lang-key="panIndia_modal_desc"></p></div></div>
+    <div id="workLifeModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="workLife_modal_title" class="text-2xl font-bold text-yellow-800 mb-4"></h3><p data-lang-key="workLife_modal_desc"></p></div></div>
+    <div id="careerPathModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="careerPath_modal_title" class="text-2xl font-bold text-indigo-800 mb-4"></h3><p data-lang-key="careerPath_modal_desc"></p></div></div>
+    
+    <!-- Career Modals -->
+    <div id="assistantModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="assistant_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><p data-lang-key="assistant_modal_desc"></p></div></div>
+    <div id="seniorAssistantModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="senior_assistant_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><p data-lang-key="senior_assistant_modal_desc"></p></div></div>
+    <div id="gradeAModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="gradeA_modal_title" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><p data-lang-key="gradeA_modal_desc"></p></div></div>
+    <div id="gradeBModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="gradeB_modal_title_career" class="text-2xl font-bold text-[#5c0f0f] mb-4"></h3><p data-lang-key="gradeB_modal_desc_career"></p></div></div>
+    
+    <script>
+        const translations = {
+            hi: {
+                doc_title: "RBI Assistant परीक्षा: संपूर्ण मार्गदर्शिका",
+                header_title: "📝 RBI असिस्टेंट परीक्षा 📝",
+                header_subtitle: "भारत के केंद्रीय बैंक में एक सुरक्षित और प्रतिष्ठित लिपिकीय करियर की शुरुआत",
+                section1_title: "1. परीक्षा क्या है? 🤔",
+                section1_desc: "भारतीय रिज़र्व बैंक (RBI) असिस्टेंट परीक्षा, देश भर में RBI की विभिन्न शाखाओं में 'असिस्टेंट' (सहायक) के पद पर भर्ती के लिए आयोजित की जाने वाली एक राष्ट्रीय स्तर की प्रतियोगी परीक्षा है। यह पद RBI में लिपिकीय (Clerical) कैडर की रीढ़ है और दिन-प्रतिदिन के कार्यों के सुचारू संचालन को सुनिश्चित करता है।",
+                section1_card1_title: "लिपिकीय भूमिका",
+                section1_card2_title: "अखिल भारतीय पोस्टिंग",
+                section1_card3_title: "उत्कृष्ट कार्य-जीवन संतुलन",
+                section1_card4_title: "अधिकारी बनने का मार्ग",
+                section2_title: "2. परीक्षा प्रक्रिया 🎯",
+                section2_desc: "RBI असिस्टेंट चयन प्रक्रिया में तीन चरण होते हैं। अंतिम चयन के लिए प्रत्येक चरण में उत्तीर्ण होना आवश्यक है।",
+                section2_step1_title: "प्रारंभिक परीक्षा<br>(क्वालीफाइंग)",
+                section2_step2_title: "मुख्य परीक्षा<br>(मेरिट के लिए)",
+                section2_step3_title: "भाषा प्रवीणता परीक्षा (LPT)<br>(क्वालीफाइंग)",
+                section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
+                section3_list: `<div class="flex items-start"><span class="text-2xl text-red-500 mr-4">🎂</span><div><strong class="text-[#5c0f0f]">आयु सीमा:</strong> न्यूनतम 20 वर्ष और अधिकतम 28 वर्ष। (आरक्षित श्रेणियों के लिए सरकारी नियमों के अनुसार आयु में छूट लागू है)।</div></div><div class="flex items-start mt-4"><span class="text-2xl text-red-500 mr-4">🎓</span><div><strong class="text-[#5c0f0f]">शैक्षणिक योग्यता:</strong> किसी भी विषय में न्यूनतम 50% अंकों के साथ स्नातक की डिग्री (SC/ST/PwBD उम्मीदवारों के लिए उत्तीर्ण होना पर्याप्त है)।</div></div><div class="flex items-start mt-4"><span class="text-2xl text-red-500 mr-4">💻</span><div><strong class="text-[#5c0f0f]">कंप्यूटर ज्ञान:</strong> वर्ड प्रोसेसिंग का ज्ञान आवश्यक है।</div></div>`,
+                section3_chart_title: "प्रारंभिक परीक्षा पैटर्न 📊",
+                examPatternChartLabels: ['अंग्रेजी भाषा (30)', 'संख्यात्मक योग्यता (35)', 'तर्क क्षमता (35)'],
+                section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
+                section4_desc: "RBI असिस्टेंट का पाठ्यक्रम अन्य प्रमुख बैंक क्लर्क परीक्षाओं के समान है, लेकिन प्रश्नों का स्तर और प्रतिस्पर्धा अधिक होती है।",
+                section4_subject1_title: "प्रारंभिक परीक्षा पाठ्यक्रम",
+                section4_subject2_title: "मुख्य परीक्षा पाठ्यक्रम",
+                section4_subject_button: "विवरण देखें &rarr;",
+                section5_title: "5. परीक्षा के सभी विषय 📖",
+                section5_desc: "इन विषयों में गति और सटीकता RBI असिस्टेंट परीक्षा में सफलता की कुंजी है।",
+                subject1: "तर्क क्षमता (Reasoning Ability)",
+                subject2: "संख्यात्मक योग्यता (Numerical Ability)",
+                subject3: "अंग्रेजी भाषा (English Language)",
+                subject4: "सामान्य जागरूकता (General Awareness)",
+                subject5: "कंप्यूटर ज्ञान (Computer Knowledge)",
+                notes_btn: "नोट्स",
+                lectures_btn: "लेक्चर्स",
+                section6_title: "6. विभाग, पोस्ट और करियर के अवसर 🏢",
+                section6_desc: "RBI असिस्टेंट के रूप में करियर एक स्थिर और सम्मानजनक नौकरी प्रदान करता है। आंतरिक पदोन्नति परीक्षाओं के माध्यम से अधिकारी कैडर में जाने के उत्कृष्ट अवसर हैं।",
+                section6_card_title: "करियर प्रगति का क्रम",
+                rank_btn1: "असिस्टेंट",
+                rank_btn2: "सीनियर असिस्टेंट",
+                rank_btn3: "ग्रेड 'A' ऑफिसर",
+                rank_btn4: "ग्रेड 'B' ऑफिसर",
+                section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
+                section7_desc: "इस परीक्षा में सफलता के लिए सटीकता और समय प्रबंधन अत्यंत महत्वपूर्ण हैं।",
+                section7_list: `<li><strong>गति और सटीकता पर ध्यान दें:</strong> प्रीलिम्स में प्रत्येक सेक्शन के लिए केवल 20 मिनट मिलते हैं। प्रश्नों को तेजी से और सही-सही हल करने का अभ्यास करें।</li>
+                    <li><strong>मॉक टेस्ट का विश्लेषण:</strong> नियमित रूप से मॉक टेस्ट दें और अपने प्रदर्शन का विश्लेषण करें। कमजोर क्षेत्रों की पहचान करें और उन पर काम करें।</li>
+                    <li><strong>LPT को गंभीरता से लें:</strong> भाषा प्रवीणता परीक्षा क्वालीफाइंग है, लेकिन इसमें असफल होने पर आपको अपात्र घोषित कर दिया जाएगा।</li>
+                    <li><strong>सामान्य जागरूकता:</strong> मुख्य परीक्षा में यह एक निर्णायक खंड है। पिछले 6 महीनों के करंट अफेयर्स और बैंकिंग जागरूकता पर ध्यान दें।</li>`,
+                section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
+                section8_item1: `<div><strong class="text-lg text-red-800">अनुभागीय समय का उल्लंघन:</strong> प्रीलिम्स और मेन्स दोनों में अनुभागीय समय (Sectional Timing) होता है। समय प्रबंधन का अभ्यास न करना असफलता का कारण बन सकता है।</div>`,
+                section8_item2: `<div><strong class="text-lg text-red-800">LPT को नज़रअंदाज़ करना:</strong> यदि आप उस राज्य की आधिकारिक/स्थानीय भाषा में कुशल नहीं हैं जहां से आप आवेदन कर रहे हैं, तो आवेदन न करें।</li>`,
+                section8_item3: `<div><strong class="text-lg text-red-800">कट-ऑफ का पीछा करना:</strong> केवल कट-ऑफ क्लियर करने का लक्ष्य न रखें, क्योंकि अंतिम चयन मुख्य परीक्षा के अंकों पर आधारित होता है। अधिकतम अंक प्राप्त करने का प्रयास करें।</li>`,
+                section8_item4: `<div><strong class="text-lg text-red-800">कंप्यूटर ज्ञान को हल्के में लेना:</strong> यह एक आसान और स्कोरिंग सेक्शन है। इसकी उपेक्षा करने से आपका समग्र स्कोर कम हो सकता है।</li>`,
+                section9_title: "9. प्रक्रिया और समय-सीमा 🗓️",
+                section9_desc: "RBI असिस्टेंट परीक्षा नियमित रूप से आयोजित नहीं होती है, यह रिक्तियों पर निर्भर करती है। हालांकि, जब यह आयोजित होती है, तो एक सामान्य समय-सीमा का पालन किया जाता है:",
+                section9_list: `<li><strong>अधिसूचना (Notification):</strong> आमतौर पर फरवरी-मार्च के आसपास जारी होती है।</li>
+                                <li><strong>प्रारंभिक परीक्षा:</strong> मार्च-अप्रैल में आयोजित की जाती है।</li>
+                                <li><strong>मुख्य परीक्षा:</strong> मई में आयोजित की जाती है।</li>
+                                <li><strong>भाषा प्रवीणता परीक्षा (LPT):</strong> मुख्य परीक्षा के परिणाम के बाद आयोजित की जाती है।</li>
+                                <li><strong>अंतिम परिणाम:</strong> LPT के बाद घोषित किया जाता है।</li>`,
+                section9_conclusion: "पूरी प्रक्रिया को पूरा होने में लगभग 4-5 महीने लगते हैं।",
+                section10_title: "10. तैयारी करवाने वाली संस्थाएं 🏫",
+                section10_desc: "लगभग सभी संस्थान जो बैंकिंग परीक्षाओं की तैयारी करवाते हैं, RBI असिस्टेंट के लिए भी मार्गदर्शन प्रदान करते हैं।",
+                section10_subtitle1: "गैर-सरकारी (निजी) संस्थाएं:",
+                section10_list1: `<li>Adda247</li><li>Oliveboard</li><li>Testbook</li><li>Unacademy</li><li>Bankersadda</li><li>Mahendra's</li>`,
+                footer_text: "© 2025 RBI Assistant गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
+                
+                // Modals
+                clericalRole_modal_title: "✍️ लिपिकीय भूमिका",
+                clericalRole_modal_desc: "RBI असिस्टेंट की मुख्य जिम्मेदारी फाइलों का रखरखाव, डेटा प्रविष्टि, पूछताछ का जवाब देना और वरिष्ठ अधिकारियों की दिन-प्रतिदिन की प्रशासनिक कार्यों में सहायता करना है। यह RBI के सुचारू कामकाज को सुनिश्चित करने में एक महत्वपूर्ण भूमिका है।",
+                panIndia_modal_title: "🇮🇳 अखिल भारतीय पोस्टिंग",
+                panIndia_modal_desc: "RBI के कार्यालय भारत के अधिकांश राज्यों की राजधानियों में स्थित हैं। एक असिस्टेंट के रूप में, आपकी पोस्टिंग इनमें से किसी भी कार्यालय में हो सकती है, जो आपको देश के विभिन्न हिस्सों में काम करने का अवसर प्रदान करती है।",
+                workLife_modal_title: "⚖️ उत्कृष्ट कार्य-जीवन संतुलन",
+                workLife_modal_desc: "RBI अपने कर्मचारियों को एक बेहतरीन कार्य-जीवन संतुलन प्रदान करने के लिए जाना जाता है। काम के घंटे निश्चित होते हैं (आमतौर पर सप्ताह में 5 दिन), जिससे कर्मचारियों को अपने व्यक्तिगत और व्यावसायिक जीवन को संतुलित करने के लिए पर्याप्त समय मिलता है।",
+                careerPath_modal_title: "📈 अधिकारी बनने का मार्ग",
+                careerPath_modal_desc: "RBI असिस्टेंट की नौकरी अधिकारी कैडर में जाने के लिए एक उत्कृष्ट आधार प्रदान करती है। योग्य कर्मचारी आंतरिक पदोन्नति परीक्षाओं के माध्यम से ग्रेड 'A' और ग्रेड 'B' अधिकारी बन सकते हैं, जिससे करियर में शानदार वृद्धि होती है।",
+                
+                prelims_modal_title: "प्रारंभिक परीक्षा",
+                prelims_modal_content: `<p>यह पहला चरण है और केवल क्वालीफाइंग प्रकृति का है। इसमें प्राप्त अंकों को अंतिम मेरिट सूची में नहीं जोड़ा जाता है।</p><ul class="list-disc list-inside mt-4 space-y-2"><li><strong>कुल प्रश्न:</strong> 100</li><li><strong>कुल अंक:</strong> 100</li><li><strong>अवधि:</strong> 60 मिनट (प्रत्येक अनुभाग के लिए 20 मिनट)</li><li><strong>अनुभाग:</strong> अंग्रेजी भाषा (30), संख्यात्मक योग्यता (35), तर्क क्षमता (35)।</li></ul>`,
+                mains_modal_title: "मुख्य परीक्षा",
+                mains_modal_content: `<p>अंतिम चयन मुख्य परीक्षा में प्राप्त अंकों के आधार पर होता है।</p><ul class="list-disc list-inside mt-4 space-y-2"><li><strong>कुल प्रश्न:</strong> 200</li><li><strong>कुल अंक:</strong> 200</li><li><strong>अवधि:</strong> 135 मिनट (अनुभागीय समय के साथ)</li><li><strong>अनुभाग:</strong> तर्क क्षमता, अंग्रेजी भाषा, संख्यात्मक योग्यता, सामान्य जागरूकता, और कंप्यूटर ज्ञान (प्रत्येक में 40 प्रश्न)।</li></ul>`,
+                lpt_modal_title: "भाषा प्रवीणता परीक्षा (LPT)",
+                lpt_modal_content: `<p>यह चयन प्रक्रिया का अंतिम चरण है और यह क्वालीफाइंग प्रकृति का है।</p><ul class="list-disc list-inside mt-4 space-y-2"><li>मुख्य परीक्षा में उत्तीर्ण उम्मीदवारों को LPT के लिए बुलाया जाता है।</li><li>यह उस राज्य की आधिकारिक/स्थानीय भाषा में उम्मीदवार की दक्षता का परीक्षण करता है जहां से उसने आवेदन किया है।</li><li>LPT में असफल होने पर उम्मीदवार को अयोग्य घोषित कर दिया जाएगा।</li></ul>`,
+                prelims_syllabus_modal_title: "प्रारंभिक परीक्षा पाठ्यक्रम",
+                prelims_syllabus_modal_content: `<div><p>पाठ्यक्रम में 10वीं/12वीं कक्षा के स्तर के विषय शामिल हैं:</p><h4 class="font-bold text-lg mt-4">तर्क क्षमता, संख्यात्मक योग्यता, अंग्रेजी</h4><ul class="list-disc list-inside ml-4"><li>अन्य बैंक क्लर्क परीक्षाओं के समान विषय, जैसे पहेलियाँ, DI, अंकगणित, Reading Comprehension, व्याकरण, आदि।</li></ul></div>`,
+                mains_syllabus_modal_title: "मुख्य परीक्षा पाठ्यक्रम",
+                mains_syllabus_modal_content: `<div><p>प्रारंभिक परीक्षा के विषयों के अलावा, मुख्य परीक्षा में निम्नलिखित विषय शामिल हैं:</p><ul class="list-disc list-inside ml-4 space-y-1 mt-2"><li><strong>सामान्य जागरूकता:</strong> करंट अफेयर्स (पिछले 6 महीने), बैंकिंग और वित्तीय जागरूकता, RBI से संबंधित समाचार, स्थैतिक जीके।</li><li><strong>कंप्यूटर ज्ञान:</strong> कंप्यूटर की मूल बातें, हार्डवेयर, सॉफ्टवेयर, MS ऑफिस, इंटरनेट, नेटवर्किंग।</li></ul></div>`,
+                
+                assistant_modal_title: "असिस्टेंट",
+                assistant_modal_desc: "यह RBI में प्रवेश स्तर का लिपिकीय पद है। जिम्मेदारियों में फाइलिंग, डेटा एंट्री और वरिष्ठ कर्मचारियों को प्रशासनिक सहायता प्रदान करना शामिल है।",
+                senior_assistant_modal_title: "सीनियर असिस्टेंट / स्पेशल असिस्टेंट",
+                senior_assistant_modal_desc: "कुछ वर्षों की सेवा के बाद, आप सीनियर असिस्टेंट और फिर स्पेशल असिस्टेंट बन जाते हैं। इस भूमिका में, जिम्मेदारियां थोड़ी बढ़ जाती हैं।",
+                gradeA_modal_title: "ग्रेड 'A' ऑफिसर (असिस्टेंट मैनेजर)",
+                gradeA_modal_desc: "योग्य असिस्टेंट विभागीय पदोन्नति परीक्षा देकर ग्रेड 'A' ऑफिसर बन सकते हैं। यह लिपिकीय कैडर से अधिकारी कैडर में एक महत्वपूर्ण छलांग है।",
+                gradeB_modal_title_career: "ग्रेड 'B' ऑफिसर (मैनेजर)",
+                gradeB_modal_desc_career: "ग्रेड 'A' ऑफिसर के रूप में कुछ वर्षों की सेवा के बाद, आप आगे की पदोन्नति के माध्यम से ग्रेड 'B' ऑफिसर बन सकते हैं, जो RBI में एक प्रतिष्ठित प्रबंधकीय पद है।"
+            },
+            en: {
+                doc_title: "RBI Assistant Exam: Complete Guide",
+                header_title: "📝 RBI Assistant Exam 📝",
+                header_subtitle: "The beginning of a secure and prestigious clerical career in India's Central Bank",
+                section1_title: "1. What is the Exam? 🤔",
+                section1_desc: "The Reserve Bank of India (RBI) Assistant Exam is a national-level competitive examination conducted for recruitment to the post of 'Assistant' in various branches of the RBI across the country. This post is the backbone of the Clerical cadre in RBI and ensures the smooth functioning of day-to-day operations.",
+                section1_card1_title: "Clerical Role",
+                section1_card2_title: "Pan-India Posting",
+                section1_card3_title: "Good Work-Life Balance",
+                section1_card4_title: "Path to Officer",
+                section2_title: "2. Examination Process 🎯",
+                section2_desc: "The RBI Assistant selection process consists of three stages. It is necessary to qualify in each stage for final selection.",
+                section2_step1_title: "Preliminary Exam<br>(Qualifying)",
+                section2_step2_title: "Main Exam<br>(For Merit)",
+                section2_step3_title: "Language Proficiency Test (LPT)<br>(Qualifying)",
+                section3_title: "3. Eligibility & Exam Pattern ✅",
+                section3_list: `<div class="flex items-start"><span class="text-2xl text-red-500 mr-4">🎂</span><div><strong class="text-[#5c0f0f]">Age Limit:</strong> Minimum 20 years and Maximum 28 years. (Age relaxation is applicable for reserved categories as per government rules).</div></div><div class="flex items-start mt-4"><span class="text-2xl text-red-500 mr-4">🎓</span><div><strong class="text-[#5c0f0f]">Educational Qualification:</strong> Bachelor’s Degree in any discipline with a minimum of 50% marks (pass class for SC/ST/PwBD candidates).</div></div><div class="flex items-start mt-4"><span class="text-2xl text-red-500 mr-4">💻</span><div><strong class="text-[#5c0f0f]">Computer Knowledge:</strong> Knowledge of word processing is essential.</div></div>`,
+                section3_chart_title: "Preliminary Exam Pattern 📊",
+                examPatternChartLabels: ['English Language (30)', 'Numerical Ability (35)', 'Reasoning Ability (35)'],
+                section4_title: "4. Detailed Exam Syllabus 📚",
+                section4_desc: "The syllabus for RBI Assistant is similar to other major bank clerk exams, but the level of questions and competition is higher.",
+                section4_subject1_title: "Preliminary Exam Syllabus",
+                section4_subject2_title: "Main Exam Syllabus",
+                section4_subject_button: "View Details &rarr;",
+                section5_title: "5. All Subjects of the Exam 📖",
+                section5_desc: "Speed and accuracy in these subjects are the key to success in the RBI Assistant exam.",
+                subject1: "Reasoning Ability",
+                subject2: "Numerical Ability",
+                subject3: "English Language",
+                subject4: "General Awareness",
+                subject5: "Computer Knowledge",
+                notes_btn: "Notes",
+                lectures_btn: "Lectures",
+                section6_title: "6. Departments, Posts, and Career Opportunities 🏢",
+                section6_desc: "A career as an RBI Assistant offers a stable and respectable job. There are excellent opportunities to move to the officer cadre through internal promotion exams.",
+                section6_card_title: "Career Progression Path",
+                rank_btn1: "Assistant",
+                rank_btn2: "Senior Assistant",
+                rank_btn3: "Grade 'A' Officer",
+                rank_btn4: "Grade 'B' Officer",
+                section7_title: "7. Your Preparation Strategy: Smart Work 📈",
+                section7_desc: "Accuracy and time management are extremely important for success in this exam.",
+                section7_list: `<li><strong>Focus on Speed and Accuracy:</strong> You get only 20 minutes for each section in the Prelims. Practice solving questions quickly and accurately.</li>
+                    <li><strong>Analyze Mock Tests:</strong> Regularly take mock tests and analyze your performance. Identify weak areas and work on them.</li>
+                    <li><strong>Take LPT Seriously:</strong> The Language Proficiency Test is qualifying, but you will be disqualified if you fail it.</li>
+                    <li><strong>General Awareness:</strong> This is a decisive section in the Main Exam. Focus on current affairs of the last 6 months and banking awareness.</li>`,
+                section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
+                section8_item1: `<div><strong class="text-lg text-red-800">Violating Sectional Timing:</strong> Both Prelims and Mains have sectional timing. Not practicing time management can lead to failure.</div>`,
+                section8_item2: `<div><strong class="text-lg text-red-800">Ignoring the LPT:</strong> Do not apply from a state if you are not proficient in its official/local language.</li>`,
+                section8_item3: `<div><strong class="text-lg text-red-800">Chasing the Cut-off:</strong> Don't just aim to clear the cut-off, as the final selection is based on the marks in the Main Exam. Try to score maximum marks.</li>`,
+                section8_item4: `<div><strong class="text-lg text-red-800">Taking Computer Knowledge Lightly:</strong> This is an easy and scoring section. Neglecting it can reduce your overall score.</li>`,
+                section9_title: "9. Procedure and Timeline 🗓️",
+                section9_desc: "The RBI Assistant exam is not conducted regularly; it depends on the vacancies. However, when it is conducted, a general timeline is followed:",
+                section9_list: `<li><strong>Notification:</strong> Usually released around February-March.</li>
+                                <li><strong>Preliminary Exam:</strong> Conducted in March-April.</li>
+                                <li><strong>Main Exam:</strong> Conducted in May.</li>
+                                <li><strong>Language Proficiency Test (LPT):</strong> Conducted after the Main Exam results.</li>
+                                <li><strong>Final Result:</strong> Declared after the LPT.</li>`,
+                section9_conclusion: "The entire process takes about 4-5 months to complete.",
+                section10_title: "10. Coaching Institutions 🏫",
+                section10_desc: "Almost all institutions that prepare for banking exams also provide guidance for RBI Assistant.",
+                section10_subtitle1: "Non-Government (Private) Institutions:",
+                section10_list1: `<li>Adda247</li><li>Oliveboard</li><li>Testbook</li><li>Unacademy</li><li>Bankersadda</li><li>Mahendra's</li>`,
+                footer_text: "© 2025 RBI Assistant Guide. Best wishes for your success.",
+
+                // Modals
+                clericalRole_modal_title: "✍️ Clerical Role",
+                clericalRole_modal_desc: "The primary responsibility of an RBI Assistant is the maintenance of files, data entry, responding to inquiries, and assisting senior officers in their day-to-day administrative tasks. It is a critical role in ensuring the smooth functioning of the RBI.",
+                panIndia_modal_title: "🇮🇳 Pan-India Posting",
+                panIndia_modal_desc: "RBI offices are located in the capitals of most Indian states. As an Assistant, you can be posted in any of these offices, giving you the opportunity to work in different parts of the country.",
+                workLife_modal_title: "⚖️ Excellent Work-Life Balance",
+                workLife_modal_desc: "The RBI is known for providing its employees with an excellent work-life balance. The working hours are fixed (usually 5 days a week), giving employees ample time to balance their personal and professional lives.",
+                careerPath_modal_title: "📈 Path to Officer",
+                careerPath_modal_desc: "The job of an RBI Assistant provides an excellent foundation for moving into the officer cadre. Eligible employees can become Grade 'A' and Grade 'B' officers through internal promotion exams, leading to fantastic career growth.",
+                
+                prelims_modal_title: "Preliminary Exam",
+                prelims_modal_content: `<p>This is the first stage and is only qualifying in nature. The marks obtained here are not added to the final merit list.</p><ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Total Questions:</strong> 100</li><li><strong>Total Marks:</strong> 100</li><li><strong>Duration:</strong> 60 minutes (20 minutes for each section)</li><li><strong>Sections:</strong> English Language (30), Numerical Ability (35), Reasoning Ability (35).</li></ul>`,
+                mains_modal_title: "Main Exam",
+                mains_modal_content: `<p>The final selection is based on the marks obtained in the Main Exam.</p><ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Total Questions:</strong> 200</li><li><strong>Total Marks:</strong> 200</li><li><strong>Duration:</strong> 135 minutes (with sectional timings)</li><li><strong>Sections:</strong> Reasoning Ability, English Language, Numerical Ability, General Awareness, and Computer Knowledge (40 questions each).</li></ul>`,
+                lpt_modal_title: "Language Proficiency Test (LPT)",
+                lpt_modal_content: `<p>This is the final stage of the selection process and is qualifying in nature.</p><ul class="list-disc list-inside mt-4 space-y-2"><li>Candidates who clear the Main Exam are called for the LPT.</li><li>It tests the candidate's proficiency in the official/local language of the state from which they have applied.</li><li>Failure in the LPT will lead to disqualification.</li></ul>`,
+                prelims_syllabus_modal_title: "Preliminary Exam Syllabus",
+                prelims_syllabus_modal_content: `<div><p>The syllabus includes topics of the 10th/12th standard level:</p><h4 class="font-bold text-lg mt-4">Reasoning, Numerical Ability, English</h4><ul class="list-disc list-inside ml-4"><li>Topics are similar to other bank clerk exams, such as Puzzles, DI, Arithmetic, Reading Comprehension, Grammar, etc.</li></ul></div>`,
+                mains_syllabus_modal_title: "Main Exam Syllabus",
+                mains_syllabus_modal_content: `<div><p>In addition to the subjects of the Preliminary Exam, the Main Exam includes the following subjects:</p><ul class="list-disc list-inside ml-4 space-y-1 mt-2"><li><strong>General Awareness:</strong> Current Affairs (last 6 months), Banking and Financial Awareness, news related to RBI, Static GK.</li><li><strong>Computer Knowledge:</strong> Basics of Computers, Hardware, Software, MS Office, Internet, Networking.</li></ul></div>`,
+                
+                assistant_modal_title: "Assistant",
+                assistant_modal_desc: "This is the entry-level clerical post in the RBI. Responsibilities include filing, data entry, and providing administrative support to senior staff.",
+                senior_assistant_modal_title: "Senior Assistant / Special Assistant",
+                senior_assistant_modal_desc: "After a few years of service, you become a Senior Assistant and then a Special Assistant. In this role, the responsibilities increase slightly.",
+                gradeA_modal_title: "Grade 'A' Officer (Assistant Manager)",
+                gradeA_modal_desc: "Eligible assistants can become Grade 'A' Officers by clearing departmental promotion exams. This is a significant jump from the clerical to the officer cadre.",
+                gradeB_modal_title_career: "Grade 'B' Officer (Manager)",
+                gradeB_modal_desc_career: "After a few years of service as a Grade 'A' Officer, you can become a Grade 'B' Officer through further promotions, which is a prestigious managerial post in the RBI."
+            },
+            pa: {
+                // Placeholder, will use English
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let examPatternChartInstance = null;
+
+            function initializeCharts(lang) {
+                if (examPatternChartInstance) { examPatternChartInstance.destroy(); }
+                const langData = translations[lang] || translations['en'];
+                const ctx = document.getElementById('examPatternChart');
+                if (ctx) {
+                    examPatternChartInstance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: langData.examPatternChartLabels,
+                            datasets: [{
+                                label: 'Questions',
+                                data: [30, 35, 35],
+                                backgroundColor: ['#8c1515', '#5c0f0f', '#fee2e2'],
+                                borderColor: ['#FFFFFF'],
+                                borderWidth: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { position: 'top' } }
+                        }
+                    });
+                }
+            }
+
+            function changeLanguage(lang) {
+                const langData = translations[lang] || translations['en']; // Fallback to English
+                document.documentElement.lang = lang;
+                document.title = langData.doc_title;
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (langData[key] !== undefined) { 
+                        el.innerHTML = langData[key]; 
+                    } else {
+                        el.innerHTML = translations['en'][key] || ''; // Fallback for specific keys
+                    }
+                });
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-lang') === lang) { btn.classList.add('active'); }
+                });
+                initializeCharts(lang);
+                attachModalListeners();
+            }
+
+            function attachModalListeners() {
+                const modalTriggers = document.querySelectorAll('[data-modal-target]');
+                modalTriggers.forEach(trigger => {
+                    trigger.replaceWith(trigger.cloneNode(true));
+                });
+                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                    trigger.addEventListener('click', (e) => {
+                        const modalId = e.target.closest('[data-modal-target]').getAttribute('data-modal-target');
+                        document.getElementById(modalId)?.classList.add('active');
+                    });
+                });
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    changeLanguage(e.target.getAttribute('data-lang'));
+                });
+            });
+            
+            changeLanguage('hi');
+
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => {
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => modal.classList.remove('active'));
+                modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); } });
+            });
+        });
+    </script>
+</body>
+</html>
+
