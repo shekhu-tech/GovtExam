@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crapd.in-All-Goverment-Job-Full-Flash-Guidence</title>
+    <title>Crapd.in - All-Government-Job-Full-Flash-Guidance</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #111;
         }
-        /* Custom styles for golden theme with promax effects */
+
         .golden-text-gradient {
             background-image: linear-gradient(180deg, #FFD700, #FFC107, #B8860B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .golden-border {
             border: 2px solid;
             border-image: linear-gradient(135deg, #FFD700, #B8860B, #FFD700) 1;
         }
+
         .golden-shadow {
             box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.1), 0 2px 4px -1px rgba(255, 215, 0, 0.06);
         }
+
         .popup-container {
             position: fixed;
             top: 0;
@@ -30,26 +35,29 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            display: none; /* Hide by default */
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
+
         .popup-content {
             background-color: #1a1a1a;
             color: #FFD700;
-            padding: 2.5rem;
+            padding: 1.5rem;
             border-radius: 1.5rem;
-            max-width: 90%;
-            /* Removed fixed width for better responsiveness on small screens */
-            width: auto; 
+            max-width: 95%;
+            width: auto;
             min-width: 300px;
             margin: 0 1rem;
             text-align: center;
             border: 3px solid #FFD700;
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
             animation: fadeInScale 0.5s ease-out forwards;
+            max-height: 90vh; /* Ultra pro max height */
+            overflow-y: auto; /* Scrollable content */
         }
+
         @keyframes fadeInScale {
             from {
                 opacity: 0;
@@ -60,27 +68,33 @@
                 transform: scale(1);
             }
         }
+
         .input-field {
             background-color: #2a2a2a;
             border: 2px solid #FFC107;
             color: white;
         }
+
         .input-field:focus {
             outline: none;
             border-color: #FFD700;
             box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
         }
+
         .button {
             transition: transform 0.2s, box-shadow 0.2s;
         }
+
         .button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 15px rgba(255, 215, 0, 0.3);
         }
+
         .button:active {
             transform: translateY(0);
             box-shadow: none;
         }
+
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #FFD700;
@@ -89,16 +103,42 @@
             height: 30px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 375px) {
+            .popup-content {
+                padding: 1rem;
+            }
+
+            .text-2xl {
+                font-size: 1.25rem;
+            }
+
+            .text-3xl {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen">
 
-    
-
+    <!-- Step 1: User Details Form -->
     <div id="popup-step-1" class="popup-container">
         <div class="popup-content golden-border">
             <h2 id="step-1-heading" class="text-2xl sm:text-3xl font-bold mb-4 golden-text-gradient drop-shadow-lg">
@@ -121,6 +161,7 @@
         </div>
     </div>
 
+    <!-- Step 2: Service Details and Price -->
     <div id="popup-step-2" class="popup-container">
         <div class="popup-content golden-border text-left">
             <h2 class="text-2xl sm:text-3xl font-bold mb-4 golden-text-gradient drop-shadow-lg text-center">
@@ -167,7 +208,7 @@
             <div id="secret-code-section" class="mt-8 hidden">
                 <input type="text" id="secret-code" placeholder="Secret Code Daalein" class="w-full p-3 rounded-lg input-field text-center">
             </div>
-            
+
             <p id="payment-text" class="text-xl sm:text-2xl font-bold golden-text-gradient mb-4 text-center">Sirf ₹77 mein, ye sab paayen!</p>
             <button id="pay-button" class="w-full px-6 py-3 mt-4 text-xl font-bold text-gray-900 bg-amber-500 rounded-lg shadow-xl button hover:bg-amber-400">
                 Pay ₹77
@@ -178,10 +219,25 @@
         </div>
     </div>
 
-    <div id="popup-step-3" class="popup-container">
+    <!-- Step 3: Payment Gateway (newly added) -->
+    <div id="popup-step-3-payment" class="popup-container">
         <div class="popup-content golden-border">
-            <h2 id="welcome-heading" class="text-2xl sm:text-3xl font-bold mb-4 golden-text-gradient drop-shadow-lg">
-                </h2>
+            <h2 class="text-2xl font-bold text-center mb-4 golden-text-gradient">Complete Your Payment</h2>
+            <p id="payment-summary" class="text-gray-300 text-center mb-6"></p>
+            <div id="timerDisplay" class="text-white text-lg font-bold text-center mb-4">Time remaining: 05:00</div>
+            <button id="razorpay-payment-btn" class="w-full px-6 py-3 mt-4 text-xl font-bold text-gray-900 bg-amber-500 rounded-lg shadow-xl button hover:bg-amber-400">
+                Pay with Razorpay
+            </button>
+            <p class="mt-4 text-sm text-gray-400 text-center">
+                After payment, please wait for automatic verification. Do not close this window.
+            </p>
+        </div>
+    </div>
+
+    <!-- Step 4: Confirmation & Redirect -->
+    <div id="popup-step-4" class="popup-container">
+        <div class="popup-content golden-border">
+            <h2 id="welcome-heading" class="text-2xl sm:text-3xl font-bold mb-4 golden-text-gradient drop-shadow-lg"></h2>
             <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8">
                 Aapka dhanyawad! Aapka bhugtaan safal raha. Ab aap ek naye safar ki shuruaat karne ke liye taiyaar hain. Is chote se kadam se, aapne bade maukon ke liye darwaza khol diya hai.
             </p>
@@ -195,13 +251,11 @@
         </div>
     </div>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
     <script>
-        // DOM elements ko select karna
         const popupStep1 = document.getElementById('popup-step-1');
         const popupStep2 = document.getElementById('popup-step-2');
-        const popupStep3 = document.getElementById('popup-step-3');
+        const popupStep3Payment = document.getElementById('popup-step-3-payment');
+        const popupStep4 = document.getElementById('popup-step-4');
         const formStep1 = document.getElementById('form-step-1');
         const nameInput = document.getElementById('name');
         const step1Heading = document.getElementById('step-1-heading');
@@ -213,46 +267,41 @@
         const secretCodeInput = document.getElementById('secret-code');
         const secretOkayButton = document.getElementById('secret-okay-button');
         const paymentText = document.getElementById('payment-text');
+        const razorpayPaymentBtn = document.getElementById('razorpay-payment-btn');
+        const paymentSummary = document.getElementById('payment-summary');
+        const timerDisplay = document.getElementById('timerDisplay');
 
         let userData = {};
-        let transectionId = '';
-        const amount = 77; // Amount in rupees
+        let transactionId = '';
+        const amount = 77;
+        const PAYMENT_TIME_LIMIT = 5 * 60;
+        let countdownInterval = null;
 
-        // Check for payment status in local storage on page load
         const hasPaid = localStorage.getItem('hasPaid');
         if (hasPaid === 'true') {
             window.location.href = 'govt-all-services.html';
         } else {
-            // Page load hote hi pehla popup dikhana
             document.addEventListener('DOMContentLoaded', () => {
                 popupStep1.style.display = 'flex';
             });
         }
 
-        // Step 1: Name input par event listener lagana
         nameInput.addEventListener('input', (e) => {
             const name = e.target.value.trim();
-            if (name) {
-                step1Heading.innerHTML = `<span class="golden-text-gradient">${name}, Aapka Swagat Hai!</span>`;
-            } else {
-                step1Heading.innerHTML = `<span class="golden-text-gradient">Abhi Shuru Karen!</span>`;
-            }
+            step1Heading.innerHTML = `<span class="golden-text-gradient">${name ? `${name}, Aapka Swagat Hai!` : 'Abhi Shuru Karen!'}</span>`;
         });
 
-        // Step 1: Form submit par event listener
         formStep1.addEventListener('submit', (e) => {
             e.preventDefault();
-            const fullName = nameInput.value.trim();
-            userData.name = fullName;
+            userData.name = nameInput.value.trim();
             userData.number = document.getElementById('number').value.trim();
             userData.email = document.getElementById('email').value.trim();
 
             if (userData.name && userData.number && userData.email) {
                 popupStep1.style.display = 'none';
                 popupStep2.style.display = 'flex';
-                
-                // Check for last name and show secret code input
-                const nameParts = fullName.toLowerCase().split(' ');
+
+                const nameParts = userData.name.toLowerCase().split(' ');
                 const lastName = nameParts[nameParts.length - 1];
                 if (lastName === 'insa' || lastName === 'insha' || lastName === 'insan') {
                     secretCodeSection.classList.remove('hidden');
@@ -264,25 +313,16 @@
                     paymentText.classList.remove('hidden');
                 }
             } else {
-                // Agar koi field khali hai toh custom message box dikhana
                 alert("Kripya sabhi jaankari bharen.");
             }
         });
 
-        // Secret code input par event listener
         secretCodeInput.addEventListener('input', (e) => {
-            if (e.target.value === 'MSGMSGMSG') {
-                secretOkayButton.classList.remove('hidden');
-            } else {
-                secretOkayButton.classList.add('hidden');
-            }
+            secretOkayButton.classList.toggle('hidden', e.target.value !== 'MSGMSGMSG');
         });
 
-        // Secret code 'Okay' button ka listener
         secretOkayButton.addEventListener('click', () => {
-             // show welcome popup
             showWelcomePopup();
-            // send data
             const data = {
                 name: userData.name,
                 number: userData.number,
@@ -293,63 +333,84 @@
             sendDataToGoogleSheets(data, true);
         });
 
-        // Step 2: Pay button click par Razorpay open karna
         payButton.addEventListener('click', () => {
-            // Razorpay test key. Live hone par ise apne live key se replace karen.
-            const razorpayKey = 'rzp_live_zyUA84YdEZR7rO'; // Updated Razorpay Key
+            popupStep2.style.display = 'none';
+            popupStep3Payment.style.display = 'flex';
+            paymentSummary.innerHTML = `<p class="text-xl font-bold">Total Payable: ₹${amount}</p>`;
+            startPaymentTimer();
+        });
 
+        razorpayPaymentBtn.addEventListener('click', handleRazorpayPayment);
+
+        function handleRazorpayPayment() {
+            const razorpayKey = 'rzp_live_zyUA84YdEZR7rO';
             const options = {
                 key: razorpayKey,
-                amount: amount * 100, // Amount in paise
+                amount: amount * 100,
                 currency: "INR",
-                name: "All Government Job Services", // Updated name
-                description: "Complete Guide, Video Lectures, and Notes", // Updated description
+                name: "All Government Job Services",
+                description: "Complete Guide, Video Lectures, and Notes",
                 handler: function (response) {
-                    // Payment successful hone par
-                    transectionId = response.razorpay_payment_id;
+                    transactionId = response.razorpay_payment_id;
                     const data = {
                         name: userData.name,
                         number: userData.number,
                         email: userData.email,
                         amount: amount,
-                        transaction_id: transectionId
+                        transaction_id: transactionId
                     };
                     showWelcomePopup();
-                    sendDataToGoogleSheets(data, false); // false indicates payment done
+                    sendDataToGoogleSheets(data, false);
                 },
                 prefill: {
                     name: userData.name,
                     email: userData.email,
                     contact: userData.number,
                 },
-                notes: {
-                    address: "Razorpay Corporate Office"
-                },
                 theme: {
-                    color: "#FFD700" // Golden theme
+                    color: "#FFD700"
                 }
             };
             const rzp1 = new Razorpay(options);
-            rzp1.open();
-
-            // Payment modal close hone par
-            rzp1.on('payment.failed', function (response){
-                // Payment failed hone par action
+            rzp1.on('payment.failed', (response) => {
                 alert("Payment failed: " + response.error.description);
+                popupStep3Payment.style.display = 'none';
+                popupStep2.style.display = 'flex';
             });
-        });
+            rzp1.open();
+        }
 
-        // Payment successful hone par welcome popup dikhana
+        function startPaymentTimer() {
+            let timeLeft = PAYMENT_TIME_LIMIT;
+            const updateDisplay = () => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `Time remaining: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            };
+            updateDisplay();
+
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    alert("Payment time expired. Please try again.");
+                    popupStep3Payment.style.display = 'none';
+                    popupStep2.style.display = 'flex';
+                }
+            }, 1000);
+        }
+
         function showWelcomePopup() {
+            clearInterval(countdownInterval);
+            popupStep3Payment.style.display = 'none';
             popupStep2.style.display = 'none';
-            popupStep3.style.display = 'flex';
+            popupStep4.style.display = 'flex';
             welcomeHeading.innerHTML = `<span class="golden-text-gradient">${userData.name}, Aapka Dhanyawad!</span>`;
         }
 
-        // Step 3: Data ko Google Sheets mein bhejna
         async function sendDataToGoogleSheets(data, isSecretCode) {
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
-            
             const formData = new FormData();
             formData.append('name', data.name);
             formData.append('number', data.number);
@@ -358,13 +419,8 @@
             formData.append('transaction_id', data.transaction_id);
 
             try {
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData
-                });
-
+                const response = await fetch(scriptURL, { method: 'POST', body: formData });
                 if (response.ok) {
-                    // Data successfully sent
                     loader.style.display = 'none';
                     localStorage.setItem('hasPaid', 'true');
                     okayButton.style.display = 'block';
@@ -382,11 +438,9 @@
             }
         }
 
-        // Okay button par click hone par redirect karna
         okayButton.addEventListener('click', () => {
             window.location.href = 'govt-all-services.html';
         });
-
     </script>
 </body>
 </html>
