@@ -150,13 +150,32 @@
             opacity: 0; transition: opacity 0.4s ease-in-out;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
+        
+        /* Updated Modal Styles for a modern, distinct look */
         .modal-content {
-            background-color: #FFFFFF; border-radius: 1.5rem; padding: 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); max-width: 650px; width: 95%; position: relative;
-            transform: translateY(-50px); transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
-            margin: 20px; overflow-y: auto; max-height: 90vh;
+            background-color: #f0f2f5; /* Light grey background for contrast */
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            max-width: 650px;
+            width: 95%;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
+            margin: 20px;
+            overflow-y: auto;
+            max-height: 90vh;
+            border: 5px solid #00A896; /* Accent border color */
+            animation: modal-pop-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
+        
+        @keyframes modal-pop-in {
+            0% { transform: scale(0.9) translateY(-20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
         .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+        
         .modal-close-button {
             position: absolute; top: 1rem; right: 1rem; background: #fff; border: 1px solid #ddd;
             width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; line-height: 1;
@@ -164,14 +183,43 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center;
         }
         .modal-close-button:hover { background-color: #e53e3e; color: #fff; transform: rotate(90deg); }
+        
         .modal-list a {
-            display: block; padding: 1rem 1.25rem; background-color: #f7f9fc; border-radius: 0.75rem;
-            margin-bottom: 0.75rem; color: #333; font-weight: 500; transition: all 0.2s ease-in-out;
+            display: block; padding: 1rem 1.25rem; background-color: #ffffff;
+            border-radius: 0.75rem; margin-bottom: 0.75rem;
+            color: #333; font-weight: 500; transition: all 0.2s ease-in-out;
             text-decoration: none; border-left: 5px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-        .modal-list a:hover { background-color: #eaf1f7; transform: translateX(5px); border-left-color: var(--link-hover-color, #007bff); }
-        .modal-overlay[id="upscModal"] .modal-list a:hover { --link-hover-color: #00458a; }
-        /* Add other modal hover colors here if needed */
+        .modal-list a:hover {
+            background-color: #f0f8ff;
+            transform: translateX(5px);
+            border-left-color: var(--link-hover-color, #007bff);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Modal-specific header colors for consistency */
+        #upscModal .modal-list a:hover { --link-hover-color: #00458a; }
+        #sscModal .modal-list a:hover { --link-hover-color: #2a7337; }
+        #rrbModal .modal-list a:hover { --link-hover-color: #c6312a; }
+        #ibpsModal .modal-list a:hover { --link-hover-color: #006992; }
+        #rbiModal .modal-list a:hover { --link-hover-color: #8b0000; }
+        #statePSCsModal .modal-list a:hover { --link-hover-color: #805ad5; }
+        #ntaModal .modal-list a:hover { --link-hover-color: #f57f17; }
+        #cbseModal .modal-list a:hover { --link-hover-color: #3f51b5; }
+        #stateEdBoardsModal .modal-list a:hover { --link-hover-color: #4caf50; }
+        #kvsNvsModal .modal-list a:hover { --link-hover-color: #e91e63; }
+        #armyModal .modal-list a:hover, #navyModal .modal-list a:hover, #airForceModal .modal-list a:hover { --link-hover-color: #003366; }
+        #drdoModal .modal-list a:hover { --link-hover-color: #1a237e; }
+        #isroModal .modal-list a:hover { --link-hover-color: #ff5722; }
+        #barcModal .modal-list a:hover { --link-hover-color: #4a148c; }
+        #licModal .modal-list a:hover { --link-hover-color: #004d40; }
+        #fciModal .modal-list a:hover { --link-hover-color: #e65100; }
+        #esicModal .modal-list a:hover { --link-hover-color: #01579b; }
+        #nabardModal .modal-list a:hover { --link-hover-color: #33691e; }
+        #sebiModal .modal-list a:hover { --link-hover-color: #212121; }
+        #psuModal .modal-list a:hover { --link-hover-color: #6a1b9a; }
+        #nraModal .modal-list a:hover { --link-hover-color: #4e342e; }
 
         .search-container { margin-bottom: 2rem; width: 100%; max-width: 600px; position: relative; }
         .search-input {
@@ -202,7 +250,6 @@
 
         <main id="card-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
 
-            <!-- Cards with new icon divs -->
             <div class="card upsc" data-modal-target="upscModal" data-keywords="upsc संघ लोक सेवा आयोग civil services ese cse ifos nda cds capf">
                 <div class="card-content">
                     <div class="card-icon">🏛️</div>
@@ -373,8 +420,6 @@
 
     </div>
 
-    <!-- Modals (Popups) for each card -->
-    <!-- All modals from the original file are included here, but hidden for brevity -->
     <div id="upscModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -398,7 +443,6 @@
         </div>
     </div>
     
-    <!-- Modal for SSC -->
     <div id="sscModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -424,7 +468,6 @@
         </div>
     </div>
     
-    <!-- Modal for RRB -->
     <div id="rrbModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -499,7 +542,6 @@
         </div>
     </div>
     
-    <!-- Modal for IBPS -->
     <div id="ibpsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -533,7 +575,6 @@
         </div>
     </div>
 
-    <!-- Modal for RBI -->
     <div id="rbiModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -577,7 +618,6 @@
         </div>
     </div>
 
-    <!-- Modal for State PSCs, SSCs & SSSBs -->
     <div id="statePSCsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -643,7 +683,6 @@
         </div>
     </div>
 
-    <!-- Modal for NTA -->
     <div id="ntaModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -656,7 +695,6 @@
         </div>
     </div>
 
-    <!-- Modal for CBSE -->
     <div id="cbseModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -667,7 +705,6 @@
         </div>
     </div>
 
-    <!-- Modal for State Education Boards -->
     <div id="stateEdBoardsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -678,7 +715,6 @@
         </div>
     </div>
 
-    <!-- Modal for KVS & NVS -->
     <div id="kvsNvsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -689,7 +725,6 @@
         </div>
     </div>
 
-    <!-- Modal for Indian Army -->
     <div id="armyModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -757,7 +792,6 @@
         </div>
     </div>
 
-    <!-- Modal for Indian Navy -->
     <div id="navyModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -768,7 +802,6 @@
         </div>
     </div>
 
-    <!-- Modal for Indian Air Force -->
     <div id="airForceModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -780,7 +813,6 @@
         </div>
     </div>
 
-    <!-- Modal for DRDO -->
     <div id="drdoModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -791,7 +823,6 @@
         </div>
     </div>
 
-    <!-- Modal for ISRO -->
     <div id="isroModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -802,7 +833,6 @@
         </div>
     </div>
 
-    <!-- Modal for BARC -->
     <div id="barcModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -813,7 +843,6 @@
         </div>
     </div>
 
-    <!-- Modal for LIC -->
     <div id="licModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -824,7 +853,6 @@
         </div>
     </div>
 
-    <!-- Modal for FCI -->
     <div id="fciModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -835,7 +863,6 @@
         </div>
     </div>
 
-    <!-- Modal for ESIC -->
     <div id="esicModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -846,7 +873,6 @@
         </div>
     </div>
 
-    <!-- Modal for NABARD -->
     <div id="nabardModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -857,7 +883,6 @@
         </div>
     </div>
 
-    <!-- Modal for SEBI -->
     <div id="sebiModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -868,7 +893,6 @@
         </div>
     </div>
 
-    <!-- Modal for Individual PSUs -->
     <div id="psuModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -879,7 +903,6 @@
         </div>
     </div>
 
-    <!-- Modal for NRA -->
     <div id="nraModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
