@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,30 +16,56 @@
     <meta name="author" content="UP Board Exams Guide">
     
     <style>
-        /* Color Palette: Serene Blue (#3b82f6), Soft Gray (#e5e7eb), and Pure White (#ffffff) */
+        /* Ultra Pro Max Style Design */
         body {
             font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-            background-color: #f1f5f9; /* Light Gray */
-            color: #1f2937; /* Dark Slate Gray */
+            background: linear-gradient(135deg, #1b264f 0%, #171d3d 100%);
+            color: #d1d5db; /* Light Gray */
+            padding-bottom: 4rem;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            transform: scale(0.95);
+            border-radius: 1.5rem;
+            z-index: -1;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 16px 64px 0 rgba(0, 0, 0, 0.5);
+        }
+        .card:hover::before {
+            transform: scale(1);
         }
         .section-heading {
-            border-bottom: 3px solid #3b82f6; /* Serene Blue */
+            border-bottom: 3px solid #7c3aed; /* Vibrant Purple */
+            color: #f3f4f6; /* Off-White */
+            font-weight: 800;
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            color: #1f2937;
-        }
-        .card {
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 25px -5px rgba(31, 41, 55, 0.1), 0 8px 10px -5px rgba(31, 41, 55, 0.05);
-            padding: 2rem;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid rgba(31, 41, 55, 0.1);
-        }
-        .card:hover {
-            box-shadow: 0 25px 35px -5px rgba(31, 41, 55, 0.15), 0 15px 15px -5px rgba(31, 41, 55, 0.08);
-            transform: translateY(-8px);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .chart-container {
             position: relative;
@@ -50,48 +76,42 @@
             height: 350px;
             max-height: 500px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 420px;
-            }
-        }
         .flowchart-step {
-            border: 3px solid #1f2937;
-            color: #1f2937;
-            background-color: #e5e7eb;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 2px solid #a855f7;
+            color: #e5e7eb;
             transition: all 0.3s ease-in-out;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         .flowchart-step:hover {
-            background-color: #1f2937;
+            background-color: #a855f7;
             color: #ffffff;
             transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(168, 85, 247, 0.5);
         }
         .flowchart-arrow {
-            color: #3b82f6;
+            color: #7c3aed;
         }
         .subject-category-heading {
-            color: #1f2937;
+            color: #d1d5db;
             font-weight: 700;
             margin-bottom: 1rem;
             font-size: 1.5rem;
             padding-bottom: 0.25rem;
-            border-bottom: 1px solid #3b82f6;
-        }
-        .subject-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #7c3aed;
         }
         .subject-item .icon {
-            color: #3b82f6;
+            color: #c084fc; /* Light Purple */
             margin-right: 1rem;
             font-size: 1.25rem;
         }
         .timeline-step {
-            color: #1f2937;
-            background-color: #f1f5f9;
-            border-color: #3b82f6;
+            color: #e5e7eb;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-color: #a855f7;
         }
         .modal-overlay {
             position: fixed;
@@ -99,14 +119,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
             overflow-y: auto;
             padding: 2rem 1rem;
         }
@@ -115,17 +135,18 @@
             visibility: visible;
         }
         .modal-content {
-            background-color: #ffffff;
+            background: linear-gradient(145deg, #2b355a, #202a4b);
             border-radius: 1.5rem;
             padding: 2.5rem;
-            box-shadow: 0 20px 30px -5px rgba(31, 41, 55, 0.3), 0 10px 10px -5px rgba(31, 41, 55, 0.15);
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.5);
             max-width: 90%;
             width: 900px;
             position: relative;
             transform: translateY(-50px);
             opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease-in-out;
             margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .modal-overlay.active .modal-content {
             transform: translateY(0);
@@ -139,42 +160,46 @@
             border: none;
             font-size: 2rem;
             cursor: pointer;
-            color: #1f2937;
+            color: #d1d5db;
             transition: color 0.2s;
         }
         .modal-close-button:hover {
-            color: #3b82f6;
+            color: #a855f7;
         }
         .lang-btn {
             padding: 0.75rem 2rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid #1f2937;
-            color: #1f2937;
-            background-color: #ffffff;
+            border: 2px solid #4a00e0;
+            color: #4a00e0;
+            background-color: transparent;
+            font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
         }
         .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
         .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
         .lang-btn.active, .lang-btn:hover {
-            background-color: #1f2937;
+            background: #4a00e0;
             color: #ffffff;
+            box-shadow: 0 0 10px #4a00e0;
+            transform: scale(1.05);
         }
         .option-card {
-            background-color: #f1f5f9;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
             border-radius: 1rem;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(31, 41, 55, 0.1), 0 2px 4px -1px rgba(31, 41, 55, 0.05);
-            border: 1px solid #3b82f6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.2s;
         }
         .option-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 12px -2px rgba(31, 41, 55, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
         }
         .option-icon {
             font-size: 2.5rem;
-            color: #3b82f6;
+            color: #c084fc;
             margin-bottom: 1rem;
         }
          .modal-buttons-grid {
@@ -184,34 +209,35 @@
             margin-top: 1.5rem;
         }
         .modal-subject-button {
-            background-color: #3b82f6;
+            background: linear-gradient(45deg, #6d28d9, #9333ea);
             color: white;
             padding: 0.75rem 1rem;
             border-radius: 0.75rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: background 0.2s, transform 0.2s;
             text-align: center;
         }
         .modal-subject-button:hover {
-            background-color: #2563eb;
+            background: linear-gradient(45deg, #5b21b6, #7e22ce);
             transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="text-[#1f2937] leading-relaxed">
+<body class="text-gray-300 leading-relaxed">
 
     <div class="container mx-auto p-4 sm:p-8 lg:p-12">
 
         <header class="text-center mb-10">
-            <h1 id="header-title" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1f2937] mb-4 drop-shadow-lg">📚 यूपी बोर्ड परीक्षा मार्गदर्शिका 📚</h1>
-            <p id="header-subtitle" class="text-lg sm:text-xl lg:text-2xl text-[#3b82f6] font-semibold">कक्षा 10 और 12 के छात्रों के लिए</p>
+            <h1 id="header-title" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">📚 यूपी बोर्ड परीक्षा मार्गदर्शिका 📚</h1>
+            <p id="header-subtitle" class="text-lg sm:text-xl lg:text-2xl text-purple-400 font-semibold">कक्षा 10 और 12 के छात्रों के लिए</p>
         </header>
 
         <div class="text-center mb-12">
             <div class="inline-flex rounded-xl shadow-sm" role="group">
                 <button type="button" class="lang-btn active" data-lang="hi">हिन्दी</button>
                 <button type="button" class="lang-btn" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="bho">भोजपुरी</button>
             </div>
         </div>
 
@@ -230,21 +256,21 @@
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight">
                             <span id="sec2-step1-name">लिखित परीक्षा</span>
                         </div>
-                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-[#1f2937]">मुख्य परीक्षा</p>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-300">मुख्य परीक्षा</p>
                     </div>
                     <div class="text-6xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight">
                             <span id="sec2-step2-name">प्रैक्टिकल/आंतरिक मूल्यांकन</span>
                         </div>
-                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-[#1f2937]">स्कूल स्तर पर</p>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-300">स्कूल स्तर पर</p>
                     </div>
                     <div class="text-6xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight">
                             <span id="sec2-step3-name">अंतिम परिणाम</span>
                         </div>
-                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-[#1f2937]">मेरिट सूची</p>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-300">मेरिट सूची</p>
                     </div>
                 </div>
             </section>
@@ -266,8 +292,8 @@
                     <div>
                         <h3 id="sec3-optional-title" class="subject-category-heading">वैकल्पिक विषय</h3>
                         <div class="space-y-4">
-                            <p class="text-base text-gray-700">छात्र अपनी रुचि के अनुसार इनमें से कोई एक विषय चुन सकते हैं:</p>
-                            <ul class="list-disc list-inside space-y-2 pl-4 text-base text-gray-700">
+                            <p class="text-base text-gray-400">छात्र अपनी रुचि के अनुसार इनमें से कोई एक विषय चुन सकते हैं:</p>
+                            <ul class="list-disc list-inside space-y-2 pl-4 text-base text-gray-400">
                                 <li>संस्कृत, उर्दू, पंजाबी, बंगला, तमिल</li>
                                 <li>कला, वाणिज्य, गृह विज्ञान</li>
                                 <li>कृषि, सिलाई</li>
@@ -315,27 +341,27 @@
                 <p id="sec5-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">यूपी बोर्ड परीक्षाओं में सफलता के लिए एक व्यवस्थित और अनुशासित रणनीति की आवश्यकता होती है।</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h3 id="sec5-steps-title" class="text-2xl font-bold text-[#1f2937] mb-4">📚 मुख्य चरण:</h3>
-                        <ol class="relative border-l-4 border-[#3b82f6] pl-6 space-y-8">
+                        <h3 id="sec5-steps-title" class="text-2xl font-bold text-gray-200 mb-4">📚 मुख्य चरण:</h3>
+                        <ol class="relative border-l-4 border-purple-500 pl-6 space-y-8">
                             <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl shadow-md">
-                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">1</div>
-                                <h4 id="sec5-step1-title" class="font-semibold text-xl text-[#1f2937] mb-1">पाठ्यक्रम को समझें</h4>
-                                <p id="sec5-step1-desc" class="text-base text-gray-700">अपने विशिष्ट ग्रेड और विषय के लिए विस्तृत पाठ्यक्रम को अच्छी तरह से पढ़ें और समझें।</p>
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">1</div>
+                                <h4 id="sec5-step1-title" class="font-semibold text-xl text-white mb-1">पाठ्यक्रम को समझें</h4>
+                                <p id="sec5-step1-desc" class="text-base text-gray-400">अपने विशिष्ट ग्रेड और विषय के लिए विस्तृत पाठ्यक्रम को अच्छी तरह से पढ़ें और समझें।</p>
                             </li>
                             <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl shadow-md">
-                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">2</div>
-                                <h4 id="sec5-step2-title" class="font-semibold text-xl text-[#1f2937] mb-1">एक समय सारणी बनाएँ</h4>
-                                <p id="sec5-step2-desc" class="text-base text-gray-700">सभी विषयों को कवर करने के लिए एक यथार्थवादी और संतुलित अध्ययन समय सारणी तैयार करें।</p>
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">2</div>
+                                <h4 id="sec5-step2-title" class="font-semibold text-xl text-white mb-1">एक समय सारणी बनाएँ</h4>
+                                <p id="sec5-step2-desc" class="text-base text-gray-400">सभी विषयों को कवर करने के लिए एक यथार्थवादी और संतुलित अध्ययन समय सारणी तैयार करें।</p>
                             </li>
                             <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl shadow-md">
-                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">3</div>
-                                <h4 id="sec5-step3-title" class="font-semibold text-xl text-[#1f2937] mb-1">अभ्यास और पुनरावृत्ति</h4>
-                                <p id="sec5-step3-desc" class="text-base text-gray-700">नियमित रूप से पिछले वर्षों के प्रश्न पत्रों (PYQs) को हल करें और सभी विषयों को दोहराते रहें।</p>
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">3</div>
+                                <h4 id="sec5-step3-title" class="font-semibold text-xl text-white mb-1">अभ्यास और पुनरावृत्ति</h4>
+                                <p id="sec5-step3-desc" class="text-base text-gray-400">नियमित रूप से पिछले वर्षों के प्रश्न पत्रों (PYQs) को हल करें और सभी विषयों को दोहराते रहें।</p>
                             </li>
                         </ol>
                     </div>
                     <div>
-                        <h3 id="sec5-chart-title" class="text-2xl font-bold text-[#1f2937] mb-4">📊 अनुशंसित अध्ययन समय आवंटन</h3>
+                        <h3 id="sec5-chart-title" class="text-2xl font-bold text-gray-200 mb-4">📊 अनुशंसित अध्ययन समय आवंटन</h3>
                         <div class="chart-container h-96">
                             <canvas id="studyTimeChart"></canvas>
                         </div>
@@ -346,10 +372,10 @@
             <section class="card">
                 <h2 id="sec6-title" class="text-3xl sm:text-4xl font-bold section-heading">6. महत्वपूर्ण जानकारी ℹ️</h2>
                 <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">परीक्षा से संबंधित कुछ महत्वपूर्ण तथ्य और नियम।</p>
-                <ul class="list-disc list-inside space-y-4 text-base text-gray-700">
-                    <li id="sec6-li1"><strong class="text-[#1f2937]">प्रवेश पत्र:</strong> परीक्षा से कुछ हफ्ते पहले प्रवेश पत्र जारी किए जाते हैं। इसे डाउनलोड करना और सुरक्षित रखना अनिवार्य है।</li>
-                    <li id="sec6-li2"><strong class="text-[#1f2937]">रिजल्ट:</strong> परिणाम आमतौर पर मई-जून के महीने में आधिकारिक वेबसाइट पर घोषित किए जाते हैं।</li>
-                    <li id="sec6-li3"><strong class="text-[#1f2937]">पिछले वर्षों के पेपर्स:</strong> ये परीक्षा पैटर्न और प्रश्नों के प्रकार को समझने में मदद करते हैं। इन्हें नियमित रूप से हल करें।</li>
+                <ul class="list-disc list-inside space-y-4 text-base text-gray-400">
+                    <li id="sec6-li1"><strong class="text-white">प्रवेश पत्र:</strong> परीक्षा से कुछ हफ्ते पहले प्रवेश पत्र जारी किए जाते हैं। इसे डाउनलोड करना और सुरक्षित रखना अनिवार्य है।</li>
+                    <li id="sec6-li2"><strong class="text-white">रिजल्ट:</strong> परिणाम आमतौर पर मई-जून के महीने में आधिकारिक वेबसाइट पर घोषित किए जाते हैं।</li>
+                    <li id="sec6-li3"><strong class="text-white">पिछले वर्षों के पेपर्स:</strong> ये परीक्षा पैटर्न और प्रश्नों के प्रकार को समझने में मदद करते हैं। इन्हें नियमित रूप से हल करें।</li>
                 </ul>
             </section>
 
@@ -357,21 +383,21 @@
                 <h2 id="sec7-title" class="text-3xl sm:text-4xl font-bold section-heading">7. क्या नहीं करना है? 🚫</h2>
                 <p id="sec7-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">यह जानना कि किन गलतियों से बचना है, उतना ही महत्वपूर्ण है जितना यह जानना कि कैसे अध्ययन करना है।</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-100 border border-red-300 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div><strong class="text-lg text-red-800" id="sec7-dont1-title">रटकर सीखना:</strong> <span id="sec7-dont1-desc">अवधारणाओं को समझे बिना याद करने से बचें। परीक्षा अनुप्रयोग और समझ पर केंद्रित है।</span></div>
+                    <div class="flex items-start p-4 bg-red-800/20 border border-red-600 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-200" id="sec7-dont1-title">रटकर सीखना:</strong> <span id="sec7-dont1-desc" class="text-gray-400">अवधारणाओं को समझे बिना याद करने से बचें। परीक्षा अनुप्रयोग और समझ पर केंद्रित है।</span></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-100 border border-red-300 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div><strong class="text-lg text-red-800" id="sec7-dont2-title">पाठ्यक्रम की उपेक्षा:</strong> <span id="sec7-dont2-desc">आधिकारिक पाठ्यक्रम पर टिके रहें। पुरानी जानकारी पर निर्भर रहना हानिकारक हो सकता है।</span></div>
+                    <div class="flex items-start p-4 bg-red-800/20 border border-red-600 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-200" id="sec7-dont2-title">पाठ्यक्रम की उपेक्षा:</strong> <span id="sec7-dont2-desc" class="text-gray-400">आधिकारिक पाठ्यक्रम पर टिके रहें। पुरानी जानकारी पर निर्भर रहना हानिकारक हो सकता है।</span></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-100 border border-red-300 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div><strong class="text-lg text-red-800" id="sec7-dont3-title">खराब समय प्रबंधन:</strong> <span id="sec7-dont3-desc">एक ही प्रश्न पर समय बर्बाद न करें। परीक्षा हॉल में रणनीतिक रहें।</span></div>
+                    <div class="flex items-start p-4 bg-red-800/20 border border-red-600 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-200" id="sec7-dont3-title">खराब समय प्रबंधन:</strong> <span id="sec7-dont3-desc" class="text-gray-400">एक ही प्रश्न पर समय बर्बाद न करें। परीक्षा हॉल में रणनीतिक रहें।</span></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-100 border border-red-300 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div><strong class="text-lg text-red-800" id="sec7-dont4-title">आत्म-देखभाल की उपेक्षा:</strong> <span id="sec7-dont4-desc">एक स्वस्थ मन और शरीर बेहतर प्रदर्शन के लिए आवश्यक है। भोजन और नींद को न छोड़ें।</span></div>
+                    <div class="flex items-start p-4 bg-red-800/20 border border-red-600 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-200" id="sec7-dont4-title">आत्म-देखभाल की उपेक्षा:</strong> <span id="sec7-dont4-desc" class="text-gray-400">एक स्वस्थ मन और शरीर बेहतर प्रदर्शन के लिए आवश्यक है। भोजन और नींद को न छोड़ें।</span></div>
                     </div>
                 </div>
             </section>
@@ -379,10 +405,10 @@
             <section class="card">
                 <h2 id="sec8-title" class="text-3xl sm:text-4xl font-bold section-heading">8. परीक्षा दिवस नियम और विनियम 📋</h2>
                 <p id="sec8-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">परीक्षा के दिन नियमों का पालन करने से एक सहज और तनाव-मुक्त अनुभव सुनिश्चित होता है।</p>
-                <ul class="list-disc list-inside space-y-4 text-base text-gray-700">
-                    <li id="sec8-li1"><strong class="text-[#1f2937]">प्रवेश पत्र और आईडी:</strong> अपना प्रवेश पत्र और एक वैध फोटो आईडी ले जाना अनिवार्य है। इनके बिना, प्रवेश की अनुमति नहीं है।</li>
-                    <li id="sec8-li2"><strong class="text-[#1f2937]">निषिद्ध वस्तुएँ:</strong> मोबाइल फोन, स्मार्टवॉच और कोई भी इलेक्ट्रॉनिक उपकरण परीक्षा हॉल के अंदर सख्ती से निषिद्ध हैं।</li>
-                    <li id="sec8-li3"><strong class="text-[#1f2937]">समय प्रबंधन:</strong> प्रदान किए गए रफ पेपर का उपयोग करें और सभी प्रश्नों को हल करने के लिए अपने समय का प्रबंधन करें।</li>
+                <ul class="list-disc list-inside space-y-4 text-base text-gray-400">
+                    <li id="sec8-li1"><strong class="text-white">प्रवेश पत्र और आईडी:</strong> अपना प्रवेश पत्र और एक वैध फोटो आईडी ले जाना अनिवार्य है। इनके बिना, प्रवेश की अनुमति नहीं है।</li>
+                    <li id="sec8-li2"><strong class="text-white">निषिद्ध वस्तुएँ:</strong> मोबाइल फोन, स्मार्टवॉच और कोई भी इलेक्ट्रॉनिक उपकरण परीक्षा हॉल के अंदर सख्ती से निषिद्ध हैं।</li>
+                    <li id="sec8-li3"><strong class="text-white">समय प्रबंधन:</strong> प्रदान किए गए रफ पेपर का उपयोग करें और सभी प्रश्नों को हल करने के लिए अपने समय का प्रबंधन करें।</li>
                 </ul>
             </section>
 
@@ -392,8 +418,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="option-card flex flex-col items-center text-center">
                         <span class="option-icon">📝</span>
-                        <h3 id="sec9-marks-title" class="font-bold text-2xl text-[#1f2937] mb-2">मार्किंग प्रणाली</h3>
-                        <ul id="sec9-marks-list" class="list-disc list-inside space-y-2 text-base text-gray-700 text-left w-full pl-6">
+                        <h3 id="sec9-marks-title" class="font-bold text-2xl text-white mb-2">मार्किंग प्रणाली</h3>
+                        <ul id="sec9-marks-list" class="list-disc list-inside space-y-2 text-base text-gray-400 text-left w-full pl-6">
                             <li><strong>लिखित परीक्षा:</strong> 70 अंक</li>
                             <li><strong>आंतरिक मूल्यांकन:</strong> 30 अंक (प्रोजेक्ट कार्य, असाइनमेंट, प्रैक्टिकल)</li>
                             <li><strong>कुल:</strong> 100 अंक प्रति विषय</li>
@@ -401,8 +427,8 @@
                     </div>
                     <div class="option-card flex flex-col items-center text-center">
                         <span class="option-icon">🎓</span>
-                        <h3 id="sec9-grading-title" class="font-bold text-2xl text-[#1f2937] mb-2">ग्रेडिंग प्रणाली</h3>
-                        <ul id="sec9-grading-list" class="list-disc list-inside space-y-2 text-base text-gray-700 text-left w-full pl-6">
+                        <h3 id="sec9-grading-title" class="font-bold text-2xl text-white mb-2">ग्रेडिंग प्रणाली</h3>
+                        <ul id="sec9-grading-list" class="list-disc list-inside space-y-2 text-base text-gray-400 text-left w-full pl-6">
                             <li><strong>91-100:</strong> A1 ग्रेड</li>
                             <li><strong>81-90:</strong> A2 ग्रेड</li>
                             <li><strong>71-80:</strong> B1 ग्रेड</li>
@@ -418,8 +444,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="option-card flex flex-col items-center text-center">
                         <span class="option-icon">🏫</span>
-                        <h3 id="sec10-highschool-title" class="font-bold text-2xl text-[#1f2937] mb-2">हाई स्कूल (कक्षा 10) के बाद</h3>
-                        <ul id="sec10-highschool-list" class="list-disc list-inside space-y-2 text-base text-gray-700 text-left w-full pl-6">
+                        <h3 id="sec10-highschool-title" class="font-bold text-2xl text-white mb-2">हाई स्कूल (कक्षा 10) के बाद</h3>
+                        <ul id="sec10-highschool-list" class="list-disc list-inside space-y-2 text-base text-gray-400 text-left w-full pl-6">
                             <li><strong>इंटरमीडिएट (कक्षा 12):</strong> छात्र अपनी रुचि के अनुसार विज्ञान, वाणिज्य या कला स्ट्रीम में प्रवेश ले सकते हैं।</li>
                             <li><strong>पॉलिटेक्निक:</strong> तकनीकी शिक्षा के लिए 3 साल का डिप्लोमा कोर्स।</li>
                             <li><strong>ITI:</strong> विभिन्न ट्रेडों में औद्योगिक प्रशिक्षण।</li>
@@ -427,8 +453,8 @@
                     </div>
                     <div class="option-card flex flex-col items-center text-center">
                         <span class="option-icon">🎓</span>
-                        <h3 id="sec10-intermediate-title" class="font-bold text-2xl text-[#1f2937] mb-2">इंटरमीडिएट (कक्षा 12) के बाद</h3>
-                        <ul id="sec10-intermediate-list" class="list-disc list-inside space-y-2 text-base text-gray-700 text-left w-full pl-6">
+                        <h3 id="sec10-intermediate-title" class="font-bold text-2xl text-white mb-2">इंटरमीडिएट (कक्षा 12) के बाद</h3>
+                        <ul id="sec10-intermediate-list" class="list-disc list-inside space-y-2 text-base text-gray-400 text-left w-full pl-6">
                             <li><strong>स्नातक:</strong> कला, विज्ञान या वाणिज्य में स्नातक डिग्री (B.A., B.Sc., B.Com)।</li>
                             <li><strong>पेशेवर कोर्स:</strong> इंजीनियरिंग, मेडिकल, कानून या प्रबंधन में कोर्स।</li>
                             <li><strong>सरकारी नौकरी:</strong> विभिन्न प्रतियोगी परीक्षाओं की तैयारी।</li>
@@ -440,21 +466,21 @@
             <section class="card">
                 <h2 id="sec11-title" class="text-3xl sm:text-4xl font-bold section-heading">11. परीक्षा की समय-सीमा 🗓️</h2>
                 <p id="sec11-p1" class="text-lg mb-8">यूपी बोर्ड परीक्षा की प्रक्रिया आमतौर पर इस समय-सीमा का पालन करती है।</p>
-                <ol class="relative border-l-4 border-[#3b82f6] pl-6 space-y-6">
+                <ol class="relative border-l-4 border-purple-500 pl-6 space-y-6">
                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl">
-                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">1</div>
-                        <h4 id="sec11-step1-title" class="font-semibold text-xl text-[#1f2937] mb-1">अधिसूचना और आवेदन</h4>
-                        <p id="sec11-step1-desc" class="text-base text-gray-700"><strong>समय:</strong> आवेदन प्रक्रिया आमतौर पर जुलाई से अक्टूबर तक चलती है।</p>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">1</div>
+                        <h4 id="sec11-step1-title" class="font-semibold text-xl text-white mb-1">अधिसूचना और आवेदन</h4>
+                        <p id="sec11-step1-desc" class="text-base text-gray-400"><strong>समय:</strong> आवेदन प्रक्रिया आमतौर पर जुलाई से अक्टूबर तक चलती है।</p>
                     </li>
                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl">
-                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">2</div>
-                        <h4 id="sec11-step2-title" class="font-semibold text-xl text-[#1f2937] mb-1">लिखित परीक्षा की तिथि</h4>
-                        <p id="sec11-step2-desc" class="text-base text-gray-700"><strong>समय:</strong> परीक्षाएं आमतौर पर फरवरी-मार्च के महीने में आयोजित की जाती हैं।</p>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">2</div>
+                        <h4 id="sec11-step2-title" class="font-semibold text-xl text-white mb-1">लिखित परीक्षा की तिथि</h4>
+                        <p id="sec11-step2-desc" class="text-base text-gray-400"><strong>समय:</strong> परीक्षाएं आमतौर पर फरवरी-मार्च के महीने में आयोजित की जाती हैं।</p>
                     </li>
                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-xl">
-                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#3b82f6] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">3</div>
-                        <h4 id="sec11-step3-title" class="font-semibold text-xl text-[#1f2937] mb-1">परिणाम घोषणा</h4>
-                        <p id="sec11-step3-desc" class="text-base text-gray-700"><strong>समय:</strong> परिणाम आमतौर पर मई-जून में आधिकारिक वेबसाइट पर घोषित किए जाते हैं।</p>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-purple-500 rounded-full -left-4 ring-8 ring-gray-900 font-bold text-lg text-white">3</div>
+                        <h4 id="sec11-step3-title" class="font-semibold text-xl text-white mb-1">परिणाम घोषणा</h4>
+                        <p id="sec11-step3-desc" class="text-base text-gray-400"><strong>समय:</strong> परिणाम आमतौर पर मई-जून में आधिकारिक वेबसाइट पर घोषित किए जाते हैं।</p>
                     </li>
                 </ol>
             </section>
@@ -471,17 +497,17 @@
             
         </main>
 
-        <footer class="text-center mt-16 border-t-2 pt-8 border-[#1f2937]/20">
-            <p id="footer-text" class="text-gray-700 text-lg font-medium">&copy; 2025 | आपकी यूपी बोर्ड परीक्षा के लिए शुभकामनाएँ! ✨</p>
+        <footer class="text-center mt-16 pt-8 border-t border-purple-500/50">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | आपकी यूपी बोर्ड परीक्षा के लिए शुभकामनाएँ! ✨</p>
         </footer>
     </div>
 
     <div id="examDetailsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button">&times;</button>
-            <h3 id="exam-modal-title" class="text-2xl font-bold text-[#1f2937] mb-4">यूपी बोर्ड परीक्षा विवरण</h3>
-            <p id="exam-modal-p1" class="text-base text-gray-700 leading-relaxed mb-4">यूपी बोर्ड परीक्षाएं साल में एक बार आयोजित की जाती हैं। ये परीक्षाएं मुख्य रूप से लिखित होती हैं, लेकिन कुछ विषयों में प्रैक्टिकल परीक्षा भी होती है।</p>
-            <ul class="list-disc list-inside space-y-2 text-base text-gray-700">
+            <h3 id="exam-modal-title" class="text-2xl font-bold text-white mb-4">यूपी बोर्ड परीक्षा विवरण</h3>
+            <p id="exam-modal-p1" class="text-base text-gray-400 leading-relaxed mb-4">यूपी बोर्ड परीक्षाएं साल में एक बार आयोजित की जाती हैं। ये परीक्षाएं मुख्य रूप से लिखित होती हैं, लेकिन कुछ विषयों में प्रैक्टिकल परीक्षा भी होती है।</p>
+            <ul class="list-disc list-inside space-y-2 text-base text-gray-400">
                 <li id="exam-modal-li1"><strong>परीक्षा का प्रकार:</strong> वार्षिक लिखित परीक्षा</li>
                 <li id="exam-modal-li2"><strong>माध्यम:</strong> हिंदी और अंग्रेजी</li>
                 <li id="exam-modal-li3"><strong>उद्देश्य:</strong> छात्रों को अगली कक्षा में प्रवेश और भविष्य के लिए तैयार करना।</li>
@@ -492,9 +518,9 @@
     <div id="writtenExamModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button">&times;</button>
-            <h3 id="written-modal-title" class="text-2xl font-bold text-[#1f2937] mb-4">लिखित परीक्षा</h3>
-            <p id="written-modal-p1" class="text-base text-gray-700 leading-relaxed mb-4">लिखित परीक्षा में मुख्य रूप से विषय-विशिष्ट प्रश्न होते हैं, जिनमें बहुविकल्पीय, लघु उत्तरीय और दीर्घ उत्तरीय प्रश्न शामिल होते हैं। परीक्षा का पैटर्न पूरी तरह से निर्धारित पाठ्यक्रम पर आधारित होता है।</p>
-            <ul class="list-disc list-inside space-y-2 text-base text-gray-700">
+            <h3 id="written-modal-title" class="text-2xl font-bold text-white mb-4">लिखित परीक्षा</h3>
+            <p id="written-modal-p1" class="text-base text-gray-400 leading-relaxed mb-4">लिखित परीक्षा में मुख्य रूप से विषय-विशिष्ट प्रश्न होते हैं, जिनमें बहुविकल्पीय, लघु उत्तरीय और दीर्घ उत्तरीय प्रश्न शामिल होते हैं। परीक्षा का पैटर्न पूरी तरह से निर्धारित पाठ्यक्रम पर आधारित होता है।</p>
+            <ul class="list-disc list-inside space-y-2 text-base text-gray-400">
                 <li id="written-modal-li1"><strong>प्रश्न पत्र:</strong> प्रत्येक विषय के लिए एक अलग प्रश्न पत्र होता है।</li>
                 <li id="written-modal-li2"><strong>मूल्यांकन:</strong> लिखित परीक्षा के अंक अंतिम परिणाम का एक बड़ा हिस्सा होते हैं।</li>
                 <li id="written-modal-li3"><strong>नकारात्मक अंकन:</strong> कोई नकारात्मक अंकन नहीं होता है।</li>
@@ -583,7 +609,7 @@
                     'sec12-title': '12. Contact and Support 📞',
                     'sec12-p1': 'For more information, you can use the official website and helpline numbers.',
                     'sec12-list': '<li><strong>Official Website:</strong> upmsp.edu.in</li><li><strong>Helpline Number:</strong> (if available)</li><li><strong>Email:</strong> (if available)</li>',
-                    'footer-text': '&copy; 2025 | Best wishes for your UP Board exams! ✨',
+                    'footer-text': '&copy; 2025 | आपकी यूपी बोर्ड परीक्षा के लिए शुभकामनाएँ! ✨',
                     'studyChartData': {
                         labels: ['Subject Studies', 'Practice & Revision', 'Self-Study & Notes', 'Breaks'],
                         data: [50, 25, 15, 10]
@@ -666,8 +692,117 @@
                     'sec12-list': '<li><strong>आधिकारिक वेबसाइट:</strong> upmsp.edu.in</li><li><strong>हेल्पलाइन नंबर:</strong> (यदि उपलब्ध हो तो)</li><li><strong>ईमेल:</strong> (यदि उपलब्ध हो तो)</li>',
                     'footer-text': '&copy; 2025 | आपकी यूपी बोर्ड परीक्षा के लिए शुभकामनाएँ! ✨',
                     'studyChartData': {
-                        labels: ['विषय अध्ययन', 'अभ्यास और पुनरावृत्ति', 'स्व-अध्ययन और नोट्स', 'विराम'],
+                        labels: ['Subject Studies', 'Practice & Revision', 'Self-Study & Notes', 'Breaks'],
                         data: [50, 25, 15, 10]
+                    },
+                    'examModal': {
+                        'title': 'यूपी बोर्ड परीक्षा विवरण',
+                        'p1': 'यूपी बोर्ड परीक्षाएं साल में एक बार आयोजित की जाती हैं। ये परीक्षाएं मुख्य रूप से लिखित होती हैं, लेकिन कुछ विषयों में प्रैक्टिकल परीक्षा भी होती है।',
+                        'li1': '<strong>परीक्षा का प्रकार:</strong> वार्षिक लिखित परीक्षा',
+                        'li2': '<strong>माध्यम:</strong> हिंदी और अंग्रेजी',
+                        'li3': '<strong>उद्देश्य:</strong> छात्रों को अगली कक्षा में प्रवेश और भविष्य के लिए तैयार करना।'
+                    },
+                    'writtenModal': {
+                        'title': 'लिखित परीक्षा',
+                        'p1': 'लिखित परीक्षा में मुख्य रूप से विषय-विशिष्ट प्रश्न होते हैं, जिनमें बहुविकल्पीय, लघु उत्तरीय और दीर्घ उत्तरीय प्रश्न शामिल होते हैं। परीक्षा का पैटर्न पूरी तरह से निर्धारित पाठ्यक्रम पर आधारित होता है।',
+                        'li1': '<strong>प्रश्न पत्र:</strong> प्रत्येक विषय के लिए एक अलग प्रश्न पत्र होता है।',
+                        'li2': '<strong>मूल्यांकन:</strong> लिखित परीक्षा के अंक अंतिम परिणाम का एक बड़ा हिस्सा होते हैं।',
+                        'li3': '<strong>नकारात्मक अंकन:</strong> कोई नकारात्मक अंकन नहीं होता है।'
+                    }
+                },
+                'bho': {
+                    'header-title': '📚 यूपी बोर्ड परिक्षा गाइड 📚',
+                    'header-subtitle': 'दसवां आ बारहवां क्लास के लइकन खातिर',
+                    'sec1-title': '1. यूपी बोर्ड का ह? 🤔',
+                    'sec1-p1': 'उत्तर प्रदेश माध्यमिक शिक्षा परिषद (UP Board) एगो सरकारी संस्था ह जवन उत्तर प्रदेश राज्य में माध्यमिक शिक्षा (दसवां आ बारहवां क्लास) के नियंत्रित आ विनियमित करेला। ई बोर्ड हर साल लाखों लइकन के हाई स्कूल (दसवां क्लास) आ इंटरमीडिएट (बारहवां क्लास) के परीक्षा करावेला।',
+                    'sec2-title': '2. यूपी बोर्ड परिक्षा के बनावट 🎯',
+                    'sec2-p1': 'यूपी बोर्ड के परिक्षा में लिखल आ इंटरनल एसेसमेंट दुनु शामिल बा। एसेसमेंट से लइकन के कुल परफॉरमेंस के पता चलेला।',
+                    'sec2-step1-name': 'लिखल परिक्षा',
+                    'sec2-step1-desc': 'मुख्य परिक्षा',
+                    'sec2-step2-name': 'प्रैक्टिकल/इंटरनल एसेसमेंट',
+                    'sec2-step2-desc': 'स्कूल स्तर पर',
+                    'sec2-step3-name': 'अंतिम परिणाम',
+                    'sec2-step3-desc': 'मेरिट लिस्ट',
+                    'sec3-title': '3. हाई स्कूल के विषय (दसवां क्लास) 📝',
+                    'sec3-p1': 'हाई स्कूल के परिक्षा में मुख्य विषय आ ओकर पैटर्न।',
+                    'sec3-compulsory-title': 'अनिवार्य विषय',
+                    'sec3-optional-title': 'एच्छिक विषय',
+                    'sec4-title': '4. इंटरमीडिएट के विषय (बारहवां क्लास) 🧪',
+                    'sec4-p1': 'इंटरमीडिएट स्तर पर लइकन के अलग-अलग स्ट्रीम में से एगो चुने के होला।',
+                    'sec4-science-title': 'विज्ञान स्ट्रीम',
+                    'sec4-commerce-title': 'कॉमर्स स्ट्रीम',
+                    'sec4-arts-title': 'कला स्ट्रीम',
+                    'sec5-title': '5. परिक्षा के तइयारी 📈',
+                    'sec5-p1': 'यूपी बोर्ड के परिक्षा में सफल होखे खातिर एगो सिस्टमैटिक आ डिसिप्लिंड स्ट्रैटजी के जरूरत होला।',
+                    'sec5-steps-title': '📚 मुख्य कदम:',
+                    'sec5-step1-title': 'सिलबस के बुझि',
+                    'sec5-step1-desc': 'आपना क्लास आ विषय के पूरा सिलबस के बढ़िया से पढ़ि आ समझि।',
+                    'sec5-step2-title': 'टाइम टेबल बनाइँ',
+                    'sec5-step2-desc': 'सभ विषय के कवर करे खातिर एगो सही आ बैलेंस टाइम टेबल बनाईँ।',
+                    'sec5-step3-title': 'प्रैक्टिस आ रिवीजन',
+                    'sec5-step3-desc': 'नियमित रूप से पिछला साल के क्वेश्चन पेपर (PYQs) हल करीं आ सभ विषय के रिवीजन करत रहीं।',
+                    'sec5-chart-title': '📊 पढ़ाई के समय के आवंटन',
+                    'sec6-title': '6. जरूरी जानकारी ℹ️',
+                    'sec6-p1': 'परिक्षा से जुड़ल कुछ जरूरी बात आ नियम।',
+                    'sec6-li1': '<strong>एडमिट कार्ड:</strong> परिक्षा से कुछ हफ्ता पहिले एडमिट कार्ड जारी होला। एकरा के डाउनलोड क के सुरक्षित रखे के बहुत जरूरी बा।',
+                    'sec6-li2': '<strong>रिजल्ट:</strong> रिजल्ट आमतौर पर मई-जून के महीना में ऑफिशियल वेबसाइट पर आवेला।',
+                    'sec6-li3': '<strong>पिछला साल के पेपर:</strong> इ परिक्षा के पैटर्न आ सवाल के प्रकार समझे में मदद करेला। एकरा के नियमित रूप से हल करीं।',
+                    'sec7-title': '7. का ना करे के बा? 🚫',
+                    'sec7-p1': 'इ जानल कि कवन गलती ना करे के बा, ओतना ही जरूरी बा जतना इ जानल कि कइसे पढ़े के बा।',
+                    'sec7-dont1-title': 'रट के पढ़े से बचीं:',
+                    'sec7-dont1-desc': 'बिना कॉन्सेप्ट समझले रटे से बचीं। परिक्षा एप्लीकेशन आ समझ पर फोकस करेला।',
+                    'sec7-dont2-title': 'सिलबस के नजरअंदाज ना करीं:',
+                    'sec7-dont2-desc': 'ऑफिशियल सिलबस के अनुसार पढ़ीं। पुरान जानकारी पर निर्भर रहे के नुकसान हो सकेला।',
+                    'sec7-dont3-title': 'खराब टाइम मैनेजमेंट: ',
+                    'sec7-dont3-desc': 'एके सवाल पर समय बरबाद ना करीं। परिक्षा हॉल में स्मार्ट रहीँ।',
+                    'sec7-dont4-title': 'आपना ख्याल रखीं:',
+                    'sec7-dont4-desc': 'एगो स्वस्थ मन आ शरीर बेहतर परफॉरमेंस खातिर बहुत जरूरी बा। खइला-पियला आ सूते के अनदेखी ना करीं।',
+                    'sec8-title': '8. परिक्षा के दिन के नियम 📋',
+                    'sec8-p1': 'परिक्षा के दिन नियमन के पालन करे से एगो आसान आ तनाव-मुक्त अनुभव सुनिश्चित होला।',
+                    'sec8-li1': '<strong>एडमिट कार्ड आ आईडी:</strong> आपन एडमिट कार्ड आ एगो वैलिड फोटो आईडी लेके जाए के जरूरी बा। बिना एकरा के, एंट्री ना मिली।',
+                    'sec8-li2': '<strong>प्रतिबंधित चीज:</strong> मोबाइल, स्मार्टवाच आ कवनो भी इलेक्ट्रॉनिक डिवाइस परिक्षा हॉल में लेके जाए के सख्त मनाही बा।',
+                    'sec8-li3': '<strong>टाइम मैनेजमेंट:</strong> दिहल गइल रफ पेपर के उपयोग करीं आ सभ सवाल हल करे खातिर आपन समय मैनेज करीं।',
+                    'sec9-title': '9. नंबर आ ग्रेडिंग सिस्टम 💯',
+                    'sec9-p1': 'यूपी बोर्ड एगो पारंपरिक मार्किंग आ ग्रेडिंग सिस्टम के पालन करेला।',
+                    'sec9-marks-title': 'मार्किंग सिस्टम',
+                    'sec9-marks-list': '<li><strong>लिखल परिक्षा:</strong> 70 नंबर</li><li><strong>इंटरनल एसेसमेंट:</strong> 30 नंबर (प्रोजेक्ट, असाइनमेंट, प्रैक्टिकल)</li><li><strong>कुल:</strong> हर विषय में 100 नंबर</li>',
+                    'sec9-grading-title': 'ग्रेडिंग सिस्टम',
+                    'sec9-grading-list': '<li><strong>91-100:</strong> ए1 ग्रेड</li><li><strong>81-90:</strong> ए2 ग्रेड</li><li><strong>71-80:</strong> बी1 ग्रेड</li><li><strong>61-70:</strong> बी2 ग्रेड</li>',
+                    'sec10-title': '10. करियर गाइडेंस: आगे का बा? 🚀',
+                    'sec10-p1': 'यूपी बोर्ड के परिक्षा पास कईला के बाद लइकन खातिर कई गो करियर के ऑप्शन खुलेला।',
+                    'sec10-highschool-title': 'हाई स्कूल (दसवां क्लास) के बाद',
+                    'sec10-highschool-list': '<li><strong>इंटरमीडिएट (बारहवां क्लास):</strong> लइका आपना पसंद के हिसाब से विज्ञान, कॉमर्स, चाहे आर्ट्स स्ट्रीम में जा सकतारे।</li><li><strong>पॉलिटेक्निक:</strong> तकनीकी पढ़ाई खातिर 3 साल के डिप्लोमा कोर्स।</li><li><strong>आईटीआई:</strong> अलग-अलग ट्रेड में इंडस्ट्रियल ट्रेनिंग।</li>',
+                    'sec10-intermediate-title': 'इंटरमीडिएट (बारहवां क्लास) के बाद',
+                    'sec10-intermediate-list': '<li><strong>ग्रेजुएशन:</strong> आर्ट्स, साइंस, चाहे कॉमर्स में बैचलर डिग्री (B.A., B.Sc., B.Com)।</li><li><strong>प्रोफेशनल कोर्स:</strong> इंजीनियरिंग, मेडिकल, कानून, चाहे मैनेजमेंट में कोर्स।</li><li><strong>सरकारी नौकरी:</strong> अलग-अलग कॉम्पिटिटिव एग्जाम के तइयारी।</li>',
+                    'sec11-title': '11. परिक्षा के टाइमलाइन 🗓️',
+                    'sec11-p1': 'यूपी बोर्ड परिक्षा के प्रक्रिया आमतौर पर एही टाइमलाइन के पालन करेला।',
+                    'sec11-step1-title': 'नोटिफिकेशन आ फॉर्म भरे के',
+                    'sec11-step1-desc': '<strong>समय:</strong> फॉर्म भरे के प्रक्रिया आमतौर पर जुलाई से अक्टूबर तक चलेला।',
+                    'sec11-step2-title': 'लिखल परिक्षा के तारिख',
+                    'sec11-step2-desc': '<strong>समय:</strong> परिक्षा आमतौर पर फरवरी-मार्च में होला।',
+                    'sec11-step3-title': 'रिजल्ट के घोषणा',
+                    'sec11-step3-desc': '<strong>समय:</strong> रिजल्ट आमतौर पर मई-जून में ऑफिशियल वेबसाइट पर आवेला।',
+                    'sec12-title': '12. संपर्क आ मदद 📞',
+                    'sec12-p1': 'बेसी जानकारी खातिर, आप ऑफिशियल वेबसाइट आ हेल्पलाइन नंबर के उपयोग क सकतारे।',
+                    'sec12-list': '<li><strong>ऑफिशियल वेबसाइट:</strong> upmsp.edu.in</li><li><strong>हेल्पलाइन नंबर:</strong> (अगर उपलब्ध बा त)</li><li><strong>ईमेल:</strong> (अगर उपलब्ध बा त)</li>',
+                    'footer-text': '&copy; 2025 | रउरा सब के यूपी बोर्ड परिक्षा खातिर शुभकामना बा! ✨',
+                    'studyChartData': {
+                        labels: ['विषय अध्ययन', 'अभ्यास आ रिवीजन', 'आपना से पढ़ल आ नोट्स बनावल', 'ब्रेक'],
+                        data: [50, 25, 15, 10]
+                    },
+                    'examModal': {
+                        'title': 'यूपी बोर्ड परिक्षा के जानकारी',
+                        'p1': 'यूपी बोर्ड के परिक्षा साल में एक बेर होला। ई परिक्षा मुख्य रूप से लिखित होला, लेकिन कुछ विषय में प्रैक्टिकल परिक्षा भी होला।',
+                        'li1': '<strong>परिक्षा के प्रकार:</strong> सालाना लिखल परिक्षा',
+                        'li2': '<strong>माध्यम:</strong> हिंदी आ अंग्रेजी',
+                        'li3': '<strong>मकसद:</strong> लइकन के अगिला क्लास आ भविष्य खातिर तइयार कइल।'
+                    },
+                    'writtenModal': {
+                        'title': 'लिखल परिक्षा',
+                        'p1': 'लिखल परिक्षा में मुख्य रूप से विषय से जुड़ल सवाल होला, जवना में मल्टीपल-चॉइस, छोट आ बड़ सवाल शामिल बा। परिक्षा के पैटर्न पूरा तरीका से निर्धारित सिलेबस पर आधारित होला।',
+                        'li1': '<strong>क्वेश्चन पेपर:</strong> हर विषय खातिर एगो अलग क्वेश्चन पेपर होला।',
+                        'li2': '<strong>एसेसमेंट:</strong> लिखल परिक्षा के नंबर फाइनल रिजल्ट के एगो बड़ हिस्सा होला।',
+                        'li3': '<strong>नेगेटिव मार्किंग:</strong> कवनो नेगेटिव मार्किंग ना होला।'
                     }
                 }
             };
@@ -680,8 +815,8 @@
                         labels: translations[currentLang]['studyChartData'].labels,
                         datasets: [{
                             data: translations[currentLang]['studyChartData'].data,
-                            backgroundColor: ['#1f2937', '#3b82f6', '#94a3b8', '#6b7280'],
-                            borderColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                            backgroundColor: ['#c084fc', '#4a00e0', '#6d28d9', '#8b5cf6'],
+                            borderColor: ['#171d3d', '#171d3d', '#171d3d', '#171d3d'],
                             hoverOffset: 16,
                         }]
                     },
@@ -695,7 +830,7 @@
                                     font: {
                                         family: 'Inter, Noto Sans Devanagari, sans-serif'
                                     },
-                                    color: '#1f2937'
+                                    color: '#e5e7eb'
                                 }
                             },
                             title: {
@@ -706,7 +841,7 @@
                                     weight: 'bold',
                                     family: 'Inter, Noto Sans Devanagari, sans-serif'
                                 },
-                                color: '#1f2937'
+                                color: '#e5e7eb'
                             },
                             tooltip: {
                                 callbacks: {
