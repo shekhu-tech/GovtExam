@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>सरकारी परीक्षाओं की गाइड</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="redirect_if_needed.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
@@ -46,6 +45,11 @@
             overflow: hidden;
             text-align: center;
             border: 2px solid transparent;
+            height: 250px; /* PC और अन्य बड़ी स्क्रीन के लिए निश्चित ऊँचाई */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .card::before {
             content: '';
@@ -76,7 +80,10 @@
             z-index: 2;
         }
         .card-icon {
-            display: none; /* Hidden on desktop */
+            font-size: 2.75rem;
+            margin-bottom: 0.75rem;
+            line-height: 1;
+            color: var(--golden-dark);
         }
         .card-heading {
             font-weight: 800;
@@ -93,16 +100,11 @@
         /* Mobile Responsive Card Styles */
         @media (max-width: 768px) {
             .card {
-                padding: 1.5rem;
-                background-color: var(--golden-light);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+                padding: 1rem; /* Smaller padding */
                 border: 1px solid var(--golden-dark);
                 transform: none !important;
+                height: 150px; /* मोबाइल के लिए निश्चित ऊँचाई */
             }
-            .card:hover {
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
-            }
-            .card::before { display: none; }
             .card-content {
                 display: flex;
                 flex-direction: column;
@@ -110,22 +112,22 @@
                 align-items: center;
             }
             .card-icon {
-                display: block;
-                font-size: 2.75rem;
-                margin-bottom: 0.75rem;
-                line-height: 1;
-                color: var(--golden-dark);
+                font-size: 2rem; /* Smaller icon size */
+                margin-bottom: 0.5rem;
             }
             .card-heading {
-                font-size: 1.2rem;
+                font-size: 1rem; /* Smaller heading size */
                 font-weight: 700;
                 color: var(--brown-dark);
                 text-shadow: none;
                 margin-bottom: 0.25rem;
             }
             .card-sub-heading {
-                font-size: 0.85rem;
+                font-size: 0.75rem; /* Smaller sub-heading size */
                 color: var(--brown-dark);
+            }
+            .grid-cols-mobile-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
         
@@ -200,203 +202,478 @@
             margin-bottom: 1rem;
         }
 
-        /* --- Search Bar --- */
-        .search-container { margin-bottom: 2rem; width: 100%; max-width: 600px; position: relative; }
-        .search-input {
-            width: 100%; padding: 1rem 1.5rem; padding-right: 4rem; font-size: 1.125rem; border-radius: 9999px;
-            border: 2px solid var(--golden-dark); box-shadow: 0 4px 10px rgba(163, 122, 0, 0.2);
-            transition: all 0.3s ease-in-out; outline: none; color: var(--brown-dark); background-color: #fff;
+        /* Auto-Slider CSS */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+            cursor: pointer; /* Cursor pointer to show it's clickable */
         }
-        .search-input::placeholder { color: #aaa; }
-        .search-input:focus { box-shadow: 0 6px 15px rgba(163, 122, 0, 0.35); }
-        .search-icon { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: var(--golden-dark); }
-        .no-results { color: #e53e3e; font-weight: 600; text-align: center; margin-top: 1rem; display: none; }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white; /* सफेद रंग के लिए बदलें */
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* पढ़ने में आसानी के लिए शैडो जोड़ें */
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        /* अलग-अलग स्लाइड के लिए डिज़ाइन */
+        .slide-1 { background: linear-gradient(to right, #6366f1, #8b5cf6); border: 2px solid #8b5cf6; } /* Indigo-Violet Gradient */
+        .slide-2 { background: linear-gradient(to right, #10b981, #34d399); border: 2px solid #34d399; } /* Green Gradient */
+        .slide-3 { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; } /* Orange Gradient */
+        .slide-4 { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; } /* Red Gradient */
+        .slide-5 { background: linear-gradient(to right, #06b6d4, #22d3ee); border: 2px solid #22d3ee; } /* Cyan Gradient */
+        
+        /* Mobile Bottom Nav CSS */
+        .bottom-nav {
+            background-color: black; /* बैकग्राउंड को काला करें */
+            border-top-color: #A37A00;
+        }
+        /* बटनों को प्रोफेशनल बनाने के लिए स्टाइल */
+        .bottom-nav a {
+            transition: all 0.2s ease-in-out;
+            border-radius: 0.75rem;
+            color: white; /* टेक्स्ट को सफेद करें */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* गहरा शैडो जोड़ें */
+            padding: 0.75rem 1.25rem;
+        }
+        .bottom-nav a:hover {
+            transform: scale(1.1);
+            background-color: #333; /* गहरा ग्रे रंग पर होवर */
+            box-shadow: 0 0 15px #FFD700; /* सुनहरा ग्लोइंग इफेक्ट */
+        }
     </style>
 </head>
 <body class="leading-relaxed">
 
     <div class="container mx-auto p-4 md:p-8 lg:p-12">
 
-        <header class="text-center mb-12 md:mb-16">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-golden-dark mb-4 drop-shadow-md">🎯GovT-Exam-Guide🎯</h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-brown-dark font-semibold">You Will Know Everything About All Govt Exam</p>
+        <!-- Header: Gap removed -->
+        <header class="text-center">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-golden-dark mb-4 drop-shadow-md">🎯Your-True-Guide🎯</h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-brown-dark font-semibold">Grow-With-Us-In-Every-Sector</p>
         </header>
 
-        <div class="search-container mx-auto">
-            <input type="text" id="searchInput" class="search-input" placeholder="परीक्षा या विभाग का नाम खोजें...">
-            <span class="search-icon">🔍</span>
-            <p id="no-results-message" class="no-results">कोई परिणाम नहीं मिला।</p>
-        </div>
+        <!-- Latest Form/Slider Section (as per mockup) -->
+        <section class="latest-forms mt-0">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">Latest-Recruitment</h2>
+            </div>
+            <div class="slider-container">
+                <!-- Slides will be generated by JS -->
+            </div>
+        </section>
 
-        <main id="card-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-            <div class="card" data-modal-target="upscModal" data-keywords="upsc संघ लोक सेवा आयोग civil services ese cse ifos nda cds capf">
-                <div class="card-content">
-                    <div class="card-icon">🏛️</div>
-                    <h2 class="card-heading">UPSC</h2>
-                    <p class="card-sub-heading">संघ लोक सेवा आयोग</p>
+        <!-- All Govt Exam Guide Section -->
+        <section id="govt-exam-section" class="govt-exam-guide-section mb-8">
+            <div class="text-center mb-6">
+                <br>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Govt-Exam-Full-Guide</h2>
+            </div>
+            <div class="grid grid-cols-1 grid-cols-mobile-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                <div class="card" data-modal-target="upscModal" data-keywords="upsc संघ लोक सेवा आयोग civil services ese cse ifos nda cds capf">
+                    <div class="card-content">
+                        <div class="card-icon">🏛️</div>
+                        <h2 class="card-heading">UPSC</h2>
+                        <p class="card-sub-heading">संघ लोक सेवा आयोग</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="sscModal" data-keywords="ssc कर्मचारी चयन आयोग cgl chsl mts je cpo">
+                    <div class="card-content">
+                        <div class="card-icon">💼</div>
+                        <h2 class="card-heading">SSC</h2>
+                        <p class="card-sub-heading">कर्मचारी चयन आयोग</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="rrbModal" data-keywords="rrb रेलवे भर्ती बोर्ड group d ntpc alp technician je rpf">
+                    <div class="card-content">
+                        <div class="card-icon">🚂</div>
+                        <h2 class="card-heading">RRB</h2>
+                        <p class="card-sub-heading">रेलवे भर्ती बोर्ड</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="ibpsModal" data-keywords="ibps बैंकिंग बैंक po clerk rrb so">
+                    <div class="card-content">
+                        <div class="card-icon">🏦</div>
+                        <h2 class="card-heading">IBPS</h2>
+                        <p class="card-sub-heading">बैंकिंग चयन संस्थान</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="rbiModal" data-keywords="rbi भारतीय रिजर्व बैंक grade b assistant">
+                    <div class="card-content">
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-heading">RBI</h2>
+                        <p class="card-sub-heading">भारतीय रिजर्व बैंक</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="statePSCsModal" data-keywords="राज्य psc ssc sssb civil services exams uppsc bpsc">
+                    <div class="card-content">
+                        <div class="card-icon">🗺️</div>
+                        <h2 class="card-heading">राज्य PSCs/SSCs</h2>
+                        <p class="card-sub-heading">राज्य स्तर की परीक्षाएँ</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="ntaModal" data-keywords="nta राष्ट्रीय परीक्षण एजेंसी ugc net csir net cuet jee neet">
+                    <div class="card-content">
+                        <div class="card-icon">📝</div>
+                        <h2 class="card-heading">NTA</h2>
+                        <p class="card-sub-heading">राष्ट्रीय परीक्षण एजेंसी</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="cbseModal" data-keywords="cbse केंद्रीय माध्यमिक शिक्षा बोर्ड ctet">
+                    <div class="card-content">
+                        <div class="card-icon">🏫</div>
+                        <h2 class="card-heading">CBSE</h2>
+                        <p class="card-sub-heading">केंद्रीय माध्यमिक शिक्षा बोर्ड</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="stateEdBoardsModal" data-keywords="राज्य शिक्षा बोर्ड tet teacher">
+                    <div class="card-content">
+                        <div class="card-icon">🧑‍🏫</div>
+                        <h2 class="card-heading">राज्य शिक्षा बोर्ड</h2>
+                        <p class="card-sub-heading">राज्य शिक्षक परीक्षाएँ</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="kvsNvsModal" data-keywords="kvs nvs केंद्रीय विद्यालय नवोदय विद्यालय">
+                    <div class="card-content">
+                        <div class="card-icon">🏢</div>
+                        <h2 class="card-heading">KVS & NVS</h2>
+                        <p class="card-sub-heading">केंद्रीय & नवोदय विद्यालय</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="armyModal" data-keywords="भारतीय सेना army defence">
+                    <div class="card-content">
+                        <div class="card-icon">🇮🇳</div>
+                        <h2 class="card-heading">भारतीय सेना</h2>
+                        <p class="card-sub-heading">राष्ट्र सेवा</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="navyModal" data-keywords="भारतीय नौसेना navy defence">
+                    <div class="card-content">
+                        <div class="card-icon">⚓</div>
+                        <h2 class="card-heading">भारतीय नौसेना</h2>
+                        <p class="card-sub-heading">समुद्री सेवा</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="airForceModal" data-keywords="भारतीय वायु सेना air force defence">
+                    <div class="card-content">
+                        <div class="card-icon">✈️</div>
+                        <h2 class="card-heading">भारतीय वायु सेना</h2>
+                        <p class="card-sub-heading">आकाश सेवा</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="drdoModal" data-keywords="drdo रक्षा अनुसंधान defense research">
+                    <div class="card-content">
+                        <div class="card-icon">🚀</div>
+                        <h2 class="card-heading">DRDO</h2>
+                        <p class="card-sub-heading">रक्षा अनुसंधान</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="isroModal" data-keywords="isro अंतरिक्ष अनुसंधान space research">
+                    <div class="card-content">
+                        <div class="card-icon">🛰️</div>
+                        <h2 class="card-heading">ISRO</h2>
+                        <p class="card-sub-heading">अंतरिक्ष अनुसंधान</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="barcModal" data-keywords="barc परमाणु अनुसंधान nuclear research">
+                    <div class="card-content">
+                        <div class="card-icon">⚛️</div>
+                        <h2 class="card-heading">BARC</h2>
+                        <p class="card-sub-heading">परमाणु अनुसंधान</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="licModal" data-keywords="lic जीवन बीमा निगम insurance">
+                    <div class="card-content">
+                        <div class="card-icon">☂️</div>
+                        <h2 class="card-heading">LIC</h2>
+                        <p class="card-sub-heading">जीवन बीमा निगम</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="fciModal" data-keywords="fci भारतीय खाद्य निगम food corporation">
+                    <div class="card-content">
+                        <div class="card-icon">🌾</div>
+                        <h2 class="card-heading">FCI</h2>
+                        <p class="card-sub-heading">भारतीय खाद्य निगम</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="esicModal" data-keywords="esic कर्मचारी राज्य बीमा निगम">
+                    <div class="card-content">
+                        <div class="card-icon">🧑‍⚕️</div>
+                        <h2 class="card-heading">ESIC</h2>
+                        <p class="card-sub-heading">कर्मचारी राज्य बीमा निगम</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="nabardModal" data-keywords="nabard कृषि विकास बैंक agriculture bank">
+                    <div class="card-content">
+                        <div class="card-icon">🌱</div>
+                        <h2 class="card-heading">NABARD</h2>
+                        <p class="card-sub-heading">कृषि विकास बैंक</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="sebiModal" data-keywords="sebi पूंजी बाजार नियामक market regulator">
+                    <div class="card-content">
+                        <div class="card-icon">📈</div>
+                        <h2 class="card-heading">SEBI</h2>
+                        <p class="card-sub-heading">पूंजी बाजार नियामक</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="psuModal" data-keywords="psu सार्वजनिक क्षेत्र के उपक्रम ongc ntpc bhel">
+                    <div class="card-content">
+                        <div class="card-icon">🏭</div>
+                        <h2 class="card-heading">Individual PSUs</h2>
+                        <p class="card-sub-heading">सार्वजनिक क्षेत्र के उपक्रम</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="nraModal" data-keywords="nra राष्ट्रीय भर्ती एजेंसी cet common eligibility test">
+                    <div class="card-content">
+                        <div class="card-icon">✅</div>
+                        <h2 class="card-heading">NRA (CET)</h2>
+                        <p class="card-sub-heading">राष्ट्रीय भर्ती एजेंसी</p>
+                    </div>
                 </div>
             </div>
-            <div class="card" data-modal-target="sscModal" data-keywords="ssc कर्मचारी चयन आयोग cgl chsl mts je cpo">
-                <div class="card-content">
-                    <div class="card-icon">💼</div>
-                    <h2 class="card-heading">SSC</h2>
-                    <p class="card-sub-heading">कर्मचारी चयन आयोग</p>
+        </section>
+
+        <!-- All AI Full Guide Section -->
+        <section id="ai-guide-section" class="ai-full-guide-section mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-A.I- Tools Full Guide</h2>
+            </div>
+            <div class="grid grid-cols-1 grid-cols-mobile-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                <div class="card" data-modal-target="chatGPTModal" data-keywords="chatgpt openai conversational ai open ai llm gpt-4 gpt-3.5">
+                    <div class="card-content">
+                        <div class="card-icon">🤖</div>
+                        <h2 class="card-heading">OpenAI</h2>
+                        <p class="card-sub-heading">GPT-4.5, Codex, DALL·E 3</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="anthropicModal" data-keywords="anthropic claude 2 claude 3 opus sonnet haiku">
+                    <div class="card-content">
+                        <div class="card-icon">🖋️</div>
+                        <h2 class="card-heading">Anthropic</h2>
+                        <p class="card-sub-heading">Claude 2, Claude 3 (Opus, Sonnet, Haiku)</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="googleAIModal" data-keywords="google gemini gato sima">
+                    <div class="card-content">
+                        <div class="card-icon">🧠</div>
+                        <h2 class="card-heading">Google</h2>
+                        <p class="card-sub-heading">Gemini, Gato, SIMA</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="metaAIModal" data-keywords="meta llama 2 llama 3.2 vision llama 4">
+                    <div class="card-content">
+                        <div class="card-icon">🌐</div>
+                        <h2 class="card-heading">Meta</h2>
+                        <p class="card-sub-heading">LLaMA 2, LLaMA 3.2 Vision</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="mistralAIModal" data-keywords="mistral mixtral mistral small medium">
+                    <div class="card-content">
+                        <div class="card-icon">🌪️</div>
+                        <h2 class="card-heading">Mistral</h2>
+                        <p class="card-sub-heading">Mixtral, Mistral Small/Medium</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="deepseekModal" data-keywords="deepseek r1 deepseek v3">
+                    <div class="card-content">
+                        <div class="card-icon">🔍</div>
+                        <h2 class="card-heading">DeepSeek</h2>
+                        <p class="card-sub-heading">R1, DeepSeek‑V3 variants</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="amazonAIModal" data-keywords="amazon nova micro lite pro text image video">
+                    <div class="card-content">
+                        <div class="card-icon">🛒</div>
+                        <h2 class="card-heading">Amazon</h2>
+                        <p class="card-sub-heading">Nova Micro, Lite, Pro</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="xAIModal" data-keywords="xai grok 4">
+                    <div class="card-content">
+                        <div class="card-icon">✖️</div>
+                        <h2 class="card-heading">xAI</h2>
+                        <p class="card-sub-heading">Grok 4</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="alibabaModal" data-keywords="alibaba qwen 2.5">
+                    <div class="card-content">
+                        <div class="card-icon">📦</div>
+                        <h2 class="card-heading">Alibaba</h2>
+                        <p class="card-sub-heading">Qwen 2.5</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="othersAIModal" data-keywords="others minimax pixtral">
+                    <div class="card-content">
+                        <div class="card-icon">✨</div>
+                        <h2 class="card-heading">Others</h2>
+                        <p class="card-sub-heading">MiniMax, Pixtral, etc.</p>
+                    </div>
                 </div>
             </div>
-            <div class="card" data-modal-target="rrbModal" data-keywords="rrb रेलवे भर्ती बोर्ड group d ntpc alp technician je rpf">
-                <div class="card-content">
-                    <div class="card-icon">🚂</div>
-                    <h2 class="card-heading">RRB</h2>
-                    <p class="card-sub-heading">रेलवे भर्ती बोर्ड</p>
+        </section>
+
+        <!-- All Private Sector Job Guide Section -->
+        <section id="private-sector-section" class="private-sector-job-guide-section mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Private-Jobs-Full-Guide</h2>
+            </div>
+            <div class="grid grid-cols-1 grid-cols-mobile-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                <div class="card" data-modal-target="itSoftwareModal" data-keywords="it software jobs software engineer web developer app developer data scientist analyst ai ml engineer cybersecurity cloud engineer ui ux designer tech support engineer">
+                    <div class="card-content">
+                        <div class="card-icon">👨‍💻</div>
+                        <h2 class="card-heading">IT और Software Jobs</h2>
+                        <p class="card-sub-heading">Software Engineer / Web Developer</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="salesMarketingModal" data-keywords="sales marketing jobs sales executive manager digital marketing specialist seo sem analyst social media brand manager content marketing executive product marketing manager">
+                    <div class="card-content">
+                        <div class="card-icon">📈</div>
+                        <h2 class="card-heading">Sales और Marketing</h2>
+                        <p class="card-sub-heading">Digital Marketing / Sales Manager</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="financeAccountingModal" data-keywords="finance accounting jobs accountant financial analyst chartered accountant ca investment banker audit executive payroll manager tax consultant">
+                    <div class="card-content">
+                        <div class="card-icon">💰</div>
+                        <h2 class="card-heading">Finance और Accounting</h2>
+                        <p class="card-sub-heading">Financial Analyst / CA</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="hrJobsModal" data-keywords="human resource hr jobs hr executive talent acquisition specialist hr manager training and development officer payroll and compliance officer employee relations manager">
+                    <div class="card-content">
+                        <div class="card-icon">🧑‍💼</div>
+                        <h2 class="card-heading">Human Resource (HR) Jobs</h2>
+                        <p class="card-sub-heading">HR Executive / Manager</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="customerSupportModal" data-keywords="customer support bpo kpo customer care executive technical support chat process executive voice process agent team leader process trainer">
+                    <div class="card-content">
+                        <div class="card-icon">📞</div>
+                        <h2 class="card-heading">Customer Support / BPO / KPO</h2>
+                        <p class="card-sub-heading">Customer Care Executive / Team Leader</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="bankingInsuranceModal" data-keywords="banking insurance sector jobs relationship manager loan officer credit analyst branch manager insurance advisor underwriter">
+                    <div class="card-content">
+                        <div class="card-icon">🏦</div>
+                        <h2 class="card-heading">Banking और Insurance</h2>
+                        <p class="card-sub-heading">Relationship Manager / Loan Officer</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="healthcarePharmaModal" data-keywords="healthcare pharma medical jobs medical representative mr lab technician pharmacist nurse doctor clinical research associate healthcare admin">
+                    <div class="card-content">
+                        <div class="card-icon">⚕️</div>
+                        <h2 class="card-heading">Healthcare / Pharma / Medical</h2>
+                        <p class="card-sub-heading">Pharmacist / Lab Technician</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="educationTrainingModal" data-keywords="education training jobs private school teacher online tutor corporate trainer admission counselor education consultant e-learning content developer">
+                    <div class="card-content">
+                        <div class="card-icon">🧑‍🏫</div>
+                        <h2 class="card-heading">Education और Training</h2>
+                        <p class="card-sub-heading">Teacher / Tutor</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="engineeringSectorModal" data-keywords="engineering sector jobs mechanical engineer civil engineer electrical engineer design engineer cad production manufacturing engineer site engineer">
+                    <div class="card-content">
+                        <div class="card-icon">⚙️</div>
+                        <h2 class="card-heading">Engineering Sector</h2>
+                        <p class="card-sub-heading">Mechanical / Civil / Electrical Engineer</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="manufacturingProductionModal" data-keywords="manufacturing production jobs machine operator plant supervisor quality control executive production manager maintenance technician">
+                    <div class="card-content">
+                        <div class="card-icon">🏭</div>
+                        <h2 class="card-heading">Manufacturing & Production</h2>
+                        <p class="card-sub-heading">Plant Supervisor / Technician</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="logisticsSupplyChainModal" data-keywords="logistics supply chain jobs logistics executive warehouse manager inventory controller procurement specialist supply chain analyst fleet manager">
+                    <div class="card-content">
+                        <div class="card-icon">🚚</div>
+                        <h2 class="card-heading">Logistics और Supply Chain</h2>
+                        <p class="card-sub-heading">Warehouse Manager / Analyst</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="realEstateModal" data-keywords="real estate construction jobs sales executive site supervisor civil engineer architect property advisor interior designer">
+                    <div class="card-content">
+                        <div class="card-icon">🏡</div>
+                        <h2 class="card-heading">Real Estate और Construction</h2>
+                        <p class="card-sub-heading">Site Supervisor / Architect</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="retailEcommerceModal" data-keywords="retail e-commerce jobs store manager cashier billing executive visual merchandiser inventory customer relationship executive delivery executive">
+                    <div class="card-content">
+                        <div class="card-icon">🛍️</div>
+                        <h2 class="card-heading">Retail / E-commerce Jobs</h2>
+                        <p class="card-sub-heading">Store Manager / Delivery Executive</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="mediaEntertainmentModal" data-keywords="media advertising entertainment jobs content writer copywriter graphic designer video editor creative director journalist photographer cinematographer pr executive">
+                    <div class="card-content">
+                        <div class="card-icon">🎬</div>
+                        <h2 class="card-heading">Media / Advertising / Entertainment</h2>
+                        <p class="card-sub-heading">Content Writer / Graphic Designer</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="legalLawModal" data-keywords="legal law jobs legal advisor corporate lawyer contract manager legal associate compliance officer">
+                    <div class="card-content">
+                        <div class="card-icon">⚖️</div>
+                        <h2 class="card-heading">Legal / Law Jobs</h2>
+                        <p class="card-sub-heading">Legal Advisor / Corporate Lawyer</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="hospitalityTravelModal" data-keywords="hospitality travel tourism jobs hotel manager front office executive travel agent chef cook housekeeping supervisor tour guide event manager">
+                    <div class="card-content">
+                        <div class="card-icon">🏨</div>
+                        <h2 class="card-heading">Hospitality / Travel / Tourism</h2>
+                        <p class="card-sub-heading">Hotel Manager / Travel Agent</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="securityServicesModal" data-keywords="security services jobs private security guard cctv operator security supervisor bouncer">
+                    <div class="card-content">
+                        <div class="card-icon">🛡️</div>
+                        <h2 class="card-heading">Security Services</h2>
+                        <p class="card-sub-heading">Security Guard / CCTV Operator</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="drivingDeliveryModal" data-keywords="driving delivery field jobs cab driver ola uber delivery executive zomato swiggy field sales executive service technician ac fridge">
+                    <div class="card-content">
+                        <div class="card-icon">🚗</div>
+                        <h2 class="card-heading">Driving / Delivery / Field Jobs</h2>
+                        <p class="card-sub-heading">Delivery Executive / Cab Driver</p>
+                    </div>
                 </div>
             </div>
-            <div class="card" data-modal-target="ibpsModal" data-keywords="ibps बैंकिंग बैंक po clerk rrb so">
-                <div class="card-content">
-                    <div class="card-icon">🏦</div>
-                    <h2 class="card-heading">IBPS</h2>
-                    <p class="card-sub-heading">बैंकिंग चयन संस्थान</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="rbiModal" data-keywords="rbi भारतीय रिजर्व बैंक grade b assistant">
-                <div class="card-content">
-                    <div class="card-icon">💰</div>
-                    <h2 class="card-heading">RBI</h2>
-                    <p class="card-sub-heading">भारतीय रिजर्व बैंक</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="statePSCsModal" data-keywords="राज्य psc ssc sssb civil services exams uppsc bpsc">
-                <div class="card-content">
-                    <div class="card-icon">🗺️</div>
-                    <h2 class="card-heading">राज्य PSCs/SSCs</h2>
-                    <p class="card-sub-heading">राज्य स्तर की परीक्षाएँ</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="ntaModal" data-keywords="nta राष्ट्रीय परीक्षण एजेंसी ugc net csir net cuet jee neet">
-                <div class="card-content">
-                    <div class="card-icon">📝</div>
-                    <h2 class="card-heading">NTA</h2>
-                    <p class="card-sub-heading">राष्ट्रीय परीक्षण एजेंसी</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="cbseModal" data-keywords="cbse केंद्रीय माध्यमिक शिक्षा बोर्ड ctet">
-                <div class="card-content">
-                    <div class="card-icon">🏫</div>
-                    <h2 class="card-heading">CBSE</h2>
-                    <p class="card-sub-heading">केंद्रीय माध्यमिक शिक्षा बोर्ड</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="stateEdBoardsModal" data-keywords="राज्य शिक्षा बोर्ड tet teacher">
-                <div class="card-content">
-                    <div class="card-icon">🧑‍🏫</div>
-                    <h2 class="card-heading">राज्य शिक्षा बोर्ड</h2>
-                    <p class="card-sub-heading">राज्य शिक्षक परीक्षाएँ</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="kvsNvsModal" data-keywords="kvs nvs केंद्रीय विद्यालय नवोदय विद्यालय">
-                <div class="card-content">
-                    <div class="card-icon">🏢</div>
-                    <h2 class="card-heading">KVS & NVS</h2>
-                    <p class="card-sub-heading">केंद्रीय & नवोदय विद्यालय</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="armyModal" data-keywords="भारतीय सेना army defence">
-                <div class="card-content">
-                    <div class="card-icon">🇮🇳</div>
-                    <h2 class="card-heading">भारतीय सेना</h2>
-                    <p class="card-sub-heading">राष्ट्र सेवा</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="navyModal" data-keywords="भारतीय नौसेना navy defence">
-                <div class="card-content">
-                    <div class="card-icon">⚓</div>
-                    <h2 class="card-heading">भारतीय नौसेना</h2>
-                    <p class="card-sub-heading">समुद्री सेवा</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="airForceModal" data-keywords="भारतीय वायु सेना air force defence">
-                <div class="card-content">
-                    <div class="card-icon">✈️</div>
-                    <h2 class="card-heading">भारतीय वायु सेना</h2>
-                    <p class="card-sub-heading">आकाश सेवा</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="drdoModal" data-keywords="drdo रक्षा अनुसंधान defense research">
-                <div class="card-content">
-                    <div class="card-icon">🚀</div>
-                    <h2 class="card-heading">DRDO</h2>
-                    <p class="card-sub-heading">रक्षा अनुसंधान</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="isroModal" data-keywords="isro अंतरिक्ष अनुसंधान space research">
-                <div class="card-content">
-                    <div class="card-icon">🛰️</div>
-                    <h2 class="card-heading">ISRO</h2>
-                    <p class="card-sub-heading">अंतरिक्ष अनुसंधान</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="barcModal" data-keywords="barc परमाणु अनुसंधान nuclear research">
-                <div class="card-content">
-                    <div class="card-icon">⚛️</div>
-                    <h2 class="card-heading">BARC</h2>
-                    <p class="card-sub-heading">परमाणु अनुसंधान</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="licModal" data-keywords="lic जीवन बीमा निगम insurance">
-                <div class="card-content">
-                    <div class="card-icon">☂️</div>
-                    <h2 class="card-heading">LIC</h2>
-                    <p class="card-sub-heading">जीवन बीमा निगम</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="fciModal" data-keywords="fci भारतीय खाद्य निगम food corporation">
-                <div class="card-content">
-                    <div class="card-icon">🌾</div>
-                    <h2 class="card-heading">FCI</h2>
-                    <p class="card-sub-heading">भारतीय खाद्य निगम</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="esicModal" data-keywords="esic कर्मचारी राज्य बीमा निगम">
-                <div class="card-content">
-                    <div class="card-icon">🧑‍⚕️</div>
-                    <h2 class="card-heading">ESIC</h2>
-                    <p class="card-sub-heading">कर्मचारी राज्य बीमा निगम</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="nabardModal" data-keywords="nabard कृषि विकास बैंक agriculture bank">
-                <div class="card-content">
-                    <div class="card-icon">🌱</div>
-                    <h2 class="card-heading">NABARD</h2>
-                    <p class="card-sub-heading">कृषि विकास बैंक</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="sebiModal" data-keywords="sebi पूंजी बाजार नियामक market regulator">
-                <div class="card-content">
-                    <div class="card-icon">📈</div>
-                    <h2 class="card-heading">SEBI</h2>
-                    <p class="card-sub-heading">पूंजी बाजार नियामक</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="psuModal" data-keywords="psu सार्वजनिक क्षेत्र के उपक्रम ongc ntpc bhel">
-                <div class="card-content">
-                    <div class="card-icon">🏭</div>
-                    <h2 class="card-heading">Individual PSUs</h2>
-                    <p class="card-sub-heading">सार्वजनिक क्षेत्र के उपक्रम</p>
-                </div>
-            </div>
-            <div class="card" data-modal-target="nraModal" data-keywords="nra राष्ट्रीय भर्ती एजेंसी cet common eligibility test">
-                <div class="card-content">
-                    <div class="card-icon">✅</div>
-                    <h2 class="card-heading">NRA (CET)</h2>
-                    <p class="card-sub-heading">राष्ट्रीय भर्ती एजेंसी</p>
-                </div>
-            </div>
+        </section>
+
+        <main id="card-grid" class="hidden">
         </main>
         
         <footer class="text-center mt-16 border-t-2 pt-8 border-gray-300">
             <p class="text-gray-600 text-lg font-medium">©crapd.in 2025 सरकारी परीक्षा गाइड। आपकी सफलता के लिए हार्दिक शुभकामनाएँ।</p>
         </footer>
     </div>
+    
+    <!-- Modals for all sections -->
 
+    <!-- Existing Govt Exam Modals -->
     <div id="upscModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -454,7 +731,6 @@
  <h3> UPSC CSE – Railway Services </h3>
   <li><a href="upsc-ias-ips-ifos-ifs-iaas-icas-icls-idas-ides-iis-ipos-iptafs-irs-income-tax-irs-customer-indirect-tax-irts-iras-irps-irsse-itrs-rpf-aghqcs-danics-danips-pcs-pps.html">Indian Railway Traffic Service (IRTS) — UPSC CSE</a></li>
   <li><a href="upsc-ias-ips-ifos-ifs-iaas-icas-icls-idas-ides-iis-ipos-iptafs-irs-income-tax-irs-customer-indirect-tax-irts-iras-irps-irsse-itrs-rpf-aghqcs-danics-danips-pcs-pps.html">Indian Railway Accounts Service (IRAS) — UPSC CSE</a></li>
-  <li><a href="upsc-ias-ips-ifos-ifs-iaas-icas-icls-idas-ides-iis-ipos-iptafs-irs-income-tax-irs-customer-indirect-tax-irts-iras-irps-irsse-itrs-rpf-aghqcs-danics-danips-pcs-pps.html">Indian Railway Personnel Service (IRPS) — UPSC CSE</a></li>
   <li><a href="upsc-ias-ips-ifos-ifs-iaas-icas-icls-idas-ides-iis-ipos-iptafs-irs-income-tax-irs-customer-indirect-tax-irts-iras-irps-irsse-itrs-rpf-aghqcs-danics-danips-pcs-pps.html">Section Officer — Accounts / Personnel / Stores (Promotion)</a></li>
 </ul>
 
@@ -543,7 +819,6 @@
   <li><a href="ibps-so-it-officer-scale-i-agricultural-field-officer-scale-i-jbhasha-adhikari-scale-i-law-officer-scale-i-hr-personnel-officer-scale-i-marketing-officer-scale-i-exam.html">Agricultural Field Officer (Scale I)</a></li>
   <li><a href="ibps-so-it-officer-scale-i-agricultural-field-officer-scale-i-jbhasha-adhikari-scale-i-law-officer-scale-i-hr-personnel-officer-scale-i-marketing-officer-scale-i-exam.html">Rajbhasha Adhikari (Scale I)</a></li>
   <li><a href="ibps-so-it-officer-scale-i-agricultural-field-officer-scale-i-jbhasha-adhikari-scale-i-law-officer-scale-i-hr-personnel-officer-scale-i-marketing-officer-scale-i-exam.html">Law Officer (Scale I)</a></li>
-  <li><a href="ibps-so-it-officer-scale-i-agricultural-field-officer-scale-i-jbhasha-adhikari-scale-i-law-officer-scale-i-hr-personnel-officer-scale-i-marketing-officer-scale-i-exam.html">HR / Personnel Officer (Scale I)</a></li>
   <li><a href="ibps-so-it-officer-scale-i-agricultural-field-officer-scale-i-jbhasha-adhikari-scale-i-law-officer-scale-i-hr-personnel-officer-scale-i-marketing-officer-scale-i-exam.html">Marketing Officer (Scale I)</a></li>
 </ul>
 
@@ -848,7 +1123,7 @@
 
 <h3>Recruitment Rallies</h3>
 <ul>
-  <li><a href="army-rally.html">Army Open Bharti Rally (Zone-wise / State-wise)</a></li>
+  <li><a href="iaf-rally.html">IAF Recruitment Rallies (Zone-wise / State-wise)</a></li>
 </ul>
             </div>
         </div>
@@ -1215,7 +1490,6 @@
   <li><a href="esic-pharmacist.html">Pharmacist</a></li>
   <li><a href="esic-lab-assistant.html">Lab Assistant / Technician</a></li>
   <li><a href="esic-radiographer.html">Radiographer</a></li>
-  <li><a href="esic-physiotherapist.html">Physiotherapist</a></li>
 </ul>
 
 <h3>Paramedical & Other Staff</h3>
@@ -1223,7 +1497,6 @@
   <li><a href="esic-dresser.html">Dresser / Nursing Orderly</a></li>
   <li><a href="esic-cook.html">Cook / Kitchen Staff</a></li>
   <li><a href="esic-wardboy.html">Ward Boy / Attendant</a></li>
-  <li><a href="esic-driver.html">Driver</a></li>
 </ul>
 
 <h3>Apprenticeship / Training</h3>
@@ -1412,6 +1685,7 @@
   <li><a href="cet-highersec-ssc-chsl.html">SSC CHSL (Combined Higher Secondary Level)</a></li>
   <li><a href="cet-highersec-rrb-ntpc.html">RRB NTPC (12th Level Posts)</a></li>
   <li><a href="cet-highersec-ibps-clerk.html">IBPS Clerk (Prelims Level)</a></li>
+  <li><a href="cet-highersec-ibps-rrb-officer.html">IBPS RRB Officer Scale-I</a></li>
   <li><a href="cet-highersec-other-exams.html">Other 12th Pass Govt Exams</a></li>
 </ul>
 
@@ -1433,6 +1707,386 @@
             </div>
         </div>
     </div>
+    <!-- New AI Tool Modals -->
+    <div id="chatGPTModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">OpenAI</h3>
+            <div class="modal-list">
+                <a href="#">GPT‑4.5 / o-series</a>
+                <a href="#">Codex</a>
+                <a href="#">Whisper</a>
+                <a href="#">DALL·E 3</a>
+                <a href="#">Sora</a>
+            </div>
+        </div>
+    </div>
+    <div id="anthropicModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Anthropic</h3>
+            <div class="modal-list">
+                <a href="#">Claude 2</a>
+                <a href="#">Claude 3 (Opus, Sonnet, Haiku)</a>
+                <a href="#">Claude 3.7</a>
+            </div>
+        </div>
+    </div>
+    <div id="googleAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Google</h3>
+            <div class="modal-list">
+                <a href="#">Gemini (2.0 Pro, 2.5 Pro, Ultra/Pro/Nano)</a>
+                <a href="#">Gato</a>
+                <a href="#">SIMA</a>
+            </div>
+        </div>
+    </div>
+    <div id="metaAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Meta</h3>
+            <div class="modal-list">
+                <a href="#">LLaMA 2</a>
+                <a href="#">LLaMA 3.2 Vision</a>
+                <a href="#">LLaMA 4 (forthcoming)</a>
+            </div>
+        </div>
+    </div>
+    <div id="mistralAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Mistral</h3>
+            <div class="modal-list">
+                <a href="#">Mixtral</a>
+                <a href="#">Mistral Small/Medium 3</a>
+                <a href="#">Magistral Small/Medium</a>
+            </div>
+        </div>
+    </div>
+    <div id="deepseekModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">DeepSeek</h3>
+            <div class="modal-list">
+                <a href="#">R1</a>
+                <a href="#">DeepSeek‑V3 variants</a>
+            </div>
+        </div>
+    </div>
+    <div id="amazonAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Amazon</h3>
+            <div class="modal-list">
+                <a href="#">Nova Micro</a>
+                <a href="#">Lite</a>
+                <a href="#">Pro (text/image/video)</a>
+            </div>
+        </div>
+    </div>
+    <div id="xAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">xAI</h3>
+            <div class="modal-list">
+                <a href="#">Grok 4</a>
+            </div>
+        </div>
+    </div>
+    <div id="alibabaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Alibaba</h3>
+            <div class="modal-list">
+                <a href="#">Qwen 2.5 (dense & MoE)</a>
+            </div>
+        </div>
+    </div>
+    <div id="othersAIModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Others</h3>
+            <div class="modal-list">
+                <a href="#">MiniMax</a>
+                <a href="#">Pixtral</a>
+                <a href="#">etc.</a>
+            </div>
+        </div>
+    </div>
+    <!-- New Private Sector Job Modals -->
+    <div id="itSoftwareModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">IT और Software Jobs</h3>
+            <div class="modal-list">
+                <a href="#">Software Engineer / Developer</a>
+                <a href="#">Web Developer / App Developer</a>
+                <a href="#">Data Scientist / Analyst</a>
+                <a href="#">AI / ML Engineer</a>
+                <a href="#">Cybersecurity Analyst</a>
+                <a href="#">Cloud Engineer</a>
+                <a href="#">UI/UX Designer</a>
+                <a href="#">Tech Support Engineer</a>
+            </div>
+        </div>
+    </div>
+    <div id="salesMarketingModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Sales और Marketing</h3>
+            <div class="modal-list">
+                <a href="#">Sales Executive / Manager</a>
+                <a href="#">Digital Marketing Specialist</a>
+                <a href="#">SEO/SEM Analyst</a>
+                <a href="#">Social Media Manager</a>
+                <a href="#">Brand Manager</a>
+                <a href="#">Content Marketing Executive</a>
+                <a href="#">Product Marketing Manager</a>
+            </div>
+        </div>
+    </div>
+    <div id="financeAccountingModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Finance और Accounting Jobs</h3>
+            <div class="modal-list">
+                <a href="#">Accountant</a>
+                <a href="#">Financial Analyst</a>
+                <a href="#">Chartered Accountant (CA)</a>
+                <a href="#">Investment Banker</a>
+                <a href="#">Audit Executive</a>
+                <a href="#">Payroll Manager</a>
+                <a href="#">Tax Consultant</a>
+            </div>
+        </div>
+    </div>
+    <div id="hrJobsModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Human Resource (HR) Jobs</h3>
+            <div class="modal-list">
+                <a href="#">HR Executive</a>
+                <a href="#">Talent Acquisition Specialist</a>
+                <a href="#">HR Manager</a>
+                <a href="#">Training & Development Officer</a>
+                <a href="#">Payroll & Compliance Officer</a>
+                <a href="#">Employee Relations Manager</a>
+            </div>
+        </div>
+    </div>
+    <div id="customerSupportModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Customer Support / BPO / KPO</h3>
+            <div class="modal-list">
+                <a href="#">Customer Care Executive</a>
+                <a href="#">Technical Support Agent</a>
+                <a href="#">Chat Process Executive</a>
+                <a href="#">Voice Process Agent</a>
+                <a href="#">Team Leader (BPO)</a>
+                <a href="#">Process Trainer</a>
+            </div>
+        </div>
+    </div>
+    <div id="bankingInsuranceModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Banking और Insurance Sector</h3>
+            <div class="modal-list">
+                <a href="#">Relationship Manager</a>
+                <a href="#">Loan Officer</a>
+                <a href="#">Credit Analyst</a>
+                <a href="#">Branch Manager</a>
+                <a href="#">Insurance Advisor</a>
+                <a href="#">Underwriter</a>
+            </div>
+        </div>
+    </div>
+    <div id="healthcarePharmaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Healthcare / Pharma / Medical Jobs</h3>
+            <div class="modal-list">
+                <a href="#">Medical Representative (MR)</a>
+                <a href="#">Lab Technician</a>
+                <a href="#">Pharmacist</a>
+                <a href="#">Nurse (Private hospitals)</a>
+                <a href="#">Doctor (Private clinic/hospital)</a>
+                <a href="#">Clinical Research Associate</a>
+                <a href="#">Healthcare Admin</a>
+            </div>
+        </div>
+    </div>
+    <div id="educationTrainingModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Education और Training</h3>
+            <div class="modal-list">
+                <a href="#">Private School Teacher</a>
+                <a href="#">Online Tutor</a>
+                <a href="#">Corporate Trainer</a>
+                <a href="#">Admission Counselor</a>
+                <a href="#">Education Consultant</a>
+                <a href="#">E-learning Content Developer</a>
+            </div>
+        </div>
+    </div>
+    <div id="engineeringSectorModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Engineering Sector</h3>
+            <div class="modal-list">
+                <a href="#">Mechanical Engineer</a>
+                <a href="#">Civil Engineer</a>
+                <a href="#">Electrical Engineer</a>
+                <a href="#">Design Engineer (CAD)</a>
+                <a href="#">Production / Manufacturing Engineer</a>
+                <a href="#">Site Engineer</a>
+            </div>
+        </div>
+    </div>
+    <div id="manufacturingProductionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Manufacturing & Production</h3>
+            <div class="modal-list">
+                <a href="#">Machine Operator</a>
+                <a href="#">Plant Supervisor</a>
+                <a href="#">Quality Control Executive</a>
+                <a href="#">Production Manager</a>
+                <a href="#">Maintenance Technician</a>
+            </div>
+        </div>
+    </div>
+    <div id="logisticsSupplyChainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Logistics और Supply Chain</h3>
+            <div class="modal-list">
+                <a href="#">Logistics Executive</a>
+                <a href="#">Warehouse Manager</a>
+                <a href="#">Inventory Controller</a>
+                <a href="#">Procurement Specialist</a>
+                <a href="#">Supply Chain Analyst</a>
+                <a href="#">Fleet Manager</a>
+            </div>
+        </div>
+    </div>
+    <div id="realEstateModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Real Estate और Construction</h3>
+            <div class="modal-list">
+                <a href="#">Sales Executive (Real Estate)</a>
+                <a href="#">Site Supervisor</a>
+                <a href="#">Civil Engineer</a>
+                <a href="#">Architect</a>
+                <a href="#">Property Advisor</a>
+                <a href="#">Interior Designer</a>
+            </div>
+        </div>
+    </div>
+    <div id="retailEcommerceModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Retail / E-commerce Jobs</h3>
+            <div class="modal-list">
+                <a href="#">Store Manager</a>
+                <a href="#">Cashier / Billing Executive</a>
+                <a href="#">Visual Merchandiser</a>
+                <a href="#">Inventory Executive</a>
+                <a href="#">Customer Relationship Executive</a>
+                <a href="#">Delivery Executive (e.g. Flipkart, Amazon)</a>
+            </div>
+        </div>
+    </div>
+    <div id="mediaEntertainmentModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Media / Advertising / Entertainment</h3>
+            <div class="modal-list">
+                <a href="#">Content Writer / Copywriter</a>
+                <a href="#">Graphic Designer</a>
+                <a href="#">Video Editor</a>
+                <a href="#">Creative Director</a>
+                <a href="#">Journalist (Private Media House)</a>
+                <a href="#">Photographer / Cinematographer</a>
+                <a href="#">PR Executive</a>
+            </div>
+        </div>
+    </div>
+    <div id="legalLawModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Legal / Law Jobs (Private)</h3>
+            <div class="modal-list">
+                <a href="#">Legal Advisor</a>
+                <a href="#">Corporate Lawyer</a>
+                <a href="#">Contract Manager</a>
+                <a href="#">Legal Associate (Law firms)</a>
+                <a href="#">Compliance Officer</a>
+            </div>
+        </div>
+    </div>
+    <div id="hospitalityTravelModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Hospitality / Travel / Tourism</h3>
+            <div class="modal-list">
+                <a href="#">Hotel Manager</a>
+                <a href="#">Front Office Executive</a>
+                <a href="#">Travel Agent</a>
+                <a href="#">Chef / Cook</a>
+                <a href="#">Housekeeping Supervisor</a>
+                <a href="#">Tour Guide</a>
+                <a href="#">Event Manager</a>
+            </div>
+        </div>
+    </div>
+    <div id="securityServicesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Security Services</h3>
+            <div class="modal-list">
+                <a href="#">Private Security Guard</a>
+                <a href="#">CCTV Operator</a>
+                <a href="#">Security Supervisor</a>
+                <a href="#">Bouncer (Events / Clubs)</a>
+            </div>
+        </div>
+    </div>
+    <div id="drivingDeliveryModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">Driving / Delivery / Field Jobs</h3>
+            <div class="modal-list">
+                <a href="#">Cab Driver (Ola/Uber)</a>
+                <a href="#">Delivery Executive (Zomato/Swiggy)</a>
+                <a href="#">Field Sales Executive</a>
+                <a href="#">Service Technician (AC, Fridge, etc.)</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="fixed bottom-0 left-0 w-full md:hidden bg-golden-medium border-t-4 border-golden-dark shadow-lg bottom-nav z-10">
+        <div class="flex justify-around items-center h-16">
+            <a href="#govt-exam-section" class="flex flex-col items-center text-xs p-2">
+                <div class="card-icon">📚</div>
+                <span class="mt-1">सरकारी परीक्षा</span>
+            </a>
+            <a href="#ai-guide-section" class="flex flex-col items-center text-xs p-2">
+                <div class="card-icon">🧠</div>
+                <span class="mt-1">AI टूल्स</span>
+            </a>
+            <a href="#private-sector-section" class="flex flex-col items-center text-xs p-2">
+                <div class="card-icon">💼</div>
+                <span class="mt-1">प्राइवेट जॉब्स</span>
+            </a>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1497,27 +2151,71 @@
                 }
             });
 
-            searchInput.addEventListener('input', () => {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                let hasResults = false;
-
-                allCards.forEach(card => {
-                    const searchText = card.dataset.searchText || '';
-                    const isVisible = searchText.includes(searchTerm);
-                    
-                    if (isVisible) {
-                        card.style.display = 'block';
-                        hasResults = true;
-                    } else {
-                        card.style.display = 'none';
+            if(searchInput) {
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+                    let hasResults = false;
+    
+                    allCards.forEach(card => {
+                        const searchText = card.dataset.searchText || '';
+                        const isVisible = searchText.includes(searchTerm);
+                        
+                        if (isVisible) {
+                            card.style.display = 'block';
+                            hasResults = true;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+    
+                    if(noResultsMessage) {
+                        noResultsMessage.style.display = hasResults ? 'none' : 'block';
                     }
                 });
+            }
 
-                noResultsMessage.style.display = hasResults ? 'none' : 'block';
-            });
+
+            // Auto-Slider Script
+            const sliderContainer = document.querySelector('.slider-container');
+            const slidesData = [
+                { title: "SSC CGL 2025 के लिए आवेदन करें", text: "अंतिम तिथि: 30 सितंबर 2025", link: "https://ssc.gov.in/portal/apply", colorClass: "slide-1" },
+                { title: "UPSC CSE 2026 के लिए आवेदन जल्द शुरू होंगे  ", text: "सिविल सेवा परीक्षा के लिए आवेदन करें", link: "https://upsconline.nic.in/", colorClass: "slide-2" },
+                { title: "रेलवे ग्रुप D में 10,000+ पद", text: "आवेदन करने के लिए यहाँ क्लिक करें", link: "https://www.rrbcdg.gov.in/", colorClass: "slide-3" },
+                { title: "IBPS PO 2025 अधिसूचना जारी", text: "आवेदन जल्द ही शुरू होंगे", link: "https://www.ibps.in/", colorClass: "slide-4" },
+                { title: "DRDO में वैज्ञानिक 'B' की भर्ती", text: "आवेदन करने की अंतिम तिथि: 25 सितंबर 2025", link: "https://rac.gov.in/", colorClass: "slide-5" }
+            ];
+            let currentSlide = 0;
+
+            function createSlides() {
+                slidesData.forEach((data, index) => {
+                    const slide = document.createElement('a'); // Changed to <a> tag for link
+                    slide.href = data.link; // Set the link
+                    slide.target = "_blank"; // Open in new tab
+                    slide.className = `slide ${data.colorClass} rounded-xl shadow-lg p-6 text-center`;
+                    slide.innerHTML = `<h3 class="text-2xl sm:text-3xl font-bold mb-2">${data.title}</h3><p class="text-lg font-medium">${data.text}</p>`;
+                    if (index === 0) {
+                        slide.classList.add('active');
+                    }
+                    sliderContainer.appendChild(slide);
+                });
+            }
+
+            function showSlide(index) {
+                const slides = document.querySelectorAll('.slide');
+                slides.forEach(slide => slide.classList.remove('active'));
+                if (slides[index]) {
+                    slides[index].classList.add('active');
+                }
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slidesData.length;
+                showSlide(currentSlide);
+            }
+            
+            createSlides();
+            setInterval(nextSlide, 5000);
         });
     </script>
-    
-
 </body>
 </html>
