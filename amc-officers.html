@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMC Entry: A Guide for Specialist Doctors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to the Army Medical Corps (AMC) Entry for specialist doctors. Information on eligibility, selection process, interview, and career paths.">
+    <meta name="keywords" content="AMC, Army Medical Corps, Doctor, Specialist, MD, MS, Officer, Army, SSB, Interview, Preparation, Eligibility, Career, Indian Armed Forces">
+    <meta name="author" content="AMC Guide">
+    <style>
+        /* * NEW COLOR SCHEME & DESIGN PATTERN
+         * Theme: Professional Military Medical
+         * - Background: Light Beige (#FAF9F6) for a clean, clinical feel.
+         * - Primary/Heading Color: Deep Olive Green (#556B2F) for a military connection.
+         * - Accent/Border Color: Rich Maroon (#800000) inspired by the AMC insignia.
+         * - Text Color: Dark Charcoal (#36454F) for readability.
+         * - Card Background: White (#FFFFFF) for contrast.
+         * - Design: Slightly sharper corners (reduced border-radius) for a more formal, professional look.
+        */
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: #FAF9F6; /* Light Beige */
+            color: #36454F; /* Dark Charcoal */
+        }
+        .section-heading {
+            border-bottom: 3px solid #800000; /* Maroon */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #556B2F; /* Olive Green */
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem; /* Sharper corners */
+            box-shadow: 0 8px 12px -3px rgba(85, 107, 47, 0.1), 0 4px 6px -2px rgba(85, 107, 47, 0.05);
+            padding: 1.75rem;
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(85, 107, 47, 0.1);
+        }
+        .card:hover {
+            box-shadow: 0 15px 20px -5px rgba(85, 107, 47, 0.15), 0 8px 8px -5px rgba(85, 107, 47, 0.08);
+            transform: translateY(-5px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+        .flowchart-step {
+            border: 3px solid #556B2F;
+            color: #556B2F;
+            background-color: #FAF9F6;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .flowchart-step:hover {
+            background-color: #556B2F;
+            color: #FFFFFF;
+            transform: scale(1.05);
+        }
+        .flowchart-arrow {
+            color: #800000;
+        }
+        .subject-category-heading {
+            color: #556B2F;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid #800000;
+        }
+        .subject-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .subject-item .icon { color: #800000; margin-right: 0.75rem; font-size: 1.125rem; line-height: 1.5rem; }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;
+            transition: all 0.2s ease-in-out; border: 1px solid transparent;
+        }
+        .notes-btn { background-color: #800000; color: white; }
+        .notes-btn:hover { background-color: #600000; }
+        .lectures-btn { background-color: #FAF9F6; color: #556B2F; border-color: #556B2F; }
+        .lectures-btn:hover { background-color: #F0EFEA; }
+
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #556B2F;
+            color: #556B2F;
+            background-color: #FFFFFF;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #556B2F;
+            color: #FFFFFF;
+        }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex; align-items: flex-start; justify-content: center;
+            z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            overflow-y: auto; padding: 2rem 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: #FFFFFF; border-radius: 0.75rem; padding: 2rem;
+            box-shadow: 0 15px 25px -5px rgba(0,0,0,0.2), 0 10px 10px -5px rgba(0,0,0,0.1);
+            max-width: 800px; width: 95%; position: relative;
+            transform: translateY(-50px); opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            margin: 20px 0;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; color: #556B2F;
+        }
+        .modal-subject-button {
+            background-color: #800000; color: white; padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem; font-weight: 600; cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s; text-align: center;
+        }
+        .modal-subject-button:hover { background-color: #600000; transform: translateY(-2px); }
+        .modal-back-button {
+            background-color: #556B2F; color: white; padding: 0.5rem 1rem;
+            border-radius: 0.5rem; font-weight: 500; cursor: pointer; margin-top: 1rem;
+        }
+        .modal-card {
+            background-color: #FAF9F6; border-radius: 0.75rem; padding: 1rem;
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1); cursor: pointer;
+            transition: all 0.2s ease-in-out; border: 1px solid #556B2F;
+        }
+        .modal-card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15); }
+        .career-path-timeline {
+            position: relative; padding-left: 2rem; border-left: 4px solid #800000;
+        }
+        .career-path-dot {
+            position: absolute; left: -2.5rem; top: 0.25rem; width: 1.5rem; height: 1.5rem;
+            border-radius: 50%; background-color: #556B2F; border: 4px solid #FFFFFF;
+        }
+    </style>
+</head>
+<body class="text-[#36454F] leading-relaxed">
+
+    <div class="container mx-auto p-4 md:p-8 lg:p-12">
+
+        <header class="text-center mb-8">
+            <h1 id="header-title" class="text-3xl md:text-3xl font-extrabold text-[#556B2F] mb-4 drop-shadow-md">⚕️ Army Medical Corps: A Guide for Specialist Doctors ⚕️</h1>
+            <p id="header-subtitle" class="text-xl md:text-1xl text-[#800000] font-semibold">Your Path to Serving the Nation as a Medical Officer</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn" data-lang="hi">हिन्दी</button>
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <section class="card">
+                <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is AMC Entry? 🤔</h2>
+                <p id="sec1-p1" class="text-lg mb-6">The Army Medical Corps (AMC) offers a direct entry for qualified post-graduate specialist doctors to join the **Indian Army** as Commissioned Officers. AMC officers provide essential medical care to soldiers, their families, and in field hospitals during operations.</p>
+                <div class="text-center">
+                    <div class="text-7xl font-extrabold text-[#556B2F] drop-shadow-lg">👨‍⚕️</div>
+                    <div id="sec1-services-text" class="text-xl font-semibold text-[#556B2F]">A distinguished career in military medicine</div>
+                    <button id="sec1-services-btn" class="modal-subject-button mt-6 inline-block" data-modal-target="serviceListModal">Learn More About the Role</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center">2. Admission Process: 4 Key Steps 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Admission to AMC for specialists is a streamlined process focused on professional expertise, physical fitness, and suitability for military service.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="applicationMainModal"><span id="sec2-step1-title">Step 1:</span><br><span id="sec2-step1-name">Application</span></div>
+                        <p id="sec2-step1-desc" class="mt-3 font-semibold text-[#36454F]">Online Application</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="sccMainModal"><span id="sec2-step2-title">Step 2:</span><br><span id="sec2-step2-name">Shortlisting</span></div>
+                        <p id="sec2-step2-desc" class="mt-3 font-semibold text-[#36454F]">Based on Qualifications</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewMainModal"><span id="sec2-step3-title">Step 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-3 font-semibold text-[#36454F]">Professional Interview</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-36 h-36 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="medicalMainModal"><span id="sec2-step4-title">Step 4:</span><br><span id="sec2-step4-name">Medical</span></div>
+                        <p id="sec2-step4-desc" class="mt-3 font-semibold text-[#36454F]">Medical Examination</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who can apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">To apply for the AMC Entry, you must fulfill these crucial conditions:</p>
+                        <ul class="space-y-4 text-base">
+                            <li class="flex items-start"><span class="text-2xl text-[#800000] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-[#556B2F]">Education:</strong> <span id="sec3-edu-desc">MBBS and a Post-Graduate degree (MD/MS/MDS/DNB/Diploma) in a required specialty.</span></div></li>
+                            <li class="flex items-start"><span class="text-2xl text-[#800000] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-[#556B2F]">Age:</strong> <span id="sec3-age-desc">Must be below 45 years of age (may change as per notification).</span></div></li>
+                            <li class="flex items-start"><span class="text-2xl text-[#800000] mr-4">🩺</span><div><strong id="sec3-bar-title" class="text-[#556B2F]">Medical Council:</strong> <span id="sec3-bar-desc">Must be registered with the National Medical Commission (NMC) or a State Medical Council.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-physical-title" class="text-2xl font-bold text-[#556B2F] mb-4 border-b border-[#800000] pb-2">Physical and Medical Standards 📊</h3>
+                        <p id="sec3-physical-p1" class="text-lg mb-4">Candidates must meet strict physical and medical standards set for military service:</p>
+                         <ul id="sec3-physical-list" class="space-y-3 text-base list-disc list-inside">
+                            <li><strong>Height and Weight:</strong> Minimum height and weight proportionate to height as per military standards.</li>
+                             <li><strong>Vision:</strong> Strict standards for eyesight, though corrective lenses may be permitted for specialists.</li>
+                            <li><strong>General Health:</strong> Must be in good physical and mental health, free from any disabilities or chronic diseases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center">4. Interview Syllabus: Key Areas of Assessment 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The interview board assesses candidates on a range of subjects to determine their professional competence and suitability for the military.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div>
+                        <h3 id="syllabus1-title" class="subject-category-heading">Core Specialty Knowledge</h3>
+                        <div class="space-y-3">
+                            <div class="subject-item"><span class="icon">🩺</span><div class="flex-grow" id="syllabus1-sub1">Clinical Diagnosis & Management</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">🩹</span><div class="flex-grow" id="syllabus1-sub2">Surgical / Procedural Skills</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">🚑</span><div class="flex-grow" id="syllabus1-sub3">Emergency Protocols</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 id="syllabus2-title" class="subject-category-heading">General Medical Knowledge</h3>
+                        <div class="space-y-3">
+                            <div class="subject-item"><span class="icon">🌍</span><div class="flex-grow" id="syllabus2-sub1">National Health Programs</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">⚖️</span><div class="flex-grow" id="syllabus2-sub2">Medico-Legal Ethics</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div class="flex-grow" id="syllabus2-sub3">Recent Medical Advancements</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 id="syllabus3-title" class="subject-category-heading">Military & Personality Fit</h3>
+                         <div class="space-y-3">
+                            <div class="subject-item"><span class="icon">🎖️</span><div class="flex-grow" id="syllabus3-sub1">Knowledge about Armed Forces</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">🎯</span><div class="flex-grow" id="syllabus3-sub2">Leadership & Decision Making</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item"><span class="icon">🗣️</span><div class="flex-grow" id="syllabus3-sub3">Communication & Composure</div><div class="ml-4 flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">5. Assessment: Qualities of an AMC Officer 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">The interview aims to identify key qualities essential for a military doctor. Some are highlighted here:</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-[#556B2F] mb-6 border-b border-[#800000] pb-2">Key Qualities:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-3 text-base">
+                        <li class="flex items-start"><span class="text-xl text-[#800000] mr-3">💡</span><div><strong class="text-[#556B2F]">Professional Competence:</strong> Deep knowledge and skill in your specialty.</div></li>
+                        <li class="flex items-start"><span class="text-xl text-[#800000] mr-3">🤝</span><div><strong class="text-[#556B2F]">Adaptability:</strong> Ability to work in varied and challenging environments.</div></li>
+                        <li class="flex items-start"><span class="text-xl text-[#800000] mr-3">💪</span><div><strong class="text-[#556B2F]">Composure Under Stress:</strong> Ability to remain calm and effective in high-pressure situations.</div></li>
+                        <li class="flex items-start"><span class="text-xl text-[#800000] mr-3">🗣️</span><div><strong class="text-[#556B2F]">Clear Communication:</strong> Ability to communicate effectively with patients and colleagues.</div></li>
+                        <li class="flex items-start"><span class="text-xl text-[#800000] mr-3">🌟</span><div><strong class="text-[#556B2F]">Integrity and Ethics.</strong></div></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">6. Your Preparation Strategy: Smart Work 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Success in the AMC selection process requires focused preparation on both professional and personal fronts.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-[#556B2F] mb-4">📚 Preparation Steps:</h3>
+                        <ol class="relative border-l-4 border-[#800000] pl-6 space-y-8">
+                            <li class="py-2 -ml-9 pl-4">
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">1</div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-[#556B2F] mb-1">Master your specialty</h4>
+                                <p id="sec8-step1-desc" class="text-base text-[#36454F]">Thoroughly revise your post-graduate subjects and recent medical advancements.</p>
+                            </li>
+                             <li class="py-2 -ml-9 pl-4">
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">2</div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-[#556B2F] mb-1">Develop military awareness</h4>
+                                <p id="sec8-step2-desc" class="text-base text-[#36454F]">Understand the role of the AMC, basic military ranks, and the lifestyle of an officer.</p>
+                            </li>
+                             <li class="py-2 -ml-9 pl-4">
+                                <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">3</div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-[#556B2F] mb-1">Maintain physical fitness</h4>
+                                <p id="sec8-step3-desc" class="text-base text-[#36454F]">Engage in regular physical activity to meet the stringent medical standards.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-[#556B2F] mb-4">🔄 Practice and Self-Assessment:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-2 text-base">
+                            <li><strong>Mock Interviews:</strong> Practice with colleagues or mentors, focusing on both technical and HR questions.</li>
+                             <li><strong>Current Medical Affairs:</strong> Stay updated with national and international health news and policies.</li>
+                            <li><strong>Communication Skills:</strong> Practice articulating your thoughts clearly and confidently.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">7. When do applications open? 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Applications for AMC Specialist Entry are published based on requirements, usually once or twice a year:</p>
+                <ol class="relative border-l-4 border-[#800000] pl-6 space-y-6">
+                    <li>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">1</div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-[#556B2F] mb-1">Advertisement</h4>
+                        <p id="sec9-step1-desc" class="text-base text-[#36454F]"><strong class="text-gray-700">Time:</strong> Published in leading newspapers and on the Army website (e.g., Jan/Feb and Jul/Aug).</p>
+                    </li>
+                    <li>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">2</div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-[#556B2F] mb-1">Shortlisting & Interview Call-up</h4>
+                        <p id="sec9-step2-desc" class="text-base text-[#36454F]"><strong class="text-gray-700">Time:</strong> A few weeks after the application deadline.</p>
+                    </li>
+                     <li>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">3</div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-[#556B2F] mb-1">Interview and Medicals</h4>
+                        <p id="sec9-step3-desc" class="text-base text-[#36454F]"><strong class="text-gray-700">Time:</strong> Conducted at a designated center like Army Hospital (R&R), Delhi Cantt.</p>
+                    </li>
+                     <li>
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-[#800000] rounded-full -left-4 ring-8 ring-white font-bold text-lg text-white">4</div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-[#556B2F] mb-1">Merit List and Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base text-[#36454F]"><strong class="text-gray-700">Time:</strong> After completion of the selection process for all candidates.</p>
+                    </li>
+                </ol>
+            </section>
+            
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading">8. What Not to Do? 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">To succeed, it is also important to know which common mistakes to avoid.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-800" id="dont1-title">Do not be dishonest:</strong> Authenticity is highly valued. Be truthful about your experience and qualifications.</div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-800" id="dont2-title">Do not neglect your specialty:</strong> Your core medical knowledge is the foundation of your selection.</div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-800" id="dont3-title">Do not ignore military awareness:</strong> Show genuine interest and basic knowledge about the armed forces.</div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                        <div><strong class="text-lg text-red-800" id="dont4-title">Do not have poor physical fitness:</strong> The medical standards are strict and non-negotiable.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">9. Which institutions provide coaching? 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">While specific coaching for the AMC specialist interview is rare, you can leverage these resources for preparation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">Guidance & Mentorship</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li><strong>Serving/Retired AMC Officers:</strong> Their guidance is invaluable for understanding the service and interview expectations.</li>
+                           <li><strong>Armed Forces Medical College (AFMC):</strong> Alumni networks can be a great source of information and mentorship.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Private Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Focus on institutes that enhance your core skills rather than promising direct selection.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li><strong>General Interview Preparation Institutes:</strong> For improving communication and personality skills.</li>
+                            <li><strong>Medical PG Coaching Centers:</strong> Useful for a quick and thorough revision of your specialty subjects.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">10. Career Growth Path: A Detailed Roadmap 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A career in the AMC offers a structured and rewarding growth path, with opportunities to rise to the highest ranks based on performance and seniority.</p>
+                <button id="sec12-career-btn" class="modal-subject-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Ladder</button>
+            </section>
+
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">11. Final Selection & Training 🎓</h2>
+                <p id="sec13-p1" class="text-lg mb-6">Candidates who clear the interview and medicals are selected based on a final merit list and are commissioned into the Army Medical Corps.</p>
+                <button id="sec13-final-btn" class="modal-subject-button mt-4 inline-block" data-modal-target="finalSelectionModal">View Final Step</button>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-[#556B2F]/20">
+            <p id="footer-text" class="text-[#36454F] text-lg font-medium">&copy; 2025. Best wishes for your journey to become a Medical Officer.</p>
+        </footer>
+
+    </div>
+
+    <div id="applicationMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 class="text-2xl font-bold text-[#556B2F] mb-4">Application - Offline/Online</h3>
+            <p class="mb-4">Candidates must fill out the application form as specified in the advertisement and send it with required documents to the designated address.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div class="modal-card" data-modal-target="eligibilityDetailModal">
+                    <h4 class="font-bold">Check Eligibility</h4>
+                    <p class="text-sm">Thoroughly check age, medical qualification, and other criteria.</p>
+                </div>
+                 <div class="modal-card" data-modal-target="documentsDetailModal">
+                    <h4 class="font-bold">Required Documents</h4>
+                    <p class="text-sm">Compile attested copies of all educational and registration certificates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sccMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 class="text-2xl font-bold text-[#556B2F] mb-4">Shortlisting for Interview</h3>
+            <p class="mb-4">Applications are scrutinized, and candidates are shortlisted based on their qualifications, experience, and the vacancies available in their specialty.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                 <div class="modal-card" data-modal-target="callupDetailModal"><h4 class="font-bold">Interview Call-up Letter</h4><p class="text-sm">Shortlisted candidates receive a call-up letter for the interview.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="interviewMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 class="text-2xl font-bold text-[#556B2F] mb-4">The Interview Board</h3>
+            <p class="text-base text-[#36454F] mb-3">The interview is conducted by a board of senior officers, including high-ranking AMC officers and specialists, to assess your professional knowledge and suitability for service.</p>
+            <button class="modal-back-button" data-modal-target="main">Go Back</button>
+        </div>
+    </div>
+
+    <div id="medicalMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 class="text-2xl font-bold text-[#556B2F] mb-4">Medical Examination</h3>
+            <p class="text-base text-[#36454F] mb-3">After the interview, recommended candidates undergo a detailed medical examination by a board of military doctors to ensure they meet the required medical standards for commissioning.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                 <div class="modal-card" data-modal-target="physicalDetailModal"><h4 class="font-bold">Physical Standards</h4><p class="text-sm">Height, weight, and general physical fitness.</p></div>
+                 <div class="modal-card" data-modal-target="medicalStandardsDetailModal"><h4 class="font-bold">Medical Standards</h4><p class="text-sm">Eyesight, hearing, and overall health assessment.</p></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="eligibilityDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Eligibility Criteria</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> A 42-year-old doctor with an MD in Anesthesiology, registered with the State Medical Council, and meeting the physical fitness norms is eligible to apply for the AMC specialist entry.</p>
+            <button class="modal-back-button" data-modal-target="applicationMainModal">Go Back</button>
+        </div>
+    </div>
+
+    <div id="documentsDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Required Documents</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> You will need attested photocopies of your MBBS degree, PG Degree/Diploma certificate, NMC/State registration certificate, internship completion certificate, and birth certificate/matriculation certificate for age proof.</p>
+            <button class="modal-back-button" data-modal-target="applicationMainModal">Go Back</button>
+        </div>
+    </div>
+
+    <div id="callupDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Call-up Letter</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> You will receive a formal call-up letter detailing the date, time, and venue for the interview, typically at Army Hospital (Research & Referral) in Delhi, along with instructions for travel and required original documents.</p>
+            <button class="modal-back-button" data-modal-target="sccMainModal">Go Back</button>
+        </div>
+    </div>
+
+    <div id="physicalDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Physical Standards</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> A male candidate must have a minimum height of 157.5 cm, and a female candidate 152 cm. Weight should be proportionate to height, and there should be no skeletal deformities.</p>
+            <button class="modal-back-button" data-modal-target="medicalMainModal">Go Back</button>
+        </div>
+    </div>
+
+    <div id="medicalStandardsDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Medical Standards</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> A candidate must not have conditions like cardiovascular disease, uncontrolled hypertension, or any active infectious disease. Vision standards may allow for corrective lenses up to a certain power, depending on the specialty.</p>
+            <button class="modal-back-button" data-modal-target="medicalMainModal">Go Back</button>
+        </div>
+    </div>
+    
+    <div id="finalSelectionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Final Selection and Training</h4>
+            <p class="text-base text-[#36454F] mb-2">Selected candidates receive their appointment letters and are required to join for a basic military orientation course.</p>
+            <ul class="list-disc list-inside text-base text-[#36454F] space-y-2 mt-4">
+                <li><strong>Training Academy:</strong> AMC Centre & College, Lucknow.</li>
+                <li><strong>Training Period:</strong> A short orientation course (Medical Officers Basic Course - MOBC).</li>
+                <li><strong>Focus:</strong> Military orientation, combat medical support, and adaptation to military life.</li>
+            </ul>
+            <p class="text-base text-[#36454F] mt-4"><strong>Example:</strong> An Orthopedic Surgeon selected for the AMC will first report to Lucknow for the MOBC, where they will learn about military protocols and their role in a field hospital before being posted to a service hospital.</p>
+            <button class="modal-back-button" data-modal-target="main">Go Back</button>
+        </div>
+    </div>
+
+    <div id="serviceListModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="servicelist-modal-title" class="text-2xl font-bold text-[#556B2F] mb-4">The Role of an AMC Officer</h3>
+            <p id="servicelist-modal-p1" class="text-base text-[#36454F] mb-3">As a specialist officer in the AMC, you will have a multifaceted role:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="modal-card" data-modal-target="clinicalSpecialistModal"><span class="text-2xl">🏥</span><div class="font-bold mt-2">Clinical Specialist</div></div>
+                <div class="modal-card" data-modal-target="fieldSupportModal"><span class="text-2xl">➕</span><div class="font-bold mt-2">Field Medical Support</div></div>
+                <div class="modal-card" data-modal-target="hospitalAdminModal"><span class="text-2xl">📋</span><div class="font-bold mt-2">Hospital Administration</div></div>
+                <div class="modal-card" data-modal-target="researchModal"><span class="text-2xl">🔬</span><div class="font-bold mt-2">Research & Academics</div></div>
+            </div>
+            <button class="modal-back-button" data-modal-target="main">Go Back</button>
+        </div>
+    </div>
+
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 class="text-2xl font-bold text-[#556B2F] mb-6">Career Growth Path of an AMC Officer</h3>
+            <div class="career-path-timeline">
+                <div class="relative mb-8"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Captain</h4><p class="text-base text-[#36454F]">Initial rank on commissioning for specialists. You are posted to a service hospital as a specialist.</p></div>
+                <div class="relative mb-8"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Major</h4><p class="text-base text-[#36454F]">Promoted after about 4-5 years of service. You handle more complex cases and mentor junior doctors.</p></div>
+                <div class="relative mb-8"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Lieutenant Colonel</h4><p class="text-base text-[#36454F]">Promoted after about 13 years of service. You may head your specialty department in a hospital.</p></div>
+                <div class="relative mb-8"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Colonel</h4><p class="text-base text-[#36454F]">Promoted by selection after 20+ years. You could command a military hospital or hold senior staff appointments.</p></div>
+                <div class="relative mb-8"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Brigadier / Major General</h4><p class="text-base text-[#36454F]">Command larger hospital setups (Command/R&R Hospitals) or hold senior administrative roles at Command HQ.</p></div>
+                <div class="relative"><div class="career-path-dot"></div><h4 class="font-semibold text-lg text-[#556B2F] mb-1">Lt. General (DGMS)</h4><p class="text-base text-[#36454F]">The pinnacle of the career, heading the entire Army Medical Corps as the Director General Medical Services (Army).</p></div>
+            </div>
+             <button class="modal-back-button" data-modal-target="main">Go Back</button>
+        </div>
+    </div>
+
+    <div id="clinicalSpecialistModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Clinical Specialist 🏥</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> As a specialist surgeon, your primary role will be to perform complex surgeries and manage patients in your field at well-equipped military hospitals across the country, from Pune to Udhampur.</p>
+            <button class="modal-back-button" data-modal-target="serviceListModal">Go Back</button>
+        </div>
+    </div>
+    <div id="fieldSupportModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Field Medical Support ➕</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> During exercises or operations, you may be deployed to forward areas to set up and run specialist facilities in field hospitals, providing critical medical care close to the front lines.</p>
+            <button class="modal-back-button" data-modal-target="serviceListModal">Go Back</button>
+        </div>
+    </div>
+    <div id="hospitalAdminModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Hospital Administration 📋</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> As you gain seniority, you will take on administrative roles. A senior cardiologist might be appointed the Head of Department, managing resources, personnel, and training for the cardiology wing of a Command Hospital.</p>
+            <button class="modal-back-button" data-modal-target="serviceListModal">Go Back</button>
+        </div>
+    </div>
+    <div id="researchModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h4 class="text-2xl font-bold text-[#800000] mb-4">Research & Academics 🔬</h4>
+            <p class="text-base text-[#36454F] mb-4"><strong>Example:</strong> You will have the opportunity to engage in research at premier institutions like AFMC Pune or Army Hospital (R&R) Delhi, and contribute to academic journals. You can also become a professor, teaching postgraduate medical students.</p>
+            <button class="modal-back-button" data-modal-target="serviceListModal">Go Back</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            // Fully updated translations for AMC theme
+            const translations = {
+                'hi': {
+                    'header-title': '⚕️ आर्मी मेडिकल कोर: विशेषज्ञ डॉक्टरों के लिए एक गाइड ⚕️',
+                    'header-subtitle': 'एक चिकित्सा अधिकारी के रूप में राष्ट्र की सेवा करने का आपका मार्ग',
+                    'sec1-title': '1. एएमसी प्रवेश क्या है? 🤔',
+                    'sec1-p1': 'आर्मी मेडिकल कोर (AMC) योग्य स्नातकोत्तर विशेषज्ञ डॉक्टरों को **भारतीय सेना** में कमीशन अधिकारी के रूप में शामिल होने के लिए सीधी भर्ती प्रदान करता है। एएमसी अधिकारी सैनिकों, उनके परिवारों और ऑपरेशन के दौरान फील्ड अस्पतालों में आवश्यक चिकित्सा देखभाल प्रदान करते हैं।',
+                    'sec1-services-text': 'सैन्य चिकित्सा में एक प्रतिष्ठित करियर',
+                    'sec1-services-btn': 'भूमिका के बारे में अधिक जानें',
+                    'sec2-title': '2. प्रवेश प्रक्रिया: 4 मुख्य चरण 🎯',
+                    'sec2-p1': 'विशेषज्ञों के लिए एएमसी में प्रवेश एक सुव्यवस्थित प्रक्रिया है जो पेशेवर विशेषज्ञता, शारीरिक फिटनेस और सैन्य सेवा के लिए उपयुक्तता पर केंद्रित है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'आवेदन', 'sec2-step1-desc': 'ऑनलाइन आवेदन',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'शॉर्टलिस्टिंग', 'sec2-step2-desc': 'योग्यता के आधार पर',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'पेशेवर साक्षात्कार',
+                    'sec2-step4-title': 'चरण 4:', 'sec2-step4-name': 'मेडिकल', 'sec2-step4-desc': 'चिकित्सा परीक्षण',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'एएमसी प्रवेश के लिए आवेदन करने के लिए, आपको इन महत्वपूर्ण शर्तों को पूरा करना होगा:',
+                    'sec3-edu-title': 'शिक्षा:',
+                    'sec3-edu-desc': 'एमबीबीएस और एक आवश्यक विशेषता में स्नातकोत्तर डिग्री (एमडी/एमएस/एमडीएस/डीएनबी/डिप्लोमा)।',
+                    'sec3-age-title': 'आयु:',
+                    'sec3-age-desc': 'आयु 45 वर्ष से कम होनी चाहिए (अधिसूचना के अनुसार बदल सकती है)।',
+                    'sec3-bar-title': 'मेडिकल काउंसिल:',
+                    'sec3-bar-desc': 'राष्ट्रीय चिकित्सा आयोग (NMC) या राज्य चिकित्सा परिषद के साथ पंजीकृत होना चाहिए।',
+                    'sec3-physical-title': 'शारीरिक और चिकित्सा मानक 📊',
+                    'sec3-physical-p1': 'उम्मीदवारों को सैन्य सेवा के लिए निर्धारित सख्त शारीरिक और चिकित्सा मानकों को पूरा करना होगा:',
+                    'sec3-physical-list': '<li><strong>ऊंचाई और वजन:</strong> सैन्य मानकों के अनुसार न्यूनतम ऊंचाई और ऊंचाई के अनुपात में वजन।</li><li><strong>दृष्टि:</strong> आंखों की रोशनी के लिए सख्त मानक, हालांकि विशेषज्ञों के लिए सुधारात्मक लेंस की अनुमति हो सकती है।</li><li><strong>सामान्य स्वास्थ्य:</strong> अच्छे शारीरिक और मानसिक स्वास्थ्य में होना चाहिए, किसी भी विकलांगता या पुरानी बीमारियों से मुक्त होना चाहिए।</li>',
+                    'sec4-title': '4. साक्षात्कार पाठ्यक्रम: मूल्यांकन के प्रमुख क्षेत्र 📚',
+                    'sec4-p1': 'साक्षात्कार बोर्ड उम्मीदवारों का मूल्यांकन उनकी पेशेवर क्षमता और सेना के लिए उपयुक्तता निर्धारित करने के लिए कई विषयों पर करता है।',
+                    'syllabus1-title': 'मुख्य विशेषज्ञता ज्ञान',
+                    'syllabus1-sub1': 'नैदानिक निदान और प्रबंधन',
+                    'syllabus1-sub2': 'शल्य चिकित्सा / प्रक्रियात्मक कौशल',
+                    'syllabus1-sub3': 'आपातकालीन प्रोटोकॉल',
+                    'syllabus2-title': 'सामान्य चिकित्सा ज्ञान',
+                    'syllabus2-sub1': 'राष्ट्रीय स्वास्थ्य कार्यक्रम',
+                    'syllabus2-sub2': 'चिकित्सा-कानूनी नैतिकता',
+                    'syllabus2-sub3': 'नवीनतम चिकित्सा प्रगति',
+                    'syllabus3-title': 'सैन्य और व्यक्तित्व उपयुक्तता',
+                    'syllabus3-sub1': 'सशस्त्र बलों के बारे में ज्ञान',
+                    'syllabus3-sub2': 'नेतृत्व और निर्णय लेना',
+                    'syllabus3-sub3': 'संचार और संयम',
+                    'sec7-title': '5. मूल्यांकन: एएमसी अधिकारी के गुण 🎙️',
+                    'sec7-p1': 'साक्षात्कार का उद्देश्य एक सैन्य डॉक्टर के लिए आवश्यक प्रमुख गुणों की पहचान करना है। कुछ यहाँ पर प्रकाश डाला गया है:',
+                    'sec7-qualities-title': 'मुख्य गुण:',
+                    'sec7-qualities-list': '<li><span class="text-xl text-[#800000] mr-3">💡</span><div><strong class="text-[#556B2F]">व्यावसायिक क्षमता:</strong> आपकी विशेषता में गहरा ज्ञान और कौशल।</div></li><li><span class="text-xl text-[#800000] mr-3">🤝</span><div><strong class="text-[#556B2F]">अनुकूलनशीलता:</strong> विविध और चुनौतीपूर्ण वातावरण में काम करने की क्षमता।</div></li><li><span class="text-xl text-[#800000] mr-3">💪</span><div><strong class="text-[#556B2F]">तनाव में संयम:</strong> उच्च दबाव वाली स्थितियों में शांत और प्रभावी रहने की क्षमता।</div></li><li><span class="text-xl text-[#800000] mr-3">🗣️</span><div><strong class="text-[#556B2F]">स्पष्ट संचार:</strong> रोगियों और सहकर्मियों के साथ प्रभावी ढंग से संवाद करने की क्षमता।</div></li><li><span class="text-xl text-[#800000] mr-3">🌟</span><div><strong class="text-[#556B2F]">अखंडता और नैतिकता।</strong></div></li>',
+                    'sec8-title': '6. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈',
+                    'sec8-p1': 'एएमसी चयन प्रक्रिया में सफलता के लिए पेशेवर और व्यक्तिगत दोनों मोर्चों पर केंद्रित तैयारी की आवश्यकता है।',
+                    'sec8-steps-title': '📚 तैयारी के चरण:',
+                    'sec8-step1-title': 'अपनी विशेषता में महारत हासिल करें',
+                    'sec8-step1-desc': 'अपने स्नातकोत्तर विषयों और हालिया चिकित्सा प्रगति को अच्छी तरह से संशोधित करें।',
+                    'sec8-step2-title': 'सैन्य जागरूकता विकसित करें',
+                    'sec8-step2-desc': 'एएमसी की भूमिका, बुनियादी सैन्य रैंक और एक अधिकारी की जीवन शैली को समझें।',
+                    'sec8-step3-title': 'शारीरिक फिटनेस बनाए रखें',
+                    'sec8-step3-desc': 'कठोर चिकित्सा मानकों को पूरा करने के लिए नियमित शारीरिक गतिविधि में संलग्न रहें।',
+                    'sec8-revision-title': '🔄 अभ्यास और स्व-मूल्यांकन:',
+                    'sec8-revision-list': '<li><strong>मॉक साक्षात्कार:</strong> तकनीकी और मानव संसाधन दोनों प्रश्नों पर ध्यान केंद्रित करते हुए सहकर्मियों या आकाओं के साथ अभ्यास करें।</li><li><strong>वर्तमान चिकित्सा मामले:</strong> राष्ट्रीय और अंतर्राष्ट्रीय स्वास्थ्य समाचार और नीतियों से अपडेट रहें।</li><li><strong>संचार कौशल:</strong> अपने विचारों को स्पष्ट और आत्मविश्वास से व्यक्त करने का अभ्यास करें।</li>',
+                    'sec9-title': '7. आवेदन कब खुलते हैं? 🗓️',
+                    'sec9-p1': 'एएमसी विशेषज्ञ प्रवेश के लिए आवेदन आवश्यकताओं के आधार पर प्रकाशित किए जाते हैं, आमतौर पर साल में एक या दो बार:',
+                    'sec9-step1-title': 'विज्ञापन',
+                    'sec9-step1-desc': '<strong class="text-gray-700">समय:</strong> प्रमुख समाचार पत्रों और सेना की वेबसाइट पर प्रकाशित (उदा., जनवरी/फरवरी और जुलाई/अगस्त)।',
+                    'sec9-step2-title': 'शॉर्टलिस्टिंग और साक्षात्कार कॉल-अप',
+                    'sec9-step2-desc': '<strong class="text-gray-700">समय:</strong> आवेदन की समय सीमा के कुछ सप्ताह बाद।',
+                    'sec9-step3-title': 'साक्षात्कार और मेडिकल',
+                    'sec9-step3-desc': '<strong class="text-gray-700">समय:</strong> आर्मी हॉस्पिटल (आरएंडआर), दिल्ली कैंट जैसे एक निर्दिष्ट केंद्र में आयोजित किया जाता है।',
+                    'sec9-step4-title': 'मेरिट सूची और ज्वाइनिंग',
+                    'sec9-step4-desc': '<strong class="text-gray-700">समय:</strong> सभी उम्मीदवारों के लिए चयन प्रक्रिया पूरी होने के बाद।',
+                    'sec10-title': '8. क्या नहीं करना चाहिए? 🚫',
+                    'sec10-p1': 'सफल होने के लिए, यह जानना भी महत्वपूर्ण है कि किन सामान्य गलतियों से बचना चाहिए।',
+                    'dont1-title': 'बेईमान न बनें:',
+                    'dont2-title': 'अपनी विशेषज्ञता को नजरअंदाज न करें:',
+                    'dont3-title': 'सैन्य जागरूकता को नजरअंदाज न करें:',
+                    'dont4-title': 'खराब शारीरिक फिटनेस न रखें:',
+                    'sec11-title': '9. कौन से संस्थान कोचिंग प्रदान करते हैं? 🏫',
+                    'sec11-p1': 'हालांकि एएमसी विशेषज्ञ साक्षात्कार के लिए विशिष्ट कोचिंग दुर्लभ है, आप तैयारी के लिए इन संसाधनों का लाभ उठा सकते हैं।',
+                    'sec11-gov-title': 'मार्गदर्शन और परामर्श',
+                    'sec11-gov-list': '<li><strong>सेवारत/सेवानिवृत्त एएमसी अधिकारी:</strong> सेवा और साक्षात्कार की अपेक्षाओं को समझने के लिए उनका मार्गदर्शन अमूल्य है।</li><li><strong>सशस्त्र बल मेडिकल कॉलेज (AFMC):</strong> पूर्व छात्र नेटवर्क सूचना और परामर्श का एक बड़ा स्रोत हो सकते हैं।</li>',
+                    'sec11-pvt-title': 'निजी संस्थान',
+                    'sec11-pvt-p1': 'सीधे चयन का वादा करने के बजाय अपने मुख्य कौशल को बढ़ाने वाले संस्थानों पर ध्यान केंद्रित करें।',
+                    'sec11-pvt-list': '<li><strong>सामान्य साक्षात्कार तैयारी संस्थान:</strong> संचार और व्यक्तित्व कौशल में सुधार के लिए।</li><li><strong>मेडिकल पीजी कोचिंग सेंटर:</strong> आपके विशेषज्ञता विषयों के त्वरित और संपूर्ण संशोधन के लिए उपयोगी।</li>',
+                    'sec12-title': '10. करियर ग्रोथ पथ: एक विस्तृत रोडमैप 🚀',
+                    'sec12-p1': 'एएमसी में एक करियर एक संरचित और पुरस्कृत विकास पथ प्रदान करता है, जिसमें प्रदर्शन और वरिष्ठता के आधार पर उच्चतम रैंक तक पहुंचने के अवसर होते हैं।',
+                    'sec12-career-btn': 'करियर लैडर देखें',
+                    'sec13-title': '11. अंतिम चयन और प्रशिक्षण 🎓',
+                    'sec13-p1': 'साक्षात्कार और मेडिकल पास करने वाले उम्मीदवारों का चयन अंतिम मेरिट सूची के आधार पर किया जाता है और उन्हें आर्मी मेडिकल कोर में कमीशन दिया जाता है।',
+                    'sec13-final-btn': 'अंतिम चरण देखें',
+                    'footer-text': '&copy; 2025। एक चिकित्सा अधिकारी बनने की आपकी यात्रा के लिए शुभकामनाएं।',
+                    'servicelist-modal-title': 'एक एएमसी अधिकारी की भूमिका',
+                    'servicelist-modal-p1': 'एएमसी में एक विशेषज्ञ अधिकारी के रूप में, आपकी एक बहुआयामी भूमिका होगी:',
+                    'interviewChartData': {
+                        labels: ['व्यावसायिक क्षमता', 'अनुकूलनशीलता', 'तनाव में संयम', 'संचार', 'अखंडता'],
+                        data: [95, 85, 90, 80, 95]
+                    }
+                },
+                'en': {
+                    'header-title': '⚕️ Army Medical Corps: A Guide for Specialist Doctors ⚕️',
+                    'header-subtitle': 'Your Path to Serving the Nation as a Medical Officer',
+                    'sec1-title': '1. What is AMC Entry? 🤔',
+                    'sec1-p1': 'The Army Medical Corps (AMC) offers a direct entry for qualified post-graduate specialist doctors to join the **Indian Army** as Commissioned Officers. AMC officers provide essential medical care to soldiers, their families, and in field hospitals during operations.',
+                    'sec1-services-text': 'A distinguished career in military medicine',
+                    'sec1-services-btn': 'Learn More About the Role',
+                    'sec2-title': '2. Admission Process: 4 Key Steps 🎯',
+                    'sec2-p1': 'Admission to AMC for specialists is a streamlined process focused on professional expertise, physical fitness, and suitability for military service.',
+                    'sec2-step1-title': 'Step 1:', 'sec2-step1-name': 'Application', 'sec2-step1-desc': 'Online Application',
+                    'sec2-step2-title': 'Step 2:', 'sec2-step2-name': 'Shortlisting', 'sec2-step2-desc': 'Based on Qualifications',
+                    'sec2-step3-title': 'Step 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Professional Interview',
+                    'sec2-step4-title': 'Step 4:', 'sec2-step4-name': 'Medical', 'sec2-step4-desc': 'Medical Examination',
+                    'sec3-title': '3. Who can apply? ✅',
+                    'sec3-p1': 'To apply for the AMC Entry, you must fulfill these crucial conditions:',
+                    'sec3-edu-title': 'Education:',
+                    'sec3-edu-desc': 'MBBS and a Post-Graduate degree (MD/MS/MDS/DNB/Diploma) in a required specialty.',
+                    'sec3-age-title': 'Age:',
+                    'sec3-age-desc': 'Must be below 45 years of age (may change as per notification).',
+                    'sec3-bar-title': 'Medical Council:',
+                    'sec3-bar-desc': 'Must be registered with the National Medical Commission (NMC) or a State Medical Council.',
+                    'sec3-physical-title': 'Physical and Medical Standards 📊',
+                    'sec3-physical-p1': 'Candidates must meet strict physical and medical standards set for military service:',
+                    'sec3-physical-list': '<li><strong>Height and Weight:</strong> Minimum height and weight proportionate to height as per military standards.</li><li><strong>Vision:</strong> Strict standards for eyesight, though corrective lenses may be permitted for specialists.</li><li><strong>General Health:</strong> Must be in good physical and mental health, free from any disabilities or chronic diseases.</li>',
+                    'sec4-title': '4. Interview Syllabus: Key Areas of Assessment 📚',
+                    'sec4-p1': 'The interview board assesses candidates on a range of subjects to determine their professional competence and suitability for the military.',
+                    'syllabus1-title': 'Core Specialty Knowledge',
+                    'syllabus1-sub1': 'Clinical Diagnosis & Management',
+                    'syllabus1-sub2': 'Surgical / Procedural Skills',
+                    'syllabus1-sub3': 'Emergency Protocols',
+                    'syllabus2-title': 'General Medical Knowledge',
+                    'syllabus2-sub1': 'National Health Programs',
+                    'syllabus2-sub2': 'Medico-Legal Ethics',
+                    'syllabus2-sub3': 'Recent Medical Advancements',
+                    'syllabus3-title': 'Military & Personality Fit',
+                    'syllabus3-sub1': 'Knowledge about Armed Forces',
+                    'syllabus3-sub2': 'Leadership & Decision Making',
+                    'syllabus3-sub3': 'Communication & Composure',
+                    'sec7-title': '5. Assessment: Qualities of an AMC Officer 🎙️',
+                    'sec7-p1': 'The interview aims to identify key qualities essential for a military doctor. Some are highlighted here:',
+                    'sec7-qualities-title': 'Key Qualities:',
+                    'sec7-qualities-list': '<li><span class="text-xl text-[#800000] mr-3">💡</span><div><strong class="text-[#556B2F]">Professional Competence:</strong> Deep knowledge and skill in your specialty.</div></li><li><span class="text-xl text-[#800000] mr-3">🤝</span><div><strong class="text-[#556B2F]">Adaptability:</strong> Ability to work in varied and challenging environments.</div></li><li><span class="text-xl text-[#800000] mr-3">💪</span><div><strong class="text-[#556B2F]">Composure Under Stress:</strong> Ability to remain calm and effective in high-pressure situations.</div></li><li><span class="text-xl text-[#800000] mr-3">🗣️</span><div><strong class="text-[#556B2F]">Clear Communication:</strong> Ability to communicate effectively with patients and colleagues.</div></li><li><span class="text-xl text-[#800000] mr-3">🌟</span><div><strong class="text-[#556B2F]">Integrity and Ethics.</strong></div></li>',
+                    'sec8-title': '6. Your Preparation Strategy: Smart Work 📈',
+                    'sec8-p1': 'Success in the AMC selection process requires focused preparation on both professional and personal fronts.',
+                    'sec8-steps-title': '📚 Preparation Steps:',
+                    'sec8-step1-title': 'Master your specialty',
+                    'sec8-step1-desc': 'Thoroughly revise your post-graduate subjects and recent medical advancements.',
+                    'sec8-step2-title': 'Develop military awareness',
+                    'sec8-step2-desc': 'Understand the role of the AMC, basic military ranks, and the lifestyle of an officer.',
+                    'sec8-step3-title': 'Maintain physical fitness',
+                    'sec8-step3-desc': 'Engage in regular physical activity to meet the stringent medical standards.',
+                    'sec8-revision-title': '🔄 Practice and Self-Assessment:',
+                    'sec8-revision-list': '<li><strong>Mock Interviews:</strong> Practice with colleagues or mentors, focusing on both technical and HR questions.</li><li><strong>Current Medical Affairs:</strong> Stay updated with national and international health news and policies.</li><li><strong>Communication Skills:</strong> Practice articulating your thoughts clearly and confidently.</li>',
+                    'sec9-title': '7. When do applications open? 🗓️',
+                    'sec9-p1': 'Applications for AMC Specialist Entry are published based on requirements, usually once or twice a year:',
+                    'sec9-step1-title': 'Advertisement',
+                    'sec9-step1-desc': '<strong class="text-gray-700">Time:</strong> Published in leading newspapers and on the Army website (e.g., Jan/Feb and Jul/Aug).',
+                    'sec9-step2-title': 'Shortlisting & Interview Call-up',
+                    'sec9-step2-desc': '<strong class="text-gray-700">Time:</strong> A few weeks after the application deadline.',
+                    'sec9-step3-title': 'Interview and Medicals',
+                    'sec9-step3-desc': '<strong class="text-gray-700">Time:</strong> Conducted at a designated center like Army Hospital (R&R), Delhi Cantt.',
+                    'sec9-step4-title': 'Merit List and Joining',
+                    'sec9-step4-desc': '<strong class="text-gray-700">Time:</strong> After completion of the selection process for all candidates.',
+                    'sec10-title': '8. What Not to Do? 🚫',
+                    'sec10-p1': 'To succeed, it is also important to know which common mistakes to avoid.',
+                    'dont1-title': 'Do not be dishonest:',
+                    'dont2-title': 'Do not neglect your specialty:',
+                    'dont3-title': 'Do not ignore military awareness:',
+                    'dont4-title': 'Do not have poor physical fitness:',
+                    'sec11-title': '9. Which institutions provide coaching? 🏫',
+                    'sec11-p1': 'While specific coaching for the AMC specialist interview is rare, you can leverage these resources for preparation.',
+                    'sec11-gov-title': 'Guidance & Mentorship',
+                    'sec11-gov-list': '<li><strong>Serving/Retired AMC Officers:</strong> Their guidance is invaluable for understanding the service and interview expectations.</li><li><strong>Armed Forces Medical College (AFMC):</strong> Alumni networks can be a great source of information and mentorship.</li>',
+                    'sec11-pvt-title': 'Private Institutes',
+                    'sec11-pvt-p1': 'Focus on institutes that enhance your core skills rather than promising direct selection.',
+                    'sec11-pvt-list': '<li><strong>General Interview Preparation Institutes:</strong> For improving communication and personality skills.</li><li><strong>Medical PG Coaching Centers:</strong> Useful for a quick and thorough revision of your specialty subjects.</li>',
+                    'sec12-title': '10. Career Growth Path: A Detailed Roadmap 🚀',
+                    'sec12-p1': 'A career in the AMC offers a structured and rewarding growth path, with opportunities to rise to the highest ranks based on performance and seniority.',
+                    'sec12-career-btn': 'View Career Ladder',
+                    'sec13-title': '11. Final Selection & Training 🎓',
+                    'sec13-p1': 'Candidates who clear the interview and medicals are selected based on a final merit list and are commissioned into the Army Medical Corps.',
+                    'sec13-final-btn': 'View Final Step',
+                    'footer-text': '&copy; 2025. Best wishes for your journey to become a Medical Officer.',
+                    'servicelist-modal-title': 'The Role of an AMC Officer',
+                    'servicelist-modal-p1': 'As a specialist officer in the AMC, you will have a multifaceted role:',
+                    'interviewChartData': {
+                        labels: ['Professional Competence', 'Adaptability', 'Composure', 'Communication', 'Integrity'],
+                        data: [95, 85, 90, 80, 95]
+                    }
+                }
+            };
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations[currentLang]['interviewChartData'].labels,
+                        datasets: [{
+                            data: translations[currentLang]['interviewChartData'].data,
+                            backgroundColor: '#556B2F',
+                            borderColor: '#556B2F',
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100 },
+                        }
+                    }
+                });
+            }
+
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (typeof translations[lang][id] === 'string') {
+                            element.innerHTML = translations[lang][id];
+                        }
+                    }
+                }
+                if (interviewChartInstance) {
+                    const chartData = translations[currentLang]['interviewChartData'];
+                    interviewChartInstance.data.labels = chartData.labels;
+                    interviewChartInstance.data.datasets[0].data = chartData.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    translatePage(button.getAttribute('data-lang'));
+                });
+            });
+
+            const activeModals = [];
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('active');
+                    activeModals.push(modal);
+                }
+            };
+            const closeModal = () => {
+                const modal = activeModals.pop();
+                if (modal) modal.classList.remove('active');
+            };
+            const showPreviousModal = () => {
+                closeModal(); // Close current
+                const prevModal = activeModals[activeModals.length - 1]; // Get previous without popping
+                if (prevModal) {
+                    prevModal.classList.add('active');
+                    activeModals.pop(); // Remove it so it can be re-added by showModal
+                    showModal(prevModal.id);
+                }
+            };
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => {
+                    while (activeModals.length > 0) closeModal();
+                });
+            });
+            document.querySelectorAll('.modal-back-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const currentModal = e.target.closest('.modal-overlay');
+                    const targetModalId = e.target.dataset.modalTarget;
+                    if (currentModal) currentModal.classList.remove('active');
+                    if (targetModalId !== 'main') showModal(targetModalId);
+                });
+            });
+
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
