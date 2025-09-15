@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAF Airmen (Group X & Y) Recruitment Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide for the Indian Air Force Airmen (Group X & Y) recruitment. Information on eligibility, selection process, training, and career path.">
+    <meta name="keywords" content="Airmen, Group X, Group Y, Indian Air Force, IAF Recruitment, Defence Jobs, Airmen Selection, STAR Exam">
+    <meta name="author" content="IAF Airmen Guide">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0c1427; /* Deep Navy Blue */
+            color: #dbeafe; /* Light Blue Gray */
+        }
+        .section-heading {
+            border-bottom: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #22d3ee, #34d399); /* Cyan to Emerald */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #f0f9ff; /* Lighter Blue Gray */
+        }
+        .card {
+            background: rgba(14, 27, 57, 0.6); /* Semi-transparent darker navy */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .card:hover {
+            border-color: rgba(34, 211, 238, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #22d3ee; /* Cyan */
+            color: #f0f9ff;
+            background-color: rgba(11, 20, 39, 0.7); /* Transparent Deepest Navy */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #22d3ee;
+            color: #0c1427;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(34, 211, 238, 0.4);
+        }
+        .flowchart-arrow {
+            color: #34d399; /* Emerald */
+        }
+        .subject-category-heading {
+            color: #f0f9ff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #34d399;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(30, 41, 59, 0.7);
+        }
+        .subject-item .icon {
+            color: #22d3ee;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #34d399;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #22d3ee;
+            border: 4px solid #0c1427;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(12, 20, 39, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b; /* Darker Slate */
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #22d3ee;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #94a3b8; line-height: 1;
+        }
+        .modal-close-button:hover { color: #f87171; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #22d3ee, #34d399);
+            color: #1e293b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(52, 211, 153, 0.4);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #22d3ee;
+            color: #dbeafe;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #22d3ee;
+            color: #0c1427;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #34d399;
+            color: #1e293b;
+        }
+        .notes-btn:hover {
+            background-color: #10b981;
+        }
+        .lectures-btn {
+            background-color: transparent;
+            color: #22d3ee;
+            border-color: #22d3ee;
+        }
+        .lectures-btn:hover {
+            background-color: rgba(34, 211, 238, 0.2);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 mb-4 tracking-tight">✈️ IAF Airmen Recruitment Guide ✈️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-cyan-400 font-semibold">The Backbone of the Indian Air Force</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: Who are Airmen -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. Who are Airmen? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Airmen are the skilled workforce of the Indian Air Force, responsible for the maintenance, operation, and support of all IAF assets. They are highly trained professionals who form the core of the IAF's technical and non-technical domains, ensuring the force is always mission-ready.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: Path to the Blue Uniform 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection of Airmen is conducted through the STAR (Scheduled Test for Airmen Recruitment) examination, a rigorous multi-phase process to select the best candidates.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Phase 1:</span><br><span id="sec2-step1-name">Online Test (STAR)</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Computer Based Examination</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Phase 2:</span><br><span id="sec2-step2-name">Physical & Adaptability Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">PFT, AT-I & AT-II</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Phase 3:</span><br><span id="sec2-step3-name">Medical Exam</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Final Medical Evaluation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for Airmen varies based on the trade group (X or Y):</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-gray-200 text-lg">Education:</strong> <span id="sec3-edu-desc">**Group X (Technical):** 10+2 with Maths, Physics & English. **Group Y (Non-Technical):** 10+2 in any stream. A minimum of 50% marks is usually required.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🎂</span><div><strong id="sec3-age-title" class="text-gray-200 text-lg">Age:</strong> <span id="sec3-age-desc">Typically between **17 and 21 years**. The exact age limit is specified in the official rally/recruitment notification.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-gray-200 text-lg">Marital Status:</strong> <span id="sec3-nat-desc">Only unmarried male candidates are eligible to join as Airmen.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-gray-200 mb-4 border-b border-cyan-500 pb-2">Medical & Physical Standards 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Stringent medical and physical standards are a prerequisite for joining the IAF.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside">
+                            <li><strong>Height:</strong> Minimum height requirement is 152.5 cm. Certain trades have different requirements.</li>
+                            <li><strong>Vision:</strong> Must meet specific visual standards, with or without glasses, depending on the trade. Color blindness is a rejection criterion for most trades.</li>
+                            <li><strong>Hearing & Dental:</strong> Candidates should have normal hearing and a minimum number of healthy teeth.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Selection Tests Detailed -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. The Selection Tests: In Detail 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding the structure of each phase is vital for clearing the selection process.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-cyan-500/20 hover:border-cyan-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Phase 1: Online Test 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🛠️</span><div id="gs1-sub1">Group X (English, Physics, Maths)</div></div>
+                            <div class="subject-item"><span class="icon">📋</span><div id="gs1-sub2">Group Y (English, RAGA)</div></div>
+                             <div class="subject-item"><span class="icon">🔀</span><div id="gs1-sub3">Both X & Y Groups</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-cyan-500/20 hover:border-cyan-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Phase 2: PFT 🏃‍♂️</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">⏱️</span><div id="gs2-sub1">1.6 Km Run</div></div>
+                            <div class="subject-item"><span class="icon">💪</span><div id="gs2-sub2">Push-ups</div></div>
+                            <div class="subject-item"><span class="icon">🏋️</span><div id="gs2-sub3">Sit-ups & Squats</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-cyan-500/20 hover:border-cyan-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Phase 2: Adaptability Tests 🧠</h3>
+                         <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🗣️</span><div id="gs3-sub1">Adaptability Test - I (SRT)</div></div>
+                            <div class="subject-item"><span class="icon">👥</span><div id="gs3-sub2">Adaptability Test - II (Group Discussion)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training: Forging of an Airman ✈️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected candidates undergo a transformative training process, starting with Joint Basic Phase Training (JBPT) and followed by specialized trade training.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-slate-800/40 rounded-xl border-2 border-emerald-800">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-gray-200 mb-2">1. Joint Basic Phase Training (JBPT)</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">This initial phase is common for all trainees and is conducted at Basic Training Institute (BTI), Belagavi.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Physical Fitness and Drill</li>
+                            <li>Weapon Handling and Firing</li>
+                            <li>Military Discipline and Ethos</li>
+                            <li>General Service and Aviation Knowledge</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-slate-800/40 rounded-xl border-2 border-emerald-800">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-gray-200 mb-2">2. Trade Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">After JBPT, Airmen are sent to different technical and non-technical training institutes for specialization.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Hands-on training on aircraft and equipment.</li>
+                           <li>Classroom instruction on technical subjects.</li>
+                           <li>Training for administrative, logistics, and support roles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Airmen Trades -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Airmen Trade Groups 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Airmen are categorized into two main groups based on their roles: Group X (Technical) and Group Y (Non-Technical).</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Group X (Technical)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Electronics Fitter</li>
+                           <li>Electrical Fitter</li>
+                           <li>Weapon Fitter</li>
+                           <li>Mechanical Fitter</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Group Y (Non-Technical)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Admin Assistant</li>
+                           <li>Accounts Assistant</li>
+                           <li>Logistics Assistant</li>
+                           <li>IAF Police & Security</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Group Y (Special Trades)</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Musician</li>
+                           <li>Medical Assistant</li>
+                           <li>Communication Technician</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-slate-800/50 border border-cyan-700 rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-gray-200 mb-2">💡 Why is this important?</h4>
+                    <p id="sec6-imp-p1" class="text-base">Your choice of Group X or Y depends on your educational background and determines your career path in the IAF.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities of an Airman -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Core Qualities of an Airman 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">The IAF looks for candidates who possess the fundamental qualities required to be a disciplined and effective Air Warrior.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-gray-200 mb-6 border-b border-cyan-500 pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">💪</span><div><strong class="text-gray-200">Discipline:</strong> A high sense of discipline and respect for the chain of command.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">Adaptability:</strong> The ability to adapt to different operational environments and challenging situations.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">Integrity:</strong> Unwavering honesty and moral courage in all actions.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">Technical Acumen:</strong> A strong aptitude for learning and applying technical skills.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Preparation Strategy: Aim High 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A systematic preparation plan is essential to clear the competitive STAR examination and subsequent tests.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-gray-200 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-emerald-500 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-emerald-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-gray-200 mb-1">Master the Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base">Focus on 10+2 level CBSE syllabus for English, Physics, and Maths (Group X) and English & RAGA (Group Y).</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-emerald-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-gray-200 mb-1">Achieve Peak Physical Fitness</h4>
+                                <p id="sec8-step2-desc" class="text-base">Consistent training for the 1.6 km run and other exercises in the PFT is non-negotiable.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-emerald-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-gray-200 mb-1">Practice Online Tests</h4>
+                                <p id="sec8-step3-desc" class="text-base">Familiarize yourself with the computer-based test format by taking numerous mock tests to enhance speed and accuracy.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-gray-200 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Current Affairs:</strong> Stay updated on national and international events for the RAGA section.</li>
+                            <li><strong>English Proficiency:</strong> Improve your grammar, vocabulary, and comprehension skills.</li>
+                            <li><strong>Develop Confidence:</strong> Practice speaking on various topics to prepare for the group discussion in Adaptability Test-II.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Airmen recruitment is conducted through centralized online STAR exams as well as direct recruitment rallies. Stay updated via the official website airmenselection.cdac.in.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-gray-200 mb-1">Notification & Online Registration</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Notifications for STAR exams are released periodically throughout the year.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-gray-200 mb-1">Phase I: Online Test</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Conducted on scheduled dates after the registration period ends.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-gray-200 mb-1">Phase II & III</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Shortlisted candidates are called to Airmen Selection Centres (ASCs) for physical and medical tests.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-gray-200 mb-1">Final All India Select List (AISL)</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Published based on performance. Selected candidates receive call letters for training.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Avoid these common pitfalls to maximize your chances of joining the elite ranks of the IAF.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-200">Failing in Physical Test:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-300 mt-1">Underestimating the PFT is a common reason for disqualification. Physical fitness is paramount.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-200">Not Clearing Sectional Cut-offs:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-300 mt-1">You must pass in each subject of the online test, not just achieve a high overall score.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-200">Document Lapses:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-300 mt-1">Not carrying all required original documents and photocopies during Phase II verification.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-200">Ignoring Medical Standards:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-300 mt-1">Not getting a preliminary medical check-up to identify and rectify minor issues beforehand.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Coaching & Resources 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Structured coaching can significantly boost your preparation for the highly competitive Airmen selection tests.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Exam Coaching</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Choose institutes with experienced faculty for Physics, Maths, and RAGA.</li>
+                           <li>Online coaching platforms provide flexibility and access to quality study material.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">🏃‍♂️ Physical Training</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Consider joining a fitness center or academy that specializes in defence physical test preparation.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Guidance from a qualified trainer can improve performance and prevent injuries.</li>
+                            <li>Group training sessions can build motivation and competitive spirit.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Progression of an Airman 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A career as an Airman offers a stable and respectable path with assured promotions up to the rank of Master Warrant Officer (MWO). Exceptional Airmen also have the opportunity to become Commissioned Officers.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Rank Structure</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">A thorough understanding of the syllabus for the Group X and Group Y online tests is the foundation of a successful preparation.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Group X -->
+                    <div class="bg-slate-800/40 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-cyan-500/10 transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Group X (Technical) Syllabus</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Group Y -->
+                    <div class="bg-slate-800/40 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-cyan-500/10 transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Group Y (Non-Technical) Syllabus</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-slate-700">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Your journey to touch the sky with glory begins here. Jai Hind!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Phase 1: Online Test (STAR)</h3>
+            <p id="prelims-modal-p1">The first hurdle is a computer-based test. Group X candidates are tested on 10+2 level English, Physics, and Maths. Group Y candidates are tested on English and Reasoning & General Awareness (RAGA).</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Phase 2: Verification, PFT & Adaptability Tests</h3>
+            <p id="mains-modal-p1">Shortlisted candidates are called to an Airmen Selection Centre for document verification, followed by a Physical Fitness Test (PFT). Those who pass the PFT then take Adaptability Tests I & II to assess their suitability for military life.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Phase 3: Medical Examination</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Candidates who clear Phase II undergo a comprehensive medical examination at a designated military hospital to ensure they meet the stringent medical standards of the Indian Air Force.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-gray-200"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-gray-200 mb-6">Airmen Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'groupX': { 
+                        name: 'Group X (Technical)', 
+                        icon: '🛠️',
+                        description: 'Group X Airmen are the technical experts who work on aircraft systems, engines, electronics, and weaponry. This trade requires a strong foundation in Physics and Mathematics and involves direct maintenance and repair of the IAF\'s high-tech assets.',
+                        cta: 'Learn More'
+                    },
+                    'groupY': { 
+                        name: 'Group Y (Non-Technical)', 
+                        icon: '📋',
+                        description: 'Group Y Airmen handle a wide range of non-technical roles that are essential for the functioning of the IAF. This includes Administration, Accounts, Logistics, IAF Police, and other support services that keep the bases running efficiently.',
+                        cta: 'Learn More'
+                    },
+                    'musician': {
+                        name: 'Group Y (Musician)',
+                        icon: '🎵',
+                        description: 'The Musician trade is a special entry within Group Y for candidates proficient in musical instruments. They form the prestigious Air Force Bands, performing at military parades, official ceremonies, and events, upholding the grand traditions of the IAF.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'groupX': { 
+                        name: 'ग्रुप X (तकनीकी)', 
+                        icon: '🛠️',
+                        description: 'ग्रुप X के एयरमैन तकनीकी विशेषज्ञ होते हैं जो विमान प्रणालियों, इंजनों, इलेक्ट्रॉनिक्स और हथियारों पर काम करते हैं। इस ट्रेड के लिए भौतिकी और गणित में एक मजबूत आधार की आवश्यकता होती है और इसमें IAF की उच्च-तकनीकी संपत्तियों का प्रत्यक्ष रखरखाव और मरम्मत शामिल है।',
+                        cta: 'और जानें'
+                    },
+                    'groupY': { 
+                        name: 'ग्रुप Y (गैर-तकनीकी)', 
+                        icon: '📋',
+                        description: 'ग्रुप Y के एयरमैन IAF के कामकाज के लिए आवश्यक गैर-तकनीकी भूमिकाओं की एक विस्तृत श्रृंखला को संभालते हैं। इसमें प्रशासन, लेखा, रसद, IAF पुलिस और अन्य सहायता सेवाएं शामिल हैं जो अड्डों को कुशलतापूर्वक चालू रखती हैं।',
+                        cta: 'और जानें'
+                    },
+                    'musician': {
+                        name: 'ग्रुप Y (संगीतकार)',
+                        icon: '🎵',
+                        description: 'संगीतकार ट्रेड संगीत वाद्ययंत्रों में कुशल उम्मीदवारों के लिए ग्रुप Y के भीतर एक विशेष प्रविष्टि है। वे प्रतिष्ठित वायु सेना बैंड बनाते हैं, जो सैन्य परेड, आधिकारिक समारोहों और कार्यक्रमों में प्रदर्शन करते हैं, IAF की भव्य परंपराओं को बनाए रखते हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Aircraftsman (AC)", desc: "The starting rank for an Airman after successful completion of training." },
+                        { rank: "Leading Aircraftsman (LAC)", desc: "The first promotion, earned after a few years of service." },
+                        { rank: "Corporal (Cpl)", desc: "A junior non-commissioned officer (JNCO) rank with supervisory responsibilities over junior airmen." },
+                        { rank: "Sergeant (Sgt)", desc: "A senior non-commissioned officer (SNCO) rank, involving greater responsibilities in managing teams and technical tasks." },
+                        { rank: "Junior Warrant Officer (JWO)", desc: "A senior supervisory rank, playing a key role in the management of their section or flight." },
+                        { rank: "Warrant Officer (WO)", desc: "A highly experienced SNCO, responsible for the training and administration of a large number of airmen." },
+                        { rank: "Master Warrant Officer (MWO)", desc: "The highest rank for an Airman, a position of great respect and authority, acting as a crucial link between officers and airmen." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "एयरक्राफ्ट्समैन (AC)", desc: "प्रशिक्षण के सफल समापन के बाद एक एयरमैन के लिए शुरुआती रैंक।" },
+                        { rank: "लीडिंग एयरक्राफ्ट्समैन (LAC)", desc: "पहली पदोन्नति, जो कुछ वर्षों की सेवा के बाद मिलती है।" },
+                        { rank: "कॉरपोरल (Cpl)", desc: "एक जूनियर गैर-कमीशन अधिकारी (JNCO) रैंक जिसमें जूनियर एयरमैन पर पर्यवेक्षी जिम्मेदारियां होती हैं।" },
+                        { rank: "सार्जेंट (Sgt)", desc: "एक वरिष्ठ गैर-कमीशन अधिकारी (SNCO) रैंक, जिसमें टीमों और तकनीकी कार्यों के प्रबंधन में अधिक जिम्मेदारियां शामिल होती हैं।" },
+                        { rank: "जूनियर वारंट ऑफिसर (JWO)", desc: "एक वरिष्ठ पर्यवेक्षी रैंक, जो अपने अनुभाग या उड़ान के प्रबंधन में एक महत्वपूर्ण भूमिका निभाता है।" },
+                        { rank: "वारंट ऑफिसर (WO)", desc: "एक अत्यधिक अनुभवी SNCO, जो बड़ी संख्या में एयरमैन के प्रशिक्षण और प्रशासन के लिए जिम्मेदार है।" },
+                        { rank: "मास्टर वारंट ऑफिसर (MWO)", desc: "एक एयरमैन के लिए सर्वोच्च रैंक, जो बहुत सम्मान और अधिकार का पद है, जो अधिकारियों और एयरमैन के बीच एक महत्वपूर्ण कड़ी के रूप में कार्य करता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '✈️ IAF Airmen Recruitment Guide ✈️',
+                    'header-subtitle': 'The Backbone of the Indian Air Force',
+                    'sec1-title': '1. Who are Airmen? 💡',
+                    'sec1-p1': "Airmen are the skilled workforce of the Indian Air Force, responsible for the maintenance, operation, and support of all IAF assets. They are highly trained professionals who form the core of the IAF's technical and non-technical domains, ensuring the force is always mission-ready.",
+                    'sec2-title': '2. Selection Process: Path to the Blue Uniform 🎯',
+                    'sec2-p1': 'The selection of Airmen is conducted through the STAR (Scheduled Test for Airmen Recruitment) examination, a rigorous multi-phase process to select the best candidates.',
+                    'sec2-step1-title': 'Phase 1:', 'sec2-step1-name': 'Online Test (STAR)', 'sec2-step1-desc': 'Computer Based Examination',
+                    'sec2-step2-title': 'Phase 2:', 'sec2-step2-name': 'Physical & Adaptability Test', 'sec2-step2-desc': 'PFT, AT-I & AT-II',
+                    'sec2-step3-title': 'Phase 3:', 'sec2-step3-name': 'Medical Exam', 'sec2-step3-desc': 'Final Medical Evaluation',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'Eligibility for Airmen varies based on the trade group (X or Y):',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': '**Group X (Technical):** 10+2 with Maths, Physics & English. **Group Y (Non-Technical):** 10+2 in any stream. A minimum of 50% marks is usually required.',
+                    'sec3-age-title': 'Age:', 'sec3-age-desc': 'Typically between **17 and 21 years**. The exact age limit is specified in the official rally/recruitment notification.',
+                    'sec3-nat-title': 'Marital Status:', 'sec3-nat-desc': 'Only unmarried male candidates are eligible to join as Airmen.',
+                    'sec3-attempts-title': 'Medical & Physical Standards 📊',
+                    'sec3-attempts-p1': 'Stringent medical and physical standards are a prerequisite for joining the IAF.',
+                    'sec3-agerelax-list': '<li><strong>Height:</strong> Minimum height requirement is 152.5 cm. Certain trades have different requirements.</li><li><strong>Vision:</strong> Must meet specific visual standards, with or without glasses, depending on the trade. Color blindness is a rejection criterion for most trades.</li><li><strong>Hearing & Dental:</strong> Candidates should have normal hearing and a minimum number of healthy teeth.</li>',
+                    'sec4-title': '4. The Selection Tests: In Detail 📚',
+                    'sec4-p1': "Understanding the structure of each phase is vital for clearing the selection process.",
+                    'gs1-title': 'Phase 1: Online Test 📜', 'gs1-sub1': 'Group X (English, Physics, Maths)', 'gs1-sub2': 'Group Y (English, RAGA)', 'gs1-sub3': 'Both X & Y Groups',
+                    'gs2-title': 'Phase 2: PFT 🏃‍♂️', 'gs2-sub1': '1.6 Km Run', 'gs2-sub2': 'Push-ups', 'gs2-sub3': 'Sit-ups & Squats',
+                    'gs3-title': 'Phase 2: Adaptability Tests 🧠', 'gs3-sub1': 'Adaptability Test - I (SRT)', 'gs3-sub2': 'Adaptability Test - II (Group Discussion)',
+                    'sec5-title': '5. Training: Forging of an Airman ✈️',
+                    'sec5-p1': 'Selected candidates undergo a transformative training process, starting with Joint Basic Phase Training (JBPT) and followed by specialized trade training.',
+                    'sec5-hindi-title': '1. Joint Basic Phase Training (JBPT)', 'sec5-hindi-p1': 'This initial phase is common for all trainees and is conducted at Basic Training Institute (BTI), Belagavi.', 'sec5-hindi-list': '<li>Physical Fitness and Drill</li><li>Weapon Handling and Firing</li><li>Military Discipline and Ethos</li><li>General Service and Aviation Knowledge</li>',
+                    'sec5-essay-title': '2. Trade Training', 'sec5-essay-p1': 'After JBPT, Airmen are sent to different technical and non-technical training institutes for specialization.', 'sec5-essay-list': '<li>Hands-on training on aircraft and equipment.</li><li>Classroom instruction on technical subjects.</li><li>Training for administrative, logistics, and support roles.</li>',
+                    'sec6-title': '6. Airmen Trade Groups 🌟',
+                    'sec6-p1': "Airmen are categorized into two main groups based on their roles: Group X (Technical) and Group Y (Non-Technical).",
+                    'sec6-eng-title': 'Group X (Technical)', 'sec6-eng-list': '<li>Electronics Fitter</li><li>Electrical Fitter</li><li>Weapon Fitter</li><li>Mechanical Fitter</li>',
+                    'sec6-elec-title': 'Group Y (Non-Technical)', 'sec6-elec-list': '<li>Admin Assistant</li><li>Accounts Assistant</li><li>Logistics Assistant</li><li>IAF Police & Security</li>',
+                    'sec6-naic-title': 'Group Y (Special Trades)', 'sec6-naic-list': '<li>Musician</li><li>Medical Assistant</li><li>Communication Technician</li>',
+                    'sec6-imp-title': '💡 Why is this important?', 'sec6-imp-p1': 'Your choice of Group X or Y depends on your educational background and determines your career path in the IAF.',
+                    'sec7-title': '7. Core Qualities of an Airman 🎙️',
+                    'sec7-p1': 'The IAF looks for candidates who possess the fundamental qualities required to be a disciplined and effective Air Warrior.',
+                    'sec7-qualities-title': 'Key Attributes:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-cyan-400 mr-3">💪</span><div><strong class="text-gray-200">Discipline:</strong> A high sense of discipline and respect for the chain of command.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">Adaptability:</strong> The ability to adapt to different operational environments and challenging situations.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">Integrity:</strong> Unwavering honesty and moral courage in all actions.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">Technical Acumen:</strong> A strong aptitude for learning and applying technical skills.</div></li>',
+                    'sec8-title': '8. Preparation Strategy: Aim High 📈',
+                    'sec8-p1': "A systematic preparation plan is essential to clear the competitive STAR examination and subsequent tests.",
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master the Syllabus', 'sec8-step1-desc': "Focus on 10+2 level CBSE syllabus for English, Physics, and Maths (Group X) and English & RAGA (Group Y).",
+                    'sec8-step2-title': 'Achieve Peak Physical Fitness', 'sec8-step2-desc': 'Consistent training for the 1.6 km run and other exercises in the PFT is non-negotiable.',
+                    'sec8-step3-title': 'Practice Online Tests', 'sec8-step3-desc': "Familiarize yourself with the computer-based test format by taking numerous mock tests to enhance speed and accuracy.",
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': "<li><strong>Current Affairs:</strong> Stay updated on national and international events for the RAGA section.</li><li><strong>English Proficiency:</strong> Improve your grammar, vocabulary, and comprehension skills.</li><li><strong>Develop Confidence:</strong> Practice speaking on various topics to prepare for the group discussion in Adaptability Test-II.</li>",
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Airmen recruitment is conducted through centralized online STAR exams as well as direct recruitment rallies. Stay updated via the official website airmenselection.cdac.in.',
+                    'sec9-step1-title': 'Notification & Online Registration', 'sec9-step1-desc': '<strong>Timeline:</strong> Notifications for STAR exams are released periodically throughout the year.',
+                    'sec9-step2-title': 'Phase I: Online Test', 'sec9-step2-desc': '<strong>Timeline:</strong> Conducted on scheduled dates after the registration period ends.',
+                    'sec9-step3-title': 'Phase II & III', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates are called to Airmen Selection Centres (ASCs) for physical and medical tests.',
+                    'sec9-step4-title': 'Final All India Select List (AISL)', 'sec9-step4-desc': '<strong>Timeline:</strong> Published based on performance. Selected candidates receive call letters for training.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Avoid these common pitfalls to maximize your chances of joining the elite ranks of the IAF.',
+                    'sec10-mistake1-title': 'Failing in Physical Test:', 'sec10-mistake1-desc': 'Underestimating the PFT is a common reason for disqualification. Physical fitness is paramount.',
+                    'sec10-mistake2-title': 'Not Clearing Sectional Cut-offs:', 'sec10-mistake2-desc': 'You must pass in each subject of the online test, not just achieve a high overall score.',
+                    'sec10-mistake3-title': 'Document Lapses:', 'sec10-mistake3-desc': 'Not carrying all required original documents and photocopies during Phase II verification.',
+                    'sec10-mistake4-title': 'Ignoring Medical Standards:', 'sec10-mistake4-desc': 'Not getting a preliminary medical check-up to identify and rectify minor issues beforehand.',
+                    'sec11-title': '11. Coaching & Resources 🏫',
+                    'sec11-p1': 'Structured coaching can significantly boost your preparation for the highly competitive Airmen selection tests.',
+                    'sec11-gov-title': '📚 Exam Coaching', 'sec11-gov-list': '<li>Choose institutes with experienced faculty for Physics, Maths, and RAGA.</li><li>Online coaching platforms provide flexibility and access to quality study material.</li>',
+                    'sec11-pvt-title': '🏃‍♂️ Physical Training', 'sec11-pvt-p1': 'Consider joining a fitness center or academy that specializes in defence physical test preparation.', 'sec11-pvt-list': '<li>Guidance from a qualified trainer can improve performance and prevent injuries.</li><li>Group training sessions can build motivation and competitive spirit.</li>',
+                    'sec12-title': '12. Career Progression of an Airman 🚀',
+                    'sec12-p1': "A career as an Airman offers a stable and respectable path with assured promotions up to the rank of Master Warrant Officer (MWO). Exceptional Airmen also have the opportunity to become Commissioned Officers.",
+                    'sec12-career-btn': 'View Rank Structure',
+                    'sec13-title': '13. Syllabus & Study Material 📚',
+                    'sec13-p1': "A thorough understanding of the syllabus for the Group X and Group Y online tests is the foundation of a successful preparation.",
+                    'syllabus-oir-title': 'Group X (Technical) Syllabus',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">Physics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">Mathematics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Group Y (Non-Technical) Syllabus',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & General Awareness (RAGA)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Your journey to touch the sky with glory begins here. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['Discipline', 'Adaptability', 'Integrity', 'Acumen'],
+                        data: [95, 90, 88, 85]
+                    }
+                },
+                'hi': {
+                    'header-title': '✈️ IAF एयरमैन भर्ती गाइड ✈️',
+                    'header-subtitle': 'भारतीय वायु सेना की रीढ़',
+                    'sec1-title': '1. एयरमैन कौन हैं? 💡',
+                    'sec1-p1': "एयरमैन भारतीय वायु सेना के कुशल कार्यबल हैं, जो सभी IAF संपत्तियों के रखरखाव, संचालन और समर्थन के लिए जिम्मेदार हैं। वे उच्च प्रशिक्षित पेशेवर हैं जो IAF के तकनीकी और गैर-तकनीकी डोमेन का मूल बनाते हैं, यह सुनिश्चित करते हुए कि बल हमेशा मिशन के लिए तैयार है।",
+                    'sec2-title': '2. चयन प्रक्रिया: नीली वर्दी का मार्ग 🎯',
+                    'sec2-p1': 'एयरमैन का चयन STAR (एयरमैन भर्ती के लिए अनुसूचित परीक्षा) परीक्षा के माध्यम से किया जाता है, जो सर्वश्रेष्ठ उम्मीदवारों का चयन करने के लिए एक कठोर बहु-चरणीय प्रक्रिया है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'ऑनलाइन परीक्षा (STAR)', 'sec2-step1-desc': 'कंप्यूटर आधारित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'शारीरिक और अनुकूलन परीक्षण', 'sec2-step2-desc': 'PFT, AT-I & AT-II',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'चिकित्सा परीक्षा', 'sec2-step3-desc': 'अंतिम चिकित्सा मूल्यांकन',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'एयरमैन के लिए पात्रता ट्रेड ग्रुप (X या Y) के आधार पर भिन्न होती है:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': '**ग्रुप X (तकनीकी):** गणित, भौतिकी और अंग्रेजी के साथ 10+2। **ग्रुप Y (गैर-तकनीकी):** किसी भी स्ट्रीम में 10+2। आमतौर पर न्यूनतम 50% अंकों की आवश्यकता होती है।',
+                    'sec3-age-title': 'आयु:', 'sec3-age-desc': 'आमतौर पर **17 से 21 वर्ष** के बीच। सटीक आयु सीमा आधिकारिक रैली/भर्ती अधिसूचना में निर्दिष्ट है।',
+                    'sec3-nat-title': 'वैवाहिक स्थिति:', 'sec3-nat-desc': 'एयरमैन के रूप में शामिल होने के लिए केवल अविवाहित पुरुष उम्मीदवार ही पात्र हैं।',
+                    'sec3-attempts-title': 'चिकित्सा और शारीरिक मानक 📊',
+                    'sec3-attempts-p1': 'IAF में शामिल होने के लिए कठोर चिकित्सा और शारीरिक मानक एक पूर्वापेक्षा है।',
+                    'sec3-agerelax-list': '<li><strong>ऊंचाई:</strong> न्यूनतम ऊंचाई की आवश्यकता 152.5 सेमी है। कुछ ट्रेडों में अलग-अलग आवश्यकताएं होती हैं।</li><li><strong>दृष्टि:</strong> ट्रेड के आधार पर, चश्मे के साथ या उसके बिना, विशिष्ट दृश्य मानकों को पूरा करना होगा। अधिकांश ट्रेडों के लिए रंग अंधापन एक अस्वीकृति मानदंड है।</li><li><strong>श्रवण और दंत:</strong> उम्मीदवारों को सामान्य श्रवण और न्यूनतम संख्या में स्वस्थ दांत होने चाहिए।</li>',
+                    'sec4-title': '4. चयन परीक्षण: विस्तार से 📚',
+                    'sec4-p1': "चयन प्रक्रिया को पार करने के लिए प्रत्येक चरण की संरचना को समझना महत्वपूर्ण है।",
+                    'gs1-title': 'चरण 1: ऑनलाइन परीक्षा 📜', 'gs1-sub1': 'ग्रुप X (अंग्रेजी, भौतिकी, गणित)', 'gs1-sub2': 'ग्रुप Y (अंग्रेजी, RAGA)', 'gs1-sub3': 'X और Y दोनों ग्रुप',
+                    'gs2-title': 'चरण 2: PFT 🏃‍♂️', 'gs2-sub1': '1.6 किमी दौड़', 'gs2-sub2': 'पुश-अप्स', 'gs2-sub3': 'सिट-अप्स और स्क्वाट्स',
+                    'gs3-title': 'चरण 2: अनुकूलनशीलता परीक्षण 🧠', 'gs3-sub1': 'अनुकूलनशीलता परीक्षण - I (SRT)', 'gs3-sub2': 'अनुकूलनशीलता परीक्षण - II (समूह चर्चा)',
+                    'sec5-title': '5. प्रशिक्षण: एक एयरमैन का निर्माण ✈️',
+                    'sec5-p1': 'चयनित उम्मीदवार एक परिवर्तनकारी प्रशिक्षण प्रक्रिया से गुजरते हैं, जो संयुक्त बुनियादी चरण प्रशिक्षण (JBPT) से शुरू होती है और उसके बाद विशेष ट्रेड प्रशिक्षण होता है।',
+                    'sec5-hindi-title': '1. संयुक्त बुनियादी चरण प्रशिक्षण (JBPT)', 'sec5-hindi-p1': 'यह प्रारंभिक चरण सभी प्रशिक्षुओं के लिए आम है और बेसिक ट्रेनिंग इंस्टीट्यूट (BTI), बेलगावी में आयोजित किया जाता है।', 'sec5-hindi-list': '<li>शारीरिक फिटनेस और ड्रिल</li><li>हथियार संभालना और फायरिंग</li><li>सैन्य अनुशासन और लोकाचार</li><li>सामान्य सेवा और विमानन ज्ञान</li>',
+                    'sec5-essay-title': '2. ट्रेड प्रशिक्षण', 'sec5-essay-p1': 'JBPT के बाद, एयरमैन को विशेषज्ञता के लिए विभिन्न तकनीकी और गैर-तकनीकी प्रशिक्षण संस्थानों में भेजा जाता है।', 'sec5-essay-list': '<li>विमान और उपकरणों पर व्यावहारिक प्रशिक्षण।</li><li>तकनीकी विषयों पर कक्षा में निर्देश।</li><li>प्रशासनिक, रसद और सहायता भूमिकाओं के लिए प्रशिक्षण।</li>',
+                    'sec6-title': '6. एयरमैन ट्रेड समूह 🌟',
+                    'sec6-p1': "एयरमैन को उनकी भूमिकाओं के आधार पर दो मुख्य समूहों में वर्गीकृत किया गया है: ग्रुप X (तकनीकी) और ग्रुप Y (गैर-तकनीकी)।",
+                    'sec6-eng-title': 'ग्रुप X (तकनीकी)', 'sec6-eng-list': '<li>इलेक्ट्रॉनिक्स फिटर</li><li>इलेक्ट्रिकल फिटर</li><li>वेपन फिटर</li><li>मैकेनिकल फिटर</li>',
+                    'sec6-elec-title': 'ग्रुप Y (गैर-तकनीकी)', 'sec6-elec-list': '<li>एडमिन असिस्टेंट</li><li>अकाउंट्स असिस्टेंट</li><li>लॉजिस्टिक्स असिस्टेंट</li><li>IAF पुलिस और सुरक्षा</li>',
+                    'sec6-naic-title': 'ग्रुप Y (विशेष ट्रेड)', 'sec6-naic-list': '<li>संगीतकार</li><li>मेडिकल असिस्टेंट</li><li>कम्युनिकेशन टेक्निशियन</li>',
+                    'sec6-imp-title': '💡 यह क्यों महत्वपूर्ण है?', 'sec6-imp-p1': 'ग्रुप X या Y का आपका चुनाव आपकी शैक्षिक पृष्ठभूमि पर निर्भर करता है और IAF में आपके करियर पथ को निर्धारित करता है।',
+                    'sec7-title': '7. एक एयरमैन के मूल गुण 🎙️',
+                    'sec7-p1': 'IAF उन उम्मीदवारों की तलाश करता है जिनके पास एक अनुशासित और प्रभावी वायु योद्धा होने के लिए आवश्यक मौलिक गुण हैं।',
+                    'sec7-qualities-title': 'प्रमुख गुण:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-cyan-400 mr-3">💪</span><div><strong class="text-gray-200">अनुशासन:</strong> अनुशासन की उच्च भावना और कमांड की श्रृंखला का सम्मान।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">अनुकूलनशीलता:</strong> विभिन्न परिचालन वातावरणों और चुनौतीपूर्ण स्थितियों के अनुकूल होने की क्षमता।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">अखंडता:</strong> सभी कार्यों में अटूट ईमानदारी और नैतिक साहस।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">तकनीकी कौशल:</strong> तकनीकी कौशल सीखने और लागू करने के लिए एक मजबूत योग्यता।</div></li>',
+                    'sec8-title': '8. तैयारी की रणनीति: ऊंचा लक्ष्य रखें 📈',
+                    'sec8-p1': "प्रतिस्पर्धी STAR परीक्षा और बाद के परीक्षणों को पास करने के लिए एक व्यवस्थित तैयारी योजना आवश्यक है।",
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'पाठ्यक्रम में महारत हासिल करें', 'sec8-step1-desc': "ग्रुप X के लिए अंग्रेजी, भौतिकी और गणित और ग्रुप Y के लिए अंग्रेजी और RAGA के लिए 10+2 स्तर के CBSE पाठ्यक्रम पर ध्यान केंद्रित करें।",
+                    'sec8-step2-title': 'चरम शारीरिक फिटनेस प्राप्त करें', 'sec8-step2-desc': '1.6 किमी दौड़ और PFT में अन्य अभ्यासों के लिए लगातार प्रशिक्षण गैर-परक्राम्य है।',
+                    'sec8-step3-title': 'ऑनलाइन टेस्ट का अभ्यास करें', 'sec8-step3-desc': "गति और सटीकता बढ़ाने के लिए कई मॉक टेस्ट देकर कंप्यूटर आधारित परीक्षण प्रारूप से खुद को परिचित करें।",
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': "<li><strong>समसामयिकी:</strong> RAGA अनुभाग के लिए राष्ट्रीय और अंतर्राष्ट्रीय घटनाओं पर अपडेट रहें।</li><li><strong>अंग्रेजी प्रवीणता:</strong> अपने व्याकरण, शब्दावली और समझ कौशल में सुधार करें।</li><li><strong>आत्मविश्वास विकसित करें:</strong> अनुकूलनशीलता परीक्षण- II में समूह चर्चा के लिए तैयार करने के लिए विभिन्न विषयों पर बोलने का अभ्यास करें।</li>",
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'एयरमैन भर्ती केंद्रीकृत ऑनलाइन STAR परीक्षाओं के साथ-साथ सीधी भर्ती रैलियों के माध्यम से आयोजित की जाती है। आधिकारिक वेबसाइट airmenselection.cdac.in के माध्यम से अपडेट रहें।',
+                    'sec9-step1-title': 'अधिसूचना और ऑनलाइन पंजीकरण', 'sec9-step1-desc': '<strong>समयरेखा:</strong> STAR परीक्षाओं के लिए सूचनाएं साल भर समय-समय पर जारी की जाती हैं।',
+                    'sec9-step2-title': 'चरण I: ऑनलाइन परीक्षा', 'sec9-step2-desc': '<strong>समयरेखा:</strong> पंजीकरण अवधि समाप्त होने के बाद निर्धारित तिथियों पर आयोजित किया जाता है।',
+                    'sec9-step3-title': 'चरण II और III', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों को शारीरिक और चिकित्सा परीक्षणों के लिए एयरमैन चयन केंद्रों (ASCs) में बुलाया जाता है।',
+                    'sec9-step4-title': 'अंतिम अखिल भारतीय चयन सूची (AISL)', 'sec9-step4-desc': '<strong>समयरेखा:</strong> प्रदर्शन के आधार पर प्रकाशित। चयनित उम्मीदवारों को प्रशिक्षण के लिए कॉल लेटर मिलते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'IAF के精英 रैंक में शामिल होने की अपनी संभावनाओं को अधिकतम करने के लिए इन सामान्य नुकसानों से बचें।',
+                    'sec10-mistake1-title': 'शारीरिक परीक्षण में असफल होना:', 'sec10-mistake1-desc': 'PFT को कम आंकना अयोग्यता का एक आम कारण है। शारीरिक फिटनेस सर्वोपरि है।',
+                    'sec10-mistake2-title': 'अनुभागीय कट-ऑफ क्लियर नहीं करना:', 'sec10-mistake2-desc': 'आपको केवल उच्च समग्र स्कोर प्राप्त करने के बजाय, ऑनलाइन परीक्षा के प्रत्येक विषय में उत्तीर्ण होना होगा।',
+                    'sec10-mistake3-title': 'दस्तावेज़ में चूक:', 'sec10-mistake3-desc': 'चरण II सत्यापन के दौरान सभी आवश्यक मूल दस्तावेज और फोटोकॉपी नहीं ले जाना।',
+                    'sec10-mistake4-title': 'चिकित्सा मानकों की अनदेखी:', 'sec10-mistake4-desc': 'पहले से मामूली मुद्दों की पहचान करने और उन्हें ठीक करने के लिए प्रारंभिक चिकित्सा जांच नहीं करवाना।',
+                    'sec11-title': '11. कोचिंग और संसाधन 🏫',
+                    'sec11-p1': 'अत्यधिक प्रतिस्पर्धी एयरमैन चयन परीक्षणों के लिए आपकी तैयारी को संरचित कोचिंग से काफी बढ़ावा मिल सकता है।',
+                    'sec11-gov-title': '📚 परीक्षा कोचिंग', 'sec11-gov-list': '<li>भौतिकी, गणित और RAGA के लिए अनुभवी संकाय वाले संस्थानों को चुनें।</li><li>ऑनलाइन कोचिंग प्लेटफॉर्म लचीलापन और गुणवत्तापूर्ण अध्ययन सामग्री तक पहुंच प्रदान करते हैं।</li>',
+                    'sec11-pvt-title': '🏃‍♂️ शारीरिक प्रशिक्षण', 'sec11-pvt-p1': 'रक्षा शारीरिक परीक्षण की तैयारी में विशेषज्ञता वाले फिटनेस सेंटर या अकादमी में शामिल होने पर विचार करें।', 'sec11-pvt-list': '<li>एक योग्य प्रशिक्षक से मार्गदर्शन प्रदर्शन में सुधार कर सकता है और चोटों को रोक सकता है।</li><li>समूह प्रशिक्षण सत्र प्रेरणा और प्रतिस्पर्धी भावना का निर्माण कर सकते हैं।</li>',
+                    'sec12-title': '12. एक एयरमैन का करियर progression 🚀',
+                    'sec12-p1': "एक एयरमैन के रूप में एक कैरियर मास्टर वारंट ऑफिसर (MWO) के पद तक सुनिश्चित पदोन्नति के साथ एक स्थिर और सम्मानजनक मार्ग प्रदान करता है। असाधारण एयरमैन को कमीशन अधिकारी बनने का अवसर भी मिलता है।",
+                    'sec12-career-btn': 'रैंक संरचना देखें',
+                    'sec13-title': '13. पाठ्यक्रम और अध्ययन सामग्री 📚',
+                    'sec13-p1': "ग्रुप X और ग्रुप Y ऑनलाइन परीक्षणों के लिए पाठ्यक्रम की पूरी समझ एक सफल तैयारी की नींव है।",
+                    'syllabus-oir-title': 'ग्रुप X (तकनीकी) पाठ्यक्रम',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">भौतिक विज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">गणित</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'ग्रुप Y (गैर-तकनीकी) पाठ्यक्रम',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और सामान्य जागरूकता (RAGA)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | महिमा के साथ आकाश को छूने की आपकी यात्रा यहाँ से शुरू होती है। जय हिंद!',
+                    'interviewChartData': {
+                        labels: ['अनुशासन', 'अनुकूलन', 'अखंडता', 'कौशल'],
+                        data: [95, 90, 88, 85]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-slate-800/60 rounded-xl text-center border border-slate-700 hover:border-cyan-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-cyan-500/20 transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-gray-200">${post.name}</h4>
+                        <p class="text-sm text-slate-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-gray-200 mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-400">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(34, 211, 238, 0.6)',
+                            borderColor: '#22d3ee',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#94a3b8' },
+                                grid: { color: 'rgba(148, 163, 184, 0.2)' }
+                            },
+                            x: { 
+                                ticks: { color: '#94a3b8', font: { size: 14 } },
+                                grid: { color: 'rgba(148, 163, 184, 0.2)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
