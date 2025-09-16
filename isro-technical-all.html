@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRO Technical Cadre Recruitment Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide for ISRO recruitment for Technical Assistant, Technician 'B', Draughtsman 'B', and Library Assistant posts.">
+    <meta name="keywords" content="ISRO, Technical Assistant, Technician B, Draughtsman B, ISRO Recruitment, Space, VSSC, URSC, SDSC">
+    <meta name="author" content="ISRO Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b1120; /* Deep Space Blue */
+            color: #d1d5db; /* Gray-300 */
+        }
+        .section-heading {
+            border-bottom: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #22d3ee, #fb923c); /* Cyan to Orange */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #f9fafb; /* Gray-50 */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.7); /* Gray-900 with transparency */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+        }
+        .card:hover {
+            border-color: rgba(34, 211, 238, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #22d3ee; /* Cyan */
+            color: #f9fafb;
+            background-color: rgba(31, 41, 55, 0.8); /* Gray-800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #22d3ee;
+            color: #0b1120;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(34, 211, 238, 0.4);
+        }
+        .flowchart-arrow {
+            color: #fb923c; /* Orange */
+        }
+        .subject-category-heading {
+            color: #f9fafb;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #fb923c;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(55, 65, 81, 0.7); /* Gray-700 */
+        }
+        .subject-item .icon {
+            color: #22d3ee;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #fb923c;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #22d3ee;
+            border: 4px solid #0b1120;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937; /* Gray-800 */
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #22d3ee;
+            color: #d1d5db;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+        }
+        .modal-close-button:hover { color: #fecaca; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #22d3ee, #fb923c);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(251, 146, 60, 0.5);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #22d3ee;
+            color: #d1d5db;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #22d3ee;
+            color: #0b1120;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #fb923c;
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #f97316;
+        }
+        .lectures-btn {
+            background-color: transparent;
+            color: #22d3ee;
+            border-color: #22d3ee;
+        }
+        .lectures-btn:hover {
+            background-color: rgba(34, 211, 238, 0.2);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-orange-400 mb-4 tracking-tight">🚀 ISRO Technical Cadre Recruitment 🚀</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-cyan-400 font-semibold">Building the Future of Indian Space Exploration</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is ISRO Technical Cadre -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is ISRO's Technical Cadre? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">The Indian Space Research Organisation (ISRO) recruits skilled individuals into its Technical Cadre to support its ambitious space missions. This includes roles like Technical Assistant, Technician ‘B’, and Draughtsman ‘B’. These professionals are the backbone of ISRO's various centres, working on the fabrication, testing, and maintenance of satellite and launch vehicle systems.</p>
+                </div>
+                 <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Selection Process: Two-Stage Assessment 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process for technical posts is a rigorous two-stage process to evaluate theoretical knowledge and practical skills.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Written Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Objective Type CBT</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Skill Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Qualifying in Nature</p>
+                    </div>
+                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Final Selection</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Merit & Verification</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria vary for each post:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-gray-200 text-lg">Education:</strong> <span id="sec3-edu-desc">**Tech. Assistant:** First Class Diploma in Engineering. **Technician ‘B’:** SSLC/SSC/Matriculation + ITI/NTC/NAC in the relevant trade. **Draughtsman ‘B’:** SSLC/SSC + ITI/NTC/NAC in Draughtsman trade.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🎂</span><div><strong id="sec3-age-title" class="text-gray-200 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 35 years**. The exact age limit and relaxations for reserved categories are specified in the official advertisement.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-cyan-400 mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-gray-200 text-lg">Nationality:</strong> <span id="sec3-nat-desc">The candidate must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-gray-200 mb-4 border-b border-cyan-500 pb-2">Medical Standards 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Candidates must be medically fit for the duties of the post.</p>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>Must be in good physical and mental health.</li>
+                            <li>Final appointment is subject to meeting the medical standards prescribed by ISRO.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Selection Tests Detailed -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. The Selection Tests: In Detail 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding the structure of the written and skill tests is key to success.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-orange-500/20 hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Written Test 📝</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">📚</span><div id="gs1-sub1">Syllabus based on the curriculum of the qualifying degree (Diploma/ITI).</div></div>
+                            <div class="subject-item"><span class="icon">💻</span><div id="gs1-sub2">Objective type Multiple Choice Questions (MCQ).</div></div>
+                            <div class="subject-item"><span class="icon">❌</span><div id="gs1-sub3">Provisions for negative marking are usually present.</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-slate-800/50 p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-orange-500/20 hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Skill Test 🛠️</h3>
+                        <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">🎯</span><div id="gs2-sub1">Purely qualifying in nature (go/no-go basis).</div></div>
+                            <div class="subject-item"><span class="icon">🔧</span><div id="gs2-sub2">Designed to assess the practical skills and knowledge of the candidate in their respective trade.</div></div>
+                            <div class="subject-item"><span class="icon">🏆</span><div id="gs2-sub3">Final selection is based on written test marks, for skill-test qualified candidates.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Induction 🚀</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Newly recruited technical staff undergo structured on-the-job training to prepare them for their specific roles in ISRO's advanced projects.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-cyan-900/20 rounded-xl border-2 border-cyan-800">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-gray-200 mb-2">1. Induction Program</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">An initial induction provides an overview of ISRO's functions and the specific role of the centre.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Familiarization with ISRO's quality and safety standards.</li>
+                            <li>Training on specific machinery and software.</li>
+                            <li>Integration into project teams.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-orange-900/20 rounded-xl border-2 border-orange-800">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-gray-200 mb-2">2. Career Development</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">ISRO encourages continuous learning and provides opportunities for skill enhancement.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Opportunities to work on prestigious national missions.</li>
+                           <li>Departmental qualifying exams for promotions.</li>
+                           <li>Training on new and advanced technologies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Disciplines Recruited 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Recruitment is conducted for a variety of trades and disciplines based on the specific needs of ISRO centres like VSSC, URSC, and SDSC SHAR.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Technical Assistant</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Mechanical, Electronics</li>
+                           <li>Electrical, Civil</li>
+                           <li>Computer Science</li>
+                           <li>Library Assistant</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Technician 'B'</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fitter, Machinist</li>
+                           <li>Electronics Mechanic</li>
+                           <li>Welder, Electrician</li>
+                           <li>Refrigeration & A/C</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Draughtsman 'B'</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Draughtsman (Mechanical)</li>
+                           <li>Draughtsman (Civil)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Required -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Core Qualities of an ISRO Technician 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">ISRO seeks individuals who are not just technically proficient but also share a passion for space exploration and nation-building.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-gray-200 mb-6 border-b border-cyan-500 pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🎯</span><div><strong class="text-gray-200">Precision & Quality Focus:</strong> An unwavering commitment to quality and zero-error work.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">Strong Technical Foundation:</strong> Deep and clear understanding of core concepts in their trade/discipline.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">Problem-Solving Skills:</strong> The ability to troubleshoot and find solutions to technical issues.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">Team Player:</strong> Ability to work collaboratively in large, mission-oriented teams.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Preparation Strategy: The Mission Blueprint 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Success in the ISRO technical exam requires a thorough understanding of your core subjects and consistent practice.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-gray-200 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-orange-500 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-gray-200 mb-1">Master Your Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base">Revise your entire Diploma or ITI curriculum. Focus on fundamentals as questions are concept-based.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-gray-200 mb-1">Solve Previous Year Papers</h4>
+                                <p id="sec8-step2-desc" class="text-base">Practice previous question papers from ISRO and other technical exams to understand the pattern and types of questions.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-2 border-4 border-slate-900"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-gray-200 mb-1">Practice for Skill Test</h4>
+                                <p id="sec8-step3-desc" class="text-base">Do not neglect the skill test. Brush up on your practical skills, be it on a lathe, welding, or using drawing software.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-gray-200 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Standard Textbooks:</strong> Refer to standard, well-authored textbooks for your discipline.</li>
+                            <li><strong>Mock Tests:</strong> Take online mock tests to improve your speed, accuracy, and time management for the CBT.</li>
+                             <li><strong>Stay Updated:</strong> Keep track of ISRO's recent missions and achievements.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Recruitment is not conducted on a fixed annual cycle. Different ISRO centres release advertisements based on their specific manpower requirements. Aspirants must regularly check the ISRO careers website (isro.gov.in/careers).</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-gray-200 mb-1">Advertisement by ISRO Centre</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Released on the ISRO website as per requirements of centres like VSSC, URSC, SDSC, etc.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-gray-200 mb-1">Online Application</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> A window of 2-3 weeks is typically provided for online application submission.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-gray-200 mb-1">Written & Skill Tests</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Exam dates are announced a few months after the application closing date.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-gray-200 mb-1">Final Merit List</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> The final result is published based on written test performance for candidates who qualify the skill test.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Be meticulous in your application and preparation to avoid these common pitfalls.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-200">Ignoring Eligibility:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-300 mt-1">Applying without having a First Class in Diploma or not having the exact ITI trade mentioned in the notification.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-200">Neglecting the Skill Test:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-300 mt-1">Focusing solely on the written exam and not being prepared for the practical skill test, which is mandatory to qualify.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-200">Calculation Errors:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-300 mt-1">Making silly calculation mistakes in the written exam due to time pressure and negative marking.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/30 rounded-lg border-2 border-red-700/50 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-200">Guesswork:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-300 mt-1">Attempting too many questions with guesswork, leading to a high negative score.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Coaching & Resources 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Focused self-study using standard textbooks is the most effective preparation method.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study Resources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Standard Diploma/ITI textbooks for your specific trade.</li>
+                           <li>Online platforms for practicing MCQs and taking mock tests.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">🔧 For Skill Test</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Practical knowledge is key.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Revise practicals performed during your Diploma/ITI.</li>
+                            <li>Practice on relevant tools, machines, or software.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Progression 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">ISRO provides excellent career growth opportunities for its technical staff through a merit-based promotion policy, allowing dedicated individuals to rise to senior technical and managerial positions.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Technical Cadre Hierarchy</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Written Test Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus for the written test is comprehensive and based entirely on the academic curriculum of your qualifying course.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Tech Asst -->
+                    <div class="bg-slate-800/40 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-cyan-500/10 transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Technical Assistant</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Technician B -->
+                    <div class="bg-slate-800/40 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-cyan-500/10 transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Technician 'B' / Draughtsman 'B'</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-slate-700">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | मानव जाति की सेवा में अंतरिक्ष प्रौद्योगिकी | Space technology in the service of humankind. Jai Hind!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Stage 1: Written Test</h3>
+            <p id="prelims-modal-p1">This is the first stage, consisting of an objective-type Computer Based Test (CBT). The curriculum is based on the specific discipline/trade. Candidates are shortlisted for the Skill Test based on their performance in this written exam.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Stage 2: Skill Test</h3>
+            <p id="mains-modal-p1">Shortlisted candidates are called for a Skill Test, which is purely qualifying in nature. This test is designed to assess the practical knowledge and skills of the candidate in their relevant trade. Candidates must pass this test to be considered for final selection.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-gray-200 mb-4">Final Selection & Verification</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final merit list is prepared based solely on the marks obtained in the Written Test, from among those who have qualified in the Skill Test. Selected candidates are then called for document verification and pre-employment medical checks.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-gray-200"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-gray-200 mb-6">ISRO Technical Cadre Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'ta': { 
+                        name: "Technical Assistant", 
+                        icon: '🔬',
+                        description: 'Technical Assistants hold a key supervisory role in ISRO\'s R&D activities. They work closely with scientists and engineers, assisting in the development, testing, and integration of complex systems. A First Class Diploma in Engineering is the essential qualification.',
+                        cta: 'Learn More'
+                    },
+                    'tb': { 
+                        name: "Technician ‘B’", 
+                        icon: '🔧',
+                        description: 'Technicians are the skilled artisans of ISRO. They are involved in the precision fabrication, machining, and assembly of components for satellites and launch vehicles. An ITI/NTC/NAC certificate in a relevant trade is required for this role.',
+                        cta: 'Learn More'
+                    },
+                    'db': {
+                        name: "Draughtsman ‘B’",
+                        icon: '📐',
+                        description: 'Draughtsmen are responsible for creating detailed technical drawings and plans for various mechanical and civil components used in space missions. Proficiency in CAD software is essential. An ITI/NTC/NAC in the Draughtsman trade is the required qualification.',
+                        cta: 'Learn More'
+                    },
+                    'la': {
+                        name: "Library Assistant",
+                        icon: '📚',
+                        description: 'Library Assistants manage the vast technical libraries and knowledge repositories within ISRO centres. They assist scientists and engineers in accessing technical journals, books, and reports. A Master\'s Degree in Library Science is typically required.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                     'ta': { 
+                        name: "तकनीकी सहायक", 
+                        icon: '🔬',
+                        description: 'तकनीकी सहायक इसरो की अनुसंधान एवं विकास गतिविधियों में एक प्रमुख पर्यवेक्षी भूमिका निभाते हैं। वे वैज्ञानिकों और इंजीनियरों के साथ मिलकर काम करते हैं, जटिल प्रणालियों के विकास, परीक्षण और एकीकरण में सहायता करते हैं। इंजीनियरिंग में प्रथम श्रेणी का डिप्लोमा आवश्यक योग्यता है।',
+                        cta: 'और जानें'
+                    },
+                    'tb': { 
+                        name: "तकनीशियन 'बी'", 
+                        icon: '🔧',
+                        description: 'तकनीशियन इसरो के कुशल कारीगर हैं। वे उपग्रहों और प्रक्षेपण यानों के लिए घटकों के सटीक निर्माण, मशीनिंग और असेंबली में शामिल हैं। इस भूमिका के लिए एक प्रासंगिक ट्रेड में आईटीआई/एनटीसी/एनएसी प्रमाण पत्र की आवश्यकता होती है।',
+                        cta: 'और जानें'
+                    },
+                    'db': {
+                        name: "ड्राफ्ट्समैन 'बी'",
+                        icon: '📐',
+                        description: 'ड्राफ्ट्समैन अंतरिक्ष अभियानों में उपयोग किए जाने वाले विभिन्न यांत्रिक और नागरिक घटकों के लिए विस्तृत तकनीकी चित्र और योजनाएं बनाने के लिए जिम्मेदार हैं। सीएडी सॉफ्टवेयर में प्रवीणता आवश्यक है। ड्राफ्ट्समैन ट्रेड में आईटीआई/एनटीसी/एनएसी आवश्यक योग्यता है।',
+                        cta: 'और जानें'
+                    },
+                    'la': {
+                        name: "पुस्तकालय सहायक",
+                        icon: '📚',
+                        description: 'पुस्तकालय सहायक इसरो केंद्रों के भीतर विशाल तकनीकी पुस्तकालयों और ज्ञान भंडारों का प्रबंधन करते हैं। वे वैज्ञानिकों और इंजीनियरों को तकनीकी पत्रिकाओं, पुस्तकों और रिपोर्ट तक पहुंचने में सहायता करते हैं। आमतौर पर पुस्तकालय विज्ञान में मास्टर डिग्री की आवश्यकता होती है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Technician/Draughtsman 'B'", desc: "The entry-level post for ITI certificate holders." },
+                        { rank: "Technical Assistant", desc: "The entry-level post for Diploma holders." },
+                        { rank: "Senior Technical Assistant", desc: "First promotion for Technical Assistants." },
+                        { rank: "Technical Officer", desc: "Through departmental promotions, technical staff can become Group 'A' Gazetted Officers." },
+                        { rank: "Further Promotions", desc: "A well-defined path exists for promotion to higher grades based on performance assessments (Merit Promotion Scheme)." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "तकनीशियन/ड्राफ्ट्समैन 'बी'", desc: "आईटीआई प्रमाण पत्र धारकों के लिए प्रवेश स्तर का पद।" },
+                        { rank: "तकनीकी सहायक", desc: "डिप्लोमा धारकों के लिए प्रवेश स्तर का पद।" },
+                        { rank: "वरिष्ठ तकनीकी सहायक", desc: "तकनीकी सहायकों के लिए पहली पदोन्नति।" },
+                        { rank: "तकनीकी अधिकारी", desc: "विभागीय पदोन्नति के माध्यम से, तकनीकी कर्मचारी समूह 'ए' राजपत्रित अधिकारी बन सकते हैं।" },
+                        { rank: "आगे की पदोन्नति", desc: "प्रदर्शन मूल्यांकन (मेरिट प्रमोशन स्कीम) के आधार पर उच्च ग्रेड में पदोन्नति के लिए एक अच्छी तरह से परिभाषित पथ मौजूद है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🚀 ISRO Technical Cadre Recruitment 🚀',
+                    'header-subtitle': 'Building the Future of Indian Space Exploration',
+                    'sec1-title': "1. What is ISRO's Technical Cadre? 💡",
+                    'sec1-p1': "The Indian Space Research Organisation (ISRO) recruits skilled individuals into its Technical Cadre to support its ambitious space missions. This includes roles like Technical Assistant, Technician ‘B’, and Draughtsman ‘B’. These professionals are the backbone of ISRO's various centres, working on the fabrication, testing, and maintenance of satellite and launch vehicle systems.",
+                    'sec2-title': '2. The Selection Process: Two-Stage Assessment 🎯',
+                    'sec2-p1': 'The selection process for technical posts is a rigorous two-stage process to evaluate theoretical knowledge and practical skills.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Test', 'sec2-step1-desc': 'Objective Type CBT',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill Test', 'sec2-step2-desc': 'Qualifying in Nature',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Final Selection', 'sec2-step3-desc': 'Merit & Verification',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'Eligibility criteria vary for each post:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': "**Tech. Assistant:** First Class Diploma in Engineering. **Technician ‘B’:** SSLC/SSC/Matriculation + ITI/NTC/NAC in the relevant trade. **Draughtsman ‘B’:** SSLC/SSC + ITI/NTC/NAC in Draughtsman trade.",
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 35 years**. The exact age limit and relaxations for reserved categories are specified in the official advertisement.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'The candidate must be a citizen of India.',
+                    'sec3-attempts-title': 'Medical Standards 📊',
+                    'sec3-attempts-p1': 'Candidates must be medically fit for the duties of the post.',
+                    'sec3-agerelax-list': "<li>Must be in good physical and mental health.</li><li>Final appointment is subject to meeting the medical standards prescribed by ISRO.</li>",
+                    'sec4-title': '4. The Selection Tests: In Detail 📚',
+                    'sec4-p1': "Understanding the structure of the written and skill tests is key to success.",
+                    'gs1-title': 'Written Test 📝', 'gs1-sub1': 'Syllabus based on the curriculum of the qualifying degree (Diploma/ITI).', 'gs1-sub2': 'Objective type Multiple Choice Questions (MCQ).', 'gs1-sub3': 'Provisions for negative marking are usually present.',
+                    'gs2-title': 'Skill Test 🛠️', 'gs2-sub1': 'Purely qualifying in nature (go/no-go basis).', 'gs2-sub2': 'Designed to assess the practical skills and knowledge of the candidate in their respective trade.', 'gs2-sub3': 'Final selection is based on written test marks, for skill-test qualified candidates.',
+                    'sec5-title': '5. Training & Induction 🚀',
+                    'sec5-p1': "Newly recruited technical staff undergo structured on-the-job training to prepare them for their specific roles in ISRO's advanced projects.",
+                    'sec5-hindi-title': '1. Induction Program', 'sec5-hindi-p1': "An initial induction provides an overview of ISRO's functions and the specific role of the centre.", 'sec5-hindi-list': "<li>Familiarization with ISRO's quality and safety standards.</li><li>Training on specific machinery and software.</li><li>Integration into project teams.</li>",
+                    'sec5-essay-title': '2. Career Development', 'sec5-essay-p1': 'ISRO encourages continuous learning and provides opportunities for skill enhancement.', 'sec5-essay-list': "<li>Opportunities to work on prestigious national missions.</li><li>Departmental qualifying exams for promotions.</li><li>Training on new and advanced technologies.</li>",
+                    'sec6-title': '6. Key Disciplines Recruited 🌟',
+                    'sec6-p1': "Recruitment is conducted for a variety of trades and disciplines based on the specific needs of ISRO centres like VSSC, URSC, and SDSC SHAR.",
+                    'sec6-eng-title': 'Technical Assistant', 'sec6-eng-list': '<li>Mechanical, Electronics</li><li>Electrical, Civil</li><li>Computer Science</li><li>Library Assistant</li>',
+                    'sec6-elec-title': "Technician 'B'", 'sec6-elec-list': '<li>Fitter, Machinist</li><li>Electronics Mechanic</li><li>Welder, Electrician</li><li>Refrigeration & A/C</li>',
+                    'sec6-naic-title': "Draughtsman 'B'", 'sec6-naic-list': '<li>Draughtsman (Mechanical)</li><li>Draughtsman (Civil)</li>',
+                    'sec7-title': "7. Core Qualities of an ISRO Technician 🎙️",
+                    'sec7-p1': 'ISRO seeks individuals who are not just technically proficient but also share a passion for space exploration and nation-building.',
+                    'sec7-qualities-title': 'Key Attributes:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-cyan-400 mr-3">🎯</span><div><strong class="text-gray-200">Precision & Quality Focus:</strong> An unwavering commitment to quality and zero-error work.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">Strong Technical Foundation:</strong> Deep and clear understanding of core concepts in their trade/discipline.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">Problem-Solving Skills:</strong> The ability to troubleshoot and find solutions to technical issues.</div></li><li><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">Team Player:</strong> Ability to work collaboratively in large, mission-oriented teams.</div></li>',
+                    'sec8-title': '8. Preparation Strategy: The Mission Blueprint 📈',
+                    'sec8-p1': "Success in the ISRO technical exam requires a thorough understanding of your core subjects and consistent practice.",
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master Your Syllabus', 'sec8-step1-desc': "Revise your entire Diploma or ITI curriculum. Focus on fundamentals as questions are concept-based.",
+                    'sec8-step2-title': 'Solve Previous Year Papers', 'sec8-step2-desc': 'Practice previous question papers from ISRO and other technical exams to understand the pattern and types of questions.',
+                    'sec8-step3-title': 'Practice for Skill Test', 'sec8-step3-desc': 'Do not neglect the skill test. Brush up on your practical skills, be it on a lathe, welding, or using drawing software.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': "<li><strong>Standard Textbooks:</strong> Refer to standard, well-authored textbooks for your discipline.</li><li><strong>Mock Tests:</strong> Take online mock tests to improve your speed, accuracy, and time management for the CBT.</li><li><strong>Stay Updated:</strong> Keep track of ISRO's recent missions and achievements.</li>",
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is not conducted on a fixed annual cycle. Different ISRO centres release advertisements based on their specific manpower requirements. Aspirants must regularly check the ISRO careers website (isro.gov.in/careers).',
+                    'sec9-step1-title': 'Advertisement by ISRO Centre', 'sec9-step1-desc': '<strong>Timeline:</strong> Released on the ISRO website as per requirements of centres like VSSC, URSC, SDSC, etc.',
+                    'sec9-step2-title': 'Online Application', 'sec9-step2-desc': '<strong>Timeline:</strong> A window of 2-3 weeks is typically provided for online application submission.',
+                    'sec9-step3-title': 'Written & Skill Tests', 'sec9-step3-desc': '<strong>Timeline:</strong> Exam dates are announced a few months after the application closing date.',
+                    'sec9-step4-title': 'Final Merit List', 'sec9-step4-desc': '<strong>Timeline:</strong> The final result is published based on written test performance for candidates who qualify the skill test.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Be meticulous in your application and preparation to avoid these common pitfalls.',
+                    'sec10-mistake1-title': 'Ignoring Eligibility:', 'sec10-mistake1-desc': 'Applying without having a First Class in Diploma or not having the exact ITI trade mentioned in the notification.',
+                    'sec10-mistake2-title': 'Neglecting the Skill Test:', 'sec10-mistake2-desc': 'Focusing solely on the written exam and not being prepared for the practical skill test, which is mandatory to qualify.',
+                    'sec10-mistake3-title': 'Calculation Errors:', 'sec10-mistake3-desc': 'Making silly calculation mistakes in the written exam due to time pressure and negative marking.',
+                    'sec10-mistake4-title': 'Guesswork:', 'sec10-mistake4-desc': 'Attempting too many questions with guesswork, leading to a high negative score.',
+                    'sec11-title': '11. Coaching & Resources 🏫',
+                    'sec11-p1': 'Focused self-study using standard textbooks is the most effective preparation method.',
+                    'sec11-gov-title': '📚 Self-Study Resources', 'sec11-gov-list': '<li>Standard Diploma/ITI textbooks for your specific trade.</li><li>Online platforms for practicing MCQs and taking mock tests.</li>',
+                    'sec11-pvt-title': '🔧 For Skill Test', 'sec11-pvt-p1': 'Practical knowledge is key.', 'sec11-pvt-list': '<li>Revise practicals performed during your Diploma/ITI.</li><li>Practice on relevant tools, machines, or software.</li>',
+                    'sec12-title': '12. Career Progression 🚀',
+                    'sec12-p1': "ISRO provides excellent career growth opportunities for its technical staff through a merit-based promotion policy, allowing dedicated individuals to rise to senior technical and managerial positions.",
+                    'sec12-career-btn': 'View Technical Cadre Hierarchy',
+                    'sec13-title': '13. Written Test Syllabus 📚',
+                    'sec13-p1': "The syllabus for the written test is comprehensive and based entirely on the academic curriculum of your qualifying course.",
+                    'syllabus-oir-title': 'Technical Assistant',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Core Diploma Engineering Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': "Technician 'B' / Draughtsman 'B'",
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">Core ITI Trade Theory</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | मानव जाति की सेवा में अंतरिक्ष प्रौद्योगिकी | Space technology in the service of humankind. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['Precision', 'Technical Skill', 'Problem Solving', 'Teamwork'],
+                        data: [95, 92, 88, 90]
+                    },
+                },
+                'hi': {
+                    'header-title': '🚀 इसरो तकनीकी कैडर भर्ती 🚀',
+                    'header-subtitle': 'भारतीय अंतरिक्ष अन्वेषण के भविष्य का निर्माण',
+                    'sec1-title': '1. इसरो का तकनीकी कैडर क्या है? 💡',
+                    'sec1-p1': "भारतीय अंतरिक्ष अनुसंधान संगठन (इसरो) अपने महत्वाकांक्षी अंतरिक्ष अभियानों का समर्थन करने के लिए अपने तकनीकी कैडर में कुशल व्यक्तियों की भर्ती करता है। इसमें तकनीकी सहायक, तकनीशियन 'बी', और ड्राफ्ट्समैन 'बी' जैसी भूमिकाएं शामिल हैं। ये पेशेवर इसरो के विभिन्न केंद्रों की रीढ़ हैं, जो उपग्रह और प्रक्षेपण यान प्रणालियों के निर्माण, परीक्षण और रखरखाव पर काम करते हैं।",
+                    'sec2-title': '2. चयन प्रक्रिया: दो-चरणीय मूल्यांकन 🎯',
+                    'sec2-p1': 'तकनीकी पदों के लिए चयन प्रक्रिया सैद्धांतिक ज्ञान और व्यावहारिक कौशल का मूल्यांकन करने के लिए एक कठोर दो-चरणीय प्रक्रिया है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'लिखित परीक्षा', 'sec2-step1-desc': 'वस्तुनिष्ठ प्रकार सीबीटी',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'कौशल परीक्षण', 'sec2-step2-desc': 'योग्यता प्रकृति में',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'अंतिम चयन', 'sec2-step3-desc': 'मेरिट और सत्यापन',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'प्रत्येक पद के लिए पात्रता मानदंड अलग-अलग हैं:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': "**तकनीकी सहायक:** इंजीनियरिंग में प्रथम श्रेणी का डिप्लोमा। **तकनीशियन 'बी':** प्रासंगिक ट्रेड में एसएसएलसी/एसएससी/मैट्रिक + आईटीआई/एनटीसी/एनएसी। **ड्राफ्ट्समैन 'बी':** ड्राफ्ट्समैन ट्रेड में एसएसएलसी/एसएससी + आईटीआई/एनटीसी/एनएसी।",
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर **18 से 35 वर्ष** के बीच। आरक्षित श्रेणियों के लिए सटीक आयु सीमा और छूट आधिकारिक विज्ञापन में निर्दिष्ट हैं।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'उम्मीदवार को भारत का नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'चिकित्सा मानक 📊',
+                    'sec3-attempts-p1': 'उम्मीदवारों को पद के कर्तव्यों के लिए चिकित्सकीय रूप से फिट होना चाहिए।',
+                    'sec3-agerelax-list': "<li>अच्छे शारीरिक और मानसिक स्वास्थ्य में होना चाहिए।</li><li>अंतिम नियुक्ति इसरो द्वारा निर्धारित चिकित्सा मानकों को पूरा करने के अधीन है।</li>",
+                    'sec4-title': '4. चयन परीक्षण: विस्तार से 📚',
+                    'sec4-p1': "लिखित और कौशल परीक्षणों की संरचना को समझना सफलता की कुंजी है।",
+                    'gs1-title': 'लिखित परीक्षा 📝', 'gs1-sub1': 'योग्यता डिग्री (डिप्लोमा/आईटीआई) के पाठ्यक्रम पर आधारित पाठ्यक्रम।', 'gs1-sub2': 'वस्तुनिष्ठ प्रकार के बहुविकल्पीय प्रश्न (MCQ)।', 'gs1-sub3': 'नकारात्मक अंकन के प्रावधान आमतौर पर मौजूद होते हैं।',
+                    'gs2-title': 'कौशल परीक्षण 🛠️', 'gs2-sub1': 'पूरी तरह से प्रकृति में योग्यता (गो/नो-गो आधार)।', 'gs2-sub2': 'अपने संबंधित ट्रेड में उम्मीदवार के व्यावहारिक कौशल और ज्ञान का आकलन करने के लिए डिज़ाइन किया गया।', 'gs2-sub3': 'अंतिम चयन लिखित परीक्षा के अंकों के आधार पर होता है, कौशल-परीक्षण योग्य उम्मीदवारों के लिए।',
+                    'sec5-title': '5. प्रशिक्षण और प्रेरण 🚀',
+                    'sec5-p1': "नए भर्ती किए गए तकनीकी कर्मचारियों को इसरो की उन्नत परियोजनाओं में उनकी विशिष्ट भूमिकाओं के लिए तैयार करने के लिए संरचित ऑन-द-जॉब प्रशिक्षण से गुजरना पड़ता है।",
+                    'sec5-hindi-title': '1. प्रेरण कार्यक्रम', 'sec5-hindi-p1': "एक प्रारंभिक प्रेरण इसरो के कार्यों और केंद्र की विशिष्ट भूमिका का अवलोकन प्रदान करता है।", 'sec5-hindi-list': "<li>इसरो की गुणवत्ता और सुरक्षा मानकों से परिचित होना।</li><li>विशिष्ट मशीनरी और सॉफ्टवेयर पर प्रशिक्षण।</li><li>परियोजना टीमों में एकीकरण।</li>",
+                    'sec5-essay-title': '2. कैरियर विकास', 'sec5-essay-p1': 'इसरो निरंतर सीखने को प्रोत्साहित करता है और कौशल वृद्धि के अवसर प्रदान करता है।', 'sec5-essay-list': "<li>प्रतिष्ठित राष्ट्रीय मिशनों पर काम करने के अवसर।</li><li>पदोन्नति के लिए विभागीय योग्यता परीक्षा।</li><li>नई और उन्नत तकनीकों पर प्रशिक्षण।</li>",
+                    'sec6-title': '6. प्रमुख अनुशासन भर्ती किए गए 🌟',
+                    'sec6-p1': "भर्ती विभिन्न प्रकार के ट्रेडों और विषयों के लिए आयोजित की जाती है जो वीएसएससी, यूआरएससी और एसडीएससी शार जैसे इसरो केंद्रों की विशिष्ट आवश्यकताओं पर आधारित होती है।",
+                    'sec6-eng-title': 'तकनीकी सहायक', 'sec6-eng-list': '<li>मैकेनिकल, इलेक्ट्रॉनिक्स</li><li>इलेक्ट्रिकल, सिविल</li><li>कंप्यूटर विज्ञान</li><li>पुस्तकालय सहायक</li>',
+                    'sec6-elec-title': "तकनीशियन 'बी'", 'sec6-elec-list': '<li>फिटर, मशीनिस्ट</li><li>इलेक्ट्रॉनिक्स मैकेनिक</li><li>वेल्डर, इलेक्ट्रीशियन</li><li>रेफ्रिजरेशन और ए/सी</li>',
+                    'sec6-naic-title': "ड्राफ्ट्समैन 'बी'", 'sec6-naic-list': '<li>ड्राफ्ट्समैन (मैकेनिकल)</li><li>ड्राफ्ट्समैन (सिविल)</li>',
+                    'sec7-title': "7. एक इसरो तकनीशियन के मुख्य गुण 🎙️",
+                    'sec7-p1': 'इसरो ऐसे व्यक्तियों की तलाश करता है जो न केवल तकनीकी रूप से कुशल हों, बल्कि अंतरिक्ष अन्वेषण और राष्ट्र-निर्माण के लिए एक जुनून भी साझा करते हों।',
+                    'sec7-qualities-title': 'प्रमुख गुण:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-cyan-400 mr-3">🎯</span><div><strong class="text-gray-200">सटीकता और गुणवत्ता फोकस:</strong> गुणवत्ता और शून्य-त्रुटि कार्य के प्रति एक अटूट प्रतिबद्धता।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🔧</span><div><strong class="text-gray-200">मजबूत तकनीकी नींव:</strong> अपने व्यापार/अनुशासन में मुख्य अवधारणाओं की गहरी और स्पष्ट समझ।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🧠</span><div><strong class="text-gray-200">समस्या-समाधान कौशल:</strong> तकनीकी मुद्दों के समाधान खोजने और समस्या निवारण की क्षमता।</div></li><li><span class="text-2xl text-cyan-400 mr-3">🤝</span><div><strong class="text-gray-200">टीम खिलाड़ी:</strong> बड़ी, मिशन-उन्मुख टीमों में सहयोगात्मक रूप से काम करने की क्षमता।</div></li>',
+                    'sec8-title': '8. तैयारी की रणनीति: मिशन का खाका 📈',
+                    'sec8-p1': "इसरो तकनीकी परीक्षा में सफलता के लिए आपके मुख्य विषयों की पूरी समझ और निरंतर अभ्यास की आवश्यकता होती है।",
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'अपने पाठ्यक्रम में महारत हासिल करें', 'sec8-step1-desc': "अपने पूरे डिप्लोमा या आईटीआई पाठ्यक्रम को संशोधित करें। बुनियादी बातों पर ध्यान केंद्रित करें क्योंकि प्रश्न अवधारणा-आधारित होते हैं।",
+                    'sec8-step2-title': 'पिछले वर्ष के प्रश्नपत्र हल करें', 'sec8-step2-desc': 'पैटर्न और प्रश्नों के प्रकार को समझने के लिए इसरो और अन्य तकनीकी परीक्षाओं के पिछले प्रश्न पत्रों का अभ्यास करें।',
+                    'sec8-step3-title': 'कौशल परीक्षण के लिए अभ्यास करें', 'sec8-step3-desc': 'कौशल परीक्षण की उपेक्षा न करें। अपने व्यावहारिक कौशल को सुधारें, चाहे वह खराद पर हो, वेल्डिंग हो, या ड्राइंग सॉफ्टवेयर का उपयोग कर रहा हो।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': "<li><strong>मानक पाठ्यपुस्तकें:</strong> अपने अनुशासन के लिए मानक, अच्छी तरह से लिखित पाठ्यपुस्तकों का संदर्भ लें।</li><li><strong>मॉक टेस्ट:</strong> सीबीटी के लिए अपनी गति, सटीकता और समय प्रबंधन में सुधार के लिए ऑनलाइन मॉक टेस्ट दें।</li><li><strong>अपडेट रहें:</strong> इसरो के हालिया मिशनों और उपलब्धियों पर नज़र रखें।</li>",
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'भर्ती एक निश्चित वार्षिक चक्र पर आयोजित नहीं की जाती है। विभिन्न इसरो केंद्र अपनी विशिष्ट जनशक्ति आवश्यकताओं के आधार पर विज्ञापन जारी करते हैं। उम्मीदवारों को नियमित रूप से इसरो करियर वेबसाइट (isro.gov.in/careers) की जांच करनी चाहिए।',
+                    'sec9-step1-title': 'इसरो केंद्र द्वारा विज्ञापन', 'sec9-step1-desc': '<strong>समयरेखा:</strong> वीएसएससी, यूआरएससी, एसडीएससी, आदि जैसे केंद्रों की आवश्यकताओं के अनुसार इसरो वेबसाइट पर जारी किया गया।',
+                    'sec9-step2-title': 'ऑनलाइन आवेदन', 'sec9-step2-desc': '<strong>समयरेखा:</strong> ऑनलाइन आवेदन जमा करने के लिए आमतौर पर 2-3 सप्ताह की एक खिड़की प्रदान की जाती है।',
+                    'sec9-step3-title': 'लिखित और कौशल परीक्षण', 'sec9-step3-desc': '<strong>समयरेखा:</strong> आवेदन की अंतिम तिथि के कुछ महीनों बाद परीक्षा की तारीखों की घोषणा की जाती है।',
+                    'sec9-step4-title': 'अंतिम मेरिट सूची', 'sec9-step4-desc': '<strong>समयरेखा:</strong> अंतिम परिणाम कौशल परीक्षण में उत्तीर्ण होने वाले उम्मीदवारों के लिए लिखित परीक्षा के प्रदर्शन के आधार पर प्रकाशित किया जाता है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'इन सामान्य नुकसानों से बचने के लिए अपने आवेदन और तैयारी में सावधानी बरतें।',
+                    'sec10-mistake1-title': 'पात्रता की अनदेखी:', 'sec10-mistake1-desc': 'डिप्लोमा में प्रथम श्रेणी के बिना आवेदन करना या अधिसूचना में उल्लिखित सटीक आईटीआई ट्रेड नहीं होना।',
+                    'sec10-mistake2-title': 'कौशल परीक्षण की उपेक्षा:', 'sec10-mistake2-desc': 'केवल लिखित परीक्षा पर ध्यान केंद्रित करना और व्यावहारिक कौशल परीक्षण के लिए तैयार नहीं होना, जो कि उत्तीर्ण होना अनिवार्य है।',
+                    'sec10-mistake3-title': 'गणना त्रुटियाँ:', 'sec10-mistake3-desc': 'समय के दबाव और नकारात्मक अंकन के कारण लिखित परीक्षा में मूर्खतापूर्ण गणना की गलतियाँ करना।',
+                    'sec10-mistake4-title': 'अनुमान:', 'sec10-mistake4-desc': 'अनुमान के साथ बहुत सारे प्रश्नों का प्रयास करना, जिससे उच्च नकारात्मक स्कोर होता है।',
+                    'sec11-title': '11. कोचिंग और संसाधन 🏫',
+                    'sec11-p1': 'मानक पाठ्यपुस्तकों का उपयोग करके केंद्रित स्व-अध्ययन सबसे प्रभावी तैयारी विधि है।',
+                    'sec11-gov-title': '📚 स्व-अध्ययन संसाधन', 'sec11-gov-list': '<li>आपके विशिष्ट ट्रेड के लिए मानक डिप्लोमा/आईटीआई पाठ्यपुस्तकें।</li><li>एमसीक्यू का अभ्यास करने और मॉक टेस्ट देने के लिए ऑनलाइन प्लेटफॉर्म।</li>',
+                    'sec11-pvt-title': '🔧 कौशल परीक्षण के लिए', 'sec11-pvt-p1': 'व्यावहारिक ज्ञान महत्वपूर्ण है।', 'sec11-pvt-list': '<li>अपने डिप्लोमा/आईटीआई के दौरान किए गए प्रैक्टिकल को संशोधित करें।</li><li>प्रासंगिक उपकरणों, मशीनों या सॉफ्टवेयर पर अभ्यास करें।</li>',
+                    'sec12-title': '12. कैरियर प्रगति 🚀',
+                    'sec12-p1': "इसरो अपने तकनीकी कर्मचारियों के लिए योग्यता-आधारित पदोन्नति नीति के माध्यम से उत्कृष्ट कैरियर विकास के अवसर प्रदान करता है, जिससे समर्पित व्यक्तियों को वरिष्ठ तकनीकी और प्रबंधकीय पदों तक पहुंचने की अनुमति मिलती है।",
+                    'sec12-career-btn': 'तकनीकी कैडर पदानुक्रम देखें',
+                    'sec13-title': '13. लिखित परीक्षा पाठ्यक्रम 📚',
+                    'sec13-p1': "लिखित परीक्षा का पाठ्यक्रम व्यापक है और पूरी तरह से आपके योग्यता पाठ्यक्रम के शैक्षणिक पाठ्यक्रम पर आधारित है।",
+                    'syllabus-oir-title': 'तकनीकी सहायक',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">कोर डिप्लोमा इंजीनियरिंग विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': "तकनीशियन 'बी' / ड्राफ्ट्समैन 'बी'",
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">कोर आईटीआई ट्रेड थ्योरी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | मानव जाति की सेवा में अंतरिक्ष प्रौद्योगिकी | Space technology in the service of humankind. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['सटीकता', 'तकनीकी कौशल', 'समस्या समाधान', 'टीम वर्क'],
+                        data: [95, 92, 88, 90]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-slate-800/60 rounded-xl text-center border border-slate-700 hover:border-cyan-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-cyan-500/20 transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-gray-200">${post.name}</h4>
+                        <p class="text-sm text-slate-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-gray-200 mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-400">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(34, 211, 238, 0.6)',
+                            borderColor: '#22d3ee',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#9ca3af' },
+                                grid: { color: 'rgba(156, 163, 175, 0.2)' }
+                            },
+                            x: { 
+                                ticks: { color: '#9ca3af', font: { size: 14 } },
+                                grid: { color: 'rgba(156, 163, 175, 0.2)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
