@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRDO CEPTAM - Multi Tasking Staff (MTS) Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide for DRDO CEPTAM recruitment for Multi Tasking Staff (MTS) posts.">
+    <meta name="keywords" content="DRDO, CEPTAM, MTS, Multi Tasking Staff, DRDO Recruitment, Defence Jobs, DRDO Exam">
+    <meta name="author" content="DRDO MTS Guide">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb; /* Gray-50 */
+            color: #374151; /* Gray-700 */
+        }
+        .section-heading {
+            border-bottom: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #8b5cf6, #14b8a6); /* Violet to Teal */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #111827; /* Gray-900 */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb; /* Gray-200 */
+            box-shadow: 0 8px 24px rgba(55, 65, 81, 0.06);
+        }
+        .card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.15);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #8b5cf6; /* Violet */
+            color: #111827;
+            background-color: #f5f3ff; /* Violet-50 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.1);
+        }
+        .flowchart-step:hover {
+            background-color: #8b5cf6;
+            color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.2);
+        }
+        .flowchart-arrow {
+            color: #14b8a6; /* Teal */
+        }
+        .subject-category-heading {
+            color: #111827;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #14b8a6;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: #f3f4f6; /* Gray-100 */
+        }
+        .subject-item .icon {
+            color: #8b5cf6;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #14b8a6;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+            border: 4px solid #f9fafb;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-top: 5px solid #8b5cf6;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #6b7280; line-height: 1;
+        }
+        .modal-close-button:hover { color: #ef4444; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #8b5cf6, #14b8a6);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(20, 184, 166, 0.4);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #4338ca; /* Indigo-700 */
+            color: #312e81; /* Indigo-900 */
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #4338ca;
+            color: #ffffff;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #14b8a6;
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #0d9488;
+        }
+        .lectures-btn {
+            background-color: transparent;
+            color: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+        .lectures-btn:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-teal-500 mb-4 tracking-tight">🛠️ DRDO MTS Recruitment 🛠️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-violet-700 font-semibold">The Foundation of Defence Innovation</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is MTS -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is DRDO Multi Tasking Staff (MTS)? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Multi-Tasking Staff (MTS) is a crucial Group ‘C’, Non-Gazetted, Non-Ministerial post in DRDO. MTS personnel form the foundational support system of the laboratories and establishments. They are responsible for a wide variety of non-clerical tasks, ensuring the smooth and efficient functioning of the workplace, which allows scientists and technical staff to focus on their core R&D activities.</p>
+                </div>
+                 <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Selection Process: Two-Tier Exam 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process for MTS is a competitive two-stage Computer Based Test (CBT) designed to assess general aptitude and reasoning skills.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Tier – I:</span><br><span id="sec2-step1-name">Screening CBT</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-500">Qualifying in Nature</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Tier – II:</span><br><span id="sec2-step2-name">Final Selection CBT</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-500">For Final Merit List</p>
+                    </div>
+                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Verification</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-500">Document & Medical Check</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">The eligibility criteria for the MTS post are straightforward:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-violet-600 mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-stone-800 text-lg">Education:</strong> <span id="sec3-edu-desc">Class 10th Pass from a recognized Board OR an ITI Pass certificate.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-violet-600 mr-4">🎂</span><div><strong id="sec3-age-title" class="text-stone-800 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 25 years**. Age relaxations are applicable for various reserved categories as per government norms.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-violet-600 mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-stone-800 text-lg">Nationality:</strong> <span id="sec3-nat-desc">The candidate must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-stone-800 mb-4 border-b border-violet-600 pb-2">Medical Standards 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Candidates must be medically fit to perform the duties of the post.</p>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>Must be in good mental and physical health and free from any deformity.</li>
+                            <li>Medical standards, including visual acuity, will be checked as per DRDO rules after final selection.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Selection Tests Detailed -->
+            <section class="card bg-slate-50/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. The Exam Pattern: In Detail 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The exam consists of two mandatory tiers, both of which are Computer Based Tests (CBT).</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Tier-I CBT (Screening) 📝</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs1-sub1">General Intelligence & Reasoning Ability</div></div>
+                            <div class="subject-item"><span class="icon">🌍</span><div id="gs1-sub2">General Awareness</div></div>
+                            <div class="subject-item"><span class="icon">🧮</span><div id="gs1-sub3">Quantitative Aptitude & Numerical Ability</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Tier-II CBT (Final Selection) 🛠️</h3>
+                        <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">🔬</span><div id="gs2-sub1">General Science</div></div>
+                            <div class="subject-item"><span class="icon">🧮</span><div id="gs2-sub2">General Math</div></div>
+                            <div class="subject-item"><span class="icon">🇬🇧</span><div id="gs2-sub3">General English</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Job Profile ✈️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected candidates are appointed after successful document verification and medical examination.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-violet-50/70 rounded-xl border-2 border-violet-200">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-stone-800 mb-2">1. Job Profile and Duties</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">MTS staff perform non-clerical, support-level tasks.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>General cleanliness and upkeep of the office/lab.</li>
+                            <li>Carrying of files and other papers within the building.</li>
+                            <li>Assisting in routine office/lab work.</li>
+                            <li>Other non-clerical work assigned by superiors.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-teal-50/70 rounded-xl border-2 border-teal-200">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-stone-800 mb-2">2. Posting and Placement</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">MTS are liable to be posted anywhere in India in any of DRDO's laboratories or establishments.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction training is provided after joining.</li>
+                           <li>Probation period is typically for two years.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. MTS is a General Post 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Unlike STA-B and Tech-A, the MTS post is not discipline or trade-specific. The recruitment is for a general cadre of staff who can perform a variety of multi-tasking duties as required by the administration in any DRDO lab across the country.</p>
+            </section>
+
+            <!-- Section 7: Qualities Required -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Core Qualities of an MTS Employee 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">DRDO seeks reliable, diligent, and disciplined individuals for the MTS role.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-stone-800 mb-6 border-b border-violet-600 pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-violet-600 mr-3">💪</span><div><strong class="text-stone-800">Diligence:</strong> A hardworking and responsible attitude towards all assigned tasks.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-violet-600 mr-3">🤝</span><div><strong class="text-stone-800">Discipline:</strong> Punctuality and the ability to follow instructions from superiors.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-violet-600 mr-3">🧠</span><div><strong class="text-stone-800">Alertness:</strong> General awareness and a proactive approach to work.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-violet-600 mr-3">📋</span><div><strong class="text-stone-800">Versatility:</strong> Willingness to perform a wide range of duties as required.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Preparation Strategy: The Success Formula 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A well-planned preparation strategy focusing on the syllabus of both tiers is essential to clear this highly competitive exam.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-stone-800 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-teal-600 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-teal-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Understand the Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base">Go through the detailed syllabus for both Tier-I and Tier-II exams. The level of questions is generally based on the Class 10th standard.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-teal-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-stone-800 mb-1">Build Conceptual Clarity</h4>
+                                <p id="sec8-step2-desc" class="text-base">Focus on clearing the basic concepts of Maths, Science, and Reasoning from standard school textbooks (NCERT).</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-teal-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Practice & Revision</h4>
+                                <p id="sec8-step3-desc" class="text-base">Solve a large number of questions from each topic and take mock tests regularly. Consistent revision is key.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-stone-800 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Daily Current Affairs:</strong> Read newspapers or follow online sources for the General Awareness section.</li>
+                            <li><strong>Time Management:</strong> Practice solving questions within the time limits of the actual exam.</li>
+                            <li><strong>Analyze Mock Tests:</strong> After each mock test, analyze your weak areas and work on improving them.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">DRDO MTS recruitment is not an annual event. It is advertised based on the vacancies available. Aspirants should regularly check the DRDO website.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Advertisement Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A detailed advertisement is published on the DRDO website (drdo.gov.in).</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-stone-800 mb-1">Online Application Window</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A specific period (usually one month) is given to candidates to register and apply online.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Tier-I & Tier-II CBTs</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Exam dates for both tiers are announced well in advance after the application process concludes.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-stone-800 mb-1">Final Result Publication</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> The final merit list, based on Tier-II scores, is published on the website, followed by joining procedures.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">This is a highly competitive exam. Avoid these simple mistakes to secure your place.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-800">Ignoring Normalization:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-700 mt-1">Not understanding that scores are normalized across different shifts. Aim for high accuracy.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-800">Neglecting Any Section:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-700 mt-1">Focusing on just one or two subjects and ignoring others. All sections are important.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-800">Application Form Errors:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-700 mt-1">Making spelling mistakes or providing incorrect details which can lead to disqualification at the verification stage.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-800">Lack of Mock Practice:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-700 mt-1">Not taking enough online mock tests to get accustomed to the CBT interface and time pressure.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Coaching & Resources 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Numerous online and offline resources are available for preparing for the DRDO MTS exam.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Books & Self-Study</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>NCERT books (Class 6-10) for Science and Math basics.</li>
+                           <li>Standard competitive exam books for Reasoning and Quantitative Aptitude.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Online Coaching</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Many educational platforms provide dedicated courses for DRDO MTS preparation.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Structured video lectures and study notes.</li>
+                            <li>Extensive online test series for practice.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Progression 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">MTS is an entry-level post with a stable government career. It offers a clear path for promotion to higher administrative grades based on seniority and performance.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View MTS Career Path</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card bg-slate-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. MTS Exam Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus tests general aptitude and knowledge expected of a 10th standard student.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Tier 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Tier-I CBT Syllabus</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Tier 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Tier-II CBT Syllabus</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-slate-300">
+            <p id="footer-text" class="text-gray-600 text-lg font-medium">&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Tier-I: Screening CBT</h3>
+            <p id="prelims-modal-p1">This is the first stage, a Computer Based Test for screening candidates. It consists of sections on General Intelligence & Reasoning Ability, General Awareness, and Quantitative Aptitude. This test is qualifying, and marks are not counted for the final merit list.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Tier-II: Final Selection CBT</h3>
+            <p id="mains-modal-p1">Candidates shortlisted from Tier-I appear for the Tier-II CBT. This test consists of sections on General Science, General Math, and General English. The marks obtained in Tier-II are used to prepare the final merit list for selection.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Final Selection & Verification</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final selection is based purely on the merit of the Tier-II exam. There is no interview. Selected candidates are called for document verification, where their original certificates are checked, followed by a medical examination.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-stone-800"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-stone-800 mb-6">MTS Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'mts_role': { 
+                        name: "Multi Tasking Staff (MTS)", 
+                        icon: '📋',
+                        description: 'MTS is a General Central Service Group ‘C’ post. They are responsible for the general upkeep and maintenance of office records, cleanliness of the premises, and performing other non-clerical duties assigned by senior officials, ensuring a smooth operational environment.',
+                        cta: 'Learn More'
+                    },
+                    'work_env': { 
+                        name: "Work Environment", 
+                        icon: '🏢',
+                        description: 'MTS staff work in various DRDO laboratories, workshops, and administrative offices across India. The role provides a secure and stable central government job with numerous benefits and allowances.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                     'mts_role': { 
+                        name: "मल्टी टास्किंग स्टाफ (एमटीएस)", 
+                        icon: '📋',
+                        description: "एमटीएस एक सामान्य केंद्रीय सेवा समूह 'सी' का पद है। वे कार्यालय रिकॉर्ड के सामान्य रखरखाव, परिसर की स्वच्छता और वरिष्ठ अधिकारियों द्वारा सौंपे गए अन्य गैर-लिपिकीय कर्तव्यों का पालन करने के लिए जिम्मेदार हैं, जिससे एक सहज परिचालन वातावरण सुनिश्चित होता है।",
+                        cta: 'और जानें'
+                    },
+                    'work_env': { 
+                        name: "कार्य वातावरण", 
+                        icon: '🏢',
+                        description: 'एमटीएस कर्मचारी भारत भर में विभिन्न डीआरडीओ प्रयोगशालाओं, कार्यशालाओं और प्रशासनिक कार्यालयों में काम करते हैं। यह भूमिका कई लाभों और भत्तों के साथ एक सुरक्षित और स्थिर केंद्र सरकार की नौकरी प्रदान करती है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Multi Tasking Staff (MTS)", desc: "Entry-level post after selection." },
+                        { rank: "Promotion to LDC", desc: "Eligible to appear for departmental exams for promotion to Lower Division Clerk (LDC) after a few years of service." },
+                        { rank: "Further Administrative Roles", desc: "Based on performance and further qualifications, there are opportunities to grow into higher administrative roles within the DRDO." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "मल्टी टास्किंग स्टाफ (एमटीएस)", desc: "चयन के बाद प्रवेश स्तर का पद।" },
+                        { rank: "एलडीसी में पदोन्नति", desc: "कुछ वर्षों की सेवा के बाद लोअर डिवीजन क्लर्क (एलडीसी) के पद पर पदोन्नति के लिए विभागीय परीक्षाओं में बैठने के योग्य।" },
+                        { rank: "आगे की प्रशासनिक भूमिकाएँ", desc: "प्रदर्शन और आगे की योग्यता के आधार पर, डीआरडीओ के भीतर उच्च प्रशासनिक भूमिकाओं में बढ़ने के अवसर हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🛠️ DRDO MTS Recruitment 🛠️',
+                    'header-subtitle': 'The Foundation of Defence Innovation',
+                    'sec1-title': '1. What is DRDO Multi Tasking Staff (MTS)? 💡',
+                    'sec1-p1': "Multi-Tasking Staff (MTS) is a crucial Group ‘C’, Non-Gazetted, Non-Ministerial post in DRDO. MTS personnel form the foundational support system of the laboratories and establishments. They are responsible for a wide variety of non-clerical tasks, ensuring the smooth and efficient functioning of the workplace, which allows scientists and technical staff to focus on their core R&D activities.",
+                    'sec2-title': '2. The Selection Process: Two-Tier Exam 🎯',
+                    'sec2-p1': 'The selection process for MTS is a competitive two-stage Computer Based Test (CBT) designed to assess general aptitude and reasoning skills.',
+                    'sec2-step1-title': 'Tier – I:', 'sec2-step1-name': 'Screening CBT', 'sec2-step1-desc': 'Qualifying in Nature',
+                    'sec2-step2-title': 'Tier – II:', 'sec2-step2-name': 'Final Selection CBT', 'sec2-step2-desc': 'For Final Merit List',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Verification', 'sec2-step3-desc': 'Document & Medical Check',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'The eligibility criteria for the MTS post are straightforward:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': 'Class 10th Pass from a recognized Board OR an ITI Pass certificate.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 25 years**. Age relaxations are applicable for various reserved categories as per government norms.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'The candidate must be a citizen of India.',
+                    'sec3-attempts-title': 'Medical Standards 📊',
+                    'sec3-attempts-p1': 'Candidates must be medically fit to perform the duties of the post.',
+                    'sec3-agerelax-list': "<li>Must be in good mental and physical health and free from any deformity.</li><li>Medical standards, including visual acuity, will be checked as per DRDO rules after final selection.</li>",
+                    'sec4-title': '4. The Exam Pattern: In Detail 📚',
+                    'sec4-p1': "The exam consists of two mandatory tiers, both of which are Computer Based Tests (CBT).",
+                    'gs1-title': 'Tier-I CBT (Screening) 📝', 'gs1-sub1': 'General Intelligence & Reasoning Ability', 'gs1-sub2': 'General Awareness', 'gs1-sub3': 'Quantitative Aptitude & Numerical Ability',
+                    'gs2-title': 'Tier-II CBT (Final Selection) 🛠️', 'gs2-sub1': 'General Science', 'gs2-sub2': 'General Math', 'gs2-sub3': 'General English',
+                    'sec5-title': '5. Training & Job Profile ✈️',
+                    'sec5-p1': "Selected candidates are appointed after successful document verification and medical examination.",
+                    'sec5-hindi-title': '1. Job Profile and Duties', 'sec5-hindi-p1': 'MTS staff perform non-clerical, support-level tasks.', 'sec5-hindi-list': "<li>General cleanliness and upkeep of the office/lab.</li><li>Carrying of files and other papers within the building.</li><li>Assisting in routine office/lab work.</li><li>Other non-clerical work assigned by superiors.</li>",
+                    'sec5-essay-title': '2. Posting and Placement', 'sec5-essay-p1': "MTS are liable to be posted anywhere in India in any of DRDO's laboratories or establishments.", 'sec5-essay-list': "<li>Induction training is provided after joining.</li><li>Probation period is typically for two years.</li>",
+                    'sec6-title': '6. MTS is a General Post 🌟',
+                    'sec6-p1': "Unlike STA-B and Tech-A, the MTS post is not discipline or trade-specific. The recruitment is for a general cadre of staff who can perform a variety of multi-tasking duties as required by the administration in any DRDO lab across the country.",
+                    'sec7-title': '7. Core Qualities of an MTS Employee 🎙️',
+                    'sec7-p1': 'DRDO seeks reliable, diligent, and disciplined individuals for the MTS role.',
+                    'sec7-qualities-title': 'Key Attributes:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-violet-600 mr-3">💪</span><div><strong class="text-stone-800">Diligence:</strong> A hardworking and responsible attitude towards all assigned tasks.</div></li><li><span class="text-2xl text-violet-600 mr-3">🤝</span><div><strong class="text-stone-800">Discipline:</strong> Punctuality and the ability to follow instructions from superiors.</div></li><li><span class="text-2xl text-violet-600 mr-3">🧠</span><div><strong class="text-stone-800">Alertness:</strong> General awareness and a proactive approach to work.</div></li><li><span class="text-2xl text-violet-600 mr-3">📋</span><div><strong class="text-stone-800">Versatility:</strong> Willingness to perform a wide range of duties as required.</div></li>',
+                    'sec8-title': '8. Preparation Strategy: The Success Formula 📈',
+                    'sec8-p1': "A well-planned preparation strategy focusing on the syllabus of both tiers is essential to clear this highly competitive exam.",
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Understand the Syllabus', 'sec8-step1-desc': "Go through the detailed syllabus for both Tier-I and Tier-II exams. The level of questions is generally based on the Class 10th standard.",
+                    'sec8-step2-title': 'Build Conceptual Clarity', 'sec8-step2-desc': 'Focus on clearing the basic concepts of Maths, Science, and Reasoning from standard school textbooks (NCERT).',
+                    'sec8-step3-title': 'Practice & Revision', 'sec8-step3-desc': 'Solve a large number of questions from each topic and take mock tests regularly. Consistent revision is key.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': "<li><strong>Daily Current Affairs:</strong> Read newspapers or follow online sources for the General Awareness section.</li><li><strong>Time Management:</strong> Practice solving questions within the time limits of the actual exam.</li><li><strong>Analyze Mock Tests:</strong> After each mock test, analyze your weak areas and work on improving them.</li>",
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'DRDO MTS recruitment is not an annual event. It is advertised based on the vacancies available. Aspirants should regularly check the DRDO website.',
+                    'sec9-step1-title': 'Advertisement Release', 'sec9-step1-desc': '<strong>Timeline:</strong> A detailed advertisement is published on the DRDO website (drdo.gov.in).',
+                    'sec9-step2-title': 'Online Application Window', 'sec9-step2-desc': '<strong>Timeline:</strong> A specific period (usually one month) is given to candidates to register and apply online.',
+                    'sec9-step3-title': 'Tier-I & Tier-II CBTs', 'sec9-step3-desc': '<strong>Timeline:</strong> Exam dates for both tiers are announced well in advance after the application process concludes.',
+                    'sec9-step4-title': 'Final Result Publication', 'sec9-step4-desc': '<strong>Timeline:</strong> The final merit list, based on Tier-II scores, is published on the website, followed by joining procedures.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'This is a highly competitive exam. Avoid these simple mistakes to secure your place.',
+                    'sec10-mistake1-title': 'Ignoring Normalization:', 'sec10-mistake1-desc': 'Not understanding that scores are normalized across different shifts. Aim for high accuracy.',
+                    'sec10-mistake2-title': 'Neglecting Any Section:', 'sec10-mistake2-desc': 'Focusing on just one or two subjects and ignoring others. All sections are important.',
+                    'sec10-mistake3-title': 'Application Form Errors:', 'sec10-mistake3-desc': 'Making spelling mistakes or providing incorrect details which can lead to disqualification at the verification stage.',
+                    'sec10-mistake4-title': 'Lack of Mock Practice:', 'sec10-mistake4-desc': 'Not taking enough online mock tests to get accustomed to the CBT interface and time pressure.',
+                    'sec11-title': '11. Coaching & Resources 🏫',
+                    'sec11-p1': 'Numerous online and offline resources are available for preparing for the DRDO MTS exam.',
+                    'sec11-gov-title': '📚 Books & Self-Study', 'sec11-gov-list': '<li>NCERT books (Class 6-10) for Science and Math basics.</li><li>Standard competitive exam books for Reasoning and Quantitative Aptitude.</li>',
+                    'sec11-pvt-title': '💻 Online Coaching', 'sec11-pvt-p1': 'Many educational platforms provide dedicated courses for DRDO MTS preparation.', 'sec11-pvt-list': '<li>Structured video lectures and study notes.</li><li>Extensive online test series for practice.</li>',
+                    'sec12-title': '12. Career Progression 🚀',
+                    'sec12-p1': "MTS is an entry-level post with a stable government career. It offers a clear path for promotion to higher administrative grades based on seniority and performance.",
+                    'sec12-career-btn': 'View MTS Career Path',
+                    'sec13-title': '13. MTS Exam Syllabus 📚',
+                    'sec13-p1': "The syllabus tests general aptitude and knowledge expected of a 10th standard student.",
+                    'syllabus-oir-title': 'Tier-I CBT Syllabus',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & General Intelligence</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Tier-II CBT Syllabus',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">General Science</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">General Math</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['Diligence', 'Discipline', 'Alertness', 'Versatility'],
+                        data: [95, 92, 88, 90]
+                    },
+                },
+                'hi': {
+                    'header-title': '🛠️ DRDO MTS भर्ती 🛠️',
+                    'header-subtitle': 'रक्षा नवाचार की नींव',
+                    'sec1-title': '1. DRDO मल्टी टास्किंग स्टाफ (MTS) क्या है? 💡',
+                    'sec1-p1': "मल्टी-टास्किंग स्टाफ (एमटीएस) डीआरडीओ में एक महत्वपूर्ण समूह 'सी', अराजपत्रित, गैर-मंत्रालयी पद है। एमटीएस कर्मी प्रयोगशालाओं और प्रतिष्ठानों की मूलभूत सहायता प्रणाली का निर्माण करते हैं। वे विभिन्न प्रकार के गैर-लिपिकीय कार्यों के लिए जिम्मेदार हैं, जो कार्यस्थल के सुचारू और कुशल कामकाज को सुनिश्चित करते हैं, जिससे वैज्ञानिकों और तकनीकी कर्मचारियों को अपनी मुख्य अनुसंधान एवं विकास गतिविधियों पर ध्यान केंद्रित करने की अनुमति मिलती है।",
+                    'sec2-title': '2. चयन प्रक्रिया: दो-स्तरीय परीक्षा 🎯',
+                    'sec2-p1': 'एमटीएस के लिए चयन प्रक्रिया एक प्रतिस्पर्धी दो-चरण की कंप्यूटर आधारित परीक्षा (सीबीटी) है जिसे सामान्य योग्यता और तर्क कौशल का आकलन करने के लिए डिज़ाइन किया गया है।',
+                    'sec2-step1-title': 'टियर - I:', 'sec2-step1-name': 'स्क्रीनिंग सीबीटी', 'sec2-step1-desc': 'प्रकृति में योग्यता',
+                    'sec2-step2-title': 'टियर - II:', 'sec2-step2-name': 'अंतिम चयन सीबीटी', 'sec2-step2-desc': 'अंतिम मेरिट सूची के लिए',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'सत्यापन', 'sec2-step3-desc': 'दस्तावेज़ और चिकित्सा जांच',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'एमटीएस पद के लिए पात्रता मानदंड सीधे हैं:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'एक मान्यता प्राप्त बोर्ड से कक्षा 10 वीं पास या एक आईटीआई पास प्रमाण पत्र।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर **18 से 25 वर्ष** के बीच। सरकारी मानदंडों के अनुसार विभिन्न आरक्षित श्रेणियों के लिए आयु में छूट लागू है।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'उम्मीदवार को भारत का नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'चिकित्सा मानक 📊',
+                    'sec3-attempts-p1': 'उम्मीदवारों को पद के कर्तव्यों का पालन करने के लिए चिकित्सकीय रूप से फिट होना चाहिए।',
+                    'sec3-agerelax-list': "<li>अच्छे मानसिक और शारीरिक स्वास्थ्य में होना चाहिए और किसी भी विकृति से मुक्त होना चाहिए।</li><li>अंतिम चयन के बाद डीआरडीओ नियमों के अनुसार दृश्य तीक्ष्णता सहित चिकित्सा मानकों की जाँच की जाएगी।</li>",
+                    'sec4-title': '4. परीक्षा पैटर्न: विस्तार से 📚',
+                    'sec4-p1': "परीक्षा में दो अनिवार्य स्तर होते हैं, दोनों ही कंप्यूटर आधारित परीक्षण (सीबीटी) हैं।",
+                    'gs1-title': 'टियर- I सीबीटी (स्क्रीनिंग) 📝', 'gs1-sub1': 'सामान्य बुद्धि और तर्क क्षमता', 'gs1-sub2': 'सामान्य जागरूकता', 'gs1-sub3': 'मात्रात्मक योग्यता और संख्यात्मक क्षमता',
+                    'gs2-title': 'टियर- II सीबीटी (अंतिम चयन) 🛠️', 'gs2-sub1': 'सामान्य विज्ञान', 'gs2-sub2': 'सामान्य गणित', 'gs2-sub3': 'सामान्य अंग्रेजी',
+                    'sec5-title': '5. प्रशिक्षण और नौकरी प्रोफाइल ✈️',
+                    'sec5-p1': "सफल दस्तावेज़ सत्यापन और चिकित्सा परीक्षा के बाद चयनित उम्मीदवारों की नियुक्ति की जाती है।",
+                    'sec5-hindi-title': '1. नौकरी प्रोफाइल और कर्तव्य', 'sec5-hindi-p1': 'एमटीएस कर्मचारी गैर-लिपिकीय, सहायता-स्तर के कार्य करते हैं।', 'sec5-hindi-list': "<li>कार्यालय/प्रयोगशाला की सामान्य सफाई और रखरखाव।</li><li>भवन के भीतर फाइलों और अन्य कागजात ले जाना।</li><li>नियमित कार्यालय/प्रयोगशाला के काम में सहायता करना।</li><li>वरिष्ठों द्वारा सौंपे गए अन्य गैर-लिपिकीय कार्य।</li>",
+                    'sec5-essay-title': '2. पोस्टिंग और प्लेसमेंट', 'sec5-essay-p1': "एमटीएस को भारत में कहीं भी डीआरडीओ की किसी भी प्रयोगशाला या प्रतिष्ठान में तैनात किया जा सकता है।", 'sec5-essay-list': "<li>शामिल होने के बाद प्रेरण प्रशिक्षण प्रदान किया जाता है।</li><li>परिवीक्षा अवधि आमतौर पर दो साल के लिए होती है।</li>",
+                    'sec6-title': '6. एमटीएस एक सामान्य पद है 🌟',
+                    'sec6-p1': "एसटीए-बी और टेक-ए के विपरीत, एमटीएस पद अनुशासन या व्यापार-विशिष्ट नहीं है। भर्ती कर्मचारियों के एक सामान्य कैडर के लिए है जो देश भर में किसी भी डीआरडीओ प्रयोगशाला में प्रशासन द्वारा आवश्यक विभिन्न बहु-कार्य कर्तव्यों का पालन कर सकते हैं।",
+                    'sec7-title': '7. एक एमटीएस कर्मचारी के मुख्य गुण 🎙️',
+                    'sec7-p1': 'डीआरडीओ एमटीएस भूमिका के लिए विश्वसनीय, मेहनती और अनुशासित व्यक्तियों की तलाश करता है।',
+                    'sec7-qualities-title': 'प्रमुख गुण:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-violet-600 mr-3">💪</span><div><strong class="text-stone-800">लगन:</strong> सभी सौंपे गए कार्यों के प्रति एक मेहनती और जिम्मेदार रवैया।</div></li><li><span class="text-2xl text-violet-600 mr-3">🤝</span><div><strong class="text-stone-800">अनुशासन:</strong> समय की पाबंदी और वरिष्ठों के निर्देशों का पालन करने की क्षमता।</div></li><li><span class="text-2xl text-violet-600 mr-3">🧠</span><div><strong class="text-stone-800">सतर्कता:</strong> सामान्य जागरूकता और काम के प्रति एक सक्रिय दृष्टिकोण।</div></li><li><span class="text-2xl text-violet-600 mr-3">📋</span><div><strong class="text-stone-800">बहुमुखी प्रतिभा:</strong> आवश्यकतानुसार कर्तव्यों की एक विस्तृत श्रृंखला का पालन करने की इच्छा।</div></li>',
+                    'sec8-title': '8. तैयारी की रणनीति: सफलता का सूत्र 📈',
+                    'sec8-p1': "इस अत्यधिक प्रतिस्पर्धी परीक्षा को पास करने के लिए दोनों स्तरों के पाठ्यक्रम पर ध्यान केंद्रित करने वाली एक सुनियोजित तैयारी रणनीति आवश्यक है।",
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'पाठ्यक्रम को समझें', 'sec8-step1-desc': "टियर- I और टियर- II दोनों परीक्षाओं के विस्तृत पाठ्यक्रम से गुजरें। प्रश्नों का स्तर आम तौर पर कक्षा 10 वीं के मानक पर आधारित होता है।",
+                    'sec8-step2-title': 'वैचारिक स्पष्टता बनाएं', 'sec8-step2-desc': 'मानक स्कूल पाठ्यपुस्तकों (एनसीईआरटी) से गणित, विज्ञान और तर्क की मूल अवधारणाओं को स्पष्ट करने पर ध्यान केंद्रित करें।',
+                    'sec8-step3-title': 'अभ्यास और संशोधन', 'sec8-step3-desc': 'प्रत्येक विषय से बड़ी संख्या में प्रश्नों को हल करें और नियमित रूप से मॉक टेस्ट दें। लगातार संशोधन महत्वपूर्ण है।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': "<li><strong>दैनिक करंट अफेयर्स:</strong> सामान्य जागरूकता अनुभाग के लिए समाचार पत्र पढ़ें या ऑनलाइन स्रोतों का पालन करें।</li><li><strong>समय प्रबंधन:</strong> वास्तविक परीक्षा की समय सीमा के भीतर प्रश्नों को हल करने का अभ्यास करें।</li><li><strong>मॉक टेस्ट का विश्लेषण करें:</strong> प्रत्येक मॉक टेस्ट के बाद, अपने कमजोर क्षेत्रों का विश्लेषण करें और उन्हें सुधारने पर काम करें।</li>",
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'डीआरडीओ एमटीएस भर्ती एक वार्षिक कार्यक्रम नहीं है। यह उपलब्ध रिक्तियों के आधार पर विज्ञापित किया जाता है। उम्मीदवारों को नियमित रूप से डीआरडीओ वेबसाइट की जांच करनी चाहिए।',
+                    'sec9-step1-title': 'विज्ञापन जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> डीआरडीओ वेबसाइट (drdo.gov.in) पर एक विस्तृत विज्ञापन प्रकाशित किया जाता है।',
+                    'sec9-step2-title': 'ऑनलाइन आवेदन विंडो', 'sec9-step2-desc': '<strong>समयरेखा:</strong> उम्मीदवारों को ऑनलाइन पंजीकरण और आवेदन करने के लिए एक विशिष्ट अवधि (आमतौर पर एक महीना) दी जाती है।',
+                    'sec9-step3-title': 'टियर- I और टियर- II सीबीटी', 'sec9-step3-desc': '<strong>समयरेखा:</strong> आवेदन प्रक्रिया समाप्त होने के बाद दोनों स्तरों के लिए परीक्षा की तारीखों की घोषणा की जाती है।',
+                    'sec9-step4-title': 'अंतिम परिणाम प्रकाशन', 'sec9-step4-desc': '<strong>समयरेखा:</strong> टियर- II स्कोर के आधार पर अंतिम मेरिट सूची वेबसाइट पर प्रकाशित की जाती है, जिसके बाद ज्वॉइनिंग प्रक्रिया होती है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'यह एक अत्यधिक प्रतिस्पर्धी परीक्षा है। अपना स्थान सुरक्षित करने के लिए इन सरल गलतियों से बचें।',
+                    'sec10-mistake1-title': 'सामान्यीकरण को अनदेखा करना:', 'sec10-mistake1-desc': 'यह न समझना कि विभिन्न पालियों में स्कोर सामान्यीकृत होते हैं। उच्च सटीकता का लक्ष्य रखें।',
+                    'sec10-mistake2-title': 'किसी भी अनुभाग की उपेक्षा:', 'sec10-mistake2-desc': 'केवल एक या दो विषयों पर ध्यान केंद्रित करना और दूसरों की उपेक्षा करना। सभी खंड महत्वपूर्ण हैं।',
+                    'sec10-mistake3-title': 'आवेदन पत्र में त्रुटियाँ:', 'sec10-mistake3-desc': 'वर्तनी की गलतियाँ करना या गलत विवरण प्रदान करना जो सत्यापन चरण में अयोग्यता का कारण बन सकता है।',
+                    'sec10-mistake4-title': 'मॉक अभ्यास की कमी:', 'sec10-mistake4-desc': 'सीबीटी इंटरफ़ेस और समय के दबाव के आदी होने के लिए पर्याप्त ऑनलाइन मॉक टेस्ट नहीं देना।',
+                    'sec11-title': '11. कोचिंग और संसाधन 🏫',
+                    'sec11-p1': 'डीआरडीओ एमटीएस परीक्षा की तैयारी के लिए कई ऑनलाइन और ऑफलाइन संसाधन उपलब्ध हैं।',
+                    'sec11-gov-title': '📚 पुस्तकें और स्व-अध्ययन', 'sec11-gov-list': '<li>विज्ञान और गणित की मूल बातों के लिए एनसीईआरटी की किताबें (कक्षा 6-10)।</li><li>तर्क और मात्रात्मक योग्यता के लिए मानक प्रतियोगी परीक्षा की किताबें।</li>',
+                    'sec11-pvt-title': '💻 ऑनलाइन कोचिंग', 'sec11-pvt-p1': 'कई शैक्षिक मंच डीआरडीओ एमटीएस की तैयारी के लिए समर्पित पाठ्यक्रम प्रदान करते हैं।', 'sec11-pvt-list': '<li>संरचित वीडियो व्याख्यान और अध्ययन नोट्स।</li><li>अभ्यास के लिए व्यापक ऑनलाइन टेस्ट श्रृंखला।</li>',
+                    'sec12-title': '12. कैरियर प्रगति 🚀',
+                    'sec12-p1': "एमटीएस एक स्थिर सरकारी कैरियर के साथ एक प्रवेश स्तर का पद है। यह वरिष्ठता और प्रदर्शन के आधार पर उच्च प्रशासनिक ग्रेड में पदोन्नति के लिए एक स्पष्ट मार्ग प्रदान करता है।",
+                    'sec12-career-btn': 'एमटीएस कैरियर पथ देखें',
+                    'sec13-title': '13. एमटीएस परीक्षा पाठ्यक्रम 📚',
+                    'sec13-p1': "पाठ्यक्रम 10 वीं कक्षा के छात्र से अपेक्षित सामान्य योग्यता और ज्ञान का परीक्षण करता है।",
+                    'syllabus-oir-title': 'टियर- I सीबीटी पाठ्यक्रम',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और सामान्य बुद्धि</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'टियर- II सीबीटी पाठ्यक्रम',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">सामान्य विज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">सामान्य गणित</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">सामान्य अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | "बलस्य मूलं विज्ञानम्" - शक्ति का स्रोत विज्ञान है। जय हिंद!',
+                    'interviewChartData': {
+                        labels: ['लगन', 'अनुशासन', 'सतर्कता', 'बहुमुखी प्रतिभा'],
+                        data: [95, 92, 88, 90]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border border-slate-200 hover:border-violet-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-stone-800">${post.name}</h4>
+                        <p class="text-sm text-stone-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-stone-800 mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                            borderColor: '#8b5cf6',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#6b7280' },
+                                grid: { color: 'rgba(107, 114, 128, 0.2)' }
+                            },
+                            x: { 
+                                ticks: { color: '#6b7280', font: { size: 14 } },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
