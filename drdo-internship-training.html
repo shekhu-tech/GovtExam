@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRDO Internship & Apprenticeship Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide for DRDO Internships and Apprenticeships for students and graduates.">
+    <meta name="keywords" content="DRDO, Internship, Apprenticeship, DRDO Training, NATS, ITI, Diploma, Graduate Apprentice">
+    <meta name="author" content="DRDO Training Guide">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8; /* Light Blue-Gray */
+            color: #1e293b; /* Slate-800 */
+        }
+        .section-heading {
+            border-bottom: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #2563eb, #f59e0b); /* Blue to Amber */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #020617; /* Slate-950 */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Slate-200 */
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.06);
+        }
+        .card:hover {
+            border-color: #2563eb;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #2563eb; /* Blue */
+            color: #111827;
+            background-color: #eef2ff; /* Blue-50 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+        }
+        .flowchart-step:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
+        }
+        .flowchart-arrow {
+            color: #f59e0b; /* Amber */
+        }
+        .subject-category-heading {
+            color: #020617;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f59e0b;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: #f1f5f9; /* Slate-100 */
+        }
+        .subject-item .icon {
+            color: #2563eb;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #f59e0b;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #2563eb;
+            border: 4px solid #f0f4f8;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-top: 5px solid #2563eb;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #6b7280; line-height: 1;
+        }
+        .modal-close-button:hover { color: #ef4444; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #2563eb, #f59e0b);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(245, 158, 11, 0.4);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #1e40af; /* Blue-800 */
+            color: #1e3a8a; /* Blue-900 */
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #1e40af;
+            color: #ffffff;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #f59e0b;
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #d97706;
+        }
+        .lectures-btn {
+            background-color: transparent;
+            color: #2563eb;
+            border-color: #2563eb;
+        }
+        .lectures-btn:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-amber-500 mb-4 tracking-tight">🎓 DRDO Training Opportunities 🎓</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-blue-800 font-semibold">Internships & Apprenticeships for Future Innovators</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What are Training Opportunities -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are DRDO Training Opportunities? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">DRDO offers valuable training opportunities for students and fresh graduates through its Internship and Apprenticeship programs. These schemes are designed to provide practical, hands-on experience in a real-world R&D environment, allowing young talent to work alongside experienced scientists and contribute to national defence projects.</p>
+                </div>
+                 <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Selection Process: A Merit-Based Approach 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Selection for these training programs is typically based on academic merit, ensuring that the most deserving candidates get the opportunity.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Application</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-500">Through NATS/Official Website</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Shortlisting</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-500">Based on Academic Merit</p>
+                    </div>
+                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Verification & Selection</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-500">Interview/Document Check</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria are specific to each program:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-blue-600 mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-stone-800 text-lg">Internship:</strong> <span id="sec3-edu-desc">Students currently pursuing B.E./B.Tech, M.E./M.Tech, M.Sc, or Ph.D. in relevant disciplines from recognized universities.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-blue-600 mr-4">🔧</span><div><strong id="sec3-age-title" class="text-stone-800 text-lg">Apprenticeship:</strong> <span id="sec3-age-desc">Candidates who have passed ITI, Diploma in Engineering, or a Graduate Degree (B.E/B.Tech/BA/BSc/BCom) within the last 3 years.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-blue-600 mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-stone-800 text-lg">Nationality:</strong> <span id="sec3-nat-desc">The candidate must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-stone-800 mb-4 border-b border-blue-600 pb-2">Key Requirements 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Certain conditions apply to both programs.</p>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>Candidates should not have undergone any prior training or job experience of one year or more.</li>
+                            <li>Minimum qualifying marks in the degree/diploma/ITI may be specified in the advertisement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Selection Process Detailed -->
+            <section class="card bg-slate-50/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. The Selection Procedure: In Detail 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The selection is primarily merit-based, though some labs may conduct interviews to assess suitability.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Apprenticeship Selection 📝</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">💯</span><div id="gs1-sub1">Shortlisting is based on marks obtained in the qualifying exam (ITI/Diploma/Degree).</div></div>
+                            <div class="subject-item"><span class="icon">📄</span><div id="gs1-sub2">Selected candidates are called for document verification.</div></div>
+                            <div class="subject-item"><span class="icon">🧑‍⚕️</span><div id="gs1-sub3">A medical fitness certificate is typically required.</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Internship Selection 🛠️</h3>
+                        <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">📈</span><div id="gs2-sub1">Selection based on academic merit (CGPA/Percentage).</div></div>
+                            <div class="subject-item"><span class="icon">🎙️</span><div id="gs2-sub2">A brief online or offline interview may be conducted.</div></div>
+                            <div class="subject-item"><span class="icon">📝</span><div id="gs2-sub3">Statement of Purpose (SOP) or research interest may be considered.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training Program Structure -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Program Structure & Benefits ✈️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Both programs offer a monthly stipend and invaluable practical experience.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-blue-50/70 rounded-xl border-2 border-blue-200">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-stone-800 mb-2">1. Apprenticeship</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A one-year training program under the Apprentices Act, 1961.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Fixed monthly stipend (varies for ITI, Diploma, Graduates).</li>
+                            <li>Training in a specific trade/discipline.</li>
+                            <li>Certificate of proficiency upon completion.</li>
+                            <li>No guarantee of employment in DRDO.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-amber-50/70 rounded-xl border-2 border-amber-200">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-stone-800 mb-2">2. Internship</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A short-term project-based engagement for current students.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Duration varies from 1 to 6 months.</li>
+                           <li>Work on a live DRDO project under a scientist's guidance.</li>
+                           <li>May offer a stipend and certificate.</li>
+                           <li>Excellent for fulfilling academic requirements.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Disciplines Offered 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Opportunities are available in a wide range of technical and scientific fields.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Graduate Apprentice</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Mechanical Engg.</li>
+                           <li>Aerospace/Aeronautical</li>
+                           <li>Computer Science/IT</li>
+                           <li>Electronics & Comm.</li>
+                           <li>Electrical Engg.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Technician (Diploma) Apprentice</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Mechanical, Electrical</li>
+                           <li>Electronics, Civil Engg.</li>
+                           <li>Computer Engg./IT</li>
+                           <li>Instrumentation</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Trade (ITI) Apprentice</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fitter, Turner, Machinist</li>
+                           <li>Electrician, Welder</li>
+                           <li>COPA, Draughtsman</li>
+                           <li>Motor Mechanic</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Required -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an Ideal Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">DRDO looks for candidates who are academically strong, eager to learn, and have a passion for technology.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-stone-800 mb-6 border-b border-blue-600 pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-blue-600 mr-3">🎓</span><div><strong class="text-stone-800">Academic Excellence:</strong> A strong and consistent academic record.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-blue-600 mr-3">💡</span><div><strong class="text-stone-800">Eagerness to Learn:</strong> A keen interest in learning new skills and technologies.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-blue-600 mr-3">🔧</span><div><strong class="text-stone-800">Practical Aptitude:</strong> An ability to apply theoretical knowledge to practical problems.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-blue-600 mr-3">🤝</span><div><strong class="text-stone-800">Discipline & Punctuality:</strong> Professionalism and a commitment to the work assigned.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Preparation Strategy: The Learning Curve 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Preparation is not about an exam, but about building a strong academic profile and being proactive.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-stone-800 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-amber-600 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-amber-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Maintain High Grades</h4>
+                                <p id="sec8-step1-desc" class="text-base">Your percentage/CGPA is the most important factor for shortlisting. Strive for academic excellence throughout your course.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-amber-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-stone-800 mb-1">Develop Practical Skills</h4>
+                                <p id="sec8-step2-desc" class="text-base">Engage in projects, workshops, and lab work in your college to build a strong practical foundation.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-amber-600 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Prepare a Good Resume</h4>
+                                <p id="sec8-step3-desc" class="text-base">Highlight your skills, academic projects, and areas of interest in a clear and professional resume.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-stone-800 mb-4">🔄 How to Apply:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Apprenticeship:</strong> Register on the National Apprenticeship Training Scheme (NATS) portal (nats.education.gov.in). DRDO often recruits through this portal.</li>
+                            <li><strong>Internship:</strong> Keep an eye on the official DRDO website and the websites of individual DRDO labs for announcements.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Application Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Internship and Apprenticeship notifications are released by individual DRDO labs based on their requirements. There is no fixed annual calendar.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Notification by DRDO Lab</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Advertisements are posted on the DRDO website or NATS portal at various times throughout the year.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-stone-800 mb-1">Application Period</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A short window of 15-30 days is usually provided for online or offline applications.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Release of Shortlist</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A list of shortlisted candidates based on merit is published on the respective lab's website.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-stone-800 mb-1">Joining Formalities</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Selected candidates are informed and asked to complete joining formalities on a specified date.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">A simple oversight can lead to your application being rejected. Be careful of these common errors.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-800">Missing Deadlines:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-700 mt-1">These notifications have short application windows. Missing the deadline is a common issue.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-800">Incomplete Application:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-700 mt-1">Not filling all the details correctly or not attaching the required documents (like NOC from college for internship).</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-800">Not Registering on NATS:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-700 mt-1">For apprenticeships, failure to register on the NATS portal makes you ineligible for most DRDO openings.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-800">Applying with Low Marks:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-700 mt-1">Applying when your academic percentage is significantly lower than what is usually required, as selection is merit-based.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Resources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Find Opportunities 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Being proactive and regularly checking the right portals is key to finding these opportunities.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">🌐 Official Websites</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**DRDO Main Website:** Check the "What's New" section on drdo.gov.in.</li>
+                           <li>**Individual Lab Websites:** Many labs post notifications on their own websites.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading"> portals </h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">The National Apprenticeship Training Scheme (NATS) portal is essential.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Register at nats.education.gov.in to be eligible for apprentice vacancies.</li>
+                            <li>Regularly check the portal for apprenticeship openings from DRDO labs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Benefits -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Benefits of the Programs 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">While these are not permanent jobs, the experience and exposure gained are immensely valuable for your future career, providing a strong foundation and a prestigious entry on your resume.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Program Benefits</button>
+            </section>
+
+            <!-- Section 13: Focus Areas -->
+            <section class="card bg-slate-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Focus Areas for Applicants 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Success depends on aligning your academic knowledge and skills with the needs of DRDO.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Internship -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Internship Applicants</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Apprenticeship -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Apprenticeship Applicants</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-slate-300">
+            <p id="footer-text" class="text-gray-600 text-lg font-medium">&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Stage 1: Application</h3>
+            <p id="prelims-modal-p1">Candidates must apply as per the procedure mentioned in the advertisement. For Apprenticeships, this often involves applying through the NATS portal. For Internships, applications may be sent directly to the lab or through an online portal.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Stage 2: Shortlisting</h3>
+            <p id="mains-modal-p1">Applications are scrutinized, and candidates are shortlisted purely based on the marks obtained in their qualifying examinations (ITI, Diploma, B.E./B.Tech, B.Sc, etc.). A merit list is prepared for this purpose.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Stage 3: Verification and Selection</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Shortlisted candidates are called for document verification. Some labs may conduct a brief interview to assess the candidate's interest and basic knowledge. Final selection is confirmed after this stage.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-stone-800"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-stone-800 mb-6">Benefits of Training at DRDO</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'intern': { 
+                        name: "DRDO Internship", 
+                        icon: '🧑‍💻',
+                        description: 'Aimed at students currently pursuing graduate or post-graduate degrees, internships offer a chance to work on real DRDO projects for a short duration. It provides invaluable research experience and fulfills academic requirements for project work.',
+                        cta: 'Learn More'
+                    },
+                    'apprentice': { 
+                        name: "DRDO Apprenticeship", 
+                        icon: '🛠️',
+                        description: 'A one-year training program for ITI, Diploma, and Graduate pass-outs under the Apprentices Act. It bridges the gap between academics and industry, providing trainees with practical skills and a monthly stipend.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                     'intern': { 
+                        name: "डीआरडीओ इंटर्नशिप", 
+                        icon: '🧑‍💻',
+                        description: 'स्नातक या स्नातकोत्तर डिग्री कर रहे छात्रों के लिए, इंटर्नशिप छोटी अवधि के लिए वास्तविक डीआरडीओ परियोजनाओं पर काम करने का मौका प्रदान करती है। यह अमूल्य शोध अनुभव प्रदान करता है और परियोजना कार्य के लिए शैक्षणिक आवश्यकताओं को पूरा करता है।',
+                        cta: 'और जानें'
+                    },
+                    'apprentice': { 
+                        name: "डीआरडीओ अप्रेंटिसशिप", 
+                        icon: '🛠️',
+                        description: 'अप्रेंटिस अधिनियम के तहत आईटीआई, डिप्लोमा और स्नातक पास-आउट के लिए एक वर्षीय प्रशिक्षण कार्यक्रम। यह शिक्षा और उद्योग के बीच की खाई को पाटता है, प्रशिक्षुओं को व्यावहारिक कौशल और मासिक वजीफा प्रदान करता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Practical Experience", desc: "Gain hands-on experience on advanced machinery and state-of-the-art technologies." },
+                        { rank: "Work Under Experts", desc: "Opportunity to learn directly from and work with experienced DRDO scientists and technical officers." },
+                        { rank: "Valuable Certificate", desc: "Receive a certificate upon completion, which adds significant weight to your resume." },
+                        { rank: "Monthly Stipend", desc: "Both programs offer a monthly stipend as per government norms." },
+                        { rank: "Career Edge", desc: "This experience gives you a competitive edge for future job opportunities in both public and private sectors." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "व्यावहारिक अनुभव", desc: "उन्नत मशीनरी और अत्याधुनिक तकनीकों पर व्यावहारिक अनुभव प्राप्त करें।" },
+                        { rank: "विशेषज्ञों के अधीन कार्य", desc: "अनुभवी डीआरडीओ वैज्ञानिकों और तकनीकी अधिकारियों से सीधे सीखने और काम करने का अवसर।" },
+                        { rank: "मूल्यवान प्रमाण पत्र", desc: "समापन पर एक प्रमाण पत्र प्राप्त करें, जो आपके बायोडाटा में महत्वपूर्ण वजन जोड़ता है।" },
+                        { rank: "मासिक वजीफा", desc: "दोनों कार्यक्रम सरकारी मानदंडों के अनुसार मासिक वजीफा प्रदान करते हैं।" },
+                        { rank: "कैरियर में बढ़त", desc: "यह अनुभव आपको सार्वजनिक और निजी दोनों क्षेत्रों में भविष्य की नौकरी के अवसरों के लिए एक प्रतिस्पर्धी बढ़त देता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎓 DRDO Training Opportunities 🎓',
+                    'header-subtitle': 'Internships & Apprenticeships for Future Innovators',
+                    'sec1-title': '1. What are DRDO Training Opportunities? 💡',
+                    'sec1-p1': "DRDO offers valuable training opportunities for students and fresh graduates through its Internship and Apprenticeship programs. These schemes are designed to provide practical, hands-on experience in a real-world R&D environment, allowing young talent to work alongside experienced scientists and contribute to national defence projects.",
+                    'sec2-title': '2. The Selection Process: A Merit-Based Approach 🎯',
+                    'sec2-p1': 'Selection for these training programs is typically based on academic merit, ensuring that the most deserving candidates get the opportunity.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Application', 'sec2-step1-desc': 'Through NATS/Official Website',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Shortlisting', 'sec2-step2-desc': 'Based on Academic Merit',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Verification & Selection', 'sec2-step3-desc': 'Interview/Document Check',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'Eligibility criteria are specific to each program:',
+                    'sec3-edu-title': 'Internship:', 'sec3-edu-desc': 'Students currently pursuing B.E./B.Tech, M.E./M.Tech, M.Sc, or Ph.D. in relevant disciplines from recognized universities.',
+                    'sec3-age-title': 'Apprenticeship:', 'sec3-age-desc': 'Candidates who have passed ITI, Diploma in Engineering, or a Graduate Degree (B.E/B.Tech/BA/BSc/BCom) within the last 3 years.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'The candidate must be a citizen of India.',
+                    'sec3-attempts-title': 'Key Requirements 📊',
+                    'sec3-attempts-p1': 'Certain conditions apply to both programs.',
+                    'sec3-agerelax-list': "<li>Candidates should not have undergone any prior training or job experience of one year or more.</li><li>Minimum qualifying marks in the degree/diploma/ITI may be specified in the advertisement.</li>",
+                    'sec4-title': '4. The Selection Procedure: In Detail 📚',
+                    'sec4-p1': "The selection is primarily merit-based, though some labs may conduct interviews to assess suitability.",
+                    'gs1-title': 'Apprenticeship Selection 📝', 'gs1-sub1': 'Shortlisting is based on marks obtained in the qualifying exam (ITI/Diploma/Degree).', 'gs1-sub2': 'Selected candidates are called for document verification.', 'gs1-sub3': 'A medical fitness certificate is typically required.',
+                    'gs2-title': 'Internship Selection 🛠️', 'gs2-sub1': 'Selection based on academic merit (CGPA/Percentage).', 'gs2-sub2': 'A brief online or offline interview may be conducted.', 'gs2-sub3': 'Statement of Purpose (SOP) or research interest may be considered.',
+                    'sec5-title': '5. Program Structure & Benefits ✈️',
+                    'sec5-p1': "Both programs offer a monthly stipend and invaluable practical experience.",
+                    'sec5-hindi-title': '1. Apprenticeship', 'sec5-hindi-p1': 'A one-year training program under the Apprentices Act, 1961.', 'sec5-hindi-list': "<li>Fixed monthly stipend (varies for ITI, Diploma, Graduates).</li><li>Training in a specific trade/discipline.</li><li>Certificate of proficiency upon completion.</li><li>No guarantee of employment in DRDO.</li>",
+                    'sec5-essay-title': '2. Internship', 'sec5-essay-p1': 'A short-term project-based engagement for current students.', 'sec5-essay-list': "<li>Duration varies from 1 to 6 months.</li><li>Work on a live DRDO project under a scientist's guidance.</li><li>May offer a stipend and certificate.</li><li>Excellent for fulfilling academic requirements.</li>",
+                    'sec6-title': '6. Key Disciplines Offered 🌟',
+                    'sec6-p1': "Opportunities are available in a wide range of technical and scientific fields.",
+                    'sec6-eng-title': 'Graduate Apprentice', 'sec6-eng-list': '<li>Mechanical Engg.</li><li>Aerospace/Aeronautical</li><li>Computer Science/IT</li><li>Electronics & Comm.</li><li>Electrical Engg.</li>',
+                    'sec6-elec-title': 'Technician (Diploma) Apprentice', 'sec6-elec-list': '<li>Mechanical, Electrical</li><li>Electronics, Civil Engg.</li><li>Computer Engg./IT</li><li>Instrumentation</li>',
+                    'sec6-naic-title': 'Trade (ITI) Apprentice', 'sec6-naic-list': '<li>Fitter, Turner, Machinist</li><li>Electrician, Welder</li><li>COPA, Draughtsman</li><li>Motor Mechanic</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'DRDO looks for candidates who are academically strong, eager to learn, and have a passion for technology.',
+                    'sec7-qualities-title': 'Key Attributes:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-blue-600 mr-3">🎓</span><div><strong class="text-stone-800">Academic Excellence:</strong> A strong and consistent academic record.</div></li><li><span class="text-2xl text-blue-600 mr-3">💡</span><div><strong class="text-stone-800">Eagerness to Learn:</strong> A keen interest in learning new skills and technologies.</div></li><li><span class="text-2xl text-blue-600 mr-3">🔧</span><div><strong class="text-stone-800">Practical Aptitude:</strong> An ability to apply theoretical knowledge to practical problems.</div></li><li><span class="text-2xl text-blue-600 mr-3">🤝</span><div><strong class="text-stone-800">Discipline & Punctuality:</strong> Professionalism and a commitment to the work assigned.</div></li>',
+                    'sec8-title': '8. Preparation Strategy: The Learning Curve 📈',
+                    'sec8-p1': "Preparation is not about an exam, but about building a strong academic profile and being proactive.",
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Maintain High Grades', 'sec8-step1-desc': "Your percentage/CGPA is the most important factor for shortlisting. Strive for academic excellence throughout your course.",
+                    'sec8-step2-title': 'Develop Practical Skills', 'sec8-step2-desc': 'Engage in projects, workshops, and lab work in your college to build a strong practical foundation.',
+                    'sec8-step3-title': 'Prepare a Good Resume', 'sec8-step3-desc': 'Highlight your skills, academic projects, and areas of interest in a clear and professional resume.',
+                    'sec8-revision-title': '🔄 How to Apply:',
+                    'sec8-revision-list': "<li><strong>Apprenticeship:</strong> Register on the National Apprenticeship Training Scheme (NATS) portal (nats.education.gov.in). DRDO often recruits through this portal.</li><li><strong>Internship:</strong> Keep an eye on the official DRDO website and the websites of individual DRDO labs for announcements.</li>",
+                    'sec9-title': '9. Application Cycle & Process 🗓️',
+                    'sec9-p1': 'Internship and Apprenticeship notifications are released by individual DRDO labs based on their requirements. There is no fixed annual calendar.',
+                    'sec9-step1-title': 'Notification by DRDO Lab', 'sec9-step1-desc': '<strong>Timeline:</strong> Advertisements are posted on the DRDO website or NATS portal at various times throughout the year.',
+                    'sec9-step2-title': 'Application Period', 'sec9-step2-desc': '<strong>Timeline:</strong> A short window of 15-30 days is usually provided for online or offline applications.',
+                    'sec9-step3-title': 'Release of Shortlist', 'sec9-step3-desc': "<strong>Timeline:</strong> A list of shortlisted candidates based on merit is published on the respective lab's website.",
+                    'sec9-step4-title': 'Joining Formalities', 'sec9-step4-desc': '<strong>Timeline:</strong> Selected candidates are informed and asked to complete joining formalities on a specified date.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'A simple oversight can lead to your application being rejected. Be careful of these common errors.',
+                    'sec10-mistake1-title': 'Missing Deadlines:', 'sec10-mistake1-desc': 'These notifications have short application windows. Missing the deadline is a common issue.',
+                    'sec10-mistake2-title': 'Incomplete Application:', 'sec10-mistake2-desc': 'Not filling all the details correctly or not attaching the required documents (like NOC from college for internship).',
+                    'sec10-mistake3-title': 'Not Registering on NATS:', 'sec10-mistake3-desc': 'For apprenticeships, failure to register on the NATS portal makes you ineligible for most DRDO openings.',
+                    'sec10-mistake4-title': 'Applying with Low Marks:', 'sec10-mistake4-desc': 'Applying when your academic percentage is significantly lower than what is usually required, as selection is merit-based.',
+                    'sec11-title': '11. Where to Find Opportunities 🏫',
+                    'sec11-p1': 'Being proactive and regularly checking the right portals is key to finding these opportunities.',
+                    'sec11-gov-title': '🌐 Official Websites', 'sec11-gov-list': "<li>**DRDO Main Website:** Check the 'What's New' section on drdo.gov.in.</li><li>**Individual Lab Websites:** Many labs post notifications on their own websites.</li>",
+                    'sec11-pvt-title': ' portals ', 'sec11-pvt-p1': 'The National Apprenticeship Training Scheme (NATS) portal is essential.', 'sec11-pvt-list': '<li>Register at nats.education.gov.in to be eligible for apprentice vacancies.</li><li>Regularly check the portal for apprenticeship openings from DRDO labs.</li>',
+                    'sec12-title': '12. Benefits of the Programs 🚀',
+                    'sec12-p1': "While these are not permanent jobs, the experience and exposure gained are immensely valuable for your future career, providing a strong foundation and a prestigious entry on your resume.",
+                    'sec12-career-btn': 'View Program Benefits',
+                    'sec13-title': '13. Focus Areas for Applicants 📚',
+                    'sec13-p1': "Success depends on aligning your academic knowledge and skills with the needs of DRDO.",
+                    'syllabus-oir-title': 'Internship Applicants',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Core Subject Knowledge</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💡</span><div class="flex-grow">Academic Projects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Latest Technological Trends</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Apprenticeship Applicants',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎓</span><div class="flex-grow">Strong Academic Merit</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">Fundamental Concepts of Trade/Discipline</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛠️</span><div class="flex-grow">Basic Practical Skills</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['Academics', 'Learning', 'Aptitude', 'Discipline'],
+                        data: [95, 92, 88, 90]
+                    },
+                },
+                'hi': {
+                    'header-title': '🎓 DRDO प्रशिक्षण अवसर 🎓',
+                    'header-subtitle': 'भविष्य के अन्वेषकों के लिए इंटर्नशिप और अप्रेंटिसशिप',
+                    'sec1-title': '1. DRDO प्रशिक्षण अवसर क्या हैं? 💡',
+                    'sec1-p1': "डीआरडीओ अपने इंटर्नशिप और अप्रेंटिसशिप कार्यक्रमों के माध्यम से छात्रों और नए स्नातकों के लिए मूल्यवान प्रशिक्षण अवसर प्रदान करता है। इन योजनाओं को वास्तविक दुनिया के अनुसंधान एवं विकास वातावरण में व्यावहारिक, व्यावहारिक अनुभव प्रदान करने के लिए डिज़ाइन किया गया है, जिससे युवा प्रतिभाओं को अनुभवी वैज्ञानिकों के साथ काम करने और राष्ट्रीय रक्षा परियोजनाओं में योगदान करने की अनुमति मिलती है।",
+                    'sec2-title': '2. चयन प्रक्रिया: एक योग्यता-आधारित दृष्टिकोण 🎯',
+                    'sec2-p1': 'इन प्रशिक्षण कार्यक्रमों के लिए चयन आमतौर पर अकादमिक योग्यता पर आधारित होता है, यह सुनिश्चित करते हुए कि सबसे योग्य उम्मीदवारों को अवसर मिले।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'आवेदन', 'sec2-step1-desc': 'NATS/आधिकारिक वेबसाइट के माध्यम से',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'शॉर्टलिस्टिंग', 'sec2-step2-desc': 'अकादमिक योग्यता के आधार पर',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'सत्यापन और चयन', 'sec2-step3-desc': 'साक्षात्कार/दस्तावेज़ जांच',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'प्रत्येक कार्यक्रम के लिए पात्रता मानदंड विशिष्ट हैं:',
+                    'sec3-edu-title': 'इंटर्नशिप:', 'sec3-edu-desc': 'वर्तमान में मान्यता प्राप्त विश्वविद्यालयों से प्रासंगिक विषयों में बी.ई./बी.टेक, एम.ई./एम.टेक, एम.एससी, या पीएचडी कर रहे छात्र।',
+                    'sec3-age-title': 'अप्रेंटिसशिप:', 'sec3-age-desc': 'पिछले 3 वर्षों के भीतर आईटीआई, इंजीनियरिंग में डिप्लोमा, या स्नातक डिग्री (बी.ई/बी.टेक/बीए/बीएससी/बीकॉम) उत्तीर्ण करने वाले उम्मीदवार।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'उम्मीदवार को भारत का नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'मुख्य आवश्यकताएँ 📊',
+                    'sec3-attempts-p1': 'दोनों कार्यक्रमों पर कुछ शर्तें लागू होती हैं।',
+                    'sec3-agerelax-list': "<li>उम्मीदवारों को एक वर्ष या उससे अधिक का कोई पूर्व प्रशिक्षण या नौकरी का अनुभव नहीं होना चाहिए।</li><li>डिग्री/डिप्लोमा/आईटीआई में न्यूनतम योग्यता अंक विज्ञापन में निर्दिष्ट किए जा सकते हैं।</li>",
+                    'sec4-title': '4. चयन प्रक्रिया: विस्तार से 📚',
+                    'sec4-p1': "चयन मुख्य रूप से योग्यता-आधारित है, हालांकि कुछ प्रयोगशालाएं उपयुक्तता का आकलन करने के लिए साक्षात्कार आयोजित कर सकती हैं।",
+                    'gs1-title': 'अप्रेंटिसशिप चयन 📝', 'gs1-sub1': 'शॉर्टलिस्टिंग योग्यता परीक्षा (आईटीआई/डिप्लोमा/डिग्री) में प्राप्त अंकों के आधार पर होती है।', 'gs1-sub2': 'चयनित उम्मीदवारों को दस्तावेज़ सत्यापन के लिए बुलाया जाता है।', 'gs1-sub3': 'आमतौर पर एक चिकित्सा फिटनेस प्रमाण पत्र की आवश्यकता होती है।',
+                    'gs2-title': 'इंटर्नशिप चयन 🛠️', 'gs2-sub1': 'अकादमिक योग्यता (सीजीपीए/प्रतिशत) के आधार पर चयन।', 'gs2-sub2': 'एक संक्षिप्त ऑनलाइन या ऑफलाइन साक्षात्कार आयोजित किया जा सकता है।', 'gs2-sub3': 'उद्देश्य का विवरण (एसओपी) या शोध रुचि पर विचार किया जा सकता है।',
+                    'sec5-title': '5. कार्यक्रम संरचना और लाभ ✈️',
+                    'sec5-p1': "दोनों कार्यक्रम मासिक वजीफा और अमूल्य व्यावहारिक अनुभव प्रदान करते हैं।",
+                    'sec5-hindi-title': '1. अप्रेंटिसशिप', 'sec5-hindi-p1': 'अप्रेंटिस अधिनियम, 1961 के तहत एक वर्षीय प्रशिक्षण कार्यक्रम।', 'sec5-hindi-list': "<li>निश्चित मासिक वजीफा (आईटीआई, डिप्लोमा, स्नातकों के लिए भिन्न होता है)।</li><li>एक विशिष्ट ट्रेड/अनुशासन में प्रशिक्षण।</li><li>समापन पर प्रवीणता का प्रमाण पत्र।</li><li>डीआरडीओ में रोजगार की कोई गारंटी नहीं।</li>",
+                    'sec5-essay-title': '2. इंटर्नशिप', 'sec5-essay-p1': 'वर्तमान छात्रों के लिए एक अल्पकालिक परियोजना-आधारित जुड़ाव।', 'sec5-essay-list': "<li>अवधि 1 से 6 महीने तक भिन्न होती है।</li><li>एक वैज्ञानिक के मार्गदर्शन में एक लाइव डीआरडीओ परियोजना पर काम करें।</li><li>वजीफा और प्रमाण पत्र की पेशकश कर सकता है।</li><li>शैक्षणिक आवश्यकताओं को पूरा करने के लिए उत्कृष्ट।</li>",
+                    'sec6-title': '6. प्रमुख अनुशासन प्रस्तावित 🌟',
+                    'sec6-p1': "तकनीकी और वैज्ञानिक क्षेत्रों की एक विस्तृत श्रृंखला में अवसर उपलब्ध हैं।",
+                    'sec6-eng-title': 'स्नातक अप्रेंटिस', 'sec6-eng-list': '<li>मैकेनिकल अभि.</li><li>एयरोस्पेस/एयरोनॉटिकल</li><li>कंप्यूटर विज्ञान/आईटी</li><li>इलेक्ट्रॉनिक्स और संचार</li><li>विद्युत अभि.</li>',
+                    'sec6-elec-title': 'तकनीशियन (डिप्लोमा) अप्रेंटिस', 'sec6-elec-list': '<li>मैकेनिकल, इलेक्ट्रिकल</li><li>इलेक्ट्रॉनिक्स, सिविल अभि.</li><li>कंप्यूटर अभि./आईटी</li><li>इंस्ट्रूमेंटेशन</li>',
+                    'sec6-naic-title': 'ट्रेड (आईटीआई) अप्रेंटिस', 'sec6-naic-list': '<li>फिटर, टर्नर, मशीनिस्ट</li><li>इलेक्ट्रीशियन, वेल्डर</li><li>कोपा, ड्राफ्ट्समैन</li><li>मोटर मैकेनिक</li>',
+                    'sec7-title': '7. एक आदर्श उम्मीदवार के गुण 🎙️',
+                    'sec7-p1': 'डीआरडीओ ऐसे उम्मीदवारों की तलाश करता है जो अकादमिक रूप से मजबूत हों, सीखने के लिए उत्सुक हों और प्रौद्योगिकी के प्रति जुनून रखते हों।',
+                    'sec7-qualities-title': 'प्रमुख गुण:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-blue-600 mr-3">🎓</span><div><strong class="text-stone-800">अकादमिक उत्कृष्टता:</strong> एक मजबूत और सुसंगत अकादमिक रिकॉर्ड।</div></li><li><span class="text-2xl text-blue-600 mr-3">💡</span><div><strong class="text-stone-800">सीखने की उत्सुकता:</strong> नए कौशल और प्रौद्योगिकियों को सीखने में गहरी रुचि।</div></li><li><span class="text-2xl text-blue-600 mr-3">🔧</span><div><strong class="text-stone-800">व्यावहारिक योग्यता:</strong> सैद्धांतिक ज्ञान को व्यावहारिक समस्याओं पर लागू करने की क्षमता।</div></li><li><span class="text-2xl text-blue-600 mr-3">🤝</span><div><strong class="text-stone-800">अनुशासन और समय की पाबंदी:</strong> व्यावसायिकता और सौंपे गए कार्य के प्रति प्रतिबद्धता।</div></li>',
+                    'sec8-title': '8. तैयारी की रणनीति: सीखने की अवस्था 📈',
+                    'sec8-p1': "तैयारी एक परीक्षा के बारे में नहीं है, बल्कि एक मजबूत अकादमिक प्रोफाइल बनाने और सक्रिय रहने के बारे में है।",
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'उच्च ग्रेड बनाए रखें', 'sec8-step1-desc': "आपका प्रतिशत/सीजीपीए शॉर्टलिस्टिंग के लिए सबसे महत्वपूर्ण कारक है। अपने पाठ्यक्रम के दौरान अकादमिक उत्कृष्टता के लिए प्रयास करें।",
+                    'sec8-step2-title': 'व्यावहारिक कौशल विकसित करें', 'sec8-step2-desc': 'एक मजबूत व्यावहारिक नींव बनाने के लिए अपने कॉलेज में परियोजनाओं, कार्यशालाओं और प्रयोगशाला के काम में संलग्न हों।',
+                    'sec8-step3-title': 'एक अच्छा बायोडाटा तैयार करें', 'sec8-step3-desc': 'एक स्पष्ट और पेशेवर बायोडाटा में अपने कौशल, शैक्षणिक परियोजनाओं और रुचि के क्षेत्रों को उजागर करें।',
+                    'sec8-revision-title': '🔄 आवेदन कैसे करें:',
+                    'sec8-revision-list': "<li><strong>अप्रेंटिसशिप:</strong> राष्ट्रीय शिक्षुता प्रशिक्षण योजना (एनएटीएस) पोर्टल (nats.education.gov.in) पर पंजीकरण करें। डीआरडीओ अक्सर इस पोर्टल के माध्यम से भर्ती करता है।</li><li><strong>इंटर्नशिप:</strong> घोषणाओं के लिए आधिकारिक डीआरडीओ वेबसाइट और व्यक्तिगत डीआरडीओ प्रयोगशालाओं की वेबसाइटों पर नजर रखें।</li>",
+                    'sec9-title': '9. आवेदन चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'इंटर्नशिप और अप्रेंटिसशिप सूचनाएं व्यक्तिगत डीआरडीओ प्रयोगशालाओं द्वारा उनकी आवश्यकताओं के आधार पर जारी की जाती हैं। कोई निश्चित वार्षिक कैलेंडर नहीं है।',
+                    'sec9-step1-title': 'डीआरडीओ लैब द्वारा अधिसूचना', 'sec9-step1-desc': '<strong>समयरेखा:</strong> विज्ञापन डीआरडीओ वेबसाइट या एनएटीएस पोर्टल पर पूरे वर्ष विभिन्न समयों पर पोस्ट किए जाते हैं।',
+                    'sec9-step2-title': 'आवेदन अवधि', 'sec9-step2-desc': '<strong>समयरेखा:</strong> ऑनलाइन या ऑफलाइन आवेदनों के लिए आमतौर पर 15-30 दिनों की एक छोटी खिड़की प्रदान की जाती है।',
+                    'sec9-step3-title': 'शॉर्टलिस्ट का विमोचन', 'sec9-step3-desc': "<strong>समयरेखा:</strong> योग्यता के आधार पर शॉर्टलिस्ट किए गए उम्मीदवारों की एक सूची संबंधित प्रयोगशाला की वेबसाइट पर प्रकाशित की जाती है।",
+                    'sec9-step4-title': 'शामिल होने की औपचारिकताएं', 'sec9-step4-desc': '<strong>समयरेखा:</strong> चयनित उम्मीदवारों को सूचित किया जाता है और एक निर्दिष्ट तिथि पर शामिल होने की औपचारिकताओं को पूरा करने के लिए कहा जाता है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'एक साधारण सी चूक आपके आवेदन को अस्वीकार कर सकती है। इन सामान्य त्रुटियों से सावधान रहें।',
+                    'sec10-mistake1-title': 'समय सीमा चूकना:', 'sec10-mistake1-desc': 'इन सूचनाओं में छोटी आवेदन खिड़कियां होती हैं। समय सीमा चूकना एक आम समस्या है।',
+                    'sec10-mistake2-title': 'अधूरा आवेदन:', 'sec10-mistake2-desc': 'सभी विवरणों को सही ढंग से नहीं भरना या आवश्यक दस्तावेज संलग्न नहीं करना (जैसे इंटर्नशिप के लिए कॉलेज से एनओसी)।',
+                    'sec10-mistake3-title': 'एनएटीएस पर पंजीकरण नहीं करना:', 'sec10-mistake3-desc': 'अप्रेंटिसशिप के लिए, एनएटीएस पोर्टल पर पंजीकरण करने में विफलता आपको अधिकांश डीआरडीओ के उद्घाटन के लिए अयोग्य बनाती है।',
+                    'sec10-mistake4-title': 'कम अंकों के साथ आवेदन करना:', 'sec10-mistake4-desc': 'जब आपका अकादमिक प्रतिशत आमतौर पर आवश्यक से काफी कम हो, तो आवेदन करना, क्योंकि चयन योग्यता-आधारित है।',
+                    'sec11-title': '11. अवसर कहाँ खोजें 🏫',
+                    'sec11-p1': 'इन अवसरों को खोजने के लिए सक्रिय रहना और नियमित रूप से सही पोर्टलों की जाँच करना महत्वपूर्ण है।',
+                    'sec11-gov-title': '🌐 आधिकारिक वेबसाइटें', 'sec11-gov-list': "<li>**डीआरडीओ मुख्य वेबसाइट:** drdo.gov.in पर 'व्हाट्स न्यू' अनुभाग देखें।</li><li>**व्यक्तिगत लैब वेबसाइटें:** कई प्रयोगशालाएं अपनी वेबसाइटों पर सूचनाएं पोस्ट करती हैं।</li>",
+                    'sec11-pvt-title': ' पोर्टल ', 'sec11-pvt-p1': 'राष्ट्रीय शिक्षुता प्रशिक्षण योजना (NATS) पोर्टल आवश्यक है।', 'sec11-pvt-list': '<li>अप्रेंटिस रिक्तियों के लिए पात्र होने के लिए nats.education.gov.in पर पंजीकरण करें।</li><li>डीआरडीओ प्रयोगशालाओं से अप्रेंटिसशिप के उद्घाटन के लिए नियमित रूप से पोर्टल की जाँच करें।</li>',
+                    'sec12-title': '12. कार्यक्रमों के लाभ 🚀',
+                    'sec12-p1': "हालांकि ये स्थायी नौकरियां नहीं हैं, लेकिन प्राप्त अनुभव और प्रदर्शन आपके भविष्य के कैरियर के लिए बेहद मूल्यवान हैं, जो एक मजबूत नींव और आपके बायोडाटा पर एक प्रतिष्ठित प्रविष्टि प्रदान करते हैं।",
+                    'sec12-career-btn': 'कार्यक्रम के लाभ देखें',
+                    'sec13-title': '13. आवेदकों के लिए फोकस क्षेत्र 📚',
+                    'sec13-p1': "सफलता आपके अकादमिक ज्ञान और कौशल को डीआरडीओ की जरूरतों के साथ संरेखित करने पर निर्भर करती है।",
+                    'syllabus-oir-title': 'इंटर्नशिप आवेदक',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">मुख्य विषय का ज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💡</span><div class="flex-grow">अकादमिक परियोजनाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">नवीनतम तकनीकी रुझान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'अप्रेंटिसशिप आवेदक',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎓</span><div class="flex-grow">मजबूत अकादमिक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">ट्रेड/अनुशासन की मौलिक अवधारणाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛠️</span><div class="flex-grow">बुनियादी व्यावहारिक कौशल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | "बलस्य मूलं विज्ञानम्" - शक्ति का स्रोत विज्ञान है। जय हिंद!',
+                    'interviewChartData': {
+                        labels: ['शिक्षाविद', 'सीखना', 'योग्यता', 'अनुशासन'],
+                        data: [95, 92, 88, 90]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border border-slate-200 hover:border-violet-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-stone-800">${post.name}</h4>
+                        <p class="text-sm text-stone-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-stone-800 mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.6)',
+                            borderColor: '#8b5cf6',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#6b7280' },
+                                grid: { color: 'rgba(107, 114, 128, 0.2)' }
+                            },
+                            x: { 
+                                ticks: { color: '#6b7280', font: { size: 14 } },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
