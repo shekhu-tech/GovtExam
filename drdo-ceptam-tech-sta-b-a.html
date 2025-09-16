@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRDO CEPTAM Recruitment Guide (STA-B & Tech-A)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide for DRDO CEPTAM recruitment for Senior Technical Assistant 'B' (STA-B) and Technician 'A' (Tech-A).">
+    <meta name="keywords" content="DRDO, CEPTAM, STA-B, Tech-A, DRDO Recruitment, Defence Jobs, DRDO Exam">
+    <meta name="author" content="DRDO CEPTAM Guide">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc; /* Slate-50 */
+            color: #1e293b; /* Slate-800 */
+        }
+        .section-heading {
+            border-bottom: 4px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, #f97316, #16a34a); /* Orange to Green */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #020617; /* Slate-950 */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Slate-200 */
+            box-shadow: 0 8px 24px rgba(30, 41, 59, 0.06);
+        }
+        .card:hover {
+            border-color: #f97316;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(249, 115, 22, 0.15);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f97316; /* Orange */
+            color: #1e293b;
+            background-color: #fff7ed; /* Orange-50 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.1);
+        }
+        .flowchart-step:hover {
+            background-color: #f97316;
+            color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.2);
+        }
+        .flowchart-arrow {
+            color: #16a34a; /* Green */
+        }
+        .subject-category-heading {
+            color: #020617;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #16a34a;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: #f1f5f9; /* Slate-100 */
+        }
+        .subject-item .icon {
+            color: #f97316;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #16a34a;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #f97316;
+            border: 4px solid #f8fafc;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-top: 5px solid #f97316;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #64748b; line-height: 1;
+        }
+        .modal-close-button:hover { color: #dc2626; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f97316, #16a34a);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(22, 163, 74, 0.4);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #1e40af; /* Blue-800 */
+            color: #1e3a8a; /* Blue-900 */
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #1e40af;
+            color: #ffffff;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #16a34a;
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #15803d;
+        }
+        .lectures-btn {
+            background-color: transparent;
+            color: #f97316;
+            border-color: #f97316;
+        }
+        .lectures-btn:hover {
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-green-700 to-blue-800 mb-4 tracking-tight">🇮🇳 DRDO CEPTAM Recruitment 🇮🇳</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-blue-800 font-semibold">Technical Excellence for National Security</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is CEPTAM -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is DRDO CEPTAM? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">The Centre for Personnel Talent Management (CEPTAM) is the recruitment body of DRDO responsible for hiring the technical, administrative, and allied category staff. The CEPTAM exam is a national-level test to select highly skilled Senior Technical Assistants (STA-B) and Technicians (Tech-A) who form the crucial support backbone for the scientists in DRDO's various laboratories.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Selection Process: Two-Tier System 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The CEPTAM selection process is a competitive two-tier system designed to assess both general aptitude and trade-specific knowledge.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Tier – I:</span><br><span id="sec2-step1-name">Screening CBT</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-500">Common for STA-B & Tech-A</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Tier – II:</span><br><span id="sec2-step2-name">Selection Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-500">Trade/Discipline Specific</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Final Selection</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-500">Merit & Document Verification</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria are different for STA-B and Tech-A posts:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-orange-600 mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-stone-800 text-lg">Education:</strong> <span id="sec3-edu-desc">**STA-B:** Bachelor’s degree in Science or Diploma in Engineering/Technology/Computer Science. **Tech-A:** Class 10th Pass plus an ITI certificate in a specified trade.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-orange-600 mr-4">🎂</span><div><strong id="sec3-age-title" class="text-stone-800 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 28 years**. Age relaxations are applicable for SC/ST/OBC/PwD/Ex-servicemen candidates as per government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-orange-600 mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-stone-800 text-lg">Nationality:</strong> <span id="sec3-nat-desc">The candidate must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-stone-800 mb-4 border-b border-orange-600 pb-2">Medical Standards 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Candidates must be in good mental and physical health to perform their duties.</p>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>Must meet the minimum physical and medical standards as prescribed in the official advertisement.</li>
+                            <li>Visual standards and other physical measurements are checked during medical examination.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Selection Tests Detailed -->
+            <section class="card bg-slate-50/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. The Selection Tests: In Detail 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding the exam pattern for both tiers is crucial for a focused preparation.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-green-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Tier-I CBT (Screening) 📝</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🧮</span><div id="gs1-sub1">Quantitative ability/aptitude</div></div>
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs1-sub2">General Intelligence & Reasoning ability</div></div>
+                            <div class="subject-item"><span class="icon">🌍</span><div id="gs1-sub3">General awareness & General Science</div></div>
+                             <div class="subject-item"><span class="icon">🇬🇧</span><div id="gs1-sub4">English language (basic knowledge)</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-green-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Tier-II (Provisional Selection) 🛠️</h3>
+                        <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">🎓</span><div id="gs2-sub1">**For STA-B:** Test on specific subject of the post.</div></div>
+                            <div class="subject-item"><span class="icon">🔧</span><div id="gs2-sub2">**For Tech-A:** Practical Trade Test to assess skills.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Induction ✈️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected candidates undergo induction training to familiarize them with the organization's work culture and specific job requirements.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-orange-50/70 rounded-xl border-2 border-orange-200">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-stone-800 mb-2">1. Induction and Orientation</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A comprehensive induction program is conducted for all new entrants.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Introduction to DRDO's vision and mission.</li>
+                            <li>Familiarization with lab procedures and safety protocols.</li>
+                            <li>On-the-job training in the allotted laboratory.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-green-50/70 rounded-xl border-2 border-green-200">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-stone-800 mb-2">2. Skill Development</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">DRDO provides ample opportunities for continuous learning and career growth.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Participation in specialized technical courses.</li>
+                           <li>Opportunities for higher education.</li>
+                           <li>Training on new and emerging technologies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Recruitment Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">CEPTAM recruits for a vast range of technical trades and disciplines based on the requirements of DRDO labs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">For STA-B (Diploma/B.Sc)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Mechanical, Electrical, Electronics Engg.</li>
+                           <li>Computer Science, Automobile Engg.</li>
+                           <li>Physics, Chemistry, Mathematics</li>
+                           <li>Agriculture, Library Science</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">For Tech-A (ITI Trades)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fitter, Turner, Machinist</li>
+                           <li>Electrician, Electronics Mechanic</li>
+                           <li>Welder, COPA (Computer Operator)</li>
+                           <li>Book Binder, Motor Mechanic</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Required -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Core Qualities of a DRDO Technician 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">DRDO seeks dedicated and skilled individuals with a strong technical aptitude and a commitment to precision.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-stone-800 mb-6 border-b border-orange-600 pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-orange-600 mr-3">🔧</span><div><strong class="text-stone-800">Technical Skill:</strong> Proficiency in the specific trade or discipline is paramount.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-orange-600 mr-3">🎯</span><div><strong class="text-stone-800">Precision & Accuracy:</strong> Meticulous attention to detail in experiments and technical work.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-orange-600 mr-3">🧠</span><div><strong class="text-stone-800">Problem-Solving Aptitude:</strong> Ability to assist in troubleshooting and finding solutions to technical challenges.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-orange-600 mr-3">🤝</span><div><strong class="text-stone-800">Team Spirit:</strong> Willingness to work collaboratively with scientists and other technical staff.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Preparation Strategy: The Technical Blueprint 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A structured preparation plan covering both Tier-I and Tier-II syllabus is essential for success in the CEPTAM exam.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-stone-800 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-green-700 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-green-700 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Master Tier-I Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base">Build a strong foundation in Quantitative Aptitude, Reasoning, General Awareness, and English. These are common for both posts.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-green-700 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-stone-800 mb-1">In-depth Trade Knowledge</h4>
+                                <p id="sec8-step2-desc" class="text-base">Thoroughly revise your Diploma/B.Sc./ITI syllabus for the Tier-II exam. This is the deciding factor for the final merit list.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-green-700 rounded-full -left-2 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Practice Mock Tests</h4>
+                                <p id="sec8-step3-desc" class="text-base">Regularly solve mock tests for both tiers to improve time management, speed, and accuracy.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-stone-800 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Stay Updated:</strong> Keep abreast of current affairs and recent developments in science and technology for the General Awareness section.</li>
+                            <li><strong>Practical Skills:</strong> For Tech-A candidates, hands-on practice in your ITI trade is crucial for the Tier-II Trade Test.</li>
+                            <li><strong>Previous Year Papers:</strong> Analyze previous CEPTAM papers to understand the exam pattern and difficulty level.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">CEPTAM advertisements are released periodically based on vacancies across DRDO labs. Aspirants must monitor the DRDO website (drdo.gov.in) for the latest updates.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-stone-800 mb-1">Advertisement Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A detailed advertisement (e.g., CEPTAM-10, CEPTAM-11) is published on the DRDO website.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-stone-800 mb-1">Online Application</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A window of about a month is provided for online registration and application.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-stone-800 mb-1">Tier-I & Tier-II Exams</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Exams are conducted on scheduled dates, a few months after the application process closes.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-stone-800 mb-1">Final Result & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A final merit list based on Tier-II performance is published. Selected candidates are then issued joining letters.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">To ensure your candidature is successful, avoid these common application and preparation errors.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-800">Incorrect Post Selection:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-700 mt-1">Applying for a post/discipline for which you do not meet the exact educational qualifications.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-800">Ignoring Tier-I:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-700 mt-1">Focusing only on the technical syllabus and neglecting the Tier-I screening test, which is qualifying in nature.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-800">Uploading Errors:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-700 mt-1">Uploading photographs, signatures, or documents that are not as per the specified format and size.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-50 rounded-lg border-2 border-red-200 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-800">Last Minute Rush:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-700 mt-1">Waiting until the last day to apply, leading to potential website issues and application errors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Coaching & Resources 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">A mix of standard textbooks and online resources is ideal for CEPTAM preparation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Tier-I (Common)</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Standard books for Quantitative Aptitude & Reasoning (e.g., R.S. Aggarwal).</li>
+                           <li>Online test series to practice for the CBT.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">🔧 For Tier-II (Trade/Discipline)</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Focus on your core subject books from your Diploma/B.Sc./ITI course.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Refer to standard textbooks for your specific discipline.</li>
+                            <li>For Tech-A, practice extensively in your ITI workshop.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Progression 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">DRDO offers a well-defined career path for its technical staff with promotions based on performance and qualifying departmental examinations, ensuring steady growth in your career.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Technical Cadre Hierarchy</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card bg-slate-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. CEPTAM Exam Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus is broadly divided into a common screening test and a trade-specific final selection test.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Tier 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Tier-I CBT Syllabus</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Tier 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Tier-II Syllabus</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-slate-300">
+            <p id="footer-text" class="text-gray-600 text-lg font-medium">&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Tier-I: Screening CBT</h3>
+            <p id="prelims-modal-p1">This is a Computer Based Test (CBT) that serves as a screening. The test is common for all posts and covers subjects like Quantitative Aptitude, Reasoning, General Awareness, and English. It is mandatory to qualify in this tier to be shortlisted for Tier-II.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Tier-II: Selection Test</h3>
+            <p id="mains-modal-p1">This is the final selection test. For STA-B, it is a CBT based on the specific subject of the post (e.g., Mechanical Engg, Physics). For Technician-A, it is a practical Trade Test conducted in the relevant ITI trade to assess the candidate's hands-on skills. The final merit list is based on Tier-II performance.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-stone-800 mb-4">Final Selection & Document Verification</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">After Tier-II, a final merit list is prepared. Selected candidates are then called for document verification, where all original educational, caste, and other certificates are checked. A final medical examination is also conducted before the issuance of the appointment letter.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-stone-800"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-stone-800 mb-6">DRDO Technical Cadre Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'sta-b': { 
+                        name: "Senior Technical Assistant ‘B’", 
+                        icon: '🎓',
+                        description: 'STA-B is a Group ‘B’, Non-Gazetted post. Personnel in this role assist scientists in various R&D activities, handle sophisticated equipment, and manage technical data. A Diploma in Engineering or B.Sc is the required qualification.',
+                        cta: 'Learn More'
+                    },
+                    'tech-a': { 
+                        name: "Technician ‘A’", 
+                        icon: '🔧',
+                        description: 'Technician ‘A’ is a Group ‘C’, Non-Gazetted post. Technicians are skilled workers responsible for the operation, maintenance, and repair of machinery and equipment in DRDO workshops and laboratories. An ITI certificate is the required qualification.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                     'sta-b': { 
+                        name: "वरिष्ठ तकनीकी सहायक 'बी'", 
+                        icon: '🎓',
+                        description: "एसटीए-बी एक समूह 'बी', अराजपत्रित पद है। इस भूमिका में कर्मी विभिन्न अनुसंधान एवं विकास गतिविधियों में वैज्ञानिकों की सहायता करते हैं, परिष्कृत उपकरणों को संभालते हैं, और तकनीकी डेटा का प्रबंधन करते हैं। इंजीनियरिंग में डिप्लोमा या बी.एससी आवश्यक योग्यता है।",
+                        cta: 'और जानें'
+                    },
+                    'tech-a': { 
+                        name: "तकनीशियन 'ए'", 
+                        icon: '🔧',
+                        description: "तकनीशियन 'ए' एक समूह 'सी', अराजपत्रित पद है। तकनीशियन कुशल श्रमिक होते हैं जो डीआरडीओ कार्यशालाओं और प्रयोगशालाओं में मशीनरी और उपकरणों के संचालन, रखरखाव और मरम्मत के लिए जिम्मेदार होते हैं। आईटीआई प्रमाण पत्र आवश्यक योग्यता है।",
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Technician ‘A’", desc: "Entry-level rank for ITI holders." },
+                        { rank: "Technician ‘B’", desc: "First promotion based on residency period and assessment." },
+                        { rank: "Technician ‘C’", desc: "Further promotion in the technician hierarchy." },
+                        { rank: "Senior Technical Assistant ‘B’", desc: "Entry-level rank for Diploma/B.Sc. holders." },
+                        { rank: "Senior Technical Assistant ‘C’", desc: "Promotion with increased responsibilities." },
+                        { rank: "Technical Officer ‘A’", desc: "Opportunity to become a Group 'A' officer through promotions." },
+                        { rank: "Technical Officer ‘B’", desc: "Further progression in the technical officer cadre." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "तकनीशियन 'ए'", desc: "आईटीआई धारकों के लिए प्रवेश स्तर का पद।" },
+                        { rank: "तकनीशियन 'बी'", desc: "सेवा अवधि और मूल्यांकन के आधार पर पहली पदोन्नति।" },
+                        { rank: "तकनीशियन 'सी'", desc: "तकनीशियन पदानुक्रम में आगे की पदोन्नति।" },
+                        { rank: "वरिष्ठ तकनीकी सहायक 'बी'", desc: "डिप्लोमा / बी.एससी धारकों के लिए प्रवेश स्तर का पद।" },
+                        { rank: "वरिष्ठ तकनीकी सहायक 'सी'", desc: "बढ़ी हुई जिम्मेदारियों के साथ पदोन्नति।" },
+                        { rank: "तकनीकी अधिकारी 'ए'", desc: "पदोन्नति के माध्यम से समूह 'ए' अधिकारी बनने का अवसर।" },
+                        { rank: "तकनीकी अधिकारी 'बी'", desc: "तकनीकी अधिकारी कैडर में आगे की प्रगति।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🇮🇳 DRDO CEPTAM Recruitment 🇮🇳',
+                    'header-subtitle': 'Technical Excellence for National Security',
+                    'sec1-title': '1. What is DRDO CEPTAM? 💡',
+                    'sec1-p1': "The Centre for Personnel Talent Management (CEPTAM) is the recruitment body of DRDO responsible for hiring the technical, administrative, and allied category staff. The CEPTAM exam is a national-level test to select highly skilled Senior Technical Assistants (STA-B) and Technicians (Tech-A) who form the crucial support backbone for the scientists in DRDO's various laboratories.",
+                    'sec2-title': '2. The Selection Process: Two-Tier System 🎯',
+                    'sec2-p1': 'The CEPTAM selection process is a competitive two-tier system designed to assess both general aptitude and trade-specific knowledge.',
+                    'sec2-step1-title': 'Tier – I:', 'sec2-step1-name': 'Screening CBT', 'sec2-step1-desc': 'Common for STA-B & Tech-A',
+                    'sec2-step2-title': 'Tier – II:', 'sec2-step2-name': 'Selection Test', 'sec2-step2-desc': 'Trade/Discipline Specific',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Final Selection', 'sec2-step3-desc': 'Merit & Document Verification',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'Eligibility criteria are different for STA-B and Tech-A posts:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': '**STA-B:** Bachelor’s degree in Science or Diploma in Engineering/Technology/Computer Science. **Tech-A:** Class 10th Pass plus an ITI certificate in a specified trade.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 28 years**. Age relaxations are applicable for SC/ST/OBC/PwD/Ex-servicemen candidates as per government rules.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'The candidate must be a citizen of India.',
+                    'sec3-attempts-title': 'Medical Standards 📊',
+                    'sec3-attempts-p1': 'Candidates must be in good mental and physical health to perform their duties.',
+                    'sec3-agerelax-list': "<li>Must meet the minimum physical and medical standards as prescribed in the official advertisement.</li><li>Visual standards and other physical measurements are checked during medical examination.</li>",
+                    'sec4-title': '4. The Selection Tests: In Detail 📚',
+                    'sec4-p1': "Understanding the exam pattern for both tiers is crucial for a focused preparation.",
+                    'gs1-title': 'Tier-I CBT (Screening) 📝', 'gs1-sub1': 'Quantitative ability/aptitude', 'gs1-sub2': 'General Intelligence & Reasoning ability', 'gs1-sub3': 'General awareness & General Science', 'gs1-sub4': 'English language (basic knowledge)',
+                    'gs2-title': 'Tier-II (Provisional Selection) 🛠️', 'gs2-sub1': '**For STA-B:** Test on specific subject of the post.', 'gs2-sub2': '**For Tech-A:** Practical Trade Test to assess skills.',
+                    'sec5-title': '5. Training & Induction ✈️',
+                    'sec5-p1': "Selected candidates undergo induction training to familiarize them with the organization's work culture and specific job requirements.",
+                    'sec5-hindi-title': '1. Induction and Orientation', 'sec5-hindi-p1': 'A comprehensive induction program is conducted for all new entrants.', 'sec5-hindi-list': "<li>Introduction to DRDO's vision and mission.</li><li>Familiarization with lab procedures and safety protocols.</li><li>On-the-job training in the allotted laboratory.</li>",
+                    'sec5-essay-title': '2. Skill Development', 'sec5-essay-p1': 'DRDO provides ample opportunities for continuous learning and career growth.', 'sec5-essay-list': "<li>Participation in specialized technical courses.</li><li>Opportunities for higher education.</li><li>Training on new and emerging technologies.</li>",
+                    'sec6-title': '6. Key Recruitment Disciplines 🌟',
+                    'sec6-p1': "CEPTAM recruits for a vast range of technical trades and disciplines based on the requirements of DRDO labs.",
+                    'sec6-eng-title': 'For STA-B (Diploma/B.Sc)', 'sec6-eng-list': '<li>Mechanical, Electrical, Electronics Engg.</li><li>Computer Science, Automobile Engg.</li><li>Physics, Chemistry, Mathematics</li><li>Agriculture, Library Science</li>',
+                    'sec6-elec-title': 'For Tech-A (ITI Trades)', 'sec6-elec-list': '<li>Fitter, Turner, Machinist</li><li>Electrician, Electronics Mechanic</li><li>Welder, COPA (Computer Operator)</li><li>Book Binder, Motor Mechanic</li>',
+                    'sec7-title': '7. Core Qualities of a DRDO Technician 🎙️',
+                    'sec7-p1': 'DRDO seeks dedicated and skilled individuals with a strong technical aptitude and a commitment to precision.',
+                    'sec7-qualities-title': 'Key Attributes:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-orange-600 mr-3">🔧</span><div><strong class="text-stone-800">Technical Skill:</strong> Proficiency in the specific trade or discipline is paramount.</div></li><li><span class="text-2xl text-orange-600 mr-3">🎯</span><div><strong class="text-stone-800">Precision & Accuracy:</strong> Meticulous attention to detail in experiments and technical work.</div></li><li><span class="text-2xl text-orange-600 mr-3">🧠</span><div><strong class="text-stone-800">Problem-Solving Aptitude:</strong> Ability to assist in troubleshooting and finding solutions to technical challenges.</div></li><li><span class="text-2xl text-orange-600 mr-3">🤝</span><div><strong class="text-stone-800">Team Spirit:</strong> Willingness to work collaboratively with scientists and other technical staff.</div></li>',
+                    'sec8-title': '8. Preparation Strategy: The Technical Blueprint 📈',
+                    'sec8-p1': "A structured preparation plan covering both Tier-I and Tier-II syllabus is essential for success in the CEPTAM exam.",
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master Tier-I Syllabus', 'sec8-step1-desc': "Build a strong foundation in Quantitative Aptitude, Reasoning, General Awareness, and English. These are common for both posts.",
+                    'sec8-step2-title': 'In-depth Trade Knowledge', 'sec8-step2-desc': 'Thoroughly revise your Diploma/B.Sc./ITI syllabus for the Tier-II exam. This is the deciding factor for the final merit list.',
+                    'sec8-step3-title': 'Practice Mock Tests', 'sec8-step3-desc': 'Regularly solve mock tests for both tiers to improve time management, speed, and accuracy.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': "<li><strong>Stay Updated:</strong> Keep abreast of current affairs and recent developments in science and technology for the General Awareness section.</li><li><strong>Practical Skills:</strong> For Tech-A candidates, hands-on practice in your ITI trade is crucial for the Tier-II Trade Test.</li><li><strong>Previous Year Papers:</strong> Analyze previous CEPTAM papers to understand the exam pattern and difficulty level.</li>",
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'CEPTAM advertisements are released periodically based on vacancies across DRDO labs. Aspirants must monitor the DRDO website (drdo.gov.in) for the latest updates.',
+                    'sec9-step1-title': 'Advertisement Release', 'sec9-step1-desc': '<strong>Timeline:</strong> A detailed advertisement (e.g., CEPTAM-10, CEPTAM-11) is published on the DRDO website.',
+                    'sec9-step2-title': 'Online Application', 'sec9-step2-desc': '<strong>Timeline:</strong> A window of about a month is provided for online registration and application.',
+                    'sec9-step3-title': 'Tier-I & Tier-II Exams', 'sec9-step3-desc': '<strong>Timeline:</strong> Exams are conducted on scheduled dates, a few months after the application process closes.',
+                    'sec9-step4-title': 'Final Result & Joining', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list based on Tier-II performance is published. Selected candidates are then issued joining letters.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'To ensure your candidature is successful, avoid these common application and preparation errors.',
+                    'sec10-mistake1-title': 'Incorrect Post Selection:', 'sec10-mistake1-desc': 'Applying for a post/discipline for which you do not meet the exact educational qualifications.',
+                    'sec10-mistake2-title': 'Ignoring Tier-I:', 'sec10-mistake2-desc': 'Focusing only on the technical syllabus and neglecting the Tier-I screening test, which is qualifying in nature.',
+                    'sec10-mistake3-title': 'Uploading Errors:', 'sec10-mistake3-desc': 'Uploading photographs, signatures, or documents that are not as per the specified format and size.',
+                    'sec10-mistake4-title': 'Last Minute Rush:', 'sec10-mistake4-desc': 'Waiting until the last day to apply, leading to potential website issues and application errors.',
+                    'sec11-title': '11. Coaching & Resources 🏫',
+                    'sec11-p1': 'A mix of standard textbooks and online resources is ideal for CEPTAM preparation.',
+                    'sec11-gov-title': '📚 For Tier-I (Common)', 'sec11-gov-list': '<li>Standard books for Quantitative Aptitude & Reasoning (e.g., R.S. Aggarwal).</li><li>Online test series to practice for the CBT.</li>',
+                    'sec11-pvt-title': '🔧 For Tier-II (Trade/Discipline)', 'sec11-pvt-p1': 'Focus on your core subject books from your Diploma/B.Sc./ITI course.', 'sec11-pvt-list': '<li>Refer to standard textbooks for your specific discipline.</li><li>For Tech-A, practice extensively in your ITI workshop.</li>',
+                    'sec12-title': '12. Career Progression 🚀',
+                    'sec12-p1': "DRDO offers a well-defined career path for its technical staff with promotions based on performance and qualifying departmental examinations, ensuring steady growth in your career.",
+                    'sec12-career-btn': 'View Technical Cadre Hierarchy',
+                    'sec13-title': '13. CEPTAM Exam Syllabus 📚',
+                    'sec13-p1': "The syllabus is broadly divided into a common screening test and a trade-specific final selection test.",
+                    'syllabus-oir-title': 'Tier-I CBT Syllabus',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & General Intelligence</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Tier-II Syllabus',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎓</span><div class="flex-grow">STA-B: Subject-specific Test</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">Tech-A: Practical Trade Test</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | "Balasya Mulam Vigyanam" - The source of strength is science. Jai Hind!',
+                    'interviewChartData': {
+                        labels: ['Skill', 'Precision', 'Aptitude', 'Team Spirit'],
+                        data: [95, 92, 88, 90]
+                    },
+                },
+                'hi': {
+                    'header-title': '🇮🇳 DRDO CEPTAM भर्ती 🇮🇳',
+                    'header-subtitle': 'राष्ट्रीय सुरक्षा के लिए तकनीकी उत्कृष्टता',
+                    'sec1-title': '1. DRDO CEPTAM क्या है? 💡',
+                    'sec1-p1': "कार्मिक प्रतिभा प्रबंधन केंद्र (CEPTAM) डीआरडीओ का भर्ती निकाय है जो तकनीकी, प्रशासनिक और संबद्ध श्रेणी के कर्मचारियों की भर्ती के लिए जिम्मेदार है। CEPTAM परीक्षा डीआरडीओ की विभिन्न प्रयोगशालाओं में वैज्ञानिकों के लिए महत्वपूर्ण सहायक रीढ़ बनाने वाले अत्यधिक कुशल वरिष्ठ तकनीकी सहायकों (एसटीए-बी) और तकनीशियनों (टेक-ए) का चयन करने के लिए एक राष्ट्रीय स्तर की परीक्षा है।",
+                    'sec2-title': '2. चयन प्रक्रिया: दो-स्तरीय प्रणाली 🎯',
+                    'sec2-p1': 'CEPTAM चयन प्रक्रिया एक प्रतिस्पर्धी दो-स्तरीय प्रणाली है जिसे सामान्य योग्यता और व्यापार-विशिष्ट ज्ञान दोनों का आकलन करने के लिए डिज़ाइन किया गया है।',
+                    'sec2-step1-title': 'टियर - I:', 'sec2-step1-name': 'स्क्रीनिंग सीबीटी', 'sec2-step1-desc': 'एसटीए-बी और टेक-ए के लिए आम',
+                    'sec2-step2-title': 'टियर - II:', 'sec2-step2-name': 'चयन परीक्षा', 'sec2-step2-desc': 'ट्रेड/अनुशासन विशिष्ट',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'अंतिम चयन', 'sec2-step3-desc': 'मेरिट और दस्तावेज़ सत्यापन',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'एसटीए-बी और टेक-ए पदों के लिए पात्रता मानदंड अलग-अलग हैं:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': '**एसटीए-बी:** विज्ञान में स्नातक की डिग्री या इंजीनियरिंग/प्रौद्योगिकी/कंप्यूटर विज्ञान में डिप्लोमा। **टेक-ए:** कक्षा 10 वीं पास और एक निर्दिष्ट ट्रेड में आईटीआई प्रमाण पत्र।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर **18 से 28 वर्ष** के बीच। सरकारी नियमों के अनुसार अनुसूचित जाति/अनुसूचित जनजाति/अन्य पिछड़ा वर्ग/पीडब्ल्यूडी/भूतपूर्व सैनिक उम्मीदवारों के लिए आयु में छूट लागू है।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'उम्मीदवार को भारत का नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'चिकित्सा मानक 📊',
+                    'sec3-attempts-p1': 'उम्मीदवारों को अपने कर्तव्यों का पालन करने के लिए अच्छे मानसिक और शारीरिक स्वास्थ्य में होना चाहिए।',
+                    'sec3-agerelax-list': "<li>आधिकारिक विज्ञापन में निर्धारित न्यूनतम शारीरिक और चिकित्सा मानकों को पूरा करना होगा।</li><li>चिकित्सा परीक्षा के दौरान दृश्य मानकों और अन्य शारीरिक मापों की जाँच की जाती है।</li>",
+                    'sec4-title': '4. चयन परीक्षण: विस्तार से 📚',
+                    'sec4-p1': "केंद्रित तैयारी के लिए दोनों स्तरों के लिए परीक्षा पैटर्न को समझना महत्वपूर्ण है।",
+                    'gs1-title': 'टियर- I सीबीटी (स्क्रीनिंग) 📝', 'gs1-sub1': 'मात्रात्मक क्षमता / योग्यता', 'gs1-sub2': 'सामान्य बुद्धि और तर्क क्षमता', 'gs1-sub3': 'सामान्य जागरूकता और सामान्य विज्ञान', 'gs1-sub4': 'अंग्रेजी भाषा (बुनियादी ज्ञान)',
+                    'gs2-title': 'टियर- II (अनंतिम चयन) 🛠️', 'gs2-sub1': '**एसटीए-बी के लिए:** पद के विशिष्ट विषय पर परीक्षण।', 'gs2-sub2': '**टेक-ए के लिए:** कौशल का आकलन करने के लिए व्यावहारिक ट्रेड टेस्ट।',
+                    'sec5-title': '5. प्रशिक्षण और प्रेरण ✈️',
+                    'sec5-p1': "चयनित उम्मीदवारों को संगठन की कार्य संस्कृति और विशिष्ट नौकरी की आवश्यकताओं से परिचित कराने के लिए प्रेरण प्रशिक्षण से गुजरना पड़ता है।",
+                    'sec5-hindi-title': '1. प्रेरण और अभिविन्यास', 'sec5-hindi-p1': 'सभी नए प्रवेशकों के लिए एक व्यापक प्रेरण कार्यक्रम आयोजित किया जाता है।', 'sec5-hindi-list': "<li>डीआरडीओ के दृष्टिकोण और मिशन का परिचय।</li><li>प्रयोगशाला प्रक्रियाओं और सुरक्षा प्रोटोकॉल से परिचित होना।</li><li>आवंटित प्रयोगशाला में नौकरी पर प्रशिक्षण।</li>",
+                    'sec5-essay-title': '2. कौशल विकास', 'sec5-essay-p1': 'डीआरडीओ निरंतर सीखने और कैरियर के विकास के लिए पर्याप्त अवसर प्रदान करता है।', 'sec5-essay-list': "<li>विशेष तकनीकी पाठ्यक्रमों में भागीदारी।</li><li>उच्च शिक्षा के अवसर।</li><li>नई और उभरती प्रौद्योगिकियों पर प्रशिक्षण।</li>",
+                    'sec6-title': '6. प्रमुख भर्ती अनुशासन 🌟',
+                    'sec6-p1': "CEPTAM डीआरडीओ प्रयोगशालाओं की आवश्यकताओं के आधार पर तकनीकी ट्रेडों और विषयों की एक विशाल श्रृंखला के लिए भर्ती करता है।",
+                    'sec6-eng-title': 'एसटीए-बी के लिए (डिप्लोमा / बी.एससी)', 'sec6-eng-list': '<li>मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स अभि.</li><li>कंप्यूटर विज्ञान, ऑटोमोबाइल अभि.</li><li>भौतिकी, रसायन विज्ञान, गणित</li><li>कृषि, पुस्तकालय विज्ञान</li>',
+                    'sec6-elec-title': 'टेक-ए के लिए (आईटीआई ट्रेड्स)', 'sec6-elec-list': '<li>फिटर, टर्नर, मशीनिस्ट</li><li>इलेक्ट्रीशियन, इलेक्ट्रॉनिक्स मैकेनिक</li><li>वेल्डर, कोपा (कंप्यूटर ऑपरेटर)</li><li>बुक बाइंडर, मोटर मैकेनिक</li>',
+                    'sec7-title': '7. एक डीआरडीओ तकनीशियन के मुख्य गुण 🎙️',
+                    'sec7-p1': 'डीआरडीओ एक मजबूत तकनीकी योग्यता और सटीकता के प्रति प्रतिबद्धता वाले समर्पित और कुशल व्यक्तियों की तलाश करता है।',
+                    'sec7-qualities-title': 'प्रमुख गुण:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-orange-600 mr-3">🔧</span><div><strong class="text-stone-800">तकनीकी कौशल:</strong> विशिष्ट ट्रेड या अनुशासन में प्रवीणता सर्वोपरि है।</div></li><li><span class="text-2xl text-orange-600 mr-3">🎯</span><div><strong class="text-stone-800">सटीकता और परिशुद्धता:</strong> प्रयोगों और तकनीकी कार्यों में विस्तार से सावधानीपूर्वक ध्यान देना।</div></li><li><span class="text-2xl text-orange-600 mr-3">🧠</span><div><strong class="text-stone-800">समस्या-समाधान योग्यता:</strong> तकनीकी चुनौतियों के समाधान खोजने और समस्या निवारण में सहायता करने की क्षमता।</div></li><li><span class="text-2xl text-orange-600 mr-3">🤝</span><div><strong class="text-stone-800">टीम भावना:</strong> वैज्ञानिकों और अन्य तकनीकी कर्मचारियों के साथ सहयोगात्मक रूप से काम करने की इच्छा।</div></li>',
+                    'sec8-title': '8. तैयारी की रणनीति: तकनीकी खाका 📈',
+                    'sec8-p1': "CEPTAM परीक्षा में सफलता के लिए टियर- I और टियर- II दोनों पाठ्यक्रम को कवर करने वाली एक संरचित तैयारी योजना आवश्यक है।",
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'टियर- I पाठ्यक्रम में महारत हासिल करें', 'sec8-step1-desc': "मात्रात्मक योग्यता, तर्क, सामान्य जागरूकता और अंग्रेजी में एक मजबूत नींव बनाएं। ये दोनों पदों के लिए आम हैं।",
+                    'sec8-step2-title': 'गहन ट्रेड ज्ञान', 'sec8-step2-desc': 'टियर- II परीक्षा के लिए अपने डिप्लोमा / बी.एससी / आईटीआई पाठ्यक्रम को अच्छी तरह से संशोधित करें। यह अंतिम मेरिट सूची के लिए निर्णायक कारक है।',
+                    'sec8-step3-title': 'मॉक टेस्ट का अभ्यास करें', 'sec8-step3-desc': 'समय प्रबंधन, गति और सटीकता में सुधार के लिए दोनों स्तरों के लिए नियमित रूप से मॉक टेस्ट हल करें।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': "<li><strong>अपडेट रहें:</strong> सामान्य जागरूकता अनुभाग के लिए करेंट अफेयर्स और विज्ञान और प्रौद्योगिकी में हाल के विकास से अवगत रहें।</li><li><strong>व्यावहारिक कौशल:</strong> टेक-ए उम्मीदवारों के लिए, आपके आईटीआई ट्रेड में व्यावहारिक अभ्यास टियर- II ट्रेड टेस्ट के लिए महत्वपूर्ण है।</li><li><strong>पिछले वर्ष के पेपर:</strong> परीक्षा पैटर्न और कठिनाई स्तर को समझने के लिए पिछले CEPTAM पेपरों का विश्लेषण करें।</li>",
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'CEPTAM विज्ञापन डीआरडीओ प्रयोगशालाओं में रिक्तियों के आधार पर समय-समय पर जारी किए जाते हैं। उम्मीदवारों को नवीनतम अपडेट के लिए डीआरडीओ वेबसाइट (drdo.gov.in) की निगरानी करनी चाहिए।',
+                    'sec9-step1-title': 'विज्ञापन जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> डीआरडीओ वेबसाइट पर एक विस्तृत विज्ञापन (जैसे, CEPTAM-10, CEPTAM-11) प्रकाशित किया जाता है।',
+                    'sec9-step2-title': 'ऑनलाइन आवेदन', 'sec9-step2-desc': '<strong>समयरेखा:</strong> ऑनलाइन पंजीकरण और आवेदन के लिए लगभग एक महीने की एक खिड़की प्रदान की जाती है।',
+                    'sec9-step3-title': 'टियर- I और टियर- II परीक्षा', 'sec9-step3-desc': '<strong>समयरेखा:</strong> आवेदन प्रक्रिया बंद होने के कुछ महीनों बाद, निर्धारित तिथियों पर परीक्षा आयोजित की जाती है।',
+                    'sec9-step4-title': 'अंतिम परिणाम और ज्वॉइनिंग', 'sec9-step4-desc': '<strong>समयरेखा:</strong> टियर- II प्रदर्शन के आधार पर एक अंतिम मेरिट सूची प्रकाशित की जाती है। चयनित उम्मीदवारों को फिर ज्वॉइनिंग पत्र जारी किए जाते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'आपकी उम्मीदवारी सफल हो, यह सुनिश्चित करने के लिए इन सामान्य आवेदन और तैयारी त्रुटियों से बचें।',
+                    'sec10-mistake1-title': 'गलत पद चयन:', 'sec10-mistake1-desc': 'ऐसे पद/अनुशासन के लिए आवेदन करना जिसके लिए आप सटीक शैक्षिक योग्यता को पूरा नहीं करते हैं।',
+                    'sec10-mistake2-title': 'टियर- I को अनदेखा करना:', 'sec10-mistake2-desc': 'केवल तकनीकी पाठ्यक्रम पर ध्यान केंद्रित करना और टियर- I स्क्रीनिंग परीक्षा की उपेक्षा करना, जो प्रकृति में योग्यता है।',
+                    'sec10-mistake3-title': 'अपलोड करने में त्रुटियाँ:', 'sec10-mistake3-desc': 'निर्दिष्ट प्रारूप और आकार के अनुसार नहीं होने वाले फोटोग्राफ, हस्ताक्षर या दस्तावेज अपलोड करना।',
+                    'sec10-mistake4-title': 'अंतिम समय की भीड़:', 'sec10-mistake4-desc': 'आवेदन करने के लिए अंतिम दिन तक इंतजार करना, जिससे संभावित वेबसाइट समस्याएं और आवेदन त्रुटियां हो सकती हैं।',
+                    'sec11-title': '11. कोचिंग और संसाधन 🏫',
+                    'sec11-p1': 'CEPTAM की तैयारी के लिए मानक पाठ्यपुस्तकों और ऑनलाइन संसाधनों का मिश्रण आदर्श है।',
+                    'sec11-gov-title': '📚 टियर- I (आम) के लिए', 'sec11-gov-list': '<li>मात्रात्मक योग्यता और तर्क के लिए मानक पुस्तकें (जैसे, आर.एस. अग्रवाल)।</li><li>सीबीटी के लिए अभ्यास करने के लिए ऑनलाइन टेस्ट श्रृंखला।</li>',
+                    'sec11-pvt-title': '🔧 टियर- II (ट्रेड/अनुशासन) के लिए', 'sec11-pvt-p1': 'अपने डिप्लोमा/बी.एससी./आईटीआई पाठ्यक्रम से अपनी मुख्य विषय की पुस्तकों पर ध्यान केंद्रित करें।', 'sec11-pvt-list': '<li>अपने विशिष्ट अनुशासन के लिए मानक पाठ्यपुस्तकों का संदर्भ लें।</li><li>टेक-ए के लिए, अपनी आईटीआई कार्यशाला में बड़े पैमाने पर अभ्यास करें।</li>',
+                    'sec12-title': '12. कैरियर प्रगति 🚀',
+                    'sec12-p1': "डीआरडीओ अपने तकनीकी कर्मचारियों के लिए प्रदर्शन और योग्यता विभागीय परीक्षाओं के आधार पर पदोन्नति के साथ एक अच्छी तरह से परिभाषित कैरियर पथ प्रदान करता है, जो आपके कैरियर में स्थिर वृद्धि सुनिश्चित करता है।",
+                    'sec12-career-btn': 'तकनीकी कैडर पदानुक्रम देखें',
+                    'sec13-title': '13. CEPTAM परीक्षा पाठ्यक्रम 📚',
+                    'sec13-p1': "पाठ्यक्रम को मोटे तौर पर एक सामान्य स्क्रीनिंग टेस्ट और एक ट्रेड-विशिष्ट अंतिम चयन परीक्षा में विभाजित किया गया है।",
+                    'syllabus-oir-title': 'टियर- I सीबीटी पाठ्यक्रम',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और सामान्य बुद्धि</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧮</span><div class="flex-grow">मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'टियर- II पाठ्यक्रम',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎓</span><div class="flex-grow">एसटीए-बी: विषय-विशिष्ट परीक्षण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">टेक-ए: व्यावहारिक ट्रेड टेस्ट</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | "बलस्य मूलं विज्ञानम्" - शक्ति का स्रोत विज्ञान है। जय हिंद!',
+                    'interviewChartData': {
+                        labels: ['कौशल', 'सटीकता', 'योग्यता', 'टीम भावना'],
+                        data: [95, 92, 88, 90]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border border-slate-200 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-stone-800">${post.name}</h4>
+                        <p class="text-sm text-stone-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-stone-800 mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(77, 124, 15, 0.6)',
+                            borderColor: '#4d7c0f',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#78716c' },
+                                grid: { color: 'rgba(120, 113, 108, 0.2)' }
+                            },
+                            x: { 
+                                ticks: { color: '#78716c', font: { size: 14 } },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
