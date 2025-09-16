@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRO Recruitment Guide: Driver, Security Guard & Fireman</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to ISRO Recruitment for posts like Light Vehicle Driver (LVD), Heavy Vehicle Driver (HVD), Staff Car Driver, Security Guard, and Fireman.">
+    <meta name="keywords" content="ISRO, ISRO Recruitment, LVD, HVD, Security Guard, Fireman, Government Jobs, Sarkari Naukri, ISRO Vacancy, Defence Jobs">
+    <meta name="author" content="ISRO Recruitment Guide">
+    <style>
+        :root {
+            --primary-bg: #0c0a1a;
+            --secondary-bg: #1a182c;
+            --card-bg: rgba(30, 28, 52, 0.7);
+            --text-primary: #e0e6f0;
+            --text-secondary: #a0a8b8;
+            --accent-primary: #ff6f61;
+            --accent-secondary: #42a5f5;
+            --glow-color-1: rgba(255, 111, 97, 0.4);
+            --glow-color-2: rgba(66, 165, 245, 0.4);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background-image: radial-gradient(circle at 10% 15%, rgba(66, 165, 245, 0.2) 0%, transparent 40%),
+                              radial-gradient(circle at 85% 90%, rgba(255, 111, 97, 0.2) 0%, transparent 40%);
+        }
+
+        .section-heading {
+            color: var(--text-primary);
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px var(--glow-color-1), 0 0 20px var(--glow-color-2);
+            transform: translateY(-8px);
+            border-color: var(--accent-secondary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 3px solid var(--accent-secondary);
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--secondary-bg), var(--primary-bg));
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .flowchart-step:hover {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--glow-color-1);
+        }
+        
+        .flowchart-arrow { color: var(--accent-secondary); }
+
+        .subject-category-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-secondary);
+        }
+
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .subject-item:hover { background-color: rgba(255, 255, 255, 0.05); }
+        .subject-item .icon { color: var(--accent-secondary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-1);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(12, 10, 26, 0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5), 0 0 25px var(--glow-color-2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-secondary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-primary); }
+        .modal-action-button {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px var(--glow-color-1);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px var(--glow-color-1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-secondary);
+            color: var(--accent-secondary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-secondary);
+            color: white;
+            box-shadow: 0 0 10px var(--glow-color-2);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-primary); color: white; }
+        .notes-btn:hover { background-color: #ff8a80; }
+        .lectures-btn { background-color: transparent; color: var(--accent-secondary); border-color: var(--accent-secondary); }
+        .lectures-btn:hover { background-color: rgba(66, 165, 245, 0.2); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight" style="background: linear-gradient(90deg, #ff6f61, #42a5f5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🚀 ISRO Recruitment Guide 🛰️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-gray-300 font-semibold">Your Mission to Join India's Premier Space Agency</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is ISRO Recruitment -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. About ISRO Recruitment 🌌</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-gray-300">ISRO regularly recruits for various technical and support positions to power its space missions. This guide focuses on crucial ground support roles like Drivers, Security Guards, and Firemen, who form the backbone of ISRO's operational safety and logistics.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. Selection Process: Mission Stages 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-gray-300">The selection process is structured to find skilled and physically fit candidates. It typically involves three main stages to ensure the best personnel are chosen.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Written Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Objective Type Exam</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Skill / Physical Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Post-Specific Evaluation</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">DV & Medical</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Final Verification</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Are You Eligible? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-gray-300">Eligibility criteria vary by post. Here are the general requirements:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-gray-100 text-lg">Education:</strong> <span id="sec3-edu-desc" class="text-gray-300">Typically **SSLC/SSC/Matriculation (10th Pass)**. Drivers require a valid LVD/HVD license and relevant experience.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎂</span><div><strong id="sec3-age-title" class="text-gray-100 text-lg">Age Limit:</strong> <span id="sec3-age-desc" class="text-gray-300">Generally between **18 and 25-35 years**, depending on the post. Age relaxation is applicable for SC/ST/OBC/Ex-Servicemen as per government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-gray-100 text-lg">Nationality:</strong> <span id="sec3-nat-desc" class="text-gray-300">Must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-gray-100 mb-4 border-b border-accent-secondary pb-2">Physical Standards & Attempts 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-gray-300">For Security Guard and Fireman posts, candidates must meet specific physical standards.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-gray-300">
+                            <!-- Populated by JS -->
+                        </ul>
+                        <p id="sec3-attempts-p2" class="mt-4 text-lg font-semibold text-gray-100">Number of Attempts:</p>
+                        <p id="sec3-attempts-p3" class="text-base text-gray-300">There is no limit on the number of attempts as long as the candidate fulfills the age criteria for the specific recruitment drive.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Written Exam Syllabus -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Written Exam Syllabus 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">The written test is the first hurdle and assesses your general aptitude and knowledge relevant to the post.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-black/20 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">General English</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs1-sub1">Comprehension</div></div>
+                            <div class="subject-item"><span class="icon">✍️</span><div id="gs1-sub2">Grammar, Vocabulary</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-black/20 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">General Knowledge</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">🌍</span><div id="gs2-sub1">Current Affairs</div></div>
+                            <div class="subject-item"><span class="icon">🏛️</span><div id="gs2-sub2">Static GK, History</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-black/20 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Arithmetic</h3>
+                         <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">➕</span><div id="gs3-sub1">Basic Maths</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs3-sub2">Percentage, Ratio</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-black/20 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Trade Specific</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">🚦</span><div id="gs4-sub1">Motor Vehicle Act</div></div>
+                            <div class="subject-item"><span class="icon">🔥</span><div id="gs4-sub2">Fire Safety</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Skill & Physical Test -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. Skill & Physical Tests 🏃‍♂️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-gray-300">This stage is practical and performance-based. It is a qualifying round where your real-world skills and fitness are put to the test.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div class="p-6 bg-black/20 rounded-xl border-2 border-accent-secondary">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-gray-100 mb-2">For Drivers</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2 text-gray-300">Focuses on driving proficiency and knowledge.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-gray-300">
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-black/20 rounded-xl border-2 border-accent-secondary">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-gray-100 mb-2">For Security Guards</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2 text-gray-300">Emphasis on physical standards and endurance.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-gray-300">
+                        </ul>
+                    </div>
+                     <div class="p-6 bg-black/20 rounded-xl border-2 border-accent-secondary">
+                        <h3 id="sec5-fireman-title" class="font-bold text-xl text-gray-100 mb-2">For Firemen</h3>
+                        <p id="sec5-fireman-p1" class="text-sm mb-2 text-gray-300">Rigorous tests of physical strength and endurance.</p>
+                        <ul id="sec5-fireman-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-gray-300">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Post-wise Details -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Role & Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-gray-300">Each role is vital for the smooth functioning of ISRO's centres. Understand the core duties associated with each post.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Driver Cadre (LVD/HVD)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-gray-300">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Security Guard</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-gray-300">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Fireman</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-gray-300">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-black/20 border border-accent-secondary rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-gray-100 mb-2">💡 Why are these roles important?</h4>
+                    <p id="sec6-imp-p1" class="text-base text-gray-300">These positions ensure the safety, security, and mobility of ISRO's personnel and assets, directly contributing to the success of India's space missions.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Evaluation Criteria -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. What ISRO Evaluates 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-gray-300">The selection process is designed to assess candidates on qualities that are crucial for working in a high-security and disciplined environment like ISRO.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-gray-100 mb-6 border-b border-accent-secondary pb-2">Key Evaluation Factors:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-gray-300">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-gray-300">A disciplined and focused approach is required. Balance your academic preparation with physical fitness to excel in all stages of the selection process.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-gray-100 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-gray-100 mb-1">Understand the Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base text-gray-300">Thoroughly go through the official syllabus for the written exam. Focus on your weak areas and practice regularly.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-gray-100 mb-1">Physical Fitness Routine</h4>
+                                <p id="sec8-step2-desc" class="text-base text-gray-300">Especially for Security and Fireman posts, start a daily fitness regime including running, long jump, and other prescribed exercises.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-gray-100 mb-1">Practice Skill Tests</h4>
+                                <p id="sec8-step3-desc" class="text-base text-gray-300">For drivers, practice driving in various conditions. For firemen, practice tasks like climbing ropes and carrying weights if possible.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-gray-100 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-gray-300">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-gray-300">ISRO recruitment notifications are released based on vacancies at various centres. Always monitor the official ISRO careers website for the latest announcements.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-gray-100 mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-gray-300"><strong class="text-gray-400">Timeline:</strong> Published on the ISRO website and in Employment News.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-gray-100 mb-1">Written Exam</h4>
+                        <p id="sec9-step2-desc" class="text-base text-gray-300"><strong class="text-gray-400">Timeline:</strong> A few months after the application deadline.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-gray-100 mb-1">Skill/Physical Test</h4>
+                        <p id="sec9-step3-desc" class="text-base text-gray-300"><strong class="text-gray-400">Timeline:</strong> For candidates who clear the written exam.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-gray-100 mb-1">Final Result & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base text-gray-300"><strong class="text-gray-400">Timeline:</strong> A final merit list is prepared based on performance. Joining formalities follow.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">Many candidates make simple mistakes that cost them their dream job. Be aware of these common pitfalls.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Ignoring Official Notification:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Not reading the eligibility, syllabus, and physical standards carefully.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Poor Time Management:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Not practicing enough mock tests to manage time effectively during the written exam.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Neglecting Physical Fitness:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Underestimating the physical tests for Security and Fireman posts and failing to prepare.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Incorrect Documents:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Failing to produce the required original documents during Document Verification.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-gray-300">While self-study is often sufficient, many online platforms and local institutes offer structured courses for these competitive exams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Online Resources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-gray-300">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Offline Coaching Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2 text-gray-300">Look for institutes specializing in government exam preparation in your city.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-gray-300">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-gray-300">Working at ISRO provides excellent job security and a clear path for career progression through departmental promotions, based on seniority and performance.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">Focus your preparation on these key areas. Use standard textbooks and online resources for comprehensive coverage.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- General Subjects -->
+                    <div class="bg-black/20 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Trade Subjects -->
+                    <div class="bg-black/20 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Trade/Post Specific</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-700/50">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Aim for the stars. Wishing you success in your ISRO mission.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-gray-100 mb-4">Written Test Details</h3><p id="prelims-modal-p1" class="text-gray-300">This is an objective-type test covering the syllabus mentioned in the notification. It's a screening test to shortlist candidates for the next stage. Marks from this test are often used for final merit list preparation.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-gray-100 mb-4">Skill / Physical Test</h3><p id="mains-modal-p1" class="text-gray-300">This stage is qualifying in nature. For drivers, it involves a driving test. For Security Guards and Firemen, it includes a Physical Efficiency Test (PET) like running, and a Physical Standards Test (PST) for height, chest, etc.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-gray-100 mb-4">Document Verification & Medical</h3><p id="interview-modal-p1" class="text-base mb-3 text-gray-300">Candidates who clear the skill/physical test are called for DV. You must produce all original documents. Following this, a medical examination is conducted to ensure you meet the required medical standards for the post.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-gray-100"></h3></div><p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-gray-100 mb-6">Career Progression in ISRO</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'lvd': { name: 'LVD', icon: '🚗', description: 'Light Vehicle Drivers are responsible for driving cars, jeeps, and vans for transporting personnel and official documents within and between ISRO centres. Requires a valid LMV license.', cta: 'Details' },
+                'hvd': { name: 'HVD', icon: '🚚', description: 'Heavy Vehicle Drivers operate buses, trucks, and other heavy machinery for transporting equipment, materials, and large groups of personnel. Requires a valid HMV license and experience.', cta: 'Details' },
+                'scd': { name: 'Staff Car Driver', icon: '🚙', description: 'Staff Car Drivers are assigned to drive senior officials and dignitaries. This role demands high professionalism, excellent driving skills, and knowledge of protocol.', cta: 'Details' },
+                'sg': { name: 'Security Guard', icon: '🛡️', description: 'Security Guards are responsible for safeguarding ISRO\'s high-value assets, premises, and personnel. The role involves access control, patrolling, and ensuring the overall security of the facility.', cta: 'Details' },
+                'fm': { name: 'Fireman', icon: '🔥', description: 'Firemen are first responders in case of fire or other emergencies. They operate firefighting equipment, conduct rescue operations, and ensure fire safety protocols are maintained across the centre.', cta: 'Details' }
+            },
+            'hi': {
+                'lvd': { name: 'एलवीडी', icon: '🚗', description: 'हल्के वाहन चालक (LVD) इसरो केंद्रों के भीतर और बीच में कर्मियों और आधिकारिक दस्तावेजों के परिवहन के लिए कार, जीप और वैन चलाने के लिए जिम्मेदार हैं। इसके लिए एक वैध LMV लाइसेंस की आवश्यकता होती है।', cta: 'विवरण' },
+                'hvd': { name: 'एचवीडी', icon: '🚚', description: 'भारी वाहन चालक (HVD) उपकरण, सामग्री और कर्मियों के बड़े समूहों के परिवहन के लिए बस, ट्रक और अन्य भारी मशीनरी का संचालन करते हैं। इसके लिए एक वैध HMV लाइसेंस और अनुभव की आवश्यकता होती है।', cta: 'विवरण' },
+                'scd': { name: 'स्टाफ कार चालक', icon: '🚙', description: 'स्टाफ कार चालकों को वरिष्ठ अधिकारियों और गणमान्य व्यक्तियों को लाने-ले जाने के लिए नियुक्त किया जाता है। इस भूमिका में उच्च व्यावसायिकता, उत्कृष्ट ड्राइविंग कौशल और प्रोटोकॉल का ज्ञान आवश्यक है।', cta: 'विवरण' },
+                'sg': { name: 'सुरक्षा गार्ड', icon: '🛡️', description: 'सुरक्षा गार्ड इसरो की उच्च-मूल्यवान संपत्ति, परिसर और कर्मियों की सुरक्षा के लिए जिम्मेदार हैं। इस भूमिका में प्रवेश नियंत्रण, गश्त और सुविधा की समग्र सुरक्षा सुनिश्चित करना शामिल है।', cta: 'विवरण' },
+                'fm': { name: 'फायरमैन', icon: '🔥', description: 'फायरमैन आग या अन्य आपात स्थितियों के मामले में पहले प्रतिक्रियाकर्ता होते हैं। वे अग्निशमन उपकरणों का संचालन करते हैं, बचाव अभियान चलाते हैं, और यह सुनिश्चित करते हैं कि केंद्र में अग्नि सुरक्षा प्रोटोकॉल बनाए रखा जाए।', cta: 'विवरण' }
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Initial Post (e.g., Driver A)", desc: "Begins with the designated post after successful training and induction." },
+                    { rank: "Promotion to Level B/C", desc: "After a few years of service and a good record, promotion to the next level with increased pay." },
+                    { rank: "Senior Cadre (e.g., Head Driver)", desc: "Based on seniority and passing departmental exams, one can move to a supervisory role." },
+                    { rank: "Higher Administrative Roles", desc: "Long-serving and meritorious employees may get opportunities to move into higher administrative or supervisory positions." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "प्रारंभिक पद (उदा. चालक ए)", desc: "सफल प्रशिक्षण और प्रेरण के बाद निर्धारित पद से शुरुआत होती है।" },
+                    { rank: "लेवल बी/सी में पदोन्नति", desc: "कुछ वर्षों की सेवा और अच्छे रिकॉर्ड के बाद, बढ़े हुए वेतन के साथ अगले स्तर पर पदोन्नति।" },
+                    { rank: "वरिष्ठ कैडर (उदा. मुख्य चालक)", desc: "वरिष्ठता और विभागीय परीक्षाओं में उत्तीर्ण होने के आधार पर, कोई पर्यवेक्षी भूमिका में जा सकता है।" },
+                    { rank: "उच्च प्रशासनिक भूमिकाएँ", desc: "लंबे समय तक सेवा करने वाले और मेधावी कर्मचारियों को उच्च प्रशासनिक या पर्यवेक्षी पदों पर जाने का अवसर मिल सकता है।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '🚀 ISRO Recruitment Guide 🛰️', 'header-subtitle': 'Your Mission to Join India\'s Premier Space Agency',
+                'sec1-title': '1. About ISRO Recruitment 🌌', 'sec1-p1': 'ISRO regularly recruits for various technical and support positions to power its space missions. This guide focuses on crucial ground support roles like Drivers, Security Guards, and Firemen, who form the backbone of ISRO\'s operational safety and logistics.',
+                'sec2-title': '2. Selection Process: Mission Stages 🎯', 'sec2-p1': 'The selection process is structured to find skilled and physically fit candidates. It typically involves three main stages to ensure the best personnel are chosen.',
+                'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Test', 'sec2-step1-desc': 'Objective Type Exam',
+                'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill / Physical Test', 'sec2-step2-desc': 'Post-Specific Evaluation',
+                'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'DV & Medical', 'sec2-step3-desc': 'Final Verification',
+                'sec3-title': '3. Are You Eligible? ✅', 'sec3-p1': 'Eligibility criteria vary by post. Here are the general requirements:',
+                'sec3-edu-title': 'Education:', 'sec3-edu-desc': 'Typically **SSLC/SSC/Matriculation (10th Pass)**. Drivers require a valid LVD/HVD license and relevant experience.',
+                'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Generally between **18 and 25-35 years**, depending on the post. Age relaxation is applicable for SC/ST/OBC/Ex-Servicemen as per government rules.',
+                'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'Must be a citizen of India.',
+                'sec3-attempts-title': 'Physical Standards & Attempts 📊', 'sec3-attempts-p1': 'For Security Guard and Fireman posts, candidates must meet specific physical standards.',
+                'sec3-agerelax-list': '<li><strong>Height & Chest:</strong> Minimum height and chest measurements are specified.</li><li><strong>Vision:</strong> Must meet the prescribed vision standards without glasses.</li><li><strong>Endurance:</strong> Must be capable of passing rigorous physical efficiency tests.</li>',
+                'sec3-attempts-p2': 'Number of Attempts:', 'sec3-attempts-p3': 'There is no limit on the number of attempts as long as the candidate fulfills the age criteria for the specific recruitment drive.',
+                'sec4-title': '4. Written Exam Syllabus 📚', 'sec4-p1': 'The written test is the first hurdle and assesses your general aptitude and knowledge relevant to the post.',
+                'gs1-title': 'General English', 'gs1-sub1': 'Comprehension', 'gs1-sub2': 'Grammar, Vocabulary',
+                'gs2-title': 'General Knowledge', 'gs2-sub1': 'Current Affairs', 'gs2-sub2': 'Static GK, History',
+                'gs3-title': 'Arithmetic', 'gs3-sub1': 'Basic Maths', 'gs3-sub2': 'Percentage, Ratio',
+                'gs4-title': 'Trade Specific', 'gs4-sub1': 'Motor Vehicle Act', 'gs4-sub2': 'Fire Safety',
+                'sec5-title': '5. Skill & Physical Tests 🏃‍♂️', 'sec5-p1': 'This stage is practical and performance-based. It is a qualifying round where your real-world skills and fitness are put to the test.',
+                'sec5-hindi-title': 'For Drivers', 'sec5-hindi-p1': 'Focuses on driving proficiency and knowledge.', 'sec5-hindi-list': '<li>Driving test on light and/or heavy vehicles.</li><li>Identification of vehicle defects.</li><li>Knowledge of traffic signals and rules.</li>',
+                'sec5-essay-title': 'For Security Guards', 'sec5-essay-p1': 'Emphasis on physical standards and endurance.', 'sec5-essay-list': '<li>Physical Efficiency Test (PET) - Running.</li><li>Physical Standards Test (PST) - Height, Chest.</li>',
+                'sec5-fireman-title': 'For Firemen', 'sec5-fireman-p1': 'Rigorous tests of physical strength and endurance.', 'sec5-fireman-list': '<li>Running, rope climbing, carrying a human dummy.</li><li>Medical examination with high standards.</li>',
+                'sec6-title': '6. Role & Responsibilities 🌟', 'sec6-p1': 'Each role is vital for the smooth functioning of ISRO\'s centres. Understand the core duties associated with each post.',
+                'sec6-eng-title': 'Driver Cadre (LVD/HVD)', 'sec6-eng-list': '<li>Safe transportation of personnel & materials.</li><li>Upkeep and maintenance of official vehicles.</li><li>Adherence to traffic regulations.</li>',
+                'sec6-elec-title': 'Security Guard', 'sec6-elec-list': '<li>Manning security posts and access control.</li><li>Patrolling high-security zones.</li><li>Responding to security alerts.</li>',
+                'sec6-naic-title': 'Fireman', 'sec6-naic-list': '<li>Operating firefighting equipment.</li><li>Participating in emergency drills and rescues.</li><li>Maintaining fire safety systems.</li>',
+                'sec6-imp-title': '💡 Why are these roles important?', 'sec6-imp-p1': 'These positions ensure the safety, security, and mobility of ISRO\'s personnel and assets, directly contributing to the success of India\'s space missions.',
+                'sec7-title': '7. What ISRO Evaluates 🎙️', 'sec7-p1': 'The selection process is designed to assess candidates on qualities that are crucial for working in a high-security and disciplined environment like ISRO.',
+                'sec7-qualities-title': 'Key Evaluation Factors:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>Knowledge:</strong> Theoretical knowledge from the written test.</div></li><li><span class="text-2xl mr-3">💪</span><div><strong>Physical Fitness:</strong> Stamina and strength for demanding roles.</div></li><li><span class="text-2xl mr-3">🔧</span><div><strong>Practical Skills:</strong> Driving ability, handling equipment.</div></li><li><span class="text-2xl mr-3"> alertness:">🚨</span><div><strong>Alertness & Discipline:</strong> Crucial for security and safety roles.</div></li>',
+                'sec8-title': '8. Your Preparation Strategy 📈', 'sec8-p1': 'A disciplined and focused approach is required. Balance your academic preparation with physical fitness to excel in all stages of the selection process.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Understand the Syllabus', 'sec8-step1-desc': 'Thoroughly go through the official syllabus for the written exam. Focus on your weak areas and practice regularly.', 'sec8-step2-title': 'Physical Fitness Routine', 'sec8-step2-desc': 'Especially for Security and Fireman posts, start a daily fitness regime including running, long jump, and other prescribed exercises.', 'sec8-step3-title': 'Practice Skill Tests', 'sec8-step3-desc': 'For drivers, practice driving in various conditions. For firemen, practice tasks like climbing ropes and carrying weights if possible.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Solve Previous Year Papers:</strong> Understand the exam pattern and question types.</li><li><strong>Stay Updated:</strong> Follow current affairs for the GK section.</li><li><strong>Maintain Health:</strong> A healthy body and mind are essential for clearing physical and medical tests.</li><li><strong>Read the Motor Vehicle Act:</strong> Essential for driver posts.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'ISRO recruitment notifications are released based on vacancies at various centres. Always monitor the official ISRO careers website for the latest announcements.',
+                'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong class="text-gray-400">Timeline:</strong> Published on the ISRO website and in Employment News.', 'sec9-step2-title': 'Written Exam', 'sec9-step2-desc': '<strong class="text-gray-400">Timeline:</strong> A few months after the application deadline.', 'sec9-step3-title': 'Skill/Physical Test', 'sec9-step3-desc': '<strong class="text-gray-400">Timeline:</strong> For candidates who clear the written exam.', 'sec9-step4-title': 'Final Result & Joining', 'sec9-step4-desc': '<strong class="text-gray-400">Timeline:</strong> A final merit list is prepared based on performance. Joining formalities follow.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'Many candidates make simple mistakes that cost them their dream job. Be aware of these common pitfalls.',
+                'sec10-mistake1-title': 'Ignoring Official Notification:', 'sec10-mistake1-desc': 'Not reading the eligibility, syllabus, and physical standards carefully.', 'sec10-mistake2-title': 'Poor Time Management:', 'sec10-mistake2-desc': 'Not practicing enough mock tests to manage time effectively during the written exam.', 'sec10-mistake3-title': 'Neglecting Physical Fitness:', 'sec10-mistake3-desc': 'Underestimating the physical tests for Security and Fireman posts and failing to prepare.', 'sec10-mistake4-title': 'Incorrect Documents:', 'sec10-mistake4-desc': 'Failing to produce the required original documents during Document Verification.',
+                'sec11-title': '11. Where to Get Coaching 🏫', 'sec11-p1': 'While self-study is often sufficient, many online platforms and local institutes offer structured courses for these competitive exams.',
+                'sec11-gov-title': '💻 Online Resources', 'sec11-gov-list': '<li>YouTube channels dedicated to government exam prep.</li><li>Online test series platforms for mock tests.</li><li>Websites with free study material and current affairs.</li>',
+                'sec11-pvt-title': 'Offline Coaching Institutes', 'sec11-pvt-p1': 'Look for institutes specializing in government exam preparation in your city.', 'sec11-pvt-list': '<li>Check their track record for similar exams.</li><li>Ensure they provide physical training guidance if needed.</li>',
+                'sec12-title': '12. Career Growth & Promotions 🚀', 'sec12-p1': 'Working at ISRO provides excellent job security and a clear path for career progression through departmental promotions, based on seniority and performance.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Syllabus & Study Material 📚', 'sec13-p1': 'Focus your preparation on these key areas. Use standard textbooks and online resources for comprehensive coverage.',
+                'syllabus-oir-title': 'General Aptitude', 'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">General English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Knowledge</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➕</span><div class="flex-grow">Arithmetic</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Trade/Post Specific', 'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🚦</span><div class="flex-grow">Motor Vehicles Act, 1988 (For Drivers)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔥</span><div class="flex-grow">Basic Chemistry, Fire Safety (For Fireman)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | Aim for the stars. Wishing you success in your ISRO mission.',
+                'interviewChartData': { labels: ['Knowledge', 'Fitness', 'Skills', 'Discipline'], data: [90, 95, 85, 92] }
+            },
+            'hi': {
+                'header-title': '🚀 इसरो भर्ती गाइड 🛰️', 'header-subtitle': 'भारत की प्रमुख अंतरिक्ष एजेंसी में शामिल होने का आपका मिशन',
+                'sec1-title': '1. इसरो भर्ती के बारे में 🌌', 'sec1-p1': 'इसरो अपने अंतरिक्ष अभियानों को शक्ति प्रदान करने के लिए विभिन्न तकनीकी और सहायक पदों पर नियमित रूप से भर्ती करता है। यह गाइड ड्राइवरों, सुरक्षा गार्डों और फायरमैन जैसे महत्वपूर्ण जमीनी समर्थन भूमिकाओं पर केंद्रित है, जो इसरो की परिचालन सुरक्षा और रसद की रीढ़ हैं।',
+                'sec2-title': '2. चयन प्रक्रिया: मिशन के चरण 🎯', 'sec2-p1': 'चयन प्रक्रिया कुशल और शारीरिक रूप से स्वस्थ उम्मीदवारों को खोजने के लिए संरचित है। इसमें आमतौर पर सर्वश्रेष्ठ कर्मियों का चयन सुनिश्चित करने के लिए तीन मुख्य चरण शामिल होते हैं।',
+                'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'लिखित परीक्षा', 'sec2-step1-desc': 'वस्तुनिष्ठ प्रकार की परीक्षा',
+                'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'कौशल/शारीरिक परीक्षण', 'sec2-step2-desc': 'पद-विशिष्ट मूल्यांकन',
+                'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'डीवी और मेडिकल', 'sec2-step3-desc': 'अंतिम सत्यापन',
+                'sec3-title': '3. क्या आप पात्र हैं? ✅', 'sec3-p1': 'पात्रता मानदंड पद के अनुसार अलग-अलग होते हैं। यहाँ सामान्य आवश्यकताएं हैं:',
+                'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'आमतौर पर **एसएसएलसी/एसएससी/मैट्रिक (10वीं पास)**। ड्राइवरों को एक वैध एलवीडी/एचवीडी लाइसेंस और प्रासंगिक अनुभव की आवश्यकता होती है।',
+                'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आम तौर पर **18 से 25-35 वर्ष** के बीच, पद के आधार पर। सरकारी नियमों के अनुसार एससी/एसटी/ओबीसी/भूतपूर्व सैनिकों के लिए आयु में छूट लागू है।',
+                'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'भारत का नागरिक होना चाहिए।',
+                'sec3-attempts-title': 'शारीरिक मानक और प्रयास 📊', 'sec3-attempts-p1': 'सुरक्षा गार्ड और फायरमैन पदों के लिए, उम्मीदवारों को विशिष्ट शारीरिक मानकों को पूरा करना होगा।',
+                'sec3-agerelax-list': '<li><strong>ऊंचाई और छाती:</strong> न्यूनतम ऊंचाई और छाती का माप निर्दिष्ट है।</li><li><strong>दृष्टि:</strong> बिना चश्मे के निर्धारित दृष्टि मानकों को पूरा करना होगा।</li><li><strong>सहनशक्ति:</strong> कठोर शारीरिक दक्षता परीक्षण पास करने में सक्षम होना चाहिए।</li>',
+                'sec3-attempts-p2': 'प्रयासों की संख्या:', 'sec3-attempts-p3': 'प्रयासों की संख्या पर कोई सीमा नहीं है जब तक कि उम्मीदवार विशिष्ट भर्ती अभियान के लिए आयु मानदंडों को पूरा करता है।',
+                'sec4-title': '4. लिखित परीक्षा का सिलेबस 📚', 'sec4-p1': 'लिखित परीक्षा पहली बाधा है और यह आपकी सामान्य योग्यता और पद से संबंधित ज्ञान का आकलन करती है।',
+                'gs1-title': 'सामान्य अंग्रेजी', 'gs1-sub1': 'समझ', 'gs1-sub2': 'व्याकरण, शब्दावली',
+                'gs2-title': 'सामान्य ज्ञान', 'gs2-sub1': 'समसामयिकी', 'gs2-sub2': 'स्टेटिक जीके, इतिहास',
+                'gs3-title': 'अंकगणित', 'gs3-sub1': 'बुनियादी गणित', 'gs3-sub2': 'प्रतिशत, अनुपात',
+                'gs4-title': 'ट्रेड विशिष्ट', 'gs4-sub1': 'मोटर वाहन अधिनियम', 'gs4-sub2': 'अग्नि सुरक्षा',
+                'sec5-title': '5. कौशल और शारीरिक परीक्षण 🏃‍♂️', 'sec5-p1': 'यह चरण व्यावहारिक और प्रदर्शन-आधारित है। यह एक क्वालिफाइंग राउंड है जहां आपके वास्तविक कौशल और फिटनेस का परीक्षण किया जाता है।',
+                'sec5-hindi-title': 'ड्राइवरों के लिए', 'sec5-hindi-p1': 'ड्राइविंग प्रवीणता और ज्ञान पर केंद्रित है।', 'sec5-hindi-list': '<li>हल्के और/या भारी वाहनों पर ड्राइविंग टेस्ट।</li><li>वाहन के दोषों की पहचान।</li><li>ट्रैफिक सिग्नल और नियमों का ज्ञान।</li>',
+                'sec5-essay-title': 'सुरक्षा गार्ड के लिए', 'sec5-essay-p1': 'शारीरिक मानकों और सहनशक्ति पर जोर।', 'sec5-essay-list': '<li>शारीरिक दक्षता परीक्षा (PET) - दौड़।</li><li>शारीरिक मानक परीक्षण (PST) - ऊंचाई, छाती।</li>',
+                'sec5-fireman-title': 'फायरमैन के लिए', 'sec5-fireman-p1': 'शारीरिक शक्ति और सहनशक्ति के कठोर परीक्षण।', 'sec5-fireman-list': '<li>दौड़ना, रस्सी चढ़ना, मानव डमी ले जाना।</li><li>उच्च मानकों के साथ चिकित्सा परीक्षा।</li>',
+                'sec6-title': '6. भूमिका और जिम्मेदारियां 🌟', 'sec6-p1': 'इसरो के केंद्रों के सुचारू कामकाज के लिए प्रत्येक भूमिका महत्वपूर्ण है। प्रत्येक पद से जुड़े मुख्य कर्तव्यों को समझें।',
+                'sec6-eng-title': 'चालक कैडर (LVD/HVD)', 'sec6-eng-list': '<li>कर्मियों और सामग्रियों का सुरक्षित परिवहन।</li><li>आधिकारिक वाहनों का रखरखाव।</li><li>यातायात नियमों का पालन।</li>',
+                'sec6-elec-title': 'सुरक्षा गार्ड', 'sec6-elec-list': '<li>सुरक्षा चौकियों और प्रवेश नियंत्रण का प्रबंधन।</li><li>उच्च सुरक्षा क्षेत्रों में गश्त।</li><li>सुरक्षा अलर्ट पर प्रतिक्रिया।</li>',
+                'sec6-naic-title': 'फायरमैन', 'sec6-naic-list': '<li>अग्निशमन उपकरणों का संचालन।</li><li>आपातकालीन अभ्यास और बचाव में भाग लेना।</li><li>अग्नि सुरक्षा प्रणालियों का रखरखाव।</li>',
+                'sec6-imp-title': '💡 ये भूमिकाएँ क्यों महत्वपूर्ण हैं?', 'sec6-imp-p1': 'ये पद इसरो के कर्मियों और संपत्तियों की सुरक्षा, संरक्षा और गतिशीलता सुनिश्चित करते हैं, जो सीधे भारत के अंतरिक्ष अभियानों की सफलता में योगदान करते हैं।',
+                'sec7-title': '7. इसरो क्या मूल्यांकन करता है 🎙️', 'sec7-p1': 'चयन प्रक्रिया इसरो जैसे उच्च-सुरक्षा और अनुशासित वातावरण में काम करने के लिए महत्वपूर्ण गुणों पर उम्मीदवारों का आकलन करने के लिए डिज़ाइन की गई है।',
+                'sec7-qualities-title': 'मुख्य मूल्यांकन कारक:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>ज्ञान:</strong> लिखित परीक्षा से सैद्धांतिक ज्ञान।</div></li><li><span class="text-2xl mr-3">💪</span><div><strong>शारीरिक फिटनेस:</strong> मांग वाली भूमिकाओं के लिए सहनशक्ति और ताकत।</div></li><li><span class="text-2xl mr-3">🔧</span><div><strong>व्यावहारिक कौशल:</strong> ड्राइविंग क्षमता, उपकरण संभालना।</div></li><li><span class="text-2xl mr-3">🚨</span><div><strong>सतर्कता और अनुशासन:</strong> सुरक्षा और संरक्षा भूमिकाओं के लिए महत्वपूर्ण।</div></li>',
+                'sec8-title': '8. आपकी तैयारी की रणनीति 📈', 'sec8-p1': 'एक अनुशासित और केंद्रित दृष्टिकोण की आवश्यकता है। चयन प्रक्रिया के सभी चरणों में उत्कृष्टता प्राप्त करने के लिए अपनी अकादमिक तैयारी को शारीरिक फिटनेस के साथ संतुलित करें।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'पाठ्यक्रम को समझें', 'sec8-step1-desc': 'लिखित परीक्षा के लिए आधिकारिक पाठ्यक्रम को अच्छी तरह से पढ़ें। अपने कमजोर क्षेत्रों पर ध्यान केंद्रित करें और नियमित रूप से अभ्यास करें।', 'sec8-step2-title': 'शारीरिक फिटनेस दिनचर्या', 'sec8-step2-desc': 'विशेष रूप से सुरक्षा और फायरमैन पदों के लिए, दौड़, लंबी कूद और अन्य निर्धारित अभ्यासों सहित दैनिक फिटनेस दिनचर्या शुरू करें।', 'sec8-step3-title': 'कौशल परीक्षण का अभ्यास करें', 'sec8-step3-desc': 'ड्राइवरों के लिए, विभिन्न परिस्थितियों में ड्राइविंग का अभ्यास करें। फायरमैन के लिए, यदि संभव हो तो रस्सी चढ़ने और वजन उठाने जैसे कार्यों का अभ्यास करें।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>पिछले वर्ष के प्रश्नपत्र हल करें:</strong> परीक्षा पैटर्न और प्रश्न प्रकारों को समझें।</li><li><strong>अपडेट रहें:</strong> जीके अनुभाग के लिए समसामयिक मामलों का पालन करें।</li><li><strong>स्वास्थ्य बनाए रखें:</strong> शारीरिक और चिकित्सा परीक्षणों को पास करने के लिए एक स्वस्थ शरीर और दिमाग आवश्यक है।</li><li><strong>मोटर वाहन अधिनियम पढ़ें:</strong> चालक पदों के लिए आवश्यक है।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'इसरो भर्ती अधिसूचनाएं विभिन्न केंद्रों पर रिक्तियों के आधार पर जारी की जाती हैं। नवीनतम घोषणाओं के लिए हमेशा आधिकारिक इसरो करियर वेबसाइट की निगरानी करें।',
+                'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong class="text-gray-400">समयरेखा:</strong> इसरो वेबसाइट और रोजगार समाचार में प्रकाशित।', 'sec9-step2-title': 'लिखित परीक्षा', 'sec9-step2-desc': '<strong class="text-gray-400">समयरेखा:</strong> आवेदन की अंतिम तिथि के कुछ महीने बाद।', 'sec9-step3-title': 'कौशल/शारीरिक परीक्षण', 'sec9-step3-desc': '<strong class="text-gray-400">समयरेखा:</strong> लिखित परीक्षा पास करने वाले उम्मीदवारों के लिए।', 'sec9-step4-title': 'अंतिम परिणाम और ज्वॉइनिंग', 'sec9-step4-desc': '<strong class="text-gray-400">समयरेखा:</strong> प्रदर्शन के आधार पर एक अंतिम मेरिट सूची तैयार की जाती है। इसके बाद ज्वॉइनिंग की औपचारिकताएं होती हैं।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'कई उम्मीदवार साधारण गलतियाँ करते हैं जिससे उन्हें अपनी सपनों की नौकरी गंवानी पड़ती है। इन सामान्य नुकसानों से अवगत रहें।',
+                'sec10-mistake1-title': 'आधिकारिक अधिसूचना को अनदेखा करना:', 'sec10-mistake1-desc': 'पात्रता, पाठ्यक्रम और शारीरिक मानकों को ध्यान से नहीं पढ़ना।', 'sec10-mistake2-title': 'खराब समय प्रबंधन:', 'sec10-mistake2-desc': 'लिखित परीक्षा के दौरान समय का प्रभावी ढंग से प्रबंधन करने के लिए पर्याप्त मॉक टेस्ट का अभ्यास नहीं करना।', 'sec10-mistake3-title': 'शारीरिक फिटनेस की उपेक्षा:', 'sec10-mistake3-desc': 'सुरक्षा और फायरमैन पदों के लिए शारीरिक परीक्षणों को कम आंकना और तैयारी में असफल होना।', 'sec10-mistake4-title': 'गलत दस्तावेज़:', 'sec10-mistake4-desc': 'दस्तावेज़ सत्यापन के दौरान आवश्यक मूल दस्तावेज़ प्रस्तुत करने में विफल रहना।',
+                'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'हालांकि स्व-अध्ययन अक्सर पर्याप्त होता है, कई ऑनलाइन प्लेटफॉर्म और स्थानीय संस्थान इन प्रतियोगी परीक्षाओं के लिए संरचित पाठ्यक्रम प्रदान करते हैं।',
+                'sec11-gov-title': '💻 ऑनलाइन संसाधन', 'sec11-gov-list': '<li>सरकारी परीक्षा की तैयारी के लिए समर्पित यूट्यूब चैनल।</li><li>मॉक टेस्ट के लिए ऑनलाइन टेस्ट श्रृंखला प्लेटफॉर्म।</li><li>मुफ्त अध्ययन सामग्री और समसामयिकी वाली वेबसाइटें।</li>',
+                'sec11-pvt-title': 'ऑफलाइन कोचिंग संस्थान', 'sec11-pvt-p1': 'अपने शहर में सरकारी परीक्षा की तैयारी में विशेषज्ञता वाले संस्थानों की तलाश करें।', 'sec11-pvt-list': '<li>समान परीक्षाओं के लिए उनके ट्रैक रिकॉर्ड की जांच करें।</li><li>सुनिश्चित करें कि यदि आवश्यक हो तो वे शारीरिक प्रशिक्षण मार्गदर्शन प्रदान करते हैं।</li>',
+                'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀', 'sec12-p1': 'इसरो में काम करना उत्कृष्ट नौकरी सुरक्षा और वरिष्ठता और प्रदर्शन के आधार पर विभागीय पदोन्नति के माध्यम से कैरियर की प्रगति के लिए एक स्पष्ट मार्ग प्रदान करता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. पाठ्यक्रम और अध्ययन सामग्री 📚', 'sec13-p1': 'अपनी तैयारी को इन प्रमुख क्षेत्रों पर केंद्रित करें। व्यापक कवरेज के लिए मानक पाठ्यपुस्तकों और ऑनलाइन संसाधनों का उपयोग करें।',
+                'syllabus-oir-title': 'सामान्य योग्यता', 'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">सामान्य अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य ज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➕</span><div class="flex-grow">अंकगणित</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'ट्रेड/पद विशिष्ट', 'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🚦</span><div class="flex-grow">मोटर वाहन अधिनियम, 1988 (ड्राइवरों के लिए)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔥</span><div class="flex-grow">बुनियादी रसायन विज्ञान, अग्नि सुरक्षा (फायरमैन के लिए)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | सितारों का लक्ष्य रखें। आपके इसरो मिशन में सफलता की कामना।',
+                'interviewChartData': { labels: ['ज्ञान', 'फिटनेस', 'कौशल', 'अनुशासन'], data: [90, 95, 85, 92] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-4 bg-black/20 rounded-xl text-center border-2 border-gray-700 hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-5xl mb-3 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-lg text-gray-100">${post.name}</h4><p class="text-sm text-gray-400 mt-1">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `<div class="timeline-dot"></div><h4 class="font-semibold text-xl text-gray-100 mb-1">${step.rank}</h4><p class="text-base text-gray-300">${step.desc}</p>`;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            const data = translations.en.interviewChartData;
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Evaluation Factors',
+                        data: data.data,
+                        backgroundColor: 'rgba(66, 165, 245, 0.7)',
+                        borderColor: '#42a5f5',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { color: 'rgba(255,255,255,0.7)' } },
+                        x: { ticks: { color: 'rgba(255,255,255,0.7)', font: { size: 14 } } }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            translateChart();
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        initInterviewChart();
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
