@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRDO Recruitment Guide: Research Fellowships</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to DRDO research fellowships, including Junior Research Fellowship (JRF), Senior Research Fellowship (SRF), and Research Associate (RA) posts.">
+    <meta name="keywords" content="DRDO, JRF, SRF, RA, Junior Research Fellowship, Senior Research Fellowship, Research Associate, Recruitment, Research, PhD, Defence, India, Career">
+    <meta name="author" content="DRDO Research Fellowship Guide">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1a2e20; /* Dark forest green */
+            color: #f0f0f0; /* Soft cream text */
+        }
+        .section-heading {
+            border-bottom: 4px solid #ffc107; /* Gold */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #f0f0f0;
+        }
+        .card {
+            background-color: #2b3a2e; /* Slightly lighter forest green */
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #455a48;
+        }
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ffc107; /* Gold */
+            color: #f0f0f0;
+            background-color: #4a5d4e; /* Darker moss green */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #ffc107;
+            color: #1a2e20;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        .flowchart-arrow {
+            color: #ffc107; /* Gold */
+        }
+        .subject-category-heading {
+            color: #ffc107;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ffc107;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: #4a5d4e;
+        }
+        .subject-item .icon {
+            color: #ffc107;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #ffc107;
+            border: 4px solid #1a2e20;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2b3a2e;
+            color: #f0f0f0;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: #ffc107; line-height: 1;
+        }
+        .modal-close-button:hover { color: #f0f0f0; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ffc107, #ffeb3b);
+            color: #1a2e20;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(255, 193, 7, 0.4);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #ffc107;
+            color: #ffc107;
+            background-color: #1a2e20;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ffc107;
+            color: #1a2e20;
+        }
+        .career-path-timeline {
+            position: relative;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #ffc107;
+            color: #1a2e20;
+        }
+        .notes-btn:hover {
+            background-color: #ffeb3b;
+        }
+        .lectures-btn {
+            background-color: #4a5d4e;
+            color: #f0f0f0;
+            border-color: #ffc107;
+        }
+        .lectures-btn:hover {
+            background-color: #6a7c6e;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#f0f0f0] mb-4 tracking-tight">🔬 DRDO Research Fellowships 🔭</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-[#ffc107] font-semibold">Join the forefront of defence research</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is DRDO Research Fellowship -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2b3a2e] via-[#1a2e20] to-[#4a5d4e]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. DRDO Fellowship Overview 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">DRDO offers prestigious research fellowships to young and experienced scientists, including the Junior Research Fellowship (JRF), Senior Research Fellowship (SRF), and Research Associate (RA). These positions are a gateway to cutting-edge research in various defense-related scientific and technical domains.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: Key Stages 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process is designed to identify individuals with a strong academic background, research aptitude, and a passion for scientific inquiry. It typically involves a screening process followed by a rigorous interview.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Application & Shortlisting</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Technical & Research Interview</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Documentation</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Verification & Medical Check</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria vary by fellowship type:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ffc107] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-[#f0f0f0] text-lg">Education:</strong> <span id="sec3-edu-desc">Varies from B.E./B.Tech (with GATE/NET) for JRF to M.E./M.Tech and Ph.D. for SRF and RA.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ffc107] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-[#f0f0f0] text-lg">Age:</strong> <span id="sec3-age-desc">Upper age limit is typically **28 years** for JRF, **32 years** for SRF, and **35 years** for RA.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ffc107] mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-[#f0f0f0] text-lg">Nationality:</strong> <span id="sec3-nat-desc">Must be an Indian citizen.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-[#f0f0f0] mb-4 border-b border-[#ffc107] pb-2">Screening & Qualifications 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">Screening for the interview is based on academic qualifications and performance in national-level tests like GATE or CSIR-UGC NET.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside">
+                            <li><strong>JRF:</strong> B.E./B.Tech with valid GATE score or M.E./M.Tech degree.</li>
+                            <li><strong>SRF:</strong> M.E./M.Tech or equivalent, with a minimum of two years of research experience.</li>
+                            <li><strong>RA:</strong> Ph.D. or equivalent degree.</li>
+                        </ul>
+                        <p id="sec3-attempts-p2" class="mt-4 text-lg font-semibold text-[#f0f0f0]">Duration of Fellowship:</p>
+                        <p id="sec3-attempts-p3" class="text-base">JRFs and SRFs are for a fixed tenure, typically two to three years, with a possibility of extension. RA is for a maximum of two years.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Interview Focus -->
+            <section class="card bg-[#253228]">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Interview Focus & Assessment 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The interview is the most critical part of the selection process. It is a research-oriented assessment designed to evaluate a candidate's technical depth and potential to contribute to defence R&D.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-[#2b3a2e] p-6 rounded-xl shadow-lg border border-[#455a48] flex flex-col transition duration-300 hover:shadow-2xl hover:border-[#ffc107] hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Technical & Core Knowledge 🧠</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs1-sub1">Fundamentals of your discipline</div></div>
+                            <div class="subject-item"><span class="icon">🤔</span><div id="gs1-sub2">Application of concepts</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#2b3a2e] p-6 rounded-xl shadow-lg border border-[#455a48] flex flex-col transition duration-300 hover:shadow-2xl hover:border-[#ffc107] hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Research Experience 📈</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">📄</span><div id="gs2-sub1">Previous projects & publications</div></div>
+                            <div class="subject-item"><span class="icon">💬</span><div id="gs2-sub2">Problem-solving during research</div></div>
+                            <div class="subject-item"><span class="icon">💡</span><div id="gs2-sub3">Thesis/dissertation details</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-[#2b3a2e] p-6 rounded-xl shadow-lg border border-[#455a48] flex flex-col transition duration-300 hover:shadow-2xl hover:border-[#ffc107] hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">General Aptitude & Interest 🗣️</h3>
+                         <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🌐</span><div id="gs3-sub1">Awareness of DRDO's work</div></div>
+                            <div class="subject-item"><span class="icon">🗣️</span><div id="gs3-sub2">Communication skills</div></div>
+                            <div class="subject-item"><span class="icon">🤔</span><div id="gs3-sub3">Aptitude for research</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Life as a Fellow -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Life as a DRDO Fellow 🚀</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Research fellows at DRDO work in a world-class environment, collaborating with leading scientists on projects of national importance. It is a challenging yet highly rewarding experience.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-[#253228] rounded-xl border-2 border-[#ffc107]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-[#f0f0f0] mb-2">1. The Research Environment</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Fellows are assigned to a specific DRDO laboratory to work on a live research project under the guidance of a supervisor.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Access to state-of-the-art facilities and equipment.</li>
+                            <li>Mentorship from senior scientists and project leaders.</li>
+                            <li>Opportunities for publication in reputed journals.</li>
+                            <li>Exposure to a wide range of defense technologies.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#253228] rounded-xl border-2 border-[#ffc107]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-[#f0f0f0] mb-2">2. Key Objectives</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">The goal is to contribute meaningfully to ongoing research while developing a deep understanding of the chosen field.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Conducting independent and collaborative research.</li>
+                           <li>Publishing research findings and patents.</li>
+                           <li>Gaining practical experience in defense-related R&D.</li>
+                           <li>Building a foundation for a full-time scientific career.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Research Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Research Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">DRDO fellowships are offered in a wide array of scientific and engineering disciplines to support a diverse range of research projects.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Engineering</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Mechanical Engineering</li>
+                           <li>Electronics & Communication Engg.</li>
+                           <li>Computer Science</li>
+                           <li>Aeronautical Engineering</li>
+                           <li>Chemical Engineering</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Science</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Physics</li>
+                           <li>Chemistry</li>
+                           <li>Mathematics</li>
+                           <li>Material Science</li>
+                           <li>Biotechnology</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Other Fields</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Naval Architecture</li>
+                           <li>Metallurgical Engineering</li>
+                           <li>Cyber Security</li>
+                           <li>Artificial Intelligence</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-[#253228] border border-[#ffc107] rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-[#f0f0f0] mb-2">💡 Find your match:</h4>
+                    <p id="sec6-imp-p1" class="text-base">The specific disciplines for which fellowships are offered depend on the needs of the individual labs. Always check the official notification for the list of available research areas.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Key Competencies -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Key Competencies Evaluated 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">The interview panel assesses a candidate on key competencies essential for a successful research career. The evaluation focuses on your technical depth, problem-solving skills, and research aptitude.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-[#f0f0f0] mb-6 border-b border-[#ffc107] pb-2">Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#ffc107] mr-3">🧠</span><div><strong class="text-[#f0f0f0]">Research Aptitude:</strong> Passion for inquiry, critical thinking, and a scientific mindset.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ffc107] mr-3">🤝</span><div><strong class="text-[#f0f0f0]">Technical Expertise:</strong> Deep understanding of your core subject and research area.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ffc107] mr-3">💡</span><div><strong class="text-[#f0f0f0]">Innovation & Problem-Solving:</strong> Ability to think creatively and provide innovative solutions.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ffc107] mr-3">📢</span><div><strong class="text-[#f0f0f0]">Communication:</strong> Clear and concise articulation of complex research ideas.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy: Smart Work 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Success in a DRDO research fellowship interview is about showcasing your research potential and technical expertise. A focused approach is key.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-[#f0f0f0] mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#ffc107] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ffc107] rounded-full -left-2 border-4 border-[#1a2e20]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Deep Dive into Research</h4>
+                                <p id="sec8-step1-desc" class="text-base">Be an expert on your M.Tech thesis or Ph.D. dissertation. The interview will revolve around your research work, so know every detail.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ffc107] rounded-full -left-2 border-4 border-[#1a2e20]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Master the Fundamentals</h4>
+                                <p id="sec8-step2-desc" class="text-base">The panel may ask questions from your core engineering or science subjects. A strong foundation is essential to demonstrate your problem-solving abilities.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ffc107] rounded-full -left-2 border-4 border-[#1a2e20]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Stay Updated</h4>
+                                <p id="sec8-step3-desc" class="text-base">Read recent research papers in your domain and be aware of the latest projects and missions of DRDO. This shows genuine interest and helps you relate your work to their needs.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-[#f0f0f0] mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Prepare a Presentation:</strong> Be ready to give a short (5-10 minute) presentation on your research topic without a laptop. Practice this to be concise and impactful.</li>
+                            <li><strong>Mock Interviews:</strong> Conduct mock interviews with mentors or peers. Practice articulating your research findings and answering technical questions under pressure.</li>
+                            <li><strong>Read & Write:</strong> Regularly read research papers and practice writing research summaries or abstracts. This will sharpen your critical thinking and communication skills.</li>
+                            <li><strong>Network:</strong> Engage with professionals and researchers in your field. This can give you insights into current trends and research directions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">DRDO fellowship recruitment cycles are announced periodically based on vacancies in different labs. Always refer to the official DRDO website for the latest notifications and timelines.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Varies depending on the lab and specific project requirements.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Application Period</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Typically 30 days from the date of notification release.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Screening & Shortlisting</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Candidates are shortlisted based on their academic record, experience, and sometimes an online written test.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-[#f0f0f0] mb-1">Interview & Final Selection</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> A final merit list is prepared based on the performance in the personal interview. The interview is the sole basis for final selection.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Common Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Avoiding these common pitfalls can significantly improve your chances of securing a research fellowship at DRDO.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-[#364938] rounded-lg border-2 border-[#ffc107] shadow-md transition-all duration-300 hover:shadow-xl hover:border-[#ffeb3b] hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-[#ffc107] text-[#1a2e20] rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-[#f0f0f0]">Superficial Research Knowledge:</strong>
+                            <p id="sec10-mistake1-desc" class="text-gray-400 mt-1">Not being able to explain your own research project in depth or defend your methodology. This is a primary disqualification.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-[#364938] rounded-lg border-2 border-[#ffc107] shadow-md transition-all duration-300 hover:shadow-xl hover:border-[#ffeb3b] hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-[#ffc107] text-[#1a2e20] rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-[#f0f0f0]">Lack of Interest in DRDO's work:</strong>
+                            <p id="sec10-mistake2-desc" class="text-gray-400 mt-1">Interviewers expect you to know what DRDO does and how your research could be relevant to national defense. Lack of awareness shows disinterest.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-[#364938] rounded-lg border-2 border-[#ffc107] shadow-md transition-all duration-300 hover:shadow-xl hover:border-[#ffeb3b] hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-[#ffc107] text-[#1a2e20] rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-[#f0f0f0]">Poor Communication:</strong>
+                            <p id="sec10-mistake3-desc" class="text-gray-400 mt-1">Being unable to articulate complex research ideas clearly and concisely is a major drawback. The ability to present your work is as important as the work itself.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-[#364938] rounded-lg border-2 border-[#ffc107] shadow-md transition-all duration-300 hover:shadow-xl hover:border-[#ffeb3b] hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-[#ffc107] text-[#1a2e20] rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-[#f0f0f0]">Lack of Fundamental Knowledge:</strong>
+                            <p id="sec10-mistake4-desc" class="text-gray-400 mt-1">Failing to answer basic questions from your core subjects shows a lack of a strong academic foundation, which is crucial for a research career.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Guidance -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Guidance 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">While independent research is key, preparing for a specialized interview requires strategic guidance. Look for mentors and institutions that can help you hone your research presentation skills.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">🏢 Academic & Institutional Support</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Seek guidance from your Ph.D. or M.Tech. supervisor. They are your best resource for interview preparation.</li>
+                           <li>Connect with alumni who have secured DRDO fellowships. They can provide valuable insights.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Professional & Research Networks</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Networking with other researchers and professionals can give you an edge in understanding current trends.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Attend seminars, conferences, and workshops related to your field.</li>
+                            <li>Practice explaining your research to a non-expert audience to improve clarity and communication.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Stipend & Benefits -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Stipend & Benefits 💰</h2>
+                <p id="sec12-p1" class="text-lg mb-6">DRDO research fellowships offer a competitive stipend and other benefits, making them an attractive career option for young researchers. The stipend is revised from time to time based on government norms.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Stipend Details</button>
+            </section>
+
+            <!-- Section 13: Study Material -->
+            <section class="card bg-gradient-to-br from-[#253228] to-[#1a2e20]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Study & Research Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For a research fellowship, your study material is your own academic work and a deep understanding of your field. Here are some key areas to focus on.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Core Subjects -->
+                    <div class="bg-[#2b3a2e] p-6 rounded-lg shadow-lg border border-[#455a48] hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Core Academic Subjects</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Research Work -->
+                    <div class="bg-[#2b3a2e] p-6 rounded-lg shadow-lg border border-[#455a48] hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Your Research & Thesis</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Current Trends -->
+                    <div class="bg-[#2b3a2e] p-6 rounded-lg shadow-lg border border-[#455a48] hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-psych-title" class="subject-category-heading">Recent Research & Publications</h3>
+                        <div id="syllabus-psych-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- DRDO Work -->
+                    <div class="bg-[#2b3a2e] p-6 rounded-lg shadow-lg border border-[#455a48] hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-gto-title" class="subject-category-heading">DRDO's Research Focus</h3>
+                        <div id="syllabus-gto-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-[#ffc107]/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Research for a stronger nation.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-[#ffc107] mb-4">Application Screening & Shortlisting</h3>
+            <p id="prelims-modal-p1">This is the first stage where applications are screened based on academic qualifications, GATE/NET score, research experience, and publications. A shortlist is prepared for the interview.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-[#ffc107] mb-4">Personal Interview</h3>
+            <p id="mains-modal-p1">The personal interview is conducted by a panel of experts. It assesses your technical knowledge, research aptitude, and the relevance of your research to DRDO's work. The interview is the sole basis for final selection.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-[#ffc107] mb-4">Document Verification</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">After the final merit list is published, selected candidates undergo document verification to confirm their eligibility. A medical examination is also conducted to ensure fitness for the position.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-[#f0f0f0]"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-400 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-[#ffc107] mb-6">DRDO Research Fellowship Stipend</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'jrf': { 
+                        name: 'Junior Research Fellowship (JRF)', 
+                        icon: '🎓',
+                        description: 'This is a two-year fellowship for young researchers with a postgraduate degree in science or a graduate degree in engineering. JRFs work on a specific project, gaining valuable research experience under the guidance of a senior scientist.',
+                        cta: 'Click to learn more'
+                    },
+                    'srf': { 
+                        name: 'Senior Research Fellowship (SRF)', 
+                        icon: '🔬',
+                        description: 'A three-year fellowship for experienced researchers, typically post-JRF or with significant research experience. SRFs are expected to conduct more independent research and take on greater responsibility in the project.',
+                        cta: 'Click to learn more'
+                    },
+                    'ra': { 
+                        name: 'Research Associate (RA)', 
+                        icon: '👨‍🔬',
+                        description: 'A two-year post-doctoral fellowship for individuals with a Ph.D. RAs are independent researchers who lead their own projects and contribute significantly to the lab\'s research goals. They receive a higher stipend and benefits.',
+                        cta: 'Click to learn more'
+                    }
+                },
+                'hi': {
+                    'jrf': { 
+                        name: 'जूनियर रिसर्च फेलोशिप (JRF)', 
+                        icon: '🎓',
+                        description: 'विज्ञान में स्नातकोत्तर या इंजीनियरिंग में स्नातक डिग्री वाले युवा शोधकर्ताओं के लिए यह दो साल की फेलोशिप है। JRFs एक वरिष्ठ वैज्ञानिक के मार्गदर्शन में एक विशिष्ट परियोजना पर काम करते हैं, मूल्यवान शोध अनुभव प्राप्त करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'srf': { 
+                        name: 'सीनियर रिसर्च फेलोशिप (SRF)', 
+                        icon: '🔬',
+                        description: 'अनुभवी शोधकर्ताओं के लिए तीन साल की फेलोशिप, आमतौर पर JRF के बाद या महत्वपूर्ण शोध अनुभव के साथ। SRFs से अधिक स्वतंत्र शोध करने और परियोजना में अधिक जिम्मेदारी लेने की उम्मीद की जाती है।',
+                        cta: 'और जानें'
+                    },
+                    'ra': { 
+                        name: 'रिसर्च एसोसिएट (RA)', 
+                        icon: '👨‍🔬',
+                        description: 'Ph.D. वाले व्यक्तियों के लिए दो साल की पोस्ट-डॉक्टोरल फेलोशिप। RAs स्वतंत्र शोधकर्ता होते हैं जो अपनी परियोजनाओं का नेतृत्व करते हैं और प्रयोगशाला के शोध लक्ष्यों में महत्वपूर्ण योगदान देते हैं। उन्हें उच्च वजीफा और लाभ प्राप्त होते हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { grade: "JRF (Junior Research Fellowship)", stipend: "₹ 37,000 per month", desc: "Plus HRA (House Rent Allowance) as per government norms." },
+                        { grade: "SRF (Senior Research Fellowship)", stipend: "₹ 42,000 per month", desc: "Plus HRA as per government norms. Typically a promotion from JRF or direct entry for experienced candidates." },
+                        { grade: "RA (Research Associate)", stipend: "₹ 67,000 per month", desc: "Plus HRA as per government norms. This is a post-doctoral position with a higher stipend." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { grade: "JRF (जूनियर रिसर्च फेलोशिप)", stipend: "₹ 37,000 प्रति माह", desc: "साथ ही सरकारी मानदंडों के अनुसार एचआरए (House Rent Allowance) भी।" },
+                        { grade: "SRF (सीनियर रिसर्च फेलोशिप)", stipend: "₹ 42,000 प्रति माह", desc: "साथ ही सरकारी मानदंडों के अनुसार एचआरए भी। आमतौर पर JRF से पदोन्नति या अनुभवी उम्मीदवारों के लिए सीधा प्रवेश।" },
+                        { grade: "RA (रिसर्च एसोसिएट)", stipend: "₹ 67,000 प्रति माह", desc: "साथ ही सरकारी मानदंडों के अनुसार एचआरए भी। यह एक उच्च वजीफा के साथ एक पोस्ट-डॉक्टोरल पद है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🔬 DRDO Research Fellowships 🔭',
+                    'header-subtitle': 'Join the forefront of defence research',
+                    'sec1-title': '1. DRDO Fellowship Overview 💡',
+                    'sec1-p1': 'DRDO offers prestigious research fellowships to young and experienced scientists, including the Junior Research Fellowship (JRF), Senior Research Fellowship (SRF), and Research Associate (RA). These positions are a gateway to cutting-edge research in various defense-related scientific and technical domains.',
+                    'sec2-title': '2. Selection Process: Key Stages 🎯',
+                    'sec2-p1': 'The selection process is designed to identify individuals with a strong academic background, research aptitude, and a passion for scientific inquiry. It typically involves a screening process followed by a rigorous interview.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'Application & Shortlisting',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Interview', 'sec2-step2-desc': 'Technical & Research Interview',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Documentation', 'sec2-step3-desc': 'Verification & Medical Check',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria vary by fellowship type:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': 'Varies from B.E./B.Tech (with GATE/NET) for JRF to M.E./M.Tech and Ph.D. for SRF and RA.',
+                    'sec3-age-title': 'Age:', 'sec3-age-desc': 'Upper age limit is typically **28 years** for JRF, **32 years** for SRF, and **35 years** for RA.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'Must be an Indian citizen.',
+                    'sec3-attempts-title': 'Screening & Qualifications 📊',
+                    'sec3-attempts-p1': 'Screening for the interview is based on academic qualifications and performance in national-level tests like GATE or CSIR-UGC NET.',
+                    'sec3-agerelax-list': '<li><strong>JRF:</strong> B.E./B.Tech with valid GATE score or M.E./M.Tech degree.</li><li><strong>SRF:</strong> M.E./M.Tech or equivalent, with a minimum of two years of research experience.</li><li><strong>RA:</strong> Ph.D. or equivalent degree.</li>',
+                    'sec3-attempts-p2': 'Duration of Fellowship:',
+                    'sec3-attempts-p3': 'JRFs and SRFs are for a fixed tenure, typically two to three years, with a possibility of extension. RA is for a maximum of two years.',
+                    'sec4-title': '4. Interview Focus & Assessment 📚',
+                    'sec4-p1': 'The interview is the most critical part of the selection process. It is a research-oriented assessment designed to evaluate a candidate\'s technical depth and potential to contribute to defence R&D.',
+                    'gs1-title': 'Technical & Core Knowledge 🧠', 'gs1-sub1': 'Fundamentals of your discipline', 'gs1-sub2': 'Application of concepts',
+                    'gs2-title': 'Research Experience 📈', 'gs2-sub1': 'Previous projects & publications', 'gs2-sub2': 'Problem-solving during research', 'gs2-sub3': 'Thesis/dissertation details',
+                    'gs3-title': 'General Aptitude & Interest 🗣️', 'gs3-sub1': 'Awareness of DRDO\'s work', 'gs3-sub2': 'Communication skills', 'gs3-sub3': 'Aptitude for research',
+                    'sec5-title': '5. Life as a DRDO Fellow 🚀',
+                    'sec5-p1': 'Research fellows at DRDO work in a world-class environment, collaborating with leading scientists on projects of national importance. It is a challenging yet highly rewarding experience.',
+                    'sec5-hindi-title': '1. The Research Environment', 'sec5-hindi-p1': 'Fellows are assigned to a specific DRDO laboratory to work on a live research project under the guidance of a supervisor.', 'sec5-hindi-list': '<li>Access to state-of-the-art facilities and equipment.</li><li>Mentorship from senior scientists and project leaders.</li><li>Opportunities for publication in reputed journals.</li><li>Exposure to a wide range of defense technologies.</li>',
+                    'sec5-essay-title': '2. Key Objectives', 'sec5-essay-p1': 'The goal is to contribute meaningfully to ongoing research while developing a deep understanding of the chosen field.', 'sec5-essay-list': '<li>Conducting independent and collaborative research.</li><li>Publishing research findings and patents.</li><li>Gaining practical experience in defense-related R&D.</li><li>Building a foundation for a full-time scientific career.</li>',
+                    'sec6-title': '6. Research Disciplines 🌟',
+                    'sec6-p1': 'DRDO fellowships are offered in a wide array of scientific and engineering disciplines to support a diverse range of research projects.',
+                    'sec6-eng-title': 'Engineering', 'sec6-eng-list': '<li>Mechanical Engineering</li><li>Electronics & Communication Engg.</li><li>Computer Science</li><li>Aeronautical Engineering</li><li>Chemical Engineering</li>',
+                    'sec6-elec-title': 'Science', 'sec6-elec-list': '<li>Physics</li><li>Chemistry</li><li>Mathematics</li><li>Material Science</li><li>Biotechnology</li>',
+                    'sec6-naic-title': 'Other Fields', 'sec6-naic-list': '<li>Naval Architecture</li><li>Metallurgical Engineering</li><li>Cyber Security</li><li>Artificial Intelligence</li>',
+                    'sec6-imp-title': '💡 Find your match:', 'sec6-imp-p1': 'The specific disciplines for which fellowships are offered depend on the needs of the individual labs. Always check the official notification for the list of available research areas.',
+                    'sec7-title': '7. Key Competencies Evaluated 🎙️',
+                    'sec7-p1': 'The interview panel assesses a candidate on key competencies essential for a successful research career. The evaluation focuses on your technical depth, problem-solving skills, and research aptitude.',
+                    'sec7-qualities-title': 'Competencies:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-[#ffc107] mr-3">🧠</span><div><strong class="text-[#f0f0f0]">Research Aptitude:</strong> Passion for inquiry, critical thinking, and a scientific mindset.</div></li><li><span class="text-2xl text-[#ffc107] mr-3">🤝</span><div><strong class="text-[#f0f0f0]">Technical Expertise:</strong> Deep understanding of your core subject and research area.</div></li><li><span class="text-2xl text-[#ffc107] mr-3">💡</span><div><strong class="text-[#f0f0f0]">Innovation & Problem-Solving:</strong> Ability to think creatively and provide innovative solutions.</div></li><li><span class="text-2xl text-[#ffc107] mr-3">📢</span><div><strong class="text-[#f0f0f0]">Communication:</strong> Clear and concise articulation of complex research ideas.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy: Smart Work 📈',
+                    'sec8-p1': 'Success in a DRDO research fellowship interview is about showcasing your research potential and technical expertise. A focused approach is key.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Deep Dive into Research', 'sec8-step1-desc': 'Be an expert on your M.Tech thesis or Ph.D. dissertation. The interview will revolve around your research work, so know every detail.',
+                    'sec8-step2-title': 'Master the Fundamentals', 'sec8-step2-desc': 'The panel may ask questions from your core engineering or science subjects. A strong foundation is essential to demonstrate your problem-solving abilities.',
+                    'sec8-step3-title': 'Stay Updated', 'sec8-step3-desc': 'Read recent research papers in your domain and be aware of the latest projects and missions of DRDO. This shows genuine interest and helps you relate your work to their needs.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Prepare a Presentation:</strong> Be ready to give a short (5-10 minute) presentation on your research topic without a laptop. Practice this to be concise and impactful.</li><li><strong>Mock Interviews:</strong> Conduct mock interviews with mentors or peers. Practice articulating your research findings and answering technical questions under pressure.</li><li><strong>Read & Write:</strong> Regularly read research papers and practice writing research summaries or abstracts. This will sharpen your critical thinking and communication skills.</li><li><strong>Network:</strong> Engage with professionals and researchers in your field. This can give you insights into current trends and research directions.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'DRDO fellowship recruitment cycles are announced periodically based on vacancies in different labs. Always refer to the official DRDO website for the latest notifications and timelines.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Varies depending on the lab and specific project requirements.',
+                    'sec9-step2-title': 'Application Period', 'sec9-step2-desc': '<strong>Timeline:</strong> Typically 30 days from the date of notification release.',
+                    'sec9-step3-title': 'Screening & Shortlisting', 'sec9-step3-desc': '<strong>Timeline:</strong> Candidates are shortlisted based on their academic record, experience, and sometimes an online written test.',
+                    'sec9-step4-title': 'Interview & Final Selection', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared based on the performance in the personal interview. The interview is the sole basis for final selection.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Avoiding these common pitfalls can significantly improve your chances of securing a research fellowship at DRDO.',
+                    'sec10-mistake1-title': 'Superficial Research Knowledge:', 'sec10-mistake1-desc': 'Not being able to explain your own research project in depth or defend your methodology. This is a primary disqualification.',
+                    'sec10-mistake2-title': 'Lack of Interest in DRDO\'s work:', 'sec10-mistake2-desc': 'Interviewers expect you to know what DRDO does and how your research could be relevant to national defense. Lack of awareness shows disinterest.',
+                    'sec10-mistake3-title': 'Poor Communication:', 'sec10-mistake3-desc': 'Being unable to articulate complex research ideas clearly and concisely is a major drawback. The ability to present your work is as important as the work itself.',
+                    'sec10-mistake4-title': 'Lack of Fundamental Knowledge:', 'sec10-mistake4-desc': 'Failing to answer basic questions from your core subjects shows a lack of a strong academic foundation, which is crucial for a research career.',
+                    'sec11-title': '11. Where to Get Guidance 🏫',
+                    'sec11-p1': 'While independent research is key, preparing for a specialized interview requires strategic guidance. Look for mentors and institutions that can help you hone your research presentation skills.',
+                    'sec11-gov-title': '🏢 Academic & Institutional Support', 'sec11-gov-list': '<li>Seek guidance from your Ph.D. or M.Tech. supervisor. They are your best resource for interview preparation.</li><li>Connect with alumni who have secured DRDO fellowships. They can provide valuable insights.</li>',
+                    'sec11-pvt-title': 'Professional & Research Networks', 'sec11-pvt-p1': 'Networking with other researchers and professionals can give you an edge in understanding current trends.', 'sec11-pvt-list': '<li>Attend seminars, conferences, and workshops related to your field.</li><li>Practice explaining your research to a non-expert audience to improve clarity and communication.</li>',
+                    'sec12-title': '12. Stipend & Benefits 💰',
+                    'sec12-p1': 'DRDO research fellowships offer a competitive stipend and other benefits, making them an attractive career option for young researchers. The stipend is revised from time to time based on government norms.',
+                    'sec12-career-btn': 'View Stipend Details',
+                    'sec13-title': '13. Study & Research Material 📚',
+                    'sec13-p1': 'For a research fellowship, your study material is your own academic work and a deep understanding of your field. Here are some key areas to focus on.',
+                    'syllabus-oir-title': 'Core Academic Subjects',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">Fundamental principles</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➗</span><div class="flex-grow">Problem-solving and applications</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Your Research & Thesis',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📝</span><div class="flex-grow">Research methodology and findings</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">Data analysis and results</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-psych-title': 'Recent Research & Publications',
+                    'syllabus-psych-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">Recent publications in your field</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">Trends and future directions of research</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-gto-title': 'DRDO\'s Research Focus',
+                    'syllabus-gto-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Key DRDO labs and projects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛡️</span><div class="flex-grow">Contribution to defense technology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Research for a stronger nation.',
+                    'interviewChartData': {
+                        labels: ['Research Aptitude', 'Technical Expertise', 'Innovation', 'Communication'],
+                        data: [95, 90, 85, 80]
+                    }
+                },
+                'hi': {
+                    'header-title': '🔬 डीआरडीओ रिसर्च फेलोशिप 🔭',
+                    'header-subtitle': 'रक्षा अनुसंधान के अग्रणी में शामिल हों',
+                    'sec1-title': '1. डीआरडीओ फेलोशिप अवलोकन 💡',
+                    'sec1-p1': 'डीआरडीओ युवा और अनुभवी वैज्ञानिकों को जूनियर रिसर्च फेलोशिप (JRF), सीनियर रिसर्च फेलोशिप (SRF) और रिसर्च एसोसिएट (RA) सहित प्रतिष्ठित शोध फेलोशिप प्रदान करता है। ये पद विभिन्न रक्षा-संबंधित वैज्ञानिक और तकनीकी डोमेन में अत्याधुनिक अनुसंधान का एक प्रवेश द्वार हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: प्रमुख चरण 🎯',
+                    'sec2-p1': 'चयन प्रक्रिया को मजबूत शैक्षणिक पृष्ठभूमि, अनुसंधान योग्यता और वैज्ञानिक जांच के प्रति जुनून वाले व्यक्तियों की पहचान करने के लिए डिज़ाइन किया गया है। इसमें आमतौर पर एक स्क्रीनिंग प्रक्रिया और उसके बाद एक कठोर साक्षात्कार शामिल होता है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'आवेदन और शॉर्टलिस्टिंग',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'साक्षात्कार', 'sec2-step2-desc': 'तकनीकी और अनुसंधान साक्षात्कार',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'दस्तावेजीकरण', 'sec2-step3-desc': 'सत्यापन और चिकित्सा जांच',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'फेलोशिप के प्रकार के अनुसार पात्रता मानदंड भिन्न होते हैं:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'JRF के लिए B.E./B.Tech (GATE/NET के साथ) से SRF और RA के लिए M.E./M.Tech और Ph.D. तक भिन्न होता है।',
+                    'sec3-age-title': 'आयु:', 'sec3-age-desc': 'JRF के लिए ऊपरी आयु सीमा आमतौर पर **28 वर्ष**, SRF के लिए **32 वर्ष**, और RA के लिए **35 वर्ष** होती है।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'भारतीय नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'स्क्रीनिंग और योग्यताएं 📊',
+                    'sec3-attempts-p1': 'साक्षात्कार के लिए स्क्रीनिंग शैक्षणिक योग्यता और GATE या CSIR-UGC NET जैसे राष्ट्रीय-स्तर के परीक्षणों में प्रदर्शन पर आधारित है।',
+                    'sec3-agerelax-list': '<li><strong>JRF:</strong> वैध GATE स्कोर के साथ B.E./B.Tech या M.E./M.Tech डिग्री।</li><li><strong>SRF:</strong> M.E./M.Tech या समकक्ष, जिसमें न्यूनतम दो साल का शोध अनुभव हो।</li><li><strong>RA:</strong> Ph.D. या समकक्ष डिग्री।</li>',
+                    'sec3-attempts-p2': 'फेलोशिप की अवधि:',
+                    'sec3-attempts-p3': 'JRFs और SRFs एक निश्चित कार्यकाल के लिए होते हैं, आमतौर पर दो से तीन साल, विस्तार की संभावना के साथ। RA अधिकतम दो साल के लिए होता है।',
+                    'sec4-title': '4. साक्षात्कार फोकस और मूल्यांकन 📚',
+                    'sec4-p1': 'साक्षात्कार चयन प्रक्रिया का सबसे महत्वपूर्ण हिस्सा है। यह एक शोध-उन्मुख मूल्यांकन है जिसे एक उम्मीदवार की तकनीकी गहराई और रक्षा अनुसंधान और विकास में योगदान करने की क्षमता का मूल्यांकन करने के लिए डिज़ाइन किया गया है।',
+                    'gs1-title': 'तकनीकी और कोर ज्ञान 🧠', 'gs1-sub1': 'अपने अनुशासन के मूलभूत सिद्धांत', 'gs1-sub2': 'अवधारणाओं का अनुप्रयोग',
+                    'gs2-title': 'अनुसंधान अनुभव 📈', 'gs2-sub1': 'पिछली परियोजनाएं और प्रकाशन', 'gs2-sub2': 'शोध के दौरान समस्या-समाधान', 'gs2-sub3': 'थीसिस/शोध प्रबंध विवरण',
+                    'gs3-title': 'सामान्य योग्यता और रुचि 🗣️', 'gs3-sub1': 'डीआरडीओ के काम के बारे में जागरूकता', 'gs3-sub2': 'संचार कौशल', 'gs3-sub3': 'अनुसंधान के लिए योग्यता',
+                    'sec5-title': '5. डीआरडीओ फेलो के रूप में जीवन 🚀',
+                    'sec5-p1': 'डीआरडीओ में शोध फेलो राष्ट्रीय महत्व की परियोजनाओं पर अग्रणी वैज्ञानिकों के साथ सहयोग करते हुए एक विश्व स्तरीय वातावरण में काम करते हैं। यह एक चुनौतीपूर्ण फिर भी अत्यधिक पुरस्कृत अनुभव है।',
+                    'sec5-hindi-title': '1. अनुसंधान वातावरण', 'sec5-hindi-p1': 'फेलो को एक पर्यवेक्षक के मार्गदर्शन में एक लाइव शोध परियोजना पर काम करने के लिए एक विशिष्ट डीआरडीओ प्रयोगशाला को सौंपा जाता है।', 'sec5-hindi-list': '<li>अत्याधुनिक सुविधाओं और उपकरणों तक पहुंच।</li><li>वरिष्ठ वैज्ञानिकों और परियोजना नेताओं से mentorship।</li><li>प्रतिष्ठित पत्रिकाओं में प्रकाशन के अवसर।</li><li>रक्षा प्रौद्योगिकियों की एक विस्तृत श्रृंखला के संपर्क में आना।</li>',
+                    'sec5-essay-title': '2. प्रमुख उद्देश्य', 'sec5-essay-p1': 'लक्ष्य चुने हुए क्षेत्र की गहरी समझ विकसित करते हुए चल रहे शोध में सार्थक योगदान करना है।', 'sec5-essay-list': '<li>स्वतंत्र और सहयोगी शोध करना।</li><li>शोध निष्कर्ष और पेटेंट प्रकाशित करना।</li><li>रक्षा-संबंधित अनुसंधान और विकास में व्यावहारिक अनुभव प्राप्त करना।</li><li>एक पूर्णकालिक वैज्ञानिक करियर के लिए एक नींव बनाना।</li>',
+                    'sec6-title': '6. अनुसंधान अनुशासन 🌟',
+                    'sec6-p1': 'डीआरडीओ फेलोशिप को शोध परियोजनाओं की एक विविध श्रृंखला का समर्थन करने के लिए वैज्ञानिक और इंजीनियरिंग विषयों की एक विस्तृत श्रृंखला में पेश किया जाता है।',
+                    'sec6-eng-title': 'इंजीनियरिंग', 'sec6-eng-list': '<li>मैकेनिकल इंजीनियरिंग</li><li>इलेक्ट्रॉनिक्स और संचार इंजीनियरिंग।</li><li>कंप्यूटर विज्ञान</li><li>एरोनॉटिकल इंजीनियरिंग</li><li>रासायनिक इंजीनियरिंग</li>',
+                    'sec6-elec-title': 'विज्ञान', 'sec6-elec-list': '<li>भौतिकी</li><li>रसायन विज्ञान</li><li>गणित</li><li>सामग्री विज्ञान</li><li>जैव प्रौद्योगिकी</li>',
+                    'sec6-naic-title': 'अन्य क्षेत्र', 'sec6-naic-list': '<li>नौसेना वास्तुकला</li><li>धातुकर्म इंजीनियरिंग</li><li>साइबर सुरक्षा</li><li>आर्टिफिशियल इंटेलिजेंस</li>',
+                    'sec6-imp-title': '💡 अपने मैच का पता लगाएं:', 'sec6-imp-p1': 'जिन विशिष्ट विषयों के लिए फेलोशिप की पेशकश की जाती है, वे व्यक्तिगत प्रयोगशालाओं की जरूरतों पर निर्भर करते हैं। उपलब्ध शोध क्षेत्रों की सूची के लिए हमेशा आधिकारिक अधिसूचना देखें।',
+                    'sec7-title': '7. प्रमुख दक्षताओं का मूल्यांकन 🎙️',
+                    'sec7-p1': 'साक्षात्कार पैनल एक सफल शोध करियर के लिए आवश्यक प्रमुख दक्षताओं पर एक उम्मीदवार का आकलन करता है। मूल्यांकन आपकी तकनीकी गहराई, समस्या-समाधान कौशल और अनुसंधान योग्यता पर केंद्रित है।',
+                    'sec7-qualities-title': 'दक्षताएं:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-[#ffc107] mr-3">🧠</span><div><strong class="text-[#f0f0f0]">अनुसंधान योग्यता:</strong> जांच के लिए जुनून, महत्वपूर्ण सोच और एक वैज्ञानिक मानसिकता।</div></li><li><span class="text-2xl text-[#ffc107] mr-3">🤝</span><div><strong class="text-[#f0f0f0]">तकनीकी विशेषज्ञता:</strong> अपने मूल विषय और शोध क्षेत्र की गहरी समझ।</div></li><li><span class="text-2xl text-[#ffc107] mr-3">💡</span><div><strong class="text-[#f0f0f0]">नवाचार और समस्या-समाधान:</strong> रचनात्मक रूप से सोचने और नवीन समाधान प्रदान करने की क्षमता।</div></li><li><span class="text-2xl text-[#ffc107] mr-3">📢</span><div><strong class="text-[#f0f0f0]">संचार:</strong> जटिल शोध विचारों की स्पष्ट और संक्षिप्त अभिव्यक्ति।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी रणनीति: स्मार्ट कार्य 📈',
+                    'sec8-p1': 'डीआरडीओ शोध फेलोशिप साक्षात्कार में सफलता अपनी शोध क्षमता और तकनीकी विशेषज्ञता को प्रदर्शित करने के बारे में है। एक केंद्रित दृष्टिकोण महत्वपूर्ण है।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'अनुसंधान में गहरी डुबकी लगाएं', 'sec8-step1-desc': 'अपनी M.Tech थीसिस या Ph.D. शोध प्रबंध पर एक विशेषज्ञ बनें। साक्षात्कार आपके शोध कार्य के चारों ओर घूमेगा, इसलिए हर विस्तार को जानें।',
+                    'sec8-step2-title': 'मूलभूत सिद्धांतों में महारत हासिल करें', 'sec8-step2-desc': 'पैनल आपके मूल इंजीनियरिंग या विज्ञान विषयों से प्रश्न पूछ सकता है। अपनी समस्या-समाधान क्षमताओं को प्रदर्शित करने के लिए एक मजबूत नींव आवश्यक है।',
+                    'sec8-step3-title': 'अपडेट रहें', 'sec8-step3-desc': 'अपने डोमेन में हाल के शोध पत्रों को पढ़ें और डीआरडीओ की नवीनतम परियोजनाओं और मिशनों के बारे में जागरूक रहें। यह वास्तविक रुचि को दर्शाता है और आपको उनके जरूरतों से अपने काम को जोड़ने में मदद करता है।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>एक प्रस्तुति तैयार करें:</strong> बिना लैपटॉप के अपने शोध विषय पर एक छोटी (5-10 मिनट) प्रस्तुति देने के लिए तैयार रहें। संक्षिप्त और प्रभावशाली होने के लिए इसका अभ्यास करें।</li><li><strong>मॉक साक्षात्कार:</strong> सलाहकारों या साथियों के साथ मॉक साक्षात्कार करें। दबाव में अपने शोध निष्कर्षों को व्यक्त करने और तकनीकी प्रश्नों का उत्तर देने का अभ्यास करें।</li><li><strong>पढ़ें और लिखें:</strong> नियमित रूप से शोध पत्रों को पढ़ें और शोध सारांश या Abstracts लिखने का अभ्यास करें। इससे आपकी महत्वपूर्ण सोच और संचार कौशल तेज होंगे।</li><li><strong>नेटवर्क:</strong> अपने क्षेत्र में पेशेवरों और शोधकर्ताओं के साथ जुड़ें। यह आपको वर्तमान रुझानों और शोध दिशाओं में अंतर्दृष्टि दे सकता है।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'डीआरडीओ फेलोशिप भर्ती चक्र विभिन्न प्रयोगशालाओं में रिक्तियों के आधार पर समय-समय पर घोषित किए जाते हैं। नवीनतम अधिसूचनाओं और समयरेखाओं के लिए हमेशा आधिकारिक डीआरडीओ वेबसाइट देखें।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> प्रयोगशाला और विशिष्ट परियोजना आवश्यकताओं के आधार पर भिन्न होती है।',
+                    'sec9-step2-title': 'आवेदन अवधि', 'sec9-step2-desc': '<strong>समयरेखा:</strong> अधिसूचना जारी होने की तारीख से आमतौर पर 30 दिन।',
+                    'sec9-step3-title': 'स्क्रीनिंग और शॉर्टलिस्टिंग', 'sec9-step3-desc': '<strong>समयरेखा:</strong> उम्मीदवारों को उनके शैक्षणिक रिकॉर्ड, अनुभव और कभी-कभी एक ऑनलाइन लिखित परीक्षा के आधार पर शॉर्टलिस्ट किया जाता है।',
+                    'sec9-step4-title': 'साक्षात्कार और अंतिम चयन', 'sec9-step4-desc': '<strong>समयरेखा:</strong> व्यक्तिगत साक्षात्कार में प्रदर्शन के आधार पर एक अंतिम मेरिट सूची तैयार की जाती है। अंतिम चयन केवल साक्षात्कार पर आधारित है।',
+                    'sec10-title': '10. सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'इन सामान्य नुकसानों से बचना डीआरडीओ में शोध फेलोशिप हासिल करने की आपकी संभावनाओं को काफी बढ़ा सकता है।',
+                    'sec10-mistake1-title': 'सतही शोध ज्ञान:', 'sec10-mistake1-desc': 'अपने स्वयं की शोध परियोजना को गहराई से समझाने या अपनी पद्धति का बचाव करने में सक्षम न होना। यह एक प्राथमिक अयोग्यता है।',
+                    'sec10-mistake2-title': 'डीआरडीओ के काम में रुचि की कमी:', 'sec10-mistake2-desc': 'साक्षात्कारकर्ता आपसे यह जानने की उम्मीद करते हैं कि डीआरडीओ क्या करता है और आपका शोध राष्ट्रीय रक्षा के लिए कैसे प्रासंगिक हो सकता है। जागरूकता की कमी अरुचि को दर्शाती है।',
+                    'sec10-mistake3-title': 'खराब संचार:', 'sec10-mistake3-desc': 'जटिल शोध विचारों को स्पष्ट और संक्षेप में व्यक्त करने में असमर्थ होना एक प्रमुख कमी है। अपने काम को प्रस्तुत करने की क्षमता उतनी ही महत्वपूर्ण है जितना काम खुद।',
+                    'sec10-mistake4-title': 'मौलिक ज्ञान की कमी:', 'sec10-mistake4-desc': 'अपने मूल विषयों से बुनियादी प्रश्नों का उत्तर देने में विफल होना एक मजबूत शैक्षणिक नींव की कमी को दर्शाता है, जो एक शोध करियर के लिए महत्वपूर्ण है।',
+                    'sec11-title': '11. मार्गदर्शन कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'जबकि स्वतंत्र शोध महत्वपूर्ण है, एक विशेष साक्षात्कार की तैयारी के लिए रणनीतिक मार्गदर्शन की आवश्यकता होती है। उन सलाहकारों और संस्थानों की तलाश करें जो आपके शोध प्रस्तुति कौशल को निखारने में आपकी मदद कर सकते हैं।',
+                    'sec11-gov-title': '🏢 शैक्षणिक और संस्थागत समर्थन', 'sec11-gov-list': '<li>अपने Ph.D. या M.Tech. पर्यवेक्षक से मार्गदर्शन लें। वे साक्षात्कार की तैयारी के लिए आपके सबसे अच्छे संसाधन हैं।</li><li>उन पूर्व छात्रों से जुड़ें जिन्होंने डीआरडीओ फेलोशिप हासिल की है। वे मूल्यवान अंतर्दृष्टि प्रदान कर सकते हैं।</li>',
+                    'sec11-pvt-title': 'पेशेवर और शोध नेटवर्क', 'sec11-pvt-p1': 'अन्य शोधकर्ताओं और पेशेवरों के साथ नेटवर्किंग आपको वर्तमान रुझानों को समझने में एक बढ़त दे सकती है।', 'sec11-pvt-list': '<li>अपने क्षेत्र से संबंधित सेमिनार, सम्मेलनों और कार्यशालाओं में भाग लें।</li><li>स्पष्टता और संचार में सुधार के लिए अपने शोध को एक गैर-विशेषज्ञ दर्शकों के सामने समझाने का अभ्यास करें।</li>',
+                    'sec12-title': '12. वजीफा और लाभ 💰',
+                    'sec12-p1': 'डीआरडीओ शोध फेलोशिप एक प्रतिस्पर्धी वजीफा और अन्य लाभ प्रदान करती है, जो युवा शोधकर्ताओं के लिए उन्हें एक आकर्षक कैरियर विकल्प बनाती है। सरकारी मानदंडों के आधार पर वजीफा समय-समय पर संशोधित होता रहता है।',
+                    'sec12-career-btn': 'वजीफा विवरण देखें',
+                    'sec13-title': '13. अध्ययन और शोध सामग्री 📚',
+                    'sec13-p1': 'एक शोध फेलोशिप के लिए, आपकी अध्ययन सामग्री आपका अपना शैक्षणिक काम और आपके क्षेत्र की गहरी समझ है। यहाँ ध्यान केंद्रित करने के लिए कुछ प्रमुख क्षेत्र दिए गए हैं।',
+                    'syllabus-oir-title': 'कोर शैक्षणिक विषय',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">मूलभूत सिद्धांत</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➗</span><div class="flex-grow">समस्या-समाधान और अनुप्रयोग</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'आपका शोध और थीसिस',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📝</span><div class="flex-grow">शोध पद्धति और निष्कर्ष</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">डेटा विश्लेषण और परिणाम</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-psych-title': 'हाल के शोध और प्रकाशन',
+                    'syllabus-psych-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">आपके क्षेत्र में हाल के प्रकाशन</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔬</span><div class="flex-grow">शोध के रुझान और भविष्य की दिशाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-gto-title': 'डीआरडीओ का शोध फोकस',
+                    'syllabus-gto-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">प्रमुख डीआरडीओ प्रयोगशालाएं और परियोजनाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛡️</span><div class="flex-grow">रक्षा प्रौद्योगिकी में योगदान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एक मजबूत राष्ट्र के लिए शोध।',
+                    'interviewChartData': {
+                        labels: ['अनुसंधान योग्यता', 'तकनीकी विशेषज्ञता', 'नवाचार', 'संचार'],
+                        data: [95, 90, 85, 80]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#253228] rounded-xl text-center border-2 border-[#455a48] hover:border-[#ffc107] transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-[#f0f0f0]">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-[#ffc107] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-[#f0f0f0] mb-1">${step.grade} (${step.stipend})</h4>
+                        <p class="text-base text-gray-400">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Competencies',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: '#ffc107',
+                            borderColor: '#ffeb3b',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100, grid: { color: '#455a48' }, ticks: { color: '#f0f0f0' } },
+                            x: { ticks: { font: { size: 14, color: '#f0f0f0' } }, grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
