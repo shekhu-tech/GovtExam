@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARC Scientific Officer Guide: Training School Entry</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to joining BARC as a Scientific Officer (Group A) through the BARC Training Schools' OCES/DGFS programme.">
+    <meta name="keywords" content="BARC, OCES, DGFS, Scientific Officer, BARC Training Schools, DAE, BARC Recruitment, Engineering Jobs, Nuclear Science, Government Jobs">
+    <meta name="author" content="BARC Scientific Officer Guide">
+    <style>
+        :root {
+            --primary-bg: #11111B;
+            --secondary-bg: #1C1C2B;
+            --card-bg: rgba(28, 28, 43, 0.75);
+            --text-primary: #EAEAEA;
+            --text-secondary: #A0AEC0;
+            --accent-primary: #A78BFA; /* Lavender */
+            --accent-secondary: #F472B6; /* Pink */
+            --glow-color-1: rgba(167, 139, 250, 0.3);
+            --glow-color-2: rgba(244, 114, 182, 0.3);
+            --border-color: rgba(167, 139, 250, 0.2);
+        }
+
+        @keyframes background-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background-image: linear-gradient(to right, var(--primary-bg), var(--secondary-bg), var(--primary-bg));
+            background-size: 200% 200%;
+            animation: background-pan 15s ease infinite;
+        }
+
+        .section-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--glow-color-1);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px var(--glow-color-1);
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 2px solid var(--accent-secondary);
+            color: var(--text-primary);
+            background: radial-gradient(circle, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color-2), inset 0 0 10px rgba(244, 114, 182, 0.2);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .flowchart-step:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            transform: scale(1.05) rotate(15deg);
+            box-shadow: 0 0 25px var(--glow-color-2);
+        }
+        
+        .flowchart-arrow { color: var(--accent-primary); text-shadow: 0 0 8px var(--glow-color-1); }
+
+        .subject-category-heading {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .subject-item:hover { background-color: rgba(167, 139, 250, 0.08); }
+        .subject-item .icon { color: var(--accent-primary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-1);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 17, 27, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 0 35px var(--glow-color-2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-secondary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-secondary); }
+        .modal-action-button {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 20px var(--glow-color-1);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px var(--glow-color-2);
+            filter: brightness(1.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px var(--glow-color-1);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-primary); color: var(--primary-bg); }
+        .notes-btn:hover { filter: brightness(1.1); }
+        .lectures-btn { background-color: transparent; color: var(--accent-secondary); border-color: var(--accent-secondary); }
+        .lectures-btn:hover { background-color: rgba(244, 114, 182, 0.1); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-accent-primary">⚛️ BARC Scientific Officer Guide ⚛️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-text-secondary font-semibold">Entry through BARC Training Schools (OCES/DGFS)</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is the Role -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. Scientific Officer (Group-A Post) ☢️</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-text-secondary">The Bhabha Atomic Research Centre (BARC) inducts Scientific Officers (Group-A) through its prestigious Training School programs: OCES and DGFS. This is one of the most coveted scientific roles in India, placing you at the forefront of the nation's nuclear program within the Department of Atomic Energy (DAE).</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. The Selection Procedure 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-text-secondary">The selection is a multi-stage process designed to identify candidates with exceptional fundamental knowledge and a strong aptitude for research and development.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-40 flex items-center justify-center flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-text-secondary">Online Exam / GATE Score</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-40 flex items-center justify-center flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Selection Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-text-secondary">In-depth Technical Assessment</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-text-secondary">Aspirants must satisfy the following criteria to be considered for the OCES/DGFS program.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-text-primary text-lg">Education:</strong> <span id="sec3-edu-desc" class="text-text-secondary">**B.E./B.Tech/B.Sc(Engg)/5-year Integrated M.Tech** with a minimum of **60% aggregate marks**.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎂</span><div><strong id="sec3-nat-title" class="text-text-primary text-lg">Age Limit:</strong> <span id="sec3-nat-desc" class="text-text-secondary">**26 years** for General Category, with relaxations for OBC (29 yrs), SC/ST (31 yrs), and other specified categories.</span></div></li>
+                             <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🇮🇳</span><div><strong id="sec3-nationality-title" class="text-text-primary text-lg">Nationality:</strong> <span id="sec3-nationality-desc" class="text-text-secondary">Must be an Indian citizen.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-text-primary mb-4 border-b border-accent-secondary pb-2">Qualifying Disciplines 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-text-secondary">Candidates must have a degree in one of the engineering or science disciplines specified in the advertisement.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-text-secondary">
+                           <li>Engineering: Mechanical, Chemical, Civil, Electrical, Electronics, etc.</li>
+                           <li>Science: Physics, Chemistry, Geology, etc.</li>
+                           <li>A valid GATE score is an alternative for screening in most disciplines.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Online Exam Syllabus -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Online Exam Syllabus 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The syllabus for the online examination is similar to the Graduate Aptitude Test in Engineering (GATE) for the respective discipline.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Core Engineering</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🔧</span><div id="gs1-sub1">Engineering Mathematics</div></div>
+                            <div class="subject-item"><span class="icon">⚙️</span><div id="gs1-sub2">Discipline-specific subjects</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Science Streams</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">⚛️</span><div id="gs2-sub1">Physics / Chemistry</div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs2-sub2">Based on B.Sc/M.Sc syllabus</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">General Aptitude</h3>
+                         <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs3-sub1">Numerical Ability</div></div>
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs3-sub2">Logical Reasoning</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Interview Process -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. The Selection Interview 🗣️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-text-secondary">The BARC interview is renowned for its rigor and depth. It is a purely technical interview designed to test your fundamental understanding to the limits.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-text-primary mb-2">Focus Areas</h3>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-text-primary mb-2">What to Expect</h3>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Eligible Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Qualifying Degree Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">BARC recruits from a wide array of engineering and science backgrounds for its programs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Core Engineering</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Other Engineering</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Science Disciplines</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-secondary-bg/50 border border-accent-secondary rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-text-primary mb-2">💡 Check Advertisement Details</h4>
+                    <p id="sec6-imp-p1" class="text-base text-text-secondary">The exact list of eligible disciplines and corresponding GATE papers can vary slightly each year. Always refer to the official notification.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Evaluated -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. Qualities of a BARC Scientist 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-text-secondary">The selection process aims to find individuals with a strong scientific temper, analytical mind, and a capacity for high-level research and development work.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-text-primary mb-6 border-b border-accent-secondary pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-text-secondary">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-text-secondary">A meticulous and concept-driven preparation is non-negotiable for success in the BARC exam and interview.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-text-primary mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-text-primary mb-1">Build Crystal-Clear Concepts</h4>
+                                <p id="sec8-step1-desc" class="text-base text-text-secondary">Focus on understanding the core principles from standard textbooks rather than rote learning.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-text-primary mb-1">Solve GATE Papers</h4>
+                                <p id="sec8-step2-desc" class="text-base text-text-secondary">The difficulty and pattern are very similar to GATE. Solving previous years' papers is excellent practice.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-text-primary mb-1">Prepare Technical Notes</h4>
+                                <p id="sec8-step3-desc" class="text-base text-text-secondary">Make short, precise notes for all subjects, which are crucial for last-minute revision before the interview.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-text-primary mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-text-secondary">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-text-secondary">BARC follows a fairly consistent annual recruitment schedule for the OCES/DGFS program.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-text-primary mb-1">Application Window</h4>
+                        <p id="sec9-step1-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Usually opens in January.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-text-primary mb-1">Online Examination</h4>
+                        <p id="sec9-step2-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Conducted in March / April.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-text-primary mb-1">Interview Slot Booking</h4>
+                        <p id="sec9-step3-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Shortlisted candidates book slots in April / May.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-text-primary mb-1">Selection Interviews</h4>
+                        <p id="sec9-step4-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Conducted from May to June in Mumbai.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Silly mistakes can cost you a place in this coveted program. Be mindful of these common errors.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Superficial Preparation:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Relying on formulas without understanding their derivation and application.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Guessing in the Interview:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">The panel values honesty. It is better to say "I don't know" than to guess incorrectly.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Poor Subject Choice:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being thoroughly prepared in the subjects you list as your favorites for the interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Ignoring the Virtual Calculator:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">The online exam uses a specific virtual calculator. Not practicing with it can lead to slower calculations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Information Sources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Find Information 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Always rely on official and trusted sources for information regarding the examination.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Official & Academic Sources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Coaching & Communities</h3>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career Trajectory at DAE 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-text-secondary">A career as a Scientific Officer in the Department of Atomic Energy is one of the most prestigious in the country, offering immense opportunities for research, development, and contribution to national security.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Key Topics & Resources 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Preparation must be exhaustive and concept-oriented. Standard textbooks are your best friends.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Core Engineering Topics</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Resources</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-border-color">
+            <p id="footer-text" class="text-text-secondary text-lg font-medium">&copy; 2025 | For the glory of the nation. Your journey in atomic energy begins.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-text-primary mb-4">Screening Details</h3><p id="prelims-modal-p1" class="text-text-secondary">Candidates are shortlisted for interviews based on their performance in the BARC Online Examination OR their GATE score. The choice between these two screening options must be made at the time of application.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-text-primary mb-4">Selection Interview</h3><p id="mains-modal-p1" class="text-text-secondary">Shortlisted candidates attend a selection interview at the BARC Training School, Mumbai. It is a purely technical interview where the panel probes the fundamental concepts of your chosen subjects.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-text-primary mb-4">Final Selection</h3><p id="interview-modal-p1" class="text-base mb-3 text-text-secondary">Final selection is based solely on performance in the selection interview. There is no weightage for the online exam or GATE score in the final list. Selected candidates are designated as Scientific Officer 'C'.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-text-primary"></h3></div><p id="postDetailDescription" class="text-lg text-text-secondary leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-text-primary mb-6">Career Progression of a DAE Scientific Officer</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'oces': { name: 'OCES', icon: '🎓', description: 'One-year Orientation Course for Engineering Graduates and Science Postgraduates at BARC Training Schools. This rigorous program prepares Trainee Scientific Officers (TSOs) for their roles in various DAE units.', cta: 'Details' },
+                'dgfs': { name: 'DGFS', icon: '📚', description: 'Two-year DAE Graduate Fellowship Scheme for Engineering Graduates and Physics Postgraduates. Fellows pursue an M.Tech. at select institutes while receiving a stipend and assured placement in a DAE unit.', cta: 'Details' },
+            },
+            'hi': {
+                'oces': { name: 'ओसीईएस', icon: '🎓', description: 'बार्क प्रशिक्षण स्कूलों में इंजीनियरिंग स्नातकों और विज्ञान स्नातकोत्तरों के लिए एक वर्षीय ओरिएंटेशन कोर्स। यह कठोर कार्यक्रम प्रशिक्षु वैज्ञानिक अधिकारियों (टीएसओ) को विभिन्न डीएई इकाइयों में उनकी भूमिकाओं के लिए तैयार करता है।', cta: 'विवरण' },
+                'dgfs': { name: 'डीजीएफएस', icon: '📚', description: 'इंजीनियरिंग स्नातकों और भौतिकी स्नातकोत्तरों के लिए दो वर्षीय डीएई स्नातक फैलोशिप योजना। अध्येता वजीफा और डीएई इकाई में सुनिश्चित प्लेसमेंट प्राप्त करते हुए चुनिंदा संस्थानों में एम.टेक करते हैं।', cta: 'विवरण' }
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Scientific Officer 'C'", desc: "Starting position after OCES/DGFS training. Posted to a DAE unit." },
+                    { rank: "Scientific Officer 'D'", desc: "First promotion based on performance review, typically after 4-5 years." },
+                    { rank: "Scientific Officer 'E'", desc: "Lead small projects and teams. Typically achieved after another ~4 years." },
+                    { rank: "Scientific Officer 'F'", desc: "Become a project manager or division head. A senior leadership role." },
+                    { rank: "Scientific Officer 'G', 'H', & Above", desc: "Highest scientific ranks, leading entire centres or programs, reaching up to the level of Chairman, DAE." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "वैज्ञानिक अधिकारी 'सी'", desc: "ओसीईएस/डीजीएफएस प्रशिक्षण के बाद शुरुआती पद। एक डीएई इकाई में तैनात।" },
+                    { rank: "वैज्ञानिक अधिकारी 'डी'", desc: "प्रदर्शन समीक्षा के आधार पर ~4 साल की सेवा के बाद पदोन्नति।" },
+                    { rank: "वैज्ञानिक अधिकारी 'ई'", desc: "छोटी परियोजनाओं और टीमों का नेतृत्व करें। आमतौर पर और ~4 साल बाद हासिल किया जाता है।" },
+                    { rank: "वैज्ञानिक अधिकारी 'एफ'", desc: "एक परियोजना प्रबंधक या प्रभाग प्रमुख बनें। एक वरिष्ठ नेतृत्व की भूमिका।" },
+                    { rank: "वैज्ञानिक अधिकारी 'जी', 'एच', और ऊपर", desc: "उच्चतम वैज्ञानिक रैंक, पूरे केंद्रों या कार्यक्रमों का नेतृत्व करते हुए, डीएई के अध्यक्ष के स्तर तक पहुंचते हैं।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '⚛️ BARC Scientific Officer Guide ⚛️', 'header-subtitle': 'Entry through BARC Training Schools (OCES/DGFS)',
+                'sec1-title': '1. Scientific Officer (Group-A Post) ☢️', 'sec1-p1': 'The Bhabha Atomic Research Centre (BARC) inducts Scientific Officers (Group-A) through its prestigious Training School programs: OCES and DGFS. This is one of the most coveted scientific roles in India, placing you at the forefront of the nation\'s nuclear program within the Department of Atomic Energy (DAE).',
+                'sec2-title': '2. The Selection Procedure 🎯', 'sec2-p1': 'The selection is a multi-stage process designed to identify candidates with exceptional fundamental knowledge and a strong aptitude for research and development.',
+                'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'Online Exam / GATE Score',
+                'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Selection Interview', 'sec2-step2-desc': 'In-depth Technical Assessment',
+                'sec3-title': '3. Eligibility Criteria ✅', 'sec3-p1': 'Aspirants must satisfy the following criteria to be considered for the OCES/DGFS program.',
+                'sec3-edu-title': 'Education:', 'sec3-edu-desc': '**B.E./B.Tech/B.Sc(Engg)/5-year Integrated M.Tech** with a minimum of **60% aggregate marks**.',
+                'sec3-nat-title': 'Age Limit:', 'sec3-nat-desc': '**26 years** for General Category, with relaxations for OBC (29 yrs), SC/ST (31 yrs), and other specified categories.',
+                'sec3-nationality-title': 'Nationality:', 'sec3-nationality-desc': 'Must be an Indian citizen.',
+                'sec3-attempts-title': 'Qualifying Disciplines 📊', 'sec3-attempts-p1': 'Candidates must have a degree in one of the engineering or science disciplines specified in the advertisement.',
+                'sec3-agerelax-list': '<li>Engineering: Mechanical, Chemical, Civil, Electrical, Electronics, etc.</li><li>Science: Physics, Chemistry, Geology, etc.</li><li>A valid GATE score is an alternative for screening in most disciplines.</li>',
+                'sec4-title': '4. Online Exam Syllabus 📚', 'sec4-p1': 'The syllabus for the online examination is similar to the Graduate Aptitude Test in Engineering (GATE) for the respective discipline.',
+                'gs1-title': 'Core Engineering', 'gs1-sub1': 'Engineering Mathematics', 'gs1-sub2': 'Discipline-specific subjects',
+                'gs2-title': 'Science Streams', 'gs2-sub1': 'Physics / Chemistry', 'gs2-sub2': 'Based on B.Sc/M.Sc syllabus',
+                'gs3-title': 'General Aptitude', 'gs3-sub1': 'Numerical Ability', 'gs3-sub2': 'Logical Reasoning',
+                'sec5-title': '5. The Selection Interview 🗣️', 'sec5-p1': 'The BARC interview is renowned for its rigor and depth. It is a purely technical interview designed to test your fundamental understanding to the limits.',
+                'sec5-hindi-title': 'Focus Areas', 'sec5-hindi-list': '<li>Your favorite subjects (be prepared to be grilled).</li><li>Derivations of basic formulas and laws.</li><li>Practical applications of theoretical concepts.</li><li>Your final year B.Tech project.</li>',
+                'sec5-essay-title': 'What to Expect', 'sec5-essay-list': '<li>A panel of senior scientists, each an expert in their field.</li><li>No HR or general knowledge questions.</li><li>The interview can last from 30 minutes to over an hour.</li><li>They will guide you if you are stuck, to see how you think.</li>',
+                'sec6-title': '6. Qualifying Degree Disciplines 🌟', 'sec6-p1': 'BARC recruits from a wide array of engineering and science backgrounds for its programs.',
+                'sec6-eng-title': 'Core Engineering', 'sec6-eng-list': '<li>Mechanical</li><li>Chemical</li><li>Metallurgical</li><li>Electrical</li>',
+                'sec6-elec-title': 'Other Engineering', 'sec6-elec-list': '<li>Electronics</li><li>Computer Science</li><li>Instrumentation</li><li>Civil</li><li>Nuclear Engg.</li>',
+                'sec6-naic-title': 'Science Disciplines', 'sec6-naic-list': '<li>Physics</li><li>Chemistry</li><li>Biosciences</li><li>Geology</li>',
+                'sec6-imp-title': '💡 Check Advertisement Details', 'sec6-imp-p1': 'The exact list of eligible disciplines and corresponding GATE papers can vary slightly each year. Always refer to the official notification.',
+                'sec7-title': '7. Qualities of a BARC Scientist 🎙️', 'sec7-p1': 'The selection process aims to find individuals with a strong scientific temper, analytical mind, and a capacity for high-level research and development work.',
+                'sec7-qualities-title': 'Key Attributes:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>Strong Fundamentals:</strong> An unshakable grasp of core principles.</div></li><li><span class="text-2xl mr-3">📈</span><div><strong>Analytical Ability:</strong> A logical approach to problem-solving.</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>Research Aptitude:</strong> Patience and curiosity for R&D work.</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>Clear Communication:</strong> Ability to explain complex topics simply.</div></li>',
+                'sec8-title': '8. Preparation Strategy 📈', 'sec8-p1': 'A meticulous and concept-driven preparation is non-negotiable for success in the BARC exam and interview.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Build Crystal-Clear Concepts', 'sec8-step1-desc': 'Focus on understanding the core principles from standard textbooks rather than rote learning.', 'sec8-step2-title': 'Solve GATE Papers', 'sec8-step2-desc': 'The difficulty and pattern are very similar to GATE. Solving previous years\' papers is excellent practice.', 'sec8-step3-title': 'Prepare Technical Notes', 'sec8-step3-desc': 'Make short, precise notes for all subjects, which are crucial for last-minute revision before the interview.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Teach to Learn:</strong> Explain concepts to others to solidify your own understanding.</li><li><strong>Pick Your Favorite Subjects:</strong> Master 5-6 of your favorite subjects for the interview.</li><li><strong>Practice with Virtual Calculator:</strong> Familiarize yourself with the online exam interface.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'BARC follows a fairly consistent annual recruitment schedule for the OCES/DGFS program.',
+                'sec9-step1-title': 'Application Window', 'sec9-step1-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Usually opens in January.', 'sec9-step2-title': 'Online Examination', 'sec9-step2-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Conducted in March / April.', 'sec9-step3-title': 'Interview Slot Booking', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Shortlisted candidates book slots in April / May.', 'sec9-step4-title': 'Selection Interviews', 'sec9-step4-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Conducted from May to June in Mumbai.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'Silly mistakes can cost you a place in this coveted program. Be mindful of these common errors.',
+                'sec10-mistake1-title': 'Superficial Preparation:', 'sec10-mistake1-desc': 'Relying on formulas without understanding their derivation and application.', 'sec10-mistake2-title': 'Guessing in the Interview:', 'sec10-mistake2-desc': 'The panel values honesty. It is better to say "I don\'t know" than to guess incorrectly.', 'sec10-mistake3-title': 'Poor Subject Choice:', 'sec10-mistake3-desc': 'Not being thoroughly prepared in the subjects you list as your favorites for the interview.', 'sec10-mistake4-title': 'Ignoring the Virtual Calculator:', 'sec10-mistake4-desc': 'The online exam uses a specific virtual calculator. Not practicing with it can lead to slower calculations.',
+                'sec11-title': '11. Where to Find Information 🏫', 'sec11-p1': 'Always rely on official and trusted sources for information regarding the examination.',
+                'sec11-gov-title': '💻 Official & Academic Sources', 'sec11-gov-list': '<li>Official BARC Exam Website: www.barconlineexam.in</li><li>Standard Textbooks for your discipline.</li><li>NPTEL lectures for concept clarity.</li>',
+                'sec11-pvt-title': 'Coaching & Communities', 'sec11-pvt-list': '<li>GATE preparation material from reputed institutes.</li><li>Online forums for discussing interview experiences.</li>',
+                'sec12-title': '12. Career Trajectory at DAE 🚀', 'sec12-p1': 'A career as a Scientific Officer in the Department of Atomic Energy is one of the most prestigious in the country, offering immense opportunities for research, development, and contribution to national security.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Key Topics & Resources 📚', 'sec13-p1': 'Preparation must be exhaustive and concept-oriented. Standard textbooks are your best friends.',
+                'syllabus-oir-title': 'Core Engineering Topics',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌡️</span><div class="flex-grow">Thermodynamics & Heat Transfer</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">Nuclear Physics Basics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Control Systems</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Key Resources',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">Standard Textbooks (Cengel, PK Nag, etc.)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">Previous GATE Papers</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Online Test Series (GATE focused)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | For the glory of the nation. Your journey in atomic energy begins.',
+                'interviewChartData': { labels: ['Fundamentals', 'Analytical Skill', 'Research Aptitude', 'Communication'], data: [99, 95, 90, 85] }
+            },
+            'hi': {
+                'header-title': '⚛️ बार्क वैज्ञानिक अधिकारी गाइड ⚛️', 'header-subtitle': 'बार्क प्रशिक्षण स्कूलों (ओसीईएस/डीजीएफएस) के माध्यम से प्रवेश',
+                'sec1-title': '1. वैज्ञानिक अधिकारी (ग्रुप-ए पद) ☢️', 'sec1-p1': 'भाभा परमाणु अनुसंधान केंद्र (बार्क) अपने प्रतिष्ठित प्रशिक्षण स्कूल कार्यक्रमों: ओसीईएस और डीजीएफएस के माध्यम से वैज्ञानिक अधिकारियों (ग्रुप-ए) की भर्ती करता है। यह भारत में सबसे प्रतिष्ठित वैज्ञानिक भूमिकाओं में से एक है, जो आपको परमाणु ऊर्जा विभाग (डीएई) के भीतर देश के परमाणु कार्यक्रम में सबसे आगे रखता है।',
+                'sec2-title': '2. चयन प्रक्रिया 🎯', 'sec2-p1': 'चयन एक बहु-चरणीय प्रक्रिया है जिसे असाधारण मौलिक ज्ञान और अनुसंधान और विकास के लिए एक मजबूत योग्यता वाले उम्मीदवारों की पहचान करने के लिए डिज़ाइन किया गया है।',
+                'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'ऑनलाइन परीक्षा / गेट स्कोर',
+                'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'चयन साक्षात्कार', 'sec2-step2-desc': 'गहन तकनीकी मूल्यांकन',
+                'sec3-title': '3. पात्रता मानदंड ✅', 'sec3-p1': 'ओसीईएस/डीजीएफएस कार्यक्रम के लिए विचार किए जाने के लिए उम्मीदवारों को निम्नलिखित मानदंडों को पूरा करना होगा।',
+                'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'न्यूनतम **60% कुल अंकों** के साथ **बी.ई./बी.टेक/बी.एससी (इंजीनियरिंग)/5-वर्षीय एकीकृत एम.टेक**।',
+                'sec3-nat-title': 'आयु सीमा:', 'sec3-nat-desc': 'सामान्य श्रेणी के लिए **26 वर्ष**, ओबीसी (29 वर्ष), एससी/एसटी (31 वर्ष), और अन्य निर्दिष्ट श्रेणियों के लिए छूट के साथ।',
+                'sec3-nationality-title': 'राष्ट्रीयता:', 'sec3-nationality-desc': 'भारतीय नागरिक होना चाहिए।',
+                'sec3-attempts-title': 'योग्यता अनुशासन 📊', 'sec3-attempts-p1': 'उम्मीदवारों के पास विज्ञापन में निर्दिष्ट इंजीनियरिंग या विज्ञान विषयों में से एक में डिग्री होनी चाहिए।',
+                'sec3-agerelax-list': '<li>इंजीनियरिंग: मैकेनिकल, केमिकल, सिविल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, आदि।</li><li>विज्ञान: भौतिकी, रसायन विज्ञान, भूविज्ञान, आदि।</li><li>अधिकांश विषयों में स्क्रीनिंग के लिए एक वैध गेट स्कोर एक विकल्प है।</li>',
+                'sec4-title': '4. ऑनलाइन परीक्षा सिलेबस 📚', 'sec4-p1': 'ऑनलाइन परीक्षा का पाठ्यक्रम संबंधित अनुशासन के लिए इंजीनियरिंग में स्नातक योग्यता परीक्षा (गेट) के समान है।',
+                'gs1-title': 'कोर इंजीनियरिंग', 'gs1-sub1': 'इंजीनियरिंग गणित', 'gs1-sub2': 'अनुशासन-विशिष्ट विषय',
+                'gs2-title': 'विज्ञान धाराएँ', 'gs2-sub1': 'भौतिकी / रसायन विज्ञान', 'gs2-sub2': 'बी.एससी/एम.एससी पाठ्यक्रम पर आधारित',
+                'gs3-title': 'सामान्य योग्यता', 'gs3-sub1': 'संख्यात्मक क्षमता', 'gs3-sub2': 'तार्किक तर्क',
+                'sec5-title': '5. चयन साक्षात्कार 🗣️', 'sec5-p1': 'बार्क साक्षात्कार अपनी कठोरता और गहराई के लिए प्रसिद्ध है। यह एक विशुद्ध रूप से तकनीकी साक्षात्कार है जिसे आपकी मौलिक समझ को सीमाओं तक परखने के लिए डिज़ाइन किया गया है।',
+                'sec5-hindi-title': 'फोकस क्षेत्र', 'sec5-hindi-list': '<li>आपके पसंदीदा विषय (पूछताछ के लिए तैयार रहें)।</li><li>बुनियादी सूत्रों और कानूनों की व्युत्पत्ति।</li><li>सैद्धांतिक अवधारणाओं के व्यावहारिक अनुप्रयोग।</li><li>आपका अंतिम वर्ष का बी.टेक प्रोजेक्ट।</li>',
+                'sec5-essay-title': 'क्या उम्मीद करें', 'sec5-essay-list': '<li>वरिष्ठ वैज्ञानिकों का एक पैनल, प्रत्येक अपने क्षेत्र में एक विशेषज्ञ।</li><li>कोई मानव संसाधन या सामान्य ज्ञान के प्रश्न नहीं।</li><li>साक्षात्कार 30 मिनट से लेकर एक घंटे से अधिक तक चल सकता है।</li><li>यदि आप फंस गए हैं तो वे आपका मार्गदर्शन करेंगे, यह देखने के लिए कि आप कैसे सोचते हैं।</li>',
+                'sec6-title': '6. योग्यता डिग्री अनुशासन 🌟', 'sec6-p1': 'बार्क अपने कार्यक्रमों के लिए इंजीनियरिंग और विज्ञान पृष्ठभूमि की एक विस्तृत श्रृंखला से भर्ती करता है।',
+                'sec6-eng-title': 'कोर इंजीनियरिंग', 'sec6-eng-list': '<li>मैकेनिकल</li><li>केमिकल</li><li>धातुकर्म</li><li>इलेक्ट्रिकल</li>',
+                'sec6-elec-title': 'अन्य इंजीनियरिंग', 'sec6-elec-list': '<li>इलेक्ट्रॉनिक्स</li><li>कंप्यूटर विज्ञान</li><li>इंस्ट्रूमेंटेशन</li><li>सिविल</li><li>न्यूक्लियर इंजी.</li>',
+                'sec6-naic-title': 'विज्ञान अनुशासन', 'sec6-naic-list': '<li>भौतिकी</li><li>रसायन विज्ञान</li><li>जीव विज्ञान</li><li>भूविज्ञान</li>',
+                'sec6-imp-title': '💡 विज्ञापन विवरण जांचें', 'sec6-imp-p1': 'पात्र विषयों और संबंधित गेट पेपरों की सटीक सूची हर साल थोड़ी भिन्न हो सकती है। हमेशा आधिकारिक अधिसूचना देखें।',
+                'sec7-title': '7. बार्क वैज्ञानिक के गुण 🎙️', 'sec7-p1': 'चयन प्रक्रिया का उद्देश्य एक मजबूत वैज्ञानिक स्वभाव, विश्लेषणात्मक दिमाग और उच्च-स्तरीय अनुसंधान और विकास कार्य के लिए क्षमता वाले व्यक्तियों को खोजना है।',
+                'sec7-qualities-title': 'प्रमुख गुण:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>मजबूत मूल बातें:</strong> मौलिक सिद्धांतों की एक अटूट पकड़।</div></li><li><span class="text-2xl mr-3">📈</span><div><strong>विश्लेषणात्मक क्षमता:</strong> समस्या-समाधान के लिए एक तार्किक दृष्टिकोण।</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>अनुसंधान योग्यता:</strong> अनुसंधान एवं विकास कार्य के लिए धैर्य और जिज्ञासा।</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>स्पष्ट संचार:</strong> जटिल विषयों को सरलता से समझाने की क्षमता।</div></li>',
+                'sec8-title': '8. तैयारी की रणनीति 📈', 'sec8-p1': 'बार्क परीक्षा और साक्षात्कार में सफलता के लिए एक सावधानीपूर्वक और अवधारणा-संचालित तैयारी अनिवार्य है।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'क्रिस्टल-क्लियर कॉन्सेप्ट बनाएं', 'sec8-step1-desc': 'रटने के बजाय मानक पाठ्यपुस्तकों से मूल सिद्धांतों को समझने पर ध्यान केंद्रित करें।', 'sec8-step2-title': 'गेट के पेपर हल करें', 'sec8-step2-desc': 'कठिनाई और पैटर्न गेट के समान हैं। पिछले वर्षों के प्रश्नपत्रों को हल करना उत्कृष्ट अभ्यास है।', 'sec8-step3-title': 'तकनीकी नोट्स तैयार करें', 'sec8-step3-desc': 'सभी विषयों के लिए छोटे, सटीक नोट्स बनाएं, जो साक्षात्कार से पहले अंतिम समय में संशोधन के लिए महत्वपूर्ण हैं।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>सिखाने के लिए सीखें:</strong> अपनी समझ को मजबूत करने के लिए दूसरों को अवधारणाएं समझाएं।</li><li><strong>अपने पसंदीदा विषय चुनें:</strong> साक्षात्कार के लिए अपने 5-6 पसंदीदा विषयों में महारत हासिल करें।</li><li><strong>वर्चुअल कैलकुलेटर के साथ अभ्यास करें:</strong> ऑनलाइन परीक्षा इंटरफ़ेस से खुद को परिचित करें।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'बार्क ओसीईएस/डीजीएफएस कार्यक्रम के लिए काफी सुसंगत वार्षिक भर्ती कार्यक्रम का पालन करता है।',
+                'sec9-step1-title': 'आवेदन विंडो', 'sec9-step1-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आमतौर पर जनवरी में खुलता है।', 'sec9-step2-title': 'ऑनलाइन परीक्षा', 'sec9-step2-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> मार्च/अप्रैल में आयोजित।', 'sec9-step3-title': 'साक्षात्कार स्लॉट बुकिंग', 'sec9-step3-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवार अप्रैल/मई में स्लॉट बुक करते हैं।', 'sec9-step4-title': 'चयन साक्षात्कार', 'sec9-step4-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> मई से जून तक मुंबई में आयोजित किया जाता है।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'छोटी-मोटी गलतियाँ आपको इस प्रतिष्ठित कार्यक्रम में एक स्थान से वंचित कर सकती हैं। इन सामान्य त्रुटियों से सावधान रहें।',
+                'sec10-mistake1-title': 'सतही तैयारी:', 'sec10-mistake1-desc': 'उनकी व्युत्पत्ति और अनुप्रयोग को समझे बिना सूत्रों पर भरोसा करना।', 'sec10-mistake2-title': 'साक्षात्कार में अनुमान लगाना:', 'sec10-mistake2-desc': 'पैनल ईमानदारी को महत्व देता है। गलत अनुमान लगाने से बेहतर है कि "मुझे नहीं पता" कहना।', 'sec10-mistake3-title': 'खराब विषय चयन:', 'sec10-mistake3-desc': 'साक्षात्कार के दौरान जिन विषयों को आप अपना पसंदीदा बताते हैं, उनमें पूरी तरह से तैयार नहीं होना।', 'sec10-mistake4-title': 'वर्चुअल कैलकुलेटर को अनदेखा करना:', 'sec10-mistake4-desc': 'आधिकारिक बार्क वर्चुअल कैलकुलेटर के साथ अभ्यास न करने से त्रुटियां और समय की हानि हो सकती है।',
+                'sec11-title': '11. जानकारी कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'परीक्षा के संबंध में जानकारी के लिए हमेशा आधिकारिक और विश्वसनीय स्रोतों पर भरोसा करें।',
+                'sec11-gov-title': '💻 आधिकारिक और शैक्षणिक स्रोत', 'sec11-gov-list': '<li>आधिकारिक बार्क परीक्षा वेबसाइट: www.barconlineexam.in</li><li>आपके अनुशासन के लिए मानक पाठ्यपुस्तकें।</li><li>अवधारणा स्पष्टता के लिए एनपीटीईएल व्याख्यान।</li>',
+                'sec11-pvt-title': 'कोचिंग और समुदाय', 'sec11-pvt-list': '<li>प्रतिष्ठित संस्थानों से गेट की तैयारी सामग्री।</li><li>साक्षात्कार के अनुभवों पर चर्चा के लिए ऑनलाइन फ़ोरम।</li>',
+                'sec12-title': '12. डीएई में कैरियर प्रक्षेपवक्र 🚀', 'sec12-p1': 'परमाणु ऊर्जा विभाग में एक वैज्ञानिक अधिकारी के रूप में कैरियर देश में सबसे प्रतिष्ठित में से एक है, जो अनुसंधान, विकास और राष्ट्रीय सुरक्षा में योगदान के लिए immense अवसर प्रदान करता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. प्रमुख विषय और संसाधन 📚', 'sec13-p1': 'तैयारी विस्तृत और अवधारणा-उन्मुख होनी चाहिए। मानक पाठ्यपुस्तकें आपके सबसे अच्छे दोस्त हैं।',
+                'syllabus-oir-title': 'कोर इंजीनियरिंग विषय',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌡️</span><div class="flex-grow">थर्मोडायनामिक्स और हीट ट्रांसफर</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">न्यूक्लियर फिजिक्स बेसिक्स</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">कंट्रोल सिस्टम</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'प्रमुख संसाधन',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">मानक पाठ्यपुस्तकें (सेंगल, पीके नाग, आदि)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">पिछले गेट पेपर्स</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">ऑनलाइन टेस्ट सीरीज (गेट केंद्रित)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | राष्ट्र के गौरव के लिए। परमाणु ऊर्जा में आपकी यात्रा शुरू होती है।',
+                'interviewChartData': { labels: ['मूल सिद्धांत', 'विश्लेषणात्मक कौशल', 'अनुसंधान योग्यता', 'संचार'], data: [99, 95, 90, 85] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-xl text-text-primary">${post.name}</h4><p class="text-sm text-text-secondary mt-2">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-text-primary mb-1">${step.rank}</h4>
+                        <p class="text-base text-text-secondary">${step.desc}</p>
+                    `;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: translations.en.interviewChartData.labels,
+                    datasets: [{
+                        label: 'Scientific Attributes',
+                        data: translations.en.interviewChartData.data,
+                        backgroundColor: 'rgba(167, 139, 250, 0.7)',
+                        borderColor: '#A78BFA',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: { color: 'rgba(160, 174, 192, 0.7)' }
+                        },
+                        x: { 
+                            ticks: { 
+                                color: 'rgba(160, 174, 192, 0.7)',
+                                font: { size: 14 } 
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            
+            if (!interviewChartInstance) {
+                initInterviewChart();
+            } else {
+                translateChart();
+            }
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
+
