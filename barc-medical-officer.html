@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARC Medical & Paramedical Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to BARC Medical & Paramedical recruitment. Information on eligibility, selection process, training, and career path for medical professionals.">
+    <meta name="keywords" content="BARC, Medical Officer, Dental Surgeon, Nurse, Pharmacist, Lab Technician, Radiographer, DAE, Recruitment, Career, Nuclear Medicine, Paramedical">
+    <meta name="author" content="BARC Medical Guide">
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Charcoal */
+            --secondary-color: #1abc9c; /* Turquoise/Teal */
+            --background-color: #ecf0f1; /* Light Grey */
+            --card-background: #FFFFFF;
+            --text-color-dark: #34495e;
+            --text-color-light: #7f8c8d;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color-dark);
+        }
+        .section-heading {
+            border-bottom: 4px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+        .card {
+            background-color: var(--card-background);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            height: 350px;
+            max-height: 480px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: #ecf0f1;
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(44, 62, 80, 0.3);
+        }
+        .flowchart-arrow {
+            color: var(--secondary-color);
+        }
+        .subject-category-heading {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            transition: background-color 0.3s;
+        }
+        .subject-item:hover {
+            background-color: #f3f4f6;
+        }
+        .subject-item .icon {
+            color: var(--secondary-color);
+            margin-right: 1.25rem;
+            font-size: 1.75rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -1rem;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            border: 4px solid var(--background-color);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(44, 62, 80, 0.8);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--card-background);
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            max-width: 950px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: var(--primary-color); line-height: 1;
+        }
+        .modal-close-button:hover { color: #dc2626; }
+        .modal-action-button {
+            background: linear-gradient(45deg, var(--secondary-color), #27ae60);
+            color: white;
+            padding: 0.85rem 2.25rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.4);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(26, 188, 156, 0.5);
+        }
+        .lang-btn {
+            padding: 0.75rem 2.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: var(--card-background);
+        }
+        .lang-btn:first-child { border-top-left-radius: 1rem; border-bottom-left-radius: 1rem; }
+        .lang-btn:last-child { border-top-right-radius: 1rem; border-bottom-right-radius: 1rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.4rem 1.25rem;
+            border-radius: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .notes-btn:hover {
+            background-color: #34495e;
+        }
+        .lectures-btn {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .lectures-btn:hover {
+            background-color: #d8e1e7;
+        }
+        .error-message {
+            background-color: #fef2f2;
+            border-left: 5px solid #ef4444;
+            color: #ef4444;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-16">
+            <h1 id="header-title" class="text-5xl md:text-7xl font-extrabold text-[var(--primary-color)] mb-4 tracking-tight">⚕️ BARC Medical Guide ⚕️</h1>
+            <p id="header-subtitle" class="text-xl md:text-3xl text-[var(--secondary-color)] font-semibold">Serving the Nation through Healthcare at DAE</p>
+        </header>
+
+        <div class="text-center mb-16">
+            <div class="inline-flex rounded-xl shadow-md" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-16">
+
+            <!-- Section 1: What are BARC Medical Posts -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-green-50 via-white to-cyan-50">
+                <div class="p-10">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. Medical & Paramedical Posts 🩺</h2>
+                    <p id="sec1-p1" class="text-lg mb-8">The Department of Atomic Energy (DAE) recruits qualified medical and paramedical professionals for its various hospitals, dispensaries, and health centers. These roles are critical for ensuring the health and well-being of the DAE community. Upon selection, you will be part of a team dedicated to providing high-quality healthcare, including specialized services related to radiation and nuclear medicine. </p>
+                </div>
+                <div id="postCardsContainer" class="px-10 pb-10 pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: 3 Stages 📝</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-12 max-w-3xl mx-auto">The selection process for medical and paramedical roles is designed to assess your professional knowledge, practical skills, and suitability for the post. It is a multi-stage process that ensures only the most competent candidates are selected.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-12 md:space-y-0 md:space-x-12 lg:space-x-24">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-48 flex items-center justify-center rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Application Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-700">CV & Eligibility Check</p>
+                    </div>
+                    <div class="text-6xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-48 flex items-center justify-center rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Written Exam / Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-700">Professional Knowledge Test</p>
+                    </div>
+                     <div class="text-6xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-48 flex items-center justify-center rounded-full flowchart-step font-bold text-xl p-4 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Skill Test / Final Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-700">Practical & Professional Assessment</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-8">To be eligible for the medical and paramedical posts, you must meet the following criteria, which vary by post:</p>
+                        <ul class="space-y-8 text-base">
+                            <li class="flex items-start"><span class="text-4xl text-[var(--secondary-color)] mr-6">👨‍⚕️</span><div><strong id="sec3-edu-title" class="text-[var(--primary-color)] text-xl">Education:</strong> <span id="sec3-edu-desc">Relevant qualifications like **MBBS, BDS, M.Sc.(Nursing), Diploma in Nursing, D. Pharmacy**, etc., as per the specific post's requirements. Must be registered with the relevant council.</span></div></li>
+                            <li class="flex items-start"><span class="text-4xl text-[var(--secondary-color)] mr-6">🎂</span><div><strong id="sec3-age-title" class="text-[var(--primary-color)] text-xl">Age:</strong> <span id="sec3-age-desc">Age limits are specified in the official notification, with relaxations for different categories as per government norms.</span></div></li>
+                            <li class="flex items-start"><span class="text-4xl text-[var(--secondary-color)] mr-6">🇮🇳</span><div><strong id="sec3-nat-title" class="text-[var(--primary-color)] text-xl">Nationality:</strong> <span id="sec3-nat-desc">Must be an Indian citizen.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4 border-b border-[var(--secondary-color)] pb-2">Experience & Other Details 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4">For most posts, especially for specialists, relevant post-qualification experience is required. Candidates must also be medically fit.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside">
+                            <li><strong>Experience:</strong> Varies from no experience for entry-level posts to several years for specialist roles.</li>
+                            <li><strong>Registration:</strong> Mandatory registration with the Medical Council of India (MCI) or Nursing Council.</li>
+                            <li><strong>Physical Fitness:</strong> Must meet the physical standards for the job profile.</li>
+                        </ul>
+                        <p id="sec3-attempts-p2" class="mt-6 text-lg font-semibold text-[var(--primary-color)]">Number of Attempts:</p>
+                        <p id="sec3-attempts-p3" class="text-base">There is no official limit on the number of attempts for these posts, as long as you meet the age, educational, and experience criteria for the specific notification.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Written Tests & Interview -->
+            <section class="card bg-slate-50/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Written Exam & Interview Topics 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-12 max-w-4xl mx-auto">The written exam and interview assess your professional knowledge and practical skills. Preparation should focus on your core subject areas and their real-world application.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-[var(--secondary-color)] hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Medical Subjects 📖</h3>
+                        <div class="space-y-4 flex-grow">
+                            <div class="subject-item"><span class="icon">⚕️</span><div id="gs1-sub1">Anatomy & Physiology</div></div>
+                            <div class="subject-item"><span class="icon">💊</span><div id="gs1-sub2">Pharmacology</div></div>
+                            <div class="subject-item"><span class="icon">🧪</span><div id="gs1-sub3">Pathology & Microbiology</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-[var(--secondary-color)] hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Practical Knowledge 🧠</h3>
+                        <div class="space-y-4 flex-grow">
+                            <div class="subject-item"><span class="icon">💉</span><div id="gs2-sub1">Clinical Procedures</div></div>
+                            <div class="subject-item"><span class="icon">🩺</span><div id="gs2-sub2">Patient Care & Management</div></div>
+                            <div class="subject-item"><span class="icon">☢️</span><div id="gs2-sub3">Radiation Safety Protocols</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200 flex flex-col transition duration-300 hover:shadow-2xl hover:border-[var(--secondary-color)] hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">General Aptitude 🗣️</h3>
+                         <div class="space-y-4 flex-grow">
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs3-sub1">General Awareness</div></div>
+                            <div class="subject-item"><span class="icon">📝</span><div id="gs3-sub2">Reasoning & Quantitative Aptitude</div></div>
+                            <div class="subject-item"><span class="icon">🇬🇧</span><div id="gs3-sub3">English Language</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Postings -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Postings 🏥</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected candidates are appointed to their posts and undergo a period of on-the-job training at DAE's hospitals and medical centers. The training familiarizes them with the DAE environment and specific protocols.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-base">
+                    <div class="p-8 bg-[#ecf0f1] rounded-2xl border-2 border-[var(--primary-color)]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-[var(--primary-color)] mb-2">1. The Curriculum</h3>
+                        <p id="sec5-hindi-p1" class="text-base mb-2">Training focuses on practical application and specialized knowledge.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-base">
+                            <li>Hospital and Patient Management Systems.</li>
+                            <li>Radiological safety procedures.</li>
+                            <li>Emergency and trauma care protocols.</li>
+                            <li>Specialized equipment handling.</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 bg-[#ecf0f1] rounded-2xl border-2 border-[var(--primary-color)]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-[var(--primary-color)] mb-2">2. Postings</h3>
+                        <p id="sec5-essay-p1" class="text-base mb-2">Postings can be at various DAE units across India, including:</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-base">
+                           <li>BARC, Mumbai.</li>
+                           <li>IGCAR, Kalpakkam.</li>
+                           <li>RRCAT, Indore.</li>
+                           <li>UCIL, Jaduguda.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Medical & Paramedical Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">BARC recruits professionals for various medical and paramedical roles. The specific requirements and number of vacancies are announced in the official notification.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Medical Officers</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>General Duty Medical Officer (GDMO)</li>
+                           <li>Specialist Doctor (various fields)</li>
+                           <li>Dental Surgeon</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Nursing Staff</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Nurse A/B</li>
+                           <li>Nursing Officer</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Other Paramedical Posts</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Pharmacist</li>
+                           <li>Laboratory Technician</li>
+                           <li>Radiographer</li>
+                           <li>Dental Technician</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10 p-8 bg-[#ecf0f1] border border-[var(--primary-color)] rounded-2xl shadow-md text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-[var(--primary-color)] mb-2">💡 Why is this important?</h4>
+                    <p id="sec6-imp-p1" class="text-base">Ensure your professional registration and experience align with the specific post you are applying for. This is a critical step for eligibility.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Exam Evaluation -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. What The Exam Evaluates 📈</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">The recruitment process is designed to test your professional competence. The written exam and interview will evaluate your command over the following key areas:</p>
+                    <div class="chart-container h-80">
+                        <canvas id="examQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-[var(--primary-color)] mb-6 border-b border-[var(--secondary-color)] pb-2">Key Areas:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[var(--secondary-color)] mr-4">🧠</span><div><strong class="text-[var(--primary-color)]">Professional Knowledge:</strong> In-depth knowledge of your medical/paramedical field.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[var(--secondary-color)] mr-4">💡</span><div><strong class="text-[var(--primary-color)]">Practical Skills:</strong> Ability to apply your knowledge in a clinical setting.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[var(--secondary-color)] mr-4">💬</span><div><strong class="text-[var(--primary-color)]">Communication Skills:</strong> Interacting effectively with patients and colleagues.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[var(--secondary-color)] mr-4">🔬</span><div><strong class="text-[var(--primary-color)]">General Awareness:</strong> Knowledge of current events, especially in healthcare and science.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📝</h2>
+                <p id="sec8-p1" class="text-lg mb-10 max-w-4xl mx-auto">Success in BARC's medical recruitment is about a holistic approach, combining strong professional knowledge with an awareness of the DAE's unique environment.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[var(--secondary-color)] pl-8 space-y-10">
+                            <li class="ml-4">
+                                <div class="absolute w-6 h-6 bg-[var(--primary-color)] rounded-full -left-3.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Review Your Curriculum</h4>
+                                <p id="sec8-step1-desc" class="text-base">Revisit your college textbooks and notes. Focus on the core subjects and clinical aspects of your field.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-6 h-6 bg-[var(--primary-color)] rounded-full -left-3.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Stay Updated</h4>
+                                <p id="sec8-step2-desc" class="text-base">Read medical journals, news articles, and government health reports. Be aware of the latest advancements in healthcare and policies.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-6 h-6 bg-[var(--primary-color)] rounded-full -left-3.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Understand the DAE Context</h4>
+                                <p id="sec8-step3-desc" class="text-base">Familiarize yourself with the basics of nuclear medicine and radiological safety. This shows your interest in the organization's mission.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Practice Interviews:</strong> Prepare for a viva-voce style interview. Practice explaining complex concepts in a simple, clear manner.</li>
+                            <li><strong>Professional Demeanor:</strong> Present yourself as a calm, confident, and empathetic professional.</li>
+                            <li><strong>Health & Fitness:</strong> Ensure you are physically fit to pass the medical examination.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">The recruitment for medical and paramedical posts at BARC is carried out as per requirement. The official notifications are published on the BARC and DAE websites.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Advertisement & Online Application</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-700">Timeline:</strong> As per recruitment cycle, usually a few weeks.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Written Test / Screening</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-700">Timeline:</strong> Conducted for posts with a large number of applicants.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Interview / Skill Test</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-700">Timeline:</strong> Post-screening or as the primary selection stage.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-[var(--primary-color)] mb-1">Medical Examination & Appointment</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-700">Timeline:</strong> Upon final selection, candidates undergo a medical exam and receive appointment letters.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Being aware of these common pitfalls can significantly improve your chances of success in the recruitment process.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10 text-base">
+                    <div class="group relative p-8 bg-red-50 rounded-2xl border-2 border-red-200 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-800">Lack of Professionalism:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-700 mt-1">Presenting a casual or unprepared attitude during the interview.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-8 bg-red-50 rounded-2xl border-2 border-red-200 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-800">Inadequate Practical Skills:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-700 mt-1">Failing to demonstrate hands-on skills correctly during the skill test.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-8 bg-red-50 rounded-2xl border-2 border-red-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-800">Lack of Communication:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-700 mt-1">Struggling to articulate your knowledge or answer questions clearly.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-8 bg-red-50 rounded-2xl border-2 border-red-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-800">Ignoring Medical Fitness:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-700 mt-1">Not being aware of the strict medical standards and potential disqualifications.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Study Material -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Study Material & Resources 📖</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Preparation should focus on strengthening your core professional knowledge. Your primary study materials are your professional course books and journals.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Core Textbooks</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Standard textbooks from your MBBS, Nursing, or Paramedical courses.</li>
+                           <li>Professional journals and case studies.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">🖥️ Online Resources</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Websites and forums for medical professionals and general awareness can be very helpful.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Medical council websites for professional updates.</li>
+                            <li>Online medical quiz portals and mock tests.</li>
+                            <li>DAE official website for general awareness about the organization.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth at DAE 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A career in the medical and paramedical fields at DAE offers stable growth and opportunities for professional development, including specialization and promotion to senior roles based on performance and service time.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card bg-gradient-to-br from-gray-50 to-slate-100">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. In-depth Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">A detailed breakdown of the subjects and topics to focus on for the professional examination and interview.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Medical Subjects -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-med-title" class="subject-category-heading">Medical Core Subjects</h3>
+                        <div id="syllabus-med-list" class="space-y-6">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Paramedical Subjects -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-para-title" class="subject-category-heading">Paramedical Core Subjects</h3>
+                        <div id="syllabus-para-list" class="space-y-6">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- General & Special Topics -->
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 md:col-span-2">
+                        <h3 id="syllabus-gen-title" class="subject-category-heading">General & Special Topics</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10">
+                            <div id="syllabus-gen-list" class="space-y-6">
+                                <!-- Content via JS -->
+                            </div>
+                             <div id="syllabus-spec-list" class="space-y-6">
+                                <!-- Content via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-20 border-t-2 pt-8 border-[var(--primary-color)]/20">
+            <p id="footer-text" class="text-[var(--text-color-light)] text-lg font-medium">&copy; 2025 | Wishing you a successful and healthy career!</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4">Application Screening</h3>
+            <p id="prelims-modal-p1">The initial stage involves a thorough screening of applications to check for eligibility based on educational qualifications, experience, and other specified criteria.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4">Written Exam / Interview</h3>
+            <p id="mains-modal-p1">Depending on the number of applications, a written test or a direct interview will be conducted. This stage focuses on your professional and clinical knowledge.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-[var(--primary-color)] mb-4">Skill Test / Final Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">This stage assesses your hands-on skills and your professional demeanor. It is a viva-voce or a practical test to evaluate your competence in real-world scenarios.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-[var(--primary-color)]"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-[var(--primary-color)] mb-6">Career Progression at DAE</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+    
+    <div id="messageBox" class="modal-overlay">
+        <div class="modal-content !p-8">
+            <h3 id="messageTitle" class="text-2xl font-bold mb-4"></h3>
+            <p id="messageText" class="text-lg mb-6"></p>
+            <div class="flex justify-end space-x-4">
+                <button id="okButton" class="modal-action-button">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let examChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'mo': { 
+                        name: 'Medical Officer / Specialist', 
+                        icon: '👨‍⚕️',
+                        description: 'Medical Officers and Specialists provide comprehensive healthcare services to the DAE community. Roles include General Duty Medical Officers and specialists in various fields like surgery, medicine, and radiology.',
+                        cta: 'Click to learn more'
+                    },
+                    'ds': { 
+                        name: 'Dental Surgeon', 
+                        icon: '🦷',
+                        description: 'Dental Surgeons are responsible for dental care and oral health services. They perform a wide range of procedures from routine check-ups to complex surgical interventions.',
+                        cta: 'Click to learn more'
+                    },
+                    'nurse': { 
+                        name: 'Nurse (A/B)', 
+                        icon: '👩‍⚕️',
+                        description: 'Nurses are the backbone of the healthcare system at DAE hospitals. They are responsible for patient care, managing wards, and assisting doctors in various medical procedures.',
+                        cta: 'Click to learn more'
+                    },
+                    'pharmacist': { 
+                        name: 'Pharmacist', 
+                        icon: '💊',
+                        description: 'Pharmacists manage the dispensary, prepare and dispense medications, and provide advice on drug usage. They ensure the availability of all necessary medicines for patients.',
+                        cta: 'Click to learn more'
+                    },
+                    'labtech': { 
+                        name: 'Lab Technician', 
+                        icon: '🧪',
+                        description: 'Laboratory Technicians perform diagnostic tests and analysis of samples. Their work is crucial for accurate diagnosis and patient treatment plans.',
+                        cta: 'Click to learn more'
+                    },
+                    'radio': { 
+                        name: 'Radiographer', 
+                        icon: '☢️',
+                        description: 'Radiographers specialize in medical imaging techniques like X-rays, CT scans, and MRI. They are responsible for operating imaging equipment and ensuring patient and staff safety from radiation.',
+                        cta: 'Click to learn more'
+                    }
+                },
+                'hi': {
+                    'mo': { 
+                        name: 'चिकित्सा अधिकारी / विशेषज्ञ', 
+                        icon: '👨‍⚕️',
+                        description: 'चिकित्सा अधिकारी और विशेषज्ञ डीएई समुदाय को व्यापक स्वास्थ्य सेवाएँ प्रदान करते हैं। भूमिकाओं में सामान्य ड्यूटी चिकित्सा अधिकारी और सर्जरी, चिकित्सा और रेडियोलॉजी जैसे विभिन्न क्षेत्रों में विशेषज्ञ शामिल हैं।',
+                        cta: 'और जानें'
+                    },
+                    'ds': { 
+                        name: 'डेंटल सर्जन', 
+                        icon: '🦷',
+                        description: 'डेंटल सर्जन दंत चिकित्सा देखभाल और मौखिक स्वास्थ्य सेवाओं के लिए जिम्मेदार हैं। वे नियमित जांच से लेकर जटिल सर्जिकल हस्तक्षेपों तक, कई तरह की प्रक्रियाएं करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'nurse': { 
+                        name: 'नर्स (ए/बी)', 
+                        icon: '👩‍⚕️',
+                        description: 'नर्सें डीएई अस्पतालों में स्वास्थ्य देखभाल प्रणाली की रीढ़ हैं। वे रोगी देखभाल, वार्डों का प्रबंधन, और विभिन्न चिकित्सा प्रक्रियाओं में डॉक्टरों की सहायता करने के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    },
+                    'pharmacist': { 
+                        name: 'फार्मासिस्ट', 
+                        icon: '💊',
+                        description: 'फार्मासिस्ट औषधालय का प्रबंधन करते हैं, दवाएं तैयार और वितरित करते हैं, और दवा के उपयोग पर सलाह देते हैं। वे मरीजों के लिए सभी आवश्यक दवाओं की उपलब्धता सुनिश्चित करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'labtech': { 
+                        name: 'लैब तकनीशियन', 
+                        icon: '🧪',
+                        description: 'प्रयोगशाला तकनीशियन नैदानिक ​​परीक्षण और नमूनों का विश्लेषण करते हैं। उनका काम सटीक निदान और रोगी उपचार योजनाओं के लिए महत्वपूर्ण है।',
+                        cta: 'और जानें'
+                    },
+                    'radio': { 
+                        name: 'रेडियोग्राफर', 
+                        icon: '☢️',
+                        description: 'रेडियोग्राफर एक्स-रे, सीटी स्कैन, और एमआरआई जैसी चिकित्सा इमेजिंग तकनीकों में विशेषज्ञ होते हैं। वे इमेजिंग उपकरण संचालित करने और विकिरण से रोगी और कर्मचारियों की सुरक्षा सुनिश्चित करने के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-Level Post", desc: "Start as Medical Officer, Nurse, or Paramedical Staff. Focus on professional duties and gaining experience in the DAE environment." },
+                        { rank: "Senior Professional", desc: "Promotion to a senior role based on performance and experience. You may take on supervisory responsibilities." },
+                        { rank: "Administrative / Specialist Roles", desc: "Opportunities to lead departments, specialize in a niche field like nuclear medicine, or take on administrative roles." },
+                        { rank: "Head of Department / Chief Medical Officer", desc: "The highest levels of a medical career at DAE, managing entire medical centers or groups of specialists." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "प्रवेश-स्तर का पद", desc: "चिकित्सा अधिकारी, नर्स, या पैरामेडिकल स्टाफ के रूप में शुरू करें। डीएई वातावरण में पेशेवर कर्तव्यों और अनुभव प्राप्त करने पर ध्यान केंद्रित करें।" },
+                        { rank: "वरिष्ठ पेशेवर", desc: "प्रदर्शन और अनुभव के आधार पर एक वरिष्ठ भूमिका में पदोन्नति। आप पर्यवेक्षी जिम्मेदारियां ले सकते हैं।" },
+                        { rank: "प्रशासनिक / विशेषज्ञ भूमिकाएं", desc: "विभागों का नेतृत्व करने, परमाणु चिकित्सा जैसे एक विशेष क्षेत्र में विशेषज्ञता प्राप्त करने, या प्रशासनिक भूमिकाएं लेने के अवसर।" },
+                        { rank: "विभाग प्रमुख / मुख्य चिकित्सा अधिकारी", desc: "डीएई में एक चिकित्सा करियर के उच्चतम स्तर, पूरे चिकित्सा केंद्रों या विशेषज्ञों के समूहों का प्रबंधन।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⚕️ BARC Medical Guide ⚕️',
+                    'header-subtitle': 'Serving the Nation through Healthcare at DAE',
+                    'sec1-title': '1. Medical & Paramedical Posts 🩺',
+                    'sec1-p1': 'The Department of Atomic Energy (DAE) recruits qualified medical and paramedical professionals for its various hospitals, dispensaries, and health centers. These roles are critical for ensuring the health and well-being of the DAE community. Upon selection, you will be part of a team dedicated to providing high-quality healthcare, including specialized services related to radiation and nuclear medicine.',
+                    'sec2-title': '2. Selection Process: 3 Stages 📝',
+                    'sec2-p1': 'The selection process for medical and paramedical roles is designed to assess your professional knowledge, practical skills, and suitability for the post. It is a multi-stage process that ensures only the most competent candidates are selected.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Application Screening', 'sec2-step1-desc': 'CV & Eligibility Check',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Written Exam / Interview', 'sec2-step2-desc': 'Professional Knowledge Test',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Skill Test / Final Interview', 'sec2-step3-desc': 'Practical & Professional Assessment',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'To be eligible for the medical and paramedical posts, you must meet the following criteria, which vary by post:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': 'Relevant qualifications like **MBBS, BDS, M.Sc.(Nursing), Diploma in Nursing, D. Pharmacy**, etc., as per the specific post\'s requirements. Must be registered with the relevant council.',
+                    'sec3-age-title': 'Age:', 'sec3-age-desc': 'Age limits are specified in the official notification, with relaxations for different categories as per government norms.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'Must be an Indian citizen.',
+                    'sec3-attempts-title': 'Experience & Other Details 📊',
+                    'sec3-attempts-p1': 'For most posts, especially for specialists, relevant post-qualification experience is required. Candidates must also be medically fit.',
+                    'sec3-agerelax-list': '<li><strong>Experience:</strong> Varies from no experience for entry-level posts to several years for specialist roles.</li><li><strong>Registration:</strong> Mandatory registration with the Medical Council of India (MCI) or Nursing Council.</li><li><strong>Physical Fitness:</strong> Must meet the physical standards for the job profile.</li>',
+                    'sec3-attempts-p2': 'Number of Attempts:',
+                    'sec3-attempts-p3': 'There is no official limit on the number of attempts for these posts, as long as you meet the age, educational, and experience criteria for the specific notification.',
+                    'sec4-title': '4. Written Exam & Interview Topics 📚',
+                    'sec4-p1': 'The written exam and interview assess your professional knowledge and practical skills. Preparation should focus on your core subject areas and their real-world application.',
+                    'gs1-title': 'Medical Subjects 📖', 'gs1-sub1': 'Anatomy & Physiology', 'gs1-sub2': 'Pharmacology', 'gs1-sub3': 'Pathology & Microbiology',
+                    'gs2-title': 'Practical Knowledge 🧠', 'gs2-sub1': 'Clinical Procedures', 'gs2-sub2': 'Patient Care & Management', 'gs2-sub3': 'Radiation Safety Protocols',
+                    'gs3-title': 'General Aptitude 🗣️', 'gs3-sub1': 'General Awareness', 'gs3-sub2': 'Reasoning & Quantitative Aptitude', 'gs3-sub3': 'English Language',
+                    'sec5-title': '5. Training & Postings 🏥',
+                    'sec5-p1': 'Selected candidates are appointed to their posts and undergo a period of on-the-job training at DAE\'s hospitals and medical centers. The training familiarizes them with the DAE environment and specific protocols.',
+                    'sec5-hindi-title': '1. The Curriculum', 'sec5-hindi-p1': 'Training focuses on practical application and specialized knowledge.', 'sec5-hindi-list': '<li>Hospital and Patient Management Systems.</li><li>Radiological safety procedures.</li><li>Emergency and trauma care protocols.</li><li>Specialized equipment handling.</li>',
+                    'sec5-essay-title': '2. Postings', 'sec5-essay-p1': 'Postings can be at various DAE units across India, including:', 'sec5-essay-list': '<li>BARC, Mumbai.</li><li>IGCAR, Kalpakkam.</li><li>RRCAT, Indore.</li><li>UCIL, Jaduguda.</li>',
+                    'sec6-title': '6. Medical & Paramedical Disciplines 🌟',
+                    'sec6-p1': "BARC recruits professionals for various medical and paramedical roles. The specific requirements and number of vacancies are announced in the official notification.",
+                    'sec6-eng-title': 'Medical Officers', 'sec6-eng-list': '<li>General Duty Medical Officer (GDMO)</li><li>Specialist Doctor (various fields)</li><li>Dental Surgeon</li>',
+                    'sec6-elec-title': 'Nursing Staff', 'sec6-elec-list': '<li>Nurse A/B</li><li>Nursing Officer</li>',
+                    'sec6-naic-title': 'Other Paramedical Posts', 'sec6-naic-list': '<li>Pharmacist</li><li>Laboratory Technician</li><li>Radiographer</li><li>Dental Technician</li>',
+                    'sec6-imp-title': '💡 Why is this important?', 'sec6-imp-p1': 'Ensure your professional registration and experience align with the specific post you are applying for. This is a critical step for eligibility.',
+                    'sec7-title': '7. What The Exam Evaluates 📈',
+                    'sec7-p1': 'The recruitment process is designed to test your professional competence. The written exam and interview will evaluate your command over the following key areas:',
+                    'sec7-qualities-title': 'Key Areas:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-[var(--secondary-color)] mr-4">🧠</span><div><strong class="text-[var(--primary-color)]">Professional Knowledge:</strong> In-depth knowledge of your medical/paramedical field.</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">💡</span><div><strong class="text-[var(--primary-color)]">Practical Skills:</strong> Ability to apply your knowledge in a clinical setting.</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">💬</span><div><strong class="text-[var(--primary-color)]">Communication Skills:</strong> Interacting effectively with patients and colleagues.</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">🔬</span><div><strong class="text-[var(--primary-color)]">General Awareness:</strong> Knowledge of current events, especially in healthcare and science.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📝',
+                    'sec8-p1': 'Success in BARC\'s medical recruitment is about a holistic approach, combining strong professional knowledge with an awareness of the DAE\'s unique environment.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Review Your Curriculum', 'sec8-step1-desc': 'Revisit your college textbooks and notes. Focus on the core subjects and clinical aspects of your field.',
+                    'sec8-step2-title': 'Stay Updated', 'sec8-step2-desc': 'Read medical journals, news articles, and government health reports. Be aware of the latest advancements in healthcare and policies.',
+                    'sec8-step3-title': 'Understand the DAE Context', 'sec8-step3-desc': 'Familiarize yourself with the basics of nuclear medicine and radiological safety. This shows your interest in the organization\'s mission.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Practice Interviews:</strong> Prepare for a viva-voce style interview. Practice explaining complex concepts in a simple, clear manner.</li><li><strong>Professional Demeanor:</strong> Present yourself as a calm, confident, and empathetic professional.</li><li><strong>Health & Fitness:</strong> Ensure you are physically fit to pass the medical examination.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'The recruitment for medical and paramedical posts at BARC is carried out as per requirement. The official notifications are published on the BARC and DAE websites.',
+                    'sec9-step1-title': 'Advertisement & Online Application', 'sec9-step1-desc': '<strong>Timeline:</strong> As per recruitment cycle, usually a few weeks.',
+                    'sec9-step2-title': 'Written Test / Screening', 'sec9-step2-desc': '<strong>Timeline:</strong> Conducted for posts with a large number of applicants.',
+                    'sec9-step3-title': 'Interview / Skill Test', 'sec9-step3-desc': '<strong>Timeline:</strong> Post-screening or as the primary selection stage.',
+                    'sec9-step4-title': 'Medical Examination & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> Upon final selection, candidates undergo a medical exam and receive appointment letters.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Being aware of these common pitfalls can significantly improve your chances of success in the recruitment process.',
+                    'sec10-mistake1-title': 'Lack of Professionalism:', 'sec10-mistake1-desc': 'Presenting a casual or unprepared attitude during the interview.',
+                    'sec10-mistake2-title': 'Inadequate Practical Skills:', 'sec10-mistake2-desc': 'Failing to demonstrate hands-on skills correctly during the skill test.',
+                    'sec10-mistake3-title': 'Lack of Communication:', 'sec10-mistake3-desc': 'Struggling to articulate your knowledge or answer questions clearly.',
+                    'sec10-mistake4-title': 'Ignoring Medical Fitness:', 'sec10-mistake4-desc': 'Not being aware of the strict medical standards and potential disqualifications.',
+                    'sec11-title': '11. Study Material & Resources 📖',
+                    'sec11-p1': 'Preparation should focus on strengthening your core professional knowledge. Your primary study materials are your professional course books and journals.',
+                    'sec11-gov-title': '📚 Core Textbooks', 'sec11-gov-list': '<li>Standard textbooks from your MBBS, Nursing, or Paramedical courses.</li><li>Professional journals and case studies.</li>',
+                    'sec11-pvt-title': '🖥️ Online Resources', 'sec11-pvt-p1': 'Various online platforms offer test series and tutorials for medical professionals and general awareness can be very helpful.', 'sec11-pvt-list': '<li>Medical council websites for professional updates.</li><li>Online medical quiz portals and mock tests.</li><li>DAE official website for general awareness about the organization.</li>',
+                    'sec12-title': '12. Career Growth at DAE 🚀',
+                    'sec12-p1': 'A career in the medical and paramedical fields at DAE offers stable growth and opportunities for professional development, including specialization and promotion to senior roles based on performance and service time.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. In-depth Syllabus & Study Material 📚',
+                    'sec13-p1': 'A detailed breakdown of the subjects and topics to focus on for the professional examination and interview.',
+                    'syllabus-med-title': 'Medical Core Subjects',
+                    'syllabus-med-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚕️</span><div class="flex-grow">Anatomy & Physiology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💊</span><div class="flex-grow">Pharmacology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧪</span><div class="flex-grow">Pathology & Microbiology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-para-title': 'Paramedical Core Subjects',
+                    'syllabus-para-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💉</span><div class="flex-grow">Nursing Fundamentals & Procedures</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🩻</span><div class="flex-grow">Radiology & Medical Imaging</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏥</span><div class="flex-grow">Clinical Pathology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-gen-title': 'General & Special Topics',
+                    'syllabus-gen-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">General Aptitude & Reasoning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">General Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-spec-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">☢️</span><div class="flex-grow">Radiological Safety</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">Nuclear Medicine Basics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Wishing you a successful and healthy career!',
+                    'examChartData': {
+                        labels: ['Professional Knowledge', 'Practical Skills', 'Communication', 'General Aptitude'],
+                        data: [50, 30, 10, 10]
+                    }
+                },
+                'hi': {
+                    'header-title': '⚕️ बार्क चिकित्सा गाइड ⚕️',
+                    'header-subtitle': 'डीएई में स्वास्थ्य सेवा के माध्यम से राष्ट्र की सेवा करना',
+                    'sec1-title': '1. चिकित्सा और पैरामेडिकल पद 🩺',
+                    'sec1-p1': 'परमाणु ऊर्जा विभाग (डीएई) अपने विभिन्न अस्पतालों, औषधालयों और स्वास्थ्य केंद्रों के लिए योग्य चिकित्सा और पैरामेडिकल पेशेवरों की भर्ती करता है। ये भूमिकाएं डीएई समुदाय के स्वास्थ्य और कल्याण को सुनिश्चित करने के लिए महत्वपूर्ण हैं। चयन पर, आप विकिरण और परमाणु चिकित्सा से संबंधित विशेष सेवाओं सहित उच्च-गुणवत्ता वाली स्वास्थ्य सेवा प्रदान करने के लिए समर्पित एक टीम का हिस्सा होंगे।',
+                    'sec2-title': '2. चयन प्रक्रिया: 3 चरण 📝',
+                    'sec2-p1': 'चिकित्सा और पैरामेडिकल भूमिकाओं के लिए चयन प्रक्रिया आपके पेशेवर ज्ञान, व्यावहारिक कौशल और पद के लिए उपयुक्तता का आकलन करने के लिए डिज़ाइन की गई है। यह एक बहु-चरणीय प्रक्रिया है जो सुनिश्चित करती है कि केवल सबसे सक्षम उम्मीदवारों का चयन किया जाए।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'आवेदन स्क्रीनिंग', 'sec2-step1-desc': 'सीवी और पात्रता जांच',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'लिखित परीक्षा / साक्षात्कार', 'sec2-step2-desc': 'पेशेवर ज्ञान परीक्षण',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'कौशल परीक्षण / अंतिम साक्षात्कार', 'sec2-step3-desc': 'व्यावहारिक और पेशेवर मूल्यांकन',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'चिकित्सा और पैरामेडिकल पदों के लिए पात्र होने के लिए, आपको इन मानदंडों को पूरा करना होगा, जो पद के अनुसार भिन्न होते हैं:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'प्रासंगिक योग्यताएं जैसे **एमबीबीएस, बीडीएस, एम.एससी.(नर्सिंग), नर्सिंग में डिप्लोमा, डी. फार्मेसी**, आदि, विशिष्ट पद की आवश्यकताओं के अनुसार। प्रासंगिक परिषद के साथ पंजीकृत होना चाहिए।',
+                    'sec3-age-title': 'आयु:', 'sec3-age-desc': 'आयु सीमा आधिकारिक अधिसूचना में निर्दिष्ट होती है, जिसमें सरकारी मानदंडों के अनुसार विभिन्न श्रेणियों के लिए छूट होती है।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'भारतीय नागरिक होना चाहिए।',
+                    'sec3-attempts-title': 'अनुभव और अन्य विवरण 📊',
+                    'sec3-attempts-p1': 'अधिकांश पदों के लिए, विशेष रूप से विशेषज्ञों के लिए, प्रासंगिक योग्यता-पश्चात अनुभव आवश्यक है। उम्मीदवारों को चिकित्सकीय रूप से भी फिट होना चाहिए।',
+                    'sec3-agerelax-list': '<li><strong>अनुभव:</strong> प्रवेश-स्तर के पदों के लिए कोई अनुभव नहीं से लेकर विशेषज्ञ भूमिकाओं के लिए कई वर्षों तक भिन्न होता है।</li><li><strong>पंजीकरण:</strong> भारतीय चिकित्सा परिषद (एमसीआई) या नर्सिंग परिषद के साथ अनिवार्य पंजीकरण।</li><li><strong>शारीरिक फिटनेस:</strong> नौकरी प्रोफ़ाइल के लिए शारीरिक मानकों को पूरा करना होगा।</li>',
+                    'sec3-attempts-p2': 'प्रयासों की संख्या:',
+                    'sec3-attempts-p3': 'इन पदों के लिए प्रयासों की संख्या पर कोई आधिकारिक सीमा नहीं है, जब तक आप विशिष्ट अधिसूचना के लिए आयु, शैक्षिक और अनुभव मानदंडों को पूरा करते हैं।',
+                    'sec4-title': '4. लिखित परीक्षा और साक्षात्कार विषय 📚',
+                    'sec4-p1': 'लिखित परीक्षा और साक्षात्कार आपके पेशेवर ज्ञान और व्यावहारिक कौशल का आकलन करते हैं। तैयारी आपके मुख्य विषय क्षेत्रों और उनके वास्तविक दुनिया के अनुप्रयोग पर केंद्रित होनी चाहिए।',
+                    'gs1-title': 'चिकित्सा विषय 📖', 'gs1-sub1': 'एनाटॉमी और फिजियोलॉजी', 'gs1-sub2': 'फार्माकोलॉजी', 'gs1-sub3': 'पैथोलॉजी और माइक्रोबायोलॉजी',
+                    'gs2-title': 'व्यावहारिक ज्ञान 🧠', 'gs2-sub1': 'नैदानिक ​​प्रक्रियाएं', 'gs2-sub2': 'रोगी देखभाल और प्रबंधन', 'gs2-sub3': 'विकिरण सुरक्षा प्रोटोकॉल',
+                    'gs3-title': 'सामान्य योग्यता 🗣️', 'gs3-sub1': 'सामान्य जागरूकता', 'gs3-sub2': 'तर्क और मात्रात्मक योग्यता', 'gs3-sub3': 'अंग्रेजी भाषा',
+                    'sec5-title': '5. प्रशिक्षण और पदस्थापन 🏥',
+                    'sec5-p1': 'चयनित उम्मीदवारों को उनके पदों पर नियुक्त किया जाता है और डीएई के अस्पतालों और चिकित्सा केंद्रों में नौकरी पर प्रशिक्षण की अवधि से गुजरना पड़ता है। प्रशिक्षण उन्हें डीएई वातावरण और विशिष्ट प्रोटोकॉल से परिचित कराता है।',
+                    'sec5-hindi-title': '1. पाठ्यक्रम', 'sec5-hindi-p1': 'प्रशिक्षण एक मजबूत नींव बनाने के लिए व्यावहारिक अनुप्रयोग और विशेष ज्ञान पर केंद्रित है।', 'sec5-hindi-list': '<li>अस्पताल और रोगी प्रबंधन प्रणाली।</li><li>रेडियोलॉजिकल सुरक्षा प्रक्रियाएं।</li><li>आपातकालीन और आघात देखभाल प्रोटोकॉल।</li><li>विशेषज्ञ उपकरण हैंडलिंग।</li>',
+                    'sec5-essay-title': '2. पदस्थापन', 'sec5-essay-p1': 'पदस्थापन भारत भर में विभिन्न डीएई इकाइयों में हो सकते हैं, जिनमें शामिल हैं:', 'sec5-essay-list': '<li>बार्क, मुंबई।</li><li>आईजीसीएआर, कलपक्कम।</li><li>आरआरसीएटी, इंदौर।</li><li>यूसीआईएल, जादूगुड़ा।</li>',
+                    'sec6-title': '6. चिकित्सा और पैरामेडिकल अनुशासन 🌟',
+                    'sec6-p1': "बार्क विभिन्न चिकित्सा और पैरामेडिकल भूमिकाओं के लिए पेशेवरों की भर्ती करता है। विशिष्ट आवश्यकताएं और रिक्तियों की संख्या आधिकारिक अधिसूचना में घोषित की जाती है।",
+                    'sec6-eng-title': 'चिकित्सा अधिकारी', 'sec6-eng-list': '<li>सामान्य ड्यूटी चिकित्सा अधिकारी (जीडीएमओ)</li><li>विशेषज्ञ डॉक्टर (विभिन्न क्षेत्र)</li><li>डेंटल सर्जन</li>',
+                    'sec6-elec-title': 'नर्सिंग स्टाफ', 'sec6-elec-list': '<li>नर्स ए/बी</li><li>नर्सिंग अधिकारी</li>',
+                    'sec6-naic-title': 'अन्य पैरामेडिकल पद', 'sec6-naic-list': '<li>फार्मासिस्ट</li><li>प्रयोगशाला तकनीशियन</li><li>रेडियोग्राफर</li><li>डेंटल तकनीशियन</li>',
+                    'sec6-imp-title': '💡 यह क्यों महत्वपूर्ण है?', 'sec6-imp-p1': 'सुनिश्चित करें कि आपका पेशेवर पंजीकरण और अनुभव उस विशिष्ट पद के साथ संरेखित हो जिसके लिए आप आवेदन कर रहे हैं। यह पात्रता के लिए एक महत्वपूर्ण कदम है।',
+                    'sec7-title': '7. परीक्षा क्या मूल्यांकन करती है 📈',
+                    'sec7-p1': 'भर्ती प्रक्रिया आपके पेशेवर दक्षता का परीक्षण करने के लिए डिज़ाइन की गई है। लिखित परीक्षा और साक्षात्कार निम्नलिखित प्रमुख क्षेत्रों पर आपकी पकड़ का मूल्यांकन करेंगे:',
+                    'sec7-qualities-title': 'प्रमुख क्षेत्र:',
+                    'sec7-qualities-list': '<li><span class="text-2xl text-[var(--secondary-color)] mr-4">🧠</span><div><strong class="text-[var(--primary-color)]">पेशेवर ज्ञान:</strong> आपके चिकित्सा/पैरामेडिकल क्षेत्र का गहन ज्ञान।</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">💡</span><div><strong class="text-[var(--primary-color)]">व्यावहारिक कौशल:</strong> नैदानिक ​​सेटिंग में अपने ज्ञान को लागू करने की क्षमता।</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">💬</span><div><strong class="text-[var(--primary-color)]">संचार कौशल:</strong> मरीजों और सहकर्मियों के साथ प्रभावी ढंग से बातचीत करना।</div></li><li><span class="text-2xl text-[var(--secondary-color)] mr-4">🔬</span><div><strong class="text-[var(--primary-color)]">सामान्य जागरूकता:</strong> विशेष रूप से स्वास्थ्य सेवा और विज्ञान में वर्तमान घटनाओं का ज्ञान।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📝',
+                    'sec8-p1': 'बार्क की चिकित्सा भर्ती में सफलता एक समग्र दृष्टिकोण के बारे में है, जो मजबूत पेशेवर ज्ञान को डीएई के अद्वितीय वातावरण के बारे में जागरूकता के साथ जोड़ती है।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'अपने पाठ्यक्रम की समीक्षा करें', 'sec8-step1-desc': 'अपने कॉलेज की पाठ्यपुस्तकों और नोट्स को फिर से देखें। अपने क्षेत्र के मुख्य विषयों और नैदानिक ​​पहलूओं पर ध्यान केंद्रित करें।',
+                    'sec8-step2-title': 'अद्यतन रहें', 'sec8-step2-desc': 'चिकित्सा पत्रिकाओं, समाचार लेखों और सरकारी स्वास्थ्य रिपोर्टों को पढ़ें। स्वास्थ्य सेवा और नीतियों में नवीनतम प्रगति के बारे में जागरूक रहें।',
+                    'sec8-step3-title': 'डीएई संदर्भ को समझें', 'sec8-step3-desc': 'परमाणु चिकित्सा और रेडियोलॉजिकल सुरक्षा की मूल बातों से खुद को परिचित करें। यह संगठन के मिशन में आपकी रुचि को दर्शाता है।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>साक्षात्कार का अभ्यास करें:</strong> एक मौखिक-शैली के साक्षात्कार के लिए तैयारी करें। जटिल अवधारणाओं को एक सरल, स्पष्ट तरीके से समझाने का अभ्यास करें।</li><li><strong>पेशेवर व्यवहार:</strong> खुद को एक शांत, आत्मविश्वासी और सहानुभूतिपूर्ण पेशेवर के रूप में प्रस्तुत करें।</li><li><strong>स्वास्थ्य और फिटनेस:</strong> सुनिश्चित करें कि आप चिकित्सा परीक्षा पास करने के लिए शारीरिक रूप से फिट हैं।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'बार्क में चिकित्सा और पैरामेडिकल पदों के लिए भर्ती आवश्यकता के अनुसार की जाती है। आधिकारिक अधिसूचनाएं बार्क और डीएई वेबसाइटों पर प्रकाशित होती हैं।',
+                    'sec9-step1-title': 'विज्ञापन और ऑनलाइन आवेदन', 'sec9-step1-desc': '<strong>समयरेखा:</strong> भर्ती चक्र के अनुसार, आमतौर पर कुछ सप्ताह।',
+                    'sec9-step2-title': 'लिखित परीक्षा / स्क्रीनिंग', 'sec9-step2-desc': '<strong>समयरेखा:</strong> बड़ी संख्या में आवेदकों वाले पदों के लिए आयोजित की जाती है।',
+                    'sec9-step3-title': 'साक्षात्कार / कौशल परीक्षण', 'sec9-step3-desc': '<strong>समयरेखा:</strong> स्क्रीनिंग के बाद या प्राथमिक चयन चरण के रूप में।',
+                    'sec9-step4-title': 'चिकित्सा परीक्षा और नियुक्ति', 'sec9-step4-desc': '<strong>समयरेखा:</strong> अंतिम चयन पर, उम्मीदवार एक चिकित्सा परीक्षा से गुजरते हैं और नियुक्ति पत्र प्राप्त करते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'इन सामान्य नुकसानों से अवगत होना भर्ती प्रक्रिया में आपकी सफलता की संभावनाओं में काफी सुधार कर सकता है।',
+                    'sec10-mistake1-title': 'पेशेवरता की कमी:', 'sec10-mistake1-desc': 'साक्षात्कार के दौरान एक आकस्मिक या अप्रस्तुत रवैया प्रस्तुत करना।',
+                    'sec10-mistake2-title': 'अपर्याप्त व्यावहारिक कौशल:', 'sec10-mistake2-desc': 'कौशल परीक्षण के दौरान हाथों-हाथ कौशल को सही ढंग से प्रदर्शित करने में विफल होना।',
+                    'sec10-mistake3-title': 'संचार की कमी:', 'sec10-mistake3-desc': 'अपने ज्ञान को स्पष्ट करने या प्रश्नों का स्पष्ट रूप से उत्तर देने में संघर्ष करना।',
+                    'sec10-mistake4-title': 'चिकित्सा फिटनेस की उपेक्षा:', 'sec10-mistake4-desc': 'कड़े चिकित्सा मानकों और संभावित अयोग्यताओं के बारे में जागरूक न होना।',
+                    'sec11-title': '11. अध्ययन सामग्री और संसाधन 📖',
+                    'sec11-p1': 'तैयारी आपके मुख्य पेशेवर ज्ञान को मजबूत करने पर ध्यान केंद्रित करनी चाहिए। आपकी प्राथमिक अध्ययन सामग्री आपकी पेशेवर पाठ्यक्रम की किताबें और पत्रिकाएं हैं।',
+                    'sec11-gov-title': '📚 मुख्य पाठ्यपुस्तकें', 'sec11-gov-list': '<li>आपके एमबीबीएस, नर्सिंग, या पैरामेडिकल पाठ्यक्रमों की मानक पाठ्यपुस्तकें।</li><li>पेशेवर पत्रिकाएं और केस स्टडी।</li>',
+                    'sec11-pvt-title': '🖥️ ऑनलाइन संसाधन', 'sec11-pvt-p1': 'चिकित्सा पेशेवरों और सामान्य जागरूकता के लिए विभिन्न ऑनलाइन प्लेटफॉर्म टेस्ट श्रृंखला और ट्यूटोरियल प्रदान कर सकते हैं।', 'sec11-pvt-list': '<li>पेशेवर अपडेट के लिए चिकित्सा परिषद वेबसाइटें।</li><li>ऑनलाइन चिकित्सा क्विज पोर्टल और मॉक टेस्ट।</li><li>संगठन के बारे में सामान्य जागरूकता के लिए डीएई की आधिकारिक वेबसाइट।</li>',
+                    'sec12-title': '12. डीएई में कैरियर विकास 🚀',
+                    'sec12-p1': 'डीएई में चिकित्सा और पैरामेडिकल क्षेत्रों में एक करियर स्थिर विकास और पेशेवर विकास के लिए अवसर प्रदान करता है, जिसमें प्रदर्शन और सेवा समय के आधार पर विशेषज्ञता और वरिष्ठ भूमिकाओं में पदोन्नति शामिल है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. गहन पाठ्यक्रम और अध्ययन सामग्री 📚',
+                    'sec13-p1': 'पेशेवर परीक्षा और साक्षात्कार के लिए ध्यान केंद्रित करने के लिए विषयों और विषयों का एक विस्तृत विवरण।',
+                    'syllabus-med-title': 'चिकित्सा मुख्य विषय',
+                    'syllabus-med-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚕️</span><div class="flex-grow">एनाटॉमी और फिजियोलॉजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💊</span><div class="flex-grow">फार्माकोलॉजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧪</span><div class="flex-grow">पैथोलॉजी और माइक्रोबायोलॉजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-para-title': 'पैरामेडिकल मुख्य विषय',
+                    'syllabus-para-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💉</span><div class="flex-grow">नर्सिंग फंडामेंटल और प्रक्रियाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🩻</span><div class="flex-grow">रेडियोलॉजी और चिकित्सा इमेजिंग</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏥</span><div class="flex-grow">नैदानिक ​​रोगविज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-gen-title': 'सामान्य और विशेष विषय',
+                    'syllabus-gen-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">सामान्य योग्यता और तर्क</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">सामान्य जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-spec-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">☢️</span><div class="flex-grow">रेडियोलॉजिकल सुरक्षा</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">परमाणु चिकित्सा मूल बातें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | एक सफल और स्वस्थ करियर की कामना!',
+                    'examChartData': {
+                        labels: ['पेशेवर ज्ञान', 'व्यावहारिक कौशल', 'संचार', 'सामान्य योग्यता'],
+                        data: [50, 30, 10, 10]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-8 bg-slate-100/80 rounded-2xl text-center border-2 border-slate-200 hover:border-[var(--secondary-color)] transition-all duration-300 cursor-pointer shadow-md hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-[var(--primary-color)]">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-4 right-4 text-[var(--secondary-color)] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-[var(--primary-color)] mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-700">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+            
+            function showMessageBox(title, message) {
+                document.getElementById('messageTitle').innerText = title;
+                document.getElementById('messageText').innerText = message;
+                showModal('messageBox');
+            }
+
+            function initExamChart() {
+                const ctx = document.getElementById('examQualitiesChart').getContext('2d');
+                examChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.examChartData.labels,
+                        datasets: [{
+                            label: 'Weightage',
+                            data: translations.en.examChartData.data,
+                            backgroundColor: 'var(--secondary-color)',
+                            borderColor: '#1abc9c',
+                            borderWidth: 2,
+                            borderRadius: 12,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100, grid: { color: '#e5e7eb' } },
+                            x: { ticks: { font: { size: 14 } }, grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (examChartInstance) {
+                    const data = translations[currentLang].examChartData;
+                    examChartInstance.data.labels = data.labels;
+                    examChartInstance.data.datasets[0].data = data.data;
+                    examChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            document.getElementById('okButton').addEventListener('click', () => closeModal(document.getElementById('messageBox')));
+            
+            // Initial render
+            initExamChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
