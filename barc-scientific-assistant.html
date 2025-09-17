@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARC Technical & Scientific Staff Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to joining BARC as a Scientific Assistant or Technician. Details on the selection process, eligibility, syllabus, and career path.">
+    <meta name="keywords" content="BARC, Technician, Scientific Assistant, BARC Recruitment, ITI Jobs, B.Sc Jobs, Government Jobs, Stipendiary Trainee, DAE">
+    <meta name="author" content="BARC Technical Staff Guide">
+    <style>
+        :root {
+            --primary-bg: #0A192F; /* Navy Blue */
+            --secondary-bg: #172A45;
+            --card-bg: rgba(23, 42, 69, 0.8);
+            --text-primary: #CCD6F6;
+            --text-secondary: #8892B0;
+            --accent-primary: #FFD700; /* Gold */
+            --accent-secondary: #64FFDA; /* Mint Green */
+            --glow-color-1: rgba(255, 215, 0, 0.3);
+            --glow-color-2: rgba(100, 255, 218, 0.3);
+            --border-color: rgba(100, 255, 218, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background-image: 
+                linear-gradient(rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.95)),
+                url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill="%23172A45" fill-opacity="0.4"%3E%3Crect x="0" y="0" width="50" height="50"/%3E%3Crect x="50" y="50" width="50" height="50"/%3E%3C/g%3E%3C/svg%3E');
+        }
+
+        .section-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--glow-color-1);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px var(--glow-color-2);
+            transform: translateY(-8px);
+            border-color: var(--accent-secondary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 2px solid var(--accent-secondary);
+            color: var(--text-primary);
+            background: var(--secondary-bg);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color-2), inset 0 0 10px rgba(100, 255, 218, 0.1);
+        }
+
+        .flowchart-step:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--glow-color-2);
+        }
+        
+        .flowchart-arrow { color: var(--accent-primary); text-shadow: 0 0 8px var(--glow-color-1); }
+
+        .subject-category-heading {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .subject-item:hover { background-color: rgba(100, 255, 218, 0.08); }
+        .subject-item .icon { color: var(--accent-primary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-secondary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-2);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(10, 25, 47, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 0 35px var(--glow-color-1);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-primary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-primary); }
+        .modal-action-button {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 20px var(--glow-color-2);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px var(--glow-color-2);
+            filter: brightness(1.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-secondary);
+            color: var(--accent-secondary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-secondary);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px var(--glow-color-2);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-secondary); color: var(--primary-bg); }
+        .notes-btn:hover { filter: brightness(1.1); }
+        .lectures-btn { background-color: transparent; color: var(--accent-primary); border-color: var(--accent-primary); }
+        .lectures-btn:hover { background-color: rgba(255, 215, 0, 0.1); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-accent-primary">🛠️ BARC Technical & Scientific Staff Guide 🔬</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-text-secondary font-semibold">Recruitment for Scientific Assistants & Technicians</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is the Role -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. The Backbone of DAE: Technical & Scientific Staff ☢️</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-text-secondary">Scientific Assistants (Group B) and Technicians (Group C) are the skilled workforce that supports the research, operations, and maintenance activities across the Department of Atomic Energy (DAE). These roles are crucial for the functioning of India's premier nuclear facilities. Recruitment is often done through the Stipendiary Trainee scheme.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. Three-Stage Selection Process 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-text-secondary">The selection process for technical staff is designed to rigorously test the theoretical knowledge and practical skills of candidates.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Preliminary Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-text-secondary">Screening Exam</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Advanced Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-text-secondary">Discipline-Specific Test</p>
+                    </div>
+                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Skill / Trade Test</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-text-secondary">Practical Skills Evaluation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-text-secondary">Eligibility depends on the specific post (Scientific Assistant or Technician).</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-text-primary text-lg">Scientific Assistant (Category-I):</strong> <span id="sec3-edu-desc" class="text-text-secondary">**B.Sc.** in a relevant field (Physics, Chemistry, etc.) with minimum 60% marks OR a **Diploma in Engineering** (3 years after SSC) with minimum 60% marks.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🔧</span><div><strong id="sec3-nat-title" class="text-text-primary text-lg">Technician (Category-II):</strong> <span id="sec3-nat-desc" class="text-text-secondary">**SSC/HSC** with Science and Maths (min 60% in SSC) + **ITI Trade Certificate** in the relevant trade.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-text-primary mb-4 border-b border-accent-secondary pb-2">Age Limits 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-text-secondary">Age limits are specified in the official notification and vary by post.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-text-secondary">
+                           <li>Scientific Assistant: Typically 18-24 years.</li>
+                           <li>Technician: Typically 18-22 years.</li>
+                           <li>Relaxations apply for OBC, SC/ST, and other reserved categories as per government rules.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Examination Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The written examination is conducted in two stages on the same day.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Stage 1: Preliminary Test</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🔢</span><div id="gs1-sub1">Mathematics (20 Qs)</div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs1-sub2">Science (20 Qs)</div></div>
+                             <div class="subject-item"><span class="icon">🌍</span><div id="gs1-sub3">General Awareness (10 Qs)</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Stage 2: Advanced Test</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">⚙️</span><div id="gs2-sub1">50 Questions from your specific trade/discipline.</div></div>
+                            <div class="subject-item"><span class="icon">🏆</span><div id="gs2-sub2">Merit list is prepared based on Stage 2 scores only.</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Stage 3: Skill Test</h3>
+                         <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🔧</span><div id="gs3-sub1">Hands-on practical test.</div></div>
+                            <div class="subject-item"><span class="icon">✅</span><div id="gs3-sub2">Qualifying in nature (Go/No-Go basis).</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Skill Test -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. The Skill / Trade Test 🗣️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-text-secondary">This is the final stage of selection, where your practical, hands-on ability is evaluated. Candidates shortlisted from the Advanced Test (typically in a 1:4 or 1:5 ratio) are called for the Skill Test.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-text-primary mb-2">Focus Areas</h3>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-text-primary mb-2">What to Expect</h3>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Eligible Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Various Disciplines & Trades 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">BARC recruits for a diverse range of technical and scientific support roles.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Scientific Assistant</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Technician Trades</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Other Roles</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-secondary-bg/50 border border-accent-secondary rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-text-primary mb-2">💡 Stipendiary Trainee Scheme</h4>
+                    <p id="sec6-imp-p1" class="text-base text-text-secondary">Most of these recruitments are for Stipendiary Trainees (Category I & II). After successful completion of 2 years of training, they are absorbed as Scientific Assistant/C or Technician/B.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Evaluated -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. Qualities of a BARC Technical Staff 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-text-secondary">The selection process looks for candidates who are not just knowledgeable but also possess the right practical skills and temperament for working in a high-tech R&D environment.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-text-primary mb-6 border-b border-accent-secondary pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-text-secondary">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-text-secondary">A well-structured preparation plan is essential to clear all three stages of the examination.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-text-primary mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-text-primary mb-1">Strengthen Basics</h4>
+                                <p id="sec8-step1-desc" class="text-base text-text-secondary">Thoroughly revise your ITI/Diploma/B.Sc syllabus. The Advanced Test is completely based on it.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-text-primary mb-1">Practice for Stage-1</h4>
+                                <p id="sec8-step2-desc" class="text-base text-text-secondary">Solve questions for Maths, Science, and General Awareness from standard SSC/Railway exam books.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-text-primary mb-1">Hone Practical Skills</h4>
+                                <p id="sec8-step3-desc" class="text-base text-text-secondary">Don't neglect the Skill Test. Regularly practice the hands-on tasks related to your trade in a workshop or lab.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-text-primary mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-text-secondary">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-text-secondary">BARC releases notifications for various technical posts throughout the year. It's important to keep checking the official recruitment website.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-text-primary mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Advertisements are published on the BARC website and in Employment News as per requirements.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-text-primary mb-1">Written Examinations</h4>
+                        <p id="sec9-step2-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Usually conducted 1-2 months after the application deadline.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-text-primary mb-1">Skill Test & Document Verification</h4>
+                        <p id="sec9-step3-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Conducted for shortlisted candidates after the written test results.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-text-primary mb-1">Final Merit List</h4>
+                        <p id="sec9-step4-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Published after the completion of all stages for a particular post.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Many deserving candidates fail due to simple, avoidable errors. Be cautious.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Ignoring Stage-1:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Focusing only on the technical syllabus and failing the preliminary screening test.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Lack of Practical Practice:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Having good theoretical knowledge but being unable to perform tasks in the Skill Test.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Poor Time Management:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not practicing enough mock tests to manage time effectively in the computer-based tests.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Errors in Application Form:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Providing incorrect information can lead to disqualification at the document verification stage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Information Sources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Find Information 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">For authentic information and quality study material, rely on the following sources.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Official & Academic Sources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Preparation Resources</h3>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career Trajectory at DAE 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-text-secondary">The Department of Atomic Energy offers a stable and rewarding career path with excellent growth prospects for its technical and scientific staff, based on performance and departmental examinations.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Key Topics & Resources 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Preparation should be targeted towards the specific syllabus of the preliminary and advanced tests.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Syllabus Areas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Resources</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-border-color">
+            <p id="footer-text" class="text-text-secondary text-lg font-medium">&copy; 2025 | Powering India's future. Your technical career starts here.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-text-primary mb-4">Stage 1: Preliminary Test</h3><p id="prelims-modal-p1" class="text-text-secondary">This is a one-hour screening test with 50 multiple-choice questions on Mathematics, Science, and General Awareness. It is qualifying in nature; marks are not considered for the final merit list.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-text-primary mb-4">Stage 2: Advanced Test</h3><p id="mains-modal-p1" class="text-text-secondary">Candidates who clear Stage 1 appear for this test. It consists of 50 multiple-choice questions from the respective trade/discipline syllabus. The final merit list is prepared based ONLY on the scores of this test.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-text-primary mb-4">Stage 3: Skill Test</h3><p id="interview-modal-p1" class="text-base mb-3 text-text-secondary">This is a practical, hands-on test to evaluate the candidate's proficiency in their trade. It is purely qualifying (Go/No-Go basis). Candidates must clear this stage to be considered for a position.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-text-primary"></h3></div><p id="postDetailDescription" class="text-lg text-text-secondary leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-text-primary mb-6">Career Progression for Technical Staff</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'sa': { name: 'Scientific Assistant', icon: '🔬', description: 'Assist scientists and engineers in research, development, and operational activities. This role involves data collection, operating advanced equipment, and maintaining laboratory records. Requires a B.Sc. or Diploma in Engineering.', cta: 'Details' },
+                'tech': { name: 'Technician', icon: '🛠️', description: 'Responsible for the maintenance, repair, and operation of various machinery and plant systems. This is a hands-on role requiring specialized skills in trades like Fitter, Electrician, Welder, etc. Requires an ITI certificate.', cta: 'Details' },
+            },
+            'hi': {
+                'sa': { name: 'वैज्ञानिक सहायक', icon: '🔬', description: 'अनुसंधान, विकास और परिचालन गतिविधियों में वैज्ञानिकों और इंजीनियरों की सहायता करें। इस भूमिका में डेटा संग्रह, उन्नत उपकरणों का संचालन और प्रयोगशाला रिकॉर्ड बनाए रखना शामिल है। इसके लिए बी.एससी. या इंजीनियरिंग में डिप्लोमा की आवश्यकता होती है।', cta: 'विवरण' },
+                'tech': { name: 'तकनीशियन', icon: '🛠️', description: 'विभिन्न मशीनरी और संयंत्र प्रणालियों के रखरखाव, मरम्मत और संचालन के लिए जिम्मेदार। यह एक व्यावहारिक भूमिका है जिसमें फिटर, इलेक्ट्रीशियन, वेल्डर आदि जैसे ट्रेडों में विशेष कौशल की आवश्यकता होती है। इसके लिए आईटीआई प्रमाणपत्र की आवश्यकता होती है।', cta: 'विवरण' }
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Technician/B or Scientific Assistant/C", desc: "Starting position after successful completion of 2 years of stipendiary training." },
+                    { rank: "Technician/C or Scientific Assistant/D", desc: "Promotion based on departmental exams and performance reviews." },
+                    { rank: "Technician/D or Scientific Assistant/E", desc: "Senior technical roles with increased responsibility in workshop or lab management." },
+                    { rank: "Foreman / Higher Grades", desc: "Further promotions lead to supervisory roles, managing teams of technicians and junior staff." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "तकनीशियन/बी या वैज्ञानिक सहायक/सी", desc: "2 साल के वजीफा प्रशिक्षण के सफल समापन के बाद शुरुआती पद।" },
+                    { rank: "तकनीशियन/सी या वैज्ञानिक सहायक/डी", desc: "विभागीय परीक्षाओं और प्रदर्शन समीक्षाओं के आधार पर पदोन्नति।" },
+                    { rank: "तकनीशियन/डी या वैज्ञानिक सहायक/ई", desc: "कार्यशाला या प्रयोगशाला प्रबंधन में बढ़ी हुई जिम्मेदारी के साथ वरिष्ठ तकनीकी भूमिकाएँ।" },
+                    { rank: "फोरमैन / उच्च ग्रेड", desc: "आगे की पदोन्नति से तकनीशियनों और कनिष्ठ कर्मचारियों की टीमों का प्रबंधन करने वाली पर्यवेक्षी भूमिकाएँ प्राप्त होती हैं।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '🛠️ BARC Technical & Scientific Staff Guide 🔬', 'header-subtitle': 'Recruitment for Scientific Assistants & Technicians',
+                'sec1-title': '1. The Backbone of DAE: Technical & Scientific Staff ☢️', 'sec1-p1': 'Scientific Assistants (Group B) and Technicians (Group C) are the skilled workforce that supports the research, operations, and maintenance activities across the Department of Atomic Energy (DAE). These roles are crucial for the functioning of India\'s premier nuclear facilities. Recruitment is often done through the Stipendiary Trainee scheme.',
+                'sec2-title': '2. Three-Stage Selection Process 🎯', 'sec2-p1': 'The selection process for technical staff is designed to rigorously test the theoretical knowledge and practical skills of candidates.',
+                'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Preliminary Test', 'sec2-step1-desc': 'Screening Exam',
+                'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Advanced Test', 'sec2-step2-desc': 'Discipline-Specific Test',
+                'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Skill / Trade Test', 'sec2-step3-desc': 'Practical Skills Evaluation',
+                'sec3-title': '3. Eligibility Criteria ✅', 'sec3-p1': 'Eligibility depends on the specific post (Scientific Assistant or Technician).',
+                'sec3-edu-title': 'Scientific Assistant (Category-I):', 'sec3-edu-desc': '**B.Sc.** in a relevant field (Physics, Chemistry, etc.) with minimum 60% marks OR a **Diploma in Engineering** (3 years after SSC) with minimum 60% marks.',
+                'sec3-nat-title': 'Technician (Category-II):', 'sec3-nat-desc': '**SSC/HSC** with Science and Maths (min 60% in SSC) + **ITI Trade Certificate** in the relevant trade.',
+                'sec3-attempts-title': 'Age Limits 📊', 'sec3-attempts-p1': 'Age limits are specified in the official notification and vary by post.',
+                'sec3-agerelax-list': '<li>Scientific Assistant: Typically 18-24 years.</li><li>Technician: Typically 18-22 years.</li><li>Relaxations apply for OBC, SC/ST, and other reserved categories as per government rules.</li>',
+                'sec4-title': '4. Examination Pattern 📚', 'sec4-p1': 'The written examination is conducted in two stages on the same day.',
+                'gs1-title': 'Stage 1: Preliminary Test', 'gs1-sub1': 'Mathematics (20 Qs)', 'gs1-sub2': 'Science (20 Qs)', 'gs1-sub3': 'General Awareness (10 Qs)',
+                'gs2-title': 'Stage 2: Advanced Test', 'gs2-sub1': '50 Questions from your specific trade/discipline.', 'gs2-sub2': 'Merit list is prepared based on Stage 2 scores only.',
+                'gs3-title': 'Stage 3: Skill Test', 'gs3-sub1': 'Hands-on practical test.', 'gs3-sub2': 'Qualifying in nature (Go/No-Go basis).',
+                'sec5-title': '5. The Skill / Trade Test 🗣️', 'sec5-p1': 'This is the final stage of selection, where your practical, hands-on ability is evaluated. Candidates shortlisted from the Advanced Test (typically in a 1:4 or 1:5 ratio) are called for the Skill Test.',
+                'sec5-hindi-title': 'Focus Areas', 'sec5-hindi-list': '<li>Ability to use tools and equipment.</li><li>Accuracy and precision in work.</li><li>Following procedures and safety norms.</li><li>Problem-solving in a practical scenario.</li>',
+                'sec5-essay-title': 'What to Expect', 'sec5-essay-list': '<li>A specific job or task will be assigned.</li><li>You will be evaluated by experts in your trade.</li><li>The test is designed to be completed in a fixed time.</li><li>It is a test of skill, not theoretical knowledge.</li>',
+                'sec6-title': '6. Various Disciplines & Trades 🌟', 'sec6-p1': 'BARC recruits for a diverse range of technical and scientific support roles.',
+                'sec6-eng-title': 'Scientific Assistant', 'sec6-eng-list': '<li>Physics</li><li>Chemistry</li><li>Computer Science</li><li>Electronics</li><li>Mechanical</li>',
+                'sec6-elec-title': 'Technician Trades', 'sec6-elec-list': '<li>Fitter</li><li>Electrician</li><li>Welder</li><li>Machinist</li><li>Boiler Attendant</li>',
+                'sec6-naic-title': 'Other Roles', 'sec6-naic-list': '<li>Draughtsman</li><li>Lab Assistant</li><li>Plant Operator</li>',
+                'sec6-imp-title': '💡 Stipendiary Trainee Scheme', 'sec6-imp-p1': 'Most of these recruitments are for Stipendiary Trainees (Category I & II). After successful completion of 2 years of training, they are absorbed as Scientific Assistant/C or Technician/B.',
+                'sec7-title': '7. Qualities of a BARC Technical Staff 🎙️', 'sec7-p1': 'The selection process looks for candidates who are not just knowledgeable but also possess the right practical skills and temperament for working in a high-tech R&D environment.',
+                'sec7-qualities-title': 'Key Attributes:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🔧</span><div><strong>Technical Skill:</strong> Proficiency in the relevant trade.</div></li><li><span class="text-2xl mr-3">🎯</span><div><strong>Precision & Accuracy:</strong> Ability to perform tasks with high quality.</div></li><li><span class="text-2xl mr-3">⚠️</span><div><strong>Safety Consciousness:</strong> Understanding and following safety protocols.</div></li><li><span class="text-2xl mr-3">🧠</span><div><strong>Problem-Solving:</strong> Ability to troubleshoot issues on the job.</div></li>',
+                'sec8-title': '8. Preparation Strategy 📈', 'sec8-p1': 'A well-structured preparation plan is essential to clear all three stages of the examination.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Strengthen Basics', 'sec8-step1-desc': 'Thoroughly revise your ITI/Diploma/B.Sc syllabus. The Advanced Test is completely based on it.', 'sec8-step2-title': 'Practice for Stage-1', 'sec8-step2-desc': 'Solve questions for Maths, Science, and General Awareness from standard SSC/Railway exam books.', 'sec8-step3-title': 'Hone Practical Skills', 'sec8-step3-desc': 'Don\'t neglect the Skill Test. Regularly practice the hands-on tasks related to your trade in a workshop or lab.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Solve Previous Papers:</strong> Practice with papers from BARC, NPCIL, and other DAE units.</li><li><strong>Take Mock Tests:</strong> Improve speed and accuracy for the computer-based tests.</li><li><strong>Focus on Weak Areas:</strong> Identify and work on topics you find difficult.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'BARC releases notifications for various technical posts throughout the year. It\'s important to keep checking the official recruitment website.',
+                'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Advertisements are published on the BARC website and in Employment News as per requirements.', 'sec9-step2-title': 'Written Examinations', 'sec9-step2-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Usually conducted 1-2 months after the application deadline.', 'sec9-step3-title': 'Skill Test & Document Verification', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Conducted for shortlisted candidates after the written test results.', 'sec9-step4-title': 'Final Merit List', 'sec9-step4-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Published after the completion of all stages for a particular post.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'Many deserving candidates fail due to simple, avoidable errors. Be cautious.',
+                'sec10-mistake1-title': 'Ignoring Stage-1:', 'sec10-mistake1-desc': 'Focusing only on the technical syllabus and failing the preliminary screening test.', 'sec10-mistake2-title': 'Lack of Practical Practice:', 'sec10-mistake2-desc': 'Having good theoretical knowledge but being unable to perform tasks in the Skill Test.', 'sec10-mistake3-title': 'Poor Time Management:', 'sec10-mistake3-desc': 'Not practicing enough mock tests to manage time effectively in the computer-based tests.', 'sec10-mistake4-title': 'Errors in Application Form:', 'sec10-mistake4-desc': 'Providing incorrect information can lead to disqualification at the document verification stage.',
+                'sec11-title': '11. Where to Find Information 🏫', 'sec11-p1': 'For authentic information and quality study material, rely on the following sources.',
+                'sec11-gov-title': '💻 Official & Academic Sources', 'sec11-gov-list': '<li>Official BARC Recruitment Website: recruit.barc.gov.in</li><li>Standard ITI/Diploma/B.Sc Textbooks.</li><li>NCERT books for Stage-1 Science & Maths.</li>',
+                'sec11-pvt-title': 'Preparation Resources', 'sec11-pvt-list': '<li>Previous year question papers of DAE units.</li><li>Online mock test series for technical exams.</li>',
+                'sec12-title': '12. Career Trajectory at DAE 🚀', 'sec12-p1': 'The Department of Atomic Energy offers a stable and rewarding career path with excellent growth prospects for its technical and scientific staff, based on performance and departmental examinations.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Key Topics & Resources 📚', 'sec13-p1': 'Preparation should be targeted towards the specific syllabus of the preliminary and advanced tests.',
+                'syllabus-oir-title': 'Syllabus Areas',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">Stage 1: Maths, Science, GA</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Stage 2: Respective Trade Syllabus</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Key Resources',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">ITI/Diploma/B.Sc Standard Textbooks</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">Previous DAE/ISRO/DRDO Tech Papers</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | Powering India\'s future. Your technical career starts here.',
+                'interviewChartData': { labels: ['Technical Skill', 'Precision', 'Safety Awareness', 'Problem Solving'], data: [98, 95, 92, 90] }
+            },
+            'hi': {
+                'header-title': '🛠️ बार्क तकनीकी और वैज्ञानिक स्टाफ गाइड 🔬', 'header-subtitle': 'वैज्ञानिक सहायकों और तकनीशियनों के लिए भर्ती',
+                'sec1-title': '1. डीएई की रीढ़: तकनीकी और वैज्ञानिक कर्मचारी ☢️', 'sec1-p1': 'वैज्ञानिक सहायक (समूह बी) और तकनीशियन (समूह सी) कुशल कार्यबल हैं जो परमाणु ऊर्जा विभाग (डीएई) में अनुसंधान, संचालन और रखरखाव गतिविधियों का समर्थन करते हैं। ये भूमिकाएँ भारत की प्रमुख परमाणु सुविधाओं के कामकाज के लिए महत्वपूर्ण हैं। भर्ती अक्सर वजीफा प्रशिक्षु योजना के माध्यम से की जाती है।',
+                'sec2-title': '2. तीन-चरणीय चयन प्रक्रिया 🎯', 'sec2-p1': 'तकनीकी कर्मचारियों के लिए चयन प्रक्रिया उम्मीदवारों के सैद्धांतिक ज्ञान और व्यावहारिक कौशल का कड़ाई से परीक्षण करने के लिए डिज़ाइन की गई है।',
+                'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'प्रारंभिक परीक्षा', 'sec2-step1-desc': 'स्क्रीनिंग परीक्षा',
+                'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'उन्नत परीक्षा', 'sec2-step2-desc': 'अनुशासन-विशिष्ट परीक्षा',
+                'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'कौशल/ट्रेड टेस्ट', 'sec2-step3-desc': 'व्यावहारिक कौशल मूल्यांकन',
+                'sec3-title': '3. पात्रता मानदंड ✅', 'sec3-p1': 'पात्रता विशिष्ट पद (वैज्ञानिक सहायक या तकनीशियन) पर निर्भर करती है।',
+                'sec3-edu-title': 'वैज्ञानिक सहायक (श्रेणी-I):', 'sec3-edu-desc': 'न्यूनतम 60% अंकों के साथ संबंधित क्षेत्र (भौतिकी, रसायन विज्ञान, आदि) में **बी.एससी.** या न्यूनतम 60% अंकों के साथ **इंजीनियरिंग में डिप्लोमा** (एसएससी के बाद 3 वर्ष)।',
+                'sec3-nat-title': 'तकनीशियन (श्रेणी-II):', 'sec3-nat-desc': 'विज्ञान और गणित के साथ **एसएससी/एचएससी** (एसएससी में न्यूनतम 60%) + संबंधित ट्रेड में **आईटीआई ट्रेड प्रमाणपत्र**।',
+                'sec3-attempts-title': 'आयु सीमा 📊', 'sec3-attempts-p1': 'आयु सीमा आधिकारिक अधिसूचना में निर्दिष्ट है और पद के अनुसार भिन्न होती है।',
+                'sec3-agerelax-list': '<li>वैज्ञानिक सहायक: आमतौर पर 18-24 वर्ष।</li><li>तकनीशियन: आमतौर पर 18-22 वर्ष।</li><li>सरकारी नियमों के अनुसार ओबीसी, एससी/एसटी और अन्य आरक्षित श्रेणियों के लिए छूट लागू है।</li>',
+                'sec4-title': '4. परीक्षा पैटर्न 📚', 'sec4-p1': 'लिखित परीक्षा एक ही दिन में दो चरणों में आयोजित की जाती है।',
+                'gs1-title': 'चरण 1: प्रारंभिक परीक्षा', 'gs1-sub1': 'गणित (20 प्रश्न)', 'gs1-sub2': 'विज्ञान (20 प्रश्न)', 'gs1-sub3': 'सामान्य जागरूकता (10 प्रश्न)',
+                'gs2-title': 'चरण 2: उन्नत परीक्षा', 'gs2-sub1': 'आपके विशिष्ट ट्रेड/अनुशासन से 50 प्रश्न।', 'gs2-sub2': 'मेरिट सूची केवल चरण 2 के अंकों के आधार पर तैयार की जाती है।',
+                'gs3-title': 'चरण 3: कौशल परीक्षा', 'gs3-sub1': 'व्यावहारिक व्यावहारिक परीक्षण।', 'gs3-sub2': 'प्रकृति में योग्यता (गो/नो-गो आधार)।',
+                'sec5-title': '5. कौशल / ट्रेड टेस्ट 🗣️', 'sec5-p1': 'यह चयन का अंतिम चरण है, जहां आपकी व्यावहारिक, व्यावहारिक क्षमता का मूल्यांकन किया जाता है। उन्नत परीक्षा से शॉर्टलिस्ट किए गए उम्मीदवारों (आमतौर पर 1:4 या 1:5 के अनुपात में) को कौशल परीक्षा के लिए बुलाया जाता है।',
+                'sec5-hindi-title': 'फोकस क्षेत्र', 'sec5-hindi-list': '<li>उपकरणों और उपकरणों का उपयोग करने की क्षमता।</li><li>काम में सटीकता और परिशुद्धता।</li><li>प्रक्रियाओं और सुरक्षा मानदंडों का पालन करना।</li><li>एक व्यावहारिक परिदृश्य में समस्या-समाधान।</li>',
+                'sec5-essay-title': 'क्या उम्मीद करें', 'sec5-essay-list': '<li>एक विशिष्ट नौकरी या कार्य सौंपा जाएगा।</li><li>आपका मूल्यांकन आपके ट्रेड के विशेषज्ञों द्वारा किया जाएगा।</li><li>परीक्षण एक निश्चित समय में पूरा करने के लिए डिज़ाइन किया गया है।</li><li>यह कौशल का परीक्षण है, सैद्धांतिक ज्ञान का नहीं।</li>',
+                'sec6-title': '6. विभिन्न अनुशासन और ट्रेड 🌟', 'sec6-p1': 'बार्क विभिन्न प्रकार की तकनीकी और वैज्ञानिक सहायता भूमिकाओं के लिए भर्ती करता है।',
+                'sec6-eng-title': 'वैज्ञानिक सहायक', 'sec6-eng-list': '<li>भौतिकी</li><li>रसायन विज्ञान</li><li>कंप्यूटर विज्ञान</li><li>इलेक्ट्रॉनिक्स</li><li>मैकेनिकल</li>',
+                'sec6-elec-title': 'तकनीशियन ट्रेड', 'sec6-elec-list': '<li>फिटर</li><li>इलेक्ट्रीशियन</li><li>वेल्डर</li><li>मशीनिस्ट</li><li>बॉयलर अटेंडेंट</li>',
+                'sec6-naic-title': 'अन्य भूमिकाएँ', 'sec6-naic-list': '<li>ड्राफ्ट्समैन</li><li>लैब असिस्टेंट</li><li>प्लांट ऑपरेटर</li>',
+                'sec6-imp-title': '💡 वजीफा प्रशिक्षु योजना', 'sec6-imp-p1': 'इनमें से अधिकांश भर्तियां वजीफा प्रशिक्षुओं (श्रेणी I और II) के लिए हैं। 2 साल के प्रशिक्षण के सफल समापन के बाद, उन्हें वैज्ञानिक सहायक/सी या तकनीशियन/बी के रूप में समाहित किया जाता है।',
+                'sec7-title': '7. बार्क तकनीकी स्टाफ के गुण 🎙️', 'sec7-p1': 'चयन प्रक्रिया उन उम्मीदवारों की तलाश करती है जो न केवल जानकार हैं, बल्कि उच्च तकनीक वाले अनुसंधान एवं विकास वातावरण में काम करने के लिए सही व्यावहारिक कौशल और स्वभाव भी रखते हैं।',
+                'sec7-qualities-title': 'प्रमुख गुण:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🔧</span><div><strong>तकनीकी कौशल:</strong> संबंधित ट्रेड में प्रवीणता।</div></li><li><span class="text-2xl mr-3">🎯</span><div><strong>परिशुद्धता और सटीकता:</strong> उच्च गुणवत्ता के साथ कार्य करने की क्षमता।</div></li><li><span class="text-2xl mr-3">⚠️</span><div><strong>सुरक्षा चेतना:</strong> सुरक्षा प्रोटोकॉल को समझना और उनका पालन करना।</div></li><li><span class="text-2xl mr-3">🧠</span><div><strong>समस्या-समाधान:</strong> नौकरी पर समस्याओं का निवारण करने की क्षमता।</div></li>',
+                'sec8-title': '8. तैयारी की रणनीति 📈', 'sec8-p1': 'परीक्षा के तीनों चरणों को पास करने के लिए एक अच्छी तरह से संरचित तैयारी योजना आवश्यक है।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'मूल बातें मजबूत करें', 'sec8-step1-desc': 'अपने आईटीआई/डिप्लोमा/बी.एससी पाठ्यक्रम को अच्छी तरह से संशोधित करें। उन्नत परीक्षा पूरी तरह से इसी पर आधारित है।', 'sec8-step2-title': 'चरण-1 के लिए अभ्यास करें', 'sec8-step2-desc': 'मानक एसएससी/रेलवे परीक्षा पुस्तकों से गणित, विज्ञान और सामान्य जागरूकता के प्रश्नों को हल करें।', 'sec8-step3-title': 'व्यावहारिक कौशल तेज करें', 'sec8-step3-desc': 'कौशल परीक्षा की उपेक्षा न करें। एक कार्यशाला या प्रयोगशाला में अपने ट्रेड से संबंधित व्यावहारिक कार्यों का नियमित रूप से अभ्यास करें।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>पिछले प्रश्नपत्र हल करें:</strong> बार्क, एनपीसीआईएल और अन्य डीएई इकाइयों के प्रश्नपत्रों के साथ अभ्यास करें।</li><li><strong>मॉक टेस्ट दें:</strong> कंप्यूटर आधारित परीक्षणों के लिए गति और सटीकता में सुधार करें।</li><li><strong>कमजोर क्षेत्रों पर ध्यान दें:</strong> उन विषयों को पहचानें और उन पर काम करें जिन्हें आप कठिन पाते हैं।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'बार्क साल भर विभिन्न तकनीकी पदों के लिए सूचनाएं जारी करता है। आधिकारिक भर्ती वेबसाइट की जाँच करते रहना महत्वपूर्ण है।',
+                'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> विज्ञापन आवश्यकताओं के अनुसार बार्क वेबसाइट और रोजगार समाचार में प्रकाशित किए जाते हैं।', 'sec9-step2-title': 'लिखित परीक्षा', 'sec9-step2-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आमतौर पर आवेदन की अंतिम तिथि के 1-2 महीने बाद आयोजित की जाती है।', 'sec9-step3-title': 'कौशल परीक्षा और दस्तावेज़ सत्यापन', 'sec9-step3-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> लिखित परीक्षा के परिणामों के बाद शॉर्टलिस्ट किए गए उम्मीदवारों के लिए आयोजित किया जाता है।', 'sec9-step4-title': 'अंतिम मेरिट सूची', 'sec9-step4-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> किसी विशेष पद के लिए सभी चरणों के पूरा होने के बाद प्रकाशित किया जाता है।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'कई योग्य उम्मीदवार साधारण, परिहार्य त्रुटियों के कारण असफल हो जाते हैं। सतर्क रहें।',
+                'sec10-mistake1-title': 'चरण-1 की उपेक्षा:', 'sec10-mistake1-desc': 'केवल तकनीकी पाठ्यक्रम पर ध्यान केंद्रित करना और प्रारंभिक स्क्रीनिंग परीक्षा में असफल होना।', 'sec10-mistake2-title': 'व्यावहारिक अभ्यास की कमी:', 'sec10-mistake2-desc': 'अच्छा सैद्धांतिक ज्ञान होना लेकिन कौशल परीक्षा में कार्य करने में असमर्थ होना।', 'sec10-mistake3-title': 'खराब समय प्रबंधन:', 'sec10-mistake3-desc': 'कंप्यूटर आधारित परीक्षणों में समय का प्रभावी ढंग से प्रबंधन करने के लिए पर्याप्त मॉक टेस्ट का अभ्यास नहीं करना।', 'sec10-mistake4-title': 'आवेदन पत्र में त्रुटियाँ:', 'sec10-mistake4-desc': 'गलत जानकारी प्रदान करने से दस्तावेज़ सत्यापन चरण में अयोग्यता हो सकती है।',
+                'sec11-title': '11. जानकारी कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'प्रामाणिक जानकारी और गुणवत्तापूर्ण अध्ययन सामग्री के लिए, निम्नलिखित स्रोतों पर भरोसा करें।',
+                'sec11-gov-title': '💻 आधिकारिक और शैक्षणिक स्रोत', 'sec11-gov-list': '<li>आधिकारिक बार्क भर्ती वेबसाइट: recruit.barc.gov.in</li><li>मानक आईटीआई/डिप्लोमा/बी.एससी पाठ्यपुस्तकें।</li><li>चरण-1 विज्ञान और गणित के लिए एनसीईआरटी की किताबें।</li>',
+                'sec11-pvt-title': 'तैयारी संसाधन', 'sec11-pvt-list': '<li>डीएई इकाइयों के पिछले वर्ष के प्रश्न पत्र।</li><li>तकनीकी परीक्षाओं के लिए ऑनलाइन मॉक टेस्ट श्रृंखला।</li>',
+                'sec12-title': '12. डीएई में कैरियर प्रक्षेपवक्र 🚀', 'sec12-p1': 'परमाणु ऊर्जा विभाग अपने तकनीकी और वैज्ञानिक कर्मचारियों के लिए प्रदर्शन और विभागीय परीक्षाओं के आधार पर उत्कृष्ट विकास संभावनाओं के साथ एक स्थिर और पुरस्कृत कैरियर पथ प्रदान करता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. प्रमुख विषय और संसाधन 📚', 'sec13-p1': 'तैयारी प्रारंभिक और उन्नत परीक्षाओं के विशिष्ट पाठ्यक्रम की ओर लक्षित होनी चाहिए।',
+                'syllabus-oir-title': 'पाठ्यक्रम क्षेत्र',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">चरण 1: गणित, विज्ञान, जीए</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">चरण 2: संबंधित ट्रेड सिलेबस</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'प्रमुख संसाधन',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">आईटीआई/डिप्लोमा/बी.एससी मानक पाठ्यपुस्तकें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">पिछले डीएई/इसरो/डीआरडीओ तकनीकी पेपर</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | भारत के भविष्य को शक्ति प्रदान करना। आपका तकनीकी करियर यहीं से शुरू होता है।',
+                'interviewChartData': { labels: ['तकनीकी कौशल', 'परिशुद्धता', 'सुरक्षा जागरूकता', 'समस्या समाधान'], data: [98, 95, 92, 90] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-xl text-text-primary">${post.name}</h4><p class="text-sm text-text-secondary mt-2">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-text-primary mb-1">${step.rank}</h4>
+                        <p class="text-base text-text-secondary">${step.desc}</p>
+                    `;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: translations.en.interviewChartData.labels,
+                    datasets: [{
+                        label: 'Technical Staff Attributes',
+                        data: translations.en.interviewChartData.data,
+                        backgroundColor: 'rgba(100, 255, 218, 0.7)',
+                        borderColor: '#64FFDA',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: { color: 'rgba(160, 174, 192, 0.7)' }
+                        },
+                        x: { 
+                            ticks: { 
+                                color: 'rgba(160, 174, 192, 0.7)',
+                                font: { size: 14 } 
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            
+            if (!interviewChartInstance) {
+                initInterviewChart();
+            } else {
+                translateChart();
+            }
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
