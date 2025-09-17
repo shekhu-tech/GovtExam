@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARC Research Fellowships Guide (JRF, SRF, RA)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to joining BARC as a Junior Research Fellow (JRF), Senior Research Fellow (SRF), or Research Associate (RA).">
+    <meta name="keywords" content="BARC, JRF, SRF, RA, Research Fellowship, PhD, Nuclear Science, DAE Recruitment, Government Jobs">
+    <meta name="author" content="BARC Fellowship Guide">
+    <style>
+        :root {
+            --primary-bg: #0C0A24; /* Deep Indigo */
+            --secondary-bg: #1A183C;
+            --card-bg: rgba(26, 24, 60, 0.75);
+            --text-primary: #D1D5DB;
+            --text-secondary: #9CA3AF;
+            --accent-primary: #22D3EE; /* Cyan */
+            --accent-secondary: #F471B5; /* Magenta */
+            --glow-color-1: rgba(34, 211, 238, 0.3);
+            --glow-color-2: rgba(244, 113, 181, 0.3);
+            --border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        @keyframes subtle-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #110E30 50%, var(--primary-bg) 100%);
+            background-size: 400% 400%;
+            animation: subtle-pan 20s ease infinite;
+        }
+
+        .section-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--glow-color-1);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px var(--glow-color-1);
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 2px solid var(--accent-primary);
+            color: var(--text-primary);
+            background: var(--secondary-bg);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: inset 0 0 15px var(--glow-color-1);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        .flowchart-step:hover {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            transform: scale(1.05) skew(-10deg);
+            box-shadow: 0 0 25px var(--glow-color-1);
+        }
+        
+        .flowchart-arrow { color: var(--accent-secondary); text-shadow: 0 0 8px var(--glow-color-2); }
+
+        .subject-category-heading {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .subject-item:hover { background-color: rgba(34, 211, 238, 0.08); }
+        .subject-item .icon { color: var(--accent-primary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-secondary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-2);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(12, 10, 36, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 0 35px var(--glow-color-2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-secondary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-secondary); }
+        .modal-action-button {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary));
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 20px var(--glow-color-1);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px var(--glow-color-2);
+            filter: brightness(1.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px var(--glow-color-1);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-primary); color: var(--primary-bg); }
+        .notes-btn:hover { filter: brightness(1.1); }
+        .lectures-btn { background-color: transparent; color: var(--accent-secondary); border-color: var(--accent-secondary); }
+        .lectures-btn:hover { background-color: rgba(244, 113, 181, 0.1); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-accent-primary">🔬 BARC Research Fellowships Guide ⚛️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-text-secondary font-semibold">JRF, SRF & RA Opportunities in Nuclear Science</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is the Role -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. Research Opportunities at DAE 🌌</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-text-secondary">BARC offers prestigious research fellowships for aspiring scientists to pursue doctoral and post-doctoral research. These fellowships—JRF, SRF, and RA—are pathways to contribute to cutting-edge R&D projects in nuclear science, engineering, and allied fields within the Department of Atomic Energy (DAE).</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. The Two-Stage Selection Protocol 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-text-secondary">The selection process is highly competitive, designed to identify candidates with strong academic foundations and a genuine aptitude for scientific research.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-40 flex items-center justify-center flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-text-secondary">Written Test / National Exam Score</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-48 h-40 flex items-center justify-center flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Selection Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-text-secondary">In-depth Subject Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-text-secondary">Eligibility criteria vary for each fellowship level.</p>
+                        <ul id="eligibility-list" class="space-y-5 text-base">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-text-primary mb-4 border-b border-accent-secondary pb-2">Screening Channels 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-text-secondary">Candidates are shortlisted for interviews through one of the following channels:</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-text-secondary">
+                           <li>BARC's own written examination.</li>
+                           <li>Performance in national-level examinations like UGC-CSIR NET, JEST, GATE, etc.</li>
+                           <li>The specific exams considered are mentioned in the advertisement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Syllabus -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Written Exam Syllabus 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The syllabus for BARC's written test is based on the Master's level curriculum of the respective science discipline.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Physics</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">⚛️</span><div id="gs1-sub1">Quantum Mechanics</div></div>
+                            <div class="subject-item"><span class="icon">⚡</span><div id="gs1-sub2">Electrodynamics</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Chemistry</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🧪</span><div id="gs2-sub1">Physical & Inorganic</div></div>
+                            <div class="subject-item"><span class="icon">⚗️</span><div id="gs2-sub2">Organic & Analytical</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Life Sciences</h3>
+                         <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🧬</span><div id="gs3-sub1">Molecular Biology</div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs3-sub2">Biochemistry</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Selection Interview -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. The Selection Interview 🗣️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-text-secondary">The interview is the sole deciding factor for selection. It is a rigorous, purely academic interview conducted by a panel of senior DAE scientists.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-text-primary mb-2">Focus Areas</h3>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-text-primary mb-2">What to Expect</h3>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Eligible Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Eligible Science Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Fellowships are offered in a broad range of scientific disciplines relevant to the DAE's mandate.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Physical Sciences</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Chemical Sciences</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Life Sciences</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Evaluated -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. Qualities of a DAE Research Fellow 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-text-secondary">The interview process is designed to identify candidates with a strong potential for innovative and high-quality scientific research.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-text-primary mb-6 border-b border-accent-secondary pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-text-secondary">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-text-secondary">Success demands a deep, conceptual understanding of your subject rather than superficial knowledge.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-text-primary mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-text-primary mb-1">Master the Fundamentals</h4>
+                                <p id="sec8-step1-desc" class="text-base text-text-secondary">Revisit your entire M.Sc. syllabus from standard international textbooks. Focus on the 'why' and 'how'.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-text-primary mb-1">Practice Problem Solving</h4>
+                                <p id="sec8-step2-desc" class="text-base text-text-secondary">Solve problems from previous NET, JEST, and GATE papers to build analytical skills.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-text-primary mb-1">Prepare Your Research Topics</h4>
+                                <p id="sec8-step3-desc" class="text-base text-text-secondary">Be thorough with your M.Sc. project and have a clear idea about your research interests for the Ph.D.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-text-primary mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-text-secondary">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-text-secondary">The recruitment for JRFs is typically announced annually. SRF and RA positions are advertised based on project requirements.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-text-primary mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> JRF notifications usually appear around April/May.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-text-primary mb-1">Written Examination</h4>
+                        <p id="sec9-step2-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> If applicable, held around June/July.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-text-primary mb-1">Interviews</h4>
+                        <p id="sec9-step3-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Conducted for shortlisted candidates, typically in August/September.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-text-primary mb-1">Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Selected fellows usually join in the latter part of the year.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The BARC interview is unforgiving. Avoid these common blunders.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Rote Learning:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Memorizing facts without understanding the underlying concepts will be easily exposed.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Bluffing or Guessing:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">If you don't know an answer, it is far better to admit it and show your willingness to learn.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Poor Communication:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being able to articulate your thought process clearly, even if your answer is correct.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Lack of Research Awareness:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Being unaware of recent developments in your field of interest.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Information Sources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Find Information 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Rely on authentic sources for notifications and high-quality material for preparation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Official & Academic Sources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Preparation Resources</h3>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career After Fellowship 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-text-secondary">The BARC fellowship is a launchpad for a rewarding career in research. Fellows are encouraged to register for Ph.D. under the aegis of the Homi Bhabha National Institute (HBNI), a deemed-to-be University.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Key Topics & Resources 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Preparation must be deep and wide, covering all fundamental aspects of your Master's degree.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Core Science Topics</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Resources</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-border-color">
+            <p id="footer-text" class="text-text-secondary text-lg font-medium">&copy; 2025 | Advancing Science for a Better Tomorrow.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-text-primary mb-4">Screening Details</h3><p id="prelims-modal-p1" class="text-text-secondary">Candidates are shortlisted for interviews based on their performance in a written test conducted by BARC, or through their scores in national exams like UGC-CSIR NET (JRF), JEST, etc. The specific requirements are detailed in the advertisement.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-text-primary mb-4">Selection Interview</h3><p id="mains-modal-p1" class="text-text-secondary">The interview is the final and only selection criterion. A panel of experts will assess the candidate's grasp of fundamental concepts, research aptitude, and analytical skills. It is a comprehensive academic evaluation.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-text-primary mb-4">Final Selection</h3><p id="interview-modal-p1" class="text-base mb-3 text-text-secondary">The final list of selected fellows is based solely on performance in the interview. Candidates who are selected join as Junior Research Fellows and are eligible to register for a Ph.D. program.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-text-primary"></h3></div><p id="postDetailDescription" class="text-lg text-text-secondary leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-text-primary mb-6">Career Path for Research Fellows</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'jrf': { name: 'Junior Research Fellow (JRF)', icon: '🧑‍🔬', description: 'This is the entry-level fellowship for candidates with a Master\'s degree in science. JRFs work on a research project under a guide and are expected to enroll for a Ph.D.', cta: 'Details' },
+                'srf': { name: 'Senior Research Fellow (SRF)', icon: '👩‍🔬', description: 'JRFs are promoted to SRFs after two years of satisfactory research work. Candidates with prior research experience may also be directly recruited as SRFs.', cta: 'Details' },
+                'ra': { name: 'Research Associate (RA)', icon: '👨‍🏫', description: 'This is a post-doctoral fellowship for candidates who have already completed their Ph.D. RAs work on specific, high-priority research projects.', cta: 'Details' },
+            },
+            'hi': {
+                'jrf': { name: 'जूनियर रिसर्च फेलो (JRF)', icon: '🧑‍🔬', description: 'यह विज्ञान में मास्टर डिग्री वाले उम्मीदवारों के लिए प्रवेश स्तर की फेलोशिप है। जेआरएफ एक गाइड के तहत एक शोध परियोजना पर काम करते हैं और उनसे पीएचडी के लिए नामांकन की उम्मीद की जाती है।', cta: 'विवरण' },
+                'srf': { name: 'सीनियर रिसर्च फेलो (SRF)', icon: '👩‍🔬', description: 'दो साल के संतोषजनक शोध कार्य के बाद जेआरएफ को एसआरएफ में पदोन्नत किया जाता है। पूर्व शोध अनुभव वाले उम्मीदवारों को सीधे एसआरएफ के रूप में भी भर्ती किया जा सकता है।', cta: 'विवरण' },
+                'ra': { name: 'रिसर्च एसोसिएट (RA)', icon: '👨‍🏫', description: 'यह उन उम्मीदवारों के लिए एक पोस्ट-डॉक्टरल फेलोशिप है जिन्होंने पहले ही अपनी पीएचडी पूरी कर ली है। आरए विशिष्ट, उच्च-प्राथमिकता वाली शोध परियोजनाओं पर काम करते हैं।', cta: 'विवरण' },
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Junior Research Fellow (JRF)", desc: "Join and start research work. Register for Ph.D. at HBNI." },
+                    { rank: "Senior Research Fellow (SRF)", desc: "Elevated to SRF after two years of JRF, with an increased stipend, to continue Ph.D. research." },
+                    { rank: "Research Associate (RA)", desc: "Post-Ph.D. fellowship to conduct independent research." },
+                    { rank: "Scientific Officer", desc: "Outstanding fellows may be considered for absorption into DAE as Scientific Officers on completion of their tenure." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "जूनियर रिसर्च फेलो (JRF)", desc: "शामिल हों और शोध कार्य शुरू करें। एचबीएनआई में पीएचडी के लिए पंजीकरण करें।" },
+                    { rank: "सीनियर रिसर्च फेलो (SRF)", desc: "पीएचडी शोध जारी रखने के लिए, जेआरएफ के दो साल बाद बढ़े हुए वजीफे के साथ एसआरएफ में पदोन्नत।" },
+                    { rank: "रिसर्च एसोसिएट (RA)", desc: "स्वतंत्र शोध करने के लिए पोस्ट-पीएचडी फेलोशिप।" },
+                    { rank: "वैज्ञानिक अधिकारी", desc: "उत्कृष्ट अध्येताओं को उनके कार्यकाल की समाप्ति पर डीएई में वैज्ञानिक अधिकारियों के रूप में समाहित करने पर विचार किया जा सकता है।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '🔬 BARC Research Fellowships Guide ⚛️', 'header-subtitle': 'JRF, SRF & RA Opportunities in Nuclear Science',
+                'sec1-title': '1. Research Opportunities at DAE 🌌', 'sec1-p1': 'BARC offers prestigious research fellowships for aspiring scientists to pursue doctoral and post-doctoral research. These fellowships—JRF, SRF, and RA—are pathways to contribute to cutting-edge R&D projects in nuclear science, engineering, and allied fields within the Department of Atomic Energy (DAE).',
+                'sec2-title': '2. The Two-Stage Selection Protocol 🎯', 'sec2-p1': 'The selection process is highly competitive, designed to identify candidates with strong academic foundations and a genuine aptitude for scientific research.',
+                'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'Written Test / National Exam Score',
+                'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Selection Interview', 'sec2-step2-desc': 'In-depth Subject Interview',
+                'sec3-title': '3. Eligibility Criteria ✅', 'sec3-p1': 'Eligibility criteria vary for each fellowship level.',
+                'eligibility-list': `
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🧑‍🔬</span><div><strong class="text-text-primary text-lg">JRF:</strong> <span class="text-text-secondary">M.Sc. in Physics/Chemistry/Life Sciences with minimum 60% marks. Age limit is typically 28 years.</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👩‍🔬</span><div><strong class="text-text-primary text-lg">SRF:</strong> <span class="text-text-secondary">M.Sc. with 2 years of research experience, or M.Tech. Age limit is typically 32 years.</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👨‍🏫</span><div><strong class="text-text-primary text-lg">RA:</strong> <span class="text-text-secondary">Ph.D. in a relevant scientific field. Age limit is typically 35 years.</span></div></li>
+                `,
+                'sec3-attempts-title': 'Screening Channels 📊', 'sec3-attempts-p1': 'Candidates are shortlisted for interviews through one of the following channels:',
+                'sec3-agerelax-list': '<li>BARC\'s own written examination.</li><li>Performance in national-level examinations like UGC-CSIR NET, JEST, GATE, etc.</li><li>The specific exams considered are mentioned in the advertisement.</li>',
+                'sec4-title': '4. Written Exam Syllabus 📚', 'sec4-p1': 'The syllabus for BARC\'s written test is based on the Master\'s level curriculum of the respective science discipline.',
+                'gs1-title': 'Physics', 'gs1-sub1': 'Quantum Mechanics', 'gs1-sub2': 'Electrodynamics',
+                'gs2-title': 'Chemistry', 'gs2-sub1': 'Physical & Inorganic', 'gs2-sub2': 'Organic & Analytical',
+                'gs3-title': 'Life Sciences', 'gs3-sub1': 'Molecular Biology', 'gs3-sub2': 'Biochemistry',
+                'sec5-title': '5. The Selection Interview 🗣️', 'sec5-p1': 'The interview is the sole deciding factor for selection. It is a rigorous, purely academic interview conducted by a panel of senior DAE scientists.',
+                'sec5-hindi-title': 'Focus Areas', 'sec5-hindi-list': '<li>Fundamental concepts of your M.Sc. subjects.</li><li>Your understanding of your M.Sc. project.</li><li>Ability to apply concepts to unfamiliar problems.</li><li>Your stated research interests.</li>',
+                'sec5-essay-title': 'What to Expect', 'sec5-essay-list': '<li>A lengthy, in-depth technical discussion.</li><li>Questions that test your thought process, not just memory.</li><li>You may be asked to solve problems on a board.</li><li>The atmosphere is academic and meant to gauge research potential.</li>',
+                'sec6-title': '6. Eligible Science Disciplines 🌟', 'sec6-p1': 'Fellowships are offered in a broad range of scientific disciplines relevant to the DAE\'s mandate.',
+                'sec6-eng-title': 'Physical Sciences', 'sec6-eng-list': '<li>Physics</li><li>Applied Physics</li>',
+                'sec6-elec-title': 'Chemical Sciences', 'sec6-elec-list': '<li>Chemistry</li><li>Geochemistry</li>',
+                'sec6-naic-title': 'Life Sciences', 'sec6-naic-list': '<li>Biochemistry</li><li>Microbiology</li><li>Biotechnology</li>',
+                'sec7-title': '7. Qualities of a DAE Research Fellow 🎙️', 'sec7-p1': 'The interview process is designed to identify candidates with a strong potential for innovative and high-quality scientific research.',
+                'sec7-qualities-title': 'Key Attributes:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>Conceptual Clarity:</strong> A deep and intuitive grasp of core subjects.</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>Research Aptitude:</strong> Curiosity and a logical approach to solving problems.</div></li><li><span class="text-2xl mr-3">📈</span><div><strong>Analytical Skills:</strong> Ability to think critically and connect ideas.</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>Originality:</strong> Potential to think independently and creatively.</div></li>',
+                'sec8-title': '8. Preparation Strategy 📈', 'sec8-p1': 'Success demands a deep, conceptual understanding of your subject rather than superficial knowledge.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Master the Fundamentals', 'sec8-step1-desc': 'Revisit your entire M.Sc. syllabus from standard international textbooks. Focus on the \'why\' and \'how\'.', 'sec8-step2-title': 'Practice Problem Solving', 'sec8-step2-desc': 'Solve problems from previous NET, JEST, and GATE papers to build analytical skills.', 'sec8-step3-title': 'Prepare Your Research Topics', 'sec8-step3-desc': 'Be thorough with your M.Sc. project and have a clear idea about your research interests for the Ph.D.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Read Scientific Literature:</strong> Get familiar with current research trends in your field.</li><li><strong>Practice Articulating Concepts:</strong> Explain complex topics to friends or in front of a mirror.</li><li><strong>Stay Calm and Confident:</strong> The interview is a discussion, not an interrogation.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'The recruitment for JRFs is typically announced annually. SRF and RA positions are advertised based on project requirements.',
+                'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong class="text-text-secondary/80">Timeline:</strong> JRF notifications usually appear around April/May.', 'sec9-step2-title': 'Written Examination', 'sec9-step2-desc': '<strong class="text-text-secondary/80">Timeline:</strong> If applicable, held around June/July.', 'sec9-step3-title': 'Interviews', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Conducted for shortlisted candidates, typically in August/September.', 'sec9-step4-title': 'Joining', 'sec9-step4-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Selected fellows usually join in the latter part of the year.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'The BARC interview is unforgiving. Avoid these common blunders.',
+                'sec10-mistake1-title': 'Rote Learning:', 'sec10-mistake1-desc': 'Memorizing facts without understanding the underlying concepts will be easily exposed.', 'sec10-mistake2-title': 'Bluffing or Guessing:', 'sec10-mistake2-desc': 'If you don\'t know an answer, it is far better to admit it and show your willingness to learn.', 'sec10-mistake3-title': 'Poor Communication:', 'sec10-mistake3-desc': 'Not being able to articulate your thought process clearly, even if your answer is correct.', 'sec10-mistake4-title': 'Lack of Research Awareness:', 'sec10-mistake4-desc': 'Being unaware of recent developments in your field of interest.',
+                'sec11-title': '11. Where to Find Information 🏫', 'sec11-p1': 'Rely on authentic sources for notifications and high-quality material for preparation.',
+                'sec11-gov-title': '💻 Official & Academic Sources', 'sec11-gov-list': '<li>Official BARC Website: www.barc.gov.in</li><li>HBNI Website: www.hbni.ac.in</li><li>Standard M.Sc. Textbooks (e.g., Griffiths, Atkins, Lehninger).</li>',
+                'sec11-pvt-title': 'Preparation Resources', 'sec11-pvt-list': '<li>Previous year question papers for NET, JEST, GATE.</li><li>NPTEL video lectures.</li><li>Scientific journals and review articles.</li>',
+                'sec12-title': '12. Career After Fellowship 🚀', 'sec12-p1': 'The BARC fellowship is a launchpad for a rewarding career in research. Fellows are encouraged to register for Ph.D. under the aegis of the Homi Bhabha National Institute (HBNI), a deemed-to-be University.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Key Topics & Resources 📚', 'sec13-p1': 'Preparation must be deep and wide, covering all fundamental aspects of your Master\'s degree.',
+                'syllabus-oir-title': 'Core Science Topics',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">Quantum & Classical Mechanics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧪</span><div class="flex-grow">Thermodynamics & Spectroscopy</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧬</span><div class="flex-grow">Genetics & Molecular Biology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Key Resources',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">International Standard Textbooks</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">CSIR-NET / JEST Previous Papers</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | Advancing Science for a Better Tomorrow.',
+                'interviewChartData': { labels: ['Conceptual Clarity', 'Research Aptitude', 'Analytical Skills', 'Originality'], data: [99, 95, 92, 90] }
+            },
+            'hi': {
+                'header-title': '🔬 बार्क रिसर्च फेलोशिप गाइड ⚛️', 'header-subtitle': 'परमाणु विज्ञान में जेआरएफ, एसआरएफ और आरए के अवसर',
+                'sec1-title': '1. डीएई में अनुसंधान के अवसर 🌌', 'sec1-p1': 'बार्क महत्वाकांक्षी वैज्ञानिकों को डॉक्टरेट और पोस्ट-डॉक्टोरल अनुसंधान करने के लिए प्रतिष्ठित अनुसंधान फेलोशिप प्रदान करता है। ये फेलोशिप - जेआरएफ, एसआरएफ, और आरए - परमाणु ऊर्जा विभाग (डीएई) के भीतर परमाणु विज्ञान, इंजीनियरिंग और संबद्ध क्षेत्रों में अत्याधुनिक अनुसंधान एवं विकास परियोजनाओं में योगदान करने के मार्ग हैं।',
+                'sec2-title': '2. दो-चरणीय चयन प्रोटोकॉल 🎯', 'sec2-p1': 'चयन प्रक्रिया अत्यधिक प्रतिस्पर्धी है, जिसे मजबूत अकादमिक नींव और वैज्ञानिक अनुसंधान के लिए एक वास्तविक योग्यता वाले उम्मीदवारों की पहचान करने के लिए डिज़ाइन किया गया है।',
+                'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'लिखित परीक्षा / राष्ट्रीय परीक्षा स्कोर',
+                'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'चयन साक्षात्कार', 'sec2-step2-desc': 'गहन विषय साक्षात्कार',
+                'sec3-title': '3. पात्रता मानदंड ✅', 'sec3-p1': 'प्रत्येक फेलोशिप स्तर के लिए पात्रता मानदंड अलग-अलग हैं।',
+                'eligibility-list': `
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🧑‍🔬</span><div><strong class="text-text-primary text-lg">जेआरएफ:</strong> <span class="text-text-secondary">न्यूनतम 60% अंकों के साथ भौतिकी/रसायन विज्ञान/जीवन विज्ञान में एम.एससी.। आयु सीमा आमतौर पर 28 वर्ष है।</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👩‍🔬</span><div><strong class="text-text-primary text-lg">एसआरएफ:</strong> <span class="text-text-secondary">2 साल के शोध अनुभव के साथ एम.एससी., या एम.टेक.। आयु सीमा आमतौर पर 32 वर्ष है।</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👨‍🏫</span><div><strong class="text-text-primary text-lg">आरए:</strong> <span class="text-text-secondary">एक प्रासंगिक वैज्ञानिक क्षेत्र में पीएचडी। आयु सीमा आमतौर पर 35 वर्ष है।</span></div></li>
+                `,
+                'sec3-attempts-title': 'स्क्रीनिंग चैनल 📊', 'sec3-attempts-p1': 'उम्मीदवारों को निम्नलिखित चैनलों में से एक के माध्यम से साक्षात्कार के लिए शॉर्टलिस्ट किया जाता है:',
+                'sec3-agerelax-list': '<li>बार्क द्वारा आयोजित अपनी लिखित परीक्षा।</li><li>यूजीसी-सीएसआईआर नेट, जेस्ट, गेट, आदि जैसी राष्ट्रीय स्तर की परीक्षाओं में प्रदर्शन।</li><li>विचार की गई विशिष्ट परीक्षाएं विज्ञापन में उल्लिखित हैं।</li>',
+                'sec4-title': '4. लिखित परीक्षा सिलेबस 📚', 'sec4-p1': 'बार्क की लिखित परीक्षा का पाठ्यक्रम संबंधित विज्ञान अनुशासन के मास्टर स्तर के पाठ्यक्रम पर आधारित है।',
+                'gs1-title': 'भौतिकी', 'gs1-sub1': 'क्वांटम यांत्रिकी', 'gs1-sub2': 'इलेक्ट्रोडायनामिक्स',
+                'gs2-title': 'रसायन विज्ञान', 'gs2-sub1': 'भौतिक और अकार्बनिक', 'gs2-sub2': 'कार्बनिक और विश्लेषणात्मक',
+                'gs3-title': 'जीवन विज्ञान', 'gs3-sub1': 'आणविक जीव विज्ञान', 'gs3-sub2': 'जैव रसायन',
+                'sec5-title': '5. चयन साक्षात्कार 🗣️', 'sec5-p1': 'साक्षात्कार चयन के लिए एकमात्र निर्णायक कारक है। यह एक कठोर, विशुद्ध रूप से अकादमिक साक्षात्कार है जो वरिष्ठ डीएई वैज्ञानिकों के एक पैनल द्वारा आयोजित किया जाता है।',
+                'sec5-hindi-title': 'फोकस क्षेत्र', 'sec5-hindi-list': '<li>आपके एम.एससी. विषयों की मौलिक अवधारणाएं।</li><li>आपकी एम.एससी. परियोजना की आपकी समझ।</li><li>अपरिचित समस्याओं के लिए अवधारणाओं को लागू करने की क्षमता।</li><li>आपकी बताई गई शोध रुचियां।</li>',
+                'sec5-essay-title': 'क्या उम्मीद करें', 'sec5-essay-list': '<li>एक लंबी, गहन तकनीकी चर्चा।</li><li>ऐसे प्रश्न जो आपकी विचार प्रक्रिया का परीक्षण करते हैं, न कि केवल स्मृति का।</li><li>आपसे बोर्ड पर समस्याओं को हल करने के लिए कहा जा सकता है।</li><li>माहौल अकादमिक है और इसका उद्देश्य अनुसंधान क्षमता का पता लगाना है।</li>',
+                'sec6-title': '6. पात्र विज्ञान अनुशासन 🌟', 'sec6-p1': 'डीएई के अधिदेश के लिए प्रासंगिक वैज्ञानिक विषयों की एक विस्तृत श्रृंखला में फैलोशिप की पेशकश की जाती है।',
+                'sec6-eng-title': 'भौतिक विज्ञान', 'sec6-eng-list': '<li>भौतिकी</li><li>अनुप्रयुक्त भौतिकी</li>',
+                'sec6-elec-title': 'रासायनिक विज्ञान', 'sec6-elec-list': '<li>रसायन विज्ञान</li><li>भू-रसायन</li>',
+                'sec6-naic-title': 'जीवन विज्ञान', 'sec6-naic-list': '<li>जैव रसायन</li><li>सूक्ष्म जीव विज्ञान</li><li>जैव प्रौद्योगिकी</li>',
+                'sec7-title': '7. एक डीएई रिसर्च फेलो के गुण 🎙️', 'sec7-p1': 'साक्षात्कार प्रक्रिया को नवीन और उच्च-गुणवत्ता वाले वैज्ञानिक अनुसंधान के लिए एक मजबूत क्षमता वाले उम्मीदवारों की पहचान करने के लिए डिज़ाइन किया गया है।',
+                'sec7-qualities-title': 'प्रमुख गुण:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>वैचारिक स्पष्टता:</strong> मुख्य विषयों की एक गहरी और सहज समझ।</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>अनुसंधान योग्यता:</strong> समस्याओं को हल करने के लिए जिज्ञासा और एक तार्किक दृष्टिकोण।</div></li><li><span class="text-2xl mr-3">📈</span><div><strong>विश्लेषणात्मक कौशल:</strong> गंभीर रूप से सोचने और विचारों को जोड़ने की क्षमता।</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>मौलिकता:</strong> स्वतंत्र और रचनात्मक रूप से सोचने की क्षमता।</div></li>',
+                'sec8-title': '8. तैयारी की रणनीति 📈', 'sec8-p1': 'सफलता के लिए सतही ज्ञान के बजाय आपके विषय की गहरी, वैचारिक समझ की आवश्यकता होती है।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'मूल सिद्धांतों को मजबूत करें', 'sec8-step1-desc': 'मानक अंतरराष्ट्रीय पाठ्यपुस्तकों से अपने पूरे एम.एससी. पाठ्यक्रम को फिर से देखें। \'क्यों\' और \'कैसे\' पर ध्यान केंद्रित करें।', 'sec8-step2-title': 'समस्या समाधान का अभ्यास करें', 'sec8-step2-desc': 'विश्लेषणात्मक कौशल बनाने के लिए पिछले नेट, जेस्ट और गेट के प्रश्नपत्रों से समस्याओं को हल करें।', 'sec8-step3-title': 'अपने शोध विषय तैयार करें', 'sec8-step3-desc': 'अपने एम.एससी. प्रोजेक्ट के साथ पूरी तरह से तैयार रहें और पीएचडी के लिए अपनी शोध रुचियों के बारे में एक स्पष्ट विचार रखें।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>वैज्ञानिक साहित्य पढ़ें:</strong> अपने क्षेत्र में वर्तमान शोध प्रवृत्तियों से परिचित हों।</li><li><strong>अवधारणाओं को स्पष्ट करने का अभ्यास करें:</strong> दोस्तों को या दर्पण के सामने जटिल विषयों को समझाएं।</li><li><strong>शांत और आत्मविश्वासी रहें:</strong> साक्षात्कार एक चर्चा है, पूछताछ नहीं।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'जेआरएफ के लिए भर्ती आमतौर पर सालाना घोषित की जाती है। एसआरएफ और आरए पदों का विज्ञापन परियोजना आवश्यकताओं के आधार पर किया जाता है।',
+                'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> जेआरएफ सूचनाएं आमतौर पर अप्रैल/मई के आसपास दिखाई देती हैं।', 'sec9-step2-title': 'लिखित परीक्षा', 'sec9-step2-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> यदि लागू हो, तो जून/जुलाई के आसपास आयोजित किया जाता है।', 'sec9-step3-title': 'साक्षात्कार', 'sec9-step3-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों के लिए आयोजित, आमतौर पर अगस्त/सितंबर में।', 'sec9-step4-title': 'शामिल होना', 'sec9-step4-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> चयनित अध्येता आमतौर पर वर्ष के उत्तरार्ध में शामिल होते हैं।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'बार्क साक्षात्कार क्षमाशील नहीं है। इन सामान्य भूलों से बचें।',
+                'sec10-mistake1-title': 'रटना:', 'sec10-mistake1-desc': 'अंतर्निहित अवधारणाओं को समझे बिना तथ्यों को याद रखना आसानी से उजागर हो जाएगा।', 'sec10-mistake2-title': 'झांसा देना या अनुमान लगाना:', 'sec10-mistake2-desc': 'यदि आप कोई उत्तर नहीं जानते हैं, तो इसे स्वीकार करना और सीखने की अपनी इच्छा दिखाना कहीं बेहतर है।', 'sec10-mistake3-title': 'खराब संचार:', 'sec10-mistake3-desc': 'अपनी विचार प्रक्रिया को स्पष्ट रूप से स्पष्ट नहीं कर पाना, भले ही आपका उत्तर सही हो।', 'sec10-mistake4-title': 'अनुसंधान जागरूकता की कमी:', 'sec10-mistake4-desc': 'अपनी रुचि के क्षेत्र में हाल के घटनाक्रमों से अनभिज्ञ होना।',
+                'sec11-title': '11. जानकारी कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'सूचनाओं के लिए प्रामाणिक स्रोतों और तैयारी के लिए उच्च-गुणवत्ता वाली सामग्री पर भरोसा करें।',
+                'sec11-gov-title': '💻 आधिकारिक और शैक्षणिक स्रोत', 'sec11-gov-list': '<li>आधिकारिक बार्क वेबसाइट: www.barc.gov.in</li><li>एचबीएनआई वेबसाइट: www.hbni.ac.in</li><li>मानक एम.एससी. पाठ्यपुस्तकें (जैसे, ग्रिफिथ्स, एटकिंस, लेहिंगर)।</li>',
+                'sec11-pvt-title': 'तैयारी संसाधन', 'sec11-pvt-list': '<li>नेट, जेस्ट, गेट के लिए पिछले वर्ष के प्रश्न पत्र।</li><li>एनपीटीईएल वीडियो व्याख्यान।</li><li>वैज्ञानिक पत्रिकाएं और समीक्षा लेख।</li>',
+                'sec12-title': '12. फेलोशिप के बाद कैरियर 🚀', 'sec12-p1': 'बार्क फेलोशिप अनुसंधान में एक पुरस्कृत कैरियर के लिए एक लॉन्चपैड है। अध्येताओं को होमी भाभा राष्ट्रीय संस्थान (एचबीएनआई), एक डीम्ड-टू-बी विश्वविद्यालय के तत्वावधान में पीएचडी के लिए पंजीकरण करने के लिए प्रोत्साहित किया जाता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. प्रमुख विषय और संसाधन 📚', 'sec13-p1': 'तैयारी गहरी और व्यापक होनी चाहिए, जिसमें आपकी मास्टर डिग्री के सभी मूलभूत पहलुओं को शामिल किया गया हो।',
+                'syllabus-oir-title': 'कोर विज्ञान विषय',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚛️</span><div class="flex-grow">क्वांटम और शास्त्रीय यांत्रिकी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧪</span><div class="flex-grow">ऊष्मप्रवैगिकी और स्पेक्ट्रोस्कोपी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧬</span><div class="flex-grow">आनुवंशिकी और आणविक जीव विज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'प्रमुख संसाधन',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">अंतर्राष्ट्रीय मानक पाठ्यपुस्तकें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">सीएसआईआर-नेट / जेस्ट पिछले पेपर्स</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | एक बेहतर कल के लिए विज्ञान को आगे बढ़ाना।',
+                'interviewChartData': { labels: ['वैचारिक स्पष्टता', 'अनुसंधान योग्यता', 'विश्लेषणात्मक कौशल', 'मौलिकता'], data: [99, 95, 92, 90] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-xl text-text-primary">${post.name}</h4><p class="text-sm text-text-secondary mt-2">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-text-primary mb-1">${step.rank}</h4>
+                        <p class="text-base text-text-secondary">${step.desc}</p>
+                    `;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: translations.en.interviewChartData.labels,
+                    datasets: [{
+                        label: 'Research Attributes',
+                        data: translations.en.interviewChartData.data,
+                        backgroundColor: 'rgba(34, 211, 238, 0.7)',
+                        borderColor: '#22D3EE',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: { color: 'rgba(156, 163, 175, 0.7)' }
+                        },
+                        x: { 
+                            ticks: { 
+                                color: 'rgba(156, 163, 175, 0.7)',
+                                font: { size: 14 } 
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            
+            if (!interviewChartInstance) {
+                initInterviewChart();
+            } else {
+                translateChart();
+            }
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
