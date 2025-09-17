@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRO Fellowship Guide: JRF, SRF & RA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to ISRO Research Fellowships for JRF, SRF, and RA positions. Information on eligibility, selection process, interviews, and career paths.">
+    <meta name="keywords" content="ISRO, JRF, SRF, RA, Junior Research Fellowship, Senior Research Fellowship, Research Associate, ISRO Careers, Space Research, PhD, Science, Engineering">
+    <meta name="author" content="ISRO Fellowship Guide">
+    <style>
+        :root {
+            --primary-bg: #1A2238;
+            --secondary-bg: #232E4C;
+            --card-bg: rgba(26, 34, 56, 0.8);
+            --text-primary: #F4F7FC;
+            --text-secondary: #9DA8C7;
+            --accent-primary: #FFC947;
+            --accent-secondary: #47B8FF;
+            --glow-color-1: rgba(255, 201, 71, 0.3);
+            --glow-color-2: rgba(71, 184, 255, 0.3);
+            --border-color: rgba(71, 184, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background-image: 
+                linear-gradient(rgba(71, 184, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(71, 184, 255, 0.1) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+        }
+
+        .section-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-secondary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 25px var(--glow-color-2);
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 2px dashed var(--accent-secondary);
+            color: var(--text-primary);
+            background-color: var(--secondary-bg);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .flowchart-step:hover {
+            background-color: var(--accent-secondary);
+            color: var(--primary-bg);
+            border-style: solid;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--glow-color-2);
+        }
+        
+        .flowchart-arrow { color: var(--accent-secondary); }
+
+        .subject-category-heading {
+            color: var(--accent-secondary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover { background-color: rgba(255, 255, 255, 0.05); }
+        .subject-item .icon { color: var(--accent-primary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-secondary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-primary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-1);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 34, 56, 0.8);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--primary-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5), 0 0 25px var(--glow-color-1);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-primary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-primary); }
+        .modal-action-button {
+            background: var(--accent-primary);
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px var(--glow-color-1);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px var(--glow-color-1);
+            filter: brightness(1.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-primary);
+            color: var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-1);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-primary); color: var(--primary-bg); }
+        .notes-btn:hover { filter: brightness(1.1); }
+        .lectures-btn { background-color: transparent; color: var(--accent-secondary); border-color: var(--accent-secondary); }
+        .lectures-btn:hover { background-color: rgba(71, 184, 255, 0.2); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-accent-primary">🔬 ISRO Fellowship Guide 🔭</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-text-secondary font-semibold">Blueprint for a Research Career in Space Science</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: About ISRO Fellowships -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. About ISRO Research Fellowships 🌌</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-text-secondary">ISRO offers prestigious research fellowships—Junior Research Fellow (JRF), Senior Research Fellow (SRF), and Research Associate (RA)—to bright young minds. These positions allow you to work on cutting-edge space science and technology projects, contributing directly to India's space program while pursuing advanced research.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. Selection Process: From Applicant to Associate 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-text-secondary">The selection process for research fellows is rigorous, designed to identify candidates with strong academic foundations and a genuine aptitude for research.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-text-secondary">Application & Credential Review</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Written Test / Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-text-secondary">Discipline-Specific Evaluation</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Final Selection</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-text-secondary">Merit List & Offer</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Eligibility Blueprint ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-text-secondary">Strict academic criteria must be met to apply for these research positions:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-text-primary text-lg">Education:</strong> <span id="sec3-edu-desc" class="text-text-secondary">**M.Sc/M.E./M.Tech** for JRF/SRF, and **Ph.D.** for RA in relevant disciplines. A high aggregate score is mandatory.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4"> GATE NET CSIR:">📝</span><div><strong id="sec3-age-title" class="text-text-primary text-lg">Qualifying Exams:</strong> <span id="sec3-age-desc" class="text-text-secondary">Candidates must have qualified **CSIR-UGC NET, GATE, JEST, or equivalent** national-level tests.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🎂</span><div><strong id="sec3-nat-title" class="text-text-primary text-lg">Age Limit:</strong> <span id="sec3-nat-desc" class="text-text-secondary">Typically **28 years for JRF, 32 for SRF, and 35 for RA**, with relaxations for reserved categories.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-text-primary mb-4 border-b border-accent-secondary pb-2">Experience & Attempts 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-text-secondary">While JRF is an entry-level fellowship, SRF and RA positions require prior research experience.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-text-secondary">
+                            <!-- Populated by JS -->
+                        </ul>
+                        <p id="sec3-attempts-p2" class="mt-4 text-lg font-semibold text-text-primary">Number of Attempts:</p>
+                        <p id="sec3-attempts-p3" class="text-base text-text-secondary">There is no limit on attempts. You can apply for any opening as long as you meet the age and qualification criteria specified in the notification.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Written Exam Syllabus (for JRF) -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Written Test Syllabus (JRF) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The written test for JRFs assesses deep subject matter knowledge at the postgraduate level. The syllabus is based on the core curriculum of the advertised discipline.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Physics</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">⚛️</span><div id="gs1-sub1">Classical & Quantum Mechanics</div></div>
+                            <div class="subject-item"><span class="icon">⚡</span><div id="gs1-sub2">Electromagnetism</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Chemistry</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🧪</span><div id="gs2-sub1">Physical & Inorganic</div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs2-sub2">Organic & Spectroscopy</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Mathematics</h3>
+                         <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">📈</span><div id="gs3-sub1">Real & Complex Analysis</div></div>
+                            <div class="subject-item"><span class="icon">🔢</span><div id="gs3-sub2">Linear Algebra</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Engineering</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">📡</span><div id="gs4-sub1">Electronics & Comm.</div></div>
+                            <div class="subject-item"><span class="icon">💻</span><div id="gs4-sub2">Computer Science</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Interview Process -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. The Technical Interview 🗣️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-text-secondary">The interview is the most crucial stage. A panel of senior scientists will evaluate your conceptual understanding, problem-solving skills, and research potential.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-text-primary mb-2">Focus Areas</h3>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-text-primary mb-2">What to Expect</h3>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Research Disciplines -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Major Research Disciplines 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">ISRO conducts research across a wide spectrum of science and engineering fields, directly related to its goals in space exploration, Earth observation, and satellite technology.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Physical Sciences</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Engineering Sciences</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Other Areas</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-secondary-bg/50 border border-accent-secondary rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-text-primary mb-2">💡 Align Your Interest</h4>
+                    <p id="sec6-imp-p1" class="text-base text-text-secondary">Choose a discipline that aligns with your academic background and research interests. Check specific centre notifications for available positions in these areas.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Evaluated -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. Qualities of an ISRO Researcher 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-text-secondary">Beyond academic scores, ISRO looks for a specific set of qualities that define a successful researcher capable of contributing to its high-stakes missions.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-text-primary mb-6 border-b border-accent-secondary pb-2">Key Research Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-text-secondary">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-text-secondary">Success hinges on deep conceptual clarity and the ability to articulate your research ideas. Your preparation should be systematic and thorough.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-text-primary mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-text-primary mb-1">Strengthen Fundamentals</h4>
+                                <p id="sec8-step1-desc" class="text-base text-text-secondary">Revisit your core subjects from your Master's or Ph.D. curriculum. The interview questions will test your basics.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-text-primary mb-1">Know Your Project Inside-Out</h4>
+                                <p id="sec8-step2-desc" class="text-base text-text-secondary">Be prepared to discuss your M.Tech/Ph.D. thesis or major projects in great detail. Understand the 'why' behind your work.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-text-primary mb-1">Follow ISRO's Work</h4>
+                                <p id="sec8-step3-desc" class="text-base text-text-secondary">Stay updated with ISRO's recent missions, publications, and areas of focus. Relate your skills to their current needs.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-text-primary mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-text-secondary">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-text-secondary">Fellowship openings are not always on a fixed annual schedule. They are announced by different ISRO centres based on project requirements. Vigilance is key.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-text-primary mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> As-and-when required. Check ISRO/centre websites regularly.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-text-primary mb-1">Application Window</h4>
+                        <p id="sec9-step2-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Usually open for 2-4 weeks after the notification.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-text-primary mb-1">Interview Call Letters</h4>
+                        <p id="sec9-step3-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Sent to shortlisted candidates' registered email IDs.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-text-primary mb-1">Interviews & Final Result</h4>
+                        <p id="sec9-step4-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Conducted at the respective ISRO centre. Results are published on the website.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Avoid these common errors that can derail your chances of securing a prestigious ISRO fellowship.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Superficial Subject Knowledge:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Relying on rote memorization instead of deep conceptual understanding.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Unclear Research Interest:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Being unable to articulate why you want to do research in a specific area at ISRO.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Ignoring Your Own Project:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being able to defend or explain the methodology and findings of your past research work.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Lack of Professionalism:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Poor communication skills or a casual attitude during the interview.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Information Sources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Find Information 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Authentic information is crucial. Rely only on official sources for notifications and updates.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Official Websites</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Academic & News Portals</h3>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career Path & Future Scope 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-text-secondary">An ISRO fellowship is a launchpad for a remarkable career in research. It provides unparalleled experience, exposure, and opportunities for future growth.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Key Topics & Resources 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">While the exact syllabus varies, preparation for these core topics using standard textbooks is essential for success.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Core Science/Engineering</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Recommended Books</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-border-color">
+            <p id="footer-text" class="text-text-secondary text-lg font-medium">&copy; 2025 | Explore the cosmos. Your research journey begins here.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-text-primary mb-4">Application Screening</h3><p id="prelims-modal-p1" class="text-text-secondary">Your application will be screened based on academic performance (CGPA/Percentage), qualification in national tests like NET/GATE, and research experience (for SRF/RA). Only highly qualified candidates are shortlisted.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-text-primary mb-4">Written Test & Interview</h3><p id="mains-modal-p1" class="text-text-secondary">For JRF, a written test may be conducted, followed by an interview. For SRF and RA, selection is typically through an interview alone. The interview will be highly technical and focused on your subject area and past research.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-text-primary mb-4">Final Selection</h3><p id="interview-modal-p1" class="text-base mb-3 text-text-secondary">A final merit list is prepared based on performance in the interview (and written test, if applicable). Selected candidates will receive an offer letter detailing the fellowship terms, stipend, and joining date.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-text-primary"></h3></div><p id="postDetailDescription" class="text-lg text-text-secondary leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-text-primary mb-6">Research Career Progression at ISRO</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'jrf': { name: 'JRF', icon: '🧑‍🔬', description: 'Junior Research Fellowship is for postgraduate candidates to pursue doctoral work (Ph.D.) within ISRO. It is an initial 2-year position focused on a specific research topic under the guidance of ISRO scientists.', cta: 'Details' },
+                'srf': { name: 'SRF', icon: '👩‍🔬', description: 'Senior Research Fellowship is for candidates who have completed at least two years of post-M.Sc/M.Tech research experience. SRFs handle more independent research tasks and contribute to ongoing R&D projects.', cta: 'Details' },
+                'ra': { name: 'RA', icon: '👨‍🏫', description: 'Research Associate is a postdoctoral position for candidates with a Ph.D. RAs work on high-level research problems, mentor junior fellows, and are expected to publish their work in reputed journals.', cta: 'Details' },
+            },
+            'hi': {
+                'jrf': { name: 'जेआरएफ', icon: '🧑‍🔬', description: 'जूनियर रिसर्च फेलोशिप (JRF) स्नातकोत्तर उम्मीदवारों के लिए इसरो के भीतर डॉक्टरेट कार्य (पीएचडी) करने के लिए है। यह इसरो वैज्ञानिकों के मार्गदर्शन में एक विशिष्ट शोध विषय पर केंद्रित 2 साल का प्रारंभिक पद है।', cta: 'विवरण' },
+                'srf': { name: 'एसआरएफ', icon: '👩‍🔬', description: 'सीनियर रिसर्च फेलोशिप (SRF) उन उम्मीदवारों के लिए है जिन्होंने कम से कम दो साल का पोस्ट-एमएससी/एमटेक शोध अनुभव पूरा कर लिया है। एसआरएफ अधिक स्वतंत्र शोध कार्य संभालते हैं और चल रही अनुसंधान एवं विकास परियोजनाओं में योगदान करते हैं।', cta: 'विवरण' },
+                'ra': { name: 'आरए', icon: '👨‍🏫', description: 'रिसर्च एसोसिएट (RA) पीएचडी वाले उम्मीदवारों के लिए एक पोस्टडॉक्टरल पद है। आरए उच्च-स्तरीय शोध समस्याओं पर काम करते हैं, जूनियर फेलो का मार्गदर्शन करते हैं, और प्रतिष्ठित पत्रिकाओं में अपना काम प्रकाशित करने की उम्मीद की जाती है।', cta: 'विवरण' }
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Junior Research Fellow (JRF)", desc: "Begin research towards a Ph.D. degree. Tenure is initially 2 years, extendable based on performance." },
+                    { rank: "Senior Research Fellow (SRF)", desc: "After assessment, JRFs are elevated to SRF. Direct recruitment is also possible with prior experience. Higher stipend." },
+                    { rank: "Research Associate (RA)", desc: "A postdoctoral fellowship. After completing Ph.D., one can apply for an RA position to continue high-level research." },
+                    { rank: "Scientist/Engineer", desc: "Exceptional fellows may get an opportunity to be absorbed as regular Scientists/Engineers in ISRO, based on vacancies and performance." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "जूनियर रिसर्च फेलो (JRF)", desc: "पीएचडी डिग्री की दिशा में शोध शुरू करें। कार्यकाल शुरू में 2 वर्ष का होता है, प्रदर्शन के आधार पर बढ़ाया जा सकता है।" },
+                    { rank: "सीनियर रिसर्च फेलो (SRF)", desc: "मूल्यांकन के बाद, JRF को SRF में पदोन्नत किया जाता है। पूर्व अनुभव के साथ सीधी भर्ती भी संभव है। उच्च वजीफा।" },
+                    { rank: "रिसर्च एसोसिएट (RA)", desc: "एक पोस्टडॉक्टरल फेलोशिप। पीएचडी पूरी करने के बाद, उच्च-स्तरीय शोध जारी रखने के लिए आरए पद के लिए आवेदन कर सकते हैं।" },
+                    { rank: "वैज्ञानिक/इंजीनियर", desc: "असाधारण अध्येताओं को रिक्तियों और प्रदर्शन के आधार पर इसरो में नियमित वैज्ञानिक/इंजीनियर के रूप में शामिल होने का अवसर मिल सकता है।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '🔬 ISRO Fellowship Guide 🔭', 'header-subtitle': 'Blueprint for a Research Career in Space Science',
+                'sec1-title': '1. About ISRO Research Fellowships 🌌', 'sec1-p1': 'ISRO offers prestigious research fellowships—Junior Research Fellow (JRF), Senior Research Fellow (SRF), and Research Associate (RA)—to bright young minds. These positions allow you to work on cutting-edge space science and technology projects, contributing directly to India\'s space program while pursuing advanced research.',
+                'sec2-title': '2. Selection Process: From Applicant to Associate 🎯', 'sec2-p1': 'The selection process for research fellows is rigorous, designed to identify candidates with strong academic foundations and a genuine aptitude for research.',
+                'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'Application & Credential Review',
+                'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Written Test / Interview', 'sec2-step2-desc': 'Discipline-Specific Evaluation',
+                'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Final Selection', 'sec2-step3-desc': 'Merit List & Offer',
+                'sec3-title': '3. Eligibility Blueprint ✅', 'sec3-p1': 'Strict academic criteria must be met to apply for these research positions:',
+                'sec3-edu-title': 'Education:', 'sec3-edu-desc': '**M.Sc/M.E./M.Tech** for JRF/SRF, and **Ph.D.** for RA in relevant disciplines. A high aggregate score is mandatory.',
+                'sec3-age-title': 'Qualifying Exams:', 'sec3-age-desc': 'Candidates must have qualified **CSIR-UGC NET, GATE, JEST, or equivalent** national-level tests.',
+                'sec3-nat-title': 'Age Limit:', 'sec3-nat-desc': 'Typically **28 years for JRF, 32 for SRF, and 35 for RA**, with relaxations for reserved categories.',
+                'sec3-attempts-title': 'Experience & Attempts 📊', 'sec3-attempts-p1': 'While JRF is an entry-level fellowship, SRF and RA positions require prior research experience.',
+                'sec3-agerelax-list': '<li><strong>JRF:</strong> Fresh postgraduates can apply.</li><li><strong>SRF:</strong> Minimum 2 years of research experience is required post M.Sc/M.Tech.</li><li><strong>RA:</strong> A Ph.D. degree is mandatory, with relevant research publications.</li>',
+                'sec3-attempts-p2': 'Number of Attempts:', 'sec3-attempts-p3': 'There is no limit on attempts. You can apply for any opening as long as you meet the age and qualification criteria specified in the notification.',
+                'sec4-title': '4. Written Test Syllabus (JRF) 📚', 'sec4-p1': 'The written test for JRFs assesses deep subject matter knowledge at the postgraduate level. The syllabus is based on the core curriculum of the advertised discipline.',
+                'gs1-title': 'Physics', 'gs1-sub1': 'Classical & Quantum Mechanics', 'gs1-sub2': 'Electromagnetism',
+                'gs2-title': 'Chemistry', 'gs2-sub1': 'Physical & Inorganic', 'gs2-sub2': 'Organic & Spectroscopy',
+                'gs3-title': 'Mathematics', 'gs3-sub1': 'Real & Complex Analysis', 'gs3-sub2': 'Linear Algebra',
+                'gs4-title': 'Engineering', 'gs4-sub1': 'Electronics & Comm.', 'gs4-sub2': 'Computer Science',
+                'sec5-title': '5. The Technical Interview 🗣️', 'sec5-p1': 'The interview is the most crucial stage. A panel of senior scientists will evaluate your conceptual understanding, problem-solving skills, and research potential.',
+                'sec5-hindi-title': 'Focus Areas', 'sec5-hindi-list': '<li>Core subject fundamentals.</li><li>Master\'s/Ph.D. thesis and project work.</li><li>Understanding of basic research methodology.</li><li>Your motivation and ideas for research at ISRO.</li>',
+                'sec5-essay-title': 'What to Expect', 'sec5-essay-list': '<li>In-depth technical questions.</li><li>Problem-solving on a whiteboard.</li><li>Questions on your publications (if any).</li><li>A formal and highly professional environment.</li>',
+                'sec6-title': '6. Major Research Disciplines 🌟', 'sec6-p1': 'ISRO conducts research across a wide spectrum of science and engineering fields, directly related to its goals in space exploration, Earth observation, and satellite technology.',
+                'sec6-eng-title': 'Physical Sciences', 'sec6-eng-list': '<li>Atmospheric and Space Sciences</li><li>Astronomy & Astrophysics</li><li>Planetary Sciences</li><li>Physics</li>',
+                'sec6-elec-title': 'Engineering Sciences', 'sec6-elec-list': '<li>Aerospace Engineering</li><li>Electronics & Communication</li><li>Computer Science</li><li>Mechanical Engineering</li>',
+                'sec6-naic-title': 'Other Areas', 'sec6-naic-list': '<li>Geoinformatics</li><li>Remote Sensing & GIS</li><li>Material Science</li><li>Chemistry</li>',
+                'sec6-imp-title': '💡 Align Your Interest', 'sec6-imp-p1': 'Choose a discipline that aligns with your academic background and research interests. Check specific centre notifications for available positions in these areas.',
+                'sec7-title': '7. Qualities of an ISRO Researcher 🎙️', 'sec7-p1': 'Beyond academic scores, ISRO looks for a specific set of qualities that define a successful researcher capable of contributing to its high-stakes missions.',
+                'sec7-qualities-title': 'Key Research Attributes:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>Analytical Skill:</strong> Ability to tackle complex problems systematically.</div></li><li><span class="text-2xl mr-3">📚</span><div><strong>Subject Knowledge:</strong> Deep and clear understanding of fundamentals.</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>Research Aptitude:</strong> Curiosity and a passion for inquiry and innovation.</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>Communication:</strong> Ability to clearly articulate ideas and findings.</div></li>',
+                'sec8-title': '8. Preparation Strategy 📈', 'sec8-p1': 'Success hinges on deep conceptual clarity and the ability to articulate your research ideas. Your preparation should be systematic and thorough.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Strengthen Fundamentals', 'sec8-step1-desc': 'Revisit your core subjects from your Master\'s or Ph.D. curriculum. The interview questions will test your basics.', 'sec8-step2-title': 'Know Your Project Inside-Out', 'sec8-step2-desc': 'Be prepared to discuss your M.Tech/Ph.D. thesis or major projects in great detail. Understand the \'why\' behind your work.', 'sec8-step3-title': 'Follow ISRO\'s Work', 'sec8-step3-desc': 'Stay updated with ISRO\'s recent missions, publications, and areas of focus. Relate your skills to their current needs.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Read Research Papers:</strong> Read recent papers in your field, including those by ISRO scientists.</li><li><strong>Practice Problem Solving:</strong> Solve advanced problems from standard textbooks.</li><li><strong>Prepare a Presentation:</strong> Have a short presentation on your project ready in your mind.</li><li><strong>Mock Interviews:</strong> Practice explaining your work to professors or peers.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'Fellowship openings are not always on a fixed annual schedule. They are announced by different ISRO centres based on project requirements. Vigilance is key.',
+                'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong class="text-text-secondary/80">Timeline:</strong> As-and-when required. Check ISRO/centre websites regularly.', 'sec9-step2-title': 'Application Window', 'sec9-step2-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Usually open for 2-4 weeks after the notification.', 'sec9-step3-title': 'Interview Call Letters', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Sent to shortlisted candidates\' registered email IDs.', 'sec9-step4-title': 'Interviews & Final Result', 'sec9-step4-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Conducted at the respective ISRO centre. Results are published on the website.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'Avoid these common errors that can derail your chances of securing a prestigious ISRO fellowship.',
+                'sec10-mistake1-title': 'Superficial Subject Knowledge:', 'sec10-mistake1-desc': 'Relying on rote memorization instead of deep conceptual understanding.', 'sec10-mistake2-title': 'Unclear Research Interest:', 'sec10-mistake2-desc': 'Being unable to articulate why you want to do research in a specific area at ISRO.', 'sec10-mistake3-title': 'Ignoring Your Own Project:', 'sec10-mistake3-desc': 'Not being able to defend or explain the methodology and findings of your past research work.', 'sec10-mistake4-title': 'Lack of Professionalism:', 'sec10-mistake4-desc': 'Poor communication skills or a casual attitude during the interview.',
+                'sec11-title': '11. Where to Find Information 🏫', 'sec11-p1': 'Authentic information is crucial. Rely only on official sources for notifications and updates.',
+                'sec11-gov-title': '💻 Official Websites', 'sec11-gov-list': '<li>ISRO Headquarters: www.isro.gov.in/careers</li><li>Vikram Sarabhai Space Centre (VSSC)</li><li>Space Applications Centre (SAC)</li><li>Physical Research Laboratory (PRL)</li>',
+                'sec11-pvt-title': 'Academic & News Portals', 'sec11-pvt-list': '<li>Check university notice boards and academic job portals.</li><li>Follow reputable science and technology news websites.</li>',
+                'sec12-title': '12. Career Path & Future Scope 🚀', 'sec12-p1': 'An ISRO fellowship is a launchpad for a remarkable career in research. It provides unparalleled experience, exposure, and opportunities for future growth.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Key Topics & Resources 📚', 'sec13-p1': 'While the exact syllabus varies, preparation for these core topics using standard textbooks is essential for success.',
+                'syllabus-oir-title': 'Core Science/Engineering',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛰️</span><div class="flex-grow">Satellite & Orbital Mechanics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌡️</span><div class="flex-grow">Thermodynamics & Fluid Dynamics</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Signal Processing & Data Structures</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Recommended Books',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">Standard PG-level textbooks (e.g., Griffiths for E&M)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">NPTEL lecture series</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">Previous years\' GATE/NET question papers</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | Explore the cosmos. Your research journey begins here.',
+                'interviewChartData': { labels: ['Analytical Skill', 'Knowledge', 'Research Aptitude', 'Communication'], data: [95, 98, 92, 88] }
+            },
+            'hi': {
+                'header-title': '🔬 इसरो फेलोशिप गाइड 🔭', 'header-subtitle': 'अंतरिक्ष विज्ञान में अनुसंधान करियर का ब्लूप्रिंट',
+                'sec1-title': '1. इसरो रिसर्च फेलोशिप के बारे में 🌌', 'sec1-p1': 'इसरो प्रतिभाशाली युवा मस्तिष्कों को प्रतिष्ठित रिसर्च फेलोशिप - जूनियर रिसर्च फेलो (JRF), सीनियर रिसर्च फेलो (SRF), और रिसर्च एसोसिएट (RA) - प्रदान करता है। ये पद आपको अत्याधुनिक अंतरिक्ष विज्ञान और प्रौद्योगिकी परियोजनाओं पर काम करने की अनुमति देते हैं, जो उन्नत अनुसंधान करते हुए सीधे भारत के अंतरिक्ष कार्यक्रम में योगदान करते हैं।',
+                'sec2-title': '2. चयन प्रक्रिया: आवेदक से एसोसिएट तक 🎯', 'sec2-p1': 'रिसर्च फेलो के लिए चयन प्रक्रिया कठोर है, जिसे मजबूत शैक्षणिक नींव और अनुसंधान के लिए वास्तविक योग्यता वाले उम्मीदवारों की पहचान करने के लिए डिज़ाइन किया गया है।',
+                'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'आवेदन और क्रेडेंशियल समीक्षा',
+                'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'लिखित परीक्षा / साक्षात्कार', 'sec2-step2-desc': 'अनुशासन-विशिष्ट मूल्यांकन',
+                'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'अंतिम चयन', 'sec2-step3-desc': 'मेरिट सूची और प्रस्ताव',
+                'sec3-title': '3. पात्रता ब्लूप्रिंट ✅', 'sec3-p1': 'इन शोध पदों के लिए आवेदन करने के लिए सख्त शैक्षणिक मानदंडों को पूरा करना होगा:',
+                'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'जेआरएफ/एसआरएफ के लिए **एम.एससी/एम.ई./एम.टेक**, और संबंधित विषयों में आरए के लिए **पीएचडी**। एक उच्च कुल स्कोर अनिवार्य है।',
+                'sec3-age-title': 'योग्यता परीक्षा:', 'sec3-age-desc': 'उम्मीदवारों को **CSIR-UGC NET, GATE, JEST, या समकक्ष** राष्ट्रीय स्तर की परीक्षाओं में उत्तीर्ण होना चाहिए।',
+                'sec3-nat-title': 'आयु सीमा:', 'sec3-nat-desc': 'आम तौर पर **जेआरएफ के लिए 28 वर्ष, एसआरएफ के लिए 32, और आरए के लिए 35**, आरक्षित श्रेणियों के लिए छूट के साथ।',
+                'sec3-attempts-title': 'अनुभव और प्रयास 📊', 'sec3-attempts-p1': 'जबकि जेआरएफ एक प्रवेश-स्तर की फेलोशिप है, एसआरएफ और आरए पदों के लिए पूर्व शोध अनुभव की आवश्यकता होती है।',
+                'sec3-agerelax-list': '<li><strong>जेआरएफ:</strong> ताजा पोस्टग्रेजुएट आवेदन कर सकते हैं।</li><li><strong>एसआरएफ:</strong> एम.एससी/एम.टेक के बाद न्यूनतम 2 साल का शोध अनुभव आवश्यक है।</li><li><strong>आरए:</strong> पीएचडी डिग्री अनिवार्य है, साथ ही प्रासंगिक शोध प्रकाशन भी।</li>',
+                'sec3-attempts-p2': 'प्रयासों की संख्या:', 'sec3-attempts-p3': 'प्रयासों पर कोई सीमा नहीं है। जब तक आप अधिसूचना में निर्दिष्ट आयु और योग्यता मानदंडों को पूरा करते हैं, तब तक आप किसी भी रिक्ति के लिए आवेदन कर सकते हैं।',
+                'sec4-title': '4. लिखित परीक्षा सिलेबस (जेआरएफ) 📚', 'sec4-p1': 'जेआरएफ के लिए लिखित परीक्षा स्नातकोत्तर स्तर पर गहरे विषय ज्ञान का आकलन करती है। पाठ्यक्रम विज्ञापित अनुशासन के मूल पाठ्यक्रम पर आधारित है।',
+                'gs1-title': 'भौतिकी', 'gs1-sub1': 'क्लासिकल और क्वांटम मैकेनिक्स', 'gs1-sub2': 'विद्युत चुंबकत्व',
+                'gs2-title': 'रसायन विज्ञान', 'gs2-sub1': 'भौतिक और अकार्बनिक', 'gs2-sub2': 'कार्बनिक और स्पेक्ट्रोस्कोपी',
+                'gs3-title': 'गणित', 'gs3-sub1': 'वास्तविक और जटिल विश्लेषण', 'gs3-sub2': 'रैखिक बीजगणित',
+                'gs4-title': 'इंजीनियरिंग', 'gs4-sub1': 'इलेक्ट्रॉनिक्स और संचार', 'gs4-sub2': 'कंप्यूटर विज्ञान',
+                'sec5-title': '5. तकनीकी साक्षात्कार 🗣️', 'sec5-p1': 'साक्षात्कार सबसे महत्वपूर्ण चरण है। वरिष्ठ वैज्ञानिकों का एक पैनल आपकी वैचारिक समझ, समस्या-समाधान कौशल और अनुसंधान क्षमता का मूल्यांकन करेगा।',
+                'sec5-hindi-title': 'फोकस क्षेत्र', 'sec5-hindi-list': '<li>मुख्य विषय के मूल सिद्धांत।</li><li>मास्टर/पीएचडी थीसिस और परियोजना कार्य।</li><li>बुनियादी अनुसंधान पद्धति की समझ।</li><li>इसरो में अनुसंधान के लिए आपकी प्रेरणा और विचार।</li>',
+                'sec5-essay-title': 'क्या उम्मीद करें', 'sec5-essay-list': '<li>गहन तकनीकी प्रश्न।</li><li>व्हाइटबोर्ड पर समस्या-समाधान।</li><li>आपके प्रकाशनों पर प्रश्न (यदि कोई हो)।</li><li>एक औपचारिक और अत्यधिक पेशेवर वातावरण।</li>',
+                'sec6-title': '6. प्रमुख अनुसंधान अनुशासन 🌟', 'sec6-p1': 'इसरो विज्ञान और इंजीनियरिंग क्षेत्रों के एक व्यापक स्पेक्ट्रम में अनुसंधान करता है, जो सीधे अंतरिक्ष अन्वेषण, पृथ्वी अवलोकन और उपग्रह प्रौद्योगिकी में अपने लक्ष्यों से संबंधित है।',
+                'sec6-eng-title': 'भौतिक विज्ञान', 'sec6-eng-list': '<li>वायुमंडलीय और अंतरिक्ष विज्ञान</li><li>खगोल विज्ञान और खगोल भौतिकी</li><li>ग्रह विज्ञान</li><li>भौतिकी</li>',
+                'sec6-elec-title': 'इंजीनियरिंग विज्ञान', 'sec6-elec-list': '<li>एयरोस्पेस इंजीनियरिंग</li><li>इलेक्ट्रॉनिक्स और संचार</li><li>कंप्यूटर विज्ञान</li><li>मैकेनिकल इंजीनियरिंग</li>',
+                'sec6-naic-title': 'अन्य क्षेत्र', 'sec6-naic-list': '<li>भू-सूचना विज्ञान</li><li>रिमोट सेंसिंग और जीआईएस</li><li>पदार्थ विज्ञान</li><li>रसायन विज्ञान</li>',
+                'sec6-imp-title': '💡 अपनी रुचि संरेखित करें', 'sec6-imp-p1': 'एक ऐसा अनुशासन चुनें जो आपकी शैक्षणिक पृष्ठभूमि और शोध रुचियों के अनुरूप हो। इन क्षेत्रों में उपलब्ध पदों के लिए विशिष्ट केंद्र सूचनाएं देखें।',
+                'sec7-title': '7. इसरो शोधकर्ता के गुण 🎙️', 'sec7-p1': 'अकादमिक स्कोर से परे, इसरो गुणों का एक विशिष्ट सेट खोजता है जो एक सफल शोधकर्ता को परिभाषित करता है जो अपने उच्च-दांव वाले मिशनों में योगदान करने में सक्षम है।',
+                'sec7-qualities-title': 'प्रमुख अनुसंधान विशेषताएँ:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🧠</span><div><strong>विश्लेषणात्मक कौशल:</strong> जटिल समस्याओं को व्यवस्थित रूप से निपटने की क्षमता।</div></li><li><span class="text-2xl mr-3">📚</span><div><strong>विषय ज्ञान:</strong> मूल सिद्धांतों की गहरी और स्पष्ट समझ।</div></li><li><span class="text-2xl mr-3">💡</span><div><strong>अनुसंधान योग्यता:</strong> जिज्ञासा और जांच और नवाचार के लिए एक जुनून।</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>संचार:</strong> विचारों और निष्कर्षों को स्पष्ट रूप से व्यक्त करने की क्षमता।</div></li>',
+                'sec8-title': '8. तैयारी की रणनीति 📈', 'sec8-p1': 'सफलता गहरी वैचारिक स्पष्टता और आपके शोध विचारों को व्यक्त करने की क्षमता पर निर्भर करती है। आपकी तैयारी व्यवस्थित और संपूर्ण होनी चाहिए।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'मूल सिद्धांतों को मजबूत करें', 'sec8-step1-desc': 'अपने मास्टर या पीएचडी पाठ्यक्रम से अपने मुख्य विषयों पर फिर से विचार करें। साक्षात्कार के प्रश्न आपकी मूल बातें परखेंगे।', 'sec8-step2-title': 'अपने प्रोजेक्ट को अंदर-बाहर जानें', 'sec8-step2-desc': 'अपने एम.टेक/पीएचडी थीसिस या प्रमुख परियोजनाओं पर विस्तार से चर्चा करने के लिए तैयार रहें। अपने काम के पीछे के \'क्यों\' को समझें।', 'sec8-step3-title': 'इसरो के काम का पालन करें', 'sec8-step3-desc': 'इसरो के हालिया मिशनों, प्रकाशनों और फोकस के क्षेत्रों से अपडेट रहें। अपने कौशल को उनकी वर्तमान जरूरतों से संबंधित करें।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>शोध पत्र पढ़ें:</strong> इसरो वैज्ञानिकों सहित अपने क्षेत्र में हाल के पत्र पढ़ें।</li><li><strong>समस्या समाधान का अभ्यास करें:</strong> मानक पाठ्यपुस्तकों से उन्नत समस्याओं को हल करें।</li><li><strong>एक प्रस्तुति तैयार करें:</strong> अपने प्रोजेक्ट पर एक छोटी प्रस्तुति अपने दिमाग में तैयार रखें।</li><li><strong>मॉक साक्षात्कार:</strong> प्रोफेसरों या साथियों को अपना काम समझाने का अभ्यास करें।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'फेलोशिप के अवसर हमेशा एक निश्चित वार्षिक कार्यक्रम पर नहीं होते हैं। वे परियोजना आवश्यकताओं के आधार पर विभिन्न इसरो केंद्रों द्वारा घोषित किए जाते हैं। सतर्कता महत्वपूर्ण है।',
+                'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> जब-और-जब आवश्यक हो। इसरो/केंद्र की वेबसाइटों को नियमित रूप से जांचें।', 'sec9-step2-title': 'आवेदन विंडो', 'sec9-step2-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आमतौर पर अधिसूचना के 2-4 सप्ताह बाद खुली रहती है।', 'sec9-step3-title': 'साक्षात्कार कॉल लेटर', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों के पंजीकृत ईमेल आईडी पर भेजा जाता है।', 'sec9-step4-title': 'साक्षात्कार और अंतिम परिणाम', 'sec9-step4-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> संबंधित इसरो केंद्र में आयोजित किया जाता है। परिणाम वेबसाइट पर प्रकाशित किए जाते हैं।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'इन सामान्य त्रुटियों से बचें जो एक प्रतिष्ठित इसरो फेलोशिप हासिल करने के आपके अवसरों को पटरी से उतार सकती हैं।',
+                'sec10-mistake1-title': 'सतही विषय ज्ञान:', 'sec10-mistake1-desc': 'गहरी वैचारिक समझ के बजाय रटने पर भरोसा करना।', 'sec10-mistake2-title': 'अस्पष्ट शोध रुचि:', 'sec10-mistake2-desc': 'यह स्पष्ट करने में असमर्थ होना कि आप इसरो में एक विशिष्ट क्षेत्र में शोध क्यों करना चाहते हैं।', 'sec10-mistake3-title': 'अपने प्रोजेक्ट को अनदेखा करना:', 'sec10-mistake3-desc': 'अपने पिछले शोध कार्य की कार्यप्रणाली और निष्कर्षों का बचाव या व्याख्या करने में सक्षम नहीं होना।', 'sec10-mistake4-title': 'व्यावसायिकता का अभाव:', 'sec10-mistake4-desc': 'साक्षात्कार के दौरान खराब संचार कौशल या एक आकस्मिक रवैया।',
+                'sec11-title': '11. जानकारी कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'प्रामाणिक जानकारी महत्वपूर्ण है। सूचनाओं और अपडेट के लिए केवल आधिकारिक स्रोतों पर भरोसा करें।',
+                'sec11-gov-title': '💻 आधिकारिक वेबसाइटें', 'sec11-gov-list': '<li>इसरो मुख्यालय: www.isro.gov.in/careers</li><li>विक्रम साराभाई अंतरिक्ष केंद्र (VSSC)</li><li>अंतरिक्ष अनुप्रयोग केंद्र (SAC)</li><li>भौतिक अनुसंधान प्रयोगशाला (PRL)</li>',
+                'sec11-pvt-title': 'शैक्षणिक और समाचार पोर्टल', 'sec11-pvt-list': '<li>विश्वविद्यालय के नोटिस बोर्ड और अकादमिक जॉब पोर्टल देखें।</li><li>प्रतिष्ठित विज्ञान और प्रौद्योगिकी समाचार वेबसाइटों का पालन करें।</li>',
+                'sec12-title': '12. कैरियर पथ और भविष्य की संभावनाएं 🚀', 'sec12-p1': 'एक इसरो फेलोशिप अनुसंधान में एक उल्लेखनीय कैरियर के लिए एक लॉन्चपैड है। यह भविष्य के विकास के लिए अद्वितीय अनुभव, प्रदर्शन और अवसर प्रदान करता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. प्रमुख विषय और संसाधन 📚', 'sec13-p1': 'हालांकि सटीक पाठ्यक्रम भिन्न होता है, मानक पाठ्यपुस्तकों का उपयोग करके इन मुख्य विषयों की तैयारी सफलता के लिए आवश्यक है।',
+                'syllabus-oir-title': 'कोर विज्ञान/इंजीनियरिंग',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🛰️</span><div class="flex-grow">सैटेलाइट और ऑर्बिटल मैकेनिक्स</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌡️</span><div class="flex-grow">थर्मोडायनामिक्स और द्रव गतिकी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">सिग्नल प्रोसेसिंग और डेटा संरचनाएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'अनुशंसित पुस्तकें',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">मानक पीजी-स्तरीय पाठ्यपुस्तकें (जैसे, ग्रिफिथ्स फॉर ई एंड एम)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">एनपीटीईएल व्याख्यान श्रृंखला</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">पिछले वर्षों के गेट/नेट प्रश्न पत्र</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | ब्रह्मांड का अन्वेषण करें। आपकी शोध यात्रा यहीं से शुरू होती है।',
+                'interviewChartData': { labels: ['विश्लेषणात्मक कौशल', 'ज्ञान', 'अनुसंधान योग्यता', 'संचार'], data: [95, 98, 92, 88] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-4 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-5xl mb-3 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-lg text-text-primary">${post.name}</h4><p class="text-sm text-text-secondary mt-1">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `<div class="timeline-dot"></div><h4 class="font-semibold text-xl text-text-primary mb-1">${step.rank}</h4><p class="text-base text-text-secondary">${step.desc}</p>`;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            const data = translations.en.interviewChartData;
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Research Attributes',
+                        data: data.data,
+                        backgroundColor: 'rgba(255, 201, 71, 0.7)',
+                        borderColor: '#FFC947',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { color: 'rgba(255,255,255,0.7)' } },
+                        x: { ticks: { color: 'rgba(255,255,255,0.7)', font: { size: 14 } } }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            translateChart();
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        initInterviewChart();
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
+
