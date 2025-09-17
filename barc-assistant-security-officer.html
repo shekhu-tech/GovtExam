@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARC Administrative & Support Cadre Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to joining BARC as an Assistant Security Officer (ASO), Security Guard, UDC, Stenographer, or Driver.">
+    <meta name="keywords" content="BARC, ASO, Security Guard, UDC, Stenographer, Driver, BARC Recruitment, Government Jobs, DAE">
+    <meta name="author" content="BARC Admin Staff Guide">
+    <style>
+        :root {
+            --primary-bg: #1A202C; /* Charcoal */
+            --secondary-bg: #2D3748;
+            --card-bg: rgba(45, 55, 72, 0.7);
+            --text-primary: #E2E8F0;
+            --text-secondary: #A0AEC0;
+            --accent-primary: #F59E0B; /* Amber */
+            --accent-secondary: #4299E1; /* Blue */
+            --glow-color-1: rgba(245, 158, 11, 0.3);
+            --glow-color-2: rgba(66, 153, 225, 0.3);
+            --border-color: rgba(66, 153, 225, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            background-image: 
+                linear-gradient(var(--primary-bg), rgba(26, 32, 44, 0.8)),
+                url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%232D3748" fill-opacity="0.2"%3E%3Cpath d="M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+
+        .section-heading {
+            color: var(--accent-primary);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--glow-color-1);
+            border-bottom: 3px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px var(--glow-color-2);
+            transform: translateY(-6px);
+            border-color: var(--accent-secondary);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .flowchart-step {
+            border: 2px solid var(--accent-secondary);
+            color: var(--text-primary);
+            background: var(--secondary-bg);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: inset 0 0 10px rgba(66, 153, 225, 0.2);
+            border-radius: 0.5rem;
+        }
+
+        .flowchart-step:hover {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow-color-2);
+        }
+        
+        .flowchart-arrow { color: var(--accent-primary); text-shadow: 0 0 8px var(--glow-color-1); }
+
+        .subject-category-heading {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .subject-item:hover { background-color: rgba(66, 153, 225, 0.1); }
+        .subject-item .icon { color: var(--accent-primary); margin-right: 0.75rem; font-size: 1.25rem; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-secondary);
+            border: 4px solid var(--primary-bg);
+            box-shadow: 0 0 10px var(--glow-color-2);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 32, 44, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            box-shadow: 0 0 35px var(--glow-color-1);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--accent-primary);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2rem;
+            cursor: pointer; color: var(--text-primary); line-height: 1;
+        }
+        .modal-close-button:hover { color: var(--accent-primary); }
+        .modal-action-button {
+            background: var(--accent-secondary);
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 20px var(--glow-color-2);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px var(--glow-color-2);
+            filter: brightness(1.1);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--accent-secondary);
+            color: var(--accent-secondary);
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--accent-secondary);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px var(--glow-color-2);
+        }
+
+        .notes-btn, .lectures-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn { background-color: var(--accent-secondary); color: var(--primary-bg); }
+        .notes-btn:hover { filter: brightness(1.1); }
+        .lectures-btn { background-color: transparent; color: var(--accent-primary); border-color: var(--accent-primary); }
+        .lectures-btn:hover { background-color: rgba(245, 158, 11, 0.1); }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-accent-primary">🛡️ BARC Administrative & Support Staff Guide 📋</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-text-secondary font-semibold">Recruitment for ASO, Security Guard, UDC, Steno & Driver</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-10">
+
+            <!-- Section 1: What is the Role -->
+            <section class="card !p-0 overflow-hidden">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl section-heading">1. The Administrative & Security Core of DAE 🏢</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-text-secondary">The Administrative, Security, and Support Cadres form the essential framework that enables the scientific and technical activities of the Department of Atomic Energy (DAE). From ensuring the security of sensitive facilities to managing administrative tasks, these roles are vital for the smooth operation of organizations like BARC.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl section-heading text-center w-full">2. Multi-Level Selection Process 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto text-text-secondary">The selection process varies by post but generally involves multiple stages to assess physical fitness, written knowledge, and specific skills.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-lg flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Level 1:</span><br><span id="sec2-step1-name">Qualifying Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-text-secondary">Physical / Prelims Exam</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-lg flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Level 2:</span><br><span id="sec2-step2-name">Mains / Advanced</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-text-secondary">Written Test</p>
+                    </div>
+                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-lg flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Level 3:</span><br><span id="sec2-step3-name">Skill Test</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-text-secondary">Trade/Typing/Driving Test</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-text-secondary">Eligibility requirements are specific to each post.</p>
+                        <ul id="eligibility-list" class="space-y-5 text-base">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-text-primary mb-4 border-b border-accent-secondary pb-2">Age Limits & Physical Standards 📊</h3>
+                        <p id="sec3-attempts-p1" class="text-lg mb-4 text-text-secondary">Age limits are typically between 18-27 years, with relaxations for reserved categories.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-text-secondary">
+                           <li>**ASO & Security Guard:** Must meet stringent physical standards for height, chest, and vision. A Physical Endurance Test is mandatory.</li>
+                           <li>**Driver:** Must possess a valid driving license for Light and Heavy vehicles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card">
+                <h2 id="sec4-title" class="text-3xl section-heading text-center w-full">4. Examination Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">The pattern differs for security and administrative posts.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">ASO & Security Guard</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">🏃</span><div id="gs1-sub1">Physical Endurance Test (PET)</div></div>
+                            <div class="subject-item"><span class="icon">📝</span><div id="gs1-sub2">Written Test (Comprehension, GK, Analytical Skills)</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-primary-bg p-6 rounded-xl shadow-lg border border-border-color flex flex-col transition duration-300 hover:border-accent-primary hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">UDC & Stenographer</h3>
+                        <div class="space-y-3 flex-grow text-text-secondary">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs2-sub1">Level 1: Objective Test (English, GK, Reasoning, Quant)</div></div>
+                            <div class="subject-item"><span class="icon">✍️</span><div id="gs2-sub2">Level 2: Descriptive / Skill Test (English, Typing/Steno)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: The Skill Test -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl section-heading">5. The Skill Tests in Detail 🗣️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-text-secondary">The final stage for most posts is a skill-based test to determine practical suitability.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-text-primary mb-2">Security Cadre</h3>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                            <li>**Physical Test:** Includes running, long jump, chin-ups/push-ups.</li>
+                            <li>**Written Test:** Assesses comprehension and analytical ability.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-secondary-bg/50 rounded-xl border-2 border-border-color">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-text-primary mb-2">Admin & Driver Cadre</h3>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm text-text-secondary">
+                            <li>**UDC:** English descriptive paper and computer typing test.</li>
+                            <li>**Stenographer:** Shorthand and typing speed tests.</li>
+                            <li>**Driver:** Practical driving test for light and heavy vehicles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Roles and Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl section-heading">6. Roles & Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Each role in the administrative and support cadre has distinct and important responsibilities.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Security Staff</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <li>**ASO:** Supervise security operations, access control, and manage guard shifts.</li>
+                           <li>**Security Guard:** Guarding and patrolling sensitive installations.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Clerical Staff</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <li>**UDC:** File management, drafting letters, maintaining records.</li>
+                           <li>**Stenographer:** Taking dictation, typing official documents.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Support Staff</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <li>**Driver:** Operating official vehicles for personnel and material transport.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Qualities Evaluated -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl section-heading">7. Essential Qualities for a DAE Staff 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-text-secondary">The selection process looks for candidates with reliability, discipline, and the specific skills required for their respective roles.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-text-primary mb-6 border-b border-accent-secondary pb-2">Key Attributes:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base text-text-secondary">
+                       <!-- JS Populated -->
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl section-heading">8. Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-text-secondary">A targeted preparation strategy is needed for each stage and post.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-text-primary mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-accent-secondary pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-text-primary mb-1">Physical Fitness (Security)</h4>
+                                <p id="sec8-step1-desc" class="text-base text-text-secondary">Start a regular running and exercise regime months before the test to meet the stringent physical standards.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-text-primary mb-1">Written Exam (All Posts)</h4>
+                                <p id="sec8-step2-desc" class="text-base text-text-secondary">Prepare for general subjects like English, Reasoning, Quantitative Aptitude, and GK, similar to SSC/Banking exams.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-accent-primary rounded-full -left-2.5 border-4 border-primary-bg"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-text-primary mb-1">Skill Test Practice</h4>
+                                <p id="sec8-step3-desc" class="text-base text-text-secondary">Dedicate daily time for typing, stenography, or driving practice to build speed and accuracy.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-text-primary mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-text-secondary">
+                            <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-text-secondary">BARC advertises these posts based on vacancies. Candidates should regularly monitor the official website.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-text-primary mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Published on recruit.barc.gov.in and in Employment News as per need.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-text-primary mb-1">Application Period</h4>
+                        <p id="sec9-step2-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Usually open for about a month.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-text-primary mb-1">Examinations / PET</h4>
+                        <p id="sec9-step3-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Dates are announced after the application window closes.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-text-primary mb-1">Final Results</h4>
+                        <p id="sec9-step4-desc" class="text-base text-text-secondary"><strong class="text-text-secondary/80">Timeline:</strong> Declared after all stages of selection for the specific post are completed.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes to Avoid -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Avoid these common pitfalls to improve your chances of selection.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Ignoring Physical Standards:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Applying for security posts without meeting the mandatory physical requirements.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Lack of Skill Practice:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Assuming you can clear typing/steno/driving tests without dedicated daily practice.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Neglecting General Awareness:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">The Level-1/Preliminary test has a section on GK which can be a deciding factor.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900/20 rounded-lg border-2 border-red-500/30 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not Reading the Notification:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Failing to read the detailed advertisement carefully for specific requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Information Sources -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl section-heading">11. Where to Find Information 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-text-secondary">Use these resources for authentic information and preparation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Official & Academic Sources</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Preparation Resources</h3>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base text-text-secondary">
+                           <!-- JS Populated -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl section-heading">12. Career Trajectory at DAE 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-text-secondary">The Department of Atomic Energy provides a secure Central Government job with a well-defined career path, promotions, and benefits for its administrative and support staff.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus -->
+            <section class="card">
+                <h2 id="sec13-title" class="text-3xl section-heading">13. Key Topics & Resources 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-text-secondary">Focus your preparation on the syllabus outlined for the written tests and practice for the relevant skill test.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Syllabus Areas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-primary-bg p-6 rounded-lg shadow-lg border border-border-color hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Resources</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-border-color">
+            <p id="footer-text" class="text-text-secondary text-lg font-medium">&copy; 2025 | Securing the Nation's Scientific Endeavours.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="prelims-modal-title" class="text-2xl font-bold text-text-primary mb-4">Level 1: Qualifying Test</h3><p id="prelims-modal-p1" class="text-text-secondary">For admin posts, this is a preliminary objective test on general subjects. For security posts, this is the Physical Endurance Test (PET). This stage is for screening/qualification only.</p></div></div>
+    <div id="mainsMainModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="mains-modal-title" class="text-2xl font-bold text-text-primary mb-4">Level 2: Mains / Advanced Test</h3><p id="mains-modal-p1" class="text-text-secondary">Candidates who clear Level 1 appear for the main written test. For UDC, it is a descriptive English paper. For security staff, it is an objective test on comprehension and analytical skills. The merit list is often based on this stage.</p></div></div>
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="interview-modal-title" class="text-2xl font-bold text-text-primary mb-4">Level 3: Skill Test</h3><p id="interview-modal-p1" class="text-base mb-3 text-text-secondary">This is the final, qualifying stage. It includes typing tests for UDC, stenography tests for Stenographers, and a practical driving test for Drivers. Security personnel who clear the written test are selected based on its merit.</p></div></div>
+    <div id="postDetailModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><div class="flex items-center mb-4"><div id="postDetailIcon" class="text-5xl mr-4"></div><h3 id="postDetailTitle" class="text-3xl font-bold text-text-primary"></h3></div><p id="postDetailDescription" class="text-lg text-text-secondary leading-relaxed"></p></div></div>
+    <div id="careerGrowthModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 id="career-modal-title" class="text-2xl font-bold text-text-primary mb-6">Career Progression for Admin & Support Staff</h3><div id="careerPathContainer" class="career-path-timeline"></div></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let interviewChartInstance;
+        let currentLang = 'en';
+
+        const serviceDetailsData = {
+            'en': {
+                'aso': { name: 'Assistant Security Officer', icon: '👮', description: 'A supervisory role in the security cadre, responsible for overseeing security protocols, managing guard details, and ensuring the physical security of the facility. Requires a graduate degree.', cta: 'Details' },
+                'guard': { name: 'Security Guard', icon: '🛡️', description: 'Responsible for access control, patrolling, and safeguarding sensitive national assets. This role demands physical fitness and high levels of alertness and discipline. Requires a 10th pass.', cta: 'Details' },
+                'udc': { name: 'Upper Division Clerk', icon: '💼', description: 'Handles important administrative duties including file management, drafting correspondence, data entry, and maintaining official records. Requires a graduate degree and typing skills.', cta: 'Details' },
+                'steno': { name: 'Stenographer', icon: '✍️', description: 'Provides secretarial support by taking dictation in shorthand and transcribing it. Requires excellent shorthand and typing speed. Minimum qualification is 10th pass.', cta: 'Details' },
+                'driver': { name: 'Driver (OG)', icon: '🚗', description: 'Operates light and heavy vehicles for transporting personnel and materials. Requires a valid driving license and knowledge of motor mechanics.', cta: 'Details' },
+            },
+            'hi': {
+                'aso': { name: 'सहायक सुरक्षा अधिकारी', icon: '👮', description: 'सुरक्षा संवर्ग में एक पर्यवेक्षी भूमिका, जो सुरक्षा प्रोटोकॉल की देखरेख, गार्ड विवरणों के प्रबंधन और सुविधा की भौतिक सुरक्षा सुनिश्चित करने के लिए जिम्मेदार है। स्नातक की डिग्री आवश्यक है।', cta: 'विवरण' },
+                'guard': { name: 'सुरक्षा गार्ड', icon: '🛡️', description: 'पहुंच नियंत्रण, गश्त और संवेदनशील राष्ट्रीय संपत्ति की सुरक्षा के लिए जिम्मेदार। इस भूमिका में शारीरिक फिटनेस और उच्च स्तर की सतर्कता और अनुशासन की मांग होती है। 10वीं पास आवश्यक है।', cta: 'विवरण' },
+                'udc': { name: 'उच्च श्रेणी लिपिक', icon: '💼', description: 'फाइल प्रबंधन, पत्राचार का मसौदा तैयार करना, डेटा प्रविष्टि और आधिकारिक रिकॉर्ड बनाए रखने सहित महत्वपूर्ण प्रशासनिक कर्तव्यों को संभालता है। स्नातक की डिग्री और टाइपिंग कौशल की आवश्यकता है।', cta: 'विवरण' },
+                'steno': { name: 'आशुलिपिक', icon: '✍️', description: 'आशुलिपि में श्रुतलेख लेकर और उसका प्रतिलेखन करके सचिवीय सहायता प्रदान करता है। उत्कृष्ट आशुलिपि और टाइपिंग गति की आवश्यकता है। न्यूनतम योग्यता 10वीं पास है।', cta: 'विवरण' },
+                'driver': { name: 'ड्राइवर (ओजी)', icon: '🚗', description: 'कर्मियों और सामग्रियों के परिवहन के लिए हल्के और भारी वाहनों का संचालन करता है। एक वैध ड्राइविंग लाइसेंस और मोटर यांत्रिकी का ज्ञान आवश्यक है।', cta: 'विवरण' },
+            }
+        };
+        
+        const careerPathData = {
+            'en': {
+                path: [
+                    { rank: "Initial Post (UDC/Steno/Guard)", desc: "Starting position in the respective cadre after successful recruitment." },
+                    { rank: "Assistant / Head Guard", desc: "First promotion for clerical staff is typically to Assistant. For Guards, it is Head Guard." },
+                    { rank: "Section Officer / ASO", desc: "Further promotions lead to supervisory roles like Section Officer for UDCs or Assistant Security Officer (ASO) for security staff." },
+                    { rank: "Higher Administrative/Security Grades", desc: "Senior positions with greater administrative or security management responsibilities." }
+                ]
+            },
+            'hi': {
+                path: [
+                    { rank: "प्रारंभिक पद (यूडीसी/स्टेनो/गार्ड)", desc: "सफल भर्ती के बाद संबंधित संवर्ग में प्रारंभिक पद।" },
+                    { rank: "सहायक / हेड गार्ड", desc: "लिपिक कर्मचारियों के लिए पहली पदोन्नति आमतौर पर सहायक के लिए होती है। गार्ड के लिए, यह हेड गार्ड है।" },
+                    { rank: "अनुभाग अधिकारी / एएसओ", desc: "आगे की पदोन्नति से यूडीसी के लिए अनुभाग अधिकारी या सुरक्षा कर्मचारियों के लिए सहायक सुरक्षा अधिकारी (एएसओ) जैसी पर्यवेक्षी भूमिकाएँ प्राप्त होती हैं।" },
+                    { rank: "उच्च प्रशासनिक/सुरक्षा ग्रेड", desc: "अधिक प्रशासनिक या सुरक्षा प्रबंधन जिम्मेदारियों के साथ वरिष्ठ पद।" }
+                ]
+            }
+        };
+
+        const translations = {
+            'en': {
+                'header-title': '🛡️ BARC Administrative & Support Staff Guide 📋', 'header-subtitle': 'Recruitment for ASO, Security Guard, UDC, Steno & Driver',
+                'sec1-title': '1. The Administrative & Security Core of DAE 🏢', 'sec1-p1': 'The Administrative, Security, and Support Cadres form the essential framework that enables the scientific and technical activities of the Department of Atomic Energy (DAE). From ensuring the security of sensitive facilities to managing administrative tasks, these roles are vital for the smooth operation of organizations like BARC.',
+                'sec2-title': '2. Multi-Level Selection Process 🎯', 'sec2-p1': 'The selection process varies by post but generally involves multiple stages to assess physical fitness, written knowledge, and specific skills.',
+                'sec2-step1-title': 'Level 1:', 'sec2-step1-name': 'Qualifying Test', 'sec2-step1-desc': 'Physical / Prelims Exam',
+                'sec2-step2-title': 'Level 2:', 'sec2-step2-name': 'Mains / Advanced', 'sec2-step2-desc': 'Written Test',
+                'sec2-step3-title': 'Level 3:', 'sec2-step3-name': 'Skill Test', 'sec2-step3-desc': 'Trade/Typing/Driving Test',
+                'sec3-title': '3. Eligibility Criteria ✅', 'sec3-p1': 'Eligibility requirements are specific to each post.',
+                'eligibility-list': `
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👮</span><div><strong class="text-text-primary text-lg">ASO:</strong> <span class="text-text-secondary">Graduate from a recognized University.</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🛡️</span><div><strong class="text-text-primary text-lg">Security Guard:</strong> <span class="text-text-secondary">10th Standard (SSC) pass.</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">💼</span><div><strong class="text-text-primary text-lg">UDC:</strong> <span class="text-text-secondary">Graduate with minimum 50% marks and typing speed of 30 w.p.m in English.</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">✍️</span><div><strong class="text-text-primary text-lg">Stenographer:</strong> <span class="text-text-secondary">Matriculation (10th) with 50% marks, and specified shorthand/typing speeds.</span></div></li>
+                     <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🚗</span><div><strong class="text-text-primary text-lg">Driver:</strong> <span class="text-text-secondary">Pass in 10th Standard and possession of a valid driving license for LMV & HMV.</span></div></li>
+                `,
+                'sec3-attempts-title': 'Age Limits & Physical Standards 📊', 'sec3-attempts-p1': 'Age limits are typically between 18-27 years, with relaxations for reserved categories.',
+                'sec3-agerelax-list': '<li>**ASO & Security Guard:** Must meet stringent physical standards for height, chest, and vision. A Physical Endurance Test is mandatory.</li><li>**Driver:** Must possess a valid driving license for Light and Heavy vehicles.</li>',
+                'sec4-title': '4. Examination Pattern 📚', 'sec4-p1': 'The pattern differs for security and administrative posts.',
+                'gs1-title': 'ASO & Security Guard', 'gs1-sub1': 'Physical Endurance Test (PET)', 'gs1-sub2': 'Written Test (Comprehension, GK, Analytical Skills)',
+                'gs2-title': 'UDC & Stenographer', 'gs2-sub1': 'Level 1: Objective Test (English, GK, Reasoning, Quant)', 'gs2-sub2': 'Level 2: Descriptive / Skill Test (English, Typing/Steno)',
+                'sec5-title': '5. The Skill Tests in Detail 🗣️', 'sec5-p1': 'The final stage for most posts is a skill-based test to determine practical suitability.',
+                'sec5-hindi-title': 'Security Cadre', 'sec5-hindi-list': '<li>**Physical Test:** Includes running, long jump, chin-ups/push-ups.</li><li>**Written Test:** Assesses comprehension and analytical ability.</li>',
+                'sec5-essay-title': 'Admin & Driver Cadre', 'sec5-essay-list': '<li>**UDC:** English descriptive paper and computer typing test.</li><li>**Stenographer:** Shorthand and typing speed tests.</li><li>**Driver:** Practical driving test for light and heavy vehicles.</li>',
+                'sec6-title': '6. Roles & Responsibilities 🌟', 'sec6-p1': 'Each role in the administrative and support cadre has distinct and important responsibilities.',
+                'sec6-eng-title': 'Security Staff', 'sec6-eng-list': '<li>**ASO:** Supervise security operations, access control, and manage guard shifts.</li><li>**Security Guard:** Guarding and patrolling sensitive installations.</li>',
+                'sec6-elec-title': 'Clerical Staff', 'sec6-elec-list': '<li>**UDC:** File management, drafting letters, maintaining records.</li><li>**Stenographer:** Taking dictation, typing official documents.</li>',
+                'sec6-naic-title': 'Support Staff', 'sec6-naic-list': '<li>**Driver:** Operating official vehicles for personnel and material transport.</li>',
+                'sec7-title': '7. Essential Qualities for a DAE Staff 🎙️', 'sec7-p1': 'The selection process looks for candidates with reliability, discipline, and the specific skills required for their respective roles.',
+                'sec7-qualities-title': 'Key Attributes:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🏃</span><div><strong>Physical Fitness:</strong> (For Security) Essential for demanding duties.</div></li><li><span class="text-2xl mr-3"> disciplined</span><div><strong>Discipline & Integrity:</strong> Crucial for working in a high-security environment.</div></li><li><span class="text-2xl mr-3">🎯</span><div><strong>Attention to Detail:</strong> Important for clerical and administrative accuracy.</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>Reliability:</strong> A dependable nature for all support roles.</div></li>',
+                'sec8-title': '8. Preparation Strategy 📈', 'sec8-p1': 'A targeted preparation strategy is needed for each stage and post.',
+                'sec8-steps-title': '📚 Key Steps:', 'sec8-step1-title': 'Physical Fitness (Security)', 'sec8-step1-desc': 'Start a regular running and exercise regime months before the test to meet the stringent physical standards.', 'sec8-step2-title': 'Written Exam (All Posts)', 'sec8-step2-desc': 'Prepare for general subjects like English, Reasoning, Quantitative Aptitude, and GK, similar to SSC/Banking exams.', 'sec8-step3-title': 'Skill Test Practice', 'sec8-step3-desc': 'Dedicate daily time for typing, stenography, or driving practice to build speed and accuracy.',
+                'sec8-revision-title': '🔄 Habits & Practice:', 'sec8-revision-list': '<li><strong>Read Newspapers:</strong> Stay updated with current affairs for the General Awareness section.</li><li><strong>Practice Mock Tests:</strong> Use online platforms to improve speed and accuracy for written tests.</li><li><strong>Follow Traffic Rules:</strong> (For Drivers) Thorough knowledge of traffic laws is essential.</li>',
+                'sec9-title': '9. Recruitment Cycle & Process 🗓️', 'sec9-p1': 'BARC advertises these posts based on vacancies. Candidates should regularly monitor the official website.',
+                'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Published on recruit.barc.gov.in and in Employment News as per need.', 'sec9-step2-title': 'Application Period', 'sec9-step2-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Usually open for about a month.', 'sec9-step3-title': 'Examinations / PET', 'sec9-step3-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Dates are announced after the application window closes.', 'sec9-step4-title': 'Final Results', 'sec9-step4-desc': '<strong class="text-text-secondary/80">Timeline:</strong> Declared after all stages of selection for the specific post are completed.',
+                'sec10-title': '10. Common Mistakes to Avoid 🚫', 'sec10-p1': 'Avoid these common pitfalls to improve your chances of selection.',
+                'sec10-mistake1-title': 'Ignoring Physical Standards:', 'sec10-mistake1-desc': 'Applying for security posts without meeting the mandatory physical requirements.', 'sec10-mistake2-title': 'Lack of Skill Practice:', 'sec10-mistake2-desc': 'Assuming you can clear typing/steno/driving tests without dedicated daily practice.', 'sec10-mistake3-title': 'Neglecting General Awareness:', 'sec10-mistake3-desc': 'The Level-1/Preliminary test has a section on GK which can be a deciding factor.', 'sec10-mistake4-title': 'Not Reading the Notification:', 'sec10-mistake4-desc': 'Failing to read the detailed advertisement carefully for specific requirements.',
+                'sec11-title': '11. Where to Find Information 🏫', 'sec11-p1': 'Use these resources for authentic information and preparation.',
+                'sec11-gov-title': '💻 Official & Academic Sources', 'sec11-gov-list': '<li>Official BARC Recruitment Website: recruit.barc.gov.in</li><li>Employment News Newspaper.</li>',
+                'sec11-pvt-title': 'Preparation Resources', 'sec11-pvt-list': '<li>Books for SSC CGL/CHSL level exams.</li><li>Online typing and stenography practice websites.</li><li>Local driving schools for practical experience.</li>',
+                'sec12-title': '12. Career Trajectory at DAE 🚀', 'sec12-p1': 'The Department of Atomic Energy provides a secure Central Government job with a well-defined career path, promotions, and benefits for its administrative and support staff.',
+                'sec12-career-btn': 'View Career Progression',
+                'sec13-title': '13. Key Topics & Resources 📚', 'sec13-p1': 'Focus your preparation on the syllabus outlined for the written tests and practice for the relevant skill test.',
+                'syllabus-oir-title': 'Syllabus Areas',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">General Intelligence & Reasoning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">English Language & Comprehension</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'syllabus-ppdt-title': 'Key Resources',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">SSC/Banking Exam Preparation Books</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">Daily Newspapers for Current Affairs</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                'footer-text': '&copy; 2025 | Securing the Nation\'s Scientific Endeavours.',
+                'interviewChartData': { labels: ['Physical Fitness', 'Discipline', 'Attention to Detail', 'Reliability'], data: [95, 98, 92, 96] }
+            },
+            'hi': {
+                'header-title': '🛡️ बार्क प्रशासनिक और सहायक कर्मचारी गाइड 📋', 'header-subtitle': 'एएसओ, सुरक्षा गार्ड, यूडीसी, स्टेनो और ड्राइवर के लिए भर्ती',
+                'sec1-title': '1. डीएई का प्रशासनिक और सुरक्षा कोर 🏢', 'sec1-p1': 'प्रशासनिक, सुरक्षा और सहायक संवर्ग आवश्यक ढांचा बनाते हैं जो परमाणु ऊर्जा विभाग (डीएई) की वैज्ञानिक और तकनीकी गतिविधियों को सक्षम बनाता है। संवेदनशील सुविधाओं की सुरक्षा सुनिश्चित करने से लेकर प्रशासनिक कार्यों के प्रबंधन तक, ये भूमिकाएँ बार्क जैसे संगठनों के सुचारू संचालन के लिए महत्वपूर्ण हैं।',
+                'sec2-title': '2. बहु-स्तरीय चयन प्रक्रिया 🎯', 'sec2-p1': 'चयन प्रक्रिया पद के अनुसार भिन्न होती है लेकिन आम तौर पर शारीरिक फिटनेस, लिखित ज्ञान और विशिष्ट कौशल का आकलन करने के लिए कई चरण शामिल होते हैं।',
+                'sec2-step1-title': 'स्तर 1:', 'sec2-step1-name': 'योग्यता परीक्षा', 'sec2-step1-desc': 'शारीरिक / प्रारंभिक परीक्षा',
+                'sec2-step2-title': 'स्तर 2:', 'sec2-step2-name': 'मेन्स / एडवांस्ड', 'sec2-step2-desc': 'लिखित परीक्षा',
+                'sec2-step3-title': 'स्तर 3:', 'sec2-step3-name': 'कौशल परीक्षा', 'sec2-step3-desc': 'ट्रेड/टाइपिंग/ड्राइविंग टेस्ट',
+                'sec3-title': '3. पात्रता मानदंड ✅', 'sec3-p1': 'पात्रता आवश्यकताएं प्रत्येक पद के लिए विशिष्ट हैं।',
+                'eligibility-list': `
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">👮</span><div><strong class="text-text-primary text-lg">एएसओ:</strong> <span class="text-text-secondary">एक मान्यता प्राप्त विश्वविद्यालय से स्नातक।</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🛡️</span><div><strong class="text-text-primary text-lg">सुरक्षा गार्ड:</strong> <span class="text-text-secondary">10 वीं कक्षा (एसएससी) पास।</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">💼</span><div><strong class="text-text-primary text-lg">यूडीसी:</strong> <span class="text-text-secondary">न्यूनतम 50% अंकों के साथ स्नातक और अंग्रेजी में 30 शब्द प्रति मिनट की टाइपिंग गति।</span></div></li>
+                    <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">✍️</span><div><strong class="text-text-primary text-lg">आशुलिपिक:</strong> <span class="text-text-secondary">50% अंकों के साथ मैट्रिक (10 वीं), और निर्दिष्ट आशुलिपि/टाइपिंग गति।</span></div></li>
+                     <li class="flex items-start"><span class="text-3xl text-accent-primary mr-4">🚗</span><div><strong class="text-text-primary text-lg">ड्राइवर:</strong> <span class="text-text-secondary">10 वीं कक्षा में उत्तीर्ण और एलएमवी और एचएमवी के लिए वैध ड्राइविंग लाइसेंस होना।</span></div></li>
+                `,
+                'sec3-attempts-title': 'आयु सीमा और शारीरिक मानक 📊', 'sec3-attempts-p1': 'आयु सीमा आमतौर पर 18-27 वर्ष के बीच होती है, आरक्षित श्रेणियों के लिए छूट के साथ।',
+                'sec3-agerelax-list': '<li>**एएसओ और सुरक्षा गार्ड:** ऊंचाई, छाती और दृष्टि के लिए कड़े शारीरिक मानकों को पूरा करना होगा। एक शारीरिक सहनशक्ति परीक्षण अनिवार्य है।</li><li>**ड्राइवर:** हल्के और भारी वाहनों के लिए वैध ड्राइविंग लाइसेंस होना चाहिए।</li>',
+                'sec4-title': '4. परीक्षा पैटर्न 📚', 'sec4-p1': 'पैटर्न सुरक्षा और प्रशासनिक पदों के लिए अलग-अलग है।',
+                'gs1-title': 'एएसओ और सुरक्षा गार्ड', 'gs1-sub1': 'शारीरिक सहनशक्ति परीक्षण (पीईटी)', 'gs1-sub2': 'लिखित परीक्षा (समझ, जीके, विश्लेषणात्मक कौशल)',
+                'gs2-title': 'यूडीसी और आशुलिपिक', 'gs2-sub1': 'स्तर 1: वस्तुनिष्ठ परीक्षा (अंग्रेजी, जीके, तर्क, मात्रा)', 'gs2-sub2': 'स्तर 2: वर्णनात्मक / कौशल परीक्षा (अंग्रेजी, टाइपिंग/स्टेनो)',
+                'sec5-title': '5. कौशल परीक्षण विस्तार से 🗣️', 'sec5-p1': 'अधिकांश पदों के लिए अंतिम चरण व्यावहारिक उपयुक्तता निर्धारित करने के लिए एक कौशल-आधारित परीक्षा है।',
+                'sec5-hindi-title': 'सुरक्षा संवर्ग', 'sec5-hindi-list': '<li>**शारीरिक परीक्षण:** इसमें दौड़ना, लंबी कूद, चिन-अप/पुश-अप शामिल हैं।</li><li>**लिखित परीक्षा:** समझ और विश्लेषणात्मक क्षमता का आकलन करती है।</li>',
+                'sec5-essay-title': 'व्यवस्थापक और चालक संवर्ग', 'sec5-essay-list': '<li>**यूडीसी:** अंग्रेजी वर्णनात्मक पेपर और कंप्यूटर टाइपिंग टेस्ट।</li><li>**आशुलिपिक:** आशुलिपि और टाइपिंग गति परीक्षण।</li><li>**ड्राइवर:** हल्के और भारी वाहनों के लिए प्रैक्टिकल ड्राइविंग टेस्ट।</li>',
+                'sec6-title': '6. भूमिकाएं और जिम्मेदारियां 🌟', 'sec6-p1': 'प्रशासनिक और सहायक संवर्ग में प्रत्येक भूमिका की अलग और महत्वपूर्ण जिम्मेदारियां हैं।',
+                'sec6-eng-title': 'सुरक्षा कर्मचारी', 'sec6-eng-list': '<li>**एएसओ:** सुरक्षा संचालन, पहुंच नियंत्रण की निगरानी करें और गार्ड शिफ्ट का प्रबंधन करें।</li><li>**सुरक्षा गार्ड:** संवेदनशील प्रतिष्ठानों की रखवाली और गश्त।</li>',
+                'sec6-elec-title': 'लिपिक कर्मचारी', 'sec6-elec-list': '<li>**यूडीसी:** फ़ाइल प्रबंधन, पत्र मसौदा तैयार करना, रिकॉर्ड बनाए रखना।</li><li>**आशुलिपिक:** श्रुतलेख लेना, आधिकारिक दस्तावेज टाइप करना।</li>',
+                'sec6-naic-title': 'सहायक कर्मचारी', 'sec6-naic-list': '<li>**ड्राइवर:** कर्मियों और सामग्रियों के परिवहन के लिए आधिकारिक वाहनों का संचालन।</li>',
+                'sec7-title': '7. एक डीएई स्टाफ के लिए आवश्यक गुण 🎙️', 'sec7-p1': 'चयन प्रक्रिया उन उम्मीदवारों की तलाश करती है जिनमें विश्वसनीयता, अनुशासन और उनकी संबंधित भूमिकाओं के लिए आवश्यक विशिष्ट कौशल हों।',
+                'sec7-qualities-title': 'प्रमुख गुण:',
+                'sec7-qualities-list': '<li><span class="text-2xl mr-3">🏃</span><div><strong>शारीरिक फिटनेस:</strong> (सुरक्षा के लिए) मांगलिक कर्तव्यों के लिए आवश्यक है।</div></li><li><span class="text-2xl mr-3"> disciplined</span><div><strong>अनुशासन और सत्यनिष्ठा:</strong> उच्च-सुरक्षा वाले वातावरण में काम करने के लिए महत्वपूर्ण।</div></li><li><span class="text-2xl mr-3">🎯</span><div><strong>विवरण पर ध्यान:</strong> लिपिकीय और प्रशासनिक सटीकता के लिए महत्वपूर्ण।</div></li><li><span class="text-2xl mr-3">🗣️</span><div><strong>विश्वसनीयता:</strong> सभी सहायक भूमिकाओं के लिए एक भरोसेमंद प्रकृति।</div></li>',
+                'sec8-title': '8. तैयारी की रणनीति 📈', 'sec8-p1': 'प्रत्येक चरण और पद के लिए एक लक्षित तैयारी रणनीति की आवश्यकता है।',
+                'sec8-steps-title': '📚 प्रमुख चरण:', 'sec8-step1-title': 'शारीरिक फिटनेस (सुरक्षा)', 'sec8-step1-desc': 'कठोर शारीरिक मानकों को पूरा करने के लिए परीक्षण से महीनों पहले एक नियमित दौड़ और व्यायाम व्यवस्था शुरू करें।', 'sec8-step2-title': 'लिखित परीक्षा (सभी पद)', 'sec8-step2-desc': 'एसएससी/बैंकिंग परीक्षाओं के समान अंग्रेजी, तर्क, मात्रात्मक योग्यता और जीके जैसे सामान्य विषयों की तैयारी करें।', 'sec8-step3-title': 'कौशल परीक्षण अभ्यास', 'sec8-step3-desc': 'गति और सटीकता बनाने के लिए टाइपिंग, स्टेनोग्राफी या ड्राइविंग अभ्यास के लिए दैनिक समय समर्पित करें।',
+                'sec8-revision-title': '🔄 आदतें और अभ्यास:', 'sec8-revision-list': '<li><strong>अखबार पढ़ें:</strong> सामान्य जागरूकता अनुभाग के लिए करेंट अफेयर्स से अपडेट रहें।</li><li><strong>मॉक टेस्ट का अभ्यास करें:</strong> लिखित परीक्षाओं के लिए गति और सटीकता में सुधार के लिए ऑनलाइन प्लेटफॉर्म का उपयोग करें।</li><li><strong>यातायात नियमों का पालन करें:</strong> (ड्राइवरों के लिए) यातायात कानूनों का गहन ज्ञान आवश्यक है।</li>',
+                'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️', 'sec9-p1': 'बार्क रिक्तियों के आधार पर इन पदों का विज्ञापन करता है। उम्मीदवारों को नियमित रूप से आधिकारिक वेबसाइट की निगरानी करनी चाहिए।',
+                'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आवश्यकता के अनुसार recruit.barc.gov.in और रोजगार समाचार में प्रकाशित।', 'sec9-step2-title': 'आवेदन अवधि', 'sec9-step2-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आमतौर पर लगभग एक महीने के लिए खुला रहता है।', 'sec9-step3-title': 'परीक्षाएं / पीईटी', 'sec9-step3-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> आवेदन विंडो बंद होने के बाद तिथियों की घोषणा की जाती है।', 'sec9-step4-title': 'अंतिम परिणाम', 'sec9-step4-desc': '<strong class="text-text-secondary/80">समयरेखा:</strong> विशिष्ट पद के लिए चयन के सभी चरणों के पूरा होने के बाद घोषित किया जाता है।',
+                'sec10-title': '10. बचने योग्य सामान्य गलतियाँ 🚫', 'sec10-p1': 'चयन की संभावनाओं को बेहतर बनाने के लिए इन सामान्य नुकसानों से बचें।',
+                'sec10-mistake1-title': 'शारीरिक मानकों की अनदेखी:', 'sec10-mistake1-desc': 'अनिवार्य शारीरिक आवश्यकताओं को पूरा किए बिना सुरक्षा पदों के लिए आवेदन करना।', 'sec10-mistake2-title': 'कौशल अभ्यास की कमी:', 'sec10-mistake2-desc': 'यह मान लेना कि आप समर्पित दैनिक अभ्यास के बिना टाइपिंग/स्टेनो/ड्राइविंग टेस्ट पास कर सकते हैं।', 'sec10-mistake3-title': 'सामान्य जागरूकता की उपेक्षा:', 'sec10-mistake3-desc': 'स्तर-1/प्रारंभिक परीक्षा में जीके पर एक खंड है जो एक निर्णायक कारक हो सकता है।', 'sec10-mistake4-title': 'अधिसूचना नहीं पढ़ना:', 'sec10-mistake4-desc': 'विशिष्ट आवश्यकताओं के लिए विस्तृत विज्ञापन को ध्यान से पढ़ने में विफल होना।',
+                'sec11-title': '11. जानकारी कहाँ से प्राप्त करें 🏫', 'sec11-p1': 'प्रामाणिक जानकारी और तैयारी के लिए इन संसाधनों का उपयोग करें।',
+                'sec11-gov-title': '💻 आधिकारिक और शैक्षणिक स्रोत', 'sec11-gov-list': '<li>आधिकारिक बार्क भर्ती वेबसाइट: recruit.barc.gov.in</li><li>रोजगार समाचार पत्र।</li>',
+                'sec11-pvt-title': 'तैयारी संसाधन', 'sec11-pvt-list': '<li>एसएससी सीजीएल/सीएचएसएल स्तर की परीक्षाओं के लिए किताबें।</li><li>ऑनलाइन टाइपिंग और स्टेनोग्राफी अभ्यास वेबसाइटें।</li><li>व्यावहारिक अनुभव के लिए स्थानीय ड्राइविंग स्कूल।</li>',
+                'sec12-title': '12. डीएई में कैरियर प्रक्षेपवक्र 🚀', 'sec12-p1': 'परमाणु ऊर्जा विभाग अपने प्रशासनिक और सहायक कर्मचारियों के लिए प्रदर्शन और विभागीय परीक्षाओं के आधार पर एक अच्छी तरह से परिभाषित कैरियर पथ, पदोन्नति और लाभ के साथ एक सुरक्षित केंद्र सरकार की नौकरी प्रदान करता है।',
+                'sec12-career-btn': 'कैरियर प्रगति देखें',
+                'sec13-title': '13. प्रमुख विषय और संसाधन 📚', 'sec13-p1': 'लिखित परीक्षाओं के लिए उल्लिखित पाठ्यक्रम पर अपनी तैयारी केंद्रित करें और प्रासंगिक कौशल परीक्षण के लिए अभ्यास करें।',
+                'syllabus-oir-title': 'पाठ्यक्रम क्षेत्र',
+                'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">सामान्य बुद्धि और तर्क</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">अंग्रेजी भाषा और समझ</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'syllabus-ppdt-title': 'प्रमुख संसाधन',
+                'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">एसएससी/बैंकिंग परीक्षा तैयारी पुस्तकें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">करेंट अफेयर्स के लिए दैनिक समाचार पत्र</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">लेक्चर</button></div></div>',
+                'footer-text': '&copy; 2025 | राष्ट्र के वैज्ञानिक प्रयासों को सुरक्षित करना।',
+                'interviewChartData': { labels: ['शारीरिक फिटनेस', 'अनुशासन', 'विवरण पर ध्यान', 'विश्वसनीयता'], data: [95, 98, 92, 96] }
+            }
+        };
+        
+        function renderPostCards(lang) {
+            const container = document.getElementById('postCardsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const posts = serviceDetailsData[lang];
+            let cardIndex = 0;
+            const postKeys = Object.keys(posts);
+
+            // Special handling for 5 cards to make them look good in a 3-col grid
+            const layoutClasses = [
+                '', // ASO
+                'lg:col-span-1', // Guard
+                'lg:col-start-2', // UDC
+                '', // Steno
+                '', // Driver
+            ];
+             if (postKeys.length === 5) {
+                container.innerHTML = `
+                    <div class="group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2" data-post-id="aso">
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${posts.aso.icon}</div>
+                        <h4 class="font-bold text-xl text-text-primary">${posts.aso.name}</h4>
+                        <p class="text-sm text-text-secondary mt-2">${posts.aso.cta}</p>
+                    </div>
+                    <div class="group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2" data-post-id="guard">
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${posts.guard.icon}</div>
+                        <h4 class="font-bold text-xl text-text-primary">${posts.guard.name}</h4>
+                        <p class="text-sm text-text-secondary mt-2">${posts.guard.cta}</p>
+                    </div>
+                     <div class="group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2" data-post-id="udc">
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${posts.udc.icon}</div>
+                        <h4 class="font-bold text-xl text-text-primary">${posts.udc.name}</h4>
+                        <p class="text-sm text-text-secondary mt-2">${posts.udc.cta}</p>
+                    </div>
+                     <div class="group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2 sm:col-start-1 lg:col-start-auto" data-post-id="steno">
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${posts.steno.icon}</div>
+                        <h4 class="font-bold text-xl text-text-primary">${posts.steno.name}</h4>
+                        <p class="text-sm text-text-secondary mt-2">${posts.steno.cta}</p>
+                    </div>
+                     <div class="group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2" data-post-id="driver">
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${posts.driver.icon}</div>
+                        <h4 class="font-bold text-xl text-text-primary">${posts.driver.name}</h4>
+                        <p class="text-sm text-text-secondary mt-2">${posts.driver.cta}</p>
+                    </div>
+                `;
+                 container.querySelectorAll('.group').forEach(card => {
+                    card.addEventListener('click', (e) => showPostDetails(e.currentTarget.dataset.postId));
+                });
+                return;
+            }
+
+            // Fallback for different number of cards
+            for (const id in posts) {
+                const post = posts[id];
+                const card = document.createElement('div');
+                card.className = 'group relative p-6 bg-secondary-bg/50 rounded-xl text-center border-2 border-border-color hover:border-accent-primary transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                card.dataset.postId = id;
+                card.innerHTML = `<div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div><h4 class="font-bold text-xl text-text-primary">${post.name}</h4><p class="text-sm text-text-secondary mt-2">${post.cta}</p>`;
+                card.addEventListener('click', () => showPostDetails(id));
+                container.appendChild(card);
+            }
+        }
+
+        function showPostDetails(postId) {
+            const post = serviceDetailsData[currentLang][postId];
+            if (post) {
+                document.getElementById('postDetailIcon').innerText = post.icon;
+                document.getElementById('postDetailTitle').innerText = post.name;
+                document.getElementById('postDetailDescription').innerText = post.description;
+                showModal('postDetailModal');
+            }
+        }
+
+        function renderCareerPath(lang) {
+            const container = document.getElementById('careerPathContainer');
+            container.innerHTML = '';
+            const path = careerPathData[lang].path;
+            path.forEach((step) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'timeline-step';
+                stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-text-primary mb-1">${step.rank}</h4>
+                        <p class="text-base text-text-secondary">${step.desc}</p>
+                    `;
+                container.appendChild(stepElement);
+            });
+        }
+
+        function initInterviewChart() {
+            const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+            interviewChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: translations.en.interviewChartData.labels,
+                    datasets: [{
+                        label: 'Essential Attributes',
+                        data: translations.en.interviewChartData.data,
+                        backgroundColor: 'rgba(100, 255, 218, 0.7)',
+                        borderColor: '#64FFDA',
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: { color: 'rgba(160, 174, 192, 0.7)' }
+                        },
+                        x: { 
+                            ticks: { 
+                                color: 'rgba(160, 174, 192, 0.7)',
+                                font: { size: 14 } 
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        function translateChart() {
+            if (interviewChartInstance) {
+                const data = translations[currentLang].interviewChartData;
+                interviewChartInstance.data.labels = data.labels;
+                interviewChartInstance.data.datasets[0].data = data.data;
+                interviewChartInstance.update();
+            }
+        }
+        
+        function translatePage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            for (const id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = translations[lang][id];
+                }
+            }
+            renderPostCards(lang);
+            renderCareerPath(lang);
+            
+            if (!interviewChartInstance) {
+                initInterviewChart();
+            } else {
+                translateChart();
+            }
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                translatePage(e.currentTarget.dataset.lang);
+            });
+        });
+
+        const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+        const closeModal = (modal) => modal?.classList.remove('active');
+
+        document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+            trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+        });
+
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal);
+            });
+            modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+        });
+        
+        // Initial render
+        translatePage('en');
+    });
+    </script>
+</body>
+</html>
