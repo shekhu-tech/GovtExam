@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABARD Internship & Apprenticeship Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to the NABARD Internship and Apprenticeship programs for students and graduates in Finance, Agriculture, IT, and Research.">
+    <meta name="keywords" content="NABARD Internship, NABARD Apprenticeship, NABARD Research, Student Internship, Government Internship, Finance Internship, Agriculture Internship">
+    <meta name="author" content="NABARD Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ff7f50, #fbbf24) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.8); /* Slate 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #475569; /* Slate 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(255, 127, 80, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff7f50; /* Coral */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ff7f50; /* Coral */
+            color: #ff7f50;
+            background: #334155; /* Slate 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ff7f50;
+            color: #0f172a;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(255, 127, 80, 0.5);
+        }
+        .flowchart-arrow {
+            color: #fbbf24; /* Amber 400 */
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #fbbf24;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+        .subject-item .icon {
+            color: #fbbf24;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ff7f50;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #0f172a;
+            border: 4px solid #ff7f50;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #475569;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #94a3b8; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ff7f50, #f97316);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 127, 80, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 127, 80, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ff7f50;
+            color: #ff7f50;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ff7f50;
+            color: #0f172a;
+            box-shadow: 0 0 15px #ff7f50;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: #0f172a;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #334155; 
+            color: #e2e8f0; 
+            border-color: #475569; 
+        }
+        .lectures-btn:hover {
+            background-color: #475569;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🎓 NABARD Internship & Apprenticeship Guide 🎓</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-400">Your Gateway to a Career in Rural Finance and Development</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are NABARD Internships? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1e293b] via-[#0f172a] to-[#0f172a]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are NABARD Internships? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">NABARD offers various internship and apprenticeship opportunities for students and young professionals to gain first-hand experience in the field of rural development and finance. These programs are designed to provide valuable insights into NABARD's operations, expose participants to real-world projects, and nurture future talent for the development sector. It's a unique chance to contribute to nation-building while building a strong foundation for your career.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for internships is a competitive process focused on academic merit, relevant skills, and a strong interest in the rural development sector.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Application</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Online Application & Resume</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Shortlisting</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Based on Academics & SOP</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Personal Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria vary depending on the specific internship or apprenticeship scheme.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🧑‍🎓</span><div><strong id="sec3-age-title" class="text-white text-lg">Student Status:</strong> <span id="sec3-age-desc">Most schemes are open to students pursuing their post-graduate degree (in their pre-final or final year) in fields like Agriculture, Economics, Finance, and Social Sciences.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">Candidates should have a strong academic record, typically with a minimum of 60% marks in their graduation and post-graduation. The specific discipline required depends on the program (e.g., MBA/CA for Finance, B.Tech for IT).</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#fbbf24] pb-2">Key Requirements 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>Applications are usually accepted through the official NABARD website.</li>
+                             <li>A well-written Statement of Purpose (SOP) or research proposal is often required.</li>
+                             <li>Candidates may need a No Objection Certificate (NOC) from their university.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Focus Areas -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Focus Areas & Domains 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Internships and apprenticeships are offered across various technical and developmental domains that are core to NABARD's mandate.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Finance & Accounts</h3>
+                    </div>
+                     <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Agriculture & Allied</h3>
+                    </div>
+                    <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Information Technology</h3>
+                    </div>
+                    <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Research & Economics</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Internship Experience -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. The Internship Experience 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">An internship at NABARD is a structured learning experience that combines theoretical knowledge with practical application in a professional setting.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#334155] rounded-xl border-2 border-[#ff7f50]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Work & Projects</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Interns are assigned to specific departments and projects.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Work under the guidance of an experienced NABARD officer as a mentor.</li>
+                            <li>Contribute to ongoing projects, research studies, or policy analysis.</li>
+                            <li>May involve field visits to rural areas to understand ground realities.</li>
+                            <li>Required to submit a final project report or paper at the end of the term.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#334155] rounded-xl border-2 border-[#fbbf24]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Key Objectives</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">The programs aim to achieve several key learning objectives.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Provide exposure to the functioning of an apex development bank.</li>
+                           <li>Allow students to apply academic knowledge to real-world problems.</li>
+                           <li>Develop research, analytical, and professional skills.</li>
+                           <li>Identify potential talent for future recruitment in the development sector.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Typical Intern Projects & Tasks 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The tasks assigned to interns are meaningful and contribute to the work of their respective departments.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Finance / Agri Intern</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting in the appraisal of credit proposals.</li>
+                           <li>Conducting a study on a specific agricultural value chain.</li>
+                           <li>Analyzing data related to Farmer Producer Organizations (FPOs).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">IT / Research Intern</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Supporting the development of a new software module.</li>
+                           <li>Working on data analytics projects using statistical tools.</li>
+                           <li>Conducting a literature review for a research paper.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">General Tasks</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Preparing presentations and briefing notes.</li>
+                           <li>Assisting in organizing meetings and workshops.</li>
+                           <li>Contributing to departmental reports.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a Successful Intern 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">To make the most of a NABARD internship, candidates should demonstrate a blend of academic rigor, curiosity, and a professional attitude.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ff7f50] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">Research & Analytical Skills:</strong> Ability to gather information, analyze data, and draw meaningful conclusions.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💡</span><div><strong class="text-white">Proactiveness & Eagerness to Learn:</strong> Showing initiative, asking questions, and being open to learning new things.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🗣️</span><div><strong class="text-white">Communication Skills:</strong> Ability to articulate ideas clearly, both verbally and in writing.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🤝</span><div><strong class="text-white">Professionalism:</strong> Demonstrating punctuality, responsibility, and the ability to work in a team.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. How to Prepare Your Application 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A strong application is the first step to getting shortlisted. Focus on creating a compelling resume and a tailored Statement of Purpose (SOP).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Application Steps:</h3>
+                        <ol class="relative border-l-4 border-[#ff7f50] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#334155]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Build a Strong Resume</h4>
+                                <p id="sec8-step1-desc" class="text-base">Highlight your academic achievements, relevant projects, and any prior internship experience. Quantify your achievements where possible.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#334155]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Write a Powerful SOP</h4>
+                                <p id="sec8-step2-desc" class="text-base">Clearly state your motivation for applying, link your skills to NABARD's work, and specify your areas of interest. Avoid generic statements.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#334155]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Prepare for the Interview</h4>
+                                <p id="sec8-step3-desc" class="text-base">Thoroughly research NABARD's functions, recent initiatives, and the basics of rural economy. Be prepared to discuss your projects and SOP in detail.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Understand NABARD's Mandate:</strong> Go through the NABARD website and its latest annual report.</li>
+                            <li><strong>Follow Rural Development News:</strong> Keep track of current affairs related to agriculture, banking, and rural development.</li>
+                            <li><strong>Revise Your Core Subjects:</strong> Brush up on the fundamental concepts of your academic discipline.</li>
+                            <li><strong>Practice Mock Interviews:</strong> Practice answering common interview questions with a friend or mentor.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Internship and apprenticeship notifications are released at different times of the year based on the needs of various departments.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Keep a watch on the "Careers" section of the NABARD website.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application Period</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> The online application window is usually open for a few weeks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Shortlisting & Interviews</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Shortlisted candidates are informed via email and interviews are conducted, usually online.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Offer & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Final offers are sent to selected candidates, who then join on a specified date for a term of 2-6 months.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Getting an internship at a prestigious institution like NABARD is competitive. Avoid these common application mistakes.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Generic Application:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Submitting a generic resume and Statement of Purpose (SOP) that is not tailored to NABARD.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Lack of Research:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Being unaware of NABARD's key functions, schemes, and recent achievements during the interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Poor Communication:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Failing to articulate your skills, motivation, and ideas clearly in the SOP and interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not Asking Questions:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Showing a lack of curiosity by not asking thoughtful questions about the role or organization at the end of the interview.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Apply -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Apply 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The application process for all internship and apprenticeship programs is conducted online through the official NABARD website.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Application Portal</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Regularly check the "Careers" page on nabard.org for new openings.</li>
+                           <li>Read the official notification carefully for eligibility and requirements.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Required Documents</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Keep soft copies of these documents ready.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Updated Resume / CV.</li>
+                            <li>Statement of Purpose (SOP) or Research Proposal.</li>
+                            <li>Scanned copies of mark sheets and certificates.</li>
+                            <li>No Objection Certificate (NOC) from your college/university.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Benefits -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Benefits of a NABARD Internship 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">An internship with NABARD is more than just a line on your resume; it's a significant value addition that provides numerous tangible and intangible benefits.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Benefits</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Interview Topics & Preparation 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While there is no fixed syllabus, interview preparation should revolve around your academic background and NABARD's areas of operation.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- General Subjects -->
+                    <div class="bg-[#0f172a] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Core Knowledge Areas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Specific Subjects -->
+                    <div class="bg-[#0f172a] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Personal & Profile-based</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Nurturing the Future of Rural Development.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Application</h3>
+            <p id="prelims-modal-p1">The first step is to submit a detailed online application through the official NABARD website when the notification is released. This includes filling out personal and academic details, and uploading a well-crafted resume and a compelling Statement of Purpose (SOP).</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Shortlisting</h3>
+            <p id="mains-modal-p1">Applications are scrutinized by NABARD. Candidates are shortlisted based on their academic performance (marks in graduation/post-graduation), the relevance of their degree, the quality of their SOP, and any relevant prior experience or projects mentioned in their resume.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Personal Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Shortlisted candidates are called for a personal interview, which is usually conducted by a panel of senior NABARD officials. The interview assesses the candidate's subject knowledge, motivation, communication skills, and understanding of rural development issues. Final selection is based on performance in this interview.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Benefits of a NABARD Internship</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'gradeA': { 
+                        name: 'Internship for Grade A Aspirants', 
+                        icon: '🎯',
+                        description: 'This scheme provides a taster for the role of a NABARD Grade A officer. Interns work on projects similar to what an Assistant Manager would handle, giving them valuable experience for the competitive exam.',
+                        cta: 'Learn More'
+                    },
+                    'apprentice': { 
+                        name: 'Apprenticeship Program', 
+                        icon: '🤝',
+                        description: 'A more hands-on, skill-based program in specific domains like Finance, Agriculture, or IT. It focuses on practical training and application of knowledge within a specific department.',
+                        cta: 'Learn More'
+                    },
+                    'research': { 
+                        name: 'Research Internship Scheme', 
+                        icon: '🔬',
+                        description: 'Aimed at students with a strong research acumen. Interns work on specific research topics relevant to NABARD\'s policy and operational work, culminating in a detailed research paper.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'gradeA': { 
+                        name: 'ग्रेड ‘ए’ उम्मीदवारों के लिए इंटर्नशिप', 
+                        icon: '🎯',
+                        description: 'यह योजना नाबार्ड ग्रेड ए अधिकारी की भूमिका के लिए एक अनुभव प्रदान करती है। इंटर्न उन परियोजनाओं पर काम करते हैं जो एक सहायक प्रबंधक संभालता है, जिससे उन्हें प्रतियोगी परीक्षा के लिए बहुमूल्य अनुभव मिलता है।',
+                        cta: 'और जानें'
+                    },
+                    'apprentice': { 
+                        name: 'शिक्षुता कार्यक्रम', 
+                        icon: '🤝',
+                        description: 'वित्त, कृषि, या आईटी जैसे विशिष्ट डोमेन में एक अधिक व्यावहारिक, कौशल-आधारित कार्यक्रम। यह एक विशिष्ट विभाग के भीतर व्यावहारिक प्रशिक्षण और ज्ञान के अनुप्रयोग पर केंद्रित है।',
+                        cta: 'और जानें'
+                    },
+                    'research': { 
+                        name: 'अनुसंधान इंटर्नशिप योजना', 
+                        icon: '🔬',
+                        description: 'एक मजबूत अनुसंधान कौशल वाले छात्रों के लिए लक्षित। इंटर्न नाबार्ड की नीति और परिचालन कार्य के लिए प्रासंगिक विशिष्ट अनुसंधान विषयों पर काम करते हैं, जिसका समापन एक विस्तृत शोध पत्र में होता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Valuable Experience & Certificate", desc: "Gain hands-on experience in a premier financial institution and receive a certificate of completion." },
+                        { rank: "Stipend", desc: "Interns receive a monthly stipend to cover their expenses during the internship period." },
+                        { rank: "Insight into Development Sector", desc: "Develop a deep understanding of the challenges and opportunities in rural finance and development." },
+                        { rank: "Networking Opportunities", desc: "Interact with senior officers and experts in the field, building a valuable professional network." },
+                        { rank: "Edge in Competitive Exams", desc: "The practical knowledge gained provides a significant advantage for aspirants of NABARD, RBI, and other regulatory body exams." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "मूल्यवान अनुभव और प्रमाण पत्र", desc: "एक प्रमुख वित्तीय संस्थान में व्यावहारिक अनुभव प्राप्त करें और समापन का प्रमाण पत्र प्राप्त करें।" },
+                        { rank: "वजीफा", desc: "इंटर्न को इंटर्नशिप अवधि के दौरान अपने खर्चों को कवर करने के लिए मासिक वजीफा मिलता है।" },
+                        { rank: "विकास क्षेत्र में अंतर्दृष्टि", desc: "ग्रामीण वित्त और विकास में चुनौतियों और अवसरों की गहरी समझ विकसित करें।" },
+                        { rank: "नेटवर्किंग के अवसर", desc: "क्षेत्र के वरिष्ठ अधिकारियों और विशेषज्ञों के साथ बातचीत करें, एक मूल्यवान पेशेवर नेटवर्क का निर्माण करें।" },
+                        { rank: "प्रतियोगी परीक्षाओं में बढ़त", desc: "प्राप्त व्यावहारिक ज्ञान नाबार्ड, आरबीआई और अन्य नियामक निकाय परीक्षाओं के उम्मीदवारों के लिए एक महत्वपूर्ण लाभ प्रदान करता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎓 NABARD Internship & Apprenticeship Guide 🎓',
+                    'header-subtitle': 'Your Gateway to a Career in Rural Finance and Development',
+                    'sec1-title': '1. What are NABARD Internships? 💡',
+                    'sec1-p1': 'NABARD offers various internship and apprenticeship opportunities for students and young professionals to gain first-hand experience in the field of rural development and finance. These programs are designed to provide valuable insights into NABARD\'s operations, expose participants to real-world projects, and nurture future talent for the development sector. It\'s a unique chance to contribute to nation-building while building a strong foundation for your career.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for internships is a competitive process focused on academic merit, relevant skills, and a strong interest in the rural development sector.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Application', 'sec2-step1-desc': 'Online Application & Resume',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Shortlisting', 'sec2-step2-desc': 'Based on Academics & SOP',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Personal Interview',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria vary depending on the specific internship or apprenticeship scheme.',
+                    'sec3-age-title': 'Student Status:', 'sec3-age-desc': 'Most schemes are open to students pursuing their post-graduate degree (in their pre-final or final year) in fields like Agriculture, Economics, Finance, and Social Sciences.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Candidates should have a strong academic record, typically with a minimum of 60% marks in their graduation and post-graduation. The specific discipline required depends on the program (e.g., MBA/CA for Finance, B.Tech for IT).',
+                    'sec3-attempts-title': 'Key Requirements 📊',
+                    'sec3-agerelax-list': '<li>Applications are usually accepted through the official NABARD website.</li><li>A well-written Statement of Purpose (SOP) or research proposal is often required.</li><li>Candidates may need a No Objection Certificate (NOC) from their university.</li>',
+                    'sec4-title': '4. Focus Areas & Domains 📚',
+                    'sec4-p1': 'Internships and apprenticeships are offered across various technical and developmental domains that are core to NABARD\'s mandate.',
+                    'gs1-title': 'Finance & Accounts',
+                    'gs2-title': 'Agriculture & Allied',
+                    'gs3-title': 'Information Technology',
+                    'gs4-title': 'Research & Economics',
+                    'sec5-title': '5. The Internship Experience 🏛️',
+                    'sec5-p1': 'An internship at NABARD is a structured learning experience that combines theoretical knowledge with practical application in a professional setting.',
+                    'sec5-hindi-title': '1. Work & Projects', 'sec5-hindi-p1': 'Interns are assigned to specific departments and projects.', 'sec5-hindi-list': '<li>Work under the guidance of an experienced NABARD officer as a mentor.</li><li>Contribute to ongoing projects, research studies, or policy analysis.</li><li>May involve field visits to rural areas to understand ground realities.</li><li>Required to submit a final project report or paper at the end of the term.</li>',
+                    'sec5-essay-title': '2. Key Objectives', 'sec5-essay-p1': 'The programs aim to achieve several key learning objectives.', 'sec5-essay-list': '<li>Provide exposure to the functioning of an apex development bank.</li><li>Allow students to apply academic knowledge to real-world problems.</li><li>Develop research, analytical, and professional skills.</li><li>Identify potential talent for future recruitment in the development sector.</li>',
+                    'sec6-title': '6. Typical Intern Projects & Tasks 🌟',
+                    'sec6-p1': 'The tasks assigned to interns are meaningful and contribute to the work of their respective departments.',
+                    'sec6-eng-title': 'Finance / Agri Intern', 'sec6-eng-list': '<li>Assisting in the appraisal of credit proposals.</li><li>Conducting a study on a specific agricultural value chain.</li><li>Analyzing data related to Farmer Producer Organizations (FPOs).</li>',
+                    'sec6-elec-title': 'IT / Research Intern', 'sec6-elec-list': '<li>Supporting the development of a new software module.</li><li>Working on data analytics projects using statistical tools.</li><li>Conducting a literature review for a research paper.</li>',
+                    'sec6-naic-title': 'General Tasks', 'sec6-naic-list': '<li>Preparing presentations and briefing notes.</li><li>Assisting in organizing meetings and workshops.</li><li>Contributing to departmental reports.</li>',
+                    'sec7-title': '7. Qualities of a Successful Intern 🎙️',
+                    'sec7-p1': 'To make the most of a NABARD internship, candidates should demonstrate a blend of academic rigor, curiosity, and a professional attitude.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">Research & Analytical Skills:</strong> Ability to gather information, analyze data, and draw meaningful conclusions.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💡</span><div><strong class="text-white">Proactiveness & Eagerness to Learn:</strong> Showing initiative, asking questions, and being open to learning new things.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🗣️</span><div><strong class="text-white">Communication Skills:</strong> Ability to articulate ideas clearly, both verbally and in writing.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🤝</span><div><strong class="text-white">Professionalism:</strong> Demonstrating punctuality, responsibility, and the ability to work in a team.</div></li>',
+                    'sec8-title': '8. How to Prepare Your Application 📈',
+                    'sec8-p1': 'A strong application is the first step to getting shortlisted. Focus on creating a compelling resume and a tailored Statement of Purpose (SOP).',
+                    'sec8-steps-title': '📚 Key Application Steps:',
+                    'sec8-step1-title': 'Build a Strong Resume', 'sec8-step1-desc': 'Highlight your academic achievements, relevant projects, and any prior internship experience. Quantify your achievements where possible.',
+                    'sec8-step2-title': 'Write a Powerful SOP', 'sec8-step2-desc': 'Clearly state your motivation for applying, link your skills to NABARD\'s work, and specify your areas of interest. Avoid generic statements.',
+                    'sec8-step3-title': 'Prepare for the Interview', 'sec8-step3-desc': 'Thoroughly research NABARD\'s functions, recent initiatives, and the basics of rural economy. Be prepared to discuss your projects and SOP in detail.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Understand NABARD\'s Mandate:</strong> Go through the NABARD website and its latest annual report.</li><li><strong>Follow Rural Development News:</strong> Keep track of current affairs related to agriculture, banking, and rural development.</li><li><strong>Revise Your Core Subjects:</strong> Brush up on the fundamental concepts of your academic discipline.</li><li><strong>Practice Mock Interviews:</strong> Practice answering common interview questions with a friend or mentor.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Internship and apprenticeship notifications are released at different times of the year based on the needs of various departments.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Keep a watch on the "Careers" section of the NABARD website.',
+                    'sec9-step2-title': 'Application Period', 'sec9-step2-desc': '<strong>Timeline:</strong> The online application window is usually open for a few weeks.',
+                    'sec9-step3-title': 'Shortlisting & Interviews', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates are informed via email and interviews are conducted, usually online.',
+                    'sec9-step4-title': 'Offer & Joining', 'sec9-step4-desc': '<strong>Timeline:</strong> Final offers are sent to selected candidates, who then join on a specified date for a term of 2-6 months.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Getting an internship at a prestigious institution like NABARD is competitive. Avoid these common application mistakes.',
+                    'sec10-mistake1-title': 'Generic Application:', 'sec10-mistake1-desc': 'Submitting a generic resume and Statement of Purpose (SOP) that is not tailored to NABARD.',
+                    'sec10-mistake2-title': 'Lack of Research:', 'sec10-mistake2-desc': 'Being unaware of NABARD\'s key functions, schemes, and recent achievements during the interview.',
+                    'sec10-mistake3-title': 'Poor Communication:', 'sec10-mistake3-desc': 'Failing to articulate your skills, motivation, and ideas clearly in the SOP and interview.',
+                    'sec10-mistake4-title': 'Not Asking Questions:', 'sec10-mistake4-desc': 'Showing a lack of curiosity by not asking thoughtful questions about the role or organization at the end of the interview.',
+                    'sec11-title': '11. How to Apply 🏫',
+                    'sec11-p1': 'The application process for all internship and apprenticeship programs is conducted online through the official NABARD website.',
+                    'sec11-gov-title': '📚 Application Portal', 'sec11-gov-list': '<li>Regularly check the "Careers" page on nabard.org for new openings.</li><li>Read the official notification carefully for eligibility and requirements.</li>',
+                    'sec11-pvt-title': 'Required Documents', 'sec11-pvt-p1': 'Keep soft copies of these documents ready.', 'sec11-pvt-list': '<li>Updated Resume / CV.</li><li>Statement of Purpose (SOP) or Research Proposal.</li><li>Scanned copies of mark sheets and certificates.</li><li>No Objection Certificate (NOC) from your college/university.</li>',
+                    'sec12-title': '12. Benefits of a NABARD Internship 🚀',
+                    'sec12-p1': 'An internship with NABARD is more than just a line on your resume; it\'s a significant value addition that provides numerous tangible and intangible benefits.',
+                    'sec12-career-btn': 'View Key Benefits',
+                    'sec13-title': '13. Interview Topics & Preparation 📚',
+                    'sec13-p1': 'While there is no fixed syllabus, interview preparation should revolve around your academic background and NABARD\'s areas of operation.',
+                    'syllabus-oir-title': 'Core Knowledge Areas',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏦</span><div class="flex-grow">About NABARD & its Functions</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">Basics of Rural Economy & Agri</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Personal & Profile-based',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧑‍🎓</span><div class="flex-grow">Your Academic Projects & Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">Motivation for Joining NABARD</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Nurturing the Future of Rural Development.',
+                    'interviewChartData': {
+                        labels: ['Research Skills', 'Proactiveness', 'Communication', 'Professionalism'],
+                        data: [90, 92, 88, 85]
+                    }
+                },
+                'hi': {
+                    'header-title': '🎓 नाबार्ड इंटर्नशिप और शिक्षुता गाइड 🎓',
+                    'header-subtitle': 'ग्रामीण वित्त और विकास में करियर के लिए आपका प्रवेश द्वार',
+                    'sec1-title': '1. नाबार्ड इंटर्नशिप क्या है? 💡',
+                    'sec1-p1': 'नाबार्ड छात्रों और युवा पेशेवरों को ग्रामीण विकास और वित्त के क्षेत्र में प्रत्यक्ष अनुभव प्राप्त करने के लिए विभिन्न इंटर्नशिप और शिक्षुता के अवसर प्रदान करता है। इन कार्यक्रमों को नाबार्ड के संचालन में बहुमूल्य अंतर्दृष्टि प्रदान करने, प्रतिभागियों को वास्तविक दुनिया की परियोजनाओं से अवगत कराने और विकास क्षेत्र के लिए भविष्य की प्रतिभा का पोषण करने के लिए डिज़ाइन किया गया है। यह आपके करियर के लिए एक मजबूत नींव बनाते हुए राष्ट्र-निर्माण में योगदान करने का एक अनूठा अवसर है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'इंटर्नशिप के लिए चयन एक प्रतिस्पर्धी प्रक्रिया है जो अकादमिक योग्यता, प्रासंगिक कौशल और ग्रामीण विकास क्षेत्र में एक मजबूत रुचि पर केंद्रित है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'आवेदन', 'sec2-step1-desc': 'ऑनलाइन आवेदन और बायोडाटा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'शॉर्टलिस्टिंग', 'sec2-step2-desc': 'शिक्षाविदों और एसओपी के आधार पर',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'व्यक्तिगत साक्षात्कार',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पात्रता मानदंड विशिष्ट इंटर्नशिप या शिक्षुता योजना के आधार पर भिन्न होते हैं।',
+                    'sec3-age-title': 'छात्र की स्थिति:', 'sec3-age-desc': 'अधिकांश योजनाएं कृषि, अर्थशास्त्र, वित्त और सामाजिक विज्ञान जैसे क्षेत्रों में अपनी स्नातकोत्तर डिग्री (अपने पूर्व-अंतिम या अंतिम वर्ष में) कर रहे छात्रों के लिए खुली हैं।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': 'उम्मीदवारों के पास एक मजबूत अकादमिक रिकॉर्ड होना चाहिए, आमतौर पर उनके स्नातक और स्नातकोत्तर में न्यूनतम 60% अंकों के साथ। आवश्यक विशिष्ट अनुशासन कार्यक्रम पर निर्भर करता है (जैसे, वित्त के लिए एमबीए/सीए, आईटी के लिए बी.टेक)।',
+                    'sec3-attempts-title': 'मुख्य आवश्यकताएं 📊',
+                    'sec3-agerelax-list': '<li>आवेदन आमतौर पर आधिकारिक नाबार्ड वेबसाइट के माध्यम से स्वीकार किए जाते हैं।</li><li>एक अच्छी तरह से लिखित उद्देश्य का विवरण (एसओपी) या शोध प्रस्ताव अक्सर आवश्यक होता है।</li><li>उम्मीदवारों को अपने विश्वविद्यालय से अनापत्ति प्रमाण पत्र (एनओसी) की आवश्यकता हो सकती है।</li>',
+                    'sec4-title': '4. फोकस क्षेत्र और डोमेन 📚',
+                    'sec4-p1': 'इंटर्नशिप और शिक्षुता विभिन्न तकनीकी और विकासात्मक डोमेन में प्रदान की जाती है जो नाबार्ड के जनादेश के मूल हैं।',
+                    'gs1-title': 'वित्त और लेखा',
+                    'gs2-title': 'कृषि और संबद्ध',
+                    'gs3-title': 'सूचना प्रौद्योगिकी',
+                    'gs4-title': 'अनुसंधान और अर्थशास्त्र',
+                    'sec5-title': '5. इंटर्नशिप का अनुभव 🏛️',
+                    'sec5-p1': 'नाबार्ड में एक इंटर्नशिप एक संरचित सीखने का अनुभव है जो एक पेशेवर सेटिंग में व्यावहारिक अनुप्रयोग के साथ सैद्धांतिक ज्ञान को जोड़ती है।',
+                    'sec5-hindi-title': '1. कार्य और परियोजनाएं', 'sec5-hindi-p1': 'इंटर्न को विशिष्ट विभागों और परियोजनाओं को सौंपा जाता है।', 'sec5-hindi-list': '<li>एक अनुभवी नाबार्ड अधिकारी के मार्गदर्शन में एक संरक्षक के रूप में काम करें।</li><li>चल रही परियोजनाओं, शोध अध्ययनों या नीति विश्लेषण में योगदान करें।</li><li>जमीनी हकीकत को समझने के लिए ग्रामीण क्षेत्रों के क्षेत्र दौरे शामिल हो सकते हैं।</li><li>अवधि के अंत में एक अंतिम परियोजना रिपोर्ट या पेपर जमा करना आवश्यक है।</li>',
+                    'sec5-essay-title': '2. मुख्य उद्देश्य', 'sec5-essay-p1': 'कार्यक्रमों का उद्देश्य कई प्रमुख सीखने के उद्देश्यों को प्राप्त करना है।', 'sec5-essay-list': '<li>एक शीर्ष विकास बैंक के कामकाज के लिए एक्सपोजर प्रदान करें।</li><li>छात्रों को वास्तविक दुनिया की समस्याओं के लिए अकादमिक ज्ञान लागू करने की अनुमति दें।</li><li>अनुसंधान, विश्लेषणात्मक और व्यावसायिक कौशल विकसित करें।</li><li>विकास क्षेत्र में भविष्य की भर्ती के लिए संभावित प्रतिभा की पहचान करें।</li>',
+                    'sec6-title': '6. विशिष्ट इंटर्न परियोजनाएं और कार्य 🌟',
+                    'sec6-p1': 'इंटर्न को सौंपे गए कार्य सार्थक होते हैं और उनके संबंधित विभागों के काम में योगदान करते हैं।',
+                    'sec6-eng-title': 'वित्त / कृषि इंटर्न', 'sec6-eng-list': '<li>ऋण प्रस्तावों के मूल्यांकन में सहायता करना।</li><li>एक विशिष्ट कृषि मूल्य श्रृंखला पर एक अध्ययन करना।</li><li>किसान उत्पादक संगठनों (एफपीओ) से संबंधित डेटा का विश्लेषण करना।</li>',
+                    'sec6-elec-title': 'आईटी / अनुसंधान इंटर्न', 'sec6-elec-list': '<li>एक नए सॉफ्टवेयर मॉड्यूल के विकास का समर्थन करना।</li><li>सांख्यिकीय उपकरणों का उपयोग करके डेटा एनालिटिक्स परियोजनाओं पर काम करना।</li><li>एक शोध पत्र के लिए साहित्य समीक्षा करना।</li>',
+                    'sec6-naic-title': 'सामान्य कार्य', 'sec6-naic-list': '<li>प्रस्तुतियाँ और ब्रीफिंग नोट्स तैयार करना।</li><li>बैठकों और कार्यशालाओं के आयोजन में सहायता करना।</li><li>विभागीय रिपोर्टों में योगदान देना।</li>',
+                    'sec7-title': '7. एक सफल इंटर्न के गुण 🎙️',
+                    'sec7-p1': 'नाबार्ड इंटर्नशिप का अधिकतम लाभ उठाने के लिए, उम्मीदवारों को अकादमिक कठोरता, जिज्ञासा और एक पेशेवर दृष्टिकोण का मिश्रण प्रदर्शित करना चाहिए।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">अनुसंधान और विश्लेषणात्मक कौशल:</strong> जानकारी इकट्ठा करने, डेटा का विश्लेषण करने और सार्थक निष्कर्ष निकालने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💡</span><div><strong class="text-white">सक्रियता और सीखने की उत्सुकता:</strong> पहल दिखाना, सवाल पूछना और नई चीजें सीखने के लिए खुला रहना।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🗣️</span><div><strong class="text-white">संचार कौशल:</strong> मौखिक और लिखित दोनों तरह से विचारों को स्पष्ट रूप से व्यक्त करने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🤝</span><div><strong class="text-white">व्यावसायिकता:</strong> समय की पाबंदी, जिम्मेदारी और एक टीम में काम करने की क्षमता का प्रदर्शन।</div></li>',
+                    'sec8-title': '8. अपने आवेदन की तैयारी कैसे करें 📈',
+                    'sec8-p1': 'एक मजबूत आवेदन शॉर्टलिस्ट होने का पहला कदम है। एक सम्मोहक बायोडाटा और एक अनुरूप उद्देश्य का विवरण (एसओपी) बनाने पर ध्यान केंद्रित करें।',
+                    'sec8-steps-title': '📚 प्रमुख आवेदन चरण:',
+                    'sec8-step1-title': 'एक मजबूत बायोडाटा बनाएं', 'sec8-step1-desc': 'अपनी अकादमिक उपलब्धियों, प्रासंगिक परियोजनाओं और किसी भी पूर्व इंटर्नशिप अनुभव को उजागर करें। जहां संभव हो अपनी उपलब्धियों को मापें।',
+                    'sec8-step2-title': 'एक शक्तिशाली एसओपी लिखें', 'sec8-step2-desc': 'आवेदन करने के लिए अपनी प्रेरणा को स्पष्ट रूप से बताएं, अपने कौशल को नाबार्ड के काम से जोड़ें, और अपनी रुचि के क्षेत्रों को निर्दिष्ट करें। सामान्य बयानों से बचें।',
+                    'sec8-step3-title': 'साक्षात्कार के लिए तैयारी करें', 'sec8-step3-desc': 'नाबार्ड के कार्यों, हाल की पहलों और ग्रामीण अर्थव्यवस्था की मूल बातों पर अच्छी तरह से शोध करें। अपनी परियोजनाओं और एसओपी पर विस्तार से चर्चा करने के लिए तैयार रहें।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>नाबार्ड के जनादेश को समझें:</strong> नाबार्ड वेबसाइट और उसकी नवीनतम वार्षिक रिपोर्ट देखें।</li><li><strong>ग्रामीण विकास समाचारों का पालन करें:</strong> कृषि, बैंकिंग और ग्रामीण विकास से संबंधित समसामयिक मामलों पर नज़र रखें।</li><li><strong>अपने मुख्य विषयों को संशोधित करें:</strong> अपने अकादमिक अनुशासन की मूलभूत अवधारणाओं को ताज़ा करें।</li><li><strong>मॉक साक्षात्कार का अभ्यास करें:</strong> एक दोस्त या संरक्षक के साथ सामान्य साक्षात्कार प्रश्नों का उत्तर देने का अभ्यास करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'इंटर्नशिप और शिक्षुता सूचनाएं विभिन्न विभागों की जरूरतों के आधार पर वर्ष के अलग-अलग समय पर जारी की जाती हैं।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> नाबार्ड वेबसाइट के "करियर" अनुभाग पर नजर रखें।',
+                    'sec9-step2-title': 'आवेदन अवधि', 'sec9-step2-desc': '<strong>समयरेखा:</strong> ऑनलाइन आवेदन खिड़की आमतौर पर कुछ हफ्तों के लिए खुली रहती है।',
+                    'sec9-step3-title': 'शॉर्टलिस्टिंग और साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों को ईमेल के माध्यम से सूचित किया जाता है और साक्षात्कार आयोजित किए जाते हैं, आमतौर पर ऑनलाइन।',
+                    'sec9-step4-title': 'प्रस्ताव और ज्वाइनिंग', 'sec9-step4-desc': '<strong>समयरेखा:</strong> अंतिम प्रस्ताव चयनित उम्मीदवारों को भेजे जाते हैं, जो फिर 2-6 महीने की अवधि के लिए एक निर्दिष्ट तिथि पर शामिल होते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'नाबार्ड जैसे प्रतिष्ठित संस्थान में इंटर्नशिप प्राप्त करना प्रतिस्पर्धी है। इन सामान्य आवेदन गलतियों से बचें।',
+                    'sec10-mistake1-title': 'सामान्य आवेदन:', 'sec10-mistake1-desc': 'एक सामान्य बायोडाटा और उद्देश्य का विवरण (एसओपी) जमा करना जो नाबार्ड के अनुरूप नहीं है।',
+                    'sec10-mistake2-title': 'अनुसंधान का अभाव:', 'sec10-mistake2-desc': 'साक्षात्कार के दौरान नाबार्ड के प्रमुख कार्यों, योजनाओं और हाल की उपलब्धियों से अनभिज्ञ होना।',
+                    'sec10-mistake3-title': 'खराब संचार:', 'sec10-mistake3-desc': 'एसओपी और साक्षात्कार में अपने कौशल, प्रेरणा और विचारों को स्पष्ट रूप से व्यक्त करने में विफल होना।',
+                    'sec10-mistake4-title': 'प्रश्न नहीं पूछना:', 'sec10-mistake4-desc': 'साक्षात्कार के अंत में भूमिका या संगठन के बारे में विचारशील प्रश्न नहीं पूछकर जिज्ञासा की कमी दिखाना।',
+                    'sec11-title': '11. आवेदन कैसे करें 🏫',
+                    'sec11-p1': 'सभी इंटर्नशिप और शिक्षुता कार्यक्रमों के लिए आवेदन प्रक्रिया आधिकारिक नाबार्ड वेबसाइट के माध्यम से ऑनलाइन आयोजित की जाती है।',
+                    'sec11-gov-title': '📚 आवेदन पोर्टल', 'sec11-gov-list': '<li>नए अवसरों के लिए nabard.org पर "करियर" पृष्ठ को नियमित रूप से देखें।</li><li>पात्रता और आवश्यकताओं के लिए आधिकारिक अधिसूचना को ध्यान से पढ़ें।</li>',
+                    'sec11-pvt-title': 'आवश्यक दस्तावेज़', 'sec11-pvt-p1': 'इन दस्तावेजों की सॉफ्ट कॉपी तैयार रखें।', 'sec11-pvt-list': '<li>अद्यतन बायोडाटा / सीवी।</li><li>उद्देश्य का विवरण (एसओपी) या अनुसंधान प्रस्ताव।</li><li>मार्कशीट और प्रमाण पत्र की स्कैन की हुई प्रतियां।</li><li>आपके कॉलेज/विश्वविद्यालय से अनापत्ति प्रमाण पत्र (एनओसी)।</li>',
+                    'sec12-title': '12. नाबार्ड इंटर्नशिप के लाभ 🚀',
+                    'sec12-p1': 'नाबार्ड के साथ एक इंटर्नशिप आपके बायोडाटा पर सिर्फ एक पंक्ति से अधिक है; यह एक महत्वपूर्ण मूल्यवर्धन है जो कई मूर्त और अमूर्त लाभ प्रदान करता है।',
+                    'sec12-career-btn': 'मुख्य लाभ देखें',
+                    'sec13-title': '13. साक्षात्कार विषय और तैयारी 📚',
+                    'sec13-p1': 'हालांकि कोई निश्चित पाठ्यक्रम नहीं है, साक्षात्कार की तैयारी आपकी अकादमिक पृष्ठभूमि और नाबार्ड के संचालन के क्षेत्रों के इर्द-गिर्द घूमनी चाहिए।',
+                    'syllabus-oir-title': 'मुख्य ज्ञान क्षेत्र',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏦</span><div class="flex-grow">नाबार्ड और उसके कार्यों के बारे में</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">ग्रामीण अर्थव्यवस्था और कृषि की मूल बातें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'व्यक्तिगत और प्रोफाइल-आधारित',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧑‍🎓</span><div class="flex-grow">आपकी अकादमिक परियोजनाएं और विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">नाबार्ड में शामिल होने की प्रेरणा</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | ग्रामीण विकास के भविष्य का पोषण।',
+                    'interviewChartData': {
+                        labels: ['अनुसंधान कौशल', 'सक्रियता', 'संचार', 'व्यावसायिकता'],
+                        data: [90, 92, 88, 85]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#334155]/50 rounded-xl text-center border-2 border-slate-700 hover:border-orange-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(255, 127, 80, 0.7)',
+                            borderColor: '#ff7f50',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e2e8f0' },
+                                grid: { color: 'rgba(226, 232, 240, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e2e8f0', font: { size: 14 } },
+                                grid: { color: 'rgba(226, 232, 240, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
