@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABARD Grade A & B Officer Recruitment Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide for the NABARD Grade A (Assistant Manager) and Grade B (Manager) officer recruitment for RDBS, Rajbhasha, Legal and other streams.">
+    <meta name="keywords" content="NABARD Grade A, NABARD Grade B, NABARD RDBS, NABARD Recruitment, Assistant Manager, Manager, Agriculture & Rural Development, ESI">
+    <meta name="author" content="NABARD Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a2a24; /* Dark Green/Teal */
+            color: #dad7cd; /* Cream */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #d4af37, #a3b18a) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 42, 36, 0.85); /* Dark Green Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #344e41; /* Medium Green */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #d4af37; /* Gold */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #d4af37; /* Gold */
+            color: #d4af37;
+            background: #3a5a40; /* Darker Green */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #d4af37;
+            color: #1a2a24;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+        .flowchart-arrow {
+            color: #a3b18a; /* Light Green */
+            text-shadow: 0 0 10px rgba(163, 177, 138, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #a3b18a;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(163, 177, 138, 0.1);
+        }
+        .subject-item .icon {
+            color: #a3b18a;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #d4af37;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a2a24;
+            border: 4px solid #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 42, 36, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #344e41;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #588157;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #dad7cd; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #d4af37, #bc9c22);
+            color: #1a2a24;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #d4af37;
+            color: #1a2a24;
+            box-shadow: 0 0 15px #d4af37;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #d4af37, #a3b18a);
+            color: #1a2a24;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #3a5a40; 
+            color: #dad7cd; 
+            border-color: #588157; 
+        }
+        .lectures-btn:hover {
+            background-color: #588157;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🌾 NABARD Grade A & B Officer Guide 🌾</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-lime-300">Your Guide to a Premier Career in Rural Development Banking</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is NABARD Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#344e41] via-[#1a2a24] to-[#1a2a24]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is NABARD Officer Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">The National Bank for Agriculture and Rural Development (NABARD) is India's apex development financial institution. It recruits officers at Grade ‘A’ (Assistant Manager) and Grade ‘B’ (Manager) levels. These roles are pivotal for policymaking, project appraisal, financing, and monitoring of rural development projects across the country, making it a highly prestigious career for aspirants interested in finance and economics.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for NABARD Officers is a rigorous three-phased process that tests candidates on a wide range of subjects, from general aptitude to specialized knowledge of economics, agriculture, and rural development.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Phase I:</span><br><span id="sec2-step1-name">Prelims Exam</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Online Preliminary Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Phase II:</span><br><span id="sec2-step2-name">Mains Exam</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Objective & Descriptive Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Phase III:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Personality Test</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility differs for Grade A and Grade B, and also for different streams within Grade A.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#d4af37] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">For **Grade A**, typically **21-30 years**. For **Grade B**, typically **25-32 years**. Age relaxations are applicable for reserved categories and candidates with specific experience.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#d4af37] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">For **RDBS**, a Bachelor's degree in a relevant field (like Agriculture, Economics, etc.) with 60% marks is required. For specialist posts, a degree in that specific discipline (Law, Hindi, etc.) is needed. **Grade B** requires similar qualifications with added work experience.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#a3b18a] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is a limit on the number of attempts.</li>
+                             <li>Generally, candidates belonging to the General category are permitted a maximum of **6 attempts** for each grade. Relaxations apply for other categories.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Exam Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The exam pattern includes a qualifying section and a merit section in Prelims, followed by descriptive and objective papers in Mains.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Phase I: Prelims 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">✅</span><div id="gs1-sub1">Qualifying: Reasoning, English, Quant, Computer, Decision Making</div></div>
+                            <div class="subject-item"><span class="icon">🏆</span><div id="gs1-sub2">Merit: General Awareness, ESI & ARD</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Phase II: Mains (Paper I) 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">✍️</span><div id="gs2-sub2">General English (Descriptive - Online)</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Phase II: Mains (Paper II) 🏃‍♂️</h3>
+                         <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">📈</span><div id="gs4-sub1">ESI & ARD (Objective + Descriptive) for RDBS</div></div>
+                             <div class="subject-item"><span class="icon">⚖️</span><div id="gs5-sub1">Stream-specific paper for Specialists</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected officers undergo a probation period, including intensive induction training at premier institutions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#3a5a40] rounded-xl border-2 border-[#d4af37]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The initial appointment is on a probationary basis.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Grade A officers are on probation for 2 years.</li>
+                            <li>Grade B officers are on probation for 2 years, which includes 1 year of training.</li>
+                            <li>Confirmation is subject to satisfactory performance.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#3a5a40] rounded-xl border-2 border-[#a3b18a]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Induction Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Officers are trained at reputed banking institutes.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction training is conducted at institutions like NBSC, BIRD, etc.</li>
+                           <li>Covers rural economics, finance, and NABARD's operational aspects.</li>
+                           <li>Includes exposure visits to various rural development projects.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities of an Officer 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">NABARD officers are involved in a wide spectrum of activities related to the financing and development of India's rural sector.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Grade 'A' (AM - RDBS)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting in policy formulation for rural credit.</li>
+                           <li>Appraising and sanctioning projects of RRBs/Co-op Banks.</li>
+                           <li>Monitoring the implementation of rural development schemes.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Grade 'A' (Specialists)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Handling legal matters and documentation (Legal).</li>
+                           <li>Managing translation and implementation of Hindi (Rajbhasha).</li>
+                           <li>Overseeing security arrangements (Protocol & Security).</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Grade 'B' (Manager)</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Leading teams and managing the functions of a department.</li>
+                           <li>Interacting with senior officials of banks and state governments.</li>
+                           <li>Playing a more significant role in policy and decision-making.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a NABARD Officer 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A career at NABARD requires a deep understanding of the Indian economy, strong analytical abilities, and a genuine interest in rural development.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#d4af37] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">📈</span><div><strong class="text-white">Economic & Social Awareness:</strong> In-depth knowledge of issues related to the Indian economy, agriculture, and rural society.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">✍️</span><div><strong class="text-white">Writing Skills:</strong> Excellent descriptive writing skills are crucial for the Mains exam and for drafting reports and policies.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">Analytical Ability:</strong> Skill to analyze complex data, policies, and project proposals.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🗣️</span><div><strong class="text-white">Communication Skills:</strong> Articulating views clearly during the interview and in professional interactions.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy: Smart Work 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Acing the NABARD exam requires a specialized strategy, with a strong focus on the ESI and ARD sections, which are part of both Prelims and Mains.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#d4af37] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#d4af37] rounded-full -left-2.5 border-4 border-[#3a5a40]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Master ESI & ARD</h4>
+                                <p id="sec8-step1-desc" class="text-base">These two subjects are the key. Cover them exhaustively from standard sources, government reports (Economic Survey, Union Budget), and NABARD's annual reports.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#d4af37] rounded-full -left-2.5 border-4 border-[#3a5a40]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Develop Descriptive Writing Skills</h4>
+                                <p id="sec8-step2-desc" class="text-base">Regularly practice writing essays, letters, and answers for the descriptive papers. Focus on structure, content, and clarity.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#d4af37] rounded-full -left-2.5 border-4 border-[#3a5a40]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Don't Ignore Qualifying Sections</h4>
+                                <p id="sec8-step3-desc" class="text-base">While the prelims have qualifying sections, you must clear their cut-offs. Maintain regular practice for these subjects.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Read Business Newspapers:</strong> Follow publications like The Hindu, Livemint, or Economic Times to build a strong base for ESI.</li>
+                            <li><strong>Follow PIB & Kurukshetra:</strong> The Press Information Bureau (PIB) and magazines like Kurukshetra are vital for government scheme-related questions.</li>
+                            <li><strong>Attempt Mock Tests:</strong> Take mock tests that replicate the unique pattern of the NABARD exam, including both objective and descriptive components.</li>
+                            <li><strong>Prepare for the Interview:</strong> Develop a strong bio-data and be prepared for questions on agriculture, rural economy, and your personal background.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">NABARD usually conducts its recruitment process annually. The entire cycle from notification to final selection spans several months.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Typically released in the middle of the year on nabard.org.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Phase-I & Phase-II Exams</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Prelims are usually held about a month after the application window closes, followed by Mains about a month after the Prelims result.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Conducted for Mains-qualified candidates a few weeks after the Mains result.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> The final result is declared based on Mains and Interview marks, followed by joining formalities.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The unique pattern of the NABARD exam can trap unwary aspirants. Avoid these common blunders for a better chance at success.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-stone-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Ignoring Descriptive Papers:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Focusing only on objective questions and not practicing typing and structuring answers for the descriptive sections.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-stone-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Superficial Study of ARD & ESI:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Reading just basic concepts and not covering government schemes, reports, and data in depth.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-stone-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Ignoring the Qualifying Sections:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not practicing enough for the qualifying sections in Prelims and failing to clear their cut-offs.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-stone-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Poor Source Selection:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Relying on generic banking exam material instead of specialized sources for NABARD.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Given the specialized nature of the exam, it's advisable to seek guidance from platforms that focus on regulatory body examinations like NABARD, RBI, and SEBI.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">💻 Online Platforms</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Several ed-tech platforms offer dedicated courses for NABARD, providing comprehensive notes on ESI & ARD, and mock tests for descriptive papers.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📚 Key Resources</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Self-study is crucial for success.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>NABARD Website & Annual Report</li>
+                            <li>Press Information Bureau (PIB)</li>
+                            <li>Union Budget & Economic Survey</li>
+                            <li>Magazines: Kurukshetra, Yojana</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">NABARD offers one of the best career progression paths among financial regulators, with officers reaching very senior positions in a relatively short span.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#3a5a40] to-[#1a2a24]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus is extensive, especially for the merit sections. A structured study plan is essential to cover all topics effectively.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- General Subjects -->
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">ESI & ARD (Merit Section)</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Specific Subjects -->
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Other Key Sections</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-amber-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Fostering Rural Prosperity.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Phase I: Preliminary Exam</h3>
+            <p id="prelims-modal-p1">This is a 2-hour composite test of 200 marks. It has a qualifying section (Reasoning, English, Quant, Computer, Decision Making) and a merit section (GA, ESI, ARD). The merit section score is used for shortlisting to Phase II.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Phase II: Main Exam</h3>
+            <p id="mains-modal-p1">This phase has two papers. Paper-I is a common General English descriptive test. Paper-II is stream-specific; for RDBS, it's an objective and descriptive test on Economic & Social Issues (ESI) and Agriculture & Rural Development (ARD).</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Phase III: Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Candidates shortlisted from Phase II are called for a personality test. The interview assesses the candidate's knowledge, personality, and suitability for a career in rural development. The final merit list is based on the combined score of Phase II and the Interview.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">NABARD Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'gradeA_rdbs': { 
+                        name: 'Grade A (AM) - RDBS', 
+                        icon: '🌱',
+                        description: 'The Rural Development Banking Service (RDBS) is the generalist post. Officers work across various departments dealing with credit, project appraisal, and supervision of Regional Rural Banks and Cooperative Banks.',
+                        cta: 'Learn More'
+                    },
+                    'gradeA_spec': { 
+                        name: 'Grade A (AM) - Specialists', 
+                        icon: '⚖️',
+                        description: 'Specialist officers are recruited for specific departments. This includes Rajbhasha (for Hindi implementation), Legal, and Protocol & Security, where they use their domain expertise.',
+                        cta: 'Learn More'
+                    },
+                    'gradeB': { 
+                        name: 'Grade B (Manager) - RDBS', 
+                        icon: '💼',
+                        description: 'Grade B is a managerial position requiring prior work experience. Managers lead teams, handle more significant projects, and play a crucial role in the execution of NABARD\'s policies at the ground level.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'gradeA_rdbs': { 
+                        name: 'ग्रेड ए (AM) - आरडीबीएस', 
+                        icon: '🌱',
+                        description: 'ग्रामीण विकास बैंकिंग सेवा (आरडीबीएस) सामान्य पद है। अधिकारी ऋण, परियोजना मूल्यांकन, और क्षेत्रीय ग्रामीण बैंकों और सहकारी बैंकों के पर्यवेक्षण से संबंधित विभिन्न विभागों में काम करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'gradeA_spec': { 
+                        name: 'ग्रेड ए (AM) - विशेषज्ञ', 
+                        icon: '⚖️',
+                        description: 'विशेषज्ञ अधिकारियों की भर्ती विशिष्ट विभागों के लिए की जाती है। इसमें राजभाषा (हिंदी कार्यान्वयन के लिए), कानूनी, और प्रोटोकॉल और सुरक्षा शामिल हैं, जहां वे अपनी डोमेन विशेषज्ञता का उपयोग करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'gradeB': { 
+                        name: 'ग्रेड बी (प्रबंधक) - आरडीबीएस', 
+                        icon: '💼',
+                        description: 'ग्रेड बी एक प्रबंधकीय पद है जिसके लिए पूर्व कार्य अनुभव की आवश्यकता होती है। प्रबंधक टीमों का नेतृत्व करते हैं, अधिक महत्वपूर्ण परियोजनाओं को संभालते हैं, और जमीनी स्तर पर नाबार्ड की नीतियों के निष्पादन में महत्वपूर्ण भूमिका निभाते हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Assistant Manager (Grade A)", desc: "The entry-level officer post in NABARD." },
+                        { rank: "Manager (Grade B)", desc: "First promotion for Grade A officers, typically after 5-7 years. Direct recruitment also happens at this level." },
+                        { rank: "Assistant General Manager (Grade C)", desc: "A senior position with significant departmental responsibilities." },
+                        { rank: "Deputy General Manager (Grade D)", desc: "Leads larger departments or regional offices." },
+                        { rank: "General Manager (Grade E)", desc: "Heads entire departments at the Head Office or major Regional Offices." },
+                        { rank: "Chief General Manager (Grade F)", desc: "A top executive role, part of the senior leadership." },
+                        { rank: "Executive Director / Deputy Managing Director / Chairman", desc: "The highest positions, responsible for the overall functioning of the institution." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "सहायक प्रबंधक (ग्रेड ए)", desc: "नाबार्ड में प्रवेश स्तर का अधिकारी पद।" },
+                        { rank: "प्रबंधक (ग्रेड बी)", desc: "ग्रेड ए अधिकारियों के लिए पहली पदोन्नति, आमतौर पर 5-7 वर्षों के बाद। इस स्तर पर सीधी भर्ती भी होती है।" },
+                        { rank: "सहायक महाप्रबंधक (ग्रेड सी)", desc: "महत्वपूर्ण विभागीय जिम्मेदारियों के साथ एक वरिष्ठ पद।" },
+                        { rank: "उप महाप्रबंधक (ग्रेड डी)", desc: "बड़े विभागों या क्षेत्रीय कार्यालयों का नेतृत्व करता है।" },
+                        { rank: "महाप्रबंधक (ग्रेड ई)", desc: "प्रधान कार्यालय या प्रमुख क्षेत्रीय कार्यालयों में पूरे विभागों का प्रमुख होता है।" },
+                        { rank: "मुख्य महाप्रबंधक (ग्रेड एफ)", desc: "एक शीर्ष कार्यकारी भूमिका, वरिष्ठ नेतृत्व का हिस्सा।" },
+                        { rank: "कार्यकारी निदेशक / उप प्रबंध निदेशक / अध्यक्ष", desc: "संस्था के समग्र कामकाज के लिए जिम्मेदार उच्चतम पद।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🌾 NABARD Grade A & B Officer Guide 🌾',
+                    'header-subtitle': 'Your Guide to a Premier Career in Rural Development Banking',
+                    'sec1-title': '1. What is NABARD Officer Recruitment? 💡',
+                    'sec1-p1': 'The National Bank for Agriculture and Rural Development (NABARD) is India\'s apex development financial institution. It recruits officers at Grade ‘A’ (Assistant Manager) and Grade ‘B’ (Manager) levels. These roles are pivotal for policymaking, project appraisal, financing, and monitoring of rural development projects across the country, making it a highly prestigious career for aspirants interested in finance and economics.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for NABARD Officers is a rigorous three-phased process that tests candidates on a wide range of subjects, from general aptitude to specialized knowledge of economics, agriculture, and rural development.',
+                    'sec2-step1-title': 'Phase I:', 'sec2-step1-name': 'Prelims Exam', 'sec2-step1-desc': 'Online Preliminary Test',
+                    'sec2-step2-title': 'Phase II:', 'sec2-step2-name': 'Mains Exam', 'sec2-step2-desc': 'Objective & Descriptive Test',
+                    'sec2-step3-title': 'Phase III:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Personality Test',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility differs for Grade A and Grade B, and also for different streams within Grade A.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'For **Grade A**, typically **21-30 years**. For **Grade B**, typically **25-32 years**. Age relaxations are applicable for reserved categories and candidates with specific experience.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'For **RDBS**, a Bachelor\'s degree in a relevant field (like Agriculture, Economics, etc.) with 60% marks is required. For specialist posts, a degree in that specific discipline (Law, Hindi, etc.) is needed. **Grade B** requires similar qualifications with added work experience.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is a limit on the number of attempts.</li><li>Generally, candidates belonging to the General category are permitted a maximum of **6 attempts** for each grade. Relaxations apply for other categories.</li>',
+                    'sec4-title': '4. Exam Pattern 📚',
+                    'sec4-p1': 'The exam pattern includes a qualifying section and a merit section in Prelims, followed by descriptive and objective papers in Mains.',
+                    'gs1-title': 'Phase I: Prelims 📜', 'gs1-sub1': 'Qualifying: Reasoning, English, Quant, Computer, Decision Making', 'gs1-sub2': 'Merit: General Awareness, ESI & ARD',
+                    'gs2-title': 'Phase II: Mains (Paper I) 🏛️', 'gs2-sub2': 'General English (Descriptive - Online)',
+                    'gs3-title': 'Phase II: Mains (Paper II) 🏃‍♂️', 'gs4-sub1': 'ESI & ARD (Objective + Descriptive) for RDBS', 'gs5-sub1': 'Stream-specific paper for Specialists',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'Selected officers undergo a probation period, including intensive induction training at premier institutions.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'The initial appointment is on a probationary basis.', 'sec5-hindi-list': '<li>Grade A officers are on probation for 2 years.</li><li>Grade B officers are on probation for 2 years, which includes 1 year of training.</li><li>Confirmation is subject to satisfactory performance.</li>',
+                    'sec5-essay-title': '2. Induction Training', 'sec5-essay-p1': 'Officers are trained at reputed banking institutes.', 'sec5-essay-list': '<li>Induction training is conducted at institutions like NBSC, BIRD, etc.</li><li>Covers rural economics, finance, and NABARD\'s operational aspects.</li><li>Includes exposure visits to various rural development projects.</li>',
+                    'sec6-title': '6. Key Responsibilities of an Officer 🌟',
+                    'sec6-p1': 'NABARD officers are involved in a wide spectrum of activities related to the financing and development of India\'s rural sector.',
+                    'sec6-eng-title': 'Grade \'A\' (AM - RDBS)', 'sec6-eng-list': '<li>Assisting in policy formulation for rural credit.</li><li>Appraising and sanctioning projects of RRBs/Co-op Banks.</li><li>Monitoring the implementation of rural development schemes.</li>',
+                    'sec6-elec-title': 'Grade \'A\' (Specialists)', 'sec6-elec-list': '<li>Handling legal matters and documentation (Legal).</li><li>Managing translation and implementation of Hindi (Rajbhasha).</li><li>Overseeing security arrangements (Protocol & Security).</li>',
+                    'sec6-naic-title': 'Grade \'B\' (Manager)', 'sec6-naic-list': '<li>Leading teams and managing the functions of a department.</li><li>Interacting with senior officials of banks and state governments.</li><li>Playing a more significant role in policy and decision-making.</li>',
+                    'sec7-title': '7. Qualities of a NABARD Officer 🎙️',
+                    'sec7-p1': 'A career at NABARD requires a deep understanding of the Indian economy, strong analytical abilities, and a genuine interest in rural development.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">📈</span><div><strong class="text-white">Economic & Social Awareness:</strong> In-depth knowledge of issues related to the Indian economy, agriculture, and rural society.</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">✍️</span><div><strong class="text-white">Writing Skills:</strong> Excellent descriptive writing skills are crucial for the Mains exam and for drafting reports and policies.</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">Analytical Ability:</strong> Skill to analyze complex data, policies, and project proposals.</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🗣️</span><div><strong class="text-white">Communication Skills:</strong> Articulating views clearly during the interview and in professional interactions.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy: Smart Work 📈',
+                    'sec8-p1': 'Acing the NABARD exam requires a specialized strategy, with a strong focus on the ESI and ARD sections, which are part of both Prelims and Mains.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master ESI & ARD', 'sec8-step1-desc': 'These two subjects are the key. Cover them exhaustively from standard sources, government reports (Economic Survey, Union Budget), and NABARD\'s annual reports.',
+                    'sec8-step2-title': 'Develop Descriptive Writing Skills', 'sec8-step2-desc': 'Regularly practice writing essays, letters, and answers for the descriptive papers. Focus on structure, content, and clarity.',
+                    'sec8-step3-title': 'Don\'t Ignore Qualifying Sections', 'sec8-step3-desc': 'While the prelims have qualifying sections, you must clear their cut-offs. Maintain regular practice for these subjects.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Read Business Newspapers:</strong> Follow publications like The Hindu, Livemint, or Economic Times to build a strong base for ESI.</li><li><strong>Follow PIB & Kurukshetra:</strong> The Press Information Bureau (PIB) and magazines like Kurukshetra are vital for government scheme-related questions.</li><li><strong>Attempt Mock Tests:</strong> Take mock tests that replicate the unique pattern of the NABARD exam, including both objective and descriptive components.</li><li><strong>Prepare for the Interview:</strong> Develop a strong bio-data and be prepared for questions on agriculture, rural economy, and your personal background.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'NABARD usually conducts its recruitment process annually. The entire cycle from notification to final selection spans several months.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Typically released in the middle of the year on nabard.org.',
+                    'sec9-step2-title': 'Phase-I & Phase-II Exams', 'sec9-step2-desc': '<strong>Timeline:</strong> Prelims are usually held about a month after the application window closes, followed by Mains about a month after the Prelims result.',
+                    'sec9-step3-title': 'Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Conducted for Mains-qualified candidates a few weeks after the Mains result.',
+                    'sec9-step4-title': 'Final Result & Joining', 'sec9-step4-desc': '<strong>Timeline:</strong> The final result is declared based on Mains and Interview marks, followed by joining formalities.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'The unique pattern of the NABARD exam can trap unwary aspirants. Avoid these common blunders for a better chance at success.',
+                    'sec10-mistake1-title': 'Ignoring Descriptive Papers:', 'sec10-mistake1-desc': 'Focusing only on objective questions and not practicing typing and structuring answers for the descriptive sections.',
+                    'sec10-mistake2-title': 'Superficial Study of ARD & ESI:', 'sec10-mistake2-desc': 'Reading just basic concepts and not covering government schemes, reports, and data in depth.',
+                    'sec10-mistake3-title': 'Ignoring the Qualifying Sections:', 'sec10-mistake3-desc': 'Not practicing enough for the qualifying sections in Prelims and failing to clear their cut-offs.',
+                    'sec10-mistake4-title': 'Poor Source Selection:', 'sec10-mistake4-desc': 'Relying on generic banking exam material instead of specialized sources for NABARD.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Given the specialized nature of the exam, it\'s advisable to seek guidance from platforms that focus on regulatory body examinations like NABARD, RBI, and SEBI.',
+                    'sec11-gov-title': '💻 Online Platforms', 'sec11-gov-list': '<li>Several ed-tech platforms offer dedicated courses for NABARD, providing comprehensive notes on ESI & ARD, and mock tests for descriptive papers.</li>',
+                    'sec11-pvt-title': '📚 Key Resources', 'sec11-pvt-p1': 'Self-study is crucial for success.', 'sec11-pvt-list': '<li>NABARD Website & Annual Report</li><li>Press Information Bureau (PIB)</li><li>Union Budget & Economic Survey</li><li>Magazines: Kurukshetra, Yojana</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'NABARD offers one of the best career progression paths among financial regulators, with officers reaching very senior positions in a relatively short span.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Syllabus & Study Material 📚',
+                    'sec13-p1': 'The syllabus is extensive, especially for the merit sections. A structured study plan is essential to cover all topics effectively.',
+                    'syllabus-oir-title': 'ESI & ARD (Merit Section)',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Economic & Social Issues</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">Agriculture & Rural Development</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Other Key Sections',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">✍️</span><div class="flex-grow">Descriptive English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Fostering Rural Prosperity.',
+                    'interviewChartData': {
+                        labels: ['Economic Awareness', 'Writing Skills', 'Analytical Ability', 'Communication'],
+                        data: [95, 90, 92, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '🌾 नाबार्ड ग्रेड ए और बी अधिकारी गाइड 🌾',
+                    'header-subtitle': 'ग्रामीण विकास बैंकिंग में एक प्रमुख कैरियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. नाबार्ड अधिकारी भर्ती क्या है? 💡',
+                    'sec1-p1': 'राष्ट्रीय कृषि और ग्रामीण विकास बैंक (नाबार्ड) भारत का शीर्ष विकास वित्तीय संस्थान है। यह ग्रेड ‘ए’ (सहायक प्रबंधक) और ग्रेड ‘बी’ (प्रबंधक) स्तरों पर अधिकारियों की भर्ती करता है। ये भूमिकाएँ देश भर में ग्रामीण विकास परियोजनाओं के नीति-निर्माण, परियोजना मूल्यांकन, वित्तपोषण और निगरानी के लिए महत्वपूर्ण हैं, जो इसे वित्त और अर्थशास्त्र में रुचि रखने वाले उम्मीदवारों के लिए एक अत्यधिक प्रतिष्ठित कैरियर बनाती हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'नाबार्ड अधिकारियों के लिए चयन एक कठोर तीन-चरणीय प्रक्रिया है जो उम्मीदवारों का सामान्य योग्यता से लेकर अर्थशास्त्र, कृषि और ग्रामीण विकास के विशेष ज्ञान तक के विषयों की एक विस्तृत श्रृंखला पर परीक्षण करती है।',
+                    'sec2-step1-title': 'चरण I:', 'sec2-step1-name': 'प्रारंभिक परीक्षा', 'sec2-step1-desc': 'ऑनलाइन प्रारंभिक परीक्षा',
+                    'sec2-step2-title': 'चरण II:', 'sec2-step2-name': 'मुख्य परीक्षा', 'sec2-step2-desc': 'वस्तुनिष्ठ और वर्णनात्मक परीक्षा',
+                    'sec2-step3-title': 'चरण III:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'व्यक्तित्व परीक्षण',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पात्रता ग्रेड ए और ग्रेड बी के लिए, और ग्रेड ए के भीतर विभिन्न धाराओं के लिए भी भिन्न होती है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': '**ग्रेड ए** के लिए, आमतौर पर **21-30 वर्ष**। **ग्रेड बी** के लिए, आमतौर पर **25-32 वर्ष**। आरक्षित श्रेणियों और विशिष्ट अनुभव वाले उम्मीदवारों के लिए आयु में छूट लागू है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': '**आरडीबीएस** के लिए, संबंधित क्षेत्र (जैसे कृषि, अर्थशास्त्र, आदि) में 60% अंकों के साथ स्नातक की डिग्री आवश्यक है। विशेषज्ञ पदों के लिए, उस विशिष्ट अनुशासन (कानून, हिंदी, आदि) में एक डिग्री की आवश्यकता है। **ग्रेड बी** के लिए अतिरिक्त कार्य अनुभव के साथ समान योग्यता की आवश्यकता है।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>प्रयासों की संख्या पर एक सीमा है।</li><li>आम तौर पर, सामान्य श्रेणी के उम्मीदवारों को प्रत्येक ग्रेड के लिए अधिकतम **6 प्रयासों** की अनुमति है। अन्य श्रेणियों के लिए छूट लागू होती है।</li>',
+                    'sec4-title': '4. परीक्षा पैटर्न 📚',
+                    'sec4-p1': 'परीक्षा पैटर्न में प्रारंभिक में एक योग्यता अनुभाग और एक योग्यता अनुभाग शामिल है, जिसके बाद मुख्य में वर्णनात्मक और वस्तुनिष्ठ पेपर होते हैं।',
+                    'gs1-title': 'चरण I: प्रारंभिक 📜', 'gs1-sub1': 'योग्यता: तर्क, अंग्रेजी, क्वांट, कंप्यूटर, निर्णय लेना', 'gs1-sub2': 'योग्यता: सामान्य जागरूकता, ईएसआई और एआरडी',
+                    'gs2-title': 'चरण II: मुख्य (पेपर I) 🏛️', 'gs2-sub2': 'सामान्य अंग्रेजी (वर्णनात्मक - ऑनलाइन)',
+                    'gs3-title': 'चरण II: मुख्य (पेपर II) 🏃‍♂️', 'gs4-sub1': 'आरडीबीएस के लिए ईएसआई और एआरडी (वस्तुनिष्ठ + वर्णनात्मक)', 'gs5-sub1': 'विशेषज्ञों के लिए स्ट्रीम-विशिष्ट पेपर',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'चयनित अधिकारी एक परिवीक्षा अवधि से गुजरते हैं, जिसमें प्रमुख संस्थानों में गहन प्रेरण प्रशिक्षण शामिल है।',
+                    'sec5-hindi-title': '1. परिवीक्षा अवधि', 'sec5-hindi-p1': 'प्रारंभिक नियुक्ति एक परिवीक्षाधीन आधार पर है।', 'sec5-hindi-list': '<li>ग्रेड ए अधिकारी 2 साल के लिए परिवीक्षा पर हैं।</li><li>ग्रेड बी अधिकारी 2 साल के लिए परिवीक्षा पर हैं, जिसमें 1 साल का प्रशिक्षण शामिल है।</li><li>पुष्टि संतोषजनक प्रदर्शन के अधीन है।</li>',
+                    'sec5-essay-title': '2. प्रेरण प्रशिक्षण', 'sec5-essay-p1': 'अधिकारियों को प्रतिष्ठित बैंकिंग संस्थानों में प्रशिक्षित किया जाता है।', 'sec5-essay-list': '<li>प्रेरण प्रशिक्षण एनबीएससी, बीआईआरडी, आदि जैसे संस्थानों में आयोजित किया जाता है।</li><li>ग्रामीण अर्थशास्त्र, वित्त और नाबार्ड के परिचालन पहलुओं को शामिल करता है।</li><li>विभिन्न ग्रामीण विकास परियोजनाओं के लिए एक्सपोजर दौरे शामिल हैं।</li>',
+                    'sec6-title': '6. एक अधिकारी की मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'नाबार्ड अधिकारी भारत के ग्रामीण क्षेत्र के वित्तपोषण और विकास से संबंधित गतिविधियों की एक विस्तृत श्रृंखला में शामिल हैं।',
+                    'sec6-eng-title': 'ग्रेड ‘ए’ (AM - RDBS)', 'sec6-eng-list': '<li>ग्रामीण ऋण के लिए नीति निर्माण में सहायता करना।</li><li>आरआरबी/सहकारी बैंकों की परियोजनाओं का मूल्यांकन और अनुमोदन करना।</li><li>ग्रामीण विकास योजनाओं के कार्यान्वयन की निगरानी करना।</li>',
+                    'sec6-elec-title': 'ग्रेड ‘ए’ (विशेषज्ञ)', 'sec6-elec-list': '<li>कानूनी मामलों और दस्तावेज़ीकरण को संभालना (कानूनी)।</li><li>हिंदी का अनुवाद और कार्यान्वयन प्रबंधित करना (राजभाषा)।</li><li>सुरक्षा व्यवस्था की देखरेख करना (प्रोटोकॉल और सुरक्षा)।</li>',
+                    'sec6-naic-title': 'ग्रेड ‘बी’ (प्रबंधक)', 'sec6-naic-list': '<li>टीमों का नेतृत्व करना और एक विभाग के कार्यों का प्रबंधन करना।</li><li>बैंकों और राज्य सरकारों के वरिष्ठ अधिकारियों के साथ बातचीत करना।</li><li>नीति और निर्णय लेने में अधिक महत्वपूर्ण भूमिका निभाना।</li>',
+                    'sec7-title': '7. एक नाबार्ड अधिकारी के गुण 🎙️',
+                    'sec7-p1': 'नाबार्ड में एक कैरियर के लिए भारतीय अर्थव्यवस्था की गहरी समझ, मजबूत विश्लेषणात्मक क्षमताओं और ग्रामीण विकास में वास्तविक रुचि की आवश्यकता होती है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">📈</span><div><strong class="text-white">आर्थिक और सामाजिक जागरूकता:</strong> भारतीय अर्थव्यवस्था, कृषि और ग्रामीण समाज से संबंधित मुद्दों का गहन ज्ञान।</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">✍️</span><div><strong class="text-white">लेखन कौशल:</strong> मुख्य परीक्षा और रिपोर्ट और नीतियों का मसौदा तैयार करने के लिए उत्कृष्ट वर्णनात्मक लेखन कौशल महत्वपूर्ण हैं।</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">विश्लेषणात्मक क्षमता:</strong> जटिल डेटा, नीतियों और परियोजना प्रस्तावों का विश्लेषण करने का कौशल।</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🗣️</span><div><strong class="text-white">संचार कौशल:</strong> साक्षात्कार के दौरान और पेशेवर बातचीत में विचारों को स्पष्ट रूप से व्यक्त करना।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈',
+                    'sec8-p1': 'नाबार्ड परीक्षा में सफल होने के लिए एक विशेष रणनीति की आवश्यकता होती है, जिसमें ईएसआई और एआरडी वर्गों पर एक मजबूत ध्यान केंद्रित किया जाता है, जो प्रारंभिक और मुख्य दोनों का हिस्सा हैं।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'ईएसआई और एआरडी में महारत हासिल करें', 'sec8-step1-desc': 'ये दो विषय महत्वपूर्ण हैं। उन्हें मानक स्रोतों, सरकारी रिपोर्टों (आर्थिक सर्वेक्षण, केंद्रीय बजट), और नाबार्ड की वार्षिक रिपोर्टों से पूरी तरह से कवर करें।',
+                    'sec8-step2-title': 'वर्णनात्मक लेखन कौशल विकसित करें', 'sec8-step2-desc': 'नियमित रूप से निबंध, पत्र और वर्णनात्मक पेपरों के लिए उत्तर लिखने का अभ्यास करें। संरचना, सामग्री और स्पष्टता पर ध्यान दें।',
+                    'sec8-step3-title': 'योग्यता वर्गों की उपेक्षा न करें', 'sec8-step3-desc': 'जबकि प्रारंभिक में योग्यता अनुभाग हैं, आपको उनके कट-ऑफ को पार करना होगा। इन विषयों के लिए नियमित अभ्यास बनाए रखें।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>बिजनेस समाचार पत्र पढ़ें:</strong> ईएसआई के लिए एक मजबूत आधार बनाने के लिए द हिंदू, लाइवमिंट, या इकोनॉमिक टाइम्स जैसे प्रकाशनों का पालन करें।</li><li><strong>पीआईबी और कुरुक्षेत्र का पालन करें:</strong> प्रेस सूचना ब्यूरो (पीआईबी) और कुरुक्षेत्र जैसी पत्रिकाएं सरकारी योजना-संबंधी प्रश्नों के लिए महत्वपूर्ण हैं।</li><li><strong>मॉक टेस्ट का प्रयास करें:</strong> नाबार्ड परीक्षा के अनूठे पैटर्न को दोहराने वाले मॉक टेस्ट दें, जिसमें वस्तुनिष्ठ और वर्णनात्मक दोनों घटक शामिल हैं।</li><li><strong>साक्षात्कार के लिए तैयारी करें:</strong> एक मजबूत बायो-डेटा विकसित करें और कृषि, ग्रामीण अर्थव्यवस्था और आपकी व्यक्तिगत पृष्ठभूमि पर प्रश्नों के लिए तैयार रहें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'नाबार्ड आमतौर पर अपनी भर्ती प्रक्रिया सालाना आयोजित करता है। अधिसूचना से अंतिम चयन तक का पूरा चक्र कई महीनों तक चलता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> आमतौर पर वर्ष के मध्य में nabard.org पर जारी किया जाता है।',
+                    'sec9-step2-title': 'चरण- I और चरण- II परीक्षा', 'sec9-step2-desc': '<strong>समयरेखा:</strong> प्रारंभिक आमतौर पर आवेदन खिड़की बंद होने के लगभग एक महीने बाद आयोजित किए जाते हैं, जिसके बाद प्रारंभिक परिणाम के लगभग एक महीने बाद मुख्य होते हैं।',
+                    'sec9-step3-title': 'साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मुख्य परिणाम के कुछ सप्ताह बाद मुख्य-योग्य उम्मीदवारों के लिए आयोजित किया जाता है।',
+                    'sec9-step4-title': 'अंतिम परिणाम और ज्वाइनिंग', 'sec9-step4-desc': '<strong>समयरेखा:</strong> अंतिम परिणाम मुख्य और साक्षात्कार अंकों के आधार पर घोषित किया जाता है, जिसके बाद ज्वाइनिंग की औपचारिकताएं होती हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'नाबार्ड परीक्षा का अनूठा पैटर्न असावधान उम्मीदवारों को फंसा सकता है। सफलता के बेहतर अवसर के लिए इन सामान्य गलतियों से बचें।',
+                    'sec10-mistake1-title': 'वर्णनात्मक पेपरों की अनदेखी:', 'sec10-mistake1-desc': 'केवल वस्तुनिष्ठ प्रश्नों पर ध्यान केंद्रित करना और वर्णनात्मक वर्गों के लिए उत्तर टाइप करने और संरचित करने का अभ्यास नहीं करना।',
+                    'sec10-mistake2-title': 'एआरडी और ईएसआई का सतही अध्ययन:', 'sec10-mistake2-desc': 'केवल बुनियादी अवधारणाओं को पढ़ना और सरकारी योजनाओं, रिपोर्टों और डेटा को गहराई से कवर नहीं करना।',
+                    'sec10-mistake3-title': 'योग्यता वर्गों की अनदेखी:', 'sec10-mistake3-desc': 'प्रारंभिक में योग्यता वर्गों के लिए पर्याप्त अभ्यास नहीं करना और उनके कट-ऑफ को पार करने में विफल होना।',
+                    'sec10-mistake4-title': 'खराब स्रोत चयन:', 'sec10-mistake4-desc': 'नाबार्ड के लिए विशेष स्रोतों के बजाय सामान्य बैंकिंग परीक्षा सामग्री पर भरोसा करना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'परीक्षा की विशेष प्रकृति को देखते हुए, नाबार्ड, आरबीआई और सेबी जैसी नियामक निकाय परीक्षाओं पर ध्यान केंद्रित करने वाले प्लेटफार्मों से मार्गदर्शन लेना उचित है।',
+                    'sec11-gov-title': '💻 ऑनलाइन प्लेटफॉर्म', 'sec11-gov-list': '<li>कई एड-टेक प्लेटफॉर्म नाबार्ड के लिए समर्पित पाठ्यक्रम प्रदान करते हैं, जो ईएसआई और एआरडी पर व्यापक नोट्स और वर्णनात्मक पेपरों के लिए मॉक टेस्ट प्रदान करते हैं।</li>',
+                    'sec11-pvt-title': '📚 प्रमुख संसाधन', 'sec11-pvt-p1': 'सफलता के लिए स्व-अध्ययन महत्वपूर्ण है।', 'sec11-pvt-list': '<li>नाबार्ड वेबसाइट और वार्षिक रिपोर्ट</li><li>प्रेस सूचना ब्यूरो (पीआईबी)</li><li>केंद्रीय बजट और आर्थिक सर्वेक्षण</li><li>पत्रिकाएँ: कुरुक्षेत्र, योजना</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'नाबार्ड वित्तीय नियामकों के बीच सबसे अच्छे कैरियर प्रगति पथों में से एक प्रदान करता है, जिसमें अधिकारी अपेक्षाकृत कम समय में बहुत वरिष्ठ पदों पर पहुंचते हैं।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. पाठ्यक्रम और अध्ययन सामग्री 📚',
+                    'sec13-p1': 'पाठ्यक्रम व्यापक है, विशेष रूप से योग्यता वर्गों के लिए। सभी विषयों को प्रभावी ढंग से कवर करने के लिए एक संरचित अध्ययन योजना आवश्यक है।',
+                    'syllabus-oir-title': 'ईएसआई और एआरडी (योग्यता अनुभाग)',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">आर्थिक और सामाजिक मुद्दे</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">कृषि और ग्रामीण विकास</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'अन्य प्रमुख अनुभाग',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">✍️</span><div class="flex-grow">वर्णनात्मक अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | ग्रामीण समृद्धि को बढ़ावा देना।',
+                    'interviewChartData': {
+                        labels: ['आर्थिक जागरूकता', 'लेखन कौशल', 'विश्लेषणात्मक क्षमता', 'संचार'],
+                        data: [95, 90, 92, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#3a5a40]/50 rounded-xl text-center border-2 border-stone-700 hover:border-amber-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(212, 175, 55, 0.7)',
+                            borderColor: '#d4af37',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#dad7cd' },
+                                grid: { color: 'rgba(218, 215, 205, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#dad7cd', font: { size: 14 } },
+                                grid: { color: 'rgba(218, 215, 205, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
