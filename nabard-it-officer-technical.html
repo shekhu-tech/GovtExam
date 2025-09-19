@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABARD Specialist Officer Recruitment Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide for the NABARD Specialist & Technical Cadre officer recruitment for IT, Finance, Agriculture, and other streams.">
+    <meta name="keywords" content="NABARD Specialist Officer, NABARD IT Officer, NABARD Finance, NABARD Agriculture Expert, NABARD Recruitment, NABARD Grade A">
+    <meta name="author" content="NABARD Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #d1d5db; /* Gray 300 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #8b5cf6, #34d399) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(31, 41, 55, 0.8); /* Gray 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #4b5563; /* Gray 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #8b5cf6; /* Violet 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #8b5cf6; /* Violet 500 */
+            color: #8b5cf6;
+            background: #374151; /* Gray 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #8b5cf6;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+        }
+        .flowchart-arrow {
+            color: #34d399; /* Emerald 400 */
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #34d399;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(52, 211, 153, 0.1);
+        }
+        .subject-item .icon {
+            color: #34d399;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #8b5cf6;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #8b5cf6;
+            color: #8b5cf6;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #8b5cf6;
+            color: #111827;
+            box-shadow: 0 0 15px #8b5cf6;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #34d399, #10b981);
+            color: #111827;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">⚙️ NABARD Specialist Officer Guide ⚙️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-emerald-400">Your Guide to a Technical Career in Rural Development</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is NABARD Specialist Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is a NABARD Specialist Officer? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">NABARD recruits Specialist Officers in Grade ‘A’ to leverage domain-specific expertise for its diverse operations. Unlike the generalist RDBS role, these officers are hired for specific technical and professional streams like Information Technology, Finance, Agriculture, and Economics. They provide the specialized knowledge required to appraise complex projects, manage technical infrastructure, and formulate nuanced policies for rural development.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for Specialist Officers is a multi-stage process designed to rigorously test both general aptitude and deep domain knowledge in the chosen specialization.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Phase I:</span><br><span id="sec2-step1-name">Prelims Exam</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Online Screening Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Phase II:</span><br><span id="sec2-step2-name">Mains Exam</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Stream-Specific & English Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Phase III:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Personality Test</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for Specialist Officer posts is highly specific to the discipline.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#8b5cf6] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **21 and 30 years** for Grade A. Relaxations for reserved categories are applicable as per norms.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#8b5cf6] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">A Bachelor's or Master's degree in the specific discipline with a minimum of 60% marks is required (e.g., B.E./B.Tech in Computer Science for IT Officer, MBA/CA for Finance, Master's in Economics/Statistics). Relevant work experience may also be required for some posts.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#34d399] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is a limit on the number of attempts for NABARD exams.</li>
+                             <li>General category candidates are usually allowed a maximum of **6 attempts**. This limit varies for other categories.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Exam Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The exam pattern for Specialists is similar to the generalist post but with a crucial difference in the Mains examination.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Phase I: Prelims 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">✅</span><div id="gs1-sub1">Common qualifying test of Reasoning, English, Quant, Computer, Decision Making.</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Phase II: Mains (Paper I) 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">✍️</span><div id="gs2-sub2">General English (Descriptive - Common for all)</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Phase II: Mains (Paper II) 🏃‍♂️</h3>
+                         <div class="space-y-3 flex-grow">
+                             <div class="subject-item"><span class="icon">🎯</span><div id="gs4-sub1">Stream-Specific Paper (Objective + Descriptive) based on the specialization.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Specialist Officers undergo a probation period focused on integrating their domain expertise with NABARD's operational framework.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#374151] rounded-xl border-2 border-[#8b5cf6]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A two-year probationary period is standard for new Grade A officers.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Performance is assessed on technical competence and adaptability.</li>
+                            <li>The period may be extended if performance is not satisfactory.</li>
+                            <li>Confirmation leads to absorption into the permanent cadre.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#374151] rounded-xl border-2 border-[#34d399]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Specialized Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Training is tailored to the officer's specialization.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction training covers NABARD's overall functions.</li>
+                           <li>Specialized modules are provided to align technical skills with organizational needs.</li>
+                           <li>Includes attachments to relevant departments and field units.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities of a Specialist 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Specialist Officers apply their expertise to drive specific verticals within NABARD, contributing to the overall mission of rural development.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">IT & Finance</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Managing IT infrastructure and cybersecurity (IT Officer).</li>
+                           <li>Handling treasury, accounts, and financial analysis (Finance Specialist).</li>
+                           <li>Developing and implementing new tech solutions.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Agri & Environment</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Appraising agriculture-based projects (Agri Expert).</li>
+                           <li>Assessing the environmental and social impact of projects (E&S Specialist).</li>
+                           <li>Providing expert advice on sustainable development.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Economics & Statistics</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Conducting economic research and analysis.</li>
+                           <li>Managing large datasets and providing statistical insights.</li>
+                           <li>Contributing to policy papers and reports.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a Specialist Officer 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Beyond general managerial skills, a Specialist Officer must possess deep and demonstrable expertise in their chosen field.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#8b5cf6] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">Domain Expertise:</strong> Profound and practical knowledge of the specialization is non-negotiable.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Ability:</strong> Applying technical knowledge to solve real-world challenges in the rural sector.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">Adaptability:</strong> Willingness to adapt technical skills to the specific context of rural development and banking.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">✍️</span><div><strong class="text-white">Technical Writing:</strong> Ability to communicate complex technical information clearly in reports and notes.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy: Smart Work 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The preparation strategy for a Specialist Officer must be laser-focused on the stream-specific syllabus, as it holds the maximum weightage in the selection process.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#8b5cf6] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Deep Dive into Your Specialization</h4>
+                                <p id="sec8-step1-desc" class="text-base">Your entire selection depends on Paper-II of the Mains. Revise your graduation and post-graduation syllabus, and stay updated with the latest trends in your field.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Practice Descriptive English</h4>
+                                <p id="sec8-step2-desc" class="text-base">Paper-I (English) is common and its marks are counted. Practice writing essays, reports, and letters on financial and developmental topics.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Prepare for the Interview</h4>
+                                <p id="sec8-step3-desc" class="text-base">Be prepared for an in-depth technical interview. The panel will consist of experts from your field who will test your conceptual clarity and practical knowledge.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Follow Specialized Journals:</strong> Read journals and publications related to your domain to stay updated.</li>
+                            <li><strong>Solve Previous Year Papers:</strong> Go through past papers of NABARD, SEBI, and RBI specialist exams to understand the question patterns.</li>
+                            <li><strong>Focus on Application:</strong> For the interview, think about how your technical knowledge can be applied to solve problems in rural India.</li>
+                            <li><strong>Mock Tests for Mains:</strong> Attempt full-length mock tests for Paper I and Paper II to manage time, especially for the descriptive sections.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">NABARD announces vacancies for Specialist Officers alongside or separately from the generalist RDBS posts, based on organizational needs.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Published on the official NABARD website (nabard.org).</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Phase-I & Phase-II Exams</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Held sequentially with a gap of around one month each.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Conducted for candidates shortlisted from the Mains exam.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result & Appointment</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Final merit list based on Phase-II and Interview scores is released, followed by joining.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">A specialist exam requires a specialist approach. Avoid these common errors to stay ahead of the competition.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Neglecting English Paper:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Focusing solely on the technical paper and not preparing for the descriptive English paper, which is part of the final merit.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Lack of Practical Knowledge:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Having only theoretical knowledge and being unable to answer application-based questions in the Mains and Interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Ignoring Prelims:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Being overconfident about the technical subject and failing to clear the preliminary screening test.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not Understanding NABARD's Role:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Failing to connect one's specialization with the functions and mission of NABARD, which is crucial for the interview.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Preparation for specialist posts requires a dual approach: strengthening core concepts through self-study and seeking guidance for exam-specific patterns.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study & Core Books</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Your primary resources should be the standard textbooks from your graduation/post-graduation.</li>
+                           <li>Follow industry-specific websites, journals, and regulatory body circulars (e.g., RBI for finance).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Specialized Coaching</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Look for platforms that cater to your specific stream.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Many online platforms offer courses for specific streams like IT, Finance, and Agriculture for competitive exams.</li>
+                            <li>Mock interviews with experts from your field can be highly beneficial.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Specialist officers have a well-defined career path in NABARD, with opportunities to grow within their vertical or even move to generalist management roles at higher grades.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#111827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus is heavily weighted towards the specific technical stream, along with a common paper on descriptive English.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- General Subjects -->
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Common Papers</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Specific Subjects -->
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Stream-Specific Syllabus</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-violet-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Powering Rural India with Specialized Expertise.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Phase I: Preliminary Exam</h3>
+            <p id="prelims-modal-p1">This is a qualifying screening test. It is common for all specialist posts and includes sections like Reasoning, English, Quantitative Aptitude, Computer Knowledge, and Decision Making. Marks from this phase are not counted for the final merit list.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Phase II: Main Exam</h3>
+            <p id="mains-modal-p1">The Mains exam consists of two papers. Paper-I is a common descriptive English test. Paper-II is the core paper, a mix of objective and descriptive questions based entirely on the candidate's chosen specialization (e.g., IT, Finance, Agriculture).</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Phase III: Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Candidates who clear the Mains are called for a personal interview. The interview panel, often including external experts from the relevant field, will assess the candidate's in-depth technical knowledge, practical skills, and personality. The final selection is based on Mains and Interview scores.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">NABARD Specialist Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'it': { 
+                        name: 'IT Officer', 
+                        icon: '💻',
+                        description: 'Manages NABARD\'s extensive IT infrastructure, including servers, networks, and cybersecurity. They are involved in developing and maintaining software applications for internal use and for the banking sector.',
+                        cta: 'Learn More'
+                    },
+                    'agri': { 
+                        name: 'Agri & Rural Expert', 
+                        icon: '🌾',
+                        description: 'Appraises and monitors projects related to agriculture, horticulture, animal husbandry, and other allied sectors. Provides expert input on policies for sustainable agriculture and rural livelihoods.',
+                        cta: 'Learn More'
+                    },
+                    'finance': { 
+                        name: 'Finance & Accounts Specialist', 
+                        icon: '💰',
+                        description: 'Handles corporate finance, treasury management, internal accounts, and taxation. This role is crucial for managing NABARD\'s vast financial resources and ensuring regulatory compliance.',
+                        cta: 'Learn More'
+                    },
+                    'env': {
+                        name: 'Environment & Social Specialist',
+                        icon: '🌍',
+                        description: 'Assesses the environmental and social impact of development projects financed by NABARD. Ensures that projects comply with national environmental standards and promote sustainable practices.',
+                        cta: 'Learn More'
+                    },
+                    'stats': {
+                        name: 'Statistics / Economics Officer',
+                        icon: '📊',
+                        description: 'Involved in data collection, statistical analysis, and economic research. They provide crucial data-driven insights for policy formulation, impact assessment, and economic forecasting.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'it': { 
+                        name: 'आईटी अधिकारी', 
+                        icon: '💻',
+                        description: 'नाबार्ड के व्यापक आईटी बुनियादी ढांचे का प्रबंधन करता है, जिसमें सर्वर, नेटवर्क और साइबर सुरक्षा शामिल है। वे आंतरिक उपयोग और बैंकिंग क्षेत्र के लिए सॉफ्टवेयर अनुप्रयोगों के विकास और रखरखाव में शामिल हैं।',
+                        cta: 'और जानें'
+                    },
+                    'agri': { 
+                        name: 'कृषि और ग्रामीण विशेषज्ञ', 
+                        icon: '🌾',
+                        description: 'कृषि, बागवानी, पशुपालन और अन्य संबद्ध क्षेत्रों से संबंधित परियोजनाओं का मूल्यांकन और निगरानी करता है। टिकाऊ कृषि और ग्रामीण आजीविका के लिए नीतियों पर विशेषज्ञ इनपुट प्रदान करता है।',
+                        cta: 'और जानें'
+                    },
+                    'finance': { 
+                        name: 'वित्त और लेखा विशेषज्ञ', 
+                        icon: '💰',
+                        description: 'कॉर्पोरेट वित्त, ट्रेजरी प्रबंधन, आंतरिक खाते और कराधान को संभालता है। यह भूमिका नाबार्ड के विशाल वित्तीय संसाधनों के प्रबंधन और नियामक अनुपालन सुनिश्चित करने के लिए महत्वपूर्ण है।',
+                        cta: 'और जानें'
+                    },
+                    'env': {
+                        name: 'पर्यावरण और सामाजिक विशेषज्ञ',
+                        icon: '🌍',
+                        description: 'नाबार्ड द्वारा वित्तपोषित विकास परियोजनाओं के पर्यावरणीय और सामाजिक प्रभाव का आकलन करता है। यह सुनिश्चित करता है कि परियोजनाएं राष्ट्रीय पर्यावरण मानकों का अनुपालन करती हैं और टिकाऊ प्रथाओं को बढ़ावा देती हैं।',
+                        cta: 'और जानें'
+                    },
+                    'stats': {
+                        name: 'सांख्यिकी / अर्थशास्त्र अधिकारी',
+                        icon: '📊',
+                        description: 'डेटा संग्रह, सांख्यिकीय विश्लेषण और आर्थिक अनुसंधान में शामिल है। वे नीति निर्माण, प्रभाव मूल्यांकन और आर्थिक पूर्वानुमान के लिए महत्वपूर्ण डेटा-संचालित अंतर्दृष्टि प्रदान करते हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Assistant Manager (Grade A)", desc: "Entry-level post for specialist officers in their respective departments." },
+                        { rank: "Manager (Grade B)", desc: "First promotion, leading small teams and handling more complex technical projects." },
+                        { rank: "Assistant General Manager (Grade C)", desc: "A senior specialist role, providing expert guidance and managing significant technical verticals." },
+                        { rank: "Deputy General Manager (Grade D)", desc: "Opportunities to lead entire technical departments or move into senior general management roles." },
+                        { rank: "Chief General Manager & Above", desc: "The highest levels, contributing to apex-level policy making with their domain expertise." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "सहायक प्रबंधक (ग्रेड ए)", desc: "अपने संबंधित विभागों में विशेषज्ञ अधिकारियों के लिए प्रवेश स्तर का पद।" },
+                        { rank: "प्रबंधक (ग्रेड बी)", desc: "पहली पदोन्नति, छोटी टीमों का नेतृत्व करना और अधिक जटिल तकनीकी परियोजनाओं को संभालना।" },
+                        { rank: "सहायक महाप्रबंधक (ग्रेड सी)", desc: "एक वरिष्ठ विशेषज्ञ भूमिका, विशेषज्ञ मार्गदर्शन प्रदान करना और महत्वपूर्ण तकनीकी कार्यक्षेत्रों का प्रबंधन करना।" },
+                        { rank: "उप महाप्रबंधक (ग्रेड डी)", desc: "पूरे तकनीकी विभागों का नेतृत्व करने या वरिष्ठ सामान्य प्रबंधन भूमिकाओं में जाने के अवसर।" },
+                        { rank: "मुख्य महाप्रबंधक और ऊपर", desc: "उच्चतम स्तर, अपनी डोमेन विशेषज्ञता के साथ शीर्ष-स्तरीय नीति निर्माण में योगदान करते हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⚙️ NABARD Specialist Officer Guide ⚙️',
+                    'header-subtitle': 'Your Guide to a Technical Career in Rural Development',
+                    'sec1-title': '1. What is a NABARD Specialist Officer? 💡',
+                    'sec1-p1': 'NABARD recruits Specialist Officers in Grade ‘A’ to leverage domain-specific expertise for its diverse operations. Unlike the generalist RDBS role, these officers are hired for specific technical and professional streams like Information Technology, Finance, Agriculture, and Economics. They provide the specialized knowledge required to appraise complex projects, manage technical infrastructure, and formulate nuanced policies for rural development.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for Specialist Officers is a multi-stage process designed to rigorously test both general aptitude and deep domain knowledge in the chosen specialization.',
+                    'sec2-step1-title': 'Phase I:', 'sec2-step1-name': 'Prelims Exam', 'sec2-step1-desc': 'Online Screening Test',
+                    'sec2-step2-title': 'Phase II:', 'sec2-step2-name': 'Mains Exam', 'sec2-step2-desc': 'Stream-Specific & English Test',
+                    'sec2-step3-title': 'Phase III:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Personality Test',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for Specialist Officer posts is highly specific to the discipline.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **21 and 30 years** for Grade A. Relaxations for reserved categories are applicable as per norms.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'A Bachelor\'s or Master\'s degree in the specific discipline with a minimum of 60% marks is required (e.g., B.E./B.Tech in Computer Science for IT Officer, MBA/CA for Finance, Master\'s in Economics/Statistics). Relevant work experience may also be required for some posts.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is a limit on the number of attempts for NABARD exams.</li><li>General category candidates are usually allowed a maximum of **6 attempts**. This limit varies for other categories.</li>',
+                    'sec4-title': '4. Exam Pattern 📚',
+                    'sec4-p1': 'The exam pattern for Specialists is similar to the generalist post but with a crucial difference in the Mains examination.',
+                    'gs1-title': 'Phase I: Prelims 📜', 'gs1-sub1': 'Common qualifying test of Reasoning, English, Quant, Computer, Decision Making.',
+                    'gs2-title': 'Phase II: Mains (Paper I) 🏛️', 'gs2-sub2': 'General English (Descriptive - Common for all)',
+                    'gs3-title': 'Phase II: Mains (Paper II) 🏃‍♂️', 'gs4-sub1': 'Stream-Specific Paper (Objective + Descriptive) based on the specialization.',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'Specialist Officers undergo a probation period focused on integrating their domain expertise with NABARD\'s operational framework.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A two-year probationary period is standard for new Grade A officers.', 'sec5-hindi-list': '<li>Performance is assessed on technical competence and adaptability.</li><li>The period may be extended if performance is not satisfactory.</li><li>Confirmation leads to absorption into the permanent cadre.</li>',
+                    'sec5-essay-title': '2. Specialized Training', 'sec5-essay-p1': 'Training is tailored to the officer\'s specialization.', 'sec5-essay-list': '<li>Induction training covers NABARD\'s overall functions.</li><li>Specialized modules are provided to align technical skills with organizational needs.</li><li>Includes attachments to relevant departments and field units.</li>',
+                    'sec6-title': '6. Key Responsibilities of a Specialist 🌟',
+                    'sec6-p1': 'Specialist Officers apply their expertise to drive specific verticals within NABARD, contributing to the overall mission of rural development.',
+                    'sec6-eng-title': 'IT & Finance', 'sec6-eng-list': '<li>Managing IT infrastructure and cybersecurity (IT Officer).</li><li>Handling treasury, accounts, and financial analysis (Finance Specialist).</li><li>Developing and implementing new tech solutions.</li>',
+                    'sec6-elec-title': 'Agri & Environment', 'sec6-elec-list': '<li>Appraising agriculture-based projects (Agri Expert).</li><li>Assessing the environmental and social impact of projects (E&S Specialist).</li><li>Providing expert advice on sustainable development.</li>',
+                    'sec6-naic-title': 'Economics & Statistics', 'sec6-naic-list': '<li>Conducting economic research and analysis.</li><li>Managing large datasets and providing statistical insights.</li><li>Contributing to policy papers and reports.</li>',
+                    'sec7-title': '7. Qualities of a Specialist Officer 🎙️',
+                    'sec7-p1': 'Beyond general managerial skills, a Specialist Officer must possess deep and demonstrable expertise in their chosen field.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">Domain Expertise:</strong> Profound and practical knowledge of the specialization is non-negotiable.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Ability:</strong> Applying technical knowledge to solve real-world challenges in the rural sector.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">Adaptability:</strong> Willingness to adapt technical skills to the specific context of rural development and banking.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">✍️</span><div><strong class="text-white">Technical Writing:</strong> Ability to communicate complex technical information clearly in reports and notes.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy: Smart Work 📈',
+                    'sec8-p1': 'The preparation strategy for a Specialist Officer must be laser-focused on the stream-specific syllabus, as it holds the maximum weightage in the selection process.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Deep Dive into Your Specialization', 'sec8-step1-desc': 'Your entire selection depends on Paper-II of the Mains. Revise your graduation and post-graduation syllabus, and stay updated with the latest trends in your field.',
+                    'sec8-step2-title': 'Practice Descriptive English', 'sec8-step2-desc': 'Paper-I (English) is common and its marks are counted. Practice writing essays, reports, and letters on financial and developmental topics.',
+                    'sec8-step3-title': 'Prepare for the Interview', 'sec8-step3-desc': 'Be prepared for an in-depth technical interview. The panel will consist of experts from your field who will test your conceptual clarity and practical knowledge.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Follow Specialized Journals:</strong> Read journals and publications related to your domain to stay updated.</li><li><strong>Solve Previous Year Papers:</strong> Go through past papers of NABARD, SEBI, and RBI specialist exams to understand the question patterns.</li><li><strong>Focus on Application:</strong> For the interview, think about how your technical knowledge can be applied to solve problems in rural India.</li><li><strong>Mock Tests for Mains:</strong> Attempt full-length mock tests for Paper I and Paper II to manage time, especially for the descriptive sections.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'NABARD announces vacancies for Specialist Officers alongside or separately from the generalist RDBS posts, based on organizational needs.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Published on the official NABARD website (nabard.org).',
+                    'sec9-step2-title': 'Phase-I & Phase-II Exams', 'sec9-step2-desc': '<strong>Timeline:</strong> Held sequentially with a gap of around one month each.',
+                    'sec9-step3-title': 'Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Conducted for candidates shortlisted from the Mains exam.',
+                    'sec9-step4-title': 'Final Result & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> Final merit list based on Phase-II and Interview scores is released, followed by joining.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'A specialist exam requires a specialist approach. Avoid these common errors to stay ahead of the competition.',
+                    'sec10-mistake1-title': 'Neglecting English Paper:', 'sec10-mistake1-desc': 'Focusing solely on the technical paper and not preparing for the descriptive English paper, which is part of the final merit.',
+                    'sec10-mistake2-title': 'Lack of Practical Knowledge:', 'sec10-mistake2-desc': 'Having only theoretical knowledge and being unable to answer application-based questions in the Mains and Interview.',
+                    'sec10-mistake3-title': 'Ignoring Prelims:', 'sec10-mistake3-desc': 'Being overconfident about the technical subject and failing to clear the preliminary screening test.',
+                    'sec10-mistake4-title': 'Not Understanding NABARD\'s Role:', 'sec10-mistake4-desc': 'Failing to connect one\'s specialization with the functions and mission of NABARD, which is crucial for the interview.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Preparation for specialist posts requires a dual approach: strengthening core concepts through self-study and seeking guidance for exam-specific patterns.',
+                    'sec11-gov-title': '📚 Self-Study & Core Books', 'sec11-gov-list': '<li>Your primary resources should be the standard textbooks from your graduation/post-graduation.</li><li>Follow industry-specific websites, journals, and regulatory body circulars (e.g., RBI for finance).</li>',
+                    'sec11-pvt-title': 'Specialized Coaching', 'sec11-pvt-p1': 'Look for platforms that cater to your specific stream.', 'sec11-pvt-list': '<li>Many online platforms offer courses for specific streams like IT, Finance, and Agriculture for competitive exams.</li><li>Mock interviews with experts from your field can be highly beneficial.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'Specialist officers have a well-defined career path in NABARD, with opportunities to grow within their vertical or even move to generalist management roles at higher grades.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Syllabus & Study Material 📚',
+                    'sec13-p1': 'The syllabus is heavily weighted towards the specific technical stream, along with a common paper on descriptive English.',
+                    'syllabus-oir-title': 'Common Papers',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">✍️</span><div class="flex-grow">General English (Descriptive)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Prelims General Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Stream-Specific Syllabus',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">IT: DSA, Networking, DBMS etc.</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💰</span><div class="flex-grow">Finance: Accounting, Corp Finance</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Powering Rural India with Specialized Expertise.',
+                    'interviewChartData': {
+                        labels: ['Domain Expertise', 'Problem-Solving', 'Adaptability', 'Technical Writing'],
+                        data: [95, 90, 85, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '⚙️ नाबार्ड विशेषज्ञ अधिकारी गाइड ⚙️',
+                    'header-subtitle': 'ग्रामीण विकास में एक तकनीकी कैरियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. नाबार्ड विशेषज्ञ अधिकारी क्या है? 💡',
+                    'sec1-p1': 'नाबार्ड अपने विविध परिचालनों के लिए डोमेन-विशिष्ट विशेषज्ञता का लाभ उठाने के लिए ग्रेड ‘ए’ में विशेषज्ञ अधिकारियों की भर्ती करता है। सामान्य आरडीबीएस भूमिका के विपरीत, इन अधिकारियों को सूचना प्रौद्योगिकी, वित्त, कृषि और अर्थशास्त्र जैसे विशिष्ट तकनीकी और व्यावसायिक धाराओं के लिए काम पर रखा जाता है। वे जटिल परियोजनाओं का मूल्यांकन करने, तकनीकी बुनियादी ढांचे का प्रबंधन करने और ग्रामीण विकास के लिए सूक्ष्म नीतियां तैयार करने के लिए आवश्यक विशेष ज्ञान प्रदान करते हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'विशेषज्ञ अधिकारियों के लिए चयन एक बहु-स्तरीय प्रक्रिया है जिसे चुने हुए विशेषज्ञता में सामान्य योग्यता और गहरे डोमेन ज्ञान दोनों का कठोरता से परीक्षण करने के लिए डिज़ाइन किया गया है।',
+                    'sec2-step1-title': 'चरण I:', 'sec2-step1-name': 'प्रारंभिक परीक्षा', 'sec2-step1-desc': 'ऑनलाइन स्क्रीनिंग टेस्ट',
+                    'sec2-step2-title': 'चरण II:', 'sec2-step2-name': 'मुख्य परीक्षा', 'sec2-step2-desc': 'स्ट्रीम-विशिष्ट और अंग्रेजी परीक्षा',
+                    'sec2-step3-title': 'चरण III:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'व्यक्तित्व परीक्षण',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'विशेषज्ञ अधिकारी पदों के लिए पात्रता अनुशासन के लिए अत्यधिक विशिष्ट है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'ग्रेड ए के लिए आमतौर पर **21 से 30 वर्ष** के बीच। आरक्षित श्रेणियों के लिए मानदंडों के अनुसार छूट लागू है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': 'न्यूनतम 60% अंकों के साथ विशिष्ट अनुशासन में स्नातक या मास्टर डिग्री आवश्यक है (जैसे, आईटी अधिकारी के लिए कंप्यूटर विज्ञान में बीई/बीटेक, वित्त के लिए एमबीए/सीए, अर्थशास्त्र/सांख्यिकी में मास्टर)। कुछ पदों के लिए प्रासंगिक कार्य अनुभव की भी आवश्यकता हो सकती है।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>नाबार्ड परीक्षाओं के लिए प्रयासों की संख्या पर एक सीमा है।</li><li>सामान्य श्रेणी के उम्मीदवारों को आमतौर पर अधिकतम **6 प्रयासों** की अनुमति है। यह सीमा अन्य श्रेणियों के लिए भिन्न होती है।</li>',
+                    'sec4-title': '4. परीक्षा पैटर्न 📚',
+                    'sec4-p1': 'विशेषज्ञों के लिए परीक्षा पैटर्न सामान्य पद के समान है लेकिन मुख्य परीक्षा में एक महत्वपूर्ण अंतर के साथ।',
+                    'gs1-title': 'चरण I: प्रारंभिक 📜', 'gs1-sub1': 'सामान्य योग्यता परीक्षण: तर्क, अंग्रेजी, क्वांट, कंप्यूटर, निर्णय लेना।',
+                    'gs2-title': 'चरण II: मुख्य (पेपर I) 🏛️', 'gs2-sub2': 'सामान्य अंग्रेजी (वर्णनात्मक - सभी के लिए सामान्य)',
+                    'gs3-title': 'चरण II: मुख्य (पेपर II) 🏃‍♂️', 'gs4-sub1': 'स्ट्रीम-विशिष्ट पेपर (वस्तुनिष्ठ + वर्णनात्मक) विशेषज्ञता के आधार पर।',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'विशेषज्ञ अधिकारी अपनी डोमेन विशेषज्ञता को नाबार्ड के परिचालन ढांचे के साथ एकीकृत करने पर केंद्रित एक परिवीक्षा अवधि से गुजरते हैं।',
+                    'sec5-hindi-title': '1. परिवीक्षा अवधि', 'sec5-hindi-p1': 'नए ग्रेड ए अधिकारियों के लिए दो साल की परिवीक्षा अवधि मानक है।', 'sec5-hindi-list': '<li>प्रदर्शन का मूल्यांकन तकनीकी क्षमता और अनुकूलनशीलता पर किया जाता है।</li><li>यदि प्रदर्शन संतोषजनक नहीं है तो अवधि बढ़ाई जा सकती है।</li><li>पुष्टि स्थायी कैडर में अवशोषण की ओर ले जाती है।</li>',
+                    'sec5-essay-title': '2. विशेष प्रशिक्षण', 'sec5-essay-p1': 'प्रशिक्षण अधिकारी की विशेषज्ञता के अनुरूप है।', 'sec5-essay-list': '<li>प्रेरण प्रशिक्षण नाबार्ड के समग्र कार्यों को शामिल करता है।</li><li>संगठनात्मक जरूरतों के साथ तकनीकी कौशल को संरेखित करने के लिए विशेष मॉड्यूल प्रदान किए जाते हैं।</li><li>प्रासंगिक विभागों और क्षेत्र इकाइयों के साथ अनुलग्नक शामिल हैं।</li>',
+                    'sec6-title': '6. एक विशेषज्ञ की मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'विशेषज्ञ अधिकारी नाबार्ड के भीतर विशिष्ट कार्यक्षेत्रों को चलाने के लिए अपनी विशेषज्ञता लागू करते हैं, जो ग्रामीण विकास के समग्र मिशन में योगदान करते हैं।',
+                    'sec6-eng-title': 'आईटी और वित्त', 'sec6-eng-list': '<li>आईटी बुनियादी ढांचे और साइबर सुरक्षा का प्रबंधन (आईटी अधिकारी)।</li><li>ट्रेजरी, खाते और वित्तीय विश्लेषण को संभालना (वित्त विशेषज्ञ)।</li><li>नए तकनीकी समाधान विकसित करना और लागू करना।</li>',
+                    'sec6-elec-title': 'कृषि और पर्यावरण', 'sec6-elec-list': '<li>कृषि आधारित परियोजनाओं का मूल्यांकन (कृषि विशेषज्ञ)।</li><li>परियोजनाओं के पर्यावरणीय और सामाजिक प्रभाव का आकलन (ई एंड एस विशेषज्ञ)।</li><li>टिकाऊ विकास पर विशेषज्ञ सलाह प्रदान करना।</li>',
+                    'sec6-naic-title': 'अर्थशास्त्र और सांख्यिकी', 'sec6-naic-list': '<li>आर्थिक अनुसंधान और विश्लेषण करना।</li><li>बड़े डेटासेट का प्रबंधन और सांख्यिकीय अंतर्दृष्टि प्रदान करना।</li><li>नीति पत्रों और रिपोर्टों में योगदान देना।</li>',
+                    'sec7-title': '7. एक विशेषज्ञ अधिकारी के गुण 🎙️',
+                    'sec7-p1': 'सामान्य प्रबंधकीय कौशल से परे, एक विशेषज्ञ अधिकारी को अपने चुने हुए क्षेत्र में गहरी और प्रदर्शन योग्य विशेषज्ञता होनी चाहिए।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">डोमेन विशेषज्ञता:</strong> विशेषज्ञता का गहरा और व्यावहारिक ज्ञान गैर-परक्राम्य है।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">समस्या-समाधान क्षमता:</strong> ग्रामीण क्षेत्र में वास्तविक दुनिया की चुनौतियों को हल करने के लिए तकनीकी ज्ञान लागू करना।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">अनुकूलनशीलता:</strong> ग्रामीण विकास और बैंकिंग के विशिष्ट संदर्भ में तकनीकी कौशल को अनुकूलित करने की इच्छा।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">✍️</span><div><strong class="text-white">तकनीकी लेखन:</strong> जटिल तकनीकी जानकारी को रिपोर्ट और नोट्स में स्पष्ट रूप से संप्रेषित करने की क्षमता।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈',
+                    'sec8-p1': 'एक विशेषज्ञ अधिकारी के लिए तैयारी की रणनीति को स्ट्रीम-विशिष्ट पाठ्यक्रम पर लेजर-केंद्रित होना चाहिए, क्योंकि चयन प्रक्रिया में इसका अधिकतम महत्व है।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'अपनी विशेषज्ञता में गहराई से उतरें', 'sec8-step1-desc': 'आपका पूरा चयन मुख्य के पेपर- II पर निर्भर करता है। अपने स्नातक और स्नातकोत्तर पाठ्यक्रम को संशोधित करें, और अपने क्षेत्र में नवीनतम रुझानों से अपडेट रहें।',
+                    'sec8-step2-title': 'वर्णनात्मक अंग्रेजी का अभ्यास करें', 'sec8-step2-desc': 'पेपर- I (अंग्रेजी) आम है और इसके अंक गिने जाते हैं। वित्तीय और विकासात्मक विषयों पर निबंध, रिपोर्ट और पत्र लिखने का अभ्यास करें।',
+                    'sec8-step3-title': 'साक्षात्कार के लिए तैयारी करें', 'sec8-step3-desc': 'एक गहन तकनीकी साक्षात्कार के लिए तैयार रहें। पैनल में आपके क्षेत्र के विशेषज्ञ शामिल होंगे जो आपकी वैचारिक स्पष्टता और व्यावहारिक ज्ञान का परीक्षण करेंगे।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>विशेषज्ञ पत्रिकाओं का पालन करें:</strong> अपडेट रहने के लिए अपने डोमेन से संबंधित पत्रिकाओं और प्रकाशनों को पढ़ें।</li><li><strong>पिछले वर्ष के प्रश्नपत्र हल करें:</strong> प्रश्न पैटर्न को समझने के लिए नाबार्ड, सेबी और आरबीआई विशेषज्ञ परीक्षाओं के पिछले प्रश्नपत्रों को देखें।</li><li><strong>आवेदन पर ध्यान दें:</strong> साक्षात्कार के लिए, इस बारे में सोचें कि ग्रामीण भारत में समस्याओं को हल करने के लिए आपके तकनीकी ज्ञान को कैसे लागू किया जा सकता है।</li><li><strong>मुख्य के लिए मॉक टेस्ट:</strong> विशेष रूप से वर्णनात्मक वर्गों के लिए समय का प्रबंधन करने के लिए पेपर I और पेपर II के लिए पूर्ण-लंबाई वाले मॉक टेस्ट का प्रयास करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'नाबार्ड संगठनात्मक जरूरतों के आधार पर, सामान्य आरडीबीएस पदों के साथ या अलग से विशेषज्ञ अधिकारियों के लिए रिक्तियों की घोषणा करता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> आधिकारिक नाबार्ड वेबसाइट (nabard.org) पर प्रकाशित।',
+                    'sec9-step2-title': 'चरण- I और चरण- II परीक्षा', 'sec9-step2-desc': '<strong>समयरेखा:</strong> प्रत्येक के बीच लगभग एक महीने के अंतराल के साथ क्रमिक रूप से आयोजित किया जाता है।',
+                    'sec9-step3-title': 'साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मुख्य परीक्षा से शॉर्टलिस्ट किए गए उम्मीदवारों के लिए आयोजित किया जाता है।',
+                    'sec9-step4-title': 'अंतिम परिणाम और नियुक्ति', 'sec9-step4-desc': '<strong>समयरेखा:</strong> चरण- II और साक्षात्कार स्कोर के आधार पर अंतिम मेरिट सूची जारी की जाती है, जिसके बाद ज्वाइनिंग होती है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'एक विशेषज्ञ परीक्षा के लिए एक विशेषज्ञ दृष्टिकोण की आवश्यकता होती है। प्रतिस्पर्धा से आगे रहने के लिए इन सामान्य त्रुटियों से बचें।',
+                    'sec10-mistake1-title': 'अंग्रेजी पेपर की उपेक्षा:', 'sec10-mistake1-desc': 'केवल तकनीकी पेपर पर ध्यान केंद्रित करना और वर्णनात्मक अंग्रेजी पेपर के लिए तैयारी नहीं करना, जो अंतिम योग्यता का हिस्सा है।',
+                    'sec10-mistake2-title': 'व्यावहारिक ज्ञान का अभाव:', 'sec10-mistake2-desc': 'केवल सैद्धांतिक ज्ञान होना और मुख्य और साक्षात्कार में आवेदन-आधारित प्रश्नों का उत्तर देने में असमर्थ होना।',
+                    'sec10-mistake3-title': 'प्रारंभिक की अनदेखी:', 'sec10-mistake3-desc': 'तकनीकी विषय के बारे में अति आत्मविश्वास होना और प्रारंभिक स्क्रीनिंग टेस्ट को पास करने में विफल होना।',
+                    'sec10-mistake4-title': 'नाबार्ड की भूमिका को नहीं समझना:', 'sec10-mistake4-desc': 'अपनी विशेषज्ञता को नाबार्ड के कार्यों और मिशन से जोड़ने में विफल होना, जो साक्षात्कार के लिए महत्वपूर्ण है।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'विशेषज्ञ पदों की तैयारी के लिए एक दोहरी दृष्टिकोण की आवश्यकता होती है: स्व-अध्ययन के माध्यम से मुख्य अवधारणाओं को मजबूत करना और परीक्षा-विशिष्ट पैटर्न के लिए मार्गदर्शन प्राप्त करना।',
+                    'sec11-gov-title': '📚 स्व-अध्ययन और मुख्य पुस्तकें', 'sec11-gov-list': '<li>आपके प्राथमिक संसाधन आपके स्नातक/स्नातकोत्तर से मानक पाठ्यपुस्तकें होनी चाहिए।</li><li>उद्योग-विशिष्ट वेबसाइटों, पत्रिकाओं और नियामक निकाय परिपत्रों (जैसे, वित्त के लिए आरबीआई) का पालन करें।</li>',
+                    'sec11-pvt-title': 'विशेषज्ञ कोचिंग', 'sec11-pvt-p1': 'ऐसे प्लेटफार्मों की तलाश करें जो आपकी विशिष्ट स्ट्रीम को पूरा करते हैं।', 'sec11-pvt-list': '<li>कई ऑनलाइन प्लेटफॉर्म प्रतियोगी परीक्षाओं के लिए आईटी, वित्त और कृषि जैसी विशिष्ट धाराओं के लिए पाठ्यक्रम प्रदान करते हैं।</li><li>आपके क्षेत्र के विशेषज्ञों के साथ मॉक साक्षात्कार अत्यधिक फायदेमंद हो सकते हैं।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'विशेषज्ञ अधिकारियों के पास नाबार्ड में एक अच्छी तरह से परिभाषित कैरियर पथ है, जिसमें उनके कार्यक्षेत्र के भीतर बढ़ने या उच्च ग्रेड पर सामान्य प्रबंधन भूमिकाओं में जाने के अवसर हैं।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. पाठ्यक्रम और अध्ययन सामग्री 📚',
+                    'sec13-p1': 'पाठ्यक्रम वर्णनात्मक अंग्रेजी पर एक सामान्य पेपर के साथ, विशिष्ट तकनीकी स्ट्रीम की ओर भारी रूप से भारित है।',
+                    'syllabus-oir-title': 'सामान्य पेपर',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">✍️</span><div class="flex-grow">सामान्य अंग्रेजी (वर्णनात्मक)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">प्रारंभिक सामान्य योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'स्ट्रीम-विशिष्ट पाठ्यक्रम',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">आईटी: डीएसए, नेटवर्किंग, डीबीएमएस आदि।</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💰</span><div class="flex-grow">वित्त: लेखा, कॉर्प वित्त</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | विशेष विशेषज्ञता के साथ ग्रामीण भारत को सशक्त बनाना।',
+                    'interviewChartData': {
+                        labels: ['डोमेन विशेषज्ञता', 'समस्या-समाधान', 'अनुकूलनशीलता', 'तकनीकी लेखन'],
+                        data: [95, 90, 85, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#374151]/50 rounded-xl text-center border-2 border-slate-700 hover:border-violet-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                            borderColor: '#8b5cf6',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#d1d5db' },
+                                grid: { color: 'rgba(209, 213, 219, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#d1d5db', font: { size: 14 } },
+                                grid: { color: 'rgba(209, 213, 219, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
