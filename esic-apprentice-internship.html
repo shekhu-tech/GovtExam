@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESIC Apprenticeship & Training Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="A comprehensive guide to the ESIC Apprenticeship/Training program. Information on eligibility, selection process, training structure, and career path.">
+    <meta name="keywords" content="ESIC, Employees' State Insurance Corporation, Apprenticeship, Training, Recruitment, Exam, Career, Government, Sarkari Naukri">
+    <meta name="author" content="ESIC Apprenticeship Guide">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0d1117; /* Dark Grey-Blue */
+            color: #c9d1d9; /* Light Grey */
+        }
+        .section-heading {
+            border-bottom: 4px solid #58a6ff; /* Neon Blue */
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff;
+        }
+        .card {
+            background-color: #161b22; /* Darker Grey-Blue */
+            border-radius: 1.5rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            padding: 3rem;
+            transition: all 0.4s ease;
+            border: 2px solid #238636; /* Vibrant Green */
+        }
+        .card:hover {
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+            transform: translateY(-12px);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #58a6ff; /* Neon Blue */
+            color: #58a6ff;
+            background-color: #21262d; /* Grey-Blue */
+            transition: all 0.4s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #58a6ff;
+            color: #0d1117;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .flowchart-arrow {
+            color: #58a6ff; /* Neon Blue */
+        }
+        .subject-category-heading {
+            color: #c9d1d9;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #58a6ff;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: #21262d;
+        }
+        .subject-item .icon {
+            color: #58a6ff;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 4px solid #238636; /* Vibrant Green */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #238636;
+            border: 4px solid #0d1117;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(13, 17, 23, 0.9);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #161b22;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid #58a6ff;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #c9d1d9; line-height: 1;
+            transition: color 0.3s;
+        }
+        .modal-close-button:hover { color: #f85149; }
+        .modal-action-button {
+            background: linear-gradient(45deg, #58a6ff, #238636);
+            color: #0d1117;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(88, 166, 255, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #58a6ff;
+            color: #58a6ff;
+            background-color: #0d1117;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #58a6ff;
+            color: #0d1117;
+            border-color: #58a6ff;
+        }
+        .career-path-timeline {
+            position: relative;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .notes-btn {
+            background-color: #58a6ff;
+            color: #0d1117;
+        }
+        .notes-btn:hover {
+            background-color: #4489e8;
+        }
+        .lectures-btn {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border-color: #58a6ff;
+        }
+        .lectures-btn:hover {
+            background-color: #58a6ff;
+            color: #0d1117;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-12">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-wider">🛠️ ESIC Apprenticeship Guide 🛠️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl text-[#238636] font-semibold">Build Your Skills for a Government Career</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-lg" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is ESIC Apprenticeship? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-green-900/50 via-gray-900/50 to-blue-900/50">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. About ESIC Apprenticeship 📝</h2>
+                    <p id="sec1-p1" class="text-lg mb-6 text-gray-300">The Employees' State Insurance Corporation (ESIC) offers a valuable apprenticeship program for young individuals to gain hands-on experience in a government environment. This program is a stepping stone to a permanent career.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: Key Phases 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">The selection process for the apprenticeship program is designed to be straightforward, focusing on merit and practical skills. It involves a written test and a document verification stage.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="phase1MainModal"><span id="sec2-step1-title">Phase 1:</span><br><span id="sec2-step1-name">Written Exam</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Computer-based Aptitude Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="phase2MainModal"><span id="sec2-step2-title">Phase 2:</span><br><span id="sec2-step2-name">DV/Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Document Verification & Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Eligibility Criteria ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6 text-gray-300">To be eligible for the ESIC Apprenticeship, you must meet the following fundamental criteria:</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#58a6ff] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Education:</strong> <span id="sec3-edu-desc" class="text-gray-300">Candidates must have completed **ITI** in the relevant trade or hold a **Degree/Diploma** in the specified field.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#58a6ff] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age:</strong> <span id="sec3-age-desc" class="text-gray-300">Typically **18 to 25 years**. Age relaxation is applicable for reserved categories as per government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#58a6ff] mr-4">🇮🇳</span><div><strong id="sec3-nat-title" class="text-white text-lg">Nationality:</strong> <span id="sec3-nat-desc" class="text-gray-300">Must be a citizen of India.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-details-title" class="text-2xl font-bold text-white mb-4 border-b border-[#238636] pb-2">Program Details 📊</h3>
+                        <p id="sec3-details-p1" class="text-lg mb-4 text-gray-300">The apprenticeship is for a fixed duration, usually one year, providing a monthly stipend as per government norms.</p>
+                         <ul id="sec3-agerelax-list" class="space-y-3 text-base list-disc list-inside text-gray-300">
+                            <li><strong>Duration:</strong> One year (12 months).</li>
+                            <li><strong>Stipend:</strong> A monthly stipend is provided to apprentices.</li>
+                            <li><strong>Placement:</strong> There is no guarantee of permanent employment after the apprenticeship.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Written Exam Syllabus -->
+            <section class="card bg-gray-900/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Written Exam Syllabus: Aptitude Test 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">The written exam is a common online test. It assesses general aptitude and is a key stage for shortlisting candidates. The exam is objective type with negative marking.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Reasoning Ability 🧠</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">🤔</span><div id="gs1-sub1">Logical Reasoning</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Series & Analogies</div></div>
+                            <div class="subject-item"><span class="icon">✍️</span><div id="gs1-sub3">Coding-Decoding</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Quantitative Aptitude 📈</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">🔢</span><div id="gs2-sub1">Basic Arithmetic</div></div>
+                            <div class="subject-item"><span class="icon">➗</span><div id="gs2-sub2">Percentages, Averages</div></div>
+                            <div class="subject-item"><span class="icon">💲</span><div id="gs2-sub3">Profit & Loss</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">English Language 💬</h3>
+                         <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs3-sub1">Grammar & Vocabulary</div></div>
+                            <div class="subject-item"><span class="icon">📝</span><div id="gs3-sub2">Sentence Correction</div></div>
+                            <div class="subject-item"><span class="icon">🗣️</span><div id="gs3-sub3">Comprehension</div></div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">General Awareness 🌍</h3>
+                        <div class="space-y-3 flex-grow text-gray-300">
+                            <div class="subject-item"><span class="icon">🇮🇳</span><div id="gs4-sub1">Indian History & Polity</div></div>
+                            <div class="subject-item"><span class="icon">📰</span><div id="gs4-sub2">Current Affairs</div></div>
+                            <div class="subject-item"><span class="icon">🔬</span><div id="gs4-sub3">General Science</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training Structure -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training Structure 📋</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto text-gray-300">The apprenticeship program offers a balanced approach of practical on-the-job training and theoretical knowledge to equip you with the necessary skills for a successful career.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div class="p-6 bg-[#161b22] rounded-xl border-2 border-[#58a6ff]">
+                        <h3 id="sec5-practical-title" class="font-bold text-xl text-white mb-2">Practical Training</h3>
+                        <p id="sec5-practical-p1" class="text-sm mb-2 text-gray-400">Apprentices are assigned to various departments to gain hands-on experience in administrative, technical, or clerical roles, based on their qualification.</p>
+                        <ul id="sec5-practical-list" class="list-disc list-inside space-y-1 mt-2 text-gray-400 text-sm">
+                            <li>On-the-job training in a real work environment.</li>
+                            <li>Mentorship from experienced ESIC staff.</li>
+                            <li>Learning to use official software and procedures.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#161b22] rounded-xl border-2 border-[#58a6ff]">
+                        <h3 id="sec5-theory-title" class="font-bold text-xl text-white mb-2">Theoretical Knowledge</h3>
+                        <p id="sec5-theory-p1" class="text-sm mb-2 text-gray-400">Formal training sessions are conducted to impart knowledge about ESIC's structure, policies, and the laws governing social security.</p>
+                        <ul id="sec5-theory-list" class="list-disc list-inside space-y-1 mt-2 text-gray-400 text-sm">
+                           <li>Understanding the ESI Act and its benefits.</li>
+                           <li>Internal procedures and protocols.</li>
+                           <li>Computer literacy and general knowledge.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Program Streams -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Apprenticeship Streams 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-gray-300">ESIC offers apprenticeships in various streams to cater to different educational backgrounds. The most common streams are Office Assistant and Technical.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
+                    <div>
+                        <h3 id="sec6-office-title" class="subject-category-heading">Office Assistant</h3>
+                        <ul id="sec6-office-list" class="list-disc list-inside space-y-2 text-gray-300 text-base">
+                           <li>For general graduates and diploma holders.</li>
+                           <li>Focus on clerical and administrative work.</li>
+                           <li>Learning data entry, file management, etc.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-tech-title" class="subject-category-heading">Technical / Trade</h3>
+                        <ul id="sec6-tech-list" class="list-disc list-inside space-y-2 text-gray-300 text-base">
+                           <li>For ITI and Diploma holders in specific trades.</li>
+                           <li>Practical work in maintenance and technical support.</li>
+                           <li>Assisting with IT and infrastructure tasks.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-gray-900 border border-[#238636] rounded-lg shadow-sm text-center">
+                    <h4 id="sec6-imp-title" class="text-xl font-bold text-white mb-2">💡 Note:</h4>
+                    <p id="sec6-imp-p1" class="text-base text-gray-300">The availability of a specific stream depends on the needs of the regional office and the official notification.</p>
+                </div>
+            </section>
+
+            <!-- Section 7: Exam Weightage -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Exam Weightage & Strategy 📊</h2>
+                    <p id="sec7-p1" class="text-lg mb-6 text-gray-300">The written exam is the first crucial step. Understanding the weightage of each section is key to a smart preparation strategy.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="examWeightageChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-breakdown-title" class="text-2xl font-bold text-white mb-6 border-b border-[#238636] pb-2">Written Exam Breakdown:</h3>
+                    <ul id="sec7-breakdown-list" class="space-y-4 text-base text-gray-300">
+                        <li class="flex items-start"><span class="text-2xl text-[#58a6ff] mr-3">🧠</span><div><strong class="text-white">Reasoning Ability:</strong> 30 Questions. Focus on basic logic and patterns.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#58a6ff] mr-3">🔢</span><div><strong class="text-white">Quantitative Aptitude:</strong> 30 Questions. Practice basic arithmetic and data interpretation.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#58a6ff] mr-3">💬</span><div><strong class="text-white">English Language:</strong> 30 Questions. Focus on fundamental grammar and vocabulary.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#58a6ff] mr-3">🌍</span><div><strong class="text-white">General Awareness:</strong> 60 Questions. Covers History, Geography, and Current Affairs.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation Strategy -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto text-gray-300">Success in the ESIC apprenticeship exam requires a structured and consistent approach. Proper planning and dedicated practice are the keys to cracking the exam.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#238636] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#58a6ff] rounded-full -left-2 border-4 border-[#0d1117]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Understand the Syllabus & Pattern</h4>
+                                <p id="sec8-step1-desc" class="text-base text-gray-300">Familiarize yourself with the written exam and interview requirements. This is your roadmap to success.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#58a6ff] rounded-full -left-2 border-4 border-[#0d1117]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Focus on Fundamentals</h4>
+                                <p id="sec8-step2-desc" class="text-base text-gray-300">Master basic concepts in Reasoning, Maths, and English. Don't waste time on overly complex topics.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#58a6ff] rounded-full -left-2 border-4 border-[#0d1117]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Maintain General Awareness</h4>
+                                <p id="sec8-step3-desc" class="text-base text-gray-300">The GS section is high-scoring. Stay updated on current events, especially related to the government and social schemes.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base text-gray-300">
+                            <li><strong>Daily Reading:</strong> Read a newspaper daily to improve English and stay updated on current affairs.</li>
+                            <li><strong>Mock Tests:</strong> Regularly take mock tests to improve your speed and time management.</li>
+                            <li><strong>Previous Year Papers:</strong> Solve previous year papers to understand the exam pattern and difficulty level.</li>
+                            <li><strong>Interview Prep:</strong> Prepare for a basic interview about your background and technical skills.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8 text-gray-300">The ESIC apprenticeship recruitment is a periodic process. Always refer to the official ESIC website for the latest updates and notifications regarding exact dates and timelines.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base text-gray-400">The official notification is released with details on vacancies, eligibility, and important dates.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application Period</h4>
+                        <p id="sec9-step2-desc" class="text-base text-gray-400">Candidates can apply online through the official ESIC portal within the specified dates.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Written Exam & Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base text-gray-400">The written exam is conducted, followed by an interview/document verification for successful candidates.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Merit List & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base text-gray-400">A merit list is published, and selected candidates receive joining instructions for their apprenticeship.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Common Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">Being aware of these common pitfalls can significantly improve your chances of success and help you avoid unnecessary stress during the process.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-900 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-200">Ignoring Basic Concepts:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-300 mt-1">Focusing on advanced topics and neglecting the fundamentals, which form the core of the exam.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-900 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-200">Lack of Time Management:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-300 mt-1">Spending too much time on a single question in the exam can lead to missing out on easier questions later.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-200">Neglecting General Awareness:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-300 mt-1">The GS section is high-scoring. Not staying updated on current affairs is a common mistake.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-900 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-400 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-200">Not Reading Official Notification:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-300 mt-1">Missing out on crucial details like eligibility, vacancies, and exam pattern changes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Coaching & Resources 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto text-gray-300">While self-study is effective, coaching can provide structured guidance and discipline. Here are some options to consider.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-online-title" class="subject-category-heading">💻 Online Platforms</h3>
+                        <ul id="sec11-online-list" class="list-disc list-inside space-y-2 text-gray-300 text-base">
+                           <li>**Test Series:** Subscribing to online test series is crucial for mock tests and performance analysis.</li>
+                           <li>**Video Lectures:** Learn from experienced instructors through video tutorials and live classes.</li>
+                           <li>**Doubt-solving Sessions:** Platforms offer dedicated sessions for clearing doubts.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-offline-title" class="subject-category-heading">🏢 Offline Coaching Institutes</h3>
+                        <p id="sec11-offline-p1" class="text-base text-gray-300 mb-2">Major cities have specialized coaching centers for government exams.</p>
+                        <ul id="sec11-offline-list" class="list-disc list-inside space-y-2 text-gray-300 text-base">
+                            <li>**Classroom Programs:** Traditional classroom teaching with in-person interaction.</li>
+                            <li>**Study Material:** Get comprehensive printed study materials and notes.</li>
+                            <li>**Peer Group:** Study with a peer group to stay motivated and engage in discussions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Opportunities 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6 text-gray-300">An ESIC apprenticeship offers valuable experience that can be a great foundation for a future career in government service. Although not a guarantee, it provides a strong advantage in future recruitment drives.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Opportunities</button>
+            </section>
+
+            <!-- Section 13: Study Material -->
+            <section class="card bg-gray-900/50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Recommended Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto text-gray-300">A structured approach to preparation starts with the right study materials. Here are some recommended resources for each subject.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- English -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-eng-title" class="subject-category-heading">English Language</h3>
+                        <div id="syllabus-eng-list" class="space-y-4 text-gray-300">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Reasoning -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-reasoning-title" class="subject-category-heading">Reasoning Ability</h3>
+                        <div id="syllabus-reasoning-list" class="space-y-4 text-gray-300">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Quant -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-quant-title" class="subject-category-heading">Quantitative Aptitude</h3>
+                        <div id="syllabus-quant-list" class="space-y-4 text-gray-300">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- General Awareness -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:shadow-xl transition-shadow duration-300 md:col-span-2">
+                        <h3 id="syllabus-gs-title" class="subject-category-heading">General Awareness</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+                            <div id="syllabus-gs-list" class="space-y-4 text-gray-300">
+                                <!-- Content via JS -->
+                            </div>
+                             <div id="syllabus-ca-list" class="space-y-4 text-gray-300">
+                                <!-- Content via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-800/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Building a Strong Foundation for Your Future.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="phase1MainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="phase1-modal-title" class="text-2xl font-bold text-white mb-4">Written Exam Details</h3>
+            <p id="phase1-modal-p1" class="text-gray-300">The written exam is a common objective-type test for all apprenticeship positions. It consists of 150 questions across four sections to be completed in 120 minutes. There is a negative marking of 0.25 for each wrong answer.</p>
+        </div>
+    </div>
+
+    <div id="phase2MainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="phase2-modal-title" class="text-2xl font-bold text-white mb-4">Document Verification & Interview</h3>
+            <p id="phase2-modal-p1" class="text-gray-300">Candidates who qualify in the written exam are called for document verification and a basic interview. The interview assesses your communication skills, enthusiasm for the program, and general suitability.</p>
+        </div>
+    </div>
+
+    <!-- Career Opportunities Modal -->
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Career Opportunities Post-Apprenticeship</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+    
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let examChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'apprenticeship': { 
+                        name: 'Apprenticeship / Training', 
+                        icon: '🎓',
+                        description: 'This program provides practical, on-the-job training in a government work environment. It is ideal for individuals who want to gain valuable experience and improve their skills, making them more competitive for future employment opportunities.',
+                        cta: 'Learn more'
+                    },
+                },
+                'hi': {
+                    'apprenticeship': { 
+                        name: 'शिक्षुता / प्रशिक्षण', 
+                        icon: '🎓',
+                        description: 'यह कार्यक्रम एक सरकारी कार्य वातावरण में व्यावहारिक, ऑन-द-जॉब प्रशिक्षण प्रदान करता है। यह उन व्यक्तियों के लिए आदर्श है जो मूल्यवान अनुभव प्राप्त करना और अपने कौशल में सुधार करना चाहते हैं, जिससे वे भविष्य के रोजगार के अवसरों के लिए अधिक प्रतिस्पर्धी बन सकें।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Apprenticeship Program", desc: "Gain valuable experience in a government work environment and learn the practical skills needed for a professional career." },
+                        { rank: "Competitive Advantage", desc: "The training and experience gained will give you a significant advantage in future ESIC recruitment drives and other government exams." },
+                        { rank: "Skill Development", desc: "You will develop professional skills in your chosen stream, whether administrative or technical, making you a more attractive candidate to employers." },
+                        { rank: "Future Opportunities", desc: "While not a guarantee of permanent employment, the program opens doors to various job opportunities within and outside the government sector." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "शिक्षुता कार्यक्रम", desc: "एक सरकारी कार्य वातावरण में मूल्यवान अनुभव प्राप्त करें और एक पेशेवर करियर के लिए आवश्यक व्यावहारिक कौशल सीखें।" },
+                        { rank: "प्रतिस्पर्धी लाभ", desc: "प्राप्त प्रशिक्षण और अनुभव आपको भविष्य की ईएसआईसी भर्ती अभियानों और अन्य सरकारी परीक्षाओं में एक महत्वपूर्ण लाभ देगा।" },
+                        { rank: "कौशल विकास", desc: "आप अपनी चुनी हुई धारा में पेशेवर कौशल विकसित करेंगे, चाहे वह प्रशासनिक हो या तकनीकी, जिससे आप नियोक्ताओं के लिए एक अधिक आकर्षक उम्मीदवार बन जाएंगे।" },
+                        { rank: "भविष्य के अवसर", desc: "हालांकि स्थायी रोजगार की गारंटी नहीं है, यह कार्यक्रम सरकारी और गैर-सरकारी क्षेत्रों के भीतर विभिन्न नौकरी के अवसरों के द्वार खोलता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🛠️ ESIC Apprenticeship Guide 🛠️',
+                    'header-subtitle': 'Build Your Skills for a Government Career',
+                    'sec1-title': '1. About ESIC Apprenticeship 📝',
+                    'sec1-p1': 'The Employees\' State Insurance Corporation (ESIC) offers a valuable apprenticeship program for young individuals to gain hands-on experience in a government environment. This program is a stepping stone to a permanent career.',
+                    'sec2-title': '2. Selection Process: Key Phases 🎯',
+                    'sec2-p1': 'The selection process for the apprenticeship program is designed to be straightforward, focusing on merit and practical skills. It involves a written test and a document verification stage.',
+                    'sec2-step1-title': 'Phase 1:', 'sec2-step1-name': 'Written Exam', 'sec2-step1-desc': 'Computer-based Aptitude Test',
+                    'sec2-step2-title': 'Phase 2:', 'sec2-step2-name': 'DV/Interview', 'sec2-step2-desc': 'Document Verification & Interview',
+                    'sec3-title': '3. Eligibility Criteria ✅',
+                    'sec3-p1': 'To be eligible for the ESIC Apprenticeship, you must meet the following fundamental criteria:',
+                    'sec3-edu-title': 'Education:', 'sec3-edu-desc': 'Candidates must have completed **ITI** in the relevant trade or hold a **Degree/Diploma** in the specified field.',
+                    'sec3-age-title': 'Age:', 'sec3-age-desc': 'Typically **18 to 25 years**. Age relaxation is applicable for reserved categories as per government rules.',
+                    'sec3-nat-title': 'Nationality:', 'sec3-nat-desc': 'Must be a citizen of India.',
+                    'sec3-details-title': 'Program Details 📊',
+                    'sec3-details-p1': 'The apprenticeship is for a fixed duration, usually one year, providing a monthly stipend as per government norms.',
+                    'sec3-agerelax-list': '<li><strong>Duration:</strong> One year (12 months).</li><li><strong>Stipend:</strong> A monthly stipend is provided to apprentices.</li><li><strong>Placement:</strong> There is no guarantee of permanent employment after the apprenticeship.</li>',
+                    'sec4-title': '4. Written Exam Syllabus: Aptitude Test 📚',
+                    'sec4-p1': 'The written exam is a common online test. It assesses general aptitude and is a key stage for shortlisting candidates. The exam is objective type with negative marking.',
+                    'gs1-title': 'Reasoning Ability 🧠', 'gs1-sub1': 'Logical Reasoning', 'gs1-sub2': 'Series & Analogies', 'gs1-sub3': 'Coding-Decoding',
+                    'gs2-title': 'Quantitative Aptitude 📈', 'gs2-sub1': 'Basic Arithmetic', 'gs2-sub2': 'Percentages, Averages', 'gs2-sub3': 'Profit & Loss',
+                    'gs3-title': 'English Language 💬', 'gs3-sub1': 'Grammar & Vocabulary', 'gs3-sub2': 'Sentence Correction', 'gs3-sub3': 'Comprehension',
+                    'gs4-title': 'General Awareness 🌍', 'gs4-sub1': 'Indian History & Polity', 'gs4-sub2': 'Current Affairs', 'gs4-sub3': 'General Science',
+                    'sec5-title': '5. Training Structure 📋',
+                    'sec5-p1': 'The apprenticeship program offers a balanced approach of practical on-the-job training and theoretical knowledge to equip you with the necessary skills for a successful career.',
+                    'sec5-practical-title': 'Practical Training', 'sec5-practical-p1': 'Apprentices are assigned to various departments to gain hands-on experience in administrative, technical, or clerical roles, based on their qualification.', 'sec5-practical-list': '<li>On-the-job training in a real work environment.</li><li>Mentorship from experienced ESIC staff.</li><li>Learning to use official software and procedures.</li>',
+                    'sec5-theory-title': 'Theoretical Knowledge', 'sec5-theory-p1': 'Formal training sessions are conducted to impart knowledge about ESIC\'s structure, policies, and the laws governing social security.', 'sec5-theory-list': '<li>Understanding the ESI Act and its benefits.</li><li>Internal procedures and protocols.</li><li>Computer literacy and general knowledge.</li>',
+                    'sec6-title': '6. Apprenticeship Streams 🌟',
+                    'sec6-p1': 'ESIC offers apprenticeships in various streams to cater to different educational backgrounds. The most common streams are Office Assistant and Technical.',
+                    'sec6-office-title': 'Office Assistant', 'sec6-office-list': '<li>For general graduates and diploma holders.</li><li>Focus on clerical and administrative work.</li><li>Learning data entry, file management, etc.</li>',
+                    'sec6-tech-title': 'Technical / Trade', 'sec6-tech-list': '<li>For ITI and Diploma holders in specific trades.</li><li>Practical work in maintenance and technical support.</li><li>Assisting with IT and infrastructure tasks.</li>',
+                    'sec6-imp-title': '💡 Note:', 'sec6-imp-p1': 'The availability of a specific stream depends on the needs of the regional office and the official notification.',
+                    'sec7-title': '7. Exam Weightage & Strategy 📊',
+                    'sec7-p1': 'The written exam is the first crucial step. Understanding the weightage of each section is key to a smart preparation strategy.',
+                    'sec7-breakdown-title': 'Written Exam Breakdown:',
+                    'sec7-breakdown-list': '<li><span class="text-2xl text-[#58a6ff] mr-3">🧠</span><div><strong class="text-white">Reasoning Ability:</strong> 30 Questions. Focus on basic logic and patterns.</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">🔢</span><div><strong class="text-white">Quantitative Aptitude:</strong> 30 Questions. Practice basic arithmetic and data interpretation.</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">💬</span><div><strong class="text-white">English Language:</strong> 30 Questions. Focus on fundamental grammar and vocabulary.</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">🌍</span><div><strong class="text-white">General Awareness:</strong> 60 Questions. Covers History, Geography, and Current Affairs.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'Success in the ESIC apprenticeship exam requires a structured and consistent approach. Proper planning and dedicated practice are the keys to cracking the exam.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Understand the Syllabus & Pattern', 'sec8-step1-desc': 'Familiarize yourself with the written exam and interview requirements. This is your roadmap to success.',
+                    'sec8-step2-title': 'Focus on Fundamentals', 'sec8-step2-desc': 'Master basic concepts in Reasoning, Maths, and English. Don\'t waste time on overly complex topics.',
+                    'sec8-step3-title': 'Maintain General Awareness', 'sec8-step3-desc': 'The GS section is high-scoring. Stay updated on current events, especially related to the government and social schemes.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Daily Reading:</strong> Read a newspaper daily to improve English and stay updated on current affairs.</li><li><strong>Mock Tests:</strong> Regularly take mock tests to improve your speed and time management.</li><li><strong>Previous Year Papers:</strong> Solve previous year papers to understand the exam pattern and difficulty level.</li><li><strong>Interview Prep:</strong> Prepare for a basic interview about your background and technical skills.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'The ESIC apprenticeship recruitment is a periodic process. Always refer to the official ESIC website for the latest updates and notifications regarding exact dates and timelines.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': 'The official notification is released with details on vacancies, eligibility, and important dates.',
+                    'sec9-step2-title': 'Application Period', 'sec9-step2-desc': 'Candidates can apply online through the official ESIC portal within the specified dates.',
+                    'sec9-step3-title': 'Written Exam & Interview', 'sec9-step3-desc': 'The written exam is conducted, followed by an interview/document verification for successful candidates.',
+                    'sec9-step4-title': 'Final Merit List & Joining', 'sec9-step4-desc': 'A merit list is published, and selected candidates receive joining instructions for their apprenticeship.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Being aware of these common pitfalls can significantly improve your chances of success and help you avoid unnecessary stress during the process.',
+                    'sec10-mistake1-title': 'Ignoring Basic Concepts:', 'sec10-mistake1-desc': 'Focusing on advanced topics and neglecting the fundamentals, which form the core of the exam.',
+                    'sec10-mistake2-title': 'Lack of Time Management:', 'sec10-mistake2-desc': 'Spending too much time on a single question in the exam can lead to missing out on easier questions later.',
+                    'sec10-mistake3-title': 'Neglecting General Awareness:', 'sec10-mistake3-desc': 'The GS section is high-scoring. Not staying updated on current affairs is a common mistake.',
+                    'sec10-mistake4-title': 'Not Reading Official Notification:', 'sec10-mistake4-desc': 'Missing out on crucial details like eligibility, vacancies, and exam pattern changes.',
+                    'sec11-title': '11. Coaching & Resources 🏫',
+                    'sec11-p1': 'While self-study is effective, coaching can provide structured guidance and discipline. Here are some options to consider.',
+                    'sec11-online-title': '💻 Online Platforms', 'sec11-online-list': '<li>**Test Series:** Subscribing to online test series is crucial for mock tests and performance analysis.</li><li>**Video Lectures:** Learn from experienced instructors through video tutorials and live classes.</li><li>**Doubt-solving Sessions:** Platforms offer dedicated sessions for clearing doubts.</li>',
+                    'sec11-offline-title': '🏢 Offline Coaching Institutes', 'sec11-offline-p1': 'Major cities have specialized coaching centers for government exams.', 'sec11-offline-list': '<li>**Classroom Programs:** Traditional classroom teaching with in-person interaction.</li><li>**Study Material:** Get comprehensive printed study materials and notes.</li><li>**Peer Group:** Study with a peer group to stay motivated and engage in discussions.</li>',
+                    'sec12-title': '12. Career Growth & Opportunities 🚀',
+                    'sec12-p1': 'An ESIC apprenticeship offers valuable experience that can be a great foundation for a future career in government service. Although not a guarantee, it provides a strong advantage in future recruitment drives.',
+                    'sec12-career-btn': 'View Career Opportunities',
+                    'sec13-title': '13. Recommended Study Material 📚',
+                    'sec13-p1': 'A structured approach to preparation starts with the right study materials. Here are some recommended resources for each subject.',
+                    'syllabus-eng-title': 'English Language',
+                    'syllabus-eng-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">Objective General English by SP Bakshi</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Word Power Made Easy by Norman Lewis</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-reasoning-title': 'Reasoning Ability',
+                    'syllabus-reasoning-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">Verbal & Non-Verbal Reasoning by R.S. Aggarwal</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">A Modern Approach to Logical Reasoning by R.S. Aggarwal</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-quant-title': 'Quantitative Aptitude',
+                    'syllabus-quant-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">Quantitative Aptitude by R.S. Aggarwal</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Data Interpretation by Arun Sharma</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-gs-title': 'General Awareness',
+                    'syllabus-gs-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Lucent\'s General Knowledge</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🗞️</span><div class="flex-grow">Daily Newspaper Reading</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Basic Computer Awareness books</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ca-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">Monthly Current Affairs Magazine</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💵</span><div class="flex-grow">Economic Survey & Union Budget</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Building a Strong Foundation for Your Future.',
+                    'examChartData': {
+                        labels: ['G.A.', 'Reasoning', 'Quant', 'English'],
+                        data: [60, 30, 30, 30]
+                    }
+                },
+                'hi': {
+                    'header-title': '🛠️ ईएसआईसी शिक्षुता गाइड 🛠️',
+                    'header-subtitle': 'सरकारी करियर के लिए अपने कौशल का निर्माण करें',
+                    'sec1-title': '1. ईएसआईसी शिक्षुता के बारे में 📝',
+                    'sec1-p1': 'कर्मचारी राज्य बीमा निगम (ईएसआईसी) युवाओं को सरकारी वातावरण में व्यावहारिक अनुभव प्राप्त करने के लिए एक मूल्यवान शिक्षुता कार्यक्रम प्रदान करता है। यह कार्यक्रम एक स्थायी करियर के लिए एक सीढ़ी है।',
+                    'sec2-title': '2. चयन प्रक्रिया: प्रमुख चरण 🎯',
+                    'sec2-p1': 'शिक्षुता कार्यक्रम के लिए चयन प्रक्रिया सीधी है, जो योग्यता और व्यावहारिक कौशल पर केंद्रित है। इसमें एक लिखित परीक्षा और एक दस्तावेज़ सत्यापन चरण शामिल है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'लिखित परीक्षा', 'sec2-step1-desc': 'कंप्यूटर-आधारित योग्यता परीक्षण',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'दस्तावेज़ सत्यापन/साक्षात्कार', 'sec2-step2-desc': 'दस्तावेज़ सत्यापन और साक्षात्कार',
+                    'sec3-title': '3. पात्रता मानदंड ✅',
+                    'sec3-p1': 'ईएसआईसी शिक्षुता के लिए पात्र होने के लिए, आपको निम्नलिखित मूलभूत मानदंडों को पूरा करना होगा:',
+                    'sec3-edu-title': 'शिक्षा:', 'sec3-edu-desc': 'उम्मीदवारों को संबंधित ट्रेड में **आईटीआई** या निर्दिष्ट क्षेत्र में **डिग्री/डिप्लोमा** पूरा करना होगा।',
+                    'sec3-age-title': 'आयु:', 'sec3-age-desc': 'आमतौर पर **18 से 25 वर्ष**। सरकारी नियमों के अनुसार आरक्षित श्रेणियों के लिए आयु में छूट लागू है।',
+                    'sec3-nat-title': 'राष्ट्रीयता:', 'sec3-nat-desc': 'भारत का नागरिक होना चाहिए।',
+                    'sec3-details-title': 'कार्यक्रम का विवरण 📊',
+                    'sec3-details-p1': 'शिक्षुता एक निश्चित अवधि के लिए होती है, आमतौर पर एक वर्ष, जो सरकारी मानदंडों के अनुसार मासिक वजीफा प्रदान करती है।',
+                    'sec3-agerelax-list': '<li><strong>अवधि:</strong> एक वर्ष (12 महीने)।</li><li><strong>वजीफा:</strong> प्रशिक्षुओं को मासिक वजीफा प्रदान किया जाता है।</li><li><strong>प्लेसमेंट:</strong> शिक्षुता के बाद स्थायी रोजगार की कोई गारंटी नहीं है।</li>',
+                    'sec4-title': '4. लिखित परीक्षा पाठ्यक्रम: योग्यता परीक्षण 📚',
+                    'sec4-p1': 'लिखित परीक्षा सभी शिक्षुता पदों के लिए एक सामान्य ऑनलाइन परीक्षा है। यह सामान्य योग्यता का आकलन करती है और उम्मीदवारों को शॉर्टलिस्ट करने के लिए एक महत्वपूर्ण चरण है। परीक्षा नकारात्मक अंकन के साथ वस्तुनिष्ठ प्रकार की होती है।',
+                    'gs1-title': 'तर्क क्षमता 🧠', 'gs1-sub1': 'तार्किक तर्क', 'gs1-sub2': 'श्रृंखला और सादृश्य', 'gs1-sub3': 'कोडिंग-डिकोडिंग',
+                    'gs2-title': 'मात्रात्मक योग्यता 📈', 'gs2-sub1': 'बुनियादी अंकगणित', 'gs2-sub2': 'प्रतिशत, औसत', 'gs2-sub3': 'लाभ और हानि',
+                    'gs3-title': 'अंग्रेजी भाषा 💬', 'gs3-sub1': 'व्याकरण और शब्दावली', 'gs3-sub2': 'वाक्य सुधार', 'gs3-sub3': 'बोध',
+                    'gs4-title': 'सामान्य जागरूकता 🌍', 'gs4-sub1': 'भारतीय इतिहास और राजनीति', 'gs4-sub2': 'समसामयिकी', 'gs4-sub3': 'सामान्य विज्ञान',
+                    'sec5-title': '5. प्रशिक्षण संरचना 📋',
+                    'sec5-p1': 'शिक्षुता कार्यक्रम आपको एक सफल करियर के लिए आवश्यक कौशल से लैस करने के लिए व्यावहारिक ऑन-द-जॉब प्रशिक्षण और सैद्धांतिक ज्ञान का एक संतुलित दृष्टिकोण प्रदान करता है।',
+                    'sec5-practical-title': 'व्यावहारिक प्रशिक्षण', 'sec5-practical-p1': 'प्रशिक्षुओं को उनकी योग्यता के आधार पर प्रशासनिक, तकनीकी, या लिपिकीय भूमिकाओं में व्यावहारिक अनुभव प्राप्त करने के लिए विभिन्न विभागों को सौंपा जाता है।', 'sec5-practical-list': '<li>एक वास्तविक कार्य वातावरण में ऑन-द-जॉब प्रशिक्षण।</li><li>अनुभवी ईएसआईसी कर्मचारियों से परामर्श।</li><li>आधिकारिक सॉफ्टवेयर और प्रक्रियाओं का उपयोग करना सीखना।</li>',
+                    'sec5-theory-title': 'सैद्धांतिक ज्ञान', 'sec5-theory-p1': 'ईएसआईसी की संरचना, नीतियों और सामाजिक सुरक्षा को नियंत्रित करने वाले कानूनों के बारे में ज्ञान प्रदान करने के लिए औपचारिक प्रशिक्षण सत्र आयोजित किए जाते हैं।', 'sec5-theory-list': '<li>ईएसआई अधिनियम और इसके लाभों को समझना।</li><li>आंतरिक प्रक्रियाएं और प्रोटोकॉल।</li><li>कंप्यूटर साक्षरता और सामान्य ज्ञान।</li>',
+                    'sec6-title': '6. शिक्षुता धाराएँ 🌟',
+                    'sec6-p1': 'ईएसआईसी विभिन्न शैक्षिक पृष्ठभूमि को पूरा करने के लिए विभिन्न धाराओं में शिक्षुता प्रदान करता है। सबसे आम धाराएं कार्यालय सहायक और तकनीकी हैं।',
+                    'sec6-office-title': 'कार्यालय सहायक', 'sec6-office-list': '<li>सामान्य स्नातकों और डिप्लोमा धारकों के लिए।</li><li>लिपिकीय और प्रशासनिक कार्य पर ध्यान दें।</li><li>डेटा प्रविष्टि, फ़ाइल प्रबंधन आदि सीखना।</li>',
+                    'sec6-tech-title': 'तकनीकी / व्यापार', 'sec6-tech-list': '<li>विशिष्ट ट्रेडों में आईटीआई और डिप्लोमा धारकों के लिए।</li><li>रखरखाव और तकनीकी सहायता में व्यावहारिक कार्य।</li><li>आईटी और बुनियादी ढांचे के कार्यों में सहायता करना।</li>',
+                    'sec6-imp-title': '💡 नोट:', 'sec6-imp-p1': 'किसी विशिष्ट धारा की उपलब्धता क्षेत्रीय कार्यालय की जरूरतों और आधिकारिक अधिसूचना पर निर्भर करती है।',
+                    'sec7-title': '7. परीक्षा भार और रणनीति 📊',
+                    'sec7-p1': 'लिखित परीक्षा पहला महत्वपूर्ण कदम है। एक स्मार्ट तैयारी रणनीति के लिए प्रत्येक अनुभाग के भार को समझना महत्वपूर्ण है।',
+                    'sec7-breakdown-title': 'लिखित परीक्षा का विवरण:',
+                    'sec7-breakdown-list': '<li><span class="text-2xl text-[#58a6ff] mr-3">🧠</span><div><strong class="text-white">तर्क क्षमता:</strong> 30 प्रश्न। बुनियादी तर्क और पैटर्न पर ध्यान दें।</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">🔢</span><div><strong class="text-white">मात्रात्मक योग्यता:</strong> 30 प्रश्न। बुनियादी अंकगणित और डेटा इंटरप्रिटेशन का अभ्यास करें।</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">💬</span><div><strong class="text-white">अंग्रेजी भाषा:</strong> 30 प्रश्न। बुनियादी व्याकरण और शब्दावली पर ध्यान दें।</div></li><li><span class="text-2xl text-[#58a6ff] mr-3">🌍</span><div><strong class="text-white">सामान्य जागरूकता:</strong> 60 प्रश्न। इतिहास, भूगोल और समसामयिकी को शामिल करता है।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'ईएसआईसी शिक्षुता परीक्षा में सफलता के लिए एक संरचित और निरंतर दृष्टिकोण की आवश्यकता होती है। उचित योजना और समर्पित अभ्यास परीक्षा को क्रैक करने की कुंजी हैं।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'पाठ्यक्रम और पैटर्न को जानें', 'sec8-step1-desc': 'लिखित परीक्षा और साक्षात्कार आवश्यकताओं से खुद को परिचित करें। यह सफलता के लिए आपका रोडमैप है।',
+                    'sec8-step2-title': 'मूलभूत बातों पर ध्यान दें', 'sec8-step2-desc': 'तर्क, गणित और अंग्रेजी में बुनियादी अवधारणाओं में महारत हासिल करें। बहुत जटिल विषयों पर समय बर्बाद न करें।',
+                    'sec8-step3-title': 'सामान्य जागरूकता बनाए रखें', 'sec8-step3-desc': 'जीएस अनुभाग उच्च स्कोरिंग है। वर्तमान घटनाओं पर अपडेट रहें, खासकर सरकार और सामाजिक योजनाओं से संबंधित।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>दैनिक समाचार:</strong> अंग्रेजी में सुधार और समसामयिकी पर अपडेट रहने के लिए प्रतिदिन एक समाचार पत्र पढ़ें।</li><li><strong>मॉक टेस्ट:</strong> अपनी गति और समय प्रबंधन में सुधार के लिए नियमित रूप से मॉक टेस्ट दें।</li><li><strong>पिछले वर्ष के पेपर:</strong> परीक्षा पैटर्न और कठिनाई स्तर को समझने के लिए पिछले वर्ष के पेपर हल करें।</li><li><strong>साक्षात्कार की तैयारी:</strong> अपनी पृष्ठभूमि और तकनीकी कौशल के बारे में एक बुनियादी साक्षात्कार के लिए तैयारी करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'ईएसआईसी शिक्षुता भर्ती एक आवधिक प्रक्रिया है। सटीक तिथियों और समयसीमाओं के संबंध में नवीनतम अपडेट और अधिसूचनाओं के लिए हमेशा ईएसआईसी की आधिकारिक वेबसाइट देखें।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': 'रिक्ति, पात्रता और महत्वपूर्ण तिथियों के विवरण के साथ आधिकारिक अधिसूचना जारी की जाती है।',
+                    'sec9-step2-title': 'आवेदन अवधि', 'sec9-step2-desc': 'उम्मीदवार निर्दिष्ट तिथियों के भीतर आधिकारिक ईएसआईसी पोर्टल के माध्यम से ऑनलाइन आवेदन कर सकते हैं।',
+                    'sec9-step3-title': 'लिखित परीक्षा और साक्षात्कार', 'sec9-step3-desc': 'लिखित परीक्षा आयोजित की जाती है, जिसके बाद सफल उम्मीदवारों के लिए एक साक्षात्कार/दस्तावेज़ सत्यापन होता है।',
+                    'sec9-step4-title': 'अंतिम मेरिट सूची और ज्वॉइनिंग', 'sec9-step4-desc': 'एक मेरिट सूची प्रकाशित की जाती है, और चयनित उम्मीदवारों को उनकी शिक्षुता के लिए ज्वॉइनिंग निर्देश प्राप्त होते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'इन सामान्य नुकसानों से अवगत होने से आपकी सफलता की संभावनाओं में काफी सुधार हो सकता है और आपको प्रक्रिया के दौरान अनावश्यक तनाव से बचने में मदद मिल सकती है।',
+                    'sec10-mistake1-title': 'बुनियादी अवधारणाओं को अनदेखा करना:', 'sec10-mistake1-desc': 'उन्नत विषयों पर ध्यान केंद्रित करना और मूल सिद्धांतों की उपेक्षा करना, जो परीक्षा का मूल हैं।',
+                    'sec10-mistake2-title': 'समय प्रबंधन की कमी:', 'sec10-mistake2-desc': 'परीक्षा में एक ही प्रश्न पर बहुत अधिक समय बिताने से बाद में आसान प्रश्नों को छोड़ने का कारण बन सकता है।',
+                    'sec10-mistake3-title': 'सामान्य जागरूकता की उपेक्षा:', 'sec10-mistake3-desc': 'जीएस अनुभाग उच्च स्कोरिंग है। समसामयिकी पर अपडेट न रहना एक आम गलती है।',
+                    'sec10-mistake4-title': 'आधिकारिक अधिसूचना नहीं पढ़ना:', 'sec10-mistake4-desc': 'पात्रता, रिक्तियों और परीक्षा पैटर्न में बदलाव जैसे महत्वपूर्ण विवरणों से चूक जाना।',
+                    'sec11-title': '11. कोचिंग और संसाधन 🏫',
+                    'sec11-p1': 'हालांकि स्व-अध्ययन प्रभावी है, कोचिंग संरचित मार्गदर्शन और अनुशासन प्रदान कर सकती है। यहां विचार करने के लिए कुछ विकल्प दिए गए हैं।',
+                    'sec11-online-title': '💻 ऑनलाइन प्लेटफॉर्म', 'sec11-online-list': '<li>**टेस्ट सीरीज़:** मॉक टेस्ट और प्रदर्शन विश्लेषण के लिए ऑनलाइन टेस्ट सीरीज़ की सदस्यता लेना महत्वपूर्ण है।</li><li>**वीडियो व्याख्यान:** वीडियो ट्यूटोरियल और लाइव कक्षाओं के माध्यम से अनुभवी प्रशिक्षकों से सीखें।</li><li>**संदेह-समाधान सत्र:** प्लेटफॉर्म संदेहों को दूर करने के लिए समर्पित सत्र प्रदान करते हैं।</li>',
+                    'sec11-offline-title': '🏢 ऑफलाइन कोचिंग संस्थान', 'sec11-offline-p1': 'प्रमुख शहरों में सरकारी परीक्षाओं के लिए विशेष कोचिंग सेंटर हैं।', 'sec11-offline-list': '<li>**कक्षा कार्यक्रम:** पारंपरिक कक्षा शिक्षण के साथ व्यक्तिगत बातचीत।</li><li>**अध्ययन सामग्री:** व्यापक मुद्रित अध्ययन सामग्री और नोट्स प्राप्त करें।</li><li>**सहकर्मी समूह:** प्रेरित रहने और चर्चाओं में संलग्न होने के लिए एक सहकर्मी समूह के साथ अध्ययन करें।</li>',
+                    'sec12-title': '12. कैरियर विकास और अवसर 🚀',
+                    'sec12-p1': 'एक ईएसआईसी शिक्षुता मूल्यवान अनुभव प्रदान करती है जो सरकारी सेवा में भविष्य के करियर के लिए एक महान नींव हो सकती है। हालांकि स्थायी रोजगार की गारंटी नहीं है, यह भविष्य की भर्ती अभियानों में एक मजबूत लाभ प्रदान करता है।',
+                    'sec12-career-btn': 'कैरियर के अवसर देखें',
+                    'sec13-title': '13. अनुशंसित अध्ययन सामग्री 📚',
+                    'sec13-p1': 'तैयारी के लिए एक संरचित दृष्टिकोण सही अध्ययन सामग्री से शुरू होता है। यहां प्रत्येक विषय के लिए कुछ अनुशंसित संसाधन दिए गए हैं।',
+                    'syllabus-eng-title': 'अंग्रेजी भाषा',
+                    'syllabus-eng-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">एस पी बख्शी द्वारा ऑब्जेक्टिव जनरल इंग्लिश</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">नॉर्मन लुईस द्वारा वर्ड पावर मेड ईज़ी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-reasoning-title': 'तर्क क्षमता',
+                    'syllabus-reasoning-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">आर.एस. अग्रवाल द्वारा मौखिक और गैर-मौखिक तर्क</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">आर.एस. अग्रवाल द्वारा तार्किक तर्क के लिए एक आधुनिक दृष्टिकोण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-quant-title': 'मात्रात्मक योग्यता',
+                    'syllabus-quant-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔢</span><div class="flex-grow">आर.एस. अग्रवाल द्वारा मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">डेटा इंटरप्रिटेशन</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-gs-title': 'सामान्य जागरूकता',
+                    'syllabus-gs-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">लुसेंट की सामान्य ज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🗞️</span><div class="flex-grow">दैनिक समाचार पत्र पढ़ना</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">बुनियादी कंप्यूटर जागरूकता पुस्तकें</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ca-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">मासिक समसामयिकी पत्रिका</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💵</span><div class="flex-grow">आर्थिक सर्वेक्षण और केंद्रीय बजट</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | अपने भविष्य के लिए एक मजबूत नींव का निर्माण।',
+                    'examChartData': {
+                        labels: ['सा.जा.', 'तर्क', 'गणित', 'अंग्रेजी'],
+                        data: [60, 30, 30, 30]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-gray-800/80 rounded-xl text-center border-2 border-gray-700 hover:border-green-400 transition-all duration-300 cursor-pointer shadow-md hover:shadow-xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initExamChart() {
+                const ctx = document.getElementById('examWeightageChart').getContext('2d');
+                examChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: translations.en.examChartData.labels,
+                        datasets: [{
+                            label: 'Written Exam Weightage',
+                            data: translations.en.examChartData.data,
+                            backgroundColor: [
+                                '#238636',
+                                '#58a6ff',
+                                '#8d949c',
+                                '#4a82c4'
+                            ],
+                            borderColor: '#161b22',
+                            borderWidth: 2,
+                            hoverOffset: 15
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#c9d1d9',
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (examChartInstance) {
+                    const data = translations[currentLang].examChartData;
+                    examChartInstance.data.labels = data.labels;
+                    examChartInstance.data.datasets[0].data = data.data;
+                    examChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initExamChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
