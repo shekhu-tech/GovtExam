@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEBI Specialist Officer Recruitment Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide for the SEBI Specialist & Technical Cadre officer recruitment for IT, Finance, Risk Management, Research, and Data Science streams.">
+    <meta name="keywords" content="SEBI Specialist Officer, SEBI IT Officer, SEBI Finance, SEBI Risk Management, SEBI Data Scientist, SEBI Recruitment">
+    <meta name="author" content="SEBI Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #d1d5db; /* Gray 300 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #8b5cf6, #34d399) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(31, 41, 55, 0.8); /* Gray 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #4b5563; /* Gray 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #8b5cf6; /* Violet 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #8b5cf6; /* Violet 500 */
+            color: #8b5cf6;
+            background: #374151; /* Gray 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #8b5cf6;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+        }
+        .flowchart-arrow {
+            color: #34d399; /* Emerald 400 */
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #34d399;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(52, 211, 153, 0.1);
+        }
+        .subject-item .icon {
+            color: #34d399;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #8b5cf6;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #8b5cf6;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #8b5cf6;
+            color: #8b5cf6;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #8b5cf6;
+            color: #111827;
+            box-shadow: 0 0 15px #8b5cf6;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #34d399, #10b981);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">⚙️ SEBI Specialist Officer Guide ⚙️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-emerald-400">Your Guide to a Technical Career in Financial Regulation</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are SEBI Specialist Posts? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is a SEBI Specialist Officer? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">SEBI recruits Specialist Officers, often through lateral entry, to bring in high-level domain expertise that is critical for regulating the increasingly complex and technology-driven financial markets. Unlike generalist officers, these professionals are hired for specific, technical roles requiring proven experience and advanced qualifications in fields like IT, Cyber Security, Finance, Risk Management, and Data Science.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for Specialist Officers is typically a streamlined process focused on identifying candidates with the right experience and deep technical knowledge.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Application</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Online Application & CV</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Shortlisting</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Based on Experience & Qualification</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Technical & Personal Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for Specialist posts is demanding, emphasizing advanced education and significant professional experience.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#8b5cf6] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">The maximum age limit varies significantly based on the post and level of experience required, often ranging from **30 to 45 years**.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#8b5cf6] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Qualification & Experience:</strong> <span id="sec3-edu-desc">A **Post-Graduate degree** in the relevant discipline is usually the minimum. This must be coupled with substantial, proven post-qualification experience (typically **3-10+ years**) in the specific domain (e.g., cybersecurity, quantitative analysis, financial accounting).</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#34d399] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is typically no limit on the number of attempts for these specialist, experience-based recruitments.</li>
+                             <li>Candidates can apply whenever a suitable vacancy is advertised, provided they meet the specific age and experience criteria for that post.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Interview Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Interview Focus Areas 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The interview is the cornerstone of the selection process. It is a rigorous evaluation of a candidate's technical depth, practical experience, and regulatory mindset.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Deep Domain Knowledge</h3>
+                    </div>
+                     <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Practical Case Studies</h3>
+                    </div>
+                    <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Regulatory Awareness</h3>
+                    </div>
+                    <div class="bg-[#374151]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-violet-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Situational Judgment</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Onboarding -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Onboarding & Integration 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Experienced professionals are integrated into SEBI through a structured onboarding process that aligns their expertise with the organization's regulatory objectives.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#374151] rounded-xl border-2 border-[#8b5cf6]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Probation & Placement</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The initial period focuses on adaptation and contribution.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Appointed on probation, typically for one year.</li>
+                            <li>Placed in a department that directly corresponds to their specialization.</li>
+                            <li>Expected to start contributing to projects and policy matters quickly.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#374151] rounded-xl border-2 border-[#34d399]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Orientation</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Orientation is focused on the regulatory landscape.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Intensive orientation on securities laws, SEBI's mandate, and its various regulations.</li>
+                           <li>Workshops on departmental functions and inter-departmental coordination.</li>
+                           <li>Training on how to apply technical expertise in a regulatory context.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities of a Specialist Officer 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Specialist Officers are the subject matter experts who provide the technical backbone for SEBI's regulatory and supervisory functions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">IT / Cyber Security / Data Science</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fortifying SEBI's digital infrastructure against cyber threats.</li>
+                           <li>Developing and deploying AI/ML models for market surveillance.</li>
+                           <li>Managing and analyzing massive datasets to detect market anomalies.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Finance / Risk / Research</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Conducting forensic audits and complex financial investigations.</li>
+                           <li>Developing risk management frameworks for market intermediaries.</li>
+                           <li>Analyzing market trends and producing high-quality research reports.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Common Duties</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Providing expert opinion on policy matters.</li>
+                           <li>Representing SEBI in technical committees and working groups.</li>
+                           <li>Training other officers in their area of specialization.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a Specialist Officer 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A successful Specialist Officer combines deep technical mastery with a strong regulatory perspective and policy-making acumen.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#8b5cf6] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">Deep Domain Mastery:</strong> Not just theoretical knowledge, but extensive, hands-on experience and expertise in the specific field.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">Strategic Thinking:</strong> Ability to apply specialized knowledge to the broader goals of market regulation and development.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🗣️</span><div><strong class="text-white">Advisory & Communication Skills:</strong> Clearly communicating complex technical concepts to non-specialist decision-makers.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">Continuous Learning:</strong> A commitment to staying updated with the latest global trends and technologies in their domain.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. How to Prepare for the Interview 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Preparation for a specialist interview is about showcasing your experience and demonstrating how it can be applied in a regulatory environment.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Preparation Steps:</h3>
+                        <ol class="relative border-l-4 border-[#8b5cf6] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Structure Your Experience</h4>
+                                <p id="sec8-step1-desc" class="text-base">Prepare a portfolio of your key projects and achievements. Be ready to explain them using the STAR (Situation, Task, Action, Result) method.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Connect Your Skills to SEBI</h4>
+                                <p id="sec8-step2-desc" class="text-base">Thoroughly research SEBI's role, its various departments, and recent regulatory changes. Think about how your specific skills can help SEBI achieve its objectives.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#8b5cf6] rounded-full -left-2.5 border-4 border-[#374151]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Prepare for Case Studies</h4>
+                                <p id="sec8-step3-desc" class="text-base">Be ready for hypothetical case studies or problem statements where you'll need to apply your technical expertise to a market regulation scenario.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Read SEBI's Annual Report:</strong> Understand the organization's current priorities and challenges.</li>
+                            <li><strong>Follow Industry News:</strong> Keep up with news and developments in both your technical field and the financial markets.</li>
+                            <li><strong>Mock Interviews:</strong> Practice with senior professionals or mentors in your field to refine your answers and presentation.</li>
+                            <li><strong>Review Your Fundamentals:</strong> Brush up on the core theoretical concepts of your specialization.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Specialist recruitment is not always an annual process. It is conducted as and when a specific need for domain expertise arises within the organization.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Vacancies are advertised on the SEBI website under "Careers". Candidates should monitor the site regularly.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application & Shortlisting</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> The application window is open for a few weeks, followed by a shortlisting process that can take a month or more.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Interviews & Final Selection</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Interviews are scheduled for shortlisted candidates, and final offers are typically made shortly after.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Interview Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For experienced professionals, the interview is everything. Avoid these common missteps to make the best impression.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Failing to Link Experience to Regulation:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Talking about your experience in a purely corporate context without explaining its relevance to SEBI's regulatory role.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Lack of Humility:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Appearing arrogant or inflexible, and not showing an eagerness to learn and adapt to a public sector work culture.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Being Unaware of SEBI's Recent Work:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being familiar with recent circulars, discussion papers, or regulatory actions taken by SEBI in your area of expertise.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Poor Communication of Complex Ideas:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Using excessive jargon and failing to explain your technical knowledge in a clear, concise manner to the panel.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Apply -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Apply 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The application process for specialist posts is entirely online and requires careful preparation of your professional profile.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Application Portal</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Monitor the "Careers" section on the official SEBI website for notifications.</li>
+                           <li>Read the detailed advertisement thoroughly to ensure you meet all specific experience and qualification criteria.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">Required Documents</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Prepare a detailed CV and gather all relevant documents.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>A comprehensive CV highlighting your experience, projects, and achievements.</li>
+                            <li>Scanned copies of all educational and professional qualifications.</li>
+                            <li>Detailed experience certificates from previous employers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Specialist officers at SEBI have a rewarding career path, often becoming the go-to experts in their field and influencing key regulatory policies.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0a192f]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Key Interview Topics 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Interview preparation should focus on the practical application of your knowledge within the context of capital market regulation.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#0a192f] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Technical & Domain-Specific</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#0a192f] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Regulatory & Profile-Based</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-violet-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Safeguarding India's Capital Markets with Expertise.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Application</h3>
+            <p id="prelims-modal-p1">The process begins with the submission of a detailed online application. Candidates must provide comprehensive details of their educational qualifications, post-qualification professional experience, and key projects handled, which are crucial for the shortlisting stage.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Shortlisting</h3>
+            <p id="mains-modal-p1">Applications are rigorously screened by SEBI. Candidates are shortlisted for the interview based on the relevance and extent of their experience, their educational background, and other criteria mentioned in the recruitment notification. Meeting the minimum eligibility does not guarantee an interview call.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final stage is a comprehensive personal interview. The panel, including domain experts, will assess the candidate's technical expertise, practical knowledge, problem-solving skills, and suitability for a regulatory role. The final selection is based solely on the performance in this interview.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">SEBI Specialist Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'it': { 
+                        name: 'IT & Cyber Security', 
+                        icon: '💻',
+                        description: 'Responsible for managing SEBI\'s critical IT infrastructure, developing surveillance technology, and defending against sophisticated cyber threats to protect market data.',
+                        cta: 'Learn More'
+                    },
+                    'finance': { 
+                        name: 'Finance & Accounts', 
+                        icon: '💰',
+                        description: 'Handles complex financial reporting, forensic accounting, and analysis of listed companies and market intermediaries to ensure financial integrity and compliance.',
+                        cta: 'Learn More'
+                    },
+                    'risk': { 
+                        name: 'Risk Management', 
+                        icon: '⚠️',
+                        description: 'Develops and implements risk management frameworks for the market ecosystem, including stock exchanges, clearing corporations, and mutual funds, to mitigate systemic risks.',
+                        cta: 'Learn More'
+                    },
+                    'research': { 
+                        name: 'Market Research Analyst', 
+                        icon: '🔬',
+                        description: 'Conducts quantitative and qualitative research on market behavior, new financial products, and global trends to provide insights for evidence-based policymaking.',
+                        cta: 'Learn More'
+                    },
+                    'ds': { 
+                        name: 'Data Scientist / AI Specialist', 
+                        icon: '🤖',
+                        description: 'Leverages advanced data analytics, machine learning, and AI to analyze vast market data, identify patterns of manipulation, and build predictive models for market surveillance.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'it': { 
+                        name: 'आईटी और साइबर सुरक्षा', 
+                        icon: '💻',
+                        description: 'सेबी के महत्वपूर्ण आईटी बुनियादी ढांचे के प्रबंधन, निगरानी प्रौद्योगिकी विकसित करने और बाजार डेटा की सुरक्षा के लिए परिष्कृत साइबर खतरों से बचाव के लिए जिम्मेदार।',
+                        cta: 'और जानें'
+                    },
+                    'finance': { 
+                        name: 'वित्त और लेखा', 
+                        icon: '💰',
+                        description: 'वित्तीय अखंडता और अनुपालन सुनिश्चित करने के लिए सूचीबद्ध कंपनियों और बाजार मध्यस्थों के जटिल वित्तीय रिपोर्टिंग, फोरेंसिक लेखांकन और विश्लेषण को संभालता है।',
+                        cta: 'और जानें'
+                    },
+                    'risk': { 
+                        name: 'जोखिम प्रबंधन', 
+                        icon: '⚠️',
+                        description: 'प्रणालीगत जोखिमों को कम करने के लिए स्टॉक एक्सचेंजों, क्लियरिंग कॉर्पोरेशनों और म्यूचुअल फंड सहित बाजार पारिस्थितिकी तंत्र के लिए जोखिम प्रबंधन ढांचे का विकास और कार्यान्वयन करता है।',
+                        cta: 'और जानें'
+                    },
+                    'research': { 
+                        name: 'बाजार अनुसंधान विश्लेषक', 
+                        icon: '🔬',
+                        description: 'साक्ष्य-आधारित नीति निर्माण के लिए अंतर्दृष्टि प्रदान करने के लिए बाजार व्यवहार, नए वित्तीय उत्पादों और वैश्विक रुझानों पर मात्रात्मक और गुणात्मक अनुसंधान करता है।',
+                        cta: 'और जानें'
+                    },
+                    'ds': { 
+                        name: 'डेटा वैज्ञानिक / एआई विशेषज्ञ', 
+                        icon: '🤖',
+                        description: 'विशाल बाजार डेटा का विश्लेषण करने, हेरफेर के पैटर्न की पहचान करने और बाजार की निगरानी के लिए भविष्य कहनेवाला मॉडल बनाने के लिए उन्नत डेटा एनालिटिक्स, मशीन लर्निंग और एआई का लाभ उठाता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Grade A/B/C (Based on Experience)", desc: "Entry point for specialists, with the grade determined by the level of experience and expertise." },
+                        { rank: "Deputy General Manager (Grade D)", desc: "Leading a specialized team and providing expert inputs on major regulatory decisions." },
+                        { rank: "General Manager (Grade E)", desc: "Heading a technical department (e.g., Head of IT, Chief Risk Officer) and shaping policy in that vertical." },
+                        { rank: "Chief General Manager (Grade F)", desc: "Part of the senior leadership, advising the board on technical and strategic matters." },
+                        { rank: "Executive Director", desc: "Highest level for a specialist, overseeing multiple technical departments and contributing to the overall vision of the regulator." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "ग्रेड ए/बी/सी (अनुभव के आधार पर)", desc: "विशेषज्ञों के लिए प्रवेश बिंदु, ग्रेड अनुभव और विशेषज्ञता के स्तर से निर्धारित होता है।" },
+                        { rank: "उप महाप्रबंधक (ग्रेड डी)", desc: "एक विशेष टीम का नेतृत्व करना और प्रमुख नियामक निर्णयों पर विशेषज्ञ इनपुट प्रदान करना।" },
+                        { rank: "महाप्रबंधक (ग्रेड ई)", desc: "एक तकनीकी विभाग का नेतृत्व करना (जैसे, आईटी प्रमुख, मुख्य जोखिम अधिकारी) और उस कार्यक्षेत्र में नीति को आकार देना।" },
+                        { rank: "मुख्य महाप्रबंधक (ग्रेड एफ)", desc: "वरिष्ठ नेतृत्व का हिस्सा, बोर्ड को तकनीकी और रणनीतिक मामलों पर सलाह देना।" },
+                        { rank: "कार्यकारी निदेशक", desc: "एक विशेषज्ञ के लिए उच्चतम स्तर, कई तकनीकी विभागों की देखरेख करना और नियामक की समग्र दृष्टि में योगदान करना।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⚙️ SEBI Specialist Officer Guide ⚙️',
+                    'header-subtitle': 'Your Guide to a Technical Career in Financial Regulation',
+                    'sec1-title': '1. What is a SEBI Specialist Officer? 💡',
+                    'sec1-p1': 'SEBI recruits Specialist Officers, often through lateral entry, to bring in high-level domain expertise that is critical for regulating the increasingly complex and technology-driven financial markets. Unlike generalist officers, these professionals are hired for specific, technical roles requiring proven experience and advanced qualifications in fields like IT, Cyber Security, Finance, Risk Management, and Data Science.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for Specialist Officers is typically a streamlined process focused on identifying candidates with the right experience and deep technical knowledge.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Application', 'sec2-step1-desc': 'Online Application & CV',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Shortlisting', 'sec2-step2-desc': 'Based on Experience & Qualification',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Technical & Personal Interview',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for Specialist posts is demanding, emphasizing advanced education and significant professional experience.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'The maximum age limit varies significantly based on the post and level of experience required, often ranging from **30 to 45 years**.',
+                    'sec3-edu-title': 'Qualification & Experience:', 'sec3-edu-desc': 'A **Post-Graduate degree** in the relevant discipline is usually the minimum. This must be coupled with substantial, proven post-qualification experience (typically **3-10+ years**) in the specific domain (e.g., cybersecurity, quantitative analysis, financial accounting).',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is typically no limit on the number of attempts for these specialist, experience-based recruitments.</li><li>Candidates can apply whenever a suitable vacancy is advertised, provided they meet the specific age and experience criteria for that post.</li>',
+                    'sec4-title': '4. Interview Focus Areas 📚',
+                    'sec4-p1': 'The interview is the cornerstone of the selection process. It is a rigorous evaluation of a candidate\'s technical depth, practical experience, and regulatory mindset.',
+                    'gs1-title': 'Deep Domain Knowledge',
+                    'gs2-title': 'Practical Case Studies',
+                    'gs3-title': 'Regulatory Awareness',
+                    'gs4-title': 'Situational Judgment',
+                    'sec5-title': '5. Onboarding & Integration 🏛️',
+                    'sec5-p1': 'Experienced professionals are integrated into SEBI through a structured onboarding process that aligns their expertise with the organization\'s regulatory objectives.',
+                    'sec5-hindi-title': '1. Probation & Placement', 'sec5-hindi-p1': 'The initial period focuses on adaptation and contribution.', 'sec5-hindi-list': '<li>Appointed on probation, typically for one year.</li><li>Placed in a department that directly corresponds to their specialization.</li><li>Expected to start contributing to projects and policy matters quickly.</li>',
+                    'sec5-essay-title': '2. Orientation', 'sec5-essay-p1': 'Orientation is focused on the regulatory landscape.', 'sec5-essay-list': '<li>Intensive orientation on securities laws, SEBI\'s mandate, and its various regulations.</li><li>Workshops on departmental functions and inter-departmental coordination.</li><li>Training on how to apply technical expertise in a regulatory context.</li>',
+                    'sec6-title': '6. Key Responsibilities of a Specialist Officer 🌟',
+                    'sec6-p1': 'Specialist Officers are the subject matter experts who provide the technical backbone for SEBI\'s regulatory and supervisory functions.',
+                    'sec6-eng-title': 'IT / Cyber Security / Data Science', 'sec6-eng-list': '<li>Fortifying SEBI\'s digital infrastructure against cyber threats.</li><li>Developing and deploying AI/ML models for market surveillance.</li><li>Managing and analyzing massive datasets to detect market anomalies.</li>',
+                    'sec6-elec-title': 'Finance / Risk / Research', 'sec6-elec-list': '<li>Conducting forensic audits and complex financial investigations.</li><li>Developing risk management frameworks for market intermediaries.</li><li>Analyzing market trends and producing high-quality research reports.</li>',
+                    'sec6-naic-title': 'Common Duties', 'sec6-naic-list': '<li>Providing expert opinion on policy matters.</li><li>Representing SEBI in technical committees and working groups.</li><li>Training other officers in their area of specialization.</li>',
+                    'sec7-title': '7. Qualities of a Specialist Officer 🎙️',
+                    'sec7-p1': 'A successful Specialist Officer combines deep technical mastery with a strong regulatory perspective and policy-making acumen.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">Deep Domain Mastery:</strong> Not just theoretical knowledge, but extensive, hands-on experience and expertise in the specific field.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">Strategic Thinking:</strong> Ability to apply specialized knowledge to the broader goals of market regulation and development.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🗣️</span><div><strong class="text-white">Advisory & Communication Skills:</strong> Clearly communicating complex technical concepts to non-specialist decision-makers.</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">Continuous Learning:</strong> A commitment to staying updated with the latest global trends and technologies in their domain.</div></li>',
+                    'sec8-title': '8. How to Prepare for the Interview 📈',
+                    'sec8-p1': 'Preparation for a specialist interview is about showcasing your experience and demonstrating how it can be applied in a regulatory environment.',
+                    'sec8-steps-title': '📚 Key Preparation Steps:',
+                    'sec8-step1-title': 'Structure Your Experience', 'sec8-step1-desc': 'Prepare a portfolio of your key projects and achievements. Be ready to explain them using the STAR (Situation, Task, Action, Result) method.',
+                    'sec8-step2-title': 'Connect Your Skills to SEBI', 'sec8-step2-desc': 'Thoroughly research SEBI\'s role, its various departments, and recent regulatory changes. Think about how your specific skills can help SEBI achieve its objectives.',
+                    'sec8-step3-title': 'Prepare for Case Studies', 'sec8-step3-desc': 'Be ready for hypothetical case studies or problem statements where you\'ll need to apply your technical expertise to a market regulation scenario.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Read SEBI\'s Annual Report:</strong> Understand the organization\'s current priorities and challenges.</li><li><strong>Follow Industry News:</strong> Keep up with news and developments in both your technical field and the financial markets.</li><li><strong>Mock Interviews:</strong> Practice with senior professionals or mentors in your field to refine your answers and presentation.</li><li><strong>Review Your Fundamentals:</strong> Brush up on the core theoretical concepts of your specialization.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Specialist recruitment is not always an annual process. It is conducted as and when a specific need for domain expertise arises within the organization.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the SEBI website under "Careers". Candidates should monitor the site regularly.',
+                    'sec9-step2-title': 'Application & Shortlisting', 'sec9-step2-desc': '<strong>Timeline:</strong> The application window is open for a few weeks, followed by a shortlisting process that can take a month or more.',
+                    'sec9-step3-title': 'Interviews & Final Selection', 'sec9-step3-desc': '<strong>Timeline:</strong> Interviews are scheduled for shortlisted candidates, and final offers are typically made shortly after.',
+                    'sec10-title': '10. Common Interview Mistakes to Avoid 🚫',
+                    'sec10-p1': 'For experienced professionals, the interview is everything. Avoid these common missteps to make the best impression.',
+                    'sec10-mistake1-title': 'Failing to Link Experience to Regulation:', 'sec10-mistake1-desc': 'Talking about your experience in a purely corporate context without explaining its relevance to SEBI\'s regulatory role.',
+                    'sec10-mistake2-title': 'Lack of Humility:', 'sec10-mistake2-desc': 'Appearing arrogant or inflexible, and not showing an eagerness to learn and adapt to a public sector work culture.',
+                    'sec10-mistake3-title': 'Being Unaware of SEBI\'s Recent Work:', 'sec10-mistake3-desc': 'Not being familiar with recent circulars, discussion papers, or regulatory actions taken by SEBI in your area of expertise.',
+                    'sec10-mistake4-title': 'Poor Communication of Complex Ideas:', 'sec10-mistake4-desc': 'Using excessive jargon and failing to explain your technical knowledge in a clear, concise manner to the panel.',
+                    'sec11-title': '11. How to Apply 🏫',
+                    'sec11-p1': 'The application process for specialist posts is entirely online and requires careful preparation of your professional profile.',
+                    'sec11-gov-title': '📚 Application Portal', 'sec11-gov-list': '<li>Monitor the "Careers" section on the official SEBI website for notifications.</li><li>Read the detailed advertisement thoroughly to ensure you meet all specific experience and qualification criteria.</li>',
+                    'sec11-pvt-title': 'Required Documents', 'sec11-pvt-p1': 'Prepare a detailed CV and gather all relevant documents.', 'sec11-pvt-list': '<li>A comprehensive CV highlighting your experience, projects, and achievements.</li><li>Scanned copies of all educational and professional qualifications.</li><li>Detailed experience certificates from previous employers.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'Specialist officers at SEBI have a rewarding career path, often becoming the go-to experts in their field and influencing key regulatory policies.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Key Interview Topics 📚',
+                    'sec13-p1': 'Interview preparation should focus on the practical application of your knowledge within the context of capital market regulation.',
+                    'syllabus-oir-title': 'Technical & Domain-Specific',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Latest Tech Trends (AI, Blockchain)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Valuation, Risk Models, Derivatives</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Regulatory & Profile-Based',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">Securities Laws (SEBI Act, SCRA)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧑‍💼</span><div class="flex-grow">Your Past Projects and Experience</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Safeguarding India\'s Capital Markets with Expertise.',
+                    'interviewChartData': {
+                        labels: ['Domain Mastery', 'Strategic Thinking', 'Advisory Skill', 'Learning Agility'],
+                        data: [98, 90, 88, 92]
+                    }
+                },
+                'hi': {
+                    'header-title': '⚙️ सेबी विशेषज्ञ अधिकारी गाइड ⚙️',
+                    'header-subtitle': 'वित्तीय विनियमन में एक तकनीकी कैरियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. सेबी विशेषज्ञ अधिकारी क्या है? 💡',
+                    'sec1-p1': 'सेबी विशेषज्ञ अधिकारियों की भर्ती करता है, अक्सर पार्श्व प्रवेश के माध्यम से, उच्च-स्तरीय डोमेन विशेषज्ञता लाने के लिए जो तेजी से जटिल और प्रौद्योगिकी-संचालित वित्तीय बाजारों को विनियमित करने के लिए महत्वपूर्ण है। सामान्य अधिकारियों के विपरीत, इन पेशेवरों को आईटी, साइबर सुरक्षा, वित्त, जोखिम प्रबंधन और डेटा विज्ञान जैसे क्षेत्रों में सिद्ध अनुभव और उन्नत योग्यता की आवश्यकता वाले विशिष्ट, तकनीकी भूमिकाओं के लिए काम पर रखा जाता है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'विशेषज्ञ अधिकारियों के लिए चयन आमतौर पर सही अनुभव और गहरे तकनीकी ज्ञान वाले उम्मीदवारों की पहचान पर केंद्रित एक सुव्यवस्थित प्रक्रिया है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'आवेदन', 'sec2-step1-desc': 'ऑनलाइन आवेदन और सीवी',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'शॉर्टलिस्टिंग', 'sec2-step2-desc': 'अनुभव और योग्यता के आधार पर',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'तकनीकी और व्यक्तिगत साक्षात्कार',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'विशेषज्ञ पदों के लिए पात्रता मांग कर रही है, जो उन्नत शिक्षा और महत्वपूर्ण पेशेवर अनुभव पर जोर देती है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'अधिकतम आयु सीमा पद और आवश्यक अनुभव के स्तर के आधार पर काफी भिन्न होती है, जो अक्सर **30 से 45 वर्ष** तक होती है।',
+                    'sec3-edu-title': 'योग्यता और अनुभव:', 'sec3-edu-desc': 'प्रासंगिक अनुशासन में **स्नातकोत्तर डिग्री** आमतौर पर न्यूनतम है। इसे विशिष्ट डोमेन (जैसे, साइबर सुरक्षा, मात्रात्मक विश्लेषण, वित्तीय लेखांकन) में पर्याप्त, सिद्ध पद-योग्यता अनुभव (आमतौर पर **3-10+ वर्ष**) के साथ जोड़ा जाना चाहिए।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>इन विशेषज्ञ, अनुभव-आधारित भर्तियों के लिए प्रयासों की संख्या पर आमतौर पर कोई सीमा नहीं होती है।</li><li>उम्मीदवार जब भी कोई उपयुक्त रिक्ति विज्ञापित की जाती है, तब तक आवेदन कर सकते हैं, बशर्ते वे उस पद के लिए विशिष्ट आयु और अनुभव मानदंडों को पूरा करते हों।</li>',
+                    'sec4-title': '4. साक्षात्कार फोकस क्षेत्र 📚',
+                    'sec4-p1': 'साक्षात्कार चयन प्रक्रिया का आधारशिला है। यह एक उम्मीदवार की तकनीकी गहराई, व्यावहारिक अनुभव और नियामक मानसिकता का एक कठोर मूल्यांकन है।',
+                    'gs1-title': 'गहन डोमेन ज्ञान',
+                    'gs2-title': 'व्यावहारिक केस स्टडीज',
+                    'gs3-title': 'नियामक जागरूकता',
+                    'gs4-title': 'स्थितिजन्य निर्णय',
+                    'sec5-title': '5. ऑनबोर्डिंग और एकीकरण 🏛️',
+                    'sec5-p1': 'अनुभवी पेशेवरों को एक संरचित ऑनबोर्डिंग प्रक्रिया के माध्यम से सेबी में एकीकृत किया जाता है जो उनकी विशेषज्ञता को संगठन के नियामक उद्देश्यों के साथ संरेखित करता है।',
+                    'sec5-hindi-title': '1. परिवीक्षा और प्लेसमेंट', 'sec5-hindi-p1': 'प्रारंभिक अवधि अनुकूलन और योगदान पर केंद्रित है।', 'sec5-hindi-list': '<li>परिवीक्षा पर नियुक्त, आमतौर पर एक वर्ष के लिए।</li><li>उनकी विशेषज्ञता के सीधे अनुरूप एक विभाग में रखा गया।</li><li>परियोजनाओं और नीतिगत मामलों में जल्दी से योगदान शुरू करने की उम्मीद है।</li>',
+                    'sec5-essay-title': '2. अभिविन्यास', 'sec5-essay-p1': 'अभिविन्यास नियामक परिदृश्य पर केंद्रित है।', 'sec5-essay-list': '<li>प्रतिभूति कानूनों, सेबी के जनादेश और इसके विभिन्न विनियमों पर गहन अभिविन्यास।</li><li>विभागीय कार्यों और अंतर-विभागीय समन्वय पर कार्यशालाएं।</li><li>एक नियामक संदर्भ में तकनीकी विशेषज्ञता को कैसे लागू किया जाए, इस पर प्रशिक्षण।</li>',
+                    'sec6-title': '6. एक विशेषज्ञ अधिकारी की मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'विशेषज्ञ अधिकारी विषय वस्तु विशेषज्ञ हैं जो सेबी के नियामक और पर्यवेक्षी कार्यों के लिए तकनीकी रीढ़ प्रदान करते हैं।',
+                    'sec6-eng-title': 'आईटी / साइबर सुरक्षा / डेटा विज्ञान', 'sec6-eng-list': '<li>साइबर खतरों के खिलाफ सेबी के डिजिटल बुनियादी ढांचे को मजबूत करना।</li><li>बाजार की निगरानी के लिए एआई/एमएल मॉडल विकसित करना और तैनात करना।</li><li>बाजार की विसंगतियों का पता लगाने के लिए बड़े पैमाने पर डेटासेट का प्रबंधन और विश्लेषण करना।</li>',
+                    'sec6-elec-title': 'वित्त / जोखिम / अनुसंधान', 'sec6-elec-list': '<li>फोरेंसिक ऑडिट और जटिल वित्तीय जांच करना।</li><li>बाजार मध्यस्थों के लिए जोखिम प्रबंधन ढांचे का विकास करना।</li><li>बाजार के रुझानों का विश्लेषण करना और उच्च गुणवत्ता वाले शोध रिपोर्ट तैयार करना।</li>',
+                    'sec6-naic-title': 'सामान्य कर्तव्य', 'sec6-naic-list': '<li>नीतिगत मामलों पर विशेषज्ञ राय प्रदान करना।</li><li>तकनीकी समितियों और कार्य समूहों में सेबी का प्रतिनिधित्व करना।</li><li>अन्य अधिकारियों को उनके विशेषज्ञता के क्षेत्र में प्रशिक्षित करना।</li>',
+                    'sec7-title': '7. एक विशेषज्ञ अधिकारी के गुण 🎙️',
+                    'sec7-p1': 'एक सफल विशेषज्ञ अधिकारी गहरे तकनीकी महारत को एक मजबूत नियामक परिप्रेक्ष्य और नीति-निर्माण कौशल के साथ जोड़ता है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🎯</span><div><strong class="text-white">गहन डोमेन महारत:</strong> केवल सैद्धांतिक ज्ञान ही नहीं, बल्कि विशिष्ट क्षेत्र में व्यापक, व्यावहारिक अनुभव और विशेषज्ञता।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🧠</span><div><strong class="text-white">रणनीतिक सोच:</strong> विशेष ज्ञान को बाजार विनियमन और विकास के व्यापक लक्ष्यों पर लागू करने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🗣️</span><div><strong class="text-white">सलाहकार और संचार कौशल:</strong> गैर-विशेषज्ञ निर्णय-निर्माताओं को जटिल तकनीकी अवधारणाओं को स्पष्ट रूप से संप्रेषित करना।</div></li><li class="flex items-start"><span class="text-2xl text-[#34d399] mr-3">🔄</span><div><strong class="text-white">निरंतर सीखना:</strong> अपने डोमेन में नवीनतम वैश्विक रुझानों और प्रौद्योगिकियों के साथ अद्यतन रहने की प्रतिबद्धता।</div></li>',
+                    'sec8-title': '8. साक्षात्कार की तैयारी कैसे करें 📈',
+                    'sec8-p1': 'एक विशेषज्ञ साक्षात्कार की तैयारी आपके अनुभव को प्रदर्शित करने और यह प्रदर्शित करने के बारे में है कि इसे एक नियामक वातावरण में कैसे लागू किया जा सकता है।',
+                    'sec8-steps-title': '📚 प्रमुख तैयारी चरण:',
+                    'sec8-step1-title': 'अपने अनुभव को संरचित करें', 'sec8-step1-desc': 'अपनी प्रमुख परियोजनाओं और उपलब्धियों का एक पोर्टफोलियो तैयार करें। उन्हें स्टार (स्थिति, कार्य, कार्रवाई, परिणाम) विधि का उपयोग करके समझाने के लिए तैयार रहें।',
+                    'sec8-step2-title': 'अपने कौशल को सेबी से जोड़ें', 'sec8-step2-desc': 'सेबी की भूमिका, उसके विभिन्न विभागों और हाल के नियामक परिवर्तनों पर अच्छी तरह से शोध करें। इस बारे में सोचें कि आपके विशिष्ट कौशल सेबी को अपने उद्देश्यों को प्राप्त करने में कैसे मदद कर सकते हैं।',
+                    'sec8-step3-title': 'केस स्टडीज के लिए तैयारी करें', 'sec8-step3-desc': 'काल्पनिक केस स्टडीज या समस्या बयानों के लिए तैयार रहें जहां आपको अपनी तकनीकी विशेषज्ञता को बाजार विनियमन परिदृश्य पर लागू करने की आवश्यकता होगी।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>सेबी की वार्षिक रिपोर्ट पढ़ें:</strong> संगठन की वर्तमान प्राथमिकताओं और चुनौतियों को समझें।</li><li><strong>उद्योग समाचारों का पालन करें:</strong> अपने तकनीकी क्षेत्र और वित्तीय बाजारों दोनों में समाचार और विकास के साथ बने रहें।</li><li><strong>मॉक साक्षात्कार:</strong> अपने उत्तरों और प्रस्तुति को परिष्कृत करने के लिए अपने क्षेत्र के वरिष्ठ पेशेवरों या आकाओं के साथ अभ्यास करें।</li><li><strong>अपने मूल सिद्धांतों की समीक्षा करें:</strong> अपनी विशेषज्ञता की मुख्य सैद्धांतिक अवधारणाओं को ताज़ा करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'विशेषज्ञ भर्ती हमेशा एक वार्षिक प्रक्रिया नहीं होती है। यह तब आयोजित किया जाता है जब संगठन के भीतर डोमेन विशेषज्ञता की एक विशिष्ट आवश्यकता उत्पन्न होती है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> रिक्तियों का विज्ञापन सेबी वेबसाइट पर "करियर" के तहत किया जाता है। उम्मीदवारों को नियमित रूप से साइट की निगरानी करनी चाहिए।',
+                    'sec9-step2-title': 'आवेदन और शॉर्टलिस्टिंग', 'sec9-step2-desc': '<strong>समयरेखा:</strong> आवेदन खिड़की कुछ हफ्तों के लिए खुली रहती है, जिसके बाद एक शॉर्टलिस्टिंग प्रक्रिया होती है जिसमें एक महीना या उससे अधिक लग सकता है।',
+                    'sec9-step3-title': 'साक्षात्कार और अंतिम चयन', 'sec9-step3-desc': '<strong>समयरेखा:</strong> साक्षात्कार शॉर्टलिस्ट किए गए उम्मीदवारों के लिए निर्धारित किए जाते हैं, और अंतिम प्रस्ताव आमतौर पर इसके तुरंत बाद किए जाते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य साक्षात्कार गलतियाँ 🚫',
+                    'sec10-p1': 'अनुभवी पेशेवरों के लिए, साक्षात्कार ही सब कुछ है। सबसे अच्छी छाप बनाने के लिए इन सामान्य गलतियों से बचें।',
+                    'sec10-mistake1-title': 'अनुभव को विनियमन से जोड़ने में विफल:', 'sec10-mistake1-desc': 'सेबी की नियामक भूमिका के लिए इसकी प्रासंगिकता बताए बिना पूरी तरह से कॉर्पोरेट संदर्भ में अपने अनुभव के बारे में बात करना।',
+                    'sec10-mistake2-title': 'विनम्रता का अभाव:', 'sec10-mistake2-desc': 'अहंकारी या अनम्य दिखना, और सार्वजनिक क्षेत्र की कार्य संस्कृति को सीखने और अपनाने की उत्सुकता नहीं दिखाना।',
+                    'sec10-mistake3-title': 'सेबी के हाल के काम से अनभिज्ञ होना:', 'sec10-mistake3-desc': 'अपने विशेषज्ञता के क्षेत्र में सेबी द्वारा की गई हालिया परिपत्रों, चर्चा पत्रों या नियामक कार्रवाइयों से परिचित नहीं होना।',
+                    'sec10-mistake4-title': 'जटिल विचारों का खराब संचार:', 'sec10-mistake4-desc': 'अत्यधिक शब्दजाल का उपयोग करना और पैनल को अपने तकनीकी ज्ञान को स्पष्ट, संक्षिप्त तरीके से समझाने में विफल होना।',
+                    'sec11-title': '11. आवेदन कैसे करें 🏫',
+                    'sec11-p1': 'विशेषज्ञ पदों के लिए आवेदन प्रक्रिया पूरी तरह से ऑनलाइन है और इसके लिए आपके पेशेवर प्रोफाइल की सावधानीपूर्वक तैयारी की आवश्यकता है।',
+                    'sec11-gov-title': '📚 आवेदन पोर्टल', 'sec11-gov-list': '<li>अधिसूचनाओं के लिए आधिकारिक सेबी वेबसाइट पर "करियर" अनुभाग की निगरानी करें।</li><li>यह सुनिश्चित करने के लिए कि आप सभी विशिष्ट अनुभव और योग्यता मानदंडों को पूरा करते हैं, विस्तृत विज्ञापन को अच्छी तरह से पढ़ें।</li>',
+                    'sec11-pvt-title': 'आवश्यक दस्तावेज़', 'sec11-pvt-p1': 'एक विस्तृत सीवी तैयार करें और सभी प्रासंगिक दस्तावेज इकट्ठा करें।', 'sec11-pvt-list': '<li>आपके अनुभव, परियोजनाओं और उपलब्धियों को उजागर करने वाला एक व्यापक सीवी।</li><li>सभी शैक्षिक और व्यावसायिक योग्यताओं की स्कैन की हुई प्रतियां।</li><li>पिछले नियोक्ताओं से विस्तृत अनुभव प्रमाण पत्र।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'सेबी में विशेषज्ञ अधिकारियों के पास एक पुरस्कृत कैरियर पथ है, जो अक्सर अपने क्षेत्र में जाने-माने विशेषज्ञ बन जाते हैं और प्रमुख नियामक नीतियों को प्रभावित करते हैं।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. प्रमुख साक्षात्कार विषय 📚',
+                    'sec13-p1': 'साक्षात्कार की तैयारी आपके ज्ञान के व्यावहारिक अनुप्रयोग पर केंद्रित होनी चाहिए, जो पूंजी बाजार विनियमन के संदर्भ में है।',
+                    'syllabus-oir-title': 'तकनीकी और डोमेन-विशिष्ट',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">नवीनतम तकनीकी रुझान (एआई, ब्लॉकचेन)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">मूल्यांकन, जोखिम मॉडल, डेरिवेटिव</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'नियामक और प्रोफाइल-आधारित',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">प्रतिभूति कानून (सेबी अधिनियम, एससीआरए)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧑‍💼</span><div class="flex-grow">आपकी पिछली परियोजनाएं और अनुभव</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | विशेषज्ञता के साथ भारत के पूंजी बाजारों की सुरक्षा।',
+                    'interviewChartData': {
+                        labels: ['डोमेन महारत', 'रणनीतिक सोच', 'सलाहकार कौशल', 'सीखने की चपलता'],
+                        data: [98, 90, 88, 92]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#1e293b]/50 rounded-xl text-center border-2 border-slate-700 hover:border-violet-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-violet-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                            borderColor: '#8b5cf6',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#d1d5db' },
+                                grid: { color: 'rgba(209, 213, 219, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#d1d5db', font: { size: 14 } },
+                                grid: { color: 'rgba(209, 213, 219, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
