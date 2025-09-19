@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABARD Development Assistant & Research Officer Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to the NABARD Development Assistant and Research Officer / Project Scientist recruitment.">
+    <meta name="keywords" content="NABARD Development Assistant, NABARD Hindi, NABARD Research Officer, NABARD Recruitment, Government Jobs, NABARD DA Syllabus">
+    <meta name="author" content="NABARD Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ff7f50, #fbbf24) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.8); /* Slate 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #475569; /* Slate 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(255, 127, 80, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff7f50; /* Coral */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ff7f50; /* Coral */
+            color: #ff7f50;
+            background: #334155; /* Slate 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ff7f50;
+            color: #0f172a;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(255, 127, 80, 0.5);
+        }
+        .flowchart-arrow {
+            color: #fbbf24; /* Amber 400 */
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #fbbf24;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+        .subject-item .icon {
+            color: #fbbf24;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ff7f50;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #0f172a;
+            border: 4px solid #ff7f50;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #475569;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #94a3b8; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ff7f50, #f97316);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 127, 80, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 127, 80, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ff7f50;
+            color: #ff7f50;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ff7f50;
+            color: #0f172a;
+            box-shadow: 0 0 15px #ff7f50;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: #0f172a;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #334155; 
+            color: #e2e8f0; 
+            border-color: #475569; 
+        }
+        .lectures-btn:hover {
+            background-color: #475569;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">📝 NABARD Development Assistant & Research Staff Guide 📝</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-400">Your Guide to Clerical and Research Careers at NABARD</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are these NABARD roles? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1e293b] via-[#0f172a] to-[#0f172a]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are these NABARD Roles? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">NABARD recruits for various crucial support and research roles. The **Development Assistant** is a Group 'B' clerical post, responsible for the smooth administrative functioning of the bank's departments. The **Development Assistant (Hindi)** focuses on translation and implementation of the official language. **Research Officers / Project Scientists** are typically hired on a contractual basis for specific projects, providing in-depth research and analysis on topics vital to rural development.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process differs significantly between the clerical and research roles, reflecting the different skill sets required.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 class="subject-category-heading text-center">Development Assistant</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4 mt-6">
+                            <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Prelims Exam</span></div>
+                            <div class="text-5xl font-light flowchart-arrow transform rotate-90">↓</div>
+                            <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Mains Exam</span></div>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="subject-category-heading text-center">Research Officer</h3>
+                        <div class="flex flex-col items-center justify-center space-y-4 mt-6">
+                            <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="roShortlistModal"><span id="sec2-step3-title">Stage 1:</span><br><span id="sec2-step3-name">Shortlisting</span></div>
+                            <div class="text-5xl font-light flowchart-arrow transform rotate-90">↓</div>
+                            <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step4-title">Stage 2:</span><br><span id="sec2-step4-name">Interview</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-2">Development Assistant</h3>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **21 and 35 years**. Age relaxation applies for reserved categories.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">A **Bachelor's Degree** in any discipline with a minimum of 50% marks. For DA (Hindi), Hindi and English must be subjects in graduation.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-xl font-bold text-white mb-2">Research Officer / Project Scientist</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Education:</strong> A **Post Graduate Degree** or **Ph.D.** in a relevant field like Economics, Agriculture, Sociology, or specific technical fields as per the project's requirement.</li>
+                             <li><strong>Experience:</strong> Often requires relevant research or project experience.</li>
+                             <li><strong>Age Limit:</strong> Varies significantly based on the project and experience required.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Dev. Assistant Exam Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The Development Assistant exam is a two-tier process designed to test clerical aptitude and language skills.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Phase I: Prelims 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs1-sub1">English Language</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Numerical Ability</div></div>
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs2-sub1">Reasoning Ability</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#334155]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Phase II: Mains 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">🧠</span><div id="gs2-sub2">Reasoning</div></div>
+                           <div class="subject-item"><span class="icon">📊</span><div id="gs3-sub1">Quantitative Aptitude</div></div>
+                           <div class="subject-item"><span class="icon">🌍</span><div id="gs3-sub2">General Awareness</div></div>
+                           <div class="subject-item"><span class="icon">💻</span><div id="gs4-sub1">Computer Knowledge</div></div>
+                           <div class="subject-item"><span class="icon">✍️</span><div id="gs5-sub1">English Language (Descriptive)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected Development Assistants undergo a probation period to learn the bank's procedures, while Research Officers are engaged for a specific project duration.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#334155] rounded-xl border-2 border-[#ff7f50]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Development Assistant</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Probation is focused on administrative training.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>A probation period of six months.</li>
+                            <li>Induction training on NABARD's functions, rules, and office procedures.</li>
+                            <li>Confirmation is subject to satisfactory performance.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#334155] rounded-xl border-2 border-[#fbbf24]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Research Officer</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">This is a contractual role tied to a project.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Engaged for a fixed term as per the project requirements.</li>
+                           <li>No probation period in the traditional sense.</li>
+                           <li>Performance is linked to the delivery of project objectives and reports.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The responsibilities are distinct, with Development Assistants providing crucial clerical support and Research Officers providing expert analytical input.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Development Assistant</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Maintaining files and records.</li>
+                           <li>Data entry and preparing statements.</li>
+                           <li>Handling day-to-day correspondence.</li>
+                           <li>Assisting officers in their administrative work.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">DA (Hindi)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Translating documents from English to Hindi and vice-versa.</li>
+                           <li>Assisting in the implementation of the Official Language Policy.</li>
+                           <li>Preparing reports and correspondence in Hindi.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Research Officer</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Conducting primary and secondary research.</li>
+                           <li>Data analysis using statistical software.</li>
+                           <li>Writing high-quality research papers and policy briefs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an Ideal Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">These roles require a mix of clerical diligence, language proficiency, and sharp analytical skills.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ff7f50] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">꼼</span><div><strong class="text-white">Attention to Detail (DA):</strong> Accuracy in data entry, typing, and record-keeping is crucial for clerical roles.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💻</span><div><strong class="text-white">Computer Proficiency (DA):</strong> Good knowledge of MS Office is essential for day-to-day tasks.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">Research Acumen (RO):</strong> Strong understanding of research methodologies and data analysis techniques.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">✍️</span><div><strong class="text-white">Language Skills (All):</strong> Good command over English (and Hindi for DA-Hindi) for writing and communication.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Preparation strategies must be tailored. Development Assistant aspirants should focus on standard clerical exam patterns, while Research Officer candidates must showcase deep domain expertise.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For Dev. Assistant Aspirants:</h3>
+                        <ol class="relative border-l-4 border-[#ff7f50] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#334155]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Practice for Speed & Accuracy</h4>
+                                <p id="sec8-step1-desc" class="text-base">Focus on solving questions from Quant, Reasoning, and English quickly and accurately, as is required in banking exams.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#334155]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Cover Mains Syllabus Well</h4>
+                                <p id="sec8-step2-desc" class="text-base">Give special attention to General Awareness (with a focus on agriculture) and Computer Knowledge for the Mains exam.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For Research Officer Applicants:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Prepare a Stellar CV:</strong> Your resume should clearly highlight your research projects, publications, and analytical skills.</li>
+                            <li><strong>Develop a Research Proposal:</strong> If required, create a clear and concise research proposal that aligns with NABARD's areas of interest.</li>
+                            <li><strong>Deepen Domain Knowledge:</strong> Be prepared for a highly technical interview by revising core concepts and staying updated on recent research in your field.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Recruitment for Development Assistants happens periodically to fill vacancies, while Research roles are advertised based on specific project needs.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Both types of vacancies are posted on the NABARD website's "Careers" section.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">DA Exam Process</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> The Prelims and Mains exams are typically conducted within 2-3 months of the notification.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Research Officer Process</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> The process involves shortlisting of applications followed by interviews, which can take a couple of months.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Different roles demand different approaches. Avoid these specific mistakes to improve your chances.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">For DA: Ignoring Sectional Cut-offs:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Not giving equal importance to all sections in the Prelims and failing to clear individual cut-offs.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">For DA: Neglecting Descriptive English:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Focusing only on objective questions and not practicing essay and letter writing for the Mains.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">For RO: Vague Application:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Submitting a generic CV and research proposal that doesn't clearly showcase expertise and relevance to NABARD.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">For RO: Poor Interview Prep:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Being unable to defend one's research or discuss contemporary issues in their domain during the interview.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Apply -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Preparation sources differ based on the role. DA aspirants can follow standard banking exam coaching, while RO candidates should rely on academic resources.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Development Assistant</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Coaching institutes and online platforms for IBPS Clerk/PO exams are very useful.</li>
+                           <li>Focus on mock test series to build speed and accuracy.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">🔬 For Research Officer</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Self-study is paramount.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Rely on your university textbooks, research papers, and academic journals.</li>
+                            <li>Follow publications from reputed institutions and think tanks in your field.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Benefits -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Path & Benefits 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A role at NABARD, whether permanent or contractual, offers immense learning and growth. Development Assistants have a clear path to becoming officers, while a research stint adds great value to an academic or policy career.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Path</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Dev. Assistant Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus for the Development Assistant exam is broad and requires comprehensive preparation across all subjects.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- General Subjects -->
+                    <div class="bg-[#0f172a] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Aptitude Sections</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <!-- Specific Subjects -->
+                    <div class="bg-[#0f172a] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Mains-Specific Sections</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Supporting the Pillars of Rural Development.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">DA Prelims Exam</h3>
+            <p id="prelims-modal-p1">This is a qualifying online exam of 100 marks, with a composite time of 60 minutes. It consists of three sections: English, Numerical Ability, and Reasoning. Marks are not counted for the final merit, but candidates must clear the cut-off to be shortlisted for Phase II.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">DA Mains Exam</h3>
+            <p id="mains-modal-p1">The Mains exam is the merit-deciding stage. It includes objective tests on Reasoning, Quantitative Aptitude, General Awareness, and Computer Knowledge, plus a Descriptive Test on English (Essay, Precis, Report/Letter Writing). For DA (Hindi), the test of professional knowledge (Hindi) is included.</p>
+        </div>
+    </div>
+    
+     <div id="roShortlistModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="ro-shortlist-modal-title" class="text-2xl font-bold text-white mb-4">RO Shortlisting</h3>
+            <p id="ro-shortlist-modal-p1">For Research Officer/Project Scientist roles, there is no written exam. Applications are directly shortlisted based on eligibility criteria, academic qualifications, research experience, publications, and the quality of the research proposal submitted.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">RO Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Shortlisted candidates for Research Officer roles are called for a personal interview. This is the final selection stage where a panel of experts assesses the candidate's domain knowledge, research aptitude, and suitability for the specific project. There is no interview for the Development Assistant post.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Career Path & Opportunities</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'da': { 
+                        name: 'Development Assistant', 
+                        icon: '💼',
+                        description: 'A clerical role focused on providing administrative support. DAs are responsible for data entry, file management, and assisting officers in the day-to-day functioning of the bank.',
+                        cta: 'Learn More'
+                    },
+                    'da_hindi': { 
+                        name: 'Dev. Assistant (Hindi)', 
+                        icon: '✍️',
+                        description: 'A specialized clerical role responsible for translating official documents, preparing reports in Hindi, and helping implement NABARD\'s Official Language Policy.',
+                        cta: 'Learn More'
+                    },
+                    'research': { 
+                        name: 'Research Officer / Scientist', 
+                        icon: '🔬',
+                        description: 'A contractual research role for post-graduates and PhDs. They conduct in-depth studies on specific topics like climate change, agricultural finance, or rural markets, providing key inputs for NABARD\'s policies.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'da': { 
+                        name: 'विकास सहायक', 
+                        icon: '💼',
+                        description: 'एक लिपिकीय भूमिका जो प्रशासनिक सहायता प्रदान करने पर केंद्रित है। डीए डेटा प्रविष्टि, फ़ाइल प्रबंधन और बैंक के दिन-प्रतिदिन के कामकाज में अधिकारियों की सहायता के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    },
+                    'da_hindi': { 
+                        name: 'वि. स. (हिंदी)', 
+                        icon: '✍️',
+                        description: 'आधिकारिक दस्तावेजों का अनुवाद करने, हिंदी में रिपोर्ट तैयार करने और नाबार्ड की राजभाषा नीति को लागू करने में मदद करने के लिए जिम्मेदार एक विशेष लिपिकीय भूमिका।',
+                        cta: 'और जानें'
+                    },
+                    'research': { 
+                        name: 'अनुसंधान अधिकारी / वैज्ञानिक', 
+                        icon: '🔬',
+                        description: 'स्नातकोत्तर और पीएचडी के लिए एक संविदात्मक अनुसंधान भूमिका। वे जलवायु परिवर्तन, कृषि वित्त, या ग्रामीण बाजारों जैसे विशिष्ट विषयों पर गहन अध्ययन करते हैं, जो नाबार्ड की नीतियों के लिए महत्वपूर्ण इनपुट प्रदान करते हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Development Assistant", desc: "Joins as a Group 'B' clerical employee. A stable and secure entry into NABARD." },
+                        { rank: "Assistant Manager (Grade A)", desc: "After 3 years of service, Development Assistants are eligible to appear for the internal promotional exam to the officer cadre." },
+                        { rank: "Manager (Grade B)", desc: "Further promotions in the officer line based on performance and seniority." },
+                        { rank: "Research Officer Experience", desc: "While contractual, this role provides invaluable research experience, strengthening the CV for permanent roles in policy institutions, academia, or for direct recruitment as a Grade A/B Specialist Officer in the future." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "विकास सहायक", desc: "समूह 'बी' लिपिकीय कर्मचारी के रूप में शामिल होता है। नाबार्ड में एक स्थिर और सुरक्षित प्रवेश।" },
+                        { rank: "सहायक प्रबंधक (ग्रेड ए)", desc: "3 साल की सेवा के बाद, विकास सहायक अधिकारी संवर्ग में आंतरिक पदोन्नति परीक्षा के लिए पात्र हैं।" },
+                        { rank: "प्रबंधक (ग्रेड बी)", desc: "प्रदर्शन और वरिष्ठता के आधार पर अधिकारी लाइन में आगे की पदोन्नति।" },
+                        { rank: "अनुसंधान अधिकारी अनुभव", desc: "हालांकि संविदात्मक, यह भूमिका अमूल्य अनुसंधान अनुभव प्रदान करती है, जो भविष्य में नीति संस्थानों, शिक्षाविदों में स्थायी भूमिकाओं के लिए या ग्रेड ए/बी विशेषज्ञ अधिकारी के रूप में सीधी भर्ती के लिए सीवी को मजबूत करती है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '📝 NABARD Development Assistant & Research Staff Guide 📝',
+                    'header-subtitle': 'Your Guide to Clerical and Research Careers at NABARD',
+                    'sec1-title': '1. What are these NABARD Roles? 💡',
+                    'sec1-p1': 'NABARD recruits for various crucial support and research roles. The **Development Assistant** is a Group \'B\' clerical post, responsible for the smooth administrative functioning of the bank\'s departments. The **Development Assistant (Hindi)** focuses on translation and implementation of the official language. **Research Officers / Project Scientists** are typically hired on a contractual basis for specific projects, providing in-depth research and analysis on topics vital to rural development.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process differs significantly between the clerical and research roles, reflecting the different skill sets required.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Prelims Exam',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Mains Exam',
+                    'sec2-step3-title': 'Stage 1:', 'sec2-step3-name': 'Shortlisting',
+                    'sec2-step4-title': 'Stage 2:', 'sec2-step4-name': 'Interview',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria vary depending on the specific internship or apprenticeship scheme.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **21 and 35 years**. Age relaxation applies for reserved categories.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'A **Bachelor\'s Degree** in any discipline with a minimum of 50% marks. For DA (Hindi), Hindi and English must be subjects in graduation.',
+                    'sec3-attempts-title': 'Research Officer / Project Scientist',
+                    'sec3-agerelax-list': '<li><strong>Education:</strong> A **Post Graduate Degree** or **Ph.D.** in a relevant field like Economics, Agriculture, Sociology, or specific technical fields as per the project\'s requirement.</li><li><strong>Experience:</strong> Often requires relevant research or project experience.</li><li><strong>Age Limit:</strong> Varies significantly based on the project and experience required.</li>',
+                    'sec4-title': '4. Dev. Assistant Exam Pattern 📚',
+                    'sec4-p1': 'The Development Assistant exam is a two-tier process designed to test clerical aptitude and language skills.',
+                    'gs1-title': 'Phase I: Prelims 📜', 'gs1-sub1': 'English Language', 'gs1-sub2': 'Numerical Ability', 'gs2-sub1': 'Reasoning Ability',
+                    'gs2-title': 'Phase II: Mains 🏛️', 'gs2-sub2': 'Reasoning', 'gs3-sub1': 'Quantitative Aptitude', 'gs3-sub2': 'General Awareness', 'gs4-sub1': 'Computer Knowledge', 'gs5-sub1': 'English Language (Descriptive)',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'Selected Development Assistants undergo a probation period to learn the bank\'s procedures, while Research Officers are engaged for a specific project duration.',
+                    'sec5-hindi-title': '1. Development Assistant', 'sec5-hindi-p1': 'Probation is focused on administrative training.', 'sec5-hindi-list': '<li>A probation period of six months.</li><li>Induction training on NABARD\'s functions, rules, and office procedures.</li><li>Confirmation is subject to satisfactory performance.</li>',
+                    'sec5-essay-title': '2. Research Officer', 'sec5-essay-p1': 'This is a contractual role tied to a project.', 'sec5-essay-list': '<li>Engaged for a fixed term as per the project requirements.</li><li>No probation period in the traditional sense.</li><li>Performance is linked to the delivery of project objectives and reports.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'The responsibilities are distinct, with Development Assistants providing crucial clerical support and Research Officers providing expert analytical input.',
+                    'sec6-eng-title': 'Development Assistant', 'sec6-eng-list': '<li>Maintaining files and records.</li><li>Data entry and preparing statements.</li><li>Handling day-to-day correspondence.</li><li>Assisting officers in their administrative work.</li>',
+                    'sec6-elec-title': 'DA (Hindi)', 'sec6-elec-list': '<li>Translating documents from English to Hindi and vice-versa.</li><li>Assisting in the implementation of the Official Language Policy.</li><li>Preparing reports and correspondence in Hindi.</li>',
+                    'sec6-naic-title': 'Research Officer', 'sec6-naic-list': '<li>Conducting primary and secondary research.</li><li>Data analysis using statistical software.</li><li>Writing high-quality research papers and policy briefs.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'These roles require a mix of clerical diligence, language proficiency, and sharp analytical skills.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">꼼</span><div><strong class="text-white">Attention to Detail (DA):</strong> Accuracy in data entry, typing, and record-keeping is crucial for clerical roles.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💻</span><div><strong class="text-white">Computer Proficiency (DA):</strong> Good knowledge of MS Office is essential for day-to-day tasks.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">Research Acumen (RO):</strong> Strong understanding of research methodologies and data analysis techniques.</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">✍️</span><div><strong class="text-white">Language Skills (All):</strong> Good command over English (and Hindi for DA-Hindi) for writing and communication.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'Preparation strategies must be tailored. Development Assistant aspirants should focus on standard clerical exam patterns, while Research Officer candidates must showcase deep domain expertise.',
+                    'sec8-steps-title': '📚 For Dev. Assistant Aspirants:',
+                    'sec8-step1-title': 'Practice for Speed & Accuracy', 'sec8-step1-desc': 'Focus on solving questions from Quant, Reasoning, and English quickly and accurately, as is required in banking exams.',
+                    'sec8-step2-title': 'Cover Mains Syllabus Well', 'sec8-step2-desc': 'Give special attention to General Awareness (with a focus on agriculture) and Computer Knowledge for the Mains exam.',
+                    'sec8-revision-title': '🔄 For Research Officer Applicants:',
+                    'sec8-revision-list': '<li><strong>Prepare a Stellar CV:</strong> Your resume should clearly highlight your research projects, publications, and analytical skills.</li><li><strong>Develop a Research Proposal:</strong> If required, create a clear and concise research proposal that aligns with NABARD\'s areas of interest.</li><li><strong>Deepen Domain Knowledge:</strong> Be prepared for a highly technical interview by revising core concepts and staying updated on recent research in your field.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment for Development Assistants happens periodically to fill vacancies, while Research roles are advertised based on specific project needs.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Both types of vacancies are posted on the NABARD website\'s "Careers" section.',
+                    'sec9-step2-title': 'DA Exam Process', 'sec9-step2-desc': '<strong>Timeline:</strong> The Prelims and Mains exams are typically conducted within 2-3 months of the notification.',
+                    'sec9-step3-title': 'Research Officer Process', 'sec9-step3-desc': '<strong>Timeline:</strong> The process involves shortlisting of applications followed by interviews, which can take a couple of months.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Different roles demand different approaches. Avoid these specific mistakes to improve your chances.',
+                    'sec10-mistake1-title': 'For DA: Ignoring Sectional Cut-offs:', 'sec10-mistake1-desc': 'Not giving equal importance to all sections in the Prelims and failing to clear individual cut-offs.',
+                    'sec10-mistake2-title': 'For DA: Neglecting Descriptive English:', 'sec10-mistake2-desc': 'Focusing only on objective questions and not practicing essay and letter writing for the Mains.',
+                    'sec10-mistake3-title': 'For RO: Vague Application:', 'sec10-mistake3-desc': 'Submitting a generic CV and research proposal that doesn\'t clearly showcase expertise and relevance to NABARD.',
+                    'sec10-mistake4-title': 'For RO: Poor Interview Prep:', 'sec10-mistake4-desc': 'Being unable to defend one\'s research or discuss contemporary issues in their domain during the interview.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Preparation sources differ based on the role. DA aspirants can follow standard banking exam coaching, while RO candidates should rely on academic resources.',
+                    'sec11-gov-title': '📚 For Development Assistant', 'sec11-gov-list': '<li>Coaching institutes and online platforms for IBPS Clerk/PO exams are very useful.</li><li>Focus on mock test series to build speed and accuracy.</li>',
+                    'sec11-pvt-title': '🔬 For Research Officer', 'sec11-pvt-p1': 'Self-study is paramount.', 'sec11-pvt-list': '<li>Rely on your university textbooks, research papers, and academic journals.</li><li>Follow publications from reputed institutions and think tanks in your field.</li>',
+                    'sec12-title': '12. Career Path & Benefits 🚀',
+                    'sec12-p1': 'A role at NABARD, whether permanent or contractual, offers immense learning and growth. Development Assistants have a clear path to becoming officers, while a research stint adds great value to an academic or policy career.',
+                    'sec12-career-btn': 'View Career Path',
+                    'sec13-title': '13. Dev. Assistant Syllabus 📚',
+                    'sec13-p1': 'The syllabus for the Development Assistant exam is broad and requires comprehensive preparation across all subjects.',
+                    'syllabus-oir-title': 'Aptitude Sections',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & Numerical Ability</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">English Language</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Mains-Specific Sections',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness (Agri Focus)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Knowledge</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Supporting the Pillars of Rural Development.',
+                    'interviewChartData': {
+                        labels: ['Attention to Detail', 'Computer Skills', 'Research Acumen', 'Language Skills'],
+                        data: [90, 85, 92, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '📝 नाबार्ड विकास सहायक और अनुसंधान स्टाफ गाइड 📝',
+                    'header-subtitle': 'नाबार्ड में लिपिकीय और अनुसंधान करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. ये नाबार्ड भूमिकाएं क्या हैं? 💡',
+                    'sec1-p1': 'नाबार्ड विभिन्न महत्वपूर्ण सहायता और अनुसंधान भूमिकाओं के लिए भर्ती करता है। **विकास सहायक** एक समूह \'बी\' लिपिकीय पद है, जो बैंक के विभागों के सुचारू प्रशासनिक कामकाज के लिए जिम्मेदार है। **विकास सहायक (हिंदी)** अनुवाद और राजभाषा के कार्यान्वयन पर केंद्रित है। **अनुसंधान अधिकारी / परियोजना वैज्ञानिक** आमतौर पर विशिष्ट परियोजनाओं के लिए एक संविदात्मक आधार पर काम पर रखा जाता है, जो ग्रामीण विकास के लिए महत्वपूर्ण विषयों पर गहन शोध और विश्लेषण प्रदान करता है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'लिपिकीय और अनुसंधान भूमिकाओं के बीच चयन प्रक्रिया में काफी अंतर है, जो आवश्यक विभिन्न कौशल सेटों को दर्शाता है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'प्रारंभिक परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'मुख्य परीक्षा',
+                    'sec2-step3-title': 'चरण 1:', 'sec2-step3-name': 'शॉर्टलिस्टिंग',
+                    'sec2-step4-title': 'चरण 2:', 'sec2-step4-name': 'साक्षात्कार',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'विशिष्ट इंटर्नशिप या शिक्षुता योजना के आधार पर पात्रता मानदंड भिन्न होते हैं।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर **21 से 35 वर्ष** के बीच। आरक्षित श्रेणियों के लिए आयु में छूट लागू होती है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': 'न्यूनतम 50% अंकों के साथ किसी भी विषय में **स्नातक की डिग्री**। डीए (हिंदी) के लिए, स्नातक में हिंदी और अंग्रेजी विषय होने चाहिए।',
+                    'sec3-attempts-title': 'अनुसंधान अधिकारी / परियोजना वैज्ञानिक',
+                    'sec3-agerelax-list': '<li><strong>शिक्षा:</strong> अर्थशास्त्र, कृषि, समाजशास्त्र जैसे प्रासंगिक क्षेत्र में **स्नातकोत्तर डिग्री** या **पीएचडी**, या परियोजना की आवश्यकता के अनुसार विशिष्ट तकनीकी क्षेत्र।</li><li><strong>अनुभव:</strong> अक्सर प्रासंगिक अनुसंधान या परियोजना अनुभव की आवश्यकता होती है।</li><li><strong>आयु सीमा:</strong> परियोजना और आवश्यक अनुभव के आधार पर काफी भिन्न होती है।</li>',
+                    'sec4-title': '4. वि. स. परीक्षा पैटर्न 📚',
+                    'sec4-p1': 'विकास सहायक परीक्षा लिपिकीय योग्यता और भाषा कौशल का परीक्षण करने के लिए डिज़ाइन की गई एक दो-स्तरीय प्रक्रिया है।',
+                    'gs1-title': 'चरण I: प्रारंभिक 📜', 'gs1-sub1': 'अंग्रेजी भाषा', 'gs1-sub2': 'संख्यात्मक क्षमता', 'gs2-sub1': 'तर्क क्षमता',
+                    'gs2-title': 'चरण II: मुख्य 🏛️', 'gs2-sub2': 'तर्क', 'gs3-sub1': 'मात्रात्मक योग्यता', 'gs3-sub2': 'सामान्य जागरूकता', 'gs4-sub1': 'कंप्यूटर ज्ञान', 'gs5-sub1': 'अंग्रेजी भाषा (वर्णनात्मक)',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'चयनित विकास सहायक बैंक की प्रक्रियाओं को सीखने के लिए एक परिवीक्षा अवधि से गुजरते हैं, जबकि अनुसंधान अधिकारी एक विशिष्ट परियोजना अवधि के लिए लगे रहते हैं।',
+                    'sec5-hindi-title': '1. विकास सहायक', 'sec5-hindi-p1': 'परिवीक्षा प्रशासनिक प्रशिक्षण पर केंद्रित है।', 'sec5-hindi-list': '<li>छह महीने की परिवीक्षा अवधि।</li><li>नाबार्ड के कार्यों, नियमों और कार्यालय प्रक्रियाओं पर प्रेरण प्रशिक्षण।</li><li>पुष्टि संतोषजनक प्रदर्शन के अधीन है।</li>',
+                    'sec5-essay-title': '2. अनुसंधान अधिकारी', 'sec5-essay-p1': 'यह एक परियोजना से बंधी एक संविदात्मक भूमिका है।', 'sec5-essay-list': '<li>परियोजना की आवश्यकताओं के अनुसार एक निश्चित अवधि के लिए लगे हुए।</li><li>पारंपरिक अर्थों में कोई परिवीक्षा अवधि नहीं।</li><li>प्रदर्शन परियोजना के उद्देश्यों और रिपोर्टों के वितरण से जुड़ा हुआ है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'जिम्मेदारियां अलग-अलग हैं, विकास सहायक महत्वपूर्ण लिपिकीय सहायता प्रदान करते हैं और अनुसंधान अधिकारी विशेषज्ञ विश्लेषणात्मक इनपुट प्रदान करते हैं।',
+                    'sec6-eng-title': 'विकास सहायक', 'sec6-eng-list': '<li>फाइलों और रिकॉर्ड का रखरखाव।</li><li>डेटा प्रविष्टि और विवरण तैयार करना।</li><li>दिन-प्रतिदिन के पत्राचार को संभालना।</li><li>अधिकारियों को उनके प्रशासनिक कार्यों में सहायता करना।</li>',
+                    'sec6-elec-title': 'डीए (हिंदी)', 'sec6-elec-list': '<li>दस्तावेजों का अंग्रेजी से हिंदी और इसके विपरीत अनुवाद करना।</li><li>राजभाषा नीति के कार्यान्वयन में सहायता करना।</li><li>हिंदी में रिपोर्ट और पत्राचार तैयार करना।</li>',
+                    'sec6-naic-title': 'अनुसंधान अधिकारी', 'sec6-naic-list': '<li>प्राथमिक और माध्यमिक अनुसंधान करना।</li><li>सांख्यिकीय सॉफ्टवेयर का उपयोग करके डेटा विश्लेषण।</li><li>उच्च गुणवत्ता वाले शोध पत्र और नीति संक्षिप्त लिखना।</li>',
+                    'sec7-title': '7. एक आदर्श उम्मीदवार के गुण 🎙️',
+                    'sec7-p1': 'इन भूमिकाओं के लिए लिपिकीय परिश्रम, भाषा प्रवीणता और तेज विश्लेषणात्मक कौशल का मिश्रण आवश्यक है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">꼼</span><div><strong class="text-white">विस्तार पर ध्यान (डीए):</strong> लिपिकीय भूमिकाओं के लिए डेटा प्रविष्टि, टाइपिंग और रिकॉर्ड-कीपिंग में सटीकता महत्वपूर्ण है।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">💻</span><div><strong class="text-white">कंप्यूटर प्रवीणता (डीए):</strong> दिन-प्रतिदिन के कार्यों के लिए एमएस ऑफिस का अच्छा ज्ञान आवश्यक है।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">🔬</span><div><strong class="text-white">अनुसंधान कौशल (आरओ):</strong> अनुसंधान पद्धतियों और डेटा विश्लेषण तकनीकों की मजबूत समझ।</div></li><li class="flex items-start"><span class="text-2xl text-[#fbbf24] mr-3">✍️</span><div><strong class="text-white">भाषा कौशल (सभी):</strong> लेखन और संचार के लिए अंग्रेजी (और डीए-हिंदी के लिए हिंदी) पर अच्छी कमांड।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'तैयारी की रणनीतियों को अनुरूप होना चाहिए। विकास सहायक उम्मीदवारों को मानक लिपिकीय परीक्षा पैटर्न पर ध्यान केंद्रित करना चाहिए, जबकि अनुसंधान अधिकारी उम्मीदवारों को गहरे डोमेन विशेषज्ञता का प्रदर्शन करना चाहिए।',
+                    'sec8-steps-title': '📚 वि. स. उम्मीदवारों के लिए:',
+                    'sec8-step1-title': 'गति और सटीकता के लिए अभ्यास करें', 'sec8-step1-desc': 'बैंकिंग परीक्षाओं में आवश्यक के रूप में क्वांट, रीजनिंग और अंग्रेजी से प्रश्नों को जल्दी और सही तरीके से हल करने पर ध्यान दें।',
+                    'sec8-step2-title': 'मुख्य पाठ्यक्रम को अच्छी तरह से कवर करें', 'sec8-step2-desc': 'मुख्य परीक्षा के लिए सामान्य जागरूकता (कृषि पर ध्यान देने के साथ) और कंप्यूटर ज्ञान पर विशेष ध्यान दें।',
+                    'sec8-revision-title': '🔄 अनुसंधान अधिकारी आवेदकों के लिए:',
+                    'sec8-revision-list': '<li><strong>एक शानदार सीवी तैयार करें:</strong> आपके बायोडाटा में आपकी शोध परियोजनाओं, प्रकाशनों और विश्लेषणात्मक कौशल को स्पष्ट रूप से उजागर करना चाहिए।</li><li><strong>एक शोध प्रस्ताव विकसित करें:</strong> यदि आवश्यक हो, तो एक स्पष्ट और संक्षिप्त शोध प्रस्ताव बनाएं जो नाबार्ड के रुचि के क्षेत्रों के साथ संरेखित हो।</li><li><strong>डोमेन ज्ञान को गहरा करें:</strong> मुख्य अवधारणाओं को संशोधित करके और अपने क्षेत्र में हाल के शोध पर अपडेट रहकर एक अत्यधिक तकनीकी साक्षात्कार के लिए तैयार रहें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'विकास सहायकों के लिए भर्ती रिक्तियों को भरने के लिए समय-समय पर होती है, जबकि अनुसंधान भूमिकाओं का विज्ञापन विशिष्ट परियोजना की जरूरतों के आधार पर किया जाता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> दोनों प्रकार की रिक्तियों को नाबार्ड वेबसाइट के "करियर" अनुभाग पर पोस्ट किया जाता है।',
+                    'sec9-step2-title': 'डीए परीक्षा प्रक्रिया', 'sec9-step2-desc': '<strong>समयरेखा:</strong> प्रारंभिक और मुख्य परीक्षाएं आमतौर पर अधिसूचना के 2-3 महीनों के भीतर आयोजित की जाती हैं।',
+                    'sec9-step3-title': 'अनुसंधान अधिकारी प्रक्रिया', 'sec9-step3-desc': '<strong>समयरेखा:</strong> प्रक्रिया में आवेदनों की शॉर्टलिस्टिंग के बाद साक्षात्कार शामिल हैं, जिसमें कुछ महीने लग सकते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'विभिन्न भूमिकाओं के लिए अलग-अलग दृष्टिकोण की आवश्यकता होती है। अपनी संभावनाओं को बेहतर बनाने के लिए इन विशिष्ट गलतियों से बचें।',
+                    'sec10-mistake1-title': 'डीए के लिए: अनुभागीय कट-ऑफ की अनदेखी:', 'sec10-mistake1-desc': 'प्रारंभिक में सभी वर्गों को समान महत्व नहीं देना और व्यक्तिगत कट-ऑफ को पार करने में विफल होना।',
+                    'sec10-mistake2-title': 'डीए के लिए: वर्णनात्मक अंग्रेजी की उपेक्षा:', 'sec10-mistake2-desc': 'केवल वस्तुनिष्ठ प्रश्नों पर ध्यान केंद्रित करना और मुख्य के लिए निबंध और पत्र लिखने का अभ्यास नहीं करना।',
+                    'sec10-mistake3-title': 'आरओ के लिए: अस्पष्ट आवेदन:', 'sec10-mistake3-desc': 'एक सामान्य सीवी और शोध प्रस्ताव प्रस्तुत करना जो स्पष्ट रूप से विशेषज्ञता और नाबार्ड के लिए प्रासंगिकता को प्रदर्शित नहीं करता है।',
+                    'sec10-mistake4-title': 'आरओ के लिए: खराब साक्षात्कार तैयारी:', 'sec10-mistake4-desc': 'साक्षात्कार के दौरान अपने शोध का बचाव करने या अपने डोमेन में समकालीन मुद्दों पर चर्चा करने में असमर्थ होना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'भूमिका के आधार पर तैयारी के स्रोत भिन्न होते हैं। डीए उम्मीदवार मानक बैंकिंग परीक्षा कोचिंग का पालन कर सकते हैं, जबकि आरओ उम्मीदवारों को अकादमिक संसाधनों पर भरोसा करना चाहिए।',
+                    'sec11-gov-title': '📚 विकास सहायक के लिए', 'sec11-gov-list': '<li>आईबीपीएस क्लर्क/पीओ परीक्षाओं के लिए कोचिंग संस्थान और ऑनलाइन प्लेटफॉर्म बहुत उपयोगी हैं।</li><li>गति और सटीकता बनाने के लिए मॉक टेस्ट श्रृंखला पर ध्यान दें।</li>',
+                    'sec11-pvt-title': '🔬 अनुसंधान अधिकारी के लिए', 'sec11-pvt-p1': 'स्व-अध्ययन सर्वोपरि है।', 'sec11-pvt-list': '<li>अपने विश्वविद्यालय की पाठ्यपुस्तकों, शोध पत्रों और अकादमिक पत्रिकाओं पर भरोसा करें।</li><li>अपने क्षेत्र में प्रतिष्ठित संस्थानों और थिंक टैंक के प्रकाशनों का पालन करें।</li>',
+                    'sec12-title': '12. कैरियर पथ और लाभ 🚀',
+                    'sec12-p1': 'नाबार्ड में एक भूमिका, चाहे वह स्थायी हो या संविदात्मक, अपार सीखने और विकास प्रदान करती है। विकास सहायकों के पास अधिकारी बनने का एक स्पष्ट मार्ग है, जबकि एक शोध कार्यकाल एक अकादमिक या नीति कैरियर के लिए बहुत मूल्य जोड़ता है।',
+                    'sec12-career-btn': 'कैरियर पथ देखें',
+                    'sec13-title': '13. वि. स. पाठ्यक्रम 📚',
+                    'sec13-p1': 'विकास सहायक परीक्षा के लिए पाठ्यक्रम व्यापक है और सभी विषयों में व्यापक तैयारी की आवश्यकता है।',
+                    'syllabus-oir-title': 'योग्यता अनुभाग',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और संख्यात्मक क्षमता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">अंग्रेजी भाषा</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मुख्य-विशिष्ट अनुभाग',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता (कृषि फोकस)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">कंप्यूटर ज्ञान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | ग्रामीण विकास के स्तंभों का समर्थन।',
+                    'interviewChartData': {
+                        labels: ['विस्तार पर ध्यान', 'कंप्यूटर कौशल', 'अनुसंधान कौशल', 'भाषा कौशल'],
+                        data: [90, 85, 92, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#334155]/50 rounded-xl text-center border-2 border-slate-700 hover:border-orange-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(255, 127, 80, 0.7)',
+                            borderColor: '#ff7f50',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e2e8f0' },
+                                grid: { color: 'rgba(226, 232, 240, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e2e8f0', font: { size: 14 } },
+                                grid: { color: 'rgba(226, 232, 240, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
