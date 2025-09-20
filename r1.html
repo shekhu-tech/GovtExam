@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek R1: The Ultimate Coder's Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to DeepSeek's R1 model. Understand its advanced coding and reasoning architecture, its open-source nature, capabilities, and applications.">
+    <meta name="keywords" content="DeepSeek, DeepSeek R1, Open Source AI, AI Coder, Large Language Models, AI, Artificial Intelligence, Code Generation, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #e5e7eb; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ec4899, #22d3ee) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.8); /* Gray 900 Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #374151; /* Gray 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ec4899; /* Pink 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ec4899; /* Pink 500 */
+            color: #ec4899;
+            background: #1f2937; /* Gray 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+            text-shadow: 0 0 5px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ec4899;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-arrow {
+            color: #22d3ee; /* Electric Cyan */
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #22d3ee;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(34, 211, 238, 0.1);
+        }
+        .subject-item .icon {
+            color: #22d3ee;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ec4899;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #ec4899;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ec4899, #d946ef);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ec4899;
+            color: #ec4899;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ec4899;
+            color: #111827;
+            box-shadow: 0 0 15px #ec4899;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #22d3ee, #0ea5e9);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">💻 DeepSeek R1: The Ultimate Guide 💻</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-cyan-400">The Next Generation of Open-Source Code & Reasoning</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is DeepSeek R1? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is DeepSeek R1? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">DeepSeek R1 is the hypothetical next-generation open-source large language model from DeepSeek AI, a company renowned for its state-of-the-art coding models. Building on the success of its predecessors like DeepSeek Coder V2, R1 (Reasoning-First) is designed to be a paradigm shift, moving beyond simple code completion to possess deep, multi-step reasoning abilities. It is an AI model that not only writes code but understands the underlying logic, enabling it to tackle complex software engineering challenges.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology: Reasoning-First Architecture 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">R1 employs a novel architecture that prioritizes logical reasoning before generating code, allowing it to solve more complex problems accurately.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Problem Decomp.</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Breaks down complex problems</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">R1 Model</span><br><span id="sec2-step2-name">Logical Planning</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Creates a logical plan or pseudo-code</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Code Generation</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Generates code based on the logical plan</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Following DeepSeek's open-source ethos, R1 would be made available to the global community to foster innovation.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🧑‍💻</span><div><strong id="sec3-age-title" class="text-white text-lg">Developers & Researchers:</strong> <span id="sec3-age-desc">The primary audience, who can use, modify, and build upon the model for academic and commercial projects.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🏢</span><div><strong id="sec3-edu-title" class="text-white text-lg">Enterprises:</strong> <span id="sec3-edu-desc">Businesses can fine-tune R1 on their private codebases to create powerful, proprietary internal developer tools.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#22d3ee] pb-2">Primary Platforms 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Hugging Face:</strong> The models and code would be released on the Hugging Face Hub for easy access.</li>
+                             <li><strong>GitHub:</strong> The official repository would contain all the necessary code for training and inference.</li>
+                             <li><strong>Cloud Platforms:</strong> Available on major cloud providers for scalable deployment by businesses.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Next-Generation Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">DeepSeek R1 is engineered to be a true AI partner in software development, with capabilities that go far beyond simple code completion.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Complex Problem Solving</h3>
+                        <p class="text-sm">Tackles challenging competitive programming problems that require deep logical reasoning.</p>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Full Repository Understanding</h3>
+                         <p class="text-sm">Can analyze an entire codebase to understand dependencies and generate context-aware code.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Autonomous Debugging</h3>
+                         <p class="text-sm">Identifies bugs, understands the root cause, and writes the correct code to fix them.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Multi-language Proficiency</h3>
+                         <p class="text-sm">Exceptional performance across hundreds of programming languages, from Python to Rust.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is R1 Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">R1's advanced abilities stem from its training on a massive, high-quality dataset that is heavily weighted towards code and scientific/mathematical text.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ec4899]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A multi-trillion token dataset focused on logic.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Pre-trained on a dataset with a higher proportion of code (from GitHub, etc.) and scientific papers (from arXiv, etc.) than generalist models.</li>
+                            <li>This specialized diet enhances its logical reasoning and programming abilities.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#22d3ee]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Alignment Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Fine-tuning on complex problem-solving.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>The model is fine-tuned using a curated dataset of competitive programming problems and their solutions.</li>
+                           <li>Reinforcement Learning techniques are used to reward the model for generating correct, efficient, and well-structured code.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">DeepSeek R1 is poised to become an indispensable tool for the entire software development lifecycle.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">AI Software Engineer</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Generating entire applications from high-level specifications.</li>
+                           <li>Automating the process of debugging and code reviews.</li>
+                           <li>Acting as a true pair programming partner.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Scientific Discovery</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting scientists in writing complex simulation code.</li>
+                           <li>Analyzing large scientific datasets.</li>
+                           <li>Formulating and testing hypotheses in code.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Education</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Providing personalized, expert-level tutoring for computer science students.</li>
+                           <li>Explaining complex algorithms and data structures.</li>
+                           <li>Instantly generating practice problems and solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">DeepSeek R1 would aim to surpass all existing open-source and proprietary models on benchmarks that measure coding and mathematical reasoning.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ec4899] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">💻</span><div><strong class="text-white">HumanEval & MBPP:</strong> Expected to achieve near-perfect scores on these standard code generation benchmarks.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🔢</span><div><strong class="text-white">MATH & GSM8K:</strong> Aims to set new state-of-the-art records for mathematical problem-solving, showcasing its deep reasoning abilities.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🏆</span><div><strong class="text-white">Competitive Programming:</strong> Evaluated on its ability to solve unseen problems from platforms like Codeforces and LeetCode.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting R1: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To leverage R1's reasoning capabilities, prompts should focus on defining the problem and constraints, allowing the model to devise the solution.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#ec4899] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Define the Problem Clearly</h4>
+                                <p id="sec8-step1-desc" class="text-base">Provide a clear and unambiguous problem statement, including inputs, outputs, and any constraints.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Request a Plan First</h4>
+                                <p id="sec8-step2-desc" class="text-base">Ask R1 to first outline its logical approach or provide pseudo-code. You can then review this plan before asking it to generate the final code.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Provide Contextual Code:</strong> For bug fixing or adding features, provide the existing codebase so the model can generate context-aware solutions.</li>
+                            <li><strong>Iterative Debugging:</strong> If the generated code has an error, provide the error message back to the model and ask it to fix the issue.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">R1 is the logical next step in DeepSeek AI's journey to create the world's most powerful open-source coding models.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">DeepSeek Coder V1</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> 2023. Established DeepSeek as a major player in open-source AI, with strong coding abilities.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">DeepSeek Coder V2</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Early 2024. A Mixture-of-Experts model that outperformed many proprietary models on coding benchmarks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">DeepSeek R1 (Reasoning-First)</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Late 2025 (Hypothetical). A new architecture that prioritizes deep reasoning, aiming to achieve state-of-the-art performance on complex problem-solving.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Responsible Use 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">As AI models become more capable, it is vital to use them as tools to augment human expertise, not as infallible oracles.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Blind Trust in Code:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Never deploy AI-generated code without thorough review and testing by a human expert. It can contain subtle bugs or security flaws.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Over-reliance:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Using the AI as a crutch can stifle a developer's own learning and problem-solving skills. Use it as a partner, not a replacement.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">License Compliance:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Always check the open-source license terms to ensure your use case (especially commercial) is compliant.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Data Privacy:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Be cautious about inputting sensitive or proprietary code into public-facing versions of AI models.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use R1 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">DeepSeek AI is committed to open source, making their models accessible through standard community platforms.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Developers & Researchers</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Hugging Face:** Download the model weights and use them with the `transformers` library.</li>
+                           <li>**GitHub:** Access the official code for inference and fine-tuning.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Enterprise Use</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Leverage cloud infrastructure for scalable use.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Cloud Platforms:** Deploy R1 on major cloud providers like AWS, Azure, and Google Cloud.</li>
+                             <li>**DeepSeek API:** Access an optimized version through DeepSeek's own commercial API platform.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: AI as a Software Engineer 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Models like DeepSeek R1 are a major step towards creating AI systems that can function as junior software engineers. The future of software development will likely involve close collaboration between human architects and AI agents that can write, debug, and even deploy large portions of a codebase, drastically increasing productivity and innovation.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these advanced concepts is key to grasping the leap forward that DeepSeek R1 represents.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Reasoning vs. Generation</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Code-Specific Training</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Seeking the Summit of AI.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Problem Decomposition</h3>
+            <p id="prelims-modal-p1">When given a complex problem, R1 first breaks it down into smaller, manageable sub-problems. It analyzes the requirements, identifies dependencies, and understands the overall goal before writing any code.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">R1 Model: Logical Planning</h3>
+            <p id="mains-modal-p1">The model then generates a high-level plan or algorithm to solve the problem. This is often represented as pseudo-code or a step-by-step logical outline. This "reasoning-first" step ensures the model has a correct and efficient strategy before implementation.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Code Generation</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Finally, using its logical plan as a guide, R1 translates the steps into high-quality, functional code in the desired programming language. This approach dramatically reduces logical errors and improves the chances of generating a correct solution on the first attempt.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of DeepSeek R1</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'reasoning': { 
+                        name: 'Reasoning-First', 
+                        icon: '🧠',
+                        description: 'Unlike models that directly generate code, R1 first formulates a logical plan, leading to more robust and accurate solutions for complex problems.',
+                        cta: 'Learn More'
+                    },
+                    'coding': { 
+                        name: 'Elite Coding', 
+                        icon: '💻',
+                        description: 'Built on the legacy of DeepSeek\'s world-class coding models, R1 possesses state-of-the-art proficiency in hundreds of programming languages.',
+                        cta: 'Learn More'
+                    },
+                    'opensource': { 
+                        name: 'Open Source', 
+                        icon: '🌐',
+                        description: 'DeepSeek is committed to the open-source community, making its powerful models freely available for research and commercial use to foster innovation.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'reasoning': { 
+                        name: 'तर्क-प्रथम', 
+                        icon: '🧠',
+                        description: 'सीधे कोड उत्पन्न करने वाले मॉडल के विपरीत, R1 पहले एक तार्किक योजना तैयार करता है, जिससे जटिल समस्याओं के लिए अधिक मजबूत और सटीक समाधान मिलते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'coding': { 
+                        name: 'अभिजात कोडिंग', 
+                        icon: '💻',
+                        description: 'डीपसीक के विश्व स्तरीय कोडिंग मॉडल की विरासत पर निर्मित, R1 सैकड़ों प्रोग्रामिंग भाषाओं में अत्याधुनिक प्रवीणता रखता है।',
+                        cta: 'और जानें'
+                    },
+                    'opensource': { 
+                        name: 'ओपन सोर्स', 
+                        icon: '🌐',
+                        description: 'डीपसीक ओपन-सोर्स समुदाय के लिए प्रतिबद्ध है, जो नवाचार को बढ़ावा देने के लिए अनुसंधान और वाणिज्यिक उपयोग के लिए अपने शक्तिशाली मॉडल को स्वतंत्र रूप से उपलब्ध कराता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Reasoning Before Coding", desc: "Its unique architecture allows it to 'think' and plan before writing code, a significant step beyond simple pattern matching." },
+                        { rank: "Open and Permissive", desc: "Continuing the open-source tradition, it empowers the global community to innovate freely for both research and commercial applications." },
+                        { rank: "Specialized Training Data", desc: "Trained on a dataset heavily skewed towards high-quality code and scientific text, giving it unparalleled expertise in technical domains." },
+                        { rank: "State-of-the-Art Performance", desc: "Designed to be the top-performing open-source model on benchmarks that test complex reasoning and coding abilities." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "कोडिंग से पहले तर्क", desc: "इसकी अनूठी वास्तुकला इसे कोड लिखने से पहले 'सोचने' और योजना बनाने की अनुमति देती है, जो सरल पैटर्न मिलान से परे एक महत्वपूर्ण कदम है।" },
+                        { rank: "खुला और अनुज्ञात्मक", desc: "ओपन-सोर्स परंपरा को जारी रखते हुए, यह वैश्विक समुदाय को अनुसंधान और वाणिज्यिक दोनों अनुप्रयोगों के लिए स्वतंत्र रूप से नवाचार करने के लिए सशक्त बनाता है।" },
+                        { rank: "विशेष प्रशिक्षण डेटा", desc: "उच्च-गुणवत्ता वाले कोड और वैज्ञानिक पाठ की ओर भारी रूप से तिरछे डेटासेट पर प्रशिक्षित, जो इसे तकनीकी डोमेन में अद्वितीय विशेषज्ञता प्रदान करता है।" },
+                        { rank: "अत्याधुनिक प्रदर्शन", desc: "जटिल तर्क और कोडिंग क्षमताओं का परीक्षण करने वाले बेंचमार्क पर शीर्ष प्रदर्शन करने वाले ओपन-सोर्स मॉडल के रूप में डिज़ाइन किया गया है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '💻 DeepSeek R1: The Ultimate Guide 💻',
+                    'header-subtitle': 'The Next Generation of Open-Source Code & Reasoning',
+                    'sec1-title': '1. What is DeepSeek R1? 💡',
+                    'sec1-p1': 'DeepSeek R1 is the hypothetical next-generation open-source large language model from DeepSeek AI, a company renowned for its state-of-the-art coding models. Building on the success of its predecessors like DeepSeek Coder V2, R1 (Reasoning-First) is designed to be a paradigm shift, moving beyond simple code completion to possess deep, multi-step reasoning abilities. It is an AI model that not only writes code but understands the underlying logic, enabling it to tackle complex software engineering challenges.',
+                    'sec2-title': '2. The Technology: Reasoning-First Architecture 🎯',
+                    'sec2-p1': 'R1 employs a novel architecture that prioritizes logical reasoning before generating code, allowing it to solve more complex problems accurately.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Problem Decomp.', 'sec2-step1-desc': 'Breaks down complex problems',
+                    'sec2-step2-title': 'R1 Model', 'sec2-step2-name': 'Logical Planning', 'sec2-step2-desc': 'Creates a logical plan or pseudo-code',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Code Generation', 'sec2-step3-desc': 'Generates code based on the logical plan',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Following DeepSeek\'s open-source ethos, R1 would be made available to the global community to foster innovation.',
+                    'sec3-age-title': 'Developers & Researchers:', 'sec3-age-desc': 'The primary audience, who can use, modify, and build upon the model for academic and commercial projects.',
+                    'sec3-edu-title': 'Enterprises:', 'sec3-edu-desc': 'Businesses can fine-tune R1 on their private codebases to create powerful, proprietary internal developer tools.',
+                    'sec3-attempts-title': 'Primary Platforms 📊',
+                    'sec3-agerelax-list': '<li><strong>Hugging Face:</strong> The models and code would be released on the Hugging Face Hub for easy access.</li><li><strong>GitHub:</strong> The official repository would contain all the necessary code for training and inference.</li><li><strong>Cloud Platforms:</strong> Available on major cloud providers for scalable deployment by businesses.</li>',
+                    'sec4-title': '4. Next-Generation Capabilities 📚',
+                    'sec4-p1': 'DeepSeek R1 is engineered to be a true AI partner in software development, with capabilities that go far beyond simple code completion.',
+                    'gs1-title': 'Complex Problem Solving',
+                    'gs2-title': 'Full Repository Understanding',
+                    'gs3-title': 'Autonomous Debugging',
+                    'gs4-title': 'Multi-language Proficiency',
+                    'sec5-title': '5. How is R1 Trained? 🏛️',
+                    'sec5-p1': 'R1\'s advanced abilities stem from its training on a massive, high-quality dataset that is heavily weighted towards code and scientific/mathematical text.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A multi-trillion token dataset focused on logic.', 'sec5-hindi-list': '<li>Pre-trained on a dataset with a higher proportion of code (from GitHub, etc.) and scientific papers (from arXiv, etc.) than generalist models.</li><li>This specialized diet enhances its logical reasoning and programming abilities.</li>',
+                    'sec5-essay-title': '2. The Alignment Process', 'sec5-essay-p1': 'Fine-tuning on complex problem-solving.', 'sec5-essay-list': '<li>The model is fine-tuned using a curated dataset of competitive programming problems and their solutions.</li><li>Reinforcement Learning techniques are used to reward the model for generating correct, efficient, and well-structured code.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'DeepSeek R1 is poised to become an indispensable tool for the entire software development lifecycle.',
+                    'sec6-eng-title': 'AI Software Engineer', 'sec6-eng-list': '<li>Generating entire applications from high-level specifications.</li><li>Automating the process of debugging and code reviews.</li><li>Acting as a true pair programming partner.</li>',
+                    'sec6-elec-title': 'Scientific Discovery', 'sec6-elec-list': '<li>Assisting scientists in writing complex simulation code.</li><li>Analyzing large scientific datasets.</li><li>Formulating and testing hypotheses in code.</li>',
+                    'sec6-naic-title': 'Education', 'sec6-naic-list': '<li>Providing personalized, expert-level tutoring for computer science students.</li><li>Explaining complex algorithms and data structures.</li><li>Instantly generating practice problems and solutions.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'DeepSeek R1 would aim to surpass all existing open-source and proprietary models on benchmarks that measure coding and mathematical reasoning.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">💻</span><div><strong class="text-white">HumanEval & MBPP:</strong> Expected to achieve near-perfect scores on these standard code generation benchmarks.</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🔢</span><div><strong class="text-white">MATH & GSM8K:</strong> Aims to set new state-of-the-art records for mathematical problem-solving, showcasing its deep reasoning abilities.</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🏆</span><div><strong class="text-white">Competitive Programming:</strong> Evaluated on its ability to solve unseen problems from platforms like Codeforces and LeetCode.</div></li>',
+                    'sec8-title': '8. Prompting R1: Best Practices 📈',
+                    'sec8-p1': 'To leverage R1\'s reasoning capabilities, prompts should focus on defining the problem and constraints, allowing the model to devise the solution.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Define the Problem Clearly', 'sec8-step1-desc': 'Provide a clear and unambiguous problem statement, including inputs, outputs, and any constraints.',
+                    'sec8-step2-title': 'Request a Plan First', 'sec8-step2-desc': 'Ask R1 to first outline its logical approach or provide pseudo-code. You can then review this plan before asking it to generate the final code.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Provide Contextual Code:</strong> For bug fixing or adding features, provide the existing codebase so the model can generate context-aware solutions.</li><li><strong>Iterative Debugging:</strong> If the generated code has an error, provide the error message back to the model and ask it to fix the issue.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'R1 is the logical next step in DeepSeek AI\'s journey to create the world\'s most powerful open-source coding models.',
+                    'sec9-step1-title': 'DeepSeek Coder V1', 'sec9-step1-desc': '<strong>Timeline:</strong> 2023. Established DeepSeek as a major player in open-source AI, with strong coding abilities.',
+                    'sec9-step2-title': 'DeepSeek Coder V2', 'sec9-step2-desc': '<strong>Timeline:</strong> Early 2024. A Mixture-of-Experts model that outperformed many proprietary models on coding benchmarks.',
+                    'sec9-step3-title': 'DeepSeek R1 (Reasoning-First)', 'sec9-step3-desc': '<strong>Timeline:</strong> Late 2025 (Hypothetical). A new architecture that prioritizes deep reasoning, aiming to achieve state-of-the-art performance on complex problem-solving.',
+                    'sec10-title': '10. Limitations & Responsible Use 🚫',
+                    'sec10-p1': 'As AI models become more capable, it is vital to use them as tools to augment human expertise, not as infallible oracles.',
+                    'sec10-mistake1-title': 'Blind Trust in Code:', 'sec10-mistake1-desc': 'Never deploy AI-generated code without thorough review and testing by a human expert. It can contain subtle bugs or security flaws.',
+                    'sec10-mistake2-title': 'Over-reliance:', 'sec10-mistake2-desc': 'Using the AI as a crutch can stifle a developer\'s own learning and problem-solving skills. Use it as a partner, not a replacement.',
+                    'sec10-mistake3-title': 'License Compliance:', 'sec10-mistake3-desc': 'Always check the open-source license terms to ensure your use case (especially commercial) is compliant.',
+                    'sec10-mistake4-title': 'Data Privacy:', 'sec10-mistake4-desc': 'Be cautious about inputting sensitive or proprietary code into public-facing versions of AI models.',
+                    'sec11-title': '11. How to Access & Use R1 🏫',
+                    'sec11-p1': 'DeepSeek AI is committed to open source, making their models accessible through standard community platforms.',
+                    'sec11-gov-title': '📚 For Developers & Researchers', 'sec11-gov-list': '<li>**Hugging Face:** Download the model weights and use them with the `transformers` library.</li><li>**GitHub:** Access the official code for inference and fine-tuning.</li>',
+                    'sec11-pvt-title': '💻 For Enterprise Use', 'sec11-pvt-p1': 'Leverage cloud infrastructure for scalable use.', 'sec11-pvt-list': '<li>**Cloud Platforms:** Deploy R1 on major cloud providers like AWS, Azure, and Google Cloud.</li><li>**DeepSeek API:** Access an optimized version through DeepSeek\'s own commercial API platform.</li>',
+                    'sec12-title': '12. The Future: AI as a Software Engineer 🚀',
+                    'sec12-p1': 'Models like DeepSeek R1 are a major step towards creating AI systems that can function as junior software engineers. The future of software development will likely involve close collaboration between human architects and AI agents that can write, debug, and even deploy large portions of a codebase, drastically increasing productivity and innovation.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these advanced concepts is key to grasping the leap forward that Llama 4 represents.',
+                    'syllabus-oir-title': 'Reasoning vs. Generation',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➡️</span><div class="flex-grow">Direct Generation</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning-First Approach</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Code-Specific Training',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Specialized Datasets</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">Alignment on Logic</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Seeking the Summit of AI.',
+                    'interviewChartData': {
+                        labels: ['HumanEval', 'MBPP', 'GSM8K', 'MMLU'],
+                        data: [92.5, 90.1, 98.2, 88.5] // Hypothetical R1 scores
+                    }
+                },
+                'hi': {
+                    'header-title': '💻 डीपसीक R1: अंतिम गाइड 💻',
+                    'header-subtitle': 'ओपन-सोर्स कोड और तर्क की अगली पीढ़ी',
+                    'sec1-title': '1. डीपसीक R1 क्या है? 💡',
+                    'sec1-p1': 'डीपसीक R1 डीपसीक एआई से अगली पीढ़ी का ओपन-सोर्स बड़ा भाषा मॉडल है, जो अपने अत्याधुनिक कोडिंग मॉडल के लिए प्रसिद्ध कंपनी है। डीपसीक कोडर V2 जैसे अपने पूर्ववर्तियों की सफलता पर आधारित, R1 (रीजनिंग-फर्स्ट) को एक प्रतिमान बदलाव के रूप में डिज़ाइन किया गया है, जो गहरी, बहु-चरणीय तर्क क्षमताओं को रखने के लिए सरल कोड पूर्णता से परे जा रहा है। यह एक एआई मॉडल है जो न केवल कोड लिखता है बल्कि अंतर्निहित तर्क को भी समझता है, जिससे यह जटिल सॉफ्टवेयर इंजीनियरिंग चुनौतियों से निपटने में सक्षम होता है।',
+                    'sec2-title': '2. प्रौद्योगिकी: तर्क-प्रथम वास्तुकला 🎯',
+                    'sec2-p1': 'R1 एक उपन्यास वास्तुकला को नियोजित करता है जो कोड उत्पन्न करने से पहले तार्किक तर्क को प्राथमिकता देता है, जिससे यह अधिक जटिल समस्याओं को सटीक रूप से हल कर सकता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'समस्या अपघटन।', 'sec2-step1-desc': 'जटिल समस्याओं को तोड़ता है',
+                    'sec2-step2-title': 'R1 मॉडल', 'sec2-step2-name': 'तार्किक योजना', 'sec2-step2-desc': 'एक तार्किक योजना या छद्म-कोड बनाता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'कोड जनरेशन', 'sec2-step3-desc': 'तार्किक योजना के आधार पर कोड उत्पन्न करता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'डीपसीक के ओपन-सोर्स लोकाचार का पालन करते हुए, R1 को नवाचार को बढ़ावा देने के लिए वैश्विक समुदाय के लिए उपलब्ध कराया जाएगा।',
+                    'sec3-age-title': 'डेवलपर्स और शोधकर्ता:', 'sec3-age-desc': 'प्राथमिक दर्शक, जो अकादमिक और वाणिज्यिक परियोजनाओं के लिए मॉडल का उपयोग, संशोधन और निर्माण कर सकते हैं।',
+                    'sec3-edu-title': 'उद्यम:', 'sec3-edu-desc': 'व्यवसाय शक्तिशाली, मालिकाना आंतरिक डेवलपर उपकरण बनाने के लिए अपने निजी कोडबेस पर R1 को ठीक कर सकते हैं।',
+                    'sec3-attempts-title': 'प्राथमिक प्लेटफॉर्म 📊',
+                    'sec3-agerelax-list': '<li><strong>हगिंग फेस:</strong> मॉडल और कोड आसान पहुंच के लिए हगिंग फेस हब पर जारी किए जाएंगे।</li><li><strong>गिटहब:</strong> आधिकारिक रिपॉजिटरी में प्रशिक्षण और अनुमान के लिए सभी आवश्यक कोड होंगे।</li><li><strong>क्लाउड प्लेटफॉर्म:</strong> व्यवसायों द्वारा स्केलेबल परिनियोजन के लिए प्रमुख क्लाउड प्रदाताओं पर उपलब्ध है।</li>',
+                    'sec4-title': '4. अगली पीढ़ी की क्षमताएं 📚',
+                    'sec4-p1': 'डीपसीक R1 को सॉफ्टवेयर विकास में एक सच्चा एआई भागीदार बनने के लिए इंजीनियर किया गया है, जिसमें ऐसी क्षमताएं हैं जो सरल कोड पूर्णता से बहुत आगे जाती हैं।',
+                    'gs1-title': 'जटिल समस्या समाधान',
+                    'gs2-title': 'पूर्ण रिपोजिटरी समझना',
+                    'gs3-title': 'स्वायत्त डीबगिंग',
+                    'gs4-title': 'बहु-भाषा प्रवीणता',
+                    'sec5-title': '5. R1 को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'R1 की उन्नत क्षमताएं एक विशाल, उच्च-गुणवत्ता वाले डेटासेट पर इसके प्रशिक्षण से उपजी हैं जो कोड और वैज्ञानिक/गणितीय पाठ की ओर भारी रूप से भारित है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'तर्क पर केंद्रित एक बहु-ट्रिलियन टोकन डेटासेट।', 'sec5-hindi-list': '<li>सामान्य मॉडलों की तुलना में कोड (गिटहब, आदि से) और वैज्ञानिक पत्रों (arXiv, आदि से) के उच्च अनुपात वाले डेटासेट पर पूर्व-प्रशिक्षित।</li><li>यह विशेष आहार इसकी तार्किक तर्क और प्रोग्रामिंग क्षमताओं को बढ़ाता है।</li>',
+                    'sec5-essay-title': '2. संरेखण प्रक्रिया', 'sec5-essay-p1': 'जटिल समस्या-समाधान पर फाइन-ट्यूनिंग।', 'sec5-essay-list': '<li>मॉडल को प्रतिस्पर्धी प्रोग्रामिंग समस्याओं और उनके समाधानों के एक क्यूरेटेड डेटासेट का उपयोग करके ठीक-ठीक किया जाता है।</li><li>सुदृढीकरण सीखने की तकनीकों का उपयोग सही, कुशल और अच्छी तरह से संरचित कोड उत्पन्न करने के लिए मॉडल को पुरस्कृत करने के लिए किया जाता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'डीपसीक R1 पूरे सॉफ्टवेयर विकास जीवनचक्र के लिए एक अनिवार्य उपकरण बनने के लिए तैयार है।',
+                    'sec6-eng-title': 'एआई सॉफ्टवेयर इंजीनियर', 'sec6-eng-list': '<li>उच्च-स्तरीय विनिर्देशों से संपूर्ण एप्लिकेशन बनाना।</li><li>डीबगिंग और कोड समीक्षा की प्रक्रिया को स्वचालित करना।</li><li>एक सच्चे जोड़ी प्रोग्रामिंग भागीदार के रूप में कार्य करना।</li>',
+                    'sec6-elec-title': 'वैज्ञानिक खोज', 'sec6-elec-list': '<li>जटिल सिमुलेशन कोड लिखने में वैज्ञानिकों की सहायता करना।</li><li>बड़े वैज्ञानिक डेटासेट का विश्लेषण करना।</li><li>कोड में परिकल्पनाओं का निर्माण और परीक्षण करना।</li>',
+                    'sec6-naic-title': 'शिक्षा', 'sec6-naic-list': '<li>कंप्यूटर विज्ञान के छात्रों के लिए व्यक्तिगत, विशेषज्ञ-स्तर की ट्यूटरिंग प्रदान करना।</li><li>जटिल एल्गोरिदम और डेटा संरचनाओं की व्याख्या करना।</li><li>तुरंत अभ्यास समस्याओं और समाधानों को उत्पन्न करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'डीपसीक R1 का लक्ष्य कोडिंग और गणितीय तर्क को मापने वाले बेंचमार्क पर सभी मौजूदा ओपन-सोर्स और मालिकाना मॉडल को पार करना होगा।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">💻</span><div><strong class="text-white">ह्यूमनइवल और एमबीपीपी:</strong> इन मानक कोड जनरेशन बेंचमार्क पर लगभग-सही स्कोर प्राप्त करने की उम्मीद है।</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🔢</span><div><strong class="text-white">मैथ और जीएसएम8के:</strong> गणितीय समस्या-समाधान के लिए नए अत्याधुनिक रिकॉर्ड स्थापित करने का लक्ष्य है, जो इसकी गहरी तर्क क्षमताओं को प्रदर्शित करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🏆</span><div><strong class="text-white">प्रतिस्पर्धी प्रोग्रामिंग:</strong> कोडफोर्स और लीटकोड जैसे प्लेटफार्मों से अनदेखी समस्याओं को हल करने की क्षमता पर मूल्यांकन किया गया।</div></li>',
+                    'sec8-title': '8. R1 को प्रॉम्प्ट करना: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'R1 की तर्क क्षमताओं का लाभ उठाने के लिए, प्रॉम्प्ट को समस्या और बाधाओं को परिभाषित करने पर ध्यान केंद्रित करना चाहिए, जिससे मॉडल समाधान तैयार कर सके।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'समस्या को स्पष्ट रूप से परिभाषित करें', 'sec8-step1-desc': 'इनपुट, आउटपुट और किसी भी बाधा सहित एक स्पष्ट और असंदिग्ध समस्या कथन प्रदान करें।',
+                    'sec8-step2-title': 'पहले एक योजना का अनुरोध करें', 'sec8-step2-desc': 'R1 से पहले अपने तार्किक दृष्टिकोण की रूपरेखा तैयार करने या छद्म-कोड प्रदान करने के लिए कहें। फिर आप अंतिम कोड बनाने के लिए कहने से पहले इस योजना की समीक्षा कर सकते हैं।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>प्रासंगिक कोड प्रदान करें:</strong> बग फिक्सिंग या सुविधाएँ जोड़ने के लिए, मौजूदा कोडबेस प्रदान करें ताकि मॉडल संदर्भ-जागरूक समाधान उत्पन्न कर सके।</li><li><strong>पुनरावृत्ति डीबगिंग:</strong> यदि उत्पन्न कोड में कोई त्रुटि है, तो त्रुटि संदेश को मॉडल पर वापस प्रदान करें और उसे समस्या को ठीक करने के लिए कहें।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'R1 दुनिया के सबसे शक्तिशाली ओपन-सोर्स कोडिंग मॉडल बनाने की डीपसीक एआई की यात्रा में तार्किक अगला कदम है।',
+                    'sec9-step1-title': 'डीपसीक कोडर V1', 'sec9-step1-desc': '<strong>समयरेखा:</strong> 2023। डीपसीक को ओपन-सोर्स एआई में एक प्रमुख खिलाड़ी के रूप में स्थापित किया, जिसमें मजबूत कोडिंग क्षमताएं थीं।',
+                    'sec9-step2-title': 'डीपसीक कोडर V2', 'sec9-step2-desc': '<strong>समयरेखा:</strong> 2024 की शुरुआत। एक मिक्सचर-ऑफ-एक्सपर्ट्स मॉडल जिसने कोडिंग बेंचमार्क पर कई मालिकाना मॉडल से बेहतर प्रदर्शन किया।',
+                    'sec9-step3-title': 'डीपसीक R1 (रीजनिंग-फर्स्ट)', 'sec9-step3-desc': '<strong>समयरेखा:</strong> 2025 के अंत (काल्पनिक)। एक नई वास्तुकला जो गहरे तर्क को प्राथमिकता देती है, जिसका लक्ष्य जटिल समस्या-समाधान पर अत्याधुनिक प्रदर्शन प्राप्त करना है।',
+                    'sec10-title': '10. सीमाएं और जिम्मेदार उपयोग 🚫',
+                    'sec10-p1': 'जैसे-जैसे एआई मॉडल अधिक सक्षम होते जाते हैं, उन्हें मानव विशेषज्ञता को बढ़ाने के लिए उपकरणों के रूप में उपयोग करना महत्वपूर्ण है, न कि अचूक देववाणी के रूप में।',
+                    'sec10-mistake1-title': 'कोड में अंधा विश्वास:', 'sec10-mistake1-desc': 'मानव विशेषज्ञ द्वारा पूरी तरह से समीक्षा और परीक्षण के बिना कभी भी एआई-जनित कोड तैनात न करें। इसमें सूक्ष्म बग या सुरक्षा खामियां हो सकती हैं।',
+                    'sec10-mistake2-title': 'अति-निर्भरता:', 'sec10-mistake2-desc': 'एआई को एक बैसाखी के रूप में उपयोग करने से एक डेवलपर के अपने सीखने और समस्या-समाधान कौशल का गला घोंट सकता है। इसे एक भागीदार के रूप में उपयोग करें, प्रतिस्थापन के रूप में नहीं।',
+                    'sec10-mistake3-title': 'लाइसेंस अनुपालन:', 'sec10-mistake3-desc': 'यह सुनिश्चित करने के लिए कि आपका उपयोग मामला (विशेषकर वाणिज्यिक) अनुपालन है, हमेशा ओपन-सोर्स लाइसेंस शर्तों की जांच करें।',
+                    'sec10-mistake4-title': 'डेटा गोपनीयता:', 'sec10-mistake4-desc': 'संवेदनशील या मालिकाना कोड को एआई मॉडल के सार्वजनिक-सामना करने वाले संस्करणों में इनपुट करने के बारे में सतर्क रहें।',
+                    'sec11-title': '11. R1 तक कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'डीपसीक एआई ओपन सोर्स के लिए प्रतिबद्ध है, जो अपने मॉडल को मानक सामुदायिक प्लेटफार्मों के माध्यम से सुलभ बनाता है।',
+                    'sec11-gov-title': '📚 डेवलपर्स और शोधकर्ताओं के लिए', 'sec11-gov-list': '<li><strong>हगिंग फेस:</strong> मॉडल भार डाउनलोड करें और उन्हें `ट्रांसफार्मर` लाइब्रेरी के साथ उपयोग करें।</li><li><strong>गिटहब:</strong> अनुमान और फाइन-ट्यूनिंग के लिए आधिकारिक कोड तक पहुंचें।</li>',
+                    'sec11-pvt-title': '💻 उद्यम उपयोग के लिए', 'sec11-pvt-p1': 'स्केलेबल उपयोग के लिए क्लाउड बुनियादी ढांचे का लाभ उठाएं।', 'sec11-pvt-list': '<li>**क्लाउड प्लेटफॉर्म:** एडब्ल्यूएस, एज़्योर और गूगल क्लाउड जैसे प्रमुख क्लाउड प्रदाताओं पर R1 तैनात करें।</li><li>**डीपसीक एपीआई:** डीपसीक के अपने वाणिज्यिक एपीआई प्लेटफॉर्म के माध्यम से एक अनुकूलित संस्करण तक पहुंचें।</li>',
+                    'sec12-title': '12. भविष्य: एक सॉफ्टवेयर इंजीनियर के रूप में एआई 🚀',
+                    'sec12-p1': 'डीपसीक R1 जैसे मॉडल जूनियर सॉफ्टवेयर इंजीनियर के रूप में कार्य कर सकने वाली एआई प्रणालियों के निर्माण की दिशा में एक बड़ा कदम हैं। सॉफ्टवेयर विकास के भविष्य में संभवतः मानव वास्तुकारों और एआई एजेंटों के बीच घनिष्ठ सहयोग शामिल होगा जो कोडबेस के बड़े हिस्से को लिख सकते हैं, डीबग कर सकते हैं और यहां तक कि तैनात भी कर सकते हैं, जिससे उत्पादकता और नवाचार में भारी वृद्धि होगी।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'लामा 4 द्वारा प्रस्तुत छलांग को समझने के लिए इन उन्नत अवधारणाओं को समझना महत्वपूर्ण है।',
+                    'syllabus-oir-title': 'तर्क बनाम पीढ़ी',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➡️</span><div class="flex-grow">सीधी पीढ़ी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क-प्रथम दृष्टिकोण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'कोड-विशिष्ट प्रशिक्षण',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">विशेष डेटासेट</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">तर्क पर संरेखण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एआई के शिखर की तलाश।',
+                    'interviewChartData': {
+                        labels: ['ह्यूमनइवल', 'एमबीपीपी', 'जीएसएम8के', 'एमएमएलयू'],
+                        data: [92.5, 90.1, 98.2, 88.5]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-purple-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Benchmark Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(147, 51, 234, 0.7)',
+                                'rgba(14, 165, 233, 0.7)',
+                                'rgba(236, 72, 153, 0.7)',
+                                'rgba(52, 211, 153, 0.7)'
+                            ],
+                            borderColor: [
+                                '#9333ea',
+                                '#0ea5e9',
+                                '#ec4899',
+                                '#22c55e'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
