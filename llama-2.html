@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Llama 2: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Meta's Llama 2 models. Understand its open-source nature, capabilities, applications, and how to use it for research and commercial purposes.">
+    <meta name="keywords" content="Meta, Llama 2, Open Source AI, Large Language Models, AI, Artificial Intelligence, LLM, Generative AI, Llama Guard">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a; /* Deep Charcoal */
+            color: #f0f0f0; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #0062E0, #FFC700) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 26, 26, 0.8); /* Dark Charcoal Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #444444; /* Medium Gray */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(0, 98, 224, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #0062E0; /* Meta Blue */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #0062E0; /* Meta Blue */
+            color: #0062E0;
+            background: #2a2a2a; /* Dark Gray */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 98, 224, 0.2);
+            text-shadow: 0 0 5px rgba(0, 98, 224, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #0062E0;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 98, 224, 0.5);
+        }
+        .flowchart-arrow {
+            color: #FFC700; /* Meta Yellow */
+            text-shadow: 0 0 10px rgba(255, 199, 0, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #FFC700;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(255, 199, 0, 0.1);
+        }
+        .subject-item .icon {
+            color: #FFC700;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #0062E0;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a1a1a;
+            border: 4px solid #0062E0;
+            box-shadow: 0 0 15px rgba(0, 98, 224, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #444444;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #a3a3a3; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #0062E0, #0052be);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 98, 224, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 98, 224, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #0062E0;
+            color: #0062E0;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #0062E0;
+            color: #ffffff;
+            box-shadow: 0 0 15px #0062E0;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #FFC700, #f5b700);
+            color: #1a1a1a;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #444444; 
+            color: #e0e0e0; 
+            border-color: #555555; 
+        }
+        .lectures-btn:hover {
+            background-color: #555555;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🦙 Meta's Llama 2: The Ultimate Guide 🦙</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-yellow-400">The Open Source AI Model for Researchers and Creators</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Llama 2? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#1a1a1a]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Meta's Llama 2? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Llama 2 is a family of large language models (LLMs) developed by Meta and released in partnership with Microsoft. It is a powerful, pretrained and fine-tuned model designed for a wide range of natural language tasks. What makes Llama 2 a landmark release is its **open-source availability for both research and commercial use**. This move has democratized access to state-of-the-art AI, empowering developers and businesses worldwide to build their own generative AI-powered applications.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Llama 2 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Llama 2 is based on the powerful Transformer architecture and refined with extensive fine-tuning to be a helpful and safe assistant.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Pre-training</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Learning from vast public data</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Fine-Tuning</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Aligning with human feedback</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Helpful Response</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Generating a helpful and safe response</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Llama 2 is available for a wide range of users, from individual researchers to large commercial entities.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#0062E0] mr-4">🔬</span><div><strong id="sec3-age-title" class="text-white text-lg">Researchers & Academics:</strong> <span id="sec3-age-desc">Can freely download and use the models for their research and experiments.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#0062E0] mr-4">🧑‍💻</span><div><strong id="sec3-edu-title" class="text-white text-lg">Developers & Startups:</strong> <span id="sec3-edu-desc">Can build and launch commercial products powered by Llama 2 without licensing fees (subject to the acceptable use policy).</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#FFC700] pb-2">Primary Platforms 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Direct Download:</strong> Available for download from Meta's official AI website.</li>
+                             <li><strong>Cloud Providers:</strong> Available on platforms like Microsoft Azure, AWS, and Google Cloud for easy deployment.</li>
+                             <li><strong>Hugging Face:</strong> The models are hosted on the Hugging Face Hub, a popular platform for the AI community.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Llama 2 is a highly capable language model proficient in a wide array of natural language understanding and generation tasks.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Text Generation</h3>
+                        <p class="text-sm">Writing articles, emails, and creative content.</p>
+                    </div>
+                     <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Summarization</h3>
+                         <p class="text-sm">Condensing long documents into key points.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Coding</h3>
+                         <p class="text-sm">Generating code snippets in various programming languages.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Conversation</h3>
+                         <p class="text-sm">Powering chatbots and conversational AI assistants.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How was Llama 2 Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Llama 2's impressive performance is the result of a two-stage training process focused on both knowledge acquisition and safety alignment.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#0062E0]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Pre-training</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Building a vast base of knowledge.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained on 2 trillion tokens of publicly available data from the internet.</li>
+                            <li>This process allows the model to learn grammar, facts, and reasoning abilities on a massive scale.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#FFC700]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Fine-Tuning (RLHF)</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Making the model helpful and safe.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>The pretrained model is fine-tuned using a technique called Reinforcement Learning with Human Feedback (RLHF).</li>
+                           <li>Human annotators create high-quality examples and rank model responses to teach it helpfulness and safety.</li>
+                           <li>Over 1 million human annotations were used to align the Llama 2-Chat models.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The open and commercially viable nature of Llama 2 has unlocked a plethora of applications across various industries.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Custom Chatbots</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Building specialized customer service agents.</li>
+                           <li>Creating internal knowledge base assistants for employees.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Content Creation</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Drafting marketing copy, blog posts, and emails.</li>
+                           <li>Generating creative story plots and scripts.</li>
+                           <li>Summarizing articles and research papers.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Developer Tools</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Code generation and debugging assistants.</li>
+                           <li>Natural language interfaces for software.</li>
+                           <li>Automating documentation writing.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Llama 2 has demonstrated strong performance across a wide range of academic and industry benchmarks, often outperforming other open-source models.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#0062E0] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">MMLU (Massive Multitask Language Understanding):</strong> Tests general knowledge and problem-solving skills across 57 subjects.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> Measures the model's ability to correctly generate code for programming challenges.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">Reasoning Benchmarks:</strong> Such as GSM8K, which tests the model's ability to solve multi-step mathematical reasoning problems.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Llama 2: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Effective prompting is crucial for unlocking the full potential of Llama 2. The model responds well to clear instructions and system-level guidance.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#0062E0] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#0062E0] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Use a System Prompt</h4>
+                                <p id="sec8-step1-desc" class="text-base">Start with a system prompt (`<s>[INST] <<SYS>>...<</SYS>>`) to set the context and define the AI's persona and behavior for the entire conversation.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#0062E0] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Be Clear and Specific</h4>
+                                <p id="sec8-step2-desc" class="text-base">Provide unambiguous instructions. The more detail you give about the desired output, format, and style, the better the result.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Few-Shot Prompting:</strong> Provide a few examples of input-output pairs within your prompt to guide the model's response.</li>
+                            <li><strong>Iterative Conversation:</strong> Refine the output through a series of conversational turns, asking the model to improve upon its previous responses.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Llama 2 is a significant step in Meta's long-term commitment to open science and the democratization of AI technology.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Llama 1</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> February 2023. The first version was released to the research community, demonstrating the power of smaller, more efficient models.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Llama 2 Release</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> July 2023. A major release with improved performance, a permissive license for commercial use, and dedicated chat-optimized models.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Code Llama</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> August 2023. A specialized version of Llama 2 fine-tuned specifically for coding tasks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Llama 3 & Beyond</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Future. Meta continues to work on the next generation of Llama models, expected to have even greater capabilities, including multimodality.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Responsible Use 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While Llama 2 is a powerful tool, it's essential to be aware of its limitations and adhere to Meta's responsible use guidelines.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Factual Inaccuracy:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Llama 2 can "hallucinate" and generate incorrect or fabricated information. Always fact-check outputs for critical use cases.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Bias in Data:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">The model was trained on public data and may reflect societal biases. Developers must implement safeguards for their applications.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Acceptable Use Policy:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Commercial use is subject to Meta's Acceptable Use Policy, which prohibits use in certain sensitive or illegal activities.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">High Usage Clause:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Companies with over 700 million monthly active users must request a special license from Meta to use Llama 2.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Getting started with Llama 2 is straightforward, thanks to its open-source nature and strong community support.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Developers & Researchers</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Download from Meta:** Apply for access and download the model weights directly from the Meta AI website.</li>
+                           <li>**Hugging Face:** The easiest way to get started. Use the transformers library to download and run the models with just a few lines of code.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Enterprise Deployment</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Leverage managed cloud services.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Microsoft Azure:** Llama 2 is available in the Azure AI model catalog.</li>
+                            <li>**AWS & Google Cloud:** Can be deployed and managed through services like Amazon SageMaker and Vertex AI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Llama 3 & Open Source AI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">The release of Llama 2 has catalyzed a global wave of innovation in open-source AI. The upcoming Llama 3 is highly anticipated and is expected to feature full multimodality and even more powerful reasoning capabilities, further narrowing the gap between open and closed-source models and empowering a new generation of AI-powered products and services.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core concepts is fundamental to appreciating the technology behind Llama 2.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Open Source vs. Closed Source</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Training & Alignment</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-yellow-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Democratizing Artificial Intelligence.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Pre-training</h3>
+            <p id="prelims-modal-p1">In this stage, the model is trained on a massive, diverse dataset of publicly available text and code (2 trillion tokens). The model learns to predict the next word in a sentence, which helps it build a deep understanding of grammar, facts, common sense reasoning, and different language styles.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Fine-Tuning</h3>
+            <p id="mains-modal-p1">After pre-training, the model is "fine-tuned" to become a helpful and safe assistant. This is done using Reinforcement Learning with Human Feedback (RLHF). Human annotators write high-quality examples and rank the model's responses, which teaches the model to follow instructions and align with human preferences for safety and helpfulness.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Helpful Response</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">When a user provides a prompt, the fine-tuned model generates a response that is not only contextually relevant and knowledgeable but also adheres to the safety and helpfulness principles it learned during the alignment phase. This results in more reliable and safer interactions.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Llama 2</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'opensource': { 
+                        name: 'Open Source', 
+                        icon: '🌐',
+                        description: 'Llama 2 is freely available for both research and commercial use, promoting widespread innovation and access to powerful AI technology.',
+                        cta: 'Learn More'
+                    },
+                    'family': { 
+                        name: 'Family of Models', 
+                        icon: '👨‍👩‍👧‍👦',
+                        description: 'It comes in various sizes (7B, 13B, 70B parameters), allowing developers to choose the best balance of performance and computational cost.',
+                        cta: 'Learn More'
+                    },
+                    'commercial': { 
+                        name: 'Commercial Use', 
+                        icon: '💼',
+                        description: 'Unlike its predecessor, Llama 2 can be used to build and launch commercial applications, empowering startups and businesses.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'opensource': { 
+                        name: 'ओपन सोर्स', 
+                        icon: '🌐',
+                        description: 'लामा 2 अनुसंधान और वाणिज्यिक उपयोग दोनों के लिए मुफ्त में उपलब्ध है, जो शक्तिशाली एआई प्रौद्योगिकी तक व्यापक नवाचार और पहुंच को बढ़ावा देता है।',
+                        cta: 'और जानें'
+                    },
+                    'family': { 
+                        name: 'मॉडल का परिवार', 
+                        icon: '👨‍👩‍👧‍👦',
+                        description: 'यह विभिन्न आकारों (7B, 13B, 70B पैरामीटर) में आता है, जिससे डेवलपर्स को प्रदर्शन और कम्प्यूटेशनल लागत का सबसे अच्छा संतुलन चुनने की अनुमति मिलती है।',
+                        cta: 'और जानें'
+                    },
+                    'commercial': { 
+                        name: 'वाणिज्यिक उपयोग', 
+                        icon: '💼',
+                        description: 'अपने पूर्ववर्ती के विपरीत, लामा 2 का उपयोग वाणिज्यिक अनुप्रयोगों के निर्माण और लॉन्च के लिए किया जा सकता है, जो स्टार्टअप और व्यवसायों को सशक्त बनाता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Open and Commercially Available", desc: "Unlike many other state-of-the-art models, Llama 2 is free for most commercial uses, which drastically lowers the barrier to entry for building AI products." },
+                        { rank: "State-of-the-Art Performance", desc: "At the time of its release, Llama 2 was the best-performing open-source LLM, rivaling the performance of some closed-source models." },
+                        { rank: "Emphasis on Safety", desc: "Meta invested heavily in safety fine-tuning and released a Responsible Use Guide, promoting the development of safe AI applications." },
+                        { rank: "Strong Community Support", desc: "Being open-source, it benefits from a vibrant global community of developers who contribute to its improvement and create new applications." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "खुला और व्यावसायिक रूप से उपलब्ध", desc: "कई अन्य अत्याधुनिक मॉडलों के विपरीत, लामा 2 अधिकांश व्यावसायिक उपयोगों के लिए मुफ्त है, जो एआई उत्पादों के निर्माण के लिए प्रवेश की बाधा को काफी कम करता है।" },
+                        { rank: "अत्याधुनिक प्रदर्शन", desc: "अपनी रिलीज के समय, लामा 2 सबसे अच्छा प्रदर्शन करने वाला ओपन-सोर्स एलएलएम था, जो कुछ क्लोज्ड-सोर्स मॉडल के प्रदर्शन को टक्कर देता था।" },
+                        { rank: "सुरक्षा पर जोर", desc: "मेटा ने सुरक्षा फाइन-ट्यूनिंग में भारी निवेश किया और एक जिम्मेदार उपयोग गाइड जारी किया, जो सुरक्षित एआई अनुप्रयोगों के विकास को बढ़ावा देता है।" },
+                        { rank: "मजबूत सामुदायिक समर्थन", desc: "ओपन-सोर्स होने के कारण, यह डेवलपर्स के एक जीवंत वैश्विक समुदाय से लाभान्वित होता है जो इसके सुधार में योगदान करते हैं और नए एप्लिकेशन बनाते हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🦙 Meta\'s Llama 2: The Ultimate Guide 🦙',
+                    'header-subtitle': 'The Open Source AI Model for Researchers and Creators',
+                    'sec1-title': '1. What is Meta\'s Llama 2? 💡',
+                    'sec1-p1': 'Llama 2 is a family of large language models (LLMs) developed by Meta and released in partnership with Microsoft. It is a powerful, pretrained and fine-tuned model designed for a wide range of natural language tasks. What makes Llama 2 a landmark release is its **open-source availability for both research and commercial use**. This move has democratized access to state-of-the-art AI, empowering developers and businesses worldwide to build their own generative AI-powered applications.',
+                    'sec2-title': '2. The Technology Behind Llama 2 🎯',
+                    'sec2-p1': 'Llama 2 is based on the powerful Transformer architecture and refined with extensive fine-tuning to be a helpful and safe assistant.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Pre-training', 'sec2-step1-desc': 'Learning from vast public data',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Fine-Tuning', 'sec2-step2-desc': 'Aligning with human feedback',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Helpful Response', 'sec2-step3-desc': 'Generating a helpful and safe response',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Llama 2 is available for a wide range of users, from individual researchers to large commercial entities.',
+                    'sec3-age-title': 'Researchers & Academics:', 'sec3-age-desc': 'Can freely download and use the models for their research and experiments.',
+                    'sec3-edu-title': 'Developers & Startups:', 'sec3-edu-desc': 'Can build and launch commercial products powered by Llama 2 without licensing fees (subject to the acceptable use policy).',
+                    'sec3-attempts-title': 'Primary Platforms 📊',
+                    'sec3-agerelax-list': '<li><strong>Direct Download:</strong> Available for download from Meta\'s official AI website.</li><li><strong>Cloud Providers:</strong> Available on platforms like Microsoft Azure, AWS, and Google Cloud for easy deployment.</li><li><strong>Hugging Face:</strong> The models are hosted on the Hugging Face Hub, a popular platform for the AI community.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Llama 2 is a highly capable language model proficient in a wide array of natural language understanding and generation tasks.',
+                    'gs1-title': 'Text Generation',
+                    'gs2-title': 'Summarization',
+                    'gs3-title': 'Coding',
+                    'gs4-title': 'Conversation',
+                    'sec5-title': '5. How was Llama 2 Trained? 🏛️',
+                    'sec5-p1': 'Llama 2\'s impressive performance is the result of a two-stage training process focused on both knowledge acquisition and safety alignment.',
+                    'sec5-hindi-title': '1. Pre-training', 'sec5-hindi-p1': 'Building a vast base of knowledge.', 'sec5-hindi-list': '<li>Trained on 2 trillion tokens of publicly available data from the internet.</li><li>This process allows the model to learn grammar, facts, and reasoning abilities on a massive scale.</li>',
+                    'sec5-essay-title': '2. Fine-Tuning (RLHF)', 'sec5-essay-p1': 'Making the model helpful and safe.', 'sec5-essay-list': '<li>The pretrained model is fine-tuned using a technique called Reinforcement Learning with Human Feedback (RLHF).</li><li>Human annotators create high-quality examples and rank model responses to teach it helpfulness and safety.</li><li>Over 1 million human annotations were used to align the Llama 2-Chat models.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'The open and commercially viable nature of Llama 2 has unlocked a plethora of applications across various industries.',
+                    'sec6-eng-title': 'Custom Chatbots', 'sec6-eng-list': '<li>Building specialized customer service agents.</li><li>Creating internal knowledge base assistants for employees.</li>',
+                    'sec6-elec-title': 'Content Creation', 'sec6-elec-list': '<li>Drafting marketing copy, blog posts, and emails.</li><li>Generating creative story plots and scripts.</li><li>Summarizing articles and research papers.</li>',
+                    'sec6-naic-title': 'Developer Tools', 'sec6-naic-list': '<li>Code generation and debugging assistants.</li><li>Natural language interfaces for software.</li><li>Automating documentation writing.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Llama 2 has demonstrated strong performance across a wide range of academic and industry benchmarks, often outperforming other open-source models.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">MMLU (Massive Multitask Language Understanding):</strong> Tests general knowledge and problem-solving skills across 57 subjects.</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> Measures the model\'s ability to correctly generate code for programming challenges.</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">Reasoning Benchmarks:</strong> Such as GSM8K, which tests the model\'s ability to solve multi-step mathematical reasoning problems.</div></li>',
+                    'sec8-title': '8. Prompting Llama 2: Best Practices 📈',
+                    'sec8-p1': 'Effective prompting is crucial for unlocking the full potential of Llama 2. The model responds well to clear instructions and system-level guidance.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Use a System Prompt', 'sec8-step1-desc': 'Start with a system prompt (`<s>[INST] <<SYS>>...<</SYS>>`) to set the context and define the AI\'s persona and behavior for the entire conversation.',
+                    'sec8-step2-title': 'Be Clear and Specific', 'sec8-step2-desc': 'Provide unambiguous instructions. The more detail you give about the desired output, format, and style, the better the result.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Few-Shot Prompting:</strong> Provide a few examples of input-output pairs within your prompt to guide the model\'s response.</li><li><strong>Iterative Conversation:</strong> Refine the output through a series of conversational turns, asking the model to improve upon its previous responses.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Llama 2 is a significant step in Meta\'s long-term commitment to open science and the democratization of AI technology.',
+                    'sec9-step1-title': 'Llama 1', 'sec9-step1-desc': '<strong>Timeline:</strong> February 2023. The first version was released to the research community, demonstrating the power of smaller, more efficient models.',
+                    'sec9-step2-title': 'Llama 2 Release', 'sec9-step2-desc': '<strong>Timeline:</strong> July 2023. A major release with improved performance, a permissive license for commercial use, and dedicated chat-optimized models.',
+                    'sec9-step3-title': 'Code Llama', 'sec9-step3-desc': '<strong>Timeline:</strong> August 2023. A specialized version of Llama 2 fine-tuned specifically for coding tasks.',
+                    'sec9-step4-title': 'Llama 3 & Beyond', 'sec9-step4-desc': '<strong>Timeline:</strong> Future. Meta continues to work on the next generation of Llama models, expected to have even greater capabilities, including multimodality.',
+                    'sec10-title': '10. Limitations & Responsible Use 🚫',
+                    'sec10-p1': 'While Llama 2 is a powerful tool, it\'s essential to be aware of its limitations and adhere to Meta\'s responsible use guidelines.',
+                    'sec10-mistake1-title': 'Factual Inaccuracy:', 'sec10-mistake1-desc': 'Llama 2 can "hallucinate" and generate incorrect or fabricated information. Always fact-check outputs for critical use cases.',
+                    'sec10-mistake2-title': 'Bias in Data:', 'sec10-mistake2-desc': 'The model was trained on public data and may reflect societal biases. Developers must implement safeguards for their applications.',
+                    'sec10-mistake3-title': 'Acceptable Use Policy:', 'sec10-mistake3-desc': 'Commercial use is subject to Meta\'s Acceptable Use Policy, which prohibits use in certain sensitive or illegal activities.',
+                    'sec10-mistake4-title': 'High Usage Clause:', 'sec10-mistake4-desc': 'Companies with over 700 million monthly active users must request a special license from Meta to use Llama 2.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'Getting started with Llama 2 is straightforward, thanks to its open-source nature and strong community support.',
+                    'sec11-gov-title': '📚 For Developers & Researchers', 'sec11-gov-list': '<li>**Download from Meta:** Apply for access and download the model weights directly from the Meta AI website.</li><li>**Hugging Face:** The easiest way to get started. Use the transformers library to download and run the models with just a few lines of code.</li>',
+                    'sec11-pvt-title': '💻 For Enterprise Deployment', 'sec11-pvt-p1': 'Leverage managed cloud services.', 'sec11-pvt-list': '<li>**Microsoft Azure:** Llama 2 is available in the Azure AI model catalog.</li><li>**AWS & Google Cloud:** Can be deployed and managed through services like Amazon SageMaker and Vertex AI.</li>',
+                    'sec12-title': '12. The Future: Llama 3 & Open Source AI 🚀',
+                    'sec12-p1': 'The release of Llama 2 has catalyzed a global wave of innovation in open-source AI. The upcoming Llama 3 is highly anticipated and is expected to feature full multimodality and even more powerful reasoning capabilities, further narrowing the gap between open and closed-source models and empowering a new generation of AI-powered products and services.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core concepts is fundamental to appreciating the technology behind Llama 2.',
+                    'syllabus-oir-title': 'Open Source vs. Closed Source',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Open Source (e.g., Llama 2)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔒</span><div class="flex-grow">Closed Source (e.g., GPT-4)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Training & Alignment',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">Pre-training</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">RLHF (Reinforcement Learning with Human Feedback)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Democratizing Artificial Intelligence.',
+                    'interviewChartData': {
+                        labels: ['MMLU', 'GSM8K', 'HumanEval', 'TruthfulQA'],
+                        data: [68.9, 56.8, 29.9, 63.3] // Llama 2 70B scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🦙 मेटा का लामा 2: अंतिम गाइड 🦙',
+                    'header-subtitle': 'शोधकर्ताओं और रचनाकारों के लिए ओपन सोर्स एआई मॉडल',
+                    'sec1-title': '1. मेटा का लामा 2 क्या है? 💡',
+                    'sec1-p1': 'लामा 2 मेटा द्वारा विकसित और माइक्रोसॉफ्ट के साथ साझेदारी में जारी बड़े भाषा मॉडल (एलएलएम) का एक परिवार है। यह एक शक्तिशाली, पूर्व-प्रशिक्षित और ठीक-ठीक मॉडल है जिसे प्राकृतिक भाषा कार्यों की एक विस्तृत श्रृंखला के लिए डिज़ाइन किया गया है। जो लामा 2 को एक ऐतिहासिक रिलीज बनाता है वह है इसकी **अनुसंधान और वाणिज्यिक उपयोग दोनों के लिए ओपन-सोर्स उपलब्धता**। इस कदम ने अत्याधुनिक एआई तक पहुंच का लोकतंत्रीकरण किया है, जिससे दुनिया भर के डेवलपर्स और व्यवसायों को अपने स्वयं के जनरेटिव एआई-संचालित एप्लिकेशन बनाने के लिए सशक्त बनाया गया है।',
+                    'sec2-title': '2. लामा 2 के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'लामा 2 शक्तिशाली ट्रांसफार्मर वास्तुकला पर आधारित है और एक सहायक और सुरक्षित सहायक होने के लिए व्यापक फाइन-ट्यूनिंग के साथ परिष्कृत है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'पूर्व-प्रशिक्षण', 'sec2-step1-desc': 'विशाल सार्वजनिक डेटा से सीखना',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'फाइन-ट्यूनिंग', 'sec2-step2-desc': 'मानव प्रतिक्रिया के साथ संरेखित करना',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'सहायक प्रतिक्रिया', 'sec2-step3-desc': 'एक सहायक और सुरक्षित प्रतिक्रिया उत्पन्न करना',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'लामा 2 व्यक्तिगत शोधकर्ताओं से लेकर बड़ी वाणिज्यिक संस्थाओं तक, उपयोगकर्ताओं की एक विस्तृत श्रृंखला के लिए उपलब्ध है।',
+                    'sec3-age-title': 'शोधकर्ता और शिक्षाविद:', 'sec3-age-desc': 'अपने शोध और प्रयोगों के लिए मॉडल को स्वतंत्र रूप से डाउनलोड और उपयोग कर सकते हैं।',
+                    'sec3-edu-title': 'डेवलपर्स और स्टार्टअप:', 'sec3-edu-desc': 'लामा 2 द्वारा संचालित वाणिज्यिक उत्पादों का निर्माण और लॉन्च कर सकते हैं बिना लाइसेंस शुल्क के (स्वीकार्य उपयोग नीति के अधीन)।',
+                    'sec3-attempts-title': 'प्राथमिक प्लेटफॉर्म 📊',
+                    'sec3-agerelax-list': '<li><strong>सीधा डाउनलोड:</strong> मेटा की आधिकारिक एआई वेबसाइट से डाउनलोड के लिए उपलब्ध है।</li><li><strong>क्लाउड प्रदाता:</strong> आसान परिनियोजन के लिए माइक्रोसॉफ्ट एज़्योर, एडब्ल्यूएस और गूगल क्लाउड जैसे प्लेटफार्मों पर उपलब्ध है।</li><li><strong>हगिंग फेस:</strong> मॉडल हगिंग फेस हब पर होस्ट किए गए हैं, जो एआई समुदाय के लिए एक लोकप्रिय मंच है।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'लामा 2 एक अत्यधिक सक्षम भाषा मॉडल है जो प्राकृतिक भाषा समझने और पीढ़ी के कार्यों की एक विस्तृत श्रृंखला में कुशल है।',
+                    'gs1-title': 'पाठ निर्माण',
+                    'gs2-title': 'सारांश',
+                    'gs3-title': 'कोडिंग',
+                    'gs4-title': 'बातचीत',
+                    'sec5-title': '5. लामा 2 को कैसे प्रशिक्षित किया गया? 🏛️',
+                    'sec5-p1': 'लामा 2 का प्रभावशाली प्रदर्शन ज्ञान अधिग्रहण और सुरक्षा संरेखण दोनों पर केंद्रित दो-चरणीय प्रशिक्षण प्रक्रिया का परिणाम है।',
+                    'sec5-hindi-title': '1. पूर्व-प्रशिक्षण', 'sec5-hindi-p1': 'ज्ञान का एक विशाल आधार बनाना।', 'sec5-hindi-list': '<li>इंटरनेट से सार्वजनिक रूप से उपलब्ध डेटा के 2 ट्रिलियन टोकन पर प्रशिक्षित।</li><li>यह प्रक्रिया मॉडल को बड़े पैमाने पर व्याकरण, तथ्य और तर्क क्षमताओं को सीखने की अनुमति देती है।</li>',
+                    'sec5-essay-title': '2. फाइन-ट्यूनिंग (आरएलएचएफ)', 'sec5-essay-p1': 'मॉडल को सहायक और सुरक्षित बनाना।', 'sec5-essay-list': '<li>पूर्व-प्रशिक्षित मॉडल को मानव प्रतिक्रिया के साथ सुदृढीकरण सीखना (आरएलएचएफ) नामक तकनीक का उपयोग करके ठीक-ठीक किया जाता है।</li><li>मानव एनोटेटर उच्च-गुणवत्ता वाले उदाहरण बनाते हैं और मॉडल की प्रतिक्रियाओं को रैंक करते हैं ताकि इसे सहायकता और सुरक्षा सिखाई जा सके।</li><li>लामा 2-चैट मॉडल को संरेखित करने के लिए 1 मिलियन से अधिक मानव एनोटेशन का उपयोग किया गया था।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'लामा 2 की खुली और व्यावसायिक रूप से व्यवहार्य प्रकृति ने विभिन्न उद्योगों में अनुप्रयोगों की अधिकता को खोल दिया है।',
+                    'sec6-eng-title': 'कस्टम चैटबॉट', 'sec6-eng-list': '<li>विशेष ग्राहक सेवा एजेंट बनाना।</li><li>कर्मचारियों के लिए आंतरिक ज्ञान आधार सहायक बनाना।</li>',
+                    'sec6-elec-title': 'सामग्री निर्माण', 'sec6-elec-list': '<li>विपणन कॉपी, ब्लॉग पोस्ट और ईमेल का मसौदा तैयार करना।</li><li>रचनात्मक कहानी भूखंड और स्क्रिप्ट तैयार करना।</li><li>लेखों और शोध पत्रों का सारांश।</li>',
+                    'sec6-naic-title': 'डेवलपर उपकरण', 'sec6-naic-list': '<li>कोड जनरेशन और डीबगिंग सहायक।</li><li>सॉफ्टवेयर के लिए प्राकृतिक भाषा इंटरफेस।</li><li>दस्तावेज़ीकरण लेखन को स्वचालित करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'लामा 2 ने अकादमिक और उद्योग बेंचमार्क की एक विस्तृत श्रृंखला में मजबूत प्रदर्शन का प्रदर्शन किया है, जो अक्सर अन्य ओपन-सोर्स मॉडल से बेहतर प्रदर्शन करता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">एमएमएलयू (व्यापक मल्टीटास्क भाषा समझना):</strong> 57 विषयों में सामान्य ज्ञान और समस्या-समाधान कौशल का परीक्षण करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">ह्यूमनइवल:</strong> प्रोग्रामिंग चुनौतियों के लिए सही ढंग से कोड उत्पन्न करने की मॉडल की क्षमता को मापता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">तर्क बेंचमार्क:</strong> जैसे जीएसएम8के, जो बहु-चरणीय गणितीय तर्क समस्याओं को हल करने की मॉडल की क्षमता का परीक्षण करता है।</div></li>',
+                    'sec8-title': '8. लामा 2 को प्रॉम्प्ट करना: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'लामा 2 की पूरी क्षमता को अनलॉक करने के लिए प्रभावी प्रॉम्प्टिंग महत्वपूर्ण है। मॉडल स्पष्ट निर्देशों और सिस्टम-स्तरीय मार्गदर्शन के लिए अच्छी प्रतिक्रिया देता है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'एक सिस्टम प्रॉम्प्ट का उपयोग करें', 'sec8-step1-desc': 'पूरी बातचीत के लिए संदर्भ सेट करने और एआई के व्यक्तित्व और व्यवहार को परिभाषित करने के लिए एक सिस्टम प्रॉम्प्ट (`<s>[INST] <<SYS>>...<</SYS>>`) से शुरू करें।',
+                    'sec8-step2-title': 'स्पष्ट और विशिष्ट रहें', 'sec8-step2-desc': 'असंदिग्ध निर्देश प्रदान करें। आप वांछित आउटपुट, प्रारूप और शैली के बारे में जितना अधिक विवरण देंगे, परिणाम उतना ही बेहतर होगा।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>फ्यू-शॉट प्रॉम्प्टिंग:</strong> मॉडल की प्रतिक्रिया का मार्गदर्शन करने के लिए अपने प्रॉम्प्ट के भीतर इनपुट-आउटपुट जोड़े के कुछ उदाहरण प्रदान करें।</li><li><strong>पुनरावृत्ति बातचीत:</strong> अपनी पिछली प्रतिक्रियाओं में सुधार करने के लिए मॉडल से पूछते हुए, संवादात्मक मोड़ों की एक श्रृंखला के माध्यम से आउटपुट को परिष्कृत करें।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'लामा 2 मेटा की खुली विज्ञान और एआई प्रौद्योगिकी के लोकतंत्रीकरण के प्रति दीर्घकालिक प्रतिबद्धता में एक महत्वपूर्ण कदम है।',
+                    'sec9-step1-title': 'लामा 1', 'sec9-step1-desc': '<strong>समयरेखा:</strong> फरवरी 2023। पहला संस्करण अनुसंधान समुदाय के लिए जारी किया गया था, जो छोटे, अधिक कुशल मॉडल की शक्ति का प्रदर्शन करता है।',
+                    'sec9-step2-title': 'लामा 2 रिलीज', 'sec9-step2-desc': '<strong>समयरेखा:</strong> जुलाई 2023। बेहतर प्रदर्शन, वाणिज्यिक उपयोग के लिए एक अनुज्ञेय लाइसेंस और समर्पित चैट-अनुकूलित मॉडल के साथ एक प्रमुख रिलीज।',
+                    'sec9-step3-title': 'कोड लामा', 'sec9-step3-desc': '<strong>समयरेखा:</strong> अगस्त 2023। लामा 2 का एक विशेष संस्करण विशेष रूप से कोडिंग कार्यों के लिए ठीक-ठीक किया गया है।',
+                    'sec9-step4-title': 'लामा 3 और परे', 'sec9-step4-desc': '<strong>समयरेखा:</strong> भविष्य। मेटा लामा मॉडल की अगली पीढ़ी पर काम करना जारी रखता है, जिसमें मल्टीमॉडल सहित और भी अधिक क्षमताओं की उम्मीद है।',
+                    'sec10-title': '10. सीमाएं और जिम्मेदार उपयोग 🚫',
+                    'sec10-p1': 'जबकि लामा 2 एक शक्तिशाली उपकरण है, इसकी सीमाओं से अवगत होना और मेटा के जिम्मेदार उपयोग दिशानिर्देशों का पालन करना आवश्यक है।',
+                    'sec10-mistake1-title': 'तथ्यात्मक अशुद्धि:', 'sec10-mistake1-desc': 'लामा 2 "मतिभ्रम" कर सकता है और गलत या मनगढ़ंत जानकारी उत्पन्न कर सकता है। महत्वपूर्ण उपयोग के मामलों के लिए आउटपुट को हमेशा तथ्य-जांच करें।',
+                    'sec10-mistake2-title': 'डेटा में पूर्वाग्रह:', 'sec10-mistake2-desc': 'मॉडल को सार्वजनिक डेटा पर प्रशिक्षित किया गया था और यह सामाजिक पूर्वाग्रहों को प्रतिबिंबित कर सकता है। डेवलपर्स को अपने अनुप्रयोगों के लिए सुरक्षा उपाय लागू करने चाहिए।',
+                    'sec10-mistake3-title': 'स्वीकार्य उपयोग नीति:', 'sec10-mistake3-desc': 'वाणिज्यिक उपयोग मेटा की स्वीकार्य उपयोग नीति के अधीन है, जो कुछ संवेदनशील या अवैध गतिविधियों में उपयोग को प्रतिबंधित करता है।',
+                    'sec10-mistake4-title': 'उच्च उपयोग खंड:', 'sec10-mistake4-desc': '700 मिलियन से अधिक मासिक सक्रिय उपयोगकर्ताओं वाली कंपनियों को लामा 2 का उपयोग करने के लिए मेटा से एक विशेष लाइसेंस का अनुरोध करना होगा।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'लामा 2 के साथ शुरुआत करना सीधा है, इसकी ओपन-सोर्स प्रकृति और मजबूत सामुदायिक समर्थन के लिए धन्यवाद।',
+                    'sec11-gov-title': '📚 डेवलपर्स और शोधकर्ताओं के लिए', 'sec11-gov-list': '<li>**मेटा से डाउनलोड करें:** पहुंच के लिए आवेदन करें और मेटा एआई वेबसाइट से सीधे मॉडल भार डाउनलोड करें।</li><li>**हगिंग फेस:** शुरू करने का सबसे आसान तरीका। मॉडल डाउनलोड करने और कुछ ही पंक्तियों के कोड के साथ चलाने के लिए ट्रांसफार्मर लाइब्रेरी का उपयोग करें।</li>',
+                    'sec11-pvt-title': '💻 एंटरप्राइज परिनियोजन के लिए', 'sec11-pvt-p1': 'प्रबंधित क्लाउड सेवाओं का लाभ उठाएं।', 'sec11-pvt-list': '<li>**माइक्रोसॉफ्ट एज़्योर:** लामा 2 एज़्योर एआई मॉडल कैटलॉग में उपलब्ध है।</li><li>**एडब्ल्यूएस और गूगल क्लाउड:** अमेज़ॅन सेजमेकर और वर्टेक्स एआई जैसी सेवाओं के माध्यम से तैनात और प्रबंधित किया जा सकता है।</li>',
+                    'sec12-title': '12. भविष्य: लामा 3 और ओपन सोर्स एआई 🚀',
+                    'sec12-p1': 'लामा 2 की रिलीज ने ओपन-सोर्स एआई में नवाचार की एक वैश्विक लहर को उत्प्रेरित किया है। आगामी लामा 3 का बेसब्री से इंतजार है और इसमें पूर्ण मल्टीमॉडल और और भी अधिक शक्तिशाली तर्क क्षमताओं की सुविधा होने की उम्मीद है, जिससे खुले और बंद-स्रोत मॉडल के बीच की खाई को और कम किया जा सकेगा और एआई-संचालित उत्पादों और सेवाओं की एक नई पीढ़ी को सशक्त बनाया जा सकेगा।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'लामा 2 के पीछे की तकनीक की सराहना करने के लिए इन मुख्य अवधारणाओं को समझना मौलिक है।',
+                    'syllabus-oir-title': 'ओपन सोर्स बनाम क्लोज्ड सोर्स',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">ओपन सोर्स (जैसे, लामा 2)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔒</span><div class="flex-grow">क्लोज्ड सोर्स (जैसे, जीपीटी-4)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'प्रशिक्षण और संरेखण',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📚</span><div class="flex-grow">पूर्व-प्रशिक्षण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">आरएलएचएफ (मानव प्रतिक्रिया के साथ सुदृढीकरण सीखना)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | आर्टिफिशियल इंटेलिजेंस का लोकतंत्रीकरण।',
+                    'interviewChartData': {
+                        labels: ['एमएमएलयू', 'जीएसएम8के', 'ह्यूमनइवल', 'ट्रूथफुलक्यूए'],
+                        data: [68.9, 56.8, 29.9, 63.3]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2a2a]/50 rounded-xl text-center border-2 border-neutral-700 hover:border-yellow-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Llama 2 70B Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(66, 133, 244, 0.7)',
+                                'rgba(219, 68, 55, 0.7)',
+                                'rgba(244, 180, 0, 0.7)',
+                                'rgba(15, 157, 88, 0.7)'
+                            ],
+                            borderColor: [
+                                '#4285F4',
+                                '#DB4437',
+                                '#F4B400',
+                                '#0F9D58'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
