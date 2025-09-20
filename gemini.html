@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Gemini: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Google's Gemini family of AI models (2.0 Pro, 2.5 Pro, Ultra, Pro, Nano). Understand its technology, multimodal capabilities, applications, and future.">
+    <meta name="keywords" content="Google, Gemini, Gemini 2.0 Pro, Gemini 2.5 Pro, Gemini Ultra, Multimodal AI, Large Language Models, AI, Artificial Intelligence, Google AI, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Deep Charcoal */
+            color: #e0e0e0; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #4285F4, #34A853) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(28, 28, 28, 0.85); /* Darker Charcoal Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #444444; /* Medium Gray */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(66, 133, 244, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #4285F4; /* Google Blue */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #4285F4; /* Google Blue */
+            color: #4285F4;
+            background: #2a2a2a; /* Dark Gray */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(66, 133, 244, 0.2);
+            text-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #4285F4;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(66, 133, 244, 0.5);
+        }
+        .flowchart-arrow {
+            color: #34A853; /* Google Green */
+            text-shadow: 0 0 10px rgba(52, 168, 83, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #34A853;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(52, 168, 83, 0.1);
+        }
+        .subject-item .icon {
+            color: #34A853;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #4285F4;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1c1c1c;
+            border: 4px solid #4285F4;
+            box-shadow: 0 0 15px rgba(66, 133, 244, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(28, 28, 28, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #444444;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #a3a3a3; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #4285F4, #3b82f6);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #4285F4;
+            color: #4285F4;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #4285F4;
+            color: #ffffff;
+            box-shadow: 0 0 15px #4285F4;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #34A853, #16a34a);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #444444; 
+            color: #e0e0e0; 
+            border-color: #555555; 
+        }
+        .lectures-btn:hover {
+            background-color: #555555;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🤖 Google Gemini: The Ultimate Guide 🤖</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-green-400 to-yellow-400">Understanding the Multimodal AI Family</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Gemini? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2a2a] via-[#1c1c1c] to-[#1c1c1c]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Google Gemini? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Gemini is Google's next-generation family of large language models, designed to be natively multimodal from the ground up. Unlike previous models, Gemini can seamlessly understand, operate across, and combine different types of information, including text, code, audio, images, and video. It comes in a spectrum of sizes—**Ultra**, **Pro**, and **Nano**—each optimized for different tasks and platforms, from large-scale data centers to on-device mobile applications.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Gemini 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Gemini's power comes from its natively multimodal architecture and its training on Google's advanced TPU infrastructure, allowing it to process diverse inputs simultaneously.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Multimodal Prompt</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">User provides text, images, audio, etc.</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Gemini Model</span><br><span id="sec2-step2-name">Transformer Arch.</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Processes diverse inputs simultaneously</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Multimodal Output</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Generates text, code, or images</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Google is integrating Gemini across its entire product ecosystem, making it available to billions of users, developers, and enterprises.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#4285F4] mr-4">👤</span><div><strong id="sec3-age-title" class="text-white text-lg">General Users:</strong> <span id="sec3-age-desc">Through the Gemini app and integrated features in Google products like Search, Photos, and Android.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#4285F4] mr-4">🏢</span><div><strong id="sec3-edu-title" class="text-white text-lg">Workspace Users:</strong> <span id="sec3-edu-desc">Via "Help me write/organize/create" features in Google Docs, Sheets, Slides, and Gmail.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#34A853] pb-2">Developers & Cloud Customers 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Google AI Studio:</strong> A free, web-based tool for developers to quickly prototype and build with the Gemini API.</li>
+                             <li><strong>Vertex AI:</strong> A fully-managed platform on Google Cloud for enterprises to customize, deploy, and manage Gemini models at scale.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Gemini's natively multimodal design gives it sophisticated reasoning capabilities across different types of information.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Multimodality</h3>
+                        <p class="text-sm">Seamlessly understands and reasons about interleaved text, images, audio, and video.</p>
+                    </div>
+                     <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Advanced Reasoning</h3>
+                         <p class="text-sm">Excels at complex tasks that require deep reasoning, like solving multi-step math problems or explaining physics.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Code Generation</h3>
+                         <p class="text-sm">Generates high-quality code in popular languages like Python, Java, C++, and Go, and is a powerful tool for debugging.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Scalability</h3>
+                         <p class="text-sm">Designed to run efficiently everywhere, from massive data centers (Ultra) to mobile phones (Nano).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is Gemini Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Gemini is trained on Google's cutting-edge AI infrastructure using a massive, multimodal dataset, with a deep focus on safety and responsibility.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#4285F4]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Infrastructure</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Built on Google's custom-designed Tensor Processing Units (TPUs).</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained at a massive scale on Google's AI-optimized v4 and v5e TPUs.</li>
+                            <li>This allows for efficient, reliable, and scalable training of extremely large models.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#34A853]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Dataset & Safety</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A multimodal and multilingual dataset with safety at its core.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Trained on a diverse dataset comprising web documents, books, code, images, audio, and video.</li>
+                           <li>Undergoes extensive safety evaluations and fine-tuning using Google's in-house data to minimize risks like bias and toxicity.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Gemini's capabilities are being integrated across a wide array of Google products and developer tools.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Search & Consumer Apps</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Powering more complex and nuanced search queries.</li>
+                           <li>The Gemini app as a multimodal creative partner.</li>
+                           <li>Smart features in Android, such as on-device summarization.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Workspace & Productivity</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>"Help me write" in Google Docs and Gmail.</li>
+                           <li>"Help me create" in Google Slides.</li>
+                           <li>"Help me organize" in Google Sheets.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Cloud & Enterprise</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Building custom AI agents with Vertex AI.</li>
+                           <li>Advanced code completion and generation for developers.</li>
+                           <li>Sophisticated data analysis and business intelligence.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Gemini Ultra was the first model to outperform human experts on the MMLU (Massive Multitask Language Understanding) benchmark, showcasing its powerful reasoning abilities.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#4285F4] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">MMLU:</strong> A comprehensive benchmark covering 57 subjects to test world knowledge and problem-solving abilities.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">Big-Bench Hard:</strong> A collection of challenging multi-step reasoning tasks that go beyond simple pattern matching.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> A standard benchmark for measuring the quality of code generation for Python.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🖼️</span><div><strong class="text-white">MMMU:</strong> A benchmark that tests multimodal reasoning across multiple domains.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Gemini: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To harness the full multimodal power of Gemini, it's essential to craft prompts that effectively combine different data types.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#4285F4] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#4285F4] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Be Specific and Contextual</h4>
+                                <p id="sec8-step1-desc" class="text-base">Provide clear, detailed instructions. The more context you give, the more nuanced the response will be.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#4285F4] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Combine Modalities</h4>
+                                <p id="sec8-step2-desc" class="text-base">Don't just ask about an image; combine it with a specific text query. For example, "What is the breed of this dog in the photo, and suggest three good names for it?"</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#4285F4] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Iterate and Refine</h4>
+                                <p id="sec8-step3-desc" class="text-base">Treat your interaction as a conversation. Ask follow-up questions to refine the output and guide the model towards the desired result.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Few-Shot Prompting:</strong> Provide a few examples of the input-output format you want Gemini to follow for consistent results.</li>
+                            <li><strong>Chain of Thought:</strong> For complex problems, ask the model to "think step by step" to break down its reasoning process, often leading to more accurate answers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Gemini is the culmination of years of research and development at Google, building upon the foundations of previous groundbreaking models.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">LaMDA & PaLM</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> 2021-2022. Google's earlier large language models that excelled at dialogue and reasoning.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Gemini 1.0 Launch</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> December 2023. The first version is released, with Ultra outperforming GPT-4 on key benchmarks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Gemini 1.5 Pro</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> February 2024. A mid-size model is released with a breakthrough 1 million token context window and a Mixture-of-Experts (MoE) architecture.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Gemini 2.0 & 2.5 Pro</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> 2024-2025. The next generation of models focused on enhanced performance, efficiency, and advanced agentic capabilities.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Responsible AI 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Like all current AI models, Gemini has limitations. Google emphasizes a responsible approach to its development and deployment.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Hallucinations:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">The model can occasionally generate plausible but incorrect information. Always fact-check outputs for critical applications.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Bias:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Training data may contain societal biases, which the model can inadvertently reflect. Google works to mitigate this through extensive fine-tuning.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Complex Reasoning Errors:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">While advanced, the model can still make errors in very complex, multi-step logical or mathematical reasoning.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Safety Filters:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">For safety, Gemini will refuse to generate content that is harmful, hateful, or violates its policies.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Gemini is being deployed across a wide range of products for all types of users.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Consumers</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Gemini App:** The dedicated mobile app for interacting with the Pro model.</li>
+                           <li>**Google Products:** Gemini is integrated into Google Search (AI Overviews), Workspace apps, and Android.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers & Enterprise</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Build on Google's powerful AI infrastructure.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Google AI Studio:** Rapidly prototype and develop applications with the Gemini Pro API.</li>
+                            <li>**Google Cloud Vertex AI:** Access, customize, and deploy all Gemini models securely and at scale.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Agentic AI & Integration 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Google's vision for Gemini extends beyond a simple chatbot. The future involves creating powerful AI agents that can perform multi-step tasks, reason about the world, and be deeply integrated into the hardware and software we use every day, from our phones to our cars, acting as a true AI assistant.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core concepts is essential to appreciating the technology that powers the Gemini family of models.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Key Technologies</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Architectural Ideas</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-yellow-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Organizing the world's information and making it universally accessible and useful.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Multimodal Prompt</h3>
+            <p id="prelims-modal-p1">The process starts with a user providing a prompt that can contain multiple types of information at once. For example, a user could upload an image of a dish, include the audio of someone saying "What is this?", and add the text "Provide a recipe."</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Gemini Model: Transformer Architecture</h3>
+            <p id="mains-modal-p1">Because Gemini is natively multimodal, it processes these different inputs (image, audio, text) together in an interleaved way. It doesn't need separate models to understand each modality. This allows it to grasp the nuances and relationships between the different types of information seamlessly.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Multimodal Output</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Based on its holistic understanding of the prompt, Gemini can generate output in the most suitable format. In our example, it would identify the dish from the image, understand the question from the audio and text, and generate a text-based recipe as the final, coherent output.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Gemini</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'ultra': { 
+                        name: 'Gemini Ultra', 
+                        icon: '🏆',
+                        description: 'Google\'s largest and most capable model, designed for highly complex tasks. It was the first model to outperform human experts on the MMLU benchmark.',
+                        cta: 'Learn More'
+                    },
+                    'pro': { 
+                        name: 'Gemini Pro (2.0/2.5)', 
+                        icon: '🧠',
+                        description: 'The best all-round model, balancing performance with scalability. It powers Google\'s main Gemini applications and is ideal for a wide range of developer and enterprise use cases.',
+                        cta: 'Learn More'
+                    },
+                    'nano': { 
+                        name: 'Gemini Nano', 
+                        icon: '📱',
+                        description: 'The most efficient model designed to run directly on-device. Nano powers features in Android, such as summarization in Recorder and smart replies in Gboard.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'ultra': { 
+                        name: 'जेमिनी अल्ट्रा', 
+                        icon: '🏆',
+                        description: 'गूगल का सबसे बड़ा और सबसे सक्षम मॉडल, जो अत्यधिक जटिल कार्यों के लिए डिज़ाइन किया गया है। यह एमएमएलयू बेंचमार्क पर मानव विशेषज्ञों से बेहतर प्रदर्शन करने वाला पहला मॉडल था।',
+                        cta: 'और जानें'
+                    },
+                    'pro': { 
+                        name: 'जेमिनी प्रो (2.0/2.5)', 
+                        icon: '🧠',
+                        description: 'प्रदर्शन और मापनीयता को संतुलित करने वाला सबसे अच्छा ऑल-राउंड मॉडल। यह गूगल के मुख्य जेमिनी अनुप्रयोगों को शक्ति प्रदान करता है और डेवलपर और उद्यम उपयोग के मामलों की एक विस्तृत श्रृंखला के लिए आदर्श है।',
+                        cta: 'और जानें'
+                    },
+                    'nano': { 
+                        name: 'जेमिनी नैनो', 
+                        icon: '📱',
+                        description: 'सीधे ऑन-डिवाइस चलाने के लिए डिज़ाइन किया गया सबसे कुशल मॉडल। नैनो एंड्रॉइड में सुविधाओं को शक्ति प्रदान करता है, जैसे रिकॉर्डर में सारांश और जीबोर्ड में स्मार्ट उत्तर।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Natively Multimodal", desc: "Built from the ground up to understand and reason across different data types, unlike other models that stitch separate components together." },
+                        { rank: "State-of-the-Art Performance", desc: "Gemini Ultra set new records on 30 out of 32 academic benchmarks used for large language model research and development." },
+                        { rank: "Flexible and Scalable", desc: "Available in different sizes (Ultra, Pro, Nano) to run efficiently on everything from data centers to mobile devices." },
+                        { rank: "Advanced Safety", desc: "Built with safety and responsibility at the core, undergoing the most comprehensive safety evaluations of any Google AI model to date." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "मूल रूप से मल्टीमॉडल", desc: "अलग-अलग डेटा प्रकारों में समझने और तर्क करने के लिए शुरू से बनाया गया है, जो अलग-अलग घटकों को एक साथ सिलाई करने वाले अन्य मॉडलों के विपरीत है।" },
+                        { rank: "अत्याधुनिक प्रदर्शन", desc: "जेमिनी अल्ट्रा ने बड़े भाषा मॉडल अनुसंधान और विकास के लिए उपयोग किए जाने वाले 32 में से 30 अकादमिक बेंचमार्क पर नए रिकॉर्ड स्थापित किए।" },
+                        { rank: "लचीला और स्केलेबल", desc: "डेटा सेंटर से लेकर मोबाइल उपकरणों तक हर चीज पर कुशलतापूर्वक चलाने के लिए विभिन्न आकारों (अल्ट्रा, प्रो, नैनो) में उपलब्ध है।" },
+                        { rank: "उन्नत सुरक्षा", desc: "मूल में सुरक्षा और जिम्मेदारी के साथ निर्मित, आज तक किसी भी गूगल एआई मॉडल के सबसे व्यापक सुरक्षा मूल्यांकन से गुजर रहा है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🤖 Google Gemini: The Ultimate Guide 🤖',
+                    'header-subtitle': 'Understanding the Multimodal AI Family',
+                    'sec1-title': '1. What is Google Gemini? 💡',
+                    'sec1-p1': 'Gemini is Google\'s next-generation family of large language models, designed to be natively multimodal from the ground up. Unlike previous models, Gemini can seamlessly understand, operate across, and combine different types of information, including text, code, audio, images, and video. It comes in a spectrum of sizes—**Ultra**, **Pro**, and **Nano**—each optimized for different tasks and platforms, from large-scale data centers to on-device mobile applications.',
+                    'sec2-title': '2. The Technology Behind Gemini 🎯',
+                    'sec2-p1': 'Gemini\'s power comes from its natively multimodal architecture and its training on Google\'s advanced TPU infrastructure, allowing it to process diverse inputs simultaneously.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Multimodal Prompt', 'sec2-step1-desc': 'User provides text, images, audio, etc.',
+                    'sec2-step2-title': 'Gemini Model', 'sec2-step2-name': 'Transformer Arch.', 'sec2-step2-desc': 'Processes diverse inputs simultaneously',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Multimodal Output', 'sec2-step3-desc': 'Generates text, code, or images',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Google is integrating Gemini across its entire product ecosystem, making it available to billions of users, developers, and enterprises.',
+                    'sec3-age-title': 'General Users:', 'sec3-age-desc': 'Through the Gemini app and integrated features in Google products like Search, Photos, and Android.',
+                    'sec3-edu-title': 'Workspace Users:', 'sec3-edu-desc': 'Via "Help me write/organize/create" features in Google Docs, Sheets, Slides, and Gmail.',
+                    'sec3-attempts-title': 'Developers & Cloud Customers 📊',
+                    'sec3-agerelax-list': '<li><strong>Google AI Studio:</strong> A free, web-based tool for developers to quickly prototype and build with the Gemini API.</li><li><strong>Vertex AI:</strong> A fully-managed platform on Google Cloud for enterprises to customize, deploy, and manage Gemini models at scale.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Gemini\'s natively multimodal design gives it sophisticated reasoning capabilities across different types of information.',
+                    'gs1-title': 'Multimodality',
+                    'gs2-title': 'Advanced Reasoning',
+                    'gs3-title': 'Code Generation',
+                    'gs4-title': 'Scalability',
+                    'sec5-title': '5. How is Gemini Trained? 🏛️',
+                    'sec5-p1': 'Gemini is trained on Google\'s cutting-edge AI infrastructure using a massive, multimodal dataset, with a deep focus on safety and responsibility.',
+                    'sec5-hindi-title': '1. The Infrastructure', 'sec5-hindi-p1': 'Built on Google\'s custom-designed Tensor Processing Units (TPUs).', 'sec5-hindi-list': '<li>Trained at a massive scale on Google\'s AI-optimized v4 and v5e TPUs.</li><li>This allows for efficient, reliable, and scalable training of extremely large models.</li>',
+                    'sec5-essay-title': '2. The Dataset & Safety', 'sec5-essay-p1': 'A multimodal and multilingual dataset with safety at its core.', 'sec5-essay-list': '<li>Trained on a diverse dataset comprising web documents, books, code, images, audio, and video.</li><li>Undergoes extensive safety evaluations and fine-tuning using Google\'s in-house data to minimize risks like bias and toxicity.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'Gemini\'s capabilities are being integrated across a wide array of Google products and developer tools.',
+                    'sec6-eng-title': 'Search & Consumer Apps', 'sec6-eng-list': '<li>Powering more complex and nuanced search queries.</li><li>The Gemini app as a multimodal creative partner.</li><li>Smart features in Android, such as on-device summarization.</li>',
+                    'sec6-elec-title': 'Workspace & Productivity', 'sec6-elec-list': '<li>"Help me write" in Google Docs and Gmail.</li><li>"Help me create" in Google Slides.</li><li>"Help me organize" in Google Sheets.</li>',
+                    'sec6-naic-title': 'Cloud & Enterprise', 'sec6-naic-list': '<li>Building custom AI agents with Vertex AI.</li><li>Advanced code completion and generation for developers.</li><li>Sophisticated data analysis and business intelligence.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Gemini Ultra was the first model to outperform human experts on the MMLU (Massive Multitask Language Understanding) benchmark, showcasing its powerful reasoning abilities.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">MMLU:</strong> A comprehensive benchmark covering 57 subjects to test world knowledge and problem-solving abilities.</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">Big-Bench Hard:</strong> A collection of challenging multi-step reasoning tasks that go beyond simple pattern matching.</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> A standard benchmark for measuring the quality of code generation for Python.</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🖼️</span><div><strong class="text-white">MMMU:</strong> A benchmark that tests multimodal reasoning across multiple domains.</div></li>',
+                    'sec8-title': '8. Prompting Gemini: Best Practices 📈',
+                    'sec8-p1': 'To harness the full multimodal power of Gemini, it\'s essential to craft prompts that effectively combine different data types.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Be Specific and Contextual', 'sec8-step1-desc': 'Provide clear, detailed instructions. The more context you give, the more nuanced the response will be.',
+                    'sec8-step2-title': 'Combine Modalities', 'sec8-step2-desc': 'Don\'t just ask about an image; combine it with a specific text query. For example, "What is the breed of this dog in the photo, and suggest three good names for it?"',
+                    'sec8-step3-title': 'Iterate and Refine', 'sec8-step3-desc': 'Treat your interaction as a conversation. Ask follow-up questions to refine the output and guide the model towards the desired result.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Few-Shot Prompting:</strong> Provide a few examples of the input-output format you want Gemini to follow for consistent results.</li><li><strong>Chain of Thought:</strong> For complex problems, ask the model to "think step by step" to break down its reasoning process, often leading to more accurate answers.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Gemini is the culmination of years of research and development at Google, building upon the foundations of previous groundbreaking models.',
+                    'sec9-step1-title': 'LaMDA & PaLM', 'sec9-step1-desc': '<strong>Timeline:</strong> 2021-2022. Google\'s earlier large language models that excelled at dialogue and reasoning.',
+                    'sec9-step2-title': 'Gemini 1.0 Launch', 'sec9-step2-desc': '<strong>Timeline:</strong> December 2023. The first version is released, with Ultra outperforming GPT-4 on key benchmarks.',
+                    'sec9-step3-title': 'Gemini 1.5 Pro', 'sec9-step3-desc': '<strong>Timeline:</strong> February 2024. A mid-size model is released with a breakthrough 1 million token context window and a Mixture-of-Experts (MoE) architecture.',
+                    'sec9-step4-title': 'Gemini 2.0 & 2.5 Pro', 'sec9-step4-desc': '<strong>Timeline:</strong> 2024-2025. The next generation of models focused on enhanced performance, efficiency, and advanced agentic capabilities.',
+                    'sec10-title': '10. Limitations & Responsible AI 🚫',
+                    'sec10-p1': 'Like all current AI models, Gemini has limitations. Google emphasizes a responsible approach to its development and deployment.',
+                    'sec10-mistake1-title': 'Hallucinations:', 'sec10-mistake1-desc': 'The model can occasionally generate plausible but incorrect information. Always fact-check outputs for critical applications.',
+                    'sec10-mistake2-title': 'Bias:', 'sec10-mistake2-desc': 'Training data may contain societal biases, which the model can inadvertently reflect. Google works to mitigate this through extensive fine-tuning.',
+                    'sec10-mistake3-title': 'Complex Reasoning Errors:', 'sec10-mistake3-desc': 'While advanced, the model can still make errors in very complex, multi-step logical or mathematical reasoning.',
+                    'sec10-mistake4-title': 'Safety Filters:', 'sec10-mistake4-desc': 'For safety, Gemini will refuse to generate content that is harmful, hateful, or violates its policies.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'Gemini is being deployed across a wide range of products for all types of users.',
+                    'sec11-gov-title': '📚 For Consumers', 'sec11-gov-list': '<li>**Gemini App:** The dedicated mobile app for interacting with the Pro model.</li><li>**Google Products:** Gemini is integrated into Google Search (AI Overviews), Workspace apps, and Android.</li>',
+                    'sec11-pvt-title': '💻 For Developers & Enterprise', 'sec11-pvt-p1': 'Build on Google\'s powerful AI infrastructure.', 'sec11-pvt-list': '<li>**Google AI Studio:** Rapidly prototype and develop applications with the Gemini Pro API.</li><li>**Google Cloud Vertex AI:** Access, customize, and deploy all Gemini models securely and at scale.</li>',
+                    'sec12-title': '12. The Future: Agentic AI & Integration 🚀',
+                    'sec12-p1': 'Google\'s vision for Gemini extends beyond a simple chatbot. The future involves creating powerful AI agents that can perform multi-step tasks, reason about the world, and be deeply integrated into the hardware and software we use every day, from our phones to our cars, acting as a true AI assistant.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core concepts is essential to appreciating the technology that powers the Gemini family of models.',
+                    'syllabus-oir-title': 'Key Technologies',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">Multimodality</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">TPUs (Tensor Processing Units)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Architectural Ideas',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔄</span><div class="flex-grow">Transformer Architecture</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">Mixture-of-Experts (MoE)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Organizing the world\'s information and making it universally accessible and useful.',
+                    'interviewChartData': {
+                        labels: ['MMLU', 'Big-Bench Hard', 'HumanEval', 'MMMU'],
+                        data: [90.0, 83.6, 74.4, 59.4] // Gemini 1.0 Ultra scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🤖 गूगल जेमिनी: अंतिम गाइड 🤖',
+                    'header-subtitle': 'मल्टीमॉडल एआई परिवार को समझना',
+                    'sec1-title': '1. गूगल जेमिनी क्या है? 💡',
+                    'sec1-p1': 'जेमिनी गूगल के बड़े भाषा मॉडल का अगली पीढ़ी का परिवार है, जिसे शुरू से ही स्वाभाविक रूप से मल्टीमॉडल होने के लिए डिज़ाइन किया गया है। पिछले मॉडलों के विपरीत, जेमिनी पाठ, कोड, ऑडियो, चित्र और वीडियो सहित विभिन्न प्रकार की सूचनाओं को सहजता से समझ सकता है, संचालित कर सकता है और संयोजित कर सकता है। यह **अल्ट्रा**, **प्रो**, और **नैनो** जैसे आकारों के एक स्पेक्ट्रम में आता है - प्रत्येक को बड़े पैमाने पर डेटा केंद्रों से लेकर ऑन-डिवाइस मोबाइल अनुप्रयोगों तक, विभिन्न कार्यों और प्लेटफार्मों के लिए अनुकूलित किया गया है।',
+                    'sec2-title': '2. जेमिनी के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'जेमिनी की शक्ति इसकी स्वाभाविक रूप से मल्टीमॉडल वास्तुकला और गूगल के उन्नत टीपीयू बुनियादी ढांचे पर इसके प्रशिक्षण से आती है, जो इसे एक साथ विविध इनपुट को संसाधित करने की अनुमति देती है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'मल्टीमॉडल प्रॉम्प्ट', 'sec2-step1-desc': 'उपयोगकर्ता पाठ, चित्र, ऑडियो आदि प्रदान करता है।',
+                    'sec2-step2-title': 'जेमिनी मॉडल', 'sec2-step2-name': 'ट्रांसफार्मर आर्क।', 'sec2-step2-desc': 'एक साथ विविध इनपुट संसाधित करता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'मल्टीमॉडल आउटपुट', 'sec2-step3-desc': 'पाठ, कोड या चित्र उत्पन्न करता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'गूगल अपने पूरे उत्पाद पारिस्थितिकी तंत्र में जेमिनी को एकीकृत कर रहा है, जिससे यह अरबों उपयोगकर्ताओं, डेवलपर्स और उद्यमों के लिए उपलब्ध हो रहा है।',
+                    'sec3-age-title': 'सामान्य उपयोगकर्ता:', 'sec3-age-desc': 'जेमिनी ऐप और गूगल उत्पादों जैसे खोज, फ़ोटो और एंड्रॉइड में एकीकृत सुविधाओं के माध्यम से।',
+                    'sec3-edu-title': 'कार्यक्षेत्र उपयोगकर्ता:', 'sec3-edu-desc': 'गूगल डॉक्स, शीट्स, स्लाइड्स और जीमेल में "मुझे लिखने/व्यवस्थित करने/बनाने में मदद करें" सुविधाओं के माध्यम से।',
+                    'sec3-attempts-title': 'डेवलपर्स और क्लाउड ग्राहक 📊',
+                    'sec3-agerelax-list': '<li><strong>गूगल एआई स्टूडियो:</strong> डेवलपर्स के लिए जेमिनी एपीआई के साथ जल्दी से प्रोटोटाइप और निर्माण करने के लिए एक मुफ्त, वेब-आधारित उपकरण।</li><li><strong>वर्टेक्स एआई:</strong> उद्यमों के लिए बड़े पैमाने पर जेमिनी मॉडल को अनुकूलित करने, तैनात करने और प्रबंधित करने के लिए गूगल क्लाउड पर एक पूरी तरह से प्रबंधित मंच।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'जेमिनी का स्वाभाविक रूप से मल्टीमॉडल डिज़ाइन इसे विभिन्न प्रकार की सूचनाओं में परिष्कृत तर्क क्षमताएं देता है।',
+                    'gs1-title': 'मल्टीमॉडल',
+                    'gs2-title': 'उन्नत तर्क',
+                    'gs3-title': 'कोड जनरेशन',
+                    'gs4-title': 'मापनीयता',
+                    'sec5-title': '5. जेमिनी को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'जेमिनी को गूगल के अत्याधुनिक एआई बुनियादी ढांचे पर एक विशाल, मल्टीमॉडल डेटासेट का उपयोग करके प्रशिक्षित किया जाता है, जिसमें सुरक्षा और जिम्मेदारी पर गहरा ध्यान केंद्रित किया जाता है।',
+                    'sec5-hindi-title': '1. बुनियादी ढांचा', 'sec5-hindi-p1': 'गूगल के कस्टम-डिज़ाइन किए गए टेंसर प्रोसेसिंग यूनिट्स (टीपीयू) पर निर्मित।', 'sec5-hindi-list': '<li>गूगल के एआई-अनुकूलित v4 और v5e टीपीयू पर बड़े पैमाने पर प्रशिक्षित।</li><li>यह अत्यंत बड़े मॉडलों के कुशल, विश्वसनीय और स्केलेबल प्रशिक्षण की अनुमति देता है।</li>',
+                    'sec5-essay-title': '2. डेटासेट और सुरक्षा', 'sec5-essay-p1': 'इसके मूल में सुरक्षा के साथ एक मल्टीमॉडल और बहुभाषी डेटासेट।', 'sec5-essay-list': '<li>वेब दस्तावेज़ों, पुस्तकों, कोड, छवियों, ऑडियो और वीडियो वाले एक विविध डेटासेट पर प्रशिक्षित।</li><li>पूर्वाग्रह और विषाक्तता जैसे जोखिमों को कम करने के लिए गूगल के इन-हाउस डेटा का उपयोग करके व्यापक सुरक्षा मूल्यांकन और फाइन-ट्यूनिंग से गुजरता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'जेमिनी की क्षमताओं को गूगल उत्पादों और डेवलपर टूल की एक विस्तृत श्रृंखला में एकीकृत किया जा रहा है।',
+                    'sec6-eng-title': 'खोज और उपभोक्ता ऐप्स', 'sec6-eng-list': '<li>अधिक जटिल और सूक्ष्म खोज प्रश्नों को शक्ति प्रदान करना।</li><li>एक मल्टीमॉडल रचनात्मक भागीदार के रूप में जेमिनी ऐप।</li><li>एंड्रॉइड में स्मार्ट सुविधाएँ, जैसे ऑन-डिवाइस सारांश।</li>',
+                    'sec6-elec-title': 'कार्यक्षेत्र और उत्पादकता', 'sec6-elec-list': '<li>गूगल डॉक्स और जीमेल में "मुझे लिखने में मदद करें"।</li><li>गूगल स्लाइड्स में "मुझे बनाने में मदद करें"।</li><li>गूगल शीट्स में "मुझे व्यवस्थित करने में मदद करें"।</li>',
+                    'sec6-naic-title': 'क्लाउड और एंटरप्राइज', 'sec6-naic-list': '<li>वर्टेक्स एआई के साथ कस्टम एआई एजेंट बनाना।</li><li>डेवलपर्स के लिए उन्नत कोड पूर्णता और पीढ़ी।</li><li>परिष्कृत डेटा विश्लेषण और व्यावसायिक खुफिया।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'जेमिनी अल्ट्रा एमएमएलयू (व्यापक मल्टीटास्क भाषा समझना) बेंचमार्क पर मानव विशेषज्ञों से बेहतर प्रदर्शन करने वाला पहला मॉडल था, जो इसकी शक्तिशाली तर्क क्षमताओं को प्रदर्शित करता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">📚</span><div><strong class="text-white">एमएमएलयू:</strong> विश्व ज्ञान और समस्या-समाधान क्षमताओं का परीक्षण करने के लिए 57 विषयों को कवर करने वाला एक व्यापक बेंचमार्क।</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🧠</span><div><strong class="text-white">बिग-बेंच हार्ड:</strong> चुनौतीपूर्ण बहु-चरणीय तर्क कार्यों का एक संग्रह जो सरल पैटर्न मिलान से परे है।</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">💻</span><div><strong class="text-white">ह्यूमनइवल:</strong> पायथन के लिए कोड पीढ़ी की गुणवत्ता को मापने के लिए एक मानक बेंचमार्क।</div></li><li class="flex items-start"><span class="text-2xl text-[#34A853] mr-3">🖼️</span><div><strong class="text-white">एमएमएमयू:</strong> एक बेंचमार्क जो कई डोमेन में मल्टीमॉडल तर्क का परीक्षण करता है।</div></li>',
+                    'sec8-title': '8. जेमिनी को प्रॉम्प्ट करना: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'जेमिनी की पूरी मल्टीमॉडल शक्ति का उपयोग करने के लिए, ऐसे प्रॉम्प्ट तैयार करना आवश्यक है जो विभिन्न डेटा प्रकारों को प्रभावी ढंग से संयोजित करते हैं।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'विशिष्ट और प्रासंगिक बनें', 'sec8-step1-desc': 'स्पष्ट, विस्तृत निर्देश प्रदान करें। आप जितना अधिक संदर्भ देंगे, प्रतिक्रिया उतनी ही सूक्ष्म होगी।',
+                    'sec8-step2-title': ' तौर-तरीकों को मिलाएं', 'sec8-step2-desc': 'सिर्फ एक छवि के बारे में न पूछें; इसे एक विशिष्ट पाठ क्वेरी के साथ मिलाएं। उदाहरण के लिए, "फोटो में इस कुत्ते की नस्ल क्या है, और इसके लिए तीन अच्छे नाम सुझाएं?"',
+                    'sec8-step3-title': 'पुनरावृति और परिशोधन', 'sec8-step3-desc': 'अपनी बातचीत को एक बातचीत के रूप में मानें। आउटपुट को परिष्कृत करने और मॉडल को वांछित परिणाम की ओर मार्गदर्शन करने के लिए अनुवर्ती प्रश्न पूछें।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>फ्यू-शॉट प्रॉम्प्टिंग:</strong> सुसंगत परिणामों के लिए जेमिनी का पालन करने के लिए इच्छित इनपुट-आउटपुट प्रारूप के कुछ उदाहरण प्रदान करें।</li><li><strong>विचारों की श्रृंखला:</strong> जटिल समस्याओं के लिए, मॉडल को अपने तर्क प्रक्रिया को तोड़ने के लिए "कदम-दर-कदम सोचने" के लिए कहें, जो अक्सर अधिक सटीक उत्तरों की ओर ले जाता है।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'जेमिनी गूगल में वर्षों के अनुसंधान और विकास की परिणति है, जो पिछले अभूतपूर्व मॉडलों की नींव पर आधारित है।',
+                    'sec9-step1-title': 'लाम्डा और पाล์म', 'sec9-step1-desc': '<strong>समयरेखा:</strong> 2021-2022। गूगल के पहले के बड़े भाषा मॉडल जो संवाद और तर्क में उत्कृष्ट थे।',
+                    'sec9-step2-title': 'जेमिनी 1.0 लॉन्च', 'sec9-step2-desc': '<strong>समयरेखा:</strong> दिसंबर 2023। पहला संस्करण जारी किया गया है, जिसमें अल्ट्रा प्रमुख बेंचमार्क पर जीपीटी-4 से बेहतर प्रदर्शन कर रहा है।',
+                    'sec9-step3-title': 'जेमिनी 1.5 प्रो', 'sec9-step3-desc': '<strong>समयरेखा:</strong> फरवरी 2024। एक मध्य-आकार का मॉडल एक सफल 1 मिलियन टोकन संदर्भ विंडो और एक मिक्सचर-ऑफ-एक्सपर्ट्स (एमओई) वास्तुकला के साथ जारी किया गया है।',
+                    'sec9-step4-title': 'जेमिनी 2.0 और 2.5 प्रो', 'sec9-step4-desc': '<strong>समयरेखा:</strong> 2024-2025। उन्नत प्रदर्शन, दक्षता और उन्नत एजेंटिक क्षमताओं पर केंद्रित मॉडलों की अगली पीढ़ी।',
+                    'sec10-title': '10. सीमाएं और जिम्मेदार एआई 🚫',
+                    'sec10-p1': 'सभी मौजूदा एआई मॉडल की तरह, जेमिनी की भी सीमाएं हैं। गूगल इसके विकास और परिनियोजन के लिए एक जिम्मेदार दृष्टिकोण पर जोर देता है।',
+                    'sec10-mistake1-title': 'मतिभ्रम:', 'sec10-mistake1-desc': 'मॉडल कभी-कभी प्रशंसनीय लेकिन गलत जानकारी उत्पन्न कर सकता है। महत्वपूर्ण अनुप्रयोगों के लिए आउटपुट को हमेशा तथ्य-जांच करें।',
+                    'sec10-mistake2-title': 'पूर्वाग्रह:', 'sec10-mistake2-desc': 'प्रशिक्षण डेटा में सामाजिक पूर्वाग्रह हो सकते हैं, जिसे मॉडल अनजाने में प्रतिबिंबित कर सकता है। गूगल व्यापक फाइन-ट्यूनिंग के माध्यम से इसे कम करने के लिए काम करता है।',
+                    'sec10-mistake3-title': 'जटिल तर्क त्रुटियां:', 'sec10-mistake3-desc': 'उन्नत होते हुए भी, मॉडल अभी भी बहुत जटिल, बहु-चरणीय तार्किक या गणितीय तर्क में त्रुटियां कर सकता है।',
+                    'sec10-mistake4-title': 'सुरक्षा फिल्टर:', 'sec10-mistake4-desc': 'सुरक्षा के लिए, जेमिनी हानिकारक, घृणित या इसकी नीतियों का उल्लंघन करने वाली सामग्री उत्पन्न करने से इनकार कर देगा।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'जेमिनी को सभी प्रकार के उपयोगकर्ताओं के लिए उत्पादों की एक विस्तृत श्रृंखला में तैनात किया जा रहा है।',
+                    'sec11-gov-title': '📚 उपभोक्ताओं के लिए', 'sec11-gov-list': '<li>**जेमिनी ऐप:** प्रो मॉडल के साथ बातचीत के लिए समर्पित मोबाइल ऐप।</li><li>**गूगल उत्पाद:** जेमिनी को गूगल खोज (एआई ओवरव्यू), वर्कस्पेस ऐप्स और एंड्रॉइड में एकीकृत किया गया है।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स और उद्यम के लिए', 'sec11-pvt-p1': 'गूगल के शक्तिशाली एआई बुनियादी ढांचे पर निर्माण करें।', 'sec11-pvt-list': '<li>**गूगल एआई स्टूडियो:** जेमिनी प्रो एपीआई के साथ अनुप्रयोगों का तेजी से प्रोटोटाइप और विकास करें।</li><li>**गूगल क्लाउड वर्टेक्स एआई:** सभी जेमिनी मॉडल को सुरक्षित रूप से और बड़े पैमाने पर एक्सेस, कस्टमाइज़ और तैनात करें।</li>',
+                    'sec12-title': '12. भविष्य: एजेंटिक एआई और एकीकरण 🚀',
+                    'sec12-p1': 'जेमिनी के लिए गूगल की दृष्टि एक साधारण चैटबॉट से परे है। भविष्य में शक्तिशाली एआई एजेंट बनाना शामिल है जो बहु-चरणीय कार्य कर सकते हैं, दुनिया के बारे में तर्क कर सकते हैं, और हमारे फोन से लेकर हमारी कारों तक, हमारे द्वारा प्रतिदिन उपयोग किए जाने वाले हार्डवेयर और सॉफ्टवेयर में गहराई से एकीकृत हो सकते हैं, जो एक सच्चे एआई सहायक के रूप में कार्य करते हैं।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन मुख्य अवधारणाओं को समझना जेमिनी मॉडल के परिवार को शक्ति देने वाली तकनीक की सराहना करने के लिए आवश्यक है।',
+                    'syllabus-oir-title': 'मुख्य प्रौद्योगिकियां',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">मल्टीमॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">टीपीयू (टेंसर प्रोसेसिंग यूनिट्स)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'स्थापत्य विचार',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔄</span><div class="flex-grow">ट्रांसफार्मर वास्तुकला</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">विशेषज्ञों का मिश्रण (एमओई)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | दुनिया की जानकारी को व्यवस्थित करना और इसे सार्वभौमिक रूप से सुलभ और उपयोगी बनाना।',
+                    'interviewChartData': {
+                        labels: ['एमएमएलयू', 'बिग-बेंच हार्ड', 'ह्यूमनइवल', 'एमएमएमयू'],
+                        data: [90.0, 83.6, 74.4, 59.4]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2a2a]/50 rounded-xl text-center border-2 border-neutral-700 hover:border-yellow-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Gemini 1.0 Ultra Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(66, 133, 244, 0.7)',
+                                'rgba(219, 68, 55, 0.7)',
+                                'rgba(244, 180, 0, 0.7)',
+                                'rgba(15, 157, 88, 0.7)'
+                            ],
+                            borderColor: [
+                                '#4285F4',
+                                '#DB4437',
+                                '#F4B400',
+                                '#0F9D58'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
