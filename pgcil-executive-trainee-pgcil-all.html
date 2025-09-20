@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGCIL Recruitment Guide (ET, Diploma Trainee & Apprentice)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to recruitment in Power Grid Corporation of India (PGCIL) for roles like Executive Trainee through GATE, Diploma Trainee, and Apprentices.">
+    <meta name="keywords" content="PGCIL Recruitment, PGCIL ET, PGCIL through GATE, Executive Trainee, Diploma Trainee Jobs, PGCIL Jobs, PSU Engineering Jobs, Power Grid Corporation of India">
+    <meta name="author" content="PGCIL Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1b26; /* Very Dark Indigo */
+            color: #e3e4e6; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #00bfff, #ff00ff) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 27, 38, 0.85); /* Dark Indigo Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #3c3d52; /* Medium Indigo */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(0, 191, 255, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #00bfff; /* Deep Sky Blue */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #00bfff; /* Deep Sky Blue */
+            color: #00bfff;
+            background: #2a2b3a; /* Darker Indigo */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #00bfff;
+            color: #1a1b26;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.5);
+        }
+        .flowchart-arrow {
+            color: #ff00ff; /* Magenta */
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ff00ff;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+        .subject-item .icon {
+            color: #ff00ff;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #00bfff;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a1b26;
+            border: 4px solid #00bfff;
+            box-shadow: 0 0 15px rgba(0, 191, 255, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 27, 38, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2b3a;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #3c3d52;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #00bfff, #1e90ff);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 191, 255, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #00bfff;
+            color: #00bfff;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #00bfff;
+            color: #1a1b26;
+            box-shadow: 0 0 15px #00bfff;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #ff00ff, #da70d6);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #2a2b3a; 
+            color: #e3e4e6; 
+            border-color: #3c3d52; 
+        }
+        .lectures-btn:hover {
+            background-color: #3c3d52;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">⚡ PGCIL Recruitment Guide ⚡</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-fuchsia-500">Your Guide to a Career in India's Central Transmission Utility</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is PGCIL Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2b3a] via-[#1a1b26] to-[#1a1b26]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is PGCIL Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Power Grid Corporation of India Limited (PGCIL) is a Maharatna PSU and the country's Central Transmission Utility (CTU), responsible for transmitting about 50% of the total power generated in India. A career at PGCIL means being at the heart of India's power sector. PGCIL recruits talented individuals for various roles, including fresh engineers as Executive Trainees via GATE, skilled Diploma Trainees, and Apprentices to build and maintain the nation's vast transmission network.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process varies for different posts, with a strong emphasis on technical knowledge and aptitude for all roles.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">GATE Score / Written Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Group Discussion</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">For Executive Trainees</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">For Executive Trainees</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for PGCIL roles is specific to the educational qualification and age group for each post.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#00bfff] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">For **Executive Trainees** and **Diploma Trainees**, the upper age limit is typically **27-28 years**. For **Apprentices**, it is generally **18-24 years**. Relaxations are applicable as per government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#00bfff] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">**Executive Trainee:** Full-time B.E./B.Tech/B.Sc (Engg.) in Electrical, Civil, or Electronics. **Diploma Trainee:** Full-time Diploma in the respective engineering field. **Apprentice:** Diploma or ITI in the relevant trade.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#ff00ff] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is no official limit on the number of attempts for PGCIL's recruitment exams.</li>
+                             <li>Candidates can apply for different recruitment drives as long as they meet the specific eligibility criteria mentioned in each notification.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Exam Pattern (Diploma Trainee) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For Diploma Trainee recruitment, PGCIL conducts a comprehensive Computer Based Test.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-sky-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Part 1: Technical Knowledge 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">⚙️</span><div id="gs1-sub1">Consists of 120 questions from the specific technical discipline (Electrical, Civil, etc.) based on the Diploma syllabus.</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-sky-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Part 2: Aptitude Test 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">🧠</span><div id="gs2-sub2">Consists of 50 questions on vocabulary, verbal comprehension, quantitative aptitude, reasoning ability, and data interpretation.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">PGCIL provides world-class training to its new recruits to groom them into competent professionals for the power transmission sector.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#00bfff]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Executive & Diploma Trainees</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A one-year training and probation period.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Induction and classroom training at PGCIL's training institutes.</li>
+                            <li>On-the-job training at various substations, transmission line sites, and regional headquarters.</li>
+                            <li>Confirmation is subject to successful completion of training.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#ff00ff]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Apprentices</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A one-year apprenticeship program.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Practical, hands-on training under the Apprentices Act, 1961.</li>
+                           <li>A monthly stipend is provided during the training.</li>
+                           <li>This program provides valuable exposure but does not guarantee employment in PGCIL.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Roles at PGCIL are focused on the core areas of power transmission, project execution, and maintaining the national grid.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Executive Trainee</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Engineering, design, and planning of transmission projects.</li>
+                           <li>Project execution and construction management.</li>
+                           <li>Operations & Maintenance of EHV AC & HVDC substations.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Diploma Trainee</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Supervising O&M activities at substations.</li>
+                           <li>Testing and commissioning of equipment.</li>
+                           <li>Ensuring grid discipline and safety.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Apprentice</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting engineers and supervisors.</li>
+                           <li>Learning about transmission line and substation equipment.</li>
+                           <li>Supporting day-to-day operational tasks.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a PGCIL Professional 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A career with the Central Transmission Utility requires a strong technical foundation, a high degree of responsibility, and a commitment to keeping the nation's lights on.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#00bfff] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">⚙️</span><div><strong class="text-white">Core Technical Knowledge:</strong> A deep understanding of power systems, electrical machines, control systems, and civil/electronics engineering fundamentals.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🧠</span><div><strong class="text-white">Analytical Ability:</strong> Strong problem-solving skills to diagnose and rectify faults in a complex power grid.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🛡️</span><div><strong class="text-white">Safety & Responsibility:</strong> A meticulous approach to safety protocols and a high sense of responsibility.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🤝</span><div><strong class="text-white">Teamwork:</strong> Ability to work in coordination with various teams at substations and project sites.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The preparation strategy is clear: an excellent GATE score is the key for Executive Trainees, while Diploma Trainees must excel in PGCIL's own written test.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For Executive Trainees (GATE):</h3>
+                        <ol class="relative border-l-4 border-[#00bfff] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00bfff] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Crack GATE with a Top Rank</h4>
+                                <p id="sec8-step1-desc" class="text-base">Focus your entire energy on achieving a high score in the relevant GATE paper (EE, EC, CE). PGCIL's cut-offs are among the highest.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#00bfff] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Prepare for GD & Interview</h4>
+                                <p id="sec8-step2-desc" class="text-base">Once you have a good GATE score, prepare for the subsequent rounds by revising core technical concepts and learning about the power transmission sector.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For Diploma Trainees:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Master Your Diploma Syllabus:</strong> The technical knowledge test has the highest weightage (120 questions). Be thorough with all your diploma subjects.</li>
+                            <li><strong>Practice Aptitude:</strong> The aptitude test (50 questions) is also crucial. Practice regularly to ensure you clear the overall cut-off.</li>
+                            <li><strong>Solve Previous Papers:</strong> Practice with past papers of PGCIL and other PSUs for Diploma Trainees to understand the question level and manage time.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">PGCIL's recruitment for ETs is synchronized with the GATE exam cycle. Diploma Trainee and Apprentice vacancies are advertised based on regional requirements.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> ET notifications are published on the PGCIL website (powergrid.in) after GATE registration starts. Other notifications appear throughout the year.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application & Screening</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> ET applications open after GATE results. For other posts, a written test is conducted as per the schedule in the advertisement.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Further Selection (for ETs)</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Shortlisted ET candidates are called for a Group Discussion and Personal Interview.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A final merit list is prepared, followed by a medical examination and issue of offer letters.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Getting into a Maharatna like PGCIL is a highly competitive affair. Avoiding these common mistakes can be the difference between selection and rejection.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Underperforming in GATE:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">For ETs, not taking GATE seriously and failing to achieve the very high scores required by PGCIL.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Ignoring the Aptitude Section:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">For Diploma Trainees, focusing only on the technical part and neglecting the aptitude section, which affects the overall score.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Poor Interview Performance:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being able to explain core technical concepts or your final year project clearly during the personal interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not Researching PGCIL:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Being unaware of PGCIL's role as the CTU, its major projects, and its vision for the Indian power sector.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Excellent preparation resources are available for both GATE and direct Diploma Trainee recruitment exams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Executive Trainees (GATE)</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Join a reputed GATE coaching institute (online or offline) for structured preparation.</li>
+                           <li>Focus heavily on solving previous years' GATE papers and attempting a quality test series.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📖 For Diploma Trainees</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">A focused approach on Diploma syllabus is key.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Thoroughly revise your diploma engineering textbooks for the technical paper.</li>
+                            <li>Practice aptitude questions from resources for SSC-JE and other state-level JE exams.</li>
+                            <li>Solve previous PGCIL Diploma Trainee papers to understand the pattern.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">PGCIL offers a very fast and well-defined career progression for its executives, with opportunities to reach top management positions.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0c1427]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Syllabus (Diploma Trainee) 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus for the Diploma Trainee written test is composed of a technical part based on the diploma curriculum and a general aptitude part.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Technical Knowledge</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Aptitude Test</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-sky-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Transmitting Power, Transforming Lives.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Screening Test</h3>
+            <p id="prelims-modal-p1">The initial screening is done through a competitive test. For Executive Trainees, this is the Graduate Aptitude Test in Engineering (GATE). For Diploma Trainees, PGCIL conducts its own Computer Based Test which consists of a Technical Knowledge Test and an Aptitude Test.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Group Discussion (for ETs)</h3>
+            <p id="mains-modal-p1">Candidates shortlisted based on their GATE scores are invited for a Group Discussion. The GD aims to assess the candidate's communication skills, interpersonal skills, and leadership qualities. This stage is not applicable for Diploma Trainee recruitment.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Personal Interview (for ETs)</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">This is the final selection stage for Executive Trainees. A panel interviews candidates to evaluate their technical knowledge, behavioral skills, and overall personality. The final merit list is based on the weightage of GATE Score (85%), Group Discussion (3%), and Interview (12%).</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">PGCIL Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'et': { 
+                        name: 'Executive Trainee (ET)', 
+                        icon: '🎓',
+                        description: 'The premier entry-level post for engineering graduates. ETs are recruited through GATE scores in disciplines like Electrical, Electronics, and Civil Engineering.',
+                        cta: 'Learn More'
+                    },
+                    'dt': { 
+                        name: 'Diploma Trainee', 
+                        icon: '🛠️',
+                        description: 'A key technical role for Diploma holders in Electrical, Civil, and Electronics. They are the backbone of operations and maintenance at PGCIL\'s numerous substations.',
+                        cta: 'Learn More'
+                    },
+                    'apprentice': { 
+                        name: 'Apprenticeship', 
+                        icon: '🤝',
+                        description: 'A one-year training program for Diploma and ITI holders to provide them with practical skills and experience in the power transmission industry as per the Apprentices Act.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'et': { 
+                        name: 'कार्यकारी प्रशिक्षु (ET)', 
+                        icon: '🎓',
+                        description: 'इंजीनियरिंग स्नातकों के लिए प्रमुख प्रवेश स्तर का पद। ईटी को इलेक्ट्रिकल, इलेक्ट्रॉनिक्स और सिविल इंजीनियरिंग जैसे विषयों में गेट स्कोर के माध्यम से भर्ती किया जाता है।',
+                        cta: 'और जानें'
+                    },
+                    'dt': { 
+                        name: 'डिप्लोमा प्रशिक्षु', 
+                        icon: '🛠️',
+                        description: 'इलेक्ट्रिकल, सिविल और इलेक्ट्रॉनिक्स में डिप्लोमा धारकों के लिए एक प्रमुख तकनीकी भूमिका। वे पीजीसीआईएल के कई सबस्टेशनों पर संचालन और रखरखाव की रीढ़ हैं।',
+                        cta: 'और जानें'
+                    },
+                    'apprentice': { 
+                        name: 'शिक्षुता', 
+                        icon: '🤝',
+                        description: 'डिप्लोमा और आईटीआई धारकों के लिए एक वर्षीय प्रशिक्षण कार्यक्रम ताकि उन्हें अपरेंटिस अधिनियम के अनुसार बिजली पारेषण उद्योग में व्यावहारिक कौशल और अनुभव प्रदान किया जा सके।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Executive Trainee / Diploma Trainee", desc: "Joins for a one-year training period at a consolidated stipend." },
+                        { rank: "Engineer/Officer (E2) / Jr. Engineer (S1)", desc: "Absorption into the regular pay scale after successful completion of training." },
+                        { rank: "Senior Engineer (E3)", desc: "First promotion for Executive cadre, with greater responsibilities." },
+                        { rank: "Assistant Manager (E4)", desc: "A mid-level management role with leadership of small teams or projects." },
+                        { rank: "Manager / DGM / AGM", desc: "Senior management positions with responsibility for entire departments or substations." },
+                        { rank: "GM & Above", desc: "Top leadership roles, shaping the future of India's power transmission network." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "कार्यकारी प्रशिक्षु / डिप्लोमा प्रशिक्षु", desc: "एक समेकित वजीफे पर एक वर्षीय प्रशिक्षण अवधि के लिए शामिल होता है।" },
+                        { rank: "इंजीनियर/अधिकारी (E2) / जूनियर इंजीनियर (S1)", desc: "प्रशिक्षण के सफल समापन के बाद नियमित वेतनमान में अवशोषण।" },
+                        { rank: "वरिष्ठ अभियंता (E3)", desc: "कार्यकारी संवर्ग के लिए पहली पदोन्नति, अधिक जिम्मेदारियों के साथ।" },
+                        { rank: "सहायक प्रबंधक (E4)", desc: "छोटी टीमों या परियोजनाओं के नेतृत्व के साथ एक मध्य-स्तरीय प्रबंधन भूमिका।" },
+                        { rank: "प्रबंधक / डीजीएम / एजीएम", desc: "पूरे विभागों या सबस्टेशनों के लिए जिम्मेदारी के साथ वरिष्ठ प्रबंधन पद।" },
+                        { rank: "जीएम और ऊपर", desc: "शीर्ष नेतृत्व की भूमिकाएं, जो भारत के बिजली पारेषण नेटवर्क के भविष्य को आकार देती हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⚡ PGCIL Recruitment Guide ⚡',
+                    'header-subtitle': 'Your Guide to a Career in India\'s Central Transmission Utility',
+                    'sec1-title': '1. What is PGCIL Recruitment? 💡',
+                    'sec1-p1': 'Power Grid Corporation of India Limited (PGCIL) is a Maharatna PSU and the country\'s Central Transmission Utility (CTU), responsible for transmitting about 50% of the total power generated in India. A career at PGCIL means being at the heart of India\'s power sector. PGCIL recruits talented individuals for various roles, including fresh engineers as Executive Trainees via GATE, skilled Diploma Trainees, and Apprentices to build and maintain the nation\'s vast transmission network.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process varies for different posts, with a strong emphasis on technical knowledge and aptitude for all roles.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'GATE Score / Written Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Group Discussion', 'sec2-step2-desc': 'For Executive Trainees',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'For Executive Trainees',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for PGCIL roles is specific to the educational qualification and age group for each post.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'For **Executive Trainees** and **Diploma Trainees**, the upper age limit is typically **27-28 years**. For **Apprentices**, it is generally **18-24 years**. Relaxations are applicable as per government rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': '**Executive Trainee:** Full-time B.E./B.Tech/B.Sc (Engg.) in Electrical, Civil, or Electronics. **Diploma Trainee:** Full-time Diploma in the respective engineering field. **Apprentice:** Diploma or ITI in the relevant trade.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is no official limit on the number of attempts for PGCIL\'s recruitment exams.</li><li>Candidates can apply for different recruitment drives as long as they meet the specific eligibility criteria mentioned in each notification.</li>',
+                    'sec4-title': '4. Exam Pattern (Diploma Trainee) 📚',
+                    'sec4-p1': 'For Diploma Trainee recruitment, PGCIL conducts a comprehensive Computer Based Test.',
+                    'gs1-title': 'Part 1: Technical Knowledge 📜', 'gs1-sub1': 'Consists of 120 questions from the specific technical discipline (Electrical, Civil, etc.) based on the Diploma syllabus.',
+                    'gs2-title': 'Part 2: Aptitude Test 🏛️', 'gs2-sub2': 'Consists of 50 questions on vocabulary, verbal comprehension, quantitative aptitude, reasoning ability, and data interpretation.',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'PGCIL provides world-class training to its new recruits to groom them into competent professionals for the power transmission sector.',
+                    'sec5-hindi-title': '1. Executive & Diploma Trainees', 'sec5-hindi-p1': 'A one-year training and probation period.', 'sec5-hindi-list': '<li>Induction and classroom training at PGCIL\'s training institutes.</li><li>On-the-job training at various substations, transmission line sites, and regional headquarters.</li><li>Confirmation is subject to successful completion of training.</li>',
+                    'sec5-essay-title': '2. Apprentices', 'sec5-essay-p1': 'A one-year apprenticeship program.', 'sec5-essay-list': '<li>Practical, hands-on training under the Apprentices Act, 1961.</li><li>A monthly stipend is provided during the training.</li><li>This program provides valuable exposure but does not guarantee employment in PGCIL.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'Roles at PGCIL are focused on the core areas of power transmission, project execution, and maintaining the national grid.',
+                    'sec6-eng-title': 'Executive Trainee', 'sec6-eng-list': '<li>Engineering, design, and planning of transmission projects.</li><li>Project execution and construction management.</li><li>Operations & Maintenance of EHV AC & HVDC substations.</li>',
+                    'sec6-elec-title': 'Diploma Trainee', 'sec6-elec-list': '<li>Supervising O&M activities at substations.</li><li>Testing and commissioning of equipment.</li><li>Ensuring grid discipline and safety.</li>',
+                    'sec6-naic-title': 'Apprentice', 'sec6-naic-list': '<li>Assisting engineers and supervisors.</li><li>Learning about transmission line and substation equipment.</li><li>Supporting day-to-day operational tasks.</li>',
+                    'sec7-title': '7. Qualities of a PGCIL Professional 🎙️',
+                    'sec7-p1': 'A career with the Central Transmission Utility requires a strong technical foundation, a high degree of responsibility, and a commitment to keeping the nation\'s lights on.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">⚙️</span><div><strong class="text-white">Core Technical Knowledge:</strong> A deep understanding of power systems, electrical machines, control systems, and civil/electronics engineering fundamentals.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🧠</span><div><strong class="text-white">Analytical Ability:</strong> Strong problem-solving skills to diagnose and rectify faults in a complex power grid.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🛡️</span><div><strong class="text-white">Safety & Responsibility:</strong> A meticulous approach to safety protocols and a high sense of responsibility.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🤝</span><div><strong class="text-white">Teamwork:</strong> Ability to work in coordination with various teams at substations and project sites.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'The preparation strategy is clear: an excellent GATE score is the key for Executive Trainees, while Diploma Trainees must excel in PGCIL\'s own written test.',
+                    'sec8-steps-title': '📚 For Executive Trainees (GATE):',
+                    'sec8-step1-title': 'Crack GATE with a Top Rank', 'sec8-step1-desc': 'Focus your entire energy on achieving a high score in the relevant GATE paper (EE, EC, CE). PGCIL\'s cut-offs are among the highest.',
+                    'sec8-step2-title': 'Prepare for GD & Interview', 'sec8-step2-desc': 'Once you have a good GATE score, prepare for the subsequent rounds by revising core technical concepts and learning about the power transmission sector.',
+                    'sec8-revision-title': '🔄 For Diploma Trainees:',
+                    'sec8-revision-list': '<li><strong>Master Your Diploma Syllabus:</strong> The technical knowledge test has the highest weightage (120 questions). Be thorough with all your diploma subjects.</li><li><strong>Practice Aptitude:</strong> The aptitude test (50 questions) is also crucial. Practice regularly to ensure you clear the overall cut-off.</li><li><strong>Solve Previous Papers:</strong> Practice with past papers of PGCIL and other PSUs for Diploma Trainees to understand the question level and manage time.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'PGCIL\'s recruitment for ETs is synchronized with the GATE exam cycle. Diploma Trainee and Apprentice vacancies are advertised based on regional requirements.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> ET notifications are published on the PGCIL website (powergrid.in) after GATE registration starts. Other notifications appear throughout the year.',
+                    'sec9-step2-title': 'Application & Screening', 'sec9-step2-desc': '<strong>Timeline:</strong> ET applications open after GATE results. For other posts, a written test is conducted as per the schedule in the advertisement.',
+                    'sec9-step3-title': 'Further Selection (for ETs)', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted ET candidates are called for a Group Discussion and Personal Interview.',
+                    'sec9-step4-title': 'Final Result', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared, followed by a medical examination and issue of offer letters.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Getting into a Maharatna like PGCIL is a highly competitive affair. Avoiding these common mistakes can be the difference between selection and rejection.',
+                    'sec10-mistake1-title': 'Underperforming in GATE:', 'sec10-mistake1-desc': 'For ETs, not taking GATE seriously and failing to achieve the very high scores required by PGCIL.',
+                    'sec10-mistake2-title': 'Ignoring the Aptitude Section:', 'sec10-mistake2-desc': 'For Diploma Trainees, focusing only on the technical part and neglecting the aptitude section, which affects the overall score.',
+                    'sec10-mistake3-title': 'Poor Interview Performance:', 'sec10-mistake3-desc': 'Not being able to explain core technical concepts or your final year project clearly during the personal interview.',
+                    'sec10-mistake4-title': 'Not Researching PGCIL:', 'sec10-mistake4-desc': 'Being unaware of PGCIL\'s role as the CTU, its major projects, and its vision for the Indian power sector.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Excellent preparation resources are available for both GATE and direct Diploma Trainee recruitment exams.',
+                    'sec11-gov-title': '📚 For Executive Trainees (GATE)', 'sec11-gov-list': '<li>Join a reputed GATE coaching institute (online or offline) for structured preparation.</li><li>Focus heavily on solving previous years\' GATE papers and attempting a quality test series.</li>',
+                    'sec11-pvt-title': '📖 For Diploma Trainees', 'sec11-pvt-p1': 'A focused approach on Diploma syllabus is key.', 'sec11-pvt-list': '<li>Thoroughly revise your diploma engineering textbooks for the technical paper.</li><li>Practice aptitude questions from resources for SSC-JE and other state-level JE exams.</li><li>Solve previous PGCIL Diploma Trainee papers to understand the pattern.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'PGCIL offers a very fast and well-defined career progression for its executives, with opportunities to reach top management positions.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Syllabus (Diploma Trainee) 📚',
+                    'sec13-p1': 'The syllabus for the Diploma Trainee written test is composed of a technical part based on the diploma curriculum and a general aptitude part.',
+                    'syllabus-oir-title': 'Technical Knowledge',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚡</span><div class="flex-grow">Electrical Engg. Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏗️</span><div class="flex-grow">Civil / Electronics Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Aptitude Test',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">Verbal Ability & Data Interpretation</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Transmitting Power, Transforming Lives.',
+                    'interviewChartData': {
+                        labels: ['Technical Skill', 'Analytical Ability', 'Safety & Responsibility', 'Teamwork'],
+                        data: [95, 90, 92, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '⚡ पीजीसीआईएल भर्ती गाइड ⚡',
+                    'header-subtitle': 'भारत की केंद्रीय पारेषण उपयोगिता में करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. पीजीसीआईएल भर्ती क्या है? 💡',
+                    'sec1-p1': 'पावर ग्रिड कॉर्पोरेशन ऑफ इंडिया लिमिटेड (पीजीसीआईएल) एक महारत्न पीएसयू और देश की केंद्रीय पारेषण उपयोगिता (सीटीयू) है, जो भारत में उत्पन्न कुल बिजली का लगभग 50% पारेषण के लिए जिम्मेदार है। पीजीसीआईएल में एक कैरियर का अर्थ है भारत के बिजली क्षेत्र के केंद्र में होना। पीजीसीआईएल विभिन्न भूमिकाओं के लिए प्रतिभाशाली व्यक्तियों की भर्ती करता है, जिसमें गेट के माध्यम से कार्यकारी प्रशिक्षुओं के रूप में नए इंजीनियर, कुशल डिप्लोमा प्रशिक्षु और राष्ट्र के विशाल पारेषण नेटवर्क के निर्माण और रखरखाव के लिए प्रशिक्षु शामिल हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'चयन प्रक्रिया विभिन्न पदों के लिए अलग-अलग होती है, जिसमें सभी भूमिकाओं के लिए तकनीकी ज्ञान और योग्यता पर एक मजबूत जोर होता है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'गेट स्कोर / लिखित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'समूह चर्चा', 'sec2-step2-desc': 'कार्यकारी प्रशिक्षुओं के लिए',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'कार्यकारी प्रशिक्षुओं के लिए',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पीजीसीआईएल भूमिकाओं के लिए पात्रता प्रत्येक पद के लिए शैक्षिक योग्यता और आयु समूह के लिए विशिष्ट है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': '**कार्यकारी प्रशिक्षुओं** और **डिप्लोमा प्रशिक्षुओं** के लिए, ऊपरी आयु सीमा आमतौर पर **27-28 वर्ष** है। **अपरेंटिस** के लिए, यह आम तौर पर **18-24 वर्ष** है। सरकारी नियमों के अनुसार छूट लागू होती है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': '**कार्यकारी प्रशिक्षु:** इलेक्ट्रिकल, सिविल, या इलेक्ट्रॉनिक्स में पूर्णकालिक बी.ई./बी.टेक/बी.एससी (इंजीनियरिंग)। **डिप्लोमा प्रशिक्षु:** संबंधित इंजीनियरिंग क्षेत्र में पूर्णकालिक डिप्लोमा। **अपरेंटिस:** संबंधित ट्रेड में डिप्लोमा या आईटीआई।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>पीजीसीआईएल की भर्ती परीक्षाओं के लिए प्रयासों की संख्या पर कोई आधिकारिक सीमा नहीं है।</li><li>उम्मीदवार विभिन्न भर्ती अभियानों के लिए तब तक आवेदन कर सकते हैं जब तक वे प्रत्येक अधिसूचना में उल्लिखित विशिष्ट पात्रता मानदंडों को पूरा करते हैं।</li>',
+                    'sec4-title': '4. परीक्षा पैटर्न (डिप्लोमा प्रशिक्षु) 📚',
+                    'sec4-p1': 'डिप्लोमा प्रशिक्षु भर्ती के लिए, पीजीसीआईएल एक व्यापक कंप्यूटर आधारित परीक्षा आयोजित करता है।',
+                    'gs1-title': 'भाग 1: तकनीकी ज्ञान 📜', 'gs1-sub1': 'डिप्लोमा पाठ्यक्रम के आधार पर विशिष्ट तकनीकी अनुशासन (इलेक्ट्रिकल, सिविल, आदि) से 120 प्रश्न होते हैं।',
+                    'gs2-title': 'भाग 2: योग्यता परीक्षा 🏛️', 'gs2-sub2': 'शब्दावली, मौखिक समझ, मात्रात्मक योग्यता, तर्क क्षमता और डेटा व्याख्या पर 50 प्रश्न होते हैं।',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'पीजीसीआईएल अपने नए रंगरूटों को बिजली पारेषण क्षेत्र के लिए सक्षम पेशेवरों के रूप में तैयार करने के लिए विश्व स्तरीय प्रशिक्षण प्रदान करता है।',
+                    'sec5-hindi-title': '1. कार्यकारी और डिप्लोमा प्रशिक्षु', 'sec5-hindi-p1': 'एक वर्षीय प्रशिक्षण और परिवीक्षा अवधि।', 'sec5-hindi-list': '<li>पीजीसीआईएल के प्रशिक्षण संस्थानों में प्रेरण और कक्षा प्रशिक्षण।</li><li>विभिन्न सबस्टेशनों, पारेषण लाइन स्थलों और क्षेत्रीय मुख्यालयों पर ऑन-द-जॉब प्रशिक्षण।</li><li>प्रशिक्षण के सफल समापन के अधीन पुष्टि।</li>',
+                    'sec5-essay-title': '2. अपरेंटिस', 'sec5-essay-p1': 'एक वर्षीय शिक्षुता कार्यक्रम।', 'sec5-essay-list': '<li>अपरेंटिस अधिनियम, 1961 के तहत व्यावहारिक, व्यावहारिक प्रशिक्षण।</li><li>प्रशिक्षण के दौरान एक मासिक वजीफा प्रदान किया जाता है।</li><li>यह कार्यक्रम मूल्यवान प्रदर्शन प्रदान करता है लेकिन पीजीसीआईएल में रोजगार की गारंटी नहीं देता है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'पीजीसीआईएल में भूमिकाएं बिजली पारेषण, परियोजना निष्पादन और राष्ट्रीय ग्रिड के रखरखाव के मुख्य क्षेत्रों पर केंद्रित हैं।',
+                    'sec6-eng-title': 'कार्यकारी प्रशिक्षु', 'sec6-eng-list': '<li>पारेषण परियोजनाओं की इंजीनियरिंग, डिजाइन और योजना।</li><li>परियोजना निष्पादन और निर्माण प्रबंधन।</li><li>ईएचवी एसी और एचवीडीसी सबस्टेशनों का संचालन और रखरखाव।</li>',
+                    'sec6-elec-title': 'डिप्लोमा प्रशिक्षु', 'sec6-elec-list': '<li>सबस्टेशनों पर ओ एंड एम गतिविधियों का पर्यवेक्षण।</li><li>उपकरणों का परीक्षण और कमीशनिंग।</li><li>ग्रिड अनुशासन और सुरक्षा सुनिश्चित करना।</li>',
+                    'sec6-naic-title': 'अपरेंटिस', 'sec6-naic-list': '<li>इंजीनियरों और पर्यवेक्षकों की सहायता करना।</li><li>पारेषण लाइन और सबस्टेशन उपकरणों के बारे में सीखना।</li><li>दिन-प्रतिदिन के परिचालन कार्यों का समर्थन करना।</li>',
+                    'sec7-title': '7. एक पीजीसीआईएल पेशेवर के गुण 🎙️',
+                    'sec7-p1': 'केंद्रीय पारेषण उपयोगिता के साथ एक कैरियर के लिए एक मजबूत तकनीकी नींव, जिम्मेदारी की एक उच्च डिग्री, और राष्ट्र की रोशनी को चालू रखने की प्रतिबद्धता की आवश्यकता होती है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">⚙️</span><div><strong class="text-white">मुख्य तकनीकी ज्ञान:</strong> बिजली प्रणालियों, विद्युत मशीनों, नियंत्रण प्रणालियों और सिविल/इलेक्ट्रॉनिक्स इंजीनियरिंग की बुनियादी बातों की गहरी समझ।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🧠</span><div><strong class="text-white">विश्लेषणात्मक क्षमता:</strong> एक जटिल बिजली ग्रिड में दोषों का निदान और सुधार करने के लिए मजबूत समस्या-समाधान कौशल।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🛡️</span><div><strong class="text-white">सुरक्षा और जिम्मेदारी:</strong> सुरक्षा प्रोटोकॉल के लिए एक सावधानीपूर्वक दृष्टिकोण और जिम्मेदारी की एक उच्च भावना।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00ff] mr-3">🤝</span><div><strong class="text-white">टीम वर्क:</strong> सबस्टेशनों और परियोजना स्थलों पर विभिन्न टीमों के साथ समन्वय में काम करने की क्षमता।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'तैयारी की रणनीति स्पष्ट है: कार्यकारी प्रशिक्षुओं के लिए एक उत्कृष्ट गेट स्कोर महत्वपूर्ण है, जबकि डिप्लोमा प्रशिक्षुओं को पीजीसीआईएल की अपनी लिखित परीक्षा में उत्कृष्टता प्राप्त करनी होगी।',
+                    'sec8-steps-title': '📚 कार्यकारी प्रशिक्षुओं के लिए (GATE):',
+                    'sec8-step1-title': 'एक शीर्ष रैंक के साथ गेट क्रैक करें', 'sec8-step1-desc': 'अपनी पूरी ऊर्जा प्रासंगिक गेट पेपर (ईई, ईसी, सीई) में एक उच्च स्कोर प्राप्त करने पर केंद्रित करें। पीजीसीआईएल के कट-ऑफ सबसे ऊंचे में से हैं।',
+                    'sec8-step2-title': 'जीडी और साक्षात्कार के लिए तैयारी करें', 'sec8-step2-desc': 'एक अच्छा गेट स्कोर होने के बाद, मुख्य तकनीकी अवधारणाओं को संशोधित करके और बिजली पारेषण क्षेत्र के बारे में सीखकर बाद के दौरों के लिए तैयारी करें।',
+                    'sec8-revision-title': '🔄 डिप्लोमा प्रशिक्षुओं के लिए:',
+                    'sec8-revision-list': '<li><strong>अपने डिप्लोमा पाठ्यक्रम में महारत हासिल करें:</strong> तकनीकी ज्ञान परीक्षण का भार सबसे अधिक (120 प्रश्न) है। अपने सभी डिप्लोमा विषयों के साथ पूरी तरह से रहें।</li><li><strong>योग्यता का अभ्यास करें:</strong> योग्यता परीक्षा (50 प्रश्न) भी महत्वपूर्ण है। समग्र कट-ऑफ को पार करना सुनिश्चित करने के लिए नियमित रूप से अभ्यास करें।</li><li><strong>पिछले प्रश्नपत्र हल करें:</strong> प्रश्न स्तर को समझने और समय का प्रबंधन करने के लिए डिप्लोमा प्रशिक्षुओं के लिए पीजीसीआईएल और अन्य पीएसयू के पिछले प्रश्नपत्रों के साथ अभ्यास करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'ईटी के लिए पीजीसीआईएल की भर्ती गेट परीक्षा चक्र के साथ सिंक्रनाइज़ है। डिप्लोमा प्रशिक्षु और अपरेंटिस रिक्तियों का विज्ञापन क्षेत्रीय आवश्यकताओं के आधार पर किया जाता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> गेट पंजीकरण शुरू होने के बाद पीजीसीआईएल वेबसाइट (powergrid.in) पर ईटी सूचनाएं प्रकाशित की जाती हैं। अन्य सूचनाएं पूरे वर्ष दिखाई देती हैं।',
+                    'sec9-step2-title': 'आवेदन और स्क्रीनिंग', 'sec9-step2-desc': '<strong>समयरेखा:</strong> गेट परिणामों के बाद ईटी आवेदन खुलते हैं। अन्य पदों के लिए, विज्ञापन में अनुसूची के अनुसार एक लिखित परीक्षा आयोजित की जाती है।',
+                    'sec9-step3-title': 'आगे का चयन (ईटी के लिए)', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए ईटी उम्मीदवारों को एक समूह चर्चा और व्यक्तिगत साक्षात्कार के लिए बुलाया जाता है।',
+                    'sec9-step4-title': 'अंतिम परिणाम', 'sec9-step4-desc': '<strong>समयरेखा:</strong> एक अंतिम मेरिट सूची तैयार की जाती है, जिसके बाद एक चिकित्सा परीक्षा और प्रस्ताव पत्र जारी किए जाते हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'पीजीसीआईएल जैसे महारत्न में शामिल होना एक अत्यधिक प्रतिस्पर्धी मामला है। चयन और अस्वीकृति के बीच का अंतर इन सामान्य गलतियों से बचने में हो सकता है।',
+                    'sec10-mistake1-title': 'गेट में कम प्रदर्शन:', 'sec10-mistake1-desc': 'ईटी के लिए, गेट को गंभीरता से नहीं लेना और पीजीसीआईएल द्वारा आवश्यक बहुत अधिक स्कोर प्राप्त करने में विफल होना।',
+                    'sec10-mistake2-title': 'योग्यता अनुभाग की अनदेखी:', 'sec10-mistake2-desc': 'डिप्लोमा प्रशिक्षुओं के लिए, केवल तकनीकी भाग पर ध्यान केंद्रित करना और योग्यता अनुभाग की उपेक्षा करना, जो समग्र स्कोर को प्रभावित करता है।',
+                    'sec10-mistake3-title': 'खराब साक्षात्कार प्रदर्शन:', 'sec10-mistake3-desc': 'व्यक्तिगत साक्षात्कार के दौरान मुख्य तकनीकी अवधारणाओं या अपनी अंतिम वर्ष की परियोजना को स्पष्ट रूप से समझाने में सक्षम नहीं होना।',
+                    'sec10-mistake4-title': 'पीजीसीआईएल पर शोध नहीं करना:', 'sec10-mistake4-desc': 'सीटीयू के रूप में पीजीसीआईएल की भूमिका, इसकी प्रमुख परियोजनाओं और भारतीय बिजली क्षेत्र के लिए इसकी दृष्टि से अनभिज्ञ होना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'गेट और सीधी डिप्लोमा प्रशिक्षु भर्ती परीक्षाओं दोनों के लिए उत्कृष्ट तैयारी संसाधन उपलब्ध हैं।',
+                    'sec11-gov-title': '📚 कार्यकारी प्रशिक्षुओं के लिए (GATE)', 'sec11-gov-list': '<li>संरचित तैयारी के लिए एक प्रतिष्ठित गेट कोचिंग संस्थान (ऑनलाइन या ऑफलाइन) में शामिल हों।</li><li>पिछले वर्षों के गेट प्रश्नपत्रों को हल करने और एक गुणवत्ता परीक्षण श्रृंखला का प्रयास करने पर बहुत अधिक ध्यान केंद्रित करें।</li>',
+                    'sec11-pvt-title': '📖 डिप्लोमा प्रशिक्षुओं के लिए', 'sec11-pvt-p1': 'डिप्लोमा पाठ्यक्रम पर एक केंद्रित दृष्टिकोण महत्वपूर्ण है।', 'sec11-pvt-list': '<li>तकनीकी पेपर के लिए अपने डिप्लोमा इंजीनियरिंग पाठ्यपुस्तकों को अच्छी तरह से संशोधित करें।</li><li>एसएससी-जेई और अन्य राज्य-स्तरीय जेई परीक्षाओं के लिए संसाधनों से योग्यता प्रश्नों का अभ्यास करें।</li><li>पैटर्न को समझने के लिए पिछले पीजीसीआईएल डिप्लोमा प्रशिक्षु प्रश्नपत्र हल करें।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'पीजीसीआईएल अपने अधिकारियों के लिए एक बहुत तेज़ और अच्छी तरह से परिभाषित कैरियर प्रगति प्रदान करता है, जिसमें शीर्ष प्रबंधन पदों तक पहुंचने के अवसर हैं।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. पाठ्यक्रम (डिप्लोमा प्रशिक्षु) 📚',
+                    'sec13-p1': 'डिप्लोमा प्रशिक्षु लिखित परीक्षा के लिए पाठ्यक्रम डिप्लोमा पाठ्यक्रम और एक सामान्य योग्यता भाग पर आधारित एक तकनीकी भाग से बना है।',
+                    'syllabus-oir-title': 'तकनीकी ज्ञान',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚡</span><div class="flex-grow">इलेक्ट्रिकल इंजीनियरिंग विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏗️</span><div class="flex-grow">सिविल / इलेक्ट्रॉनिक्स विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'योग्यता परीक्षा',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">मौखिक क्षमता और डेटा व्याख्या</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | शक्ति संचारित करना, जीवन बदलना।',
+                    'interviewChartData': {
+                        labels: ['तकनीकी कौशल', 'विश्लेषणात्मक क्षमता', 'सुरक्षा और जिम्मेदारी', 'टीम वर्क'],
+                        data: [95, 90, 92, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-sky-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(0, 191, 255, 0.7)',
+                            borderColor: '#00bfff',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
