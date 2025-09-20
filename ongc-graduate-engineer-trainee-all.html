@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSU Recruitment Guide (GET, AEE & Other Posts)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to recruitment in Indian Public Sector Undertakings (PSUs) for roles like Graduate Engineer Trainee (GET) through GATE, AEE, Scientist, and other technical & non-technical posts.">
+    <meta name="keywords" content="PSU Recruitment, PSU through GATE, Graduate Engineer Trainee, GET Jobs, PSU Jobs, ONGC, IOCL, NTPC, BHEL, Government Engineering Jobs">
+    <meta name="author" content="PSU Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #d1d5db; /* Gray 300 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #f97316, #fb923c) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.85); /* Gray 900 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #374151; /* Gray 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f97316; /* Orange 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f97316; /* Orange 500 */
+            color: #f97316;
+            background: #1f2937; /* Gray 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #f97316;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.5);
+        }
+        .flowchart-arrow {
+            color: #eab308; /* Yellow 500 */
+            text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eab308;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(234, 179, 8, 0.1);
+        }
+        .subject-item .icon {
+            color: #eab308;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #f97316;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #f97316;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #374151;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f97316, #ea580c);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f97316;
+            color: #f97316;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f97316;
+            color: #111827;
+            box-shadow: 0 0 15px #f97316;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #eab308, #ca8a04);
+            color: #111827;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🏭 PSU Recruitment Guide 🏭</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-yellow-400">Your Guide to a Career in India's Maharatnas, Navratnas & Miniratnas</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is PSU Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is PSU Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Public Sector Undertakings (PSUs) are government-owned corporations that form the industrial and economic backbone of India. Companies like ONGC, IOCL, NTPC, BHEL, and GAIL recruit talented professionals across various disciplines to manage their vast operations. A career in a PSU offers job security, attractive pay, and the opportunity to contribute directly to nation-building in core sectors like energy, infrastructure, and technology.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process for PSU executives is a multi-stage funnel designed to identify candidates with strong technical foundations and managerial potential.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">GATE / Written</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">GATE Score or Written Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Group Discussion</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Group Discussion / Task</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Personal Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for PSU roles is highly dependent on the post and the specific PSU's requirements.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">For entry-level GET/Officer posts, the age limit is typically **25 to 30 years**. It is higher for roles requiring experience. Age relaxation for reserved categories is as per government norms.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">For technical posts (GET/AEE), a **B.E./B.Tech** in a relevant discipline is required. For scientific posts, a **Master's degree** (e.g., M.Sc in Geology/Chemistry) is needed. Non-technical posts require degrees like MBA (HR/Finance), CA, or LLB.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#eab308] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is generally no limit on the number of attempts for PSU recruitment exams.</li>
+                             <li>Candidates can apply for vacancies in different PSUs as long as they meet the specific age and qualification criteria for each post.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Typical Exam Pattern (Non-GATE) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For posts not filled through GATE, PSUs conduct their own written tests. The pattern generally includes both technical and non-technical sections.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Part 1: General Aptitude 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs1-sub1">English Language</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Quantitative Aptitude</div></div>
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs2-sub1">Reasoning Ability</div></div>
+                            <div class="subject-item"><span class="icon">🌍</span><div id="gs2-sub2">General Awareness</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Part 2: Technical/Domain 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">⚙️</span><div id="gs3-sub1">Questions from the specific engineering/technical discipline (e.g., Mechanical, Civil, Electrical).</div></div>
+                           <div class="subject-item"><span class="icon">💼</span><div id="gs3-sub2">Questions related to the professional domain for non-technical posts (e.g., Finance, HR).</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Selected candidates join as Trainees and undergo a comprehensive probation-cum-training period designed to build technical and managerial competencies.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#f97316]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The initial appointment is on a training/probation basis.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Typically a one-year training/probation period.</li>
+                            <li>Performance is assessed through regular evaluations and tests.</li>
+                            <li>Confirmation as an Officer/Engineer is based on successful completion of probation.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#eab308]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Induction Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Training includes a mix of classroom and on-the-job learning.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction at the company's training institute or a premier management/technical institute.</li>
+                           <li>Classroom sessions on company operations, values, and management principles.</li>
+                           <li>On-the-job training at various plants, sites, or offices to gain practical exposure.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities of a PSU Officer 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The roles are diverse and challenging, involving technical oversight, project management, and administrative duties.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Engineers (GET/AEE)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Overseeing plant operations and maintenance.</li>
+                           <li>Executing and managing engineering projects.</li>
+                           <li>Ensuring quality control and safety standards.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Scientists / Geologists</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Conducting geological surveys for resource exploration.</li>
+                           <li>Working in R&D labs on new products or processes.</li>
+                           <li>Ensuring environmental compliance.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Finance / HR / Medical</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Managing corporate accounts and finance (Finance).</li>
+                           <li>Handling recruitment, training, and employee relations (HR).</li>
+                           <li>Providing medical services to employees (Medical Officer).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a PSU Officer 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A successful career in a PSU requires a blend of strong technical expertise, leadership qualities, and adaptability to a public sector work environment.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#f97316] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">⚙️</span><div><strong class="text-white">Technical Knowledge:</strong> A strong and deep understanding of the core concepts of one's own discipline.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Skills:</strong> The ability to apply technical knowledge to solve real-world industrial problems efficiently.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧑‍💼</span><div><strong class="text-white">Leadership & Teamwork:</strong> The potential to lead teams, manage projects, and work collaboratively with others.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🔄</span><div><strong class="text-white">Adaptability:</strong> Willingness to learn new technologies and adapt to diverse work environments, including remote locations.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The preparation strategy depends on the mode of entry. GATE-based recruitment requires a different focus compared to PSUs conducting their own exams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For GATE Aspirants (GET):</h3>
+                        <ol class="relative border-l-4 border-[#f97316] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Achieve a High GATE Score</h4>
+                                <p id="sec8-step1-desc" class="text-base">Your primary focus should be to secure a top rank in the GATE exam. This requires comprehensive and early preparation of the entire GATE syllabus.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Prepare for GD & Interview</h4>
+                                <p id="sec8-step2-desc" class="text-base">After GATE results, focus on current affairs, technical concepts from your final year projects, and general HR questions for the subsequent rounds.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For Direct Recruitment Exams:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Balance Technical & Non-Technical:</strong> Both sections are usually important. Create a study plan that gives adequate time to both your domain subjects and the general aptitude sections.</li>
+                            <li><strong>Solve Previous Year Papers:</strong> Practice with past papers of the specific PSU you are targeting to understand their exam pattern and question level.</li>
+                            <li><strong>Stay Updated:</strong> Keep track of current affairs, especially news related to the energy, economy, and infrastructure sectors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Most PSUs announce their vacancies for GETs shortly after the GATE exam notification. Other posts are advertised based on specific needs.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> PSU notifications for GATE-based recruitment appear between August and February. Others are released throughout the year on their respective websites.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application & Exam</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Applications are made online. For GATE entries, applications open after GATE results. Direct recruitment exams are held as per the notification.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">GD & Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Shortlisted candidates are called for Group Discussion and Personal Interviews, typically held at major cities or company headquarters.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A final merit list is prepared based on GATE/Written score, GD, and Interview marks. Joining formalities follow for the selected candidates.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Competition for PSU jobs is intense. Avoiding these common errors can significantly boost your chances of success.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Ignoring Non-Technical Sections:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Focusing only on the technical syllabus and neglecting the general aptitude part, which is often a qualifier or has significant weightage.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Poor Interview Preparation:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Not preparing for the interview, which tests not just technical knowledge but also personality, current affairs, and awareness about the specific PSU.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Waiting Until the Last Minute:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Starting GATE preparation late or not applying for PSU vacancies on time.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not Checking Medical Standards:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Clearing all rounds but being declared unfit in the final medical examination due to not checking the required standards beforehand.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Aspirants can find a plethora of resources for both GATE and direct PSU recruitment exams through online and offline channels.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For GATE Preparation</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Numerous specialized coaching institutes (both online and offline) focus exclusively on GATE preparation for different engineering streams.</li>
+                           <li>Standard engineering textbooks and online test series are crucial.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📖 For Direct PSU Exams</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Preparation material is widely available.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Coaching centers for ESE (Engineering Services Examination) are very helpful for the technical part.</li>
+                            <li>For the non-technical part, material for banking and SSC exams can be followed.</li>
+                            <li>Many online platforms offer combined courses for PSU exams.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">PSUs offer a highly structured and transparent career progression path, allowing an entry-level trainee to rise to the highest echelons of management.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#111827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Typical Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus is generally divided into a general aptitude section and a technical section based on the candidate's specific discipline.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Technical / Domain</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Building the Nation, Powering the Future.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: GATE Score / Written Test</h3>
+            <p id="prelims-modal-p1">The first stage of shortlisting is based on performance in a national-level exam. For most Graduate Engineer Trainee (GET) posts, a valid GATE score is used. For other technical and non-technical posts, the PSU conducts its own objective-type written examination.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Group Discussion / Task</h3>
+            <p id="mains-modal-p1">Shortlisted candidates are then called for a Group Discussion (GD) or a Group Task (GT). This stage is designed to assess a candidate's communication skills, leadership potential, teamwork, and ability to think under pressure.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Personal Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final stage is a personal interview with a panel of senior management and technical experts. The interview assesses the candidate's technical knowledge, personality, and suitability for a career in the public sector. The final merit list is prepared based on the combined weightage of all three stages.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">PSU Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'get': { 
+                        name: 'Graduate Engineer Trainee (GET)', 
+                        icon: '🎓',
+                        description: 'The most common entry-point for engineers in PSUs. GETs are recruited based on their GATE scores in disciplines like Mechanical, Electrical, Civil, and Computer Science.',
+                        cta: 'Learn More'
+                    },
+                    'scientist': { 
+                        name: 'Geologist / Scientist', 
+                        icon: '🔬',
+                        description: 'Recruited for specialized roles in R&D departments or for exploration activities in PSUs like ONGC, OIL, and Geological Survey of India.',
+                        cta: 'Learn More'
+                    },
+                    'nontech': { 
+                        name: 'Finance, HR & Other Posts', 
+                        icon: '💼',
+                        description: 'PSUs recruit professionals for non-technical roles to manage their corporate functions. This includes Finance Officers (CA/MBA), HR Officers (MBA), and Law Officers (LLB).',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'get': { 
+                        name: 'स्नातक अभियंता प्रशिक्षु (GET)', 
+                        icon: '🎓',
+                        description: 'पीएसयू में इंजीनियरों के लिए सबसे आम प्रवेश-बिंदु। जीईटी को मैकेनिकल, इलेक्ट्रिकल, सिविल और कंप्यूटर विज्ञान जैसे विषयों में उनके गेट स्कोर के आधार पर भर्ती किया जाता है।',
+                        cta: 'और जानें'
+                    },
+                    'scientist': { 
+                        name: 'भूविज्ञानी / वैज्ञानिक', 
+                        icon: '🔬',
+                        description: 'ओएनजीसी, ओआईएल और भारतीय भूवैज्ञानिक सर्वेक्षण जैसे पीएसयू में अनुसंधान एवं विकास विभागों या अन्वेषण गतिविधियों में विशेष भूमिकाओं के लिए भर्ती किया गया।',
+                        cta: 'और जानें'
+                    },
+                    'nontech': { 
+                        name: 'वित्त, मानव संसाधन और अन्य पद', 
+                        icon: '💼',
+                        description: 'पीएसयू अपने कॉर्पोरेट कार्यों का प्रबंधन करने के लिए गैर-तकनीकी भूमिकाओं के लिए पेशेवरों की भर्ती करते हैं। इसमें वित्त अधिकारी (सीए/एमबीए), मानव संसाधन अधिकारी (एमबीए), और विधि अधिकारी (एलएलबी) शामिल हैं।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Executive Trainee / Officer", desc: "The entry-level position after a one-year training/probation period." },
+                        { rank: "Assistant Manager", desc: "The first promotion, typically after 2-4 years of service." },
+                        { rank: "Manager / Senior Manager", desc: "Mid-level management roles with responsibility for specific projects or teams." },
+                        { rank: "Deputy General Manager (DGM)", desc: "Senior management position, often heading a department in a plant or unit." },
+                        { rank: "General Manager (GM)", desc: "Leads a major vertical or an entire unit/plant." },
+                        { rank: "Executive Director / Director", desc: "The highest leadership positions, part of the company's board and responsible for overall strategy." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "कार्यकारी प्रशिक्षु / अधिकारी", desc: "एक साल के प्रशिक्षण/परिवीक्षा अवधि के बाद प्रवेश स्तर की स्थिति।" },
+                        { rank: "सहायक प्रबंधक", desc: "पहली पदोन्नति, आमतौर पर 2-4 साल की सेवा के बाद।" },
+                        { rank: "प्रबंधक / वरिष्ठ प्रबंधक", desc: "विशिष्ट परियोजनाओं या टीमों के लिए जिम्मेदारी के साथ मध्य-स्तरीय प्रबंधन भूमिकाएं।" },
+                        { rank: "उप महाप्रबंधक (DGM)", desc: "वरिष्ठ प्रबंधन पद, जो अक्सर किसी संयंत्र या इकाई में एक विभाग का नेतृत्व करता है।" },
+                        { rank: "महाप्रबंधक (GM)", desc: "एक प्रमुख वर्टिकल या एक पूरी इकाई/संयंत्र का नेतृत्व करता है।" },
+                        { rank: "कार्यकारी निदेशक / निदेशक", desc: "उच्चतम नेतृत्व पद, कंपनी के बोर्ड का हिस्सा और समग्र रणनीति के लिए जिम्मेदार।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🏭 PSU Recruitment Guide 🏭',
+                    'header-subtitle': 'Your Guide to a Career in India\'s Maharatnas, Navratnas & Miniratnas',
+                    'sec1-title': '1. What is PSU Recruitment? 💡',
+                    'sec1-p1': 'Public Sector Undertakings (PSUs) are government-owned corporations that form the industrial and economic backbone of India. Companies like ONGC, IOCL, NTPC, BHEL, and GAIL recruit talented professionals across various disciplines to manage their vast operations. A career in a PSU offers job security, attractive pay, and the opportunity to contribute directly to nation-building in core sectors like energy, infrastructure, and technology.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process for PSU executives is a multi-stage funnel designed to identify candidates with strong technical foundations and managerial potential.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'GATE / Written', 'sec2-step1-desc': 'GATE Score or Written Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Group Discussion', 'sec2-step2-desc': 'Group Discussion / Task',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Personal Interview',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for PSU roles is highly dependent on the post and the specific PSU\'s requirements.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'For entry-level GET/Officer posts, the age limit is typically **25 to 30 years**. It is higher for roles requiring experience. Age relaxation for reserved categories is as per government norms.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'For technical posts (GET/AEE), a **B.E./B.Tech** in a relevant discipline is required. For scientific posts, a **Master\'s degree** (e.g., M.Sc in Geology/Chemistry) is needed. Non-technical posts require degrees like MBA (HR/Finance), CA, or LLB.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is generally no limit on the number of attempts for PSU recruitment exams.</li><li>Candidates can apply for vacancies in different PSUs as long as they meet the specific age and qualification criteria for each post.</li>',
+                    'sec4-title': '4. Typical Exam Pattern (Non-GATE) 📚',
+                    'sec4-p1': 'For posts not filled through GATE, PSUs conduct their own written tests. The pattern generally includes both technical and non-technical sections.',
+                    'gs1-title': 'Part 1: General Aptitude 📜', 'gs1-sub1': 'English Language', 'gs1-sub2': 'Quantitative Aptitude', 'gs2-sub1': 'Reasoning Ability', 'gs2-sub2': 'General Awareness',
+                    'gs2-title': 'Part 2: Technical/Domain 🏛️', 'gs3-sub1': 'Questions from the specific engineering/technical discipline (e.g., Mechanical, Civil, Electrical).', 'gs3-sub2': 'Questions related to the professional domain for non-technical posts (e.g., Finance, HR).',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'Selected candidates join as Trainees and undergo a comprehensive probation-cum-training period designed to build technical and managerial competencies.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'The initial appointment is on a training/probation basis.', 'sec5-hindi-list': '<li>Typically a one-year training/probation period.</li><li>Performance is assessed through regular evaluations and tests.</li><li>Confirmation as an Officer/Engineer is based on successful completion of probation.</li>',
+                    'sec5-essay-title': '2. Induction Training', 'sec5-essay-p1': 'Training includes a mix of classroom and on-the-job learning.', 'sec5-essay-list': '<li>Induction at the company\'s training institute or a premier management/technical institute.</li><li>Classroom sessions on company operations, values, and management principles.</li><li>On-the-job training at various plants, sites, or offices to gain practical exposure.</li>',
+                    'sec6-title': '6. Key Responsibilities of a PSU Officer 🌟',
+                    'sec6-p1': 'The roles are diverse and challenging, involving technical oversight, project management, and administrative duties.',
+                    'sec6-eng-title': 'Engineers (GET/AEE)', 'sec6-eng-list': '<li>Overseeing plant operations and maintenance.</li><li>Executing and managing engineering projects.</li><li>Ensuring quality control and safety standards.</li>',
+                    'sec6-elec-title': 'Scientists / Geologists', 'sec6-elec-list': '<li>Conducting geological surveys for resource exploration.</li><li>Working in R&D labs on new products or processes.</li><li>Ensuring environmental compliance.</li>',
+                    'sec6-naic-title': 'Finance / HR / Medical', 'sec6-naic-list': '<li>Managing corporate accounts and finance (Finance).</li><li>Handling recruitment, training, and employee relations (HR).</li><li>Providing medical services to employees (Medical Officer).</li>',
+                    'sec7-title': '7. Qualities of a PSU Officer 🎙️',
+                    'sec7-p1': 'A successful career in a PSU requires a blend of strong technical expertise, leadership qualities, and adaptability to a public sector work environment.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">⚙️</span><div><strong class="text-white">Technical Knowledge:</strong> A strong and deep understanding of the core concepts of one\'s own discipline.</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Skills:</strong> The ability to apply technical knowledge to solve real-world industrial problems efficiently.</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧑‍💼</span><div><strong class="text-white">Leadership & Teamwork:</strong> The potential to lead teams, manage projects, and work collaboratively with others.</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🔄</span><div><strong class="text-white">Adaptability:</strong> Willingness to learn new technologies and adapt to diverse work environments, including remote locations.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'The preparation strategy depends on the mode of entry. GATE-based recruitment requires a different focus compared to PSUs conducting their own exams.',
+                    'sec8-steps-title': '📚 For GATE Aspirants (GET):',
+                    'sec8-step1-title': 'Achieve a High GATE Score', 'sec8-step1-desc': 'Your primary focus should be to secure a top rank in the GATE exam. This requires comprehensive and early preparation of the entire GATE syllabus.',
+                    'sec8-step2-title': 'Prepare for GD & Interview', 'sec8-step2-desc': 'After GATE results, focus on current affairs, technical concepts from your final year projects, and general HR questions for the subsequent rounds.',
+                    'sec8-revision-title': '🔄 For Direct Recruitment Exams:',
+                    'sec8-revision-list': '<li><strong>Balance Technical & Non-Technical:</strong> Both sections are usually important. Create a study plan that gives adequate time to both your domain subjects and the general aptitude sections.</li><li><strong>Solve Previous Year Papers:</strong> Practice with past papers of the specific PSU you are targeting to understand their exam pattern and question level.</li><li><strong>Stay Updated:</strong> Keep track of current affairs, especially news related to the energy, economy, and infrastructure sectors.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Most PSUs announce their vacancies for GETs shortly after the GATE exam notification. Other posts are advertised based on specific needs.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> PSU notifications for GATE-based recruitment appear between August and February. Others are released throughout the year on their respective websites.',
+                    'sec9-step2-title': 'Application & Exam', 'sec9-step2-desc': '<strong>Timeline:</strong> Applications are made online. For GATE entries, applications open after GATE results. Direct recruitment exams are held as per the notification.',
+                    'sec9-step3-title': 'GD & Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates are called for Group Discussion and Personal Interviews, typically held at major cities or company headquarters.',
+                    'sec9-step4-title': 'Final Result & Joining', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared based on GATE/Written score, GD, and Interview marks. Joining formalities follow for the selected candidates.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition for PSU jobs is intense. Avoiding these common errors can significantly boost your chances of success.',
+                    'sec10-mistake1-title': 'Ignoring Non-Technical Sections:', 'sec10-mistake1-desc': 'Focusing only on the technical syllabus and neglecting the general aptitude part, which is often a qualifier or has significant weightage.',
+                    'sec10-mistake2-title': 'Poor Interview Preparation:', 'sec10-mistake2-desc': 'Not preparing for the interview, which tests not just technical knowledge but also personality, current affairs, and awareness about the specific PSU.',
+                    'sec10-mistake3-title': 'Waiting Until the Last Minute:', 'sec10-mistake3-desc': 'Starting GATE preparation late or not applying for PSU vacancies on time.',
+                    'sec10-mistake4-title': 'Not Checking Medical Standards:', 'sec10-mistake4-desc': 'Clearing all rounds but being declared unfit in the final medical examination due to not checking the required standards beforehand.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Aspirants can find a plethora of resources for both GATE and direct PSU recruitment exams through online and offline channels.',
+                    'sec11-gov-title': '📚 For GATE Preparation', 'sec11-gov-list': '<li>Numerous specialized coaching institutes (both online and offline) focus exclusively on GATE preparation for different engineering streams.</li><li>Standard engineering textbooks and online test series are crucial.</li>',
+                    'sec11-pvt-title': '📖 For Direct PSU Exams', 'sec11-pvt-p1': 'Preparation material is widely available.', 'sec11-pvt-list': '<li>Coaching centers for ESE (Engineering Services Examination) are very helpful for the technical part.</li><li>For the non-technical part, material for banking and SSC exams can be followed.</li><li>Many online platforms offer combined courses for PSU exams.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'PSUs offer a highly structured and transparent career progression path, allowing an entry-level trainee to rise to the highest echelons of management.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Typical Syllabus 📚',
+                    'sec13-p1': 'The syllabus is generally divided into a general aptitude section and a technical section based on the candidate\'s specific discipline.',
+                    'syllabus-oir-title': 'General Aptitude',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General English & Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Technical / Domain',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Core Engineering Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">Domain Subjects (Finance, HR, etc.)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Building the Nation, Powering the Future.',
+                    'interviewChartData': {
+                        labels: ['Technical Skill', 'Problem Solving', 'Leadership', 'Adaptability'],
+                        data: [95, 90, 85, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '🏭 पीएसयू भर्ती गाइड 🏭',
+                    'header-subtitle': 'भारत के महारत्नों, नवरत्नों और मिनिरत्नों में करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. पीएसयू भर्ती क्या है? 💡',
+                    'sec1-p1': 'सार्वजनिक क्षेत्र के उपक्रम (पीएसयू) सरकारी स्वामित्व वाले निगम हैं जो भारत की औद्योगिक और आर्थिक रीढ़ हैं। ओएनजीसी, आईओसीएल, एनटीपीसी, भेल और गेल जैसी कंपनियां अपने विशाल संचालन का प्रबंधन करने के लिए विभिन्न विषयों में प्रतिभाशाली पेशेवरों की भर्ती करती हैं। पीएसयू में करियर नौकरी की सुरक्षा, आकर्षक वेतन और ऊर्जा, बुनियादी ढांचे और प्रौद्योगिकी जैसे मुख्य क्षेत्रों में राष्ट्र-निर्माण में सीधे योगदान करने का अवसर प्रदान करता है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'पीएसयू अधिकारियों के लिए चयन प्रक्रिया एक बहु-स्तरीय फ़नल है जिसे मजबूत तकनीकी नींव और प्रबंधकीय क्षमता वाले उम्मीदवारों की पहचान करने के लिए डिज़ाइन किया गया है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'गेट / लिखित', 'sec2-step1-desc': 'गेट स्कोर या लिखित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'समूह चर्चा', 'sec2-step2-desc': 'समूह चर्चा / कार्य',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'व्यक्तिगत साक्षात्कार',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पीएसयू भूमिकाओं के लिए पात्रता पद और विशिष्ट पीएसयू की आवश्यकताओं पर बहुत अधिक निर्भर करती है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'प्रवेश स्तर के जीईटी/अधिकारी पदों के लिए, आयु सीमा आमतौर पर **25 से 30 वर्ष** है। अनुभव की आवश्यकता वाले भूमिकाओं के लिए यह अधिक है। आरक्षित श्रेणियों के लिए आयु में छूट सरकारी मानदंडों के अनुसार है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': 'तकनीकी पदों (जीईटी/एईई) के लिए, एक प्रासंगिक अनुशासन में **बी.ई./बी.टेक** आवश्यक है। वैज्ञानिक पदों के लिए, **मास्टर डिग्री** (जैसे, भूविज्ञान/रसायन विज्ञान में एम.एससी) की आवश्यकता है। गैर-तकनीकी पदों के लिए एमबीए (एचआर/वित्त), सीए, या एलएलबी जैसी डिग्री की आवश्यकता होती है।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>पीएसयू भर्ती परीक्षाओं के लिए प्रयासों की संख्या पर आम तौर पर कोई सीमा नहीं है।</li><li>उम्मीदवार विभिन्न पीएसयू में रिक्तियों के लिए तब तक आवेदन कर सकते हैं जब तक वे प्रत्येक पद के लिए विशिष्ट आयु और योग्यता मानदंडों को पूरा करते हैं।</li>',
+                    'sec4-title': '4. विशिष्ट परीक्षा पैटर्न (गैर-गेट) 📚',
+                    'sec4-p1': 'गेट के माध्यम से नहीं भरे गए पदों के लिए, पीएसयू अपनी स्वयं की लिखित परीक्षा आयोजित करते हैं। पैटर्न में आम तौर पर तकनीकी और गैर-तकनीकी दोनों खंड शामिल होते हैं।',
+                    'gs1-title': 'भाग 1: सामान्य योग्यता 📜', 'gs1-sub1': 'अंग्रेजी भाषा', 'gs1-sub2': 'मात्रात्मक योग्यता', 'gs2-sub1': 'तर्क क्षमता', 'gs2-sub2': 'सामान्य जागरूकता',
+                    'gs2-title': 'भाग 2: तकनीकी/डोमेन 🏛️', 'gs3-sub1': 'विशिष्ट इंजीनियरिंग/तकनीकी अनुशासन (जैसे, मैकेनिकल, सिविल, इलेक्ट्रिकल) से प्रश्न।', 'gs3-sub2': 'गैर-तकनीकी पदों (जैसे, वित्त, मानव संसाधन) के लिए पेशेवर डोमेन से संबंधित प्रश्न।',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'चयनित उम्मीदवार प्रशिक्षुओं के रूप में शामिल होते हैं और तकनीकी और प्रबंधकीय दक्षताओं का निर्माण करने के लिए डिज़ाइन की गई एक व्यापक परिवीक्षा-सह-प्रशिक्षण अवधि से गुजरते हैं।',
+                    'sec5-hindi-title': '1. परिवीक्षा अवधि', 'sec5-hindi-p1': 'प्रारंभिक नियुक्ति एक प्रशिक्षण/परिवीक्षा आधार पर है।', 'sec5-hindi-list': '<li>आमतौर पर एक साल की प्रशिक्षण/परिवीक्षा अवधि।</li><li>नियमित मूल्यांकन और परीक्षणों के माध्यम से प्रदर्शन का आकलन किया जाता है।</li><li>एक अधिकारी/इंजीनियर के रूप में पुष्टि परिवीक्षा के सफल समापन पर आधारित है।</li>',
+                    'sec5-essay-title': '2. प्रेरण प्रशिक्षण', 'sec5-essay-p1': 'प्रशिक्षण में कक्षा और नौकरी पर सीखने का मिश्रण शामिल है।', 'sec5-essay-list': '<li>कंपनी के प्रशिक्षण संस्थान या एक प्रमुख प्रबंधन/तकनीकी संस्थान में प्रेरण।</li><li>कंपनी के संचालन, मूल्यों और प्रबंधन सिद्धांतों पर कक्षा सत्र।</li><li>व्यावहारिक प्रदर्शन प्राप्त करने के लिए विभिन्न संयंत्रों, साइटों या कार्यालयों में नौकरी पर प्रशिक्षण।</li>',
+                    'sec6-title': '6. एक पीएसयू अधिकारी की मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'भूमिकाएं विविध और चुनौतीपूर्ण हैं, जिसमें तकनीकी निरीक्षण, परियोजना प्रबंधन और प्रशासनिक कर्तव्य शामिल हैं।',
+                    'sec6-eng-title': 'इंजीनियर (GET/AEE)', 'sec6-eng-list': '<li>संयंत्र संचालन और रखरखाव की देखरेख।</li><li>इंजीनियरिंग परियोजनाओं का निष्पादन और प्रबंधन।</li><li>गुणवत्ता नियंत्रण और सुरक्षा मानकों को सुनिश्चित करना।</li>',
+                    'sec6-elec-title': 'वैज्ञानिक / भूविज्ञानी', 'sec6-elec-list': '<li>संसाधन अन्वेषण के लिए भूवैज्ञानिक सर्वेक्षण करना।</li><li>नए उत्पादों या प्रक्रियाओं पर अनुसंधान एवं विकास प्रयोगशालाओं में काम करना।</li><li>पर्यावरण अनुपालन सुनिश्चित करना।</li>',
+                    'sec6-naic-title': 'वित्त / मानव संसाधन / चिकित्सा', 'sec6-naic-list': '<li>कॉर्पोरेट खातों और वित्त का प्रबंधन (वित्त)।</li><li>भर्ती, प्रशिक्षण और कर्मचारी संबंधों को संभालना (मानव संसाधन)।</li><li>कर्मचारियों को चिकित्सा सेवाएं प्रदान करना (चिकित्सा अधिकारी)।</li>',
+                    'sec7-title': '7. एक पीएसयू अधिकारी के गुण 🎙️',
+                    'sec7-p1': 'एक पीएसयू में एक सफल कैरियर के लिए मजबूत तकनीकी विशेषज्ञता, नेतृत्व गुणों और एक सार्वजनिक क्षेत्र के कार्य वातावरण के अनुकूलनशीलता का मिश्रण आवश्यक है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">⚙️</span><div><strong class="text-white">तकनीकी ज्ञान:</strong> अपने स्वयं के अनुशासन की मुख्य अवधारणाओं की एक मजबूत और गहरी समझ।</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧠</span><div><strong class="text-white">समस्या-समाधान कौशल:</strong> वास्तविक दुनिया की औद्योगिक समस्याओं को कुशलता से हल करने के लिए तकनीकी ज्ञान को लागू करने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🧑‍💼</span><div><strong class="text-white">नेतृत्व और टीम वर्क:</strong> टीमों का नेतृत्व करने, परियोजनाओं का प्रबंधन करने और दूसरों के साथ सहयोगात्मक रूप से काम करने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#eab308] mr-3">🔄</span><div><strong class="text-white">अनुकूलनशीलता:</strong> नई तकनीकों को सीखने और दूरस्थ स्थानों सहित विविध कार्य वातावरणों के अनुकूल होने की इच्छा।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'तैयारी की रणनीति प्रवेश के मोड पर निर्भर करती है। गेट-आधारित भर्ती के लिए अपनी स्वयं की परीक्षा आयोजित करने वाले पीएसयू की तुलना में एक अलग फोकस की आवश्यकता होती है।',
+                    'sec8-steps-title': '📚 गेट उम्मीदवारों के लिए (GET):',
+                    'sec8-step1-title': 'एक उच्च गेट स्कोर प्राप्त करें', 'sec8-step1-desc': 'आपका प्राथमिक ध्यान गेट परीक्षा में एक शीर्ष रैंक हासिल करना होना चाहिए। इसके लिए पूरे गेट पाठ्यक्रम की व्यापक और प्रारंभिक तैयारी की आवश्यकता है।',
+                    'sec8-step2-title': 'जीडी और साक्षात्कार के लिए तैयारी करें', 'sec8-step2-desc': 'गेट परिणामों के बाद, बाद के दौरों के लिए समसामयिक मामलों, अपनी अंतिम वर्ष की परियोजनाओं से तकनीकी अवधारणाओं और सामान्य मानव संसाधन प्रश्नों पर ध्यान केंद्रित करें।',
+                    'sec8-revision-title': '🔄 सीधी भर्ती परीक्षाओं के लिए:',
+                    'sec8-revision-list': '<li><strong>तकनीकी और गैर-तकनीकी को संतुलित करें:</strong> दोनों खंड आमतौर पर महत्वपूर्ण होते हैं। एक अध्ययन योजना बनाएं जो आपके डोमेन विषयों और सामान्य योग्यता वर्गों दोनों को पर्याप्त समय दे।</li><li><strong>पिछले वर्ष के प्रश्नपत्र हल करें:</strong> उनके परीक्षा पैटर्न और प्रश्न स्तर को समझने के लिए आप जिस विशिष्ट पीएसयू को लक्षित कर रहे हैं, उसके पिछले प्रश्नपत्रों के साथ अभ्यास करें।</li><li><strong>अपडेट रहें:</strong> समसामयिक मामलों पर नज़र रखें, विशेष रूप से ऊर्जा, अर्थव्यवस्था और बुनियादी ढांचा क्षेत्रों से संबंधित समाचार।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'अधिकांश पीएसयू गेट परीक्षा अधिसूचना के तुरंत बाद जीईटी के लिए अपनी रिक्तियों की घोषणा करते हैं। अन्य पदों का विज्ञापन विशिष्ट आवश्यकताओं के आधार पर किया जाता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> गेट-आधारित भर्ती के लिए पीएसयू सूचनाएं अगस्त और फरवरी के बीच दिखाई देती हैं। अन्य उनकी संबंधित वेबसाइटों पर पूरे वर्ष जारी की जाती हैं।',
+                    'sec9-step2-title': 'आवेदन और परीक्षा', 'sec9-step2-desc': '<strong>समयरेखा:</strong> आवेदन ऑनलाइन किए जाते हैं। गेट प्रविष्टियों के लिए, गेट परिणामों के बाद आवेदन खुलते हैं। सीधी भर्ती परीक्षाएं अधिसूचना के अनुसार आयोजित की जाती हैं।',
+                    'sec9-step3-title': 'जीडी और साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों को समूह चर्चा और व्यक्तिगत साक्षात्कार के लिए बुलाया जाता है, जो आमतौर पर प्रमुख शहरों या कंपनी मुख्यालयों में आयोजित किए जाते हैं।',
+                    'sec9-step4-title': 'अंतिम परिणाम और ज्वाइनिंग', 'sec9-step4-desc': '<strong>समयरेखा:</strong> गेट/लिखित स्कोर, जीडी, और साक्षात्कार अंकों के आधार पर एक अंतिम मेरिट सूची तैयार की जाती है। चयनित उम्मीदवारों के लिए ज्वाइनिंग की औपचारिकताएं होती हैं।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'पीएसयू नौकरियों के लिए प्रतिस्पर्धा तीव्र है। इन सामान्य त्रुटियों से बचने से आपकी सफलता की संभावना काफी बढ़ सकती है।',
+                    'sec10-mistake1-title': 'गैर-तकनीकी वर्गों की अनदेखी:', 'sec10-mistake1-desc': 'केवल तकनीकी पाठ्यक्रम पर ध्यान केंद्रित करना और सामान्य योग्यता भाग की उपेक्षा करना, जो अक्सर एक क्वालीफायर होता है या जिसका महत्वपूर्ण महत्व होता है।',
+                    'sec10-mistake2-title': 'खराब साक्षात्कार तैयारी:', 'sec10-mistake2-desc': 'साक्षात्कार के लिए तैयारी नहीं करना, जो न केवल तकनीकी ज्ञान बल्कि व्यक्तित्व, समसामयिक मामलों और विशिष्ट पीएसयू के बारे में जागरूकता का भी परीक्षण करता है।',
+                    'sec10-mistake3-title': 'अंतिम समय तक प्रतीक्षा करना:', 'sec10-mistake3-desc': 'गेट की तैयारी देर से शुरू करना या पीएसयू रिक्तियों के लिए समय पर आवेदन नहीं करना।',
+                    'sec10-mistake4-title': 'चिकित्सा मानकों की जांच नहीं करना:', 'sec10-mistake4-desc': 'सभी दौरों को पार करना लेकिन आवश्यक मानकों की पहले से जांच नहीं करने के कारण अंतिम चिकित्सा परीक्षा में अयोग्य घोषित किया जाना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'उम्मीदवार ऑनलाइन और ऑफलाइन चैनलों के माध्यम से गेट और सीधी पीएसयू भर्ती परीक्षाओं दोनों के लिए संसाधनों की अधिकता पा सकते हैं।',
+                    'sec11-gov-title': '📚 गेट तैयारी के लिए', 'sec11-gov-list': '<li>कई विशेष कोचिंग संस्थान (ऑनलाइन और ऑफलाइन दोनों) विभिन्न इंजीनियरिंग धाराओं के लिए विशेष रूप से गेट की तैयारी पर ध्यान केंद्रित करते हैं।</li><li>मानक इंजीनियरिंग पाठ्यपुस्तकें और ऑनलाइन टेस्ट श्रृंखला महत्वपूर्ण हैं।</li>',
+                    'sec11-pvt-title': '📖 सीधी पीएसयू परीक्षाओं के लिए', 'sec11-pvt-p1': 'तैयारी सामग्री व्यापक रूप से उपलब्ध है।', 'sec11-pvt-list': '<li>ईएसई (इंजीनियरिंग सेवा परीक्षा) के लिए कोचिंग सेंटर तकनीकी भाग के लिए बहुत सहायक हैं।</li><li>गैर-तकनीकी भाग के लिए, बैंकिंग और एसएससी परीक्षाओं के लिए सामग्री का पालन किया जा सकता है।</li><li>कई ऑनलाइन प्लेटफॉर्म पीएसयू परीक्षाओं के लिए संयुक्त पाठ्यक्रम प्रदान करते हैं।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'पीएसयू एक अत्यधिक संरचित और पारदर्शी कैरियर प्रगति पथ प्रदान करते हैं, जिससे एक प्रवेश स्तर के प्रशिक्षु को प्रबंधन के उच्चतम सोपानों तक पहुंचने की अनुमति मिलती है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. विशिष्ट पाठ्यक्रम 📚',
+                    'sec13-p1': 'पाठ्यक्रम आम तौर पर एक सामान्य योग्यता अनुभाग और उम्मीदवार के विशिष्ट अनुशासन के आधार पर एक तकनीकी अनुभाग में विभाजित होता है।',
+                    'syllabus-oir-title': 'सामान्य योग्यता',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य अंग्रेजी और जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'तकनीकी / डोमेन',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">मुख्य इंजीनियरिंग विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">डोमेन विषय (वित्त, मानव संसाधन, आदि)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | राष्ट्र का निर्माण, भविष्य को शक्ति देना।',
+                    'interviewChartData': {
+                        labels: ['तकनीकी कौशल', 'समस्या समाधान', 'नेतृत्व', 'अनुकूलनशीलता'],
+                        data: [95, 90, 85, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#1f2937]/50 rounded-xl text-center border-2 border-slate-700 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(249, 115, 22, 0.7)',
+                            borderColor: '#f97316',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#d1d5db' },
+                                grid: { color: 'rgba(209, 213, 219, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#d1d5db', font: { size: 14 } },
+                                grid: { color: 'rgba(209, 213, 219, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
