@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral AI: Small & Medium Models Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Mistral's Small and Medium models. Understand their performance, efficiency, capabilities, and applications for enterprise and developers.">
+    <meta name="keywords" content="Mistral, Mistral Small, Mistral Medium, Mistral Large, Open Source AI, Large Language Models, AI, API, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            color: #1e293b; /* Slate 800 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #2563eb, #16a34a) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #0f172a; /* Slate 900 */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(100, 116, 139, 0.15);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #e2e8f0; /* Slate 200 */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(59, 130, 246, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #2563eb; /* Blue 600 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #2563eb; /* Blue 600 */
+            color: #2563eb;
+            background: #f1f5f9; /* Slate 100 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.1);
+        }
+        .flowchart-step:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.3);
+        }
+        .flowchart-arrow {
+            color: #16a34a; /* Green 600 */
+            text-shadow: 0 0 10px rgba(22, 163, 74, 0.2);
+        }
+        .subject-category-heading {
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #16a34a;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #f1f5f9;
+        }
+        .subject-item:hover {
+            background-color: #e0f2fe; /* Sky 100 */
+        }
+        .subject-item .icon {
+            color: #16a34a;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #2563eb;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #2563eb;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #1e293b;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #64748b; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #ef4444; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #2563eb, #3b82f6);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 0 15px #2563eb;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #16a34a, #22c55e);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #e2e8f0; 
+            color: #334155; 
+            border-color: #cbd5e1; 
+        }
+        .lectures-btn:hover {
+            background-color: #cbd5e1;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#0f172a] mb-4 tracking-tight">Ⓜ️ Mistral Small & Medium Guide Ⓜ️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-500">The Optimized Models for Enterprise & Developers</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are Mistral Small/Medium? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-slate-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are Mistral's Optimized Models? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Mistral Small and Mistral Medium are high-performance, commercially-focused language models from Mistral AI. Unlike their open-source models (Mistral 7B, Mixtral), these are proprietary models available through an API. They are designed to offer a powerful and cost-effective solution for businesses, providing a spectrum of capabilities that balance speed, quality, and price, making them ideal for scaling real-world AI applications.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology: Dense Transformers 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Unlike the sparse Mixtral models, Mistral Small and Medium are based on a traditional, dense Transformer architecture, optimized for maximum efficiency and performance at their respective sizes.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">User Prompt</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">API request with a text prompt</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Dense Model</span><br><span id="sec2-step2-name">Full Parameter Use</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">All model weights are used for each token</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Optimized Response</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">A high-quality response is generated</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use Them? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">These models are primarily aimed at developers and businesses looking for reliable, high-performance AI solutions without the need to self-host.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-blue-600 mr-4">🧑‍💻</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">Developers:</strong> <span id="sec3-age-desc">Can easily integrate these models into applications using Mistral's API ("La Plateforme").</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-blue-600 mr-4">🏢</span><div><strong id="sec3-edu-title" class="text-white text-lg">Enterprises:</strong> <span id="sec3-edu-desc">Can deploy the models at scale through major cloud providers like Microsoft Azure, AWS, and Google Cloud for enterprise-grade applications.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-green-600 pb-2">Licensing 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>These are proprietary, closed-weight models.</li>
+                             <li>Usage is governed by the terms of service of the Mistral API or the respective cloud platform.</li>
+                             <li>They are not open-source like Mistral 7B or Mixtral 8x7B.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-slate-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Mistral's commercial models are highly capable across a wide range of tasks, with a strong focus on reasoning and multilingual abilities.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Low Latency</h3>
+                        <p class="text-sm">Optimized for speed, making them suitable for real-time applications like chatbots.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">High Performance</h3>
+                         <p class="text-sm">Mistral Medium offers top-tier performance that is competitive with some of the best proprietary models on the market.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Multilingual</h3>
+                         <p class="text-sm">Strong capabilities in English, French, Spanish, German, and Italian, with high scores on multilingual benchmarks.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Instruction Following</h3>
+                         <p class="text-sm">Excellent at understanding and following complex instructions given in a prompt.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Fine-tuning 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">These models are trained on large, diverse datasets and undergo extensive fine-tuning to become powerful and reliable assistants.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-slate-100 rounded-xl border-2 border-blue-600">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. Pre-training</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The foundation models are trained on a massive corpus of text and code from the public web to gain a broad understanding of language and reasoning.</p>
+                    </div>
+                    <div class="p-6 bg-slate-100 rounded-xl border-2 border-green-600">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. Post-training Alignment</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">The base models are then carefully fine-tuned on instruction datasets to make them helpful conversational agents. This process also includes alignment techniques to enhance safety and reduce biases.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The spectrum of models allows businesses to choose the right tool for the job, from simple classification to complex reasoning.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Mistral Small</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Simple, high-throughput tasks.</li>
+                           <li>Chatbot applications.</li>
+                           <li>Text classification and summarization.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Mistral Medium</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Intermediate tasks requiring moderate reasoning.</li>
+                           <li>Multi-language document processing.</li>
+                           <li>Code generation.</li>
+                           <li>Function calling.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Mistral Large</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Complex, multi-step reasoning tasks.</li>
+                           <li>Advanced RAG systems.</li>
+                           <li>Strategic analysis and content creation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Mistral's commercial models are highly competitive, with Mistral Medium often ranking as a top-tier model just behind the largest flagship models from competitors.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-blue-600 pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🧠</span><div><strong class="text-slate-900">MMLU (Reasoning):</strong> Mistral Medium scores very highly on this benchmark, demonstrating strong general knowledge.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-green-600 mr-3">💻</span><div><strong class="text-slate-900">Coding:</strong> The models are proficient in code generation and understanding across popular programming languages.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🌍</span><div><strong class="text-slate-900">Multilingualism:</strong> Shows excellent performance on multilingual benchmarks, making it a strong choice for global applications.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To get the best from Mistral's API models, it's important to use clear instructions and leverage features like system prompts.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-blue-600 pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Use a System Prompt</h4>
+                                <p id="sec8-step1-desc" class="text-base">Set the model's behavior, persona, and constraints at the beginning of the conversation using the `system` role for more consistent outputs.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-blue-600 rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Be Specific</h4>
+                                <p id="sec8-step2-desc" class="text-base">Provide clear, detailed instructions. The more specific you are about the desired tone, format, and content, the better the result.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Function Calling:</strong> Use the model's function calling capabilities to connect it to external tools and APIs, enabling more dynamic applications.</li>
+                            <li><strong>Few-Shot Prompting:</strong> Provide a few examples within your prompt to guide the model towards the desired output style and format.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Mistral's commercial offerings are an evolution of their groundbreaking open-source research, packaged for enterprise reliability.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Mixtral 8x7B Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> December 2023. The open-source SMoE model that established Mistral as a major player in the AI space.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Launch of "La Plateforme" & Commercial Models</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Early 2024. Mistral launches its official API platform with optimized models including Small, Medium (formerly `mistral-medium`), and Large, marking their entry into the commercial API market.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Considerations 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While highly capable, it is important to understand the limitations of these models for responsible application development.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">Factual Accuracy:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">The models can still "hallucinate" or generate incorrect information. Always verify facts from reliable sources for critical applications.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">Bias:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">As the models are trained on broad web data, they may reflect existing societal biases. Careful prompt design and output filtering are necessary.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">Safety Moderation:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">While Mistral's platform includes safety moderation, developers are responsible for ensuring their applications are used safely and ethically.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">Cost Management:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">As API usage is priced per token, developers need to manage their application's token consumption carefully to control costs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Mistral provides easy access to its commercial models through its own platform and major cloud partners.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 La Plateforme (Mistral API)</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>The official developer platform for accessing all Mistral models.</li>
+                           <li>Offers a simple, pay-as-you-go pricing model based on token usage.</li>
+                           <li>Sign up on the Mistral AI website to get an API key.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Cloud Providers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Ideal for enterprise-scale deployments.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Microsoft Azure:** Available as a Model-as-a-Service.</li>
+                            <li>**Amazon Web Services (AWS):** Accessible via Amazon Bedrock.</li>
+                            <li>**Google Cloud:** Available on the Vertex AI Model Garden.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: A Spectrum of Choice 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Mistral's strategy of offering both cutting-edge open-source models and optimized commercial APIs represents the future of the AI industry. This provides a spectrum of choices for developers, from full control with open weights to the ease-of-use and reliability of managed APIs. This approach fosters innovation at all levels and ensures that powerful AI technology is accessible to everyone.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-slate-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these concepts is key to appreciating Mistral's unique position in the AI landscape.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Open vs. Closed Models</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Performance & Efficiency</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-blue-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | Frontier AI in your hands.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4">Stage 1: Pre-training</h3>
+            <p id="prelims-modal-p1">The model is first pre-trained on trillions of tokens of text and code from the public internet. This allows the model to learn grammar, facts, reasoning patterns, and the structure of language on a massive scale, forming a broad base of knowledge.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4">Stage 2: Fine-Tuning</h3>
+            <p id="mains-modal-p1">After pre-training, the model is fine-tuned on high-quality, instruction-based datasets. This stage uses techniques like Supervised Fine-Tuning (SFT) and Direct Preference Optimization (DPO) to teach the model how to follow instructions, be a helpful conversationalist, and align with safety protocols.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4">Output: Helpful Response</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">When a user sends a prompt, the fully trained model generates a response that is contextually relevant, follows the given instructions, and adheres to the safety guardrails established during the fine-tuning process, resulting in a helpful and reliable output.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6">Key Differentiators of Mistral's Models</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'small': { 
+                        name: 'Mistral Small', 
+                        icon: '⚡',
+                        description: 'Optimized for low-latency and high-throughput workloads. It\'s the ideal choice for simple tasks like classification, content moderation, or chatbot applications.',
+                        cta: 'Learn More'
+                    },
+                    'medium': { 
+                        name: 'Mistral Medium', 
+                        icon: '🧠',
+                        description: 'A high-performance model that offers a great balance between capability and cost. It\'s suitable for most enterprise tasks, including code generation and multilingual jobs.',
+                        cta: 'Learn More'
+                    },
+                    'large': { 
+                        name: 'Mistral Large', 
+                        icon: '🏆',
+                        description: 'The flagship, top-tier model with unique reasoning capabilities. It is designed for the most complex, high-stakes tasks that require deep reasoning and domain knowledge.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'small': { 
+                        name: 'मिस्ट्रल स्मॉल', 
+                        icon: '⚡',
+                        description: 'कम-विलंबता और उच्च-थ्रूपुट वर्कलोड के लिए अनुकूलित। यह वर्गीकरण, सामग्री मॉडरेशन, या चैटबॉट अनुप्रयोगों जैसे सरल कार्यों के लिए आदर्श विकल्प है।',
+                        cta: 'और जानें'
+                    },
+                    'medium': { 
+                        name: 'मिस्ट्रल मीडियम', 
+                        icon: '🧠',
+                        description: 'एक उच्च-प्रदर्शन मॉडल जो क्षमता और लागत के बीच एक बड़ा संतुलन प्रदान करता है। यह कोड पीढ़ी और बहुभाषी नौकरियों सहित अधिकांश उद्यम कार्यों के लिए उपयुक्त है।',
+                        cta: 'और जानें'
+                    },
+                    'large': { 
+                        name: 'मिस्ट्रल लार्ज', 
+                        icon: '🏆',
+                        description: 'प्रमुख, शीर्ष-स्तरीय मॉडल जिसमें अद्वितीय तर्क क्षमताएं हैं। यह सबसे जटिल, उच्च-दांव वाले कार्यों के लिए डिज़ाइन किया गया है जिनके लिए गहरे तर्क और डोमेन ज्ञान की आवश्यकता होती है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Performance Spectrum", desc: "Offers a clear tier of models (Small, Medium, Large) so businesses can choose the exact balance of performance and cost they need." },
+                        { rank: "Open-Source Foundation", desc: "The commercial models are built upon the research and architecture of their cutting-edge open-source models like Mixtral." },
+                        { rank: "Efficiency and Speed", desc: "Mistral models are known for their efficiency, providing high-quality results with lower latency and at a more competitive price point than many alternatives." },
+                        { rank: "European Leadership", desc: "As a leading AI company based in Europe, Mistral provides a strong alternative and contributes to the geographic diversity of the AI ecosystem." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "प्रदर्शन स्पेक्ट्रम", desc: "मॉडल (छोटे, मध्यम, बड़े) का एक स्पष्ट स्तर प्रदान करता है ताकि व्यवसाय प्रदर्शन और लागत का सटीक संतुलन चुन सकें जिसकी उन्हें आवश्यकता है।" },
+                        { rank: "ओपन-सोर्स फाउंडेशन", desc: "वाणिज्यिक मॉडल मिक्सट्रल जैसे उनके अत्याधुनिक ओपन-सोर्स मॉडल के अनुसंधान और वास्तुकला पर बनाए गए हैं।" },
+                        { rank: "दक्षता और गति", desc: "मिस्ट्रल मॉडल अपनी दक्षता के लिए जाने जाते हैं, जो कई विकल्पों की तुलना में कम विलंबता और अधिक प्रतिस्पर्धी मूल्य बिंदु पर उच्च-गुणवत्ता वाले परिणाम प्रदान करते हैं।" },
+                        { rank: "यूरोपीय नेतृत्व", desc: "यूरोप में स्थित एक अग्रणी एआई कंपनी के रूप में, मिस्ट्रल एक मजबूत विकल्प प्रदान करता है और एआई पारिस्थितिकी तंत्र की भौगोलिक विविधता में योगदान देता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': 'Ⓜ️ Mistral Small & Medium Guide Ⓜ️',
+                    'header-subtitle': 'The Optimized Models for Enterprise & Developers',
+                    'sec1-title': '1. What are Mistral\'s Optimized Models? 💡',
+                    'sec1-p1': 'Mistral Small and Mistral Medium are high-performance, commercially-focused language models from Mistral AI. Unlike their open-source models (Mistral 7B, Mixtral), these are proprietary models available through an API. They are designed to offer a powerful and cost-effective solution for businesses, providing a spectrum of capabilities that balance speed, quality, and price, making them ideal for scaling real-world AI applications.',
+                    'sec2-title': '2. The Technology: Dense Transformers 🎯',
+                    'sec2-p1': 'Unlike the sparse Mixtral models, Mistral Small and Medium are based on a traditional, dense Transformer architecture, optimized for maximum efficiency and performance at their respective sizes.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'User Prompt', 'sec2-step1-desc': 'API request with a text prompt',
+                    'sec2-step2-title': 'Dense Model', 'sec2-step2-name': 'Full Parameter Use', 'sec2-step2-desc': 'All model weights are used for each token',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Optimized Response', 'sec2-step3-desc': 'A high-quality response is generated',
+                    'sec3-title': '3. Who Can Use Them? ✅',
+                    'sec3-p1': 'These models are primarily aimed at developers and businesses looking for reliable, high-performance AI solutions without the need to self-host.',
+                    'sec3-age-title': 'Developers:', 'sec3-age-desc': 'Can easily integrate these models into applications using Mistral\'s API ("La Plateforme").',
+                    'sec3-edu-title': 'Enterprises:', 'sec3-edu-desc': 'Can deploy the models at scale through major cloud providers like Microsoft Azure, AWS, and Google Cloud for enterprise-grade applications.',
+                    'sec3-attempts-title': 'Licensing 📊',
+                    'sec3-agerelax-list': '<li>These are proprietary, closed-weight models.</li><li>Usage is governed by the terms of service of the Mistral API or the respective cloud platform.</li><li>They are not open-source like Mistral 7B or Mixtral 8x7B.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Mistral\'s commercial models are highly capable across a wide range of tasks, with a strong focus on reasoning and multilingual abilities.',
+                    'gs1-title': 'Low Latency',
+                    'gs2-title': 'High Performance',
+                    'gs3-title': 'Multilingual',
+                    'gs4-title': 'Instruction Following',
+                    'sec5-title': '5. Training & Fine-tuning 🏛️',
+                    'sec5-p1': 'These models are trained on large, diverse datasets and undergo extensive fine-tuning to become powerful and reliable assistants.',
+                    'sec5-hindi-title': '1. Pre-training', 'sec5-hindi-p1': 'The foundation models are trained on a massive corpus of text and code from the public web to gain a broad understanding of language and reasoning.',
+                    'sec5-essay-title': '2. Post-training Alignment', 'sec5-essay-p1': 'The base models are then carefully fine-tuned on instruction datasets to make them helpful conversational agents. This process also includes alignment techniques to enhance safety and reduce biases.',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'The spectrum of models allows businesses to choose the right tool for the job, from simple classification to complex reasoning.',
+                    'sec6-eng-title': 'Mistral Small', 'sec6-eng-list': '<li>Simple, high-throughput tasks.</li><li>Chatbot applications.</li><li>Text classification and summarization.</li>',
+                    'sec6-elec-title': 'Mistral Medium', 'sec6-elec-list': '<li>Intermediate tasks requiring moderate reasoning.</li><li>Multi-language document processing.</li><li>Code generation.</li><li>Function calling.</li>',
+                    'sec6-naic-title': 'Mistral Large', 'sec6-naic-list': '<li>Complex, multi-step reasoning tasks.</li><li>Advanced RAG systems.</li><li>Strategic analysis and content creation.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Mistral\'s commercial models are highly competitive, with Mistral Medium often ranking as a top-tier model just behind the largest flagship models from competitors.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🧠</span><div><strong class="text-slate-900">MMLU (Reasoning):</strong> Mistral Medium scores very highly on this benchmark, demonstrating strong general knowledge.</div></li><li class="flex items-start"><span class="text-2xl text-green-600 mr-3">💻</span><div><strong class="text-slate-900">Coding:</strong> The models are proficient in code generation and understanding across popular programming languages.</div></li><li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🌍</span><div><strong class="text-slate-900">Multilingualism:</strong> Shows excellent performance on multilingual benchmarks, making it a strong choice for global applications.</div></li>',
+                    'sec8-title': '8. Prompting Best Practices 📈',
+                    'sec8-p1': 'To get the best from Mistral\'s API models, it\'s important to use clear instructions and leverage features like system prompts.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Use a System Prompt', 'sec8-step1-desc': 'Set the model\'s behavior, persona, and constraints at the beginning of the conversation using the `system` role for more consistent outputs.',
+                    'sec8-step2-title': 'Be Specific', 'sec8-step2-desc': 'Provide clear, detailed instructions. The more specific you are about the desired tone, format, and content, the better the result.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Function Calling:</strong> Use the model\'s function calling capabilities to connect it to external tools and APIs, enabling more dynamic applications.</li><li><strong>Few-Shot Prompting:</strong> Provide a few examples within your prompt to guide the model towards the desired output style and format.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Mistral\'s commercial offerings are an evolution of their groundbreaking open-source research, packaged for enterprise reliability.',
+                    'sec9-step1-title': 'Mixtral 8x7B Release', 'sec9-step1-desc': '<strong>Timeline:</strong> December 2023. The open-source SMoE model that established Mistral as a major player in the AI space.',
+                    'sec9-step2-title': 'Launch of "La Plateforme" & Commercial Models', 'sec9-step2-desc': '<strong>Timeline:</strong> Early 2024. Mistral launches its official API platform with optimized models including Small, Medium (formerly `mistral-medium`), and Large, marking their entry into the commercial API market.',
+                    'sec10-title': '10. Limitations & Considerations 🚫',
+                    'sec10-p1': 'While highly capable, it is important to understand the limitations of these models for responsible application development.',
+                    'sec10-mistake1-title': 'Factual Accuracy:', 'sec10-mistake1-desc': 'The models can still "hallucinate" or generate incorrect information. Always verify facts from reliable sources for critical applications.',
+                    'sec10-mistake2-title': 'Bias:', 'sec10-mistake2-desc': 'As the models are trained on broad web data, they may reflect existing societal biases. Careful prompt design and output filtering are necessary.',
+                    'sec10-mistake3-title': 'Safety Moderation:', 'sec10-mistake3-desc': 'While Mistral\'s platform includes safety moderation, developers are responsible for ensuring their applications are used safely and ethically.',
+                    'sec10-mistake4-title': 'Cost Management:', 'sec10-mistake4-desc': 'As API usage is priced per token, developers need to manage their application\'s token consumption carefully to control costs.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'Mistral provides easy access to its commercial models through its own platform and major cloud partners.',
+                    'sec11-gov-title': '📚 La Plateforme (Mistral API)', 'sec11-gov-list': '<li>The official developer platform for accessing all Mistral models.</li><li>Offers a simple, pay-as-you-go pricing model based on token usage.</li><li>Sign up on the Mistral AI website to get an API key.</li>',
+                    'sec11-pvt-title': '💻 Cloud Providers', 'sec11-pvt-p1': 'Ideal for enterprise-scale deployments.', 'sec11-pvt-list': '<li>**Microsoft Azure:** Available as a Model-as-a-Service.</li><li>**Amazon Web Services (AWS):** Accessible via Amazon Bedrock.</li><li>**Google Cloud:** Available on the Vertex AI Model Garden.</li>',
+                    'sec12-title': '12. The Future: A Spectrum of Choice 🚀',
+                    'sec12-p1': 'Mistral\'s strategy of offering both cutting-edge open-source models and optimized commercial APIs represents the future of the AI industry. This provides a spectrum of choices for developers, from full control with open weights to the ease-of-use and reliability of managed APIs. This approach fosters innovation at all levels and ensures that powerful AI technology is accessible to everyone.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these concepts is key to appreciating Mistral\'s unique position in the AI landscape.',
+                    'syllabus-oir-title': 'Open vs. Closed Models',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Open-Weight Models</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔒</span><div class="flex-grow">Proprietary API Models</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Performance & Efficiency',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">Cost-Performance Curve</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚡</span><div class="flex-grow">Latency vs. Throughput</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Frontier AI in your hands.',
+                    'interviewChartData': {
+                        labels: ['Small', 'Medium', 'Large'],
+                        data: [72, 78, 81] // MMLU scores
+                    }
+                },
+                'hi': {
+                    'header-title': 'Ⓜ️ मिस्ट्रल स्मॉल और मीडियम गाइड Ⓜ️',
+                    'header-subtitle': 'उद्यम और डेवलपर्स के लिए अनुकूलित मॉडल',
+                    'sec1-title': '1. मिस्ट्रल के अनुकूलित मॉडल क्या हैं? 💡',
+                    'sec1-p1': 'मिस्ट्रल स्मॉल और मिस्ट्रल मीडियम मिस्ट्रल एआई से उच्च-प्रदर्शन, व्यावसायिक रूप से केंद्रित भाषा मॉडल हैं। उनके ओपन-सोर्स मॉडल (मिस्ट्रल 7B, मिक्सट्रल) के विपरीत, ये एक एपीआई के माध्यम से उपलब्ध मालिकाना मॉडल हैं। उन्हें व्यवसायों के लिए एक शक्तिशाली और लागत प्रभावी समाधान प्रदान करने के लिए डिज़ाइन किया गया है, जो गति, गुणवत्ता और कीमत को संतुलित करने वाली क्षमताओं का एक स्पेक्ट्रम प्रदान करता है, जो उन्हें वास्तविक दुनिया के एआई अनुप्रयोगों को बढ़ाने के लिए आदर्श बनाता है।',
+                    'sec2-title': '2. प्रौद्योगिकी: सघन ट्रांसफार्मर 🎯',
+                    'sec2-p1': 'विरल मिक्सट्रल मॉडल के विपरीत, मिस्ट्रल स्मॉल और मीडियम एक पारंपरिक, सघन ट्रांसफार्मर वास्तुकला पर आधारित हैं, जो उनके संबंधित आकारों में अधिकतम दक्षता और प्रदर्शन के लिए अनुकूलित हैं।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'उपयोगकर्ता प्रॉम्प्ट', 'sec2-step1-desc': 'एक पाठ प्रॉम्प्ट के साथ एपीआई अनुरोध',
+                    'sec2-step2-title': 'सघन मॉडल', 'sec2-step2-name': 'पूर्ण पैरामीटर उपयोग', 'sec2-step2-desc': 'प्रत्येक टोकन के लिए सभी मॉडल भार का उपयोग किया जाता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'अनुकूलित प्रतिक्रिया', 'sec2-step3-desc': 'एक उच्च-गुणवत्ता वाली प्रतिक्रिया उत्पन्न होती है',
+                    'sec3-title': '3. उनका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'ये मॉडल मुख्य रूप से डेवलपर्स और व्यवसायों के लिए हैं जो स्वयं-होस्ट करने की आवश्यकता के बिना विश्वसनीय, उच्च-प्रदर्शन एआई समाधानों की तलाश में हैं।',
+                    'sec3-age-title': 'डेवलपर्स:', 'sec3-age-desc': 'मिस्ट्रल के एपीआई ("ला प्लेटफ़ॉर्म") का उपयोग करके इन मॉडलों को आसानी से अनुप्रयोगों में एकीकृत कर सकते हैं।',
+                    'sec3-edu-title': 'उद्यम:', 'sec3-edu-desc': 'उद्यम-ग्रेड अनुप्रयोगों के लिए माइक्रोसॉफ्ट एज़्योर, एडब्ल्यूएस और गूगल क्लाउड जैसे प्रमुख क्लाउड प्रदाताओं के माध्यम से बड़े पैमाने पर मॉडल तैनात कर सकते हैं।',
+                    'sec3-attempts-title': 'लाइसेंसिंग 📊',
+                    'sec3-agerelax-list': '<li>ये मालिकाना, बंद-भार मॉडल हैं।</li><li>उपयोग मिस्ट्रल एपीआई या संबंधित क्लाउड प्लेटफॉर्म की सेवा की शर्तों द्वारा नियंत्रित होता है।</li><li>वे मिस्ट्रल 7B या मिक्सट्रल 8x7B की तरह ओपन-सोर्स नहीं हैं।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'मिस्ट्रल के वाणिज्यिक मॉडल तर्क और बहुभाषी क्षमताओं पर एक मजबूत ध्यान देने के साथ, कार्यों की एक विस्तृत श्रृंखला में अत्यधिक सक्षम हैं।',
+                    'gs1-title': 'कम विलंबता',
+                    'gs2-title': 'उच्च प्रदर्शन',
+                    'gs3-title': 'बहुभाषी',
+                    'gs4-title': 'निर्देश का पालन',
+                    'sec5-title': '5. प्रशिक्षण और फाइन-ट्यूनिंग 🏛️',
+                    'sec5-p1': 'इन मॉडलों को बड़े, विविध डेटासेट पर प्रशिक्षित किया जाता है और शक्तिशाली और विश्वसनीय सहायक बनने के लिए व्यापक फाइन-ट्यूनिंग से गुजरना पड़ता है।',
+                    'sec5-hindi-title': '1. पूर्व-प्रशिक्षण', 'sec5-hindi-p1': 'बुनियादी मॉडल को भाषा और तर्क की व्यापक समझ हासिल करने के लिए सार्वजनिक वेब से पाठ और कोड के एक विशाल कॉर्पस पर प्रशिक्षित किया जाता है।',
+                    'sec5-essay-title': '2. प्रशिक्षण के बाद संरेखण', 'sec5-essay-p1': 'आधार मॉडल को तब उन्हें सहायक संवादी एजेंट बनाने के लिए निर्देश डेटासेट पर सावधानीपूर्वक ठीक किया जाता है। इस प्रक्रिया में सुरक्षा बढ़ाने और पूर्वाग्रहों को कम करने के लिए संरेखण तकनीकें भी शामिल हैं।',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'मॉडल का स्पेक्ट्रम व्यवसायों को नौकरी के लिए सही उपकरण चुनने की अनुमति देता है, सरल वर्गीकरण से लेकर जटिल तर्क तक।',
+                    'sec6-eng-title': 'मिस्ट्रल स्मॉल', 'sec6-eng-list': '<li>सरल, उच्च-थ्रूपुट कार्य।</li><li>चैटबॉट एप्लिकेशन।</li><li>पाठ वर्गीकरण और सारांश।</li>',
+                    'sec6-elec-title': 'मिस्ट्रल मीडियम', 'sec6-elec-list': '<li>मध्यवर्ती कार्यों के लिए मध्यम तर्क की आवश्यकता होती है।</li><li>बहु-भाषा दस्तावेज़ प्रसंस्करण।</li><li>कोड जनरेशन।</li><li>फ़ंक्शन कॉलिंग।</li>',
+                    'sec6-naic-title': 'मिस्ट्रल लार्ज', 'sec6-naic-list': '<li>जटिल, बहु-चरणीय तर्क कार्य।</li><li>उन्नत आरएजी सिस्टम।</li><li>रणनीतिक विश्लेषण और सामग्री निर्माण।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'मिस्ट्रल के वाणिज्यिक मॉडल अत्यधिक प्रतिस्पर्धी हैं, जिसमें मिस्ट्रल मीडियम अक्सर प्रतिस्पर्धियों के सबसे बड़े प्रमुख मॉडलों के ठीक पीछे एक शीर्ष-स्तरीय मॉडल के रूप में रैंक करता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🧠</span><div><strong class="text-slate-900">एमएमएलयू (तर्क):</strong> मिस्ट्रल मीडियम इस बेंचमार्क पर बहुत अधिक स्कोर करता है, जो मजबूत सामान्य ज्ञान प्रदर्शित करता है।</div></li><li class="flex items-start"><span class="text-2xl text-green-600 mr-3">💻</span><div><strong class="text-slate-900">कोडिंग:</strong> मॉडल लोकप्रिय प्रोग्रामिंग भाषाओं में कोड बनाने और समझने में कुशल हैं।</div></li><li class="flex items-start"><span class="text-2xl text-green-600 mr-3">🌍</span><div><strong class="text-slate-900">बहुभाषावाद:</strong> बहुभाषी बेंचमार्क पर उत्कृष्ट प्रदर्शन दिखाता है, जो इसे वैश्विक अनुप्रयोगों के लिए एक मजबूत विकल्प बनाता है।</div></li>',
+                    'sec8-title': '8. प्रॉम्प्टिंग सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'मिस्ट्रल के एपीआई मॉडल से सर्वश्रेष्ठ प्राप्त करने के लिए, स्पष्ट निर्देशों का उपयोग करना और सिस्टम प्रॉम्प्ट जैसी सुविधाओं का लाभ उठाना महत्वपूर्ण है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'एक सिस्टम प्रॉम्प्ट का उपयोग करें', 'sec8-step1-desc': 'अधिक सुसंगत आउटपुट के लिए `सिस्टम` भूमिका का उपयोग करके बातचीत की शुरुआत में मॉडल के व्यवहार, व्यक्तित्व और बाधाओं को सेट करें।',
+                    'sec8-step2-title': 'विशिष्ट बनें', 'sec8-step2-desc': 'स्पष्ट, विस्तृत निर्देश प्रदान करें। आप वांछित स्वर, प्रारूप और सामग्री के बारे में जितने अधिक विशिष्ट होंगे, परिणाम उतना ही बेहतर होगा।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>फ़ंक्शन कॉलिंग:</strong> मॉडल की फ़ंक्शन कॉलिंग क्षमताओं का उपयोग इसे बाहरी टूल और एपीआई से जोड़ने के लिए करें, जिससे अधिक गतिशील एप्लिकेशन सक्षम हो सकें।</li><li><strong>फ्यू-शॉट प्रॉम्प्टिंग:</strong> अपने प्रॉम्प्ट के भीतर कुछ उदाहरण प्रदान करें ताकि मॉडल को वांछित आउटपुट शैली और प्रारूप की ओर निर्देशित किया जा सके।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'मिस्ट्रल के वाणिज्यिक प्रस्ताव उनके अभूतपूर्व ओपन-सोर्स अनुसंधान का एक विकास हैं, जो उद्यम विश्वसनीयता के लिए पैक किए गए हैं।',
+                    'sec9-step1-title': 'मिक्सट्रल 8x7B रिलीज', 'sec9-step1-desc': '<strong>समयरेखा:</strong> दिसंबर 2023। ओपन-सोर्स एसएमओई मॉडल जिसने मिस्ट्रल को एआई स्पेस में एक प्रमुख खिलाड़ी के रूप में स्थापित किया।',
+                    'sec9-step2-title': '"ला प्लेटफ़ॉर्म" और वाणिज्यिक मॉडल का शुभारंभ', 'sec9-step2-desc': '<strong>समयरेखा:</strong> 2024 की शुरुआत। मिस्ट्रल ने स्मॉल, मीडियम (पूर्व में `मिस्ट्रल-मीडियम`), और लार्ज सहित अनुकूलित मॉडल के साथ अपना आधिकारिक एपीआई प्लेटफॉर्म लॉन्च किया, जो वाणिज्यिक एपीआई बाजार में उनके प्रवेश को चिह्नित करता है।',
+                    'sec10-title': '10. सीमाएं और विचार 🚫',
+                    'sec10-p1': 'हालांकि अत्यधिक सक्षम, जिम्मेदार अनुप्रयोग विकास के लिए इन मॉडलों की सीमाओं को समझना महत्वपूर्ण है।',
+                    'sec10-mistake1-title': 'तथ्यात्मक सटीकता:', 'sec10-mistake1-desc': 'मॉडल अभी भी "मतिभ्रम" कर सकते हैं या गलत जानकारी उत्पन्न कर सकते हैं। महत्वपूर्ण अनुप्रयोगों के लिए विश्वसनीय स्रोतों से तथ्यों को हमेशा सत्यापित करें।',
+                    'sec10-mistake2-title': 'पूर्वाग्रह:', 'sec10-mistake2-desc': 'चूंकि मॉडल को व्यापक वेब डेटा पर प्रशिक्षित किया जाता है, इसलिए वे मौजूदा सामाजिक पूर्वाग्रहों को प्रतिबिंबित कर सकते हैं। सावधानीपूर्वक प्रॉम्प्ट डिजाइन और आउटपुट फ़िल्टरिंग आवश्यक है।',
+                    'sec10-mistake3-title': 'सुरक्षा मॉडरेशन:', 'sec10-mistake3-desc': 'हालांकि मिस्ट्रल के प्लेटफॉर्म में सुरक्षा मॉडरेशन शामिल है, डेवलपर्स यह सुनिश्चित करने के लिए जिम्मेदार हैं कि उनके एप्लिकेशन सुरक्षित और नैतिक रूप से उपयोग किए जाएं।',
+                    'sec10-mistake4-title': 'लागत प्रबंधन:', 'sec10-mistake4-desc': 'चूंकि एपीआई उपयोग प्रति टोकन मूल्य है, इसलिए डेवलपर्स को लागत को नियंत्रित करने के लिए अपने एप्लिकेशन के टोकन खपत का सावधानीपूर्वक प्रबंधन करने की आवश्यकता है।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'मिस्ट्रल अपने वाणिज्यिक मॉडलों तक अपने स्वयं के प्लेटफॉर्म और प्रमुख क्लाउड भागीदारों के माध्यम से आसान पहुंच प्रदान करता है।',
+                    'sec11-gov-title': '📚 ला प्लेटफ़ॉर्म (मिस्ट्रल एपीआई)', 'sec11-gov-list': '<li>सभी मिस्ट्रल मॉडल तक पहुंचने के लिए आधिकारिक डेवलपर प्लेटफॉर्म।</li><li>टोकन उपयोग के आधार पर एक सरल, पे-एज़-यू-गो मूल्य निर्धारण मॉडल प्रदान करता है।</li><li>एक एपीआई कुंजी प्राप्त करने के लिए मिस्ट्रल एआई वेबसाइट पर साइन अप करें।</li>',
+                    'sec11-pvt-title': '💻 क्लाउड प्रदाता', 'sec11-pvt-p1': 'उद्यम-पैमाने पर परिनियोजन के लिए आदर्श।', 'sec11-pvt-list': '<li>**माइक्रोसॉफ्ट एज़्योर:** एक मॉडल-ए-ए-सर्विस के रूप में उपलब्ध है।</li><li>**अमेज़ॅन वेब सर्विसेज (एडब्ल्यूएस):** अमेज़ॅन बेडरॉक के माध्यम से सुलभ।</li><li>**गूगल क्लाउड:** वर्टेक्स एआई मॉडल गार्डन पर उपलब्ध है।</li>',
+                    'sec12-title': '12. भविष्य: विकल्पों का एक स्पेक्ट्रम 🚀',
+                    'sec12-p1': 'अत्याधुनिक ओपन-सोर्स मॉडल और अनुकूलित वाणिज्यिक एपीआई दोनों की पेशकश करने की मिस्ट्रल की रणनीति एआई उद्योग के भविष्य का प्रतिनिधित्व करती है। यह डेवलपर्स के लिए विकल्पों का एक स्पेक्ट्रम प्रदान करता है, खुले भार के साथ पूर्ण नियंत्रण से लेकर प्रबंधित एपीआई की उपयोग में आसानी और विश्वसनीयता तक। यह दृष्टिकोण सभी स्तरों पर नवाचार को बढ़ावा देता है और यह सुनिश्चित करता है कि शक्तिशाली एआई तकनीक सभी के लिए सुलभ हो।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'एआई परिदृश्य में मिस्ट्रल की अनूठी स्थिति की सराहना करने के लिए इन अवधारणाओं को समझना महत्वपूर्ण है।',
+                    'syllabus-oir-title': 'खुले बनाम बंद मॉडल',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">ओपन-वेट मॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔒</span><div class="flex-grow">मालिकाना एपीआई मॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'प्रदर्शन और दक्षता',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">लागत-प्रदर्शन वक्र</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚡</span><div class="flex-grow">विलंबता बनाम थ्रूपुट</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | आपके हाथों में फ्रंटियर एआई।',
+                    'interviewChartData': {
+                        labels: ['स्मॉल', 'मीडियम', 'लार्ज'],
+                        data: [72, 78, 81]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-blue-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'MMLU Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                            borderColor: '#2563eb',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
