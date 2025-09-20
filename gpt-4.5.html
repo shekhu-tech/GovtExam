@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI GPT-4.5/O Series & ChatGPT Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to OpenAI's GPT-4.5/O Series and all ChatGPT models. Understand the technology, capabilities, applications, and future of Large Language Models.">
+    <meta name="keywords" content="OpenAI, GPT-4, GPT-4o, GPT-5, ChatGPT, Large Language Models, AI, Artificial Intelligence, Prompt Engineering, AGI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #101827; /* Deep Dark Blue */
+            color: #e5e7eb; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #00f6ff, #ff00e1) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.8); /* Dark Blue Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #374151; /* Gray 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(0, 246, 255, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #00f6ff; /* Electric Cyan */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #00f6ff; /* Electric Cyan */
+            color: #00f6ff;
+            background: #1f2937; /* Gray 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 246, 255, 0.2);
+            text-shadow: 0 0 5px rgba(0, 246, 255, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #00f6ff;
+            color: #101827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 246, 255, 0.5);
+        }
+        .flowchart-arrow {
+            color: #ff00e1; /* Magenta */
+            text-shadow: 0 0 10px rgba(255, 0, 225, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ff00e1;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(255, 0, 225, 0.1);
+        }
+        .subject-item .icon {
+            color: #ff00e1;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #00f6ff;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #101827;
+            border: 4px solid #00f6ff;
+            box-shadow: 0 0 15px rgba(0, 246, 255, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #00f6ff, #00b8d4);
+            color: #101827;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 246, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 246, 255, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #00f6ff;
+            color: #00f6ff;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #00f6ff;
+            color: #101827;
+            box-shadow: 0 0 15px #00f6ff;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #ff00e1, #c400b0);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🤖 OpenAI GPT Models: The Ultimate Guide 🤖</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-magenta-500">From ChatGPT to the O-Series: Everything You Need to Know</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are OpenAI's GPT Models? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#101827] to-[#101827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are OpenAI's GPT Models? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">OpenAI's Generative Pre-trained Transformer (GPT) models are a family of powerful Large Language Models (LLMs) that have revolutionized artificial intelligence. These models are designed to understand, generate, and interact with human language in a remarkably coherent and creative way. From the popular ChatGPT interface to the advanced GPT-4o, these tools are shaping the future of communication, creativity, and problem-solving.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: The Evolution Pathway -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Evolution Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The journey of GPT models has been one of exponential growth in capability and complexity, with each new iteration representing a significant leap forward in AI technology.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">GPT-3.5</span><br><span id="sec2-step1-name">The Workhorse</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Fast & Efficient Text Generation</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">GPT-4 / Turbo</span><br><span id="sec2-step2-name">The Powerhouse</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Advanced Reasoning & Multimodality</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">GPT-4o / O-Series</span><br><span id="sec2-step3-name">The Future</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Omni-modal & Real-time Interaction</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use These Models? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">OpenAI provides tiered access to its models, catering to a wide range of users from casual enthusiasts to large enterprises.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#00f6ff] mr-4">👤</span><div><strong id="sec3-age-title" class="text-white text-lg">Free Users:</strong> <span id="sec3-age-desc">Access to the base ChatGPT model (often GPT-3.5 or a limited version of GPT-4o) for general queries and creative tasks.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#00f6ff] mr-4">⭐</span><div><strong id="sec3-edu-title" class="text-white text-lg">ChatGPT Plus/Team Subscribers:</strong> <span id="sec3-edu-desc">Priority access to the latest models like GPT-4o, higher usage limits, and advanced features like DALL-E 3 image generation and data analysis.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#ff00e1] pb-2">Developers & Enterprises 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>API Users:</strong> Developers can integrate GPT models into their own applications and services via the OpenAI API, paying per usage (tokens).</li>
+                             <li><strong>Enterprise Customers:</strong> Large organizations get dedicated capacity, enhanced security, and longer context windows for building enterprise-grade AI solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The latest GPT models are multimodal, capable of understanding and generating content across different formats.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-cyan-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Text ✍️</h3>
+                        <p class="text-sm">Advanced language understanding, generation, summarization, and translation.</p>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-cyan-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Image 🖼️</h3>
+                         <p class="text-sm">Understanding images, answering questions about them, and generating new images from text prompts (DALL-E 3).</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-cyan-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Audio 🎙️</h3>
+                         <p class="text-sm">Real-time voice conversation, speech-to-text, and text-to-speech with natural-sounding voices.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-cyan-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Code & Data 💻</h3>
+                         <p class="text-sm">Writing, debugging, and explaining code in various languages. Analyzing data files and creating visualizations.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How are GPT Models Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">The training process involves two main stages: unsupervised pre-training on vast amounts of data, and a fine-tuning stage to align the model with human intent and safety guidelines.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#00f6ff]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Pre-training</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Building a foundational understanding of language and the world.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Models are trained on a massive dataset of text and code from the public internet.</li>
+                            <li>They learn grammar, facts, reasoning abilities, and different styles of writing.</li>
+                            <li>This stage is computationally intensive, requiring huge clusters of GPUs.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ff00e1]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Fine-Tuning & Alignment</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Making the model helpful, harmless, and honest.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Uses techniques like Reinforcement Learning from Human Feedback (RLHF).</li>
+                           <li>Human reviewers rank different model responses to teach it desirable behavior.</li>
+                           <li>Red-teaming is used to identify and mitigate potential harms and biases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">GPT models are versatile tools being applied across nearly every industry to enhance productivity and creativity.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Creative & Content</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Writing articles, emails, and marketing copy.</li>
+                           <li>Brainstorming ideas and creating scripts.</li>
+                           <li>Generating images and designs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Business & Analysis</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Summarizing long documents and reports.</li>
+                           <li>Analyzing data from spreadsheets.</li>
+                           <li>Market research and trend analysis.</li>
+                           <li>Customer support chatbots.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Technical & Development</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Writing and debugging code.</li>
+                           <li>Explaining complex code snippets.</li>
+                           <li>Creating API documentation.</li>
+                           <li>Prototyping new software ideas.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">OpenAI's models are continuously evaluated on a wide range of academic benchmarks to measure their reasoning, knowledge, and problem-solving capabilities.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#00f6ff] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📚</span><div><strong class="text-white">MMLU (Massive Multitask Language Understanding):</strong> Measures knowledge across 57 subjects, a key indicator of general knowledge.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">GPQA (Graduate-Level Google-Proof Q&A):</strong> A benchmark of difficult questions that tests expert-level reasoning.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> Measures the model's ability to write correct, functional code from docstrings.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🔢</span><div><strong class="text-white">MATH:</strong> A benchmark of challenging competition mathematics problems to test quantitative reasoning.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompt Engineering: The Key to Better Results 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The quality of the output you get from a GPT model is directly proportional to the quality of the input (prompt) you provide. Mastering prompt engineering is essential.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#00f6ff] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Be Specific & Clear</h4>
+                                <p id="sec8-step1-desc" class="text-base">Provide as much context and detail as possible. The more specific your instruction, the better the result.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Provide Examples</h4>
+                                <p id="sec8-step2-desc" class="text-base">For complex tasks, give the model a few examples of the input and desired output format (few-shot prompting).</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Assign a Persona</h4>
+                                <p id="sec8-step3-desc" class="text-base">Tell the model to act as an expert in a certain field (e.g., "Act as a senior copywriter...") to get more tailored responses.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Chain of Thought:</strong> Ask the model to "think step-by-step" to improve its reasoning on complex problems.</li>
+                            <li><strong>Iterate and Refine:</strong> Don't expect the perfect answer on the first try. Refine your prompt based on the initial output.</li>
+                            <li><strong>Specify the Format:</strong> Clearly define the output format you need, such as a table, JSON, or a list.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Release Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Release Cycle 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">OpenAI has followed a pattern of releasing major new model families every 1-2 years, with incremental improvements and optimizations in between.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">GPT-3 Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> June 2020. Introduced large-scale language modeling to the world.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">ChatGPT Launch (GPT-3.5)</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> November 2022. Made advanced AI accessible to the public through a conversational interface.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">GPT-4 Release</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2023. A major leap in reasoning, accuracy, and multimodal capabilities.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">GPT-4o ("Omni") Release</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> May 2024. Introduced real-time, highly emotive voice and vision interaction, making AI more natural and accessible.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Pitfalls & Limitations 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While powerful, GPT models have inherent limitations. Being aware of them is crucial for responsible and effective use.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Hallucinations:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Models can sometimes generate incorrect or nonsensical information with high confidence. Always fact-check critical information.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Knowledge Cut-off:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">The model's knowledge is not real-time and is limited to the data it was trained on. It may not know about very recent events.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Bias:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Since they are trained on vast amounts of internet data, models can reflect and amplify existing societal biases.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Lack of True Understanding:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Models are pattern-matching systems. They do not possess consciousness, beliefs, or true understanding like a human.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">OpenAI provides several platforms for users and developers to access its powerful models.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For General Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ChatGPT Web Interface:** The most popular way to interact with the models is through the chat.openai.com website.</li>
+                           <li>**Mobile Apps:** Official ChatGPT apps are available for both iOS and Android platforms.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">The API allows for powerful integrations.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**OpenAI API:** Developers can sign up on platform.openai.com to get an API key.</li>
+                            <li>**Playground:** A web-based interface to test API calls and experiment with different models and parameters.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: GPT-5 & AGI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">The pace of AI development is accelerating. The "O" in GPT-4o stands for "Omni," signifying a model that is natively multimodal. The upcoming models, often speculated as the "O-Series" or GPT-5, are expected to bring even more advanced reasoning, personalization, and a step closer to Artificial General Intelligence (AGI).</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Expected Advancements</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#101827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these fundamental concepts will give you a deeper appreciation of how Large Language Models work.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Foundational Ideas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Architectural Components</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Building Safe and Beneficial Artificial General Intelligence.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">GPT-3.5 Series</h3>
+            <p id="prelims-modal-p1">The model family that powered the initial launch of ChatGPT. Known for its speed and efficiency, it excels at a wide range of text-based tasks like writing, summarization, and brainstorming. It laid the groundwork for making large language models accessible and useful to millions of people worldwide.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">GPT-4 and GPT-4 Turbo</h3>
+            <p id="mains-modal-p1">A significant leap from GPT-3.5, GPT-4 introduced vastly improved reasoning capabilities and multimodality (the ability to process images as input). It performs at a human-level on many professional and academic benchmarks. GPT-4 Turbo is an optimized version, offering a larger context window and more up-to-date knowledge.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">GPT-4o and the O-Series</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">GPT-4o ("Omni") is the first truly multimodal model, natively processing text, audio, and vision together. This allows for real-time, seamless voice conversations and video interactions. It represents a major step towards more natural human-computer interaction and is considered the first model in the upcoming "O-Series," which points towards OpenAI's goal of building AGI (Artificial General Intelligence).</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Expected Advancements in Future Models</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'gpt35': { 
+                        name: 'ChatGPT & GPT-3.5', 
+                        icon: '💬',
+                        description: 'The classic conversational AI. GPT-3.5 is known for its speed and is highly capable at creative writing, summarization, and general text-based tasks. It powers the free version of ChatGPT.',
+                        cta: 'Learn More'
+                    },
+                    'gpt4': { 
+                        name: 'GPT-4 & GPT-4 Turbo', 
+                        icon: '🧠',
+                        description: 'The powerhouse model with advanced reasoning. GPT-4 excels at complex problem-solving, code generation, and understands both text and images, making it a versatile tool for professionals.',
+                        cta: 'Learn More'
+                    },
+                    'gpt4o': { 
+                        name: 'GPT-4o & O-Series', 
+                        icon: '🤖',
+                        description: 'Omni-modal AI that can understand and respond using text, audio, and vision in real-time. It represents the future of natural, human-like AI interaction.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'gpt35': { 
+                        name: 'चैटजीपीटी और जीपीटी-3.5', 
+                        icon: '💬',
+                        description: 'क्लासिक संवादी एआई। जीपीटी-3.5 अपनी गति के लिए जाना जाता है और रचनात्मक लेखन, सारांश और सामान्य पाठ-आधारित कार्यों में अत्यधिक सक्षम है। यह चैटजीपीटी के मुफ्त संस्करण को शक्ति प्रदान करता है।',
+                        cta: 'और जानें'
+                    },
+                    'gpt4': { 
+                        name: 'जीपीटी-4 और जीपीटी-4 टर्बो', 
+                        icon: '🧠',
+                        description: 'उन्नत तर्क के साथ पावरहाउस मॉडल। जीपीटी-4 जटिल समस्या-समाधान, कोड निर्माण में उत्कृष्टता प्राप्त करता है, और पाठ और छवियों दोनों को समझता है, जो इसे पेशेवरों के लिए एक बहुमुखी उपकरण बनाता है।',
+                        cta: 'और जानें'
+                    },
+                    'gpt4o': { 
+                        name: 'जीपीटी-4ओ और ओ-सीरीज', 
+                        icon: '🤖',
+                        description: 'ओमनी-मोडल एआई जो वास्तविक समय में पाठ, ऑडियो और दृष्टि का उपयोग करके समझ और प्रतिक्रिया दे सकता है। यह प्राकृतिक, मानव-जैसी एआई बातचीत के भविष्य का प्रतिनिधित्व करता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Enhanced Reasoning", desc: "Future models will have greatly improved logical and commonsense reasoning, reducing errors and hallucinations." },
+                        { rank: "Personalization", desc: "AI assistants that can learn about you and your context to provide highly personalized and helpful responses." },
+                        { rank: "Autonomous Agents", desc: "Models that can take multi-step actions on a user's behalf, like booking appointments or conducting research." },
+                        { rank: "Increased Speed & Efficiency", desc: "Making the most powerful models faster and cheaper to use for everyone." },
+                        { rank: "The Path to AGI", desc: "Each new model is a step towards OpenAI's mission of creating Artificial General Intelligence (AGI) that is safe and benefits all of humanity." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "उन्नत तर्क", desc: "भविष्य के मॉडलों में तार्किक और सामान्य ज्ञान तर्क में बहुत सुधार होगा, जिससे त्रुटियां और मतिभ्रम कम होंगे।" },
+                        { rank: "वैयक्तिकरण", desc: "एआई सहायक जो आपके और आपके संदर्भ के बारे में सीख सकते हैं ताकि अत्यधिक व्यक्तिगत और सहायक प्रतिक्रियाएं प्रदान की जा सकें।" },
+                        { rank: "स्वायत्त एजेंट", desc: "ऐसे मॉडल जो उपयोगकर्ता की ओर से बहु-चरणीय कार्य कर सकते हैं, जैसे अपॉइंटमेंट बुक करना या शोध करना।" },
+                        { rank: "बढ़ी हुई गति और दक्षता", desc: "सबसे शक्तिशाली मॉडलों को सभी के लिए उपयोग करने के लिए तेज और सस्ता बनाना।" },
+                        { rank: "एजीआई का मार्ग", desc: "प्रत्येक नया मॉडल सुरक्षित और सभी मानवता को लाभ पहुंचाने वाले आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) बनाने के ओपनएआई के मिशन की ओर एक कदम है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🤖 OpenAI GPT Models: The Ultimate Guide 🤖',
+                    'header-subtitle': 'From ChatGPT to the O-Series: Everything You Need to Know',
+                    'sec1-title': '1. What are OpenAI\'s GPT Models? 💡',
+                    'sec1-p1': 'OpenAI\'s Generative Pre-trained Transformer (GPT) models are a family of powerful Large Language Models (LLMs) that have revolutionized artificial intelligence. These models are designed to understand, generate, and interact with human language in a remarkably coherent and creative way. From the popular ChatGPT interface to the advanced GPT-4o, these tools are shaping the future of communication, creativity, and problem-solving.',
+                    'sec2-title': '2. The Evolution Pathway 🎯',
+                    'sec2-p1': 'The journey of GPT models has been one of exponential growth in capability and complexity, with each new iteration representing a significant leap forward in AI technology.',
+                    'sec2-step1-title': 'GPT-3.5', 'sec2-step1-name': 'The Workhorse', 'sec2-step1-desc': 'Fast & Efficient Text Generation',
+                    'sec2-step2-title': 'GPT-4 / Turbo', 'sec2-step2-name': 'The Powerhouse', 'sec2-step2-desc': 'Advanced Reasoning & Multimodality',
+                    'sec2-step3-title': 'GPT-4o / O-Series', 'sec2-step3-name': 'The Future', 'sec2-step3-desc': 'Omni-modal & Real-time Interaction',
+                    'sec3-title': '3. Who Can Use These Models? ✅',
+                    'sec3-p1': 'OpenAI provides tiered access to its models, catering to a wide range of users from casual enthusiasts to large enterprises.',
+                    'sec3-age-title': 'Free Users:', 'sec3-age-desc': 'Access to the base ChatGPT model (often GPT-3.5 or a limited version of GPT-4o) for general queries and creative tasks.',
+                    'sec3-edu-title': 'ChatGPT Plus/Team Subscribers:', 'sec3-edu-desc': 'Priority access to the latest models like GPT-4o, higher usage limits, and advanced features like DALL-E 3 image generation and data analysis.',
+                    'sec3-attempts-title': 'Developers & Enterprises 📊',
+                    'sec3-agerelax-list': '<li><strong>API Users:</strong> Developers can integrate GPT models into their own applications and services via the OpenAI API, paying per usage (tokens).</li><li><strong>Enterprise Customers:</strong> Large organizations get dedicated capacity, enhanced security, and longer context windows for building enterprise-grade AI solutions.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'The latest GPT models are multimodal, capable of understanding and generating content across different formats.',
+                    'gs1-title': 'Text ✍️',
+                    'gs2-title': 'Image 🖼️',
+                    'gs3-title': 'Audio 🎙️',
+                    'gs4-title': 'Code & Data 💻',
+                    'sec5-title': '5. How are GPT Models Trained? 🏛️',
+                    'sec5-p1': 'The training process involves two main stages: unsupervised pre-training on vast amounts of data, and a fine-tuning stage to align the model with human intent and safety guidelines.',
+                    'sec5-hindi-title': '1. Pre-training', 'sec5-hindi-p1': 'Building a foundational understanding of language and the world.', 'sec5-hindi-list': '<li>Models are trained on a massive dataset of text and code from the public internet.</li><li>They learn grammar, facts, reasoning abilities, and different styles of writing.</li><li>This stage is computationally intensive, requiring huge clusters of GPUs.</li>',
+                    'sec5-essay-title': '2. Fine-Tuning & Alignment', 'sec5-essay-p1': 'Making the model helpful, harmless, and honest.', 'sec5-essay-list': '<li>Uses techniques like Reinforcement Learning from Human Feedback (RLHF).</li><li>Human reviewers rank different model responses to teach it desirable behavior.</li><li>Red-teaming is used to identify and mitigate potential harms and biases.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'GPT models are versatile tools being applied across nearly every industry to enhance productivity and creativity.',
+                    'sec6-eng-title': 'Creative & Content', 'sec6-eng-list': '<li>Writing articles, emails, and marketing copy.</li><li>Brainstorming ideas and creating scripts.</li><li>Generating images and designs.</li>',
+                    'sec6-elec-title': 'Business & Analysis', 'sec6-elec-list': '<li>Summarizing long documents and reports.</li><li>Analyzing data from spreadsheets.</li><li>Market research and trend analysis.</li><li>Customer support chatbots.</li>',
+                    'sec6-naic-title': 'Technical & Development', 'sec6-naic-list': '<li>Writing and debugging code.</li><li>Explaining complex code snippets.</li><li>Creating API documentation.</li><li>Prototyping new software ideas.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'OpenAI\'s models are continuously evaluated on a wide range of academic benchmarks to measure their reasoning, knowledge, and problem-solving capabilities.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📚</span><div><strong class="text-white">MMLU (Massive Multitask Language Understanding):</strong> Measures knowledge across 57 subjects, a key indicator of general knowledge.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">GPQA (Graduate-Level Google-Proof Q&A):</strong> A benchmark of difficult questions that tests expert-level reasoning.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">HumanEval:</strong> Measures the model\'s ability to write correct, functional code from docstrings.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🔢</span><div><strong class="text-white">MATH:</strong> A benchmark of challenging competition mathematics problems to test quantitative reasoning.</div></li>',
+                    'sec8-title': '8. Prompt Engineering: The Key to Better Results 📈',
+                    'sec8-p1': 'The quality of the output you get from a GPT model is directly proportional to the quality of the input (prompt) you provide. Mastering prompt engineering is essential.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Be Specific & Clear', 'sec8-step1-desc': 'Provide as much context and detail as possible. The more specific your instruction, the better the result.',
+                    'sec8-step2-title': 'Provide Examples', 'sec8-step2-desc': 'For complex tasks, give the model a few examples of the input and desired output format (few-shot prompting).',
+                    'sec8-step3-title': 'Assign a Persona', 'sec8-step3-desc': 'Tell the model to act as an expert in a certain field (e.g., "Act as a senior copywriter...") to get more tailored responses.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Chain of Thought:</strong> Ask the model to "think step-by-step" to improve its reasoning on complex problems.</li><li><strong>Iterate and Refine:</strong> Don\'t expect the perfect answer on the first try. Refine your prompt based on the initial output.</li><li><strong>Specify the Format:</strong> Clearly define the output format you need, such as a table, JSON, or a list.</li>',
+                    'sec9-title': '9. Model Release Cycle 🗓️',
+                    'sec9-p1': 'OpenAI has followed a pattern of releasing major new model families every 1-2 years, with incremental improvements and optimizations in between.',
+                    'sec9-step1-title': 'GPT-3 Release', 'sec9-step1-desc': '<strong>Timeline:</strong> June 2020. Introduced large-scale language modeling to the world.',
+                    'sec9-step2-title': 'ChatGPT Launch (GPT-3.5)', 'sec9-step2-desc': '<strong>Timeline:</strong> November 2022. Made advanced AI accessible to the public through a conversational interface.',
+                    'sec9-step3-title': 'GPT-4 Release', 'sec9-step3-desc': '<strong>Timeline:</strong> March 2023. A major leap in reasoning, accuracy, and multimodal capabilities.',
+                    'sec9-step4-title': 'GPT-4o ("Omni") Release', 'sec9-step4-desc': '<strong>Timeline:</strong> May 2024. Introduced real-time, highly emotive voice and vision interaction, making AI more natural and accessible.',
+                    'sec10-title': '10. Common Pitfalls & Limitations 🚫',
+                    'sec10-p1': 'While powerful, GPT models have inherent limitations. Being aware of them is crucial for responsible and effective use.',
+                    'sec10-mistake1-title': 'Hallucinations:', 'sec10-mistake1-desc': 'Models can sometimes generate incorrect or nonsensical information with high confidence. Always fact-check critical information.',
+                    'sec10-mistake2-title': 'Knowledge Cut-off:', 'sec10-mistake2-desc': 'The model\'s knowledge is not real-time and is limited to the data it was trained on. It may not know about very recent events.',
+                    'sec10-mistake3-title': 'Bias:', 'sec10-mistake3-desc': 'Since they are trained on vast amounts of internet data, models can reflect and amplify existing societal biases.',
+                    'sec10-mistake4-title': 'Lack of True Understanding:', 'sec10-mistake4-desc': 'Models are pattern-matching systems. They do not possess consciousness, beliefs, or true understanding like a human.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'OpenAI provides several platforms for users and developers to access its powerful models.',
+                    'sec11-gov-title': '📚 For General Users', 'sec11-gov-list': '<li>**ChatGPT Web Interface:** The most popular way to interact with the models is through the chat.openai.com website.</li><li>**Mobile Apps:** Official ChatGPT apps are available for both iOS and Android platforms.</li>',
+                    'sec11-pvt-title': '💻 For Developers', 'sec11-pvt-p1': 'The API allows for powerful integrations.', 'sec11-pvt-list': '<li>**OpenAI API:** Developers can sign up on platform.openai.com to get an API key.</li><li>**Playground:** A web-based interface to test API calls and experiment with different models and parameters.</li>',
+                    'sec12-title': '12. The Future: GPT-5 & AGI 🚀',
+                    'sec12-p1': 'The pace of AI development is accelerating. The "O" in GPT-4o stands for "Omni," signifying a model that is natively multimodal. The upcoming models, often speculated as the "O-Series" or GPT-5, are expected to bring even more advanced reasoning, personalization, and a step closer to Artificial General Intelligence (AGI).',
+                    'sec12-career-btn': 'View Expected Advancements',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these fundamental concepts will give you a deeper appreciation of how Large Language Models work.',
+                    'syllabus-oir-title': 'Foundational Ideas',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧱</span><div class="flex-grow">Tokens</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Parameters</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Key Architectural Components',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔄</span><div class="flex-grow">Transformer Architecture</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Attention Mechanism</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Building Safe and Beneficial Artificial General Intelligence.',
+                    'interviewChartData': {
+                        labels: ['MMLU', 'GPQA', 'HumanEval', 'MATH'],
+                        data: [90, 85, 75, 70] // Example data for GPT-4
+                    }
+                },
+                'hi': {
+                    'header-title': '🤖 ओपनएआई जीपीटी मॉडल: अंतिम गाइड 🤖',
+                    'header-subtitle': 'चैटजीपीटी से ओ-सीरीज तक: वह सब कुछ जो आपको जानना चाहिए',
+                    'sec1-title': '1. ओपनएआई के जीपीटी मॉडल क्या हैं? 💡',
+                    'sec1-p1': 'ओपनएआई के जेनरेटिव प्री-ट्रेंड ट्रांसफार्मर (जीपीटी) मॉडल शक्तिशाली बड़े भाषा मॉडल (एलएलएम) का एक परिवार है जिसने कृत्रिम बुद्धिमत्ता में क्रांति ला दी है। इन मॉडलों को मानव भाषा को उल्लेखनीय रूप से सुसंगत और रचनात्मक तरीके से समझने, उत्पन्न करने और बातचीत करने के लिए डिज़ाइन किया गया है। लोकप्रिय चैटजीपीटी इंटरफ़ेस से लेकर उन्नत जीपीटी-4ओ तक, ये उपकरण संचार, रचनात्मकता और समस्या-समाधान के भविष्य को आकार दे रहे हैं।',
+                    'sec2-title': '2. विकास का मार्ग 🎯',
+                    'sec2-p1': 'जीपीटी मॉडल की यात्रा क्षमता और जटिलता में घातीय वृद्धि की रही है, जिसमें प्रत्येक नया पुनरावृत्ति एआई प्रौद्योगिकी में एक महत्वपूर्ण छलांग का प्रतिनिधित्व करता है।',
+                    'sec2-step1-title': 'जीपीटी-3.5', 'sec2-step1-name': 'द वर्कहॉर्स', 'sec2-step1-desc': 'तेज और कुशल पाठ निर्माण',
+                    'sec2-step2-title': 'जीपीटी-4 / टर्बो', 'sec2-step2-name': 'द पावरहाउस', 'sec2-step2-desc': 'उन्नत तर्क और बहुविधता',
+                    'sec2-step3-title': 'जीपीटी-4ओ / ओ-सीरीज', 'sec2-step3-name': 'भविष्य', 'sec2-step3-desc': 'ओमनी-मोडल और रीयल-टाइम इंटरेक्शन',
+                    'sec3-title': '3. इन मॉडलों का उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'ओपनएआई अपने मॉडलों तक tiered पहुंच प्रदान करता है, जो आकस्मिक उत्साही से लेकर बड़े उद्यमों तक के उपयोगकर्ताओं की एक विस्तृत श्रृंखला को पूरा करता है।',
+                    'sec3-age-title': 'मुफ्त उपयोगकर्ता:', 'sec3-age-desc': 'सामान्य प्रश्नों और रचनात्मक कार्यों के लिए आधार चैटजीपीटी मॉडल (अक्सर जीपीटी-3.5 या जीपीटी-4ओ का एक सीमित संस्करण) तक पहुंच।',
+                    'sec3-edu-title': 'चैटजीपीटी प्लस/टीम सब्सक्राइबर:', 'sec3-edu-desc': 'जीपीटी-4ओ जैसे नवीनतम मॉडलों तक प्राथमिकता पहुंच, उच्च उपयोग सीमाएं, और डीएएलएल-ई 3 छवि निर्माण और डेटा विश्लेषण जैसी उन्नत सुविधाएं।',
+                    'sec3-attempts-title': 'डेवलपर्स और उद्यम 📊',
+                    'sec3-agerelax-list': '<li><strong>एपीआई उपयोगकर्ता:</strong> डेवलपर ओपनएआई एपीआई के माध्यम से जीपीटी मॉडल को अपने स्वयं के अनुप्रयोगों और सेवाओं में एकीकृत कर सकते हैं, प्रति उपयोग (टोकन) भुगतान करते हैं।</li><li><strong>उद्यम ग्राहक:</strong> बड़े संगठनों को उद्यम-ग्रेड एआई समाधान बनाने के लिए समर्पित क्षमता, बढ़ी हुई सुरक्षा और लंबी संदर्भ खिड़कियां मिलती हैं।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'नवीनतम जीपीटी मॉडल मल्टीमॉडल हैं, जो विभिन्न प्रारूपों में सामग्री को समझने और उत्पन्न करने में सक्षम हैं।',
+                    'gs1-title': 'पाठ ✍️',
+                    'gs2-title': 'छवि 🖼️',
+                    'gs3-title': 'ऑडियो 🎙️',
+                    'gs4-title': 'कोड और डेटा 💻',
+                    'sec5-title': '5. जीपीटी मॉडल कैसे प्रशिक्षित किए जाते हैं? 🏛️',
+                    'sec5-p1': 'प्रशिक्षण प्रक्रिया में दो मुख्य चरण शामिल हैं: बड़ी मात्रा में डेटा पर अनसुपरवाइज्ड प्री-ट्रेनिंग, और मानव इरादे और सुरक्षा दिशानिर्देशों के साथ मॉडल को संरेखित करने के लिए एक फाइन-ट्यूनिंग चरण।',
+                    'sec5-hindi-title': '1. प्री-ट्रेनिंग', 'sec5-hindi-p1': 'भाषा और दुनिया की एक मूलभूत समझ का निर्माण।', 'sec5-hindi-list': '<li>मॉडल को सार्वजनिक इंटरनेट से पाठ और कोड के एक विशाल डेटासेट पर प्रशिक्षित किया जाता है।</li><li>वे व्याकरण, तथ्य, तर्क क्षमताएं और लेखन की विभिन्न शैलियों को सीखते हैं।</li><li>यह चरण कम्प्यूटेशनल रूप से गहन है, जिसके लिए जीपीयू के विशाल समूहों की आवश्यकता होती है।</li>',
+                    'sec5-essay-title': '2. फाइन-ट्यूनिंग और संरेखण', 'sec5-essay-p1': 'मॉडल को सहायक, हानिरहित और ईमानदार बनाना।', 'sec5-essay-list': '<li>मानव प्रतिक्रिया से सुदृढीकरण सीखना (आरएलएचएफ) जैसी तकनीकों का उपयोग करता है।</li><li>मानव समीक्षक इसे वांछनीय व्यवहार सिखाने के लिए विभिन्न मॉडल प्रतिक्रियाओं को रैंक करते हैं।</li><li>रेड-टीमिंग का उपयोग संभावित नुकसान और पूर्वाग्रहों की पहचान करने और उन्हें कम करने के लिए किया जाता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'जीपीटी मॉडल बहुमुखी उपकरण हैं जिन्हें उत्पादकता और रचनात्मकता को बढ़ाने के लिए लगभग हर उद्योग में लागू किया जा रहा है।',
+                    'sec6-eng-title': 'रचनात्मक और सामग्री', 'sec6-eng-list': '<li>लेख, ईमेल और मार्केटिंग कॉपी लिखना।</li><li>विचारों पर मंथन और स्क्रिप्ट बनाना।</li><li>छवियां और डिजाइन तैयार करना।</li>',
+                    'sec6-elec-title': 'व्यापार और विश्लेषण', 'sec6-elec-list': '<li>लंबे दस्तावेजों और रिपोर्टों का सारांश।</li><li>स्प्रेडशीट से डेटा का विश्लेषण।</li><li>बाजार अनुसंधान और प्रवृत्ति विश्लेषण।</li><li>ग्राहक सहायता चैटबॉट।</li>',
+                    'sec6-naic-title': 'तकनीकी और विकास', 'sec6-naic-list': '<li>कोड लिखना और डीबग करना।</li><li>जटिल कोड स्निपेट्स की व्याख्या करना।</li><li>एपीआई दस्तावेज़ीकरण बनाना।</li><li>नए सॉफ्टवेयर विचारों का प्रोटोटाइप बनाना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'ओपनएआई के मॉडलों का उनकी तर्क, ज्ञान और समस्या-समाधान क्षमताओं को मापने के लिए शैक्षणिक बेंचमार्क की एक विस्तृत श्रृंखला पर लगातार मूल्यांकन किया जाता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📚</span><div><strong class="text-white">एमएमएलयू (व्यापक मल्टीटास्क भाषा समझना):</strong> 57 विषयों में ज्ञान को मापता है, जो सामान्य ज्ञान का एक प्रमुख संकेतक है।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">जीपीक्यूए (स्नातक-स्तर गूगल-प्रूफ क्यू एंड ए):</strong> विशेषज्ञ-स्तर के तर्क का परीक्षण करने वाले कठिन प्रश्नों का एक बेंचमार्क।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">ह्यूमनइवल:</strong> डॉकस्ट्रिंग्स से सही, कार्यात्मक कोड लिखने की मॉडल की क्षमता को मापता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🔢</span><div><strong class="text-white">मैथ:</strong> मात्रात्मक तर्क का परीक्षण करने के लिए चुनौतीपूर्ण प्रतियोगिता गणित की समस्याओं का एक बेंचमार्क।</div></li>',
+                    'sec8-title': '8. प्रॉम्प्ट इंजीनियरिंग: बेहतर परिणामों की कुंजी 📈',
+                    'sec8-p1': 'जीपीटी मॉडल से आपको मिलने वाले आउटपुट की गुणवत्ता आपके द्वारा प्रदान किए गए इनपुट (प्रॉम्प्ट) की गुणवत्ता के सीधे आनुपातिक है। प्रॉम्प्ट इंजीनियरिंग में महारत हासिल करना आवश्यक है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'विशिष्ट और स्पष्ट रहें', 'sec8-step1-desc': 'जितना संभव हो उतना संदर्भ और विवरण प्रदान करें। आपका निर्देश जितना अधिक विशिष्ट होगा, परिणाम उतना ही बेहतर होगा।',
+                    'sec8-step2-title': 'उदाहरण प्रदान करें', 'sec8-step2-desc': 'जटिल कार्यों के लिए, मॉडल को इनपुट और वांछित आउटपुट प्रारूप के कुछ उदाहरण दें (कुछ-शॉट प्रॉम्प्टिंग)।',
+                    'sec8-step3-title': 'एक व्यक्तित्व निर्दिष्ट करें', 'sec8-step3-desc': 'अधिक अनुरूप प्रतिक्रियाएं प्राप्त करने के लिए मॉडल को एक निश्चित क्षेत्र में एक विशेषज्ञ के रूप में कार्य करने के लिए कहें (जैसे, "एक वरिष्ठ कॉपीराइटर के रूप में कार्य करें...")।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>विचारों की श्रृंखला:</strong> जटिल समस्याओं पर अपने तर्क में सुधार के लिए मॉडल को "कदम-दर-कदम सोचने" के लिए कहें।</li><li><strong>पुनरावृति और परिशोधन:</strong> पहली कोशिश में सही उत्तर की उम्मीद न करें। प्रारंभिक आउटपुट के आधार पर अपने प्रॉम्प्ट को परिष्कृत करें।</li><li><strong>प्रारूप निर्दिष्ट करें:</strong> आपको आवश्यक आउटपुट प्रारूप को स्पष्ट रूप से परिभाषित करें, जैसे कि एक तालिका, जेएसओएन, या एक सूची।</li>',
+                    'sec9-title': '9. मॉडल रिलीज चक्र 🗓️',
+                    'sec9-p1': 'ओपनएआई ने हर 1-2 साल में प्रमुख नए मॉडल परिवारों को जारी करने के एक पैटर्न का पालन किया है, जिसमें बीच-बीच में वृद्धिशील सुधार और अनुकूलन होते हैं।',
+                    'sec9-step1-title': 'जीपीटी-3 रिलीज', 'sec9-step1-desc': '<strong>समयरेखा:</strong> जून 2020। दुनिया के लिए बड़े पैमाने पर भाषा मॉडलिंग का परिचय दिया।',
+                    'sec9-step2-title': 'चैटजीपीटी लॉन्च (जीपीटी-3.5)', 'sec9-step2-desc': '<strong>समयरेखा:</strong> नवंबर 2022। एक संवादी इंटरफ़ेस के माध्यम से जनता के लिए उन्नत एआई को सुलभ बनाया।',
+                    'sec9-step3-title': 'जीपीटी-4 रिलीज', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मार्च 2023। तर्क, सटीकता और मल्टीमॉडल क्षमताओं में एक बड़ी छलांग।',
+                    'sec9-step4-title': 'जीपीटी-4ओ ("ओमनी") रिलीज', 'sec9-step4-desc': '<strong>समयरेखा:</strong> मई 2024। वास्तविक समय, अत्यधिक भावनात्मक आवाज और दृष्टि संपर्क का परिचय दिया, जिससे एआई अधिक प्राकृतिक और सुलभ हो गया।',
+                    'sec10-title': '10. सामान्य नुकसान और सीमाएं 🚫',
+                    'sec10-p1': 'शक्तिशाली होते हुए भी, जीपीटी मॉडल में अंतर्निहित सीमाएं हैं। जिम्मेदार और प्रभावी उपयोग के लिए उनके बारे में पता होना महत्वपूर्ण है।',
+                    'sec10-mistake1-title': 'मतिभ्रम:', 'sec10-mistake1-desc': 'मॉडल कभी-कभी उच्च आत्मविश्वास के साथ गलत या निरर्थक जानकारी उत्पन्न कर सकते हैं। महत्वपूर्ण जानकारी को हमेशा तथ्य-जांच करें।',
+                    'sec10-mistake2-title': 'ज्ञान कट-ऑफ:', 'sec10-mistake2-desc': 'मॉडल का ज्ञान वास्तविक समय का नहीं है और यह उस डेटा तक सीमित है जिस पर इसे प्रशिक्षित किया गया था। यह बहुत हाल की घटनाओं के बारे में नहीं जानता होगा।',
+                    'sec10-mistake3-title': 'पूर्वाग्रह:', 'sec10-mistake3-desc': 'चूंकि उन्हें इंटरनेट डेटा की विशाल मात्रा पर प्रशिक्षित किया जाता है, इसलिए मॉडल मौजूदा सामाजिक पूर्वाग्रहों को प्रतिबिंबित और बढ़ा सकते हैं।',
+                    'sec10-mistake4-title': 'सच्ची समझ का अभाव:', 'sec10-mistake4-desc': 'मॉडल पैटर्न-मिलान प्रणाली हैं। उनके पास चेतना, विश्वास या मानव की तरह सच्ची समझ नहीं है।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'ओपनएआई उपयोगकर्ताओं और डेवलपर्स को अपने शक्तिशाली मॉडलों तक पहुंचने के लिए कई प्लेटफ़ॉर्म प्रदान करता है।',
+                    'sec11-gov-title': '📚 सामान्य उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**चैटजीपीटी वेब इंटरफेस:** मॉडल के साथ बातचीत करने का सबसे लोकप्रिय तरीका chat.openai.com वेबसाइट के माध्यम से है।</li><li>**मोबाइल ऐप्स:** आधिकारिक चैटजीपीटी ऐप्स आईओएस और एंड्रॉइड दोनों प्लेटफॉर्म के लिए उपलब्ध हैं।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स के लिए', 'sec11-pvt-p1': 'एपीआई शक्तिशाली एकीकरण की अनुमति देता है।', 'sec11-pvt-list': '<li>**ओपनएआई एपीआई:** डेवलपर एपीआई कुंजी प्राप्त करने के लिए platform.openai.com पर साइन अप कर सकते हैं।</li><li>**प्लेग्राउंड:** एपीआई कॉल का परीक्षण करने और विभिन्न मॉडलों और मापदंडों के साथ प्रयोग करने के लिए एक वेब-आधारित इंटरफ़ेस।</li>',
+                    'sec12-title': '12. भविष्य: जीपीटी-5 और एजीआई 🚀',
+                    'sec12-p1': 'एआई विकास की गति तेज हो रही है। जीपीटी-4ओ में "ओ" का अर्थ "ओमनी" है, जो एक ऐसे मॉडल को दर्शाता है जो स्वाभाविक रूप से मल्टीमॉडल है। आगामी मॉडल, जिन्हें अक्सर "ओ-सीरीज" या जीपीटी-5 के रूप में अनुमान लगाया जाता है, से और भी उन्नत तर्क, वैयक्तिकरण और आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) के एक कदम और करीब आने की उम्मीद है।',
+                    'sec12-career-btn': 'अपेक्षित प्रगति देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन मूलभूत अवधारणाओं को समझने से आपको बड़े भाषा मॉडल कैसे काम करते हैं, इसकी गहरी सराहना मिलेगी।',
+                    'syllabus-oir-title': 'मूलभूत विचार',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧱</span><div class="flex-grow">टोकन</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">पैरामीटर</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मुख्य वास्तुकला घटक',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔄</span><div class="flex-grow">ट्रांसफार्मर वास्तुकला</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">ध्यान तंत्र</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | सुरक्षित और लाभकारी आर्टिफिशियल जनरल इंटेलिजेंस का निर्माण।',
+                    'interviewChartData': {
+                        labels: ['एमएमएलयू', 'जीपीक्यूए', 'ह्यूमनइवल', 'मैथ'],
+                        data: [90, 85, 75, 70] 
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'GPT-4 Performance',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(0, 246, 255, 0.7)',
+                            borderColor: '#00f6ff',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e7ff' },
+                                grid: { color: 'rgba(224, 231, 255, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e7ff', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 231, 255, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
+
