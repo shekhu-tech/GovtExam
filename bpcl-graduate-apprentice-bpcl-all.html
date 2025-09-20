@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPCL Recruitment Guide (Engineers, Officers & Apprentices)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to recruitment in HPCL for roles like Engineers through GATE, HR, Finance, Law Officers, and Technician Apprentices.">
+    <meta name="keywords" content="HPCL Recruitment, HPCL GATE, HPCL Apprentice, Hindustan Petroleum Jobs, PSU Jobs, Government Engineering Jobs, HPCL Officer">
+    <meta name="author" content="HPCL Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Slate 900 */
+            color: #e5e7eb; /* Gray 200 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ef4444, #3b82f6) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.85); /* Slate 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #475569; /* Slate 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ef4444; /* Red 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ef4444; /* Red 500 */
+            color: #ef4444;
+            background: #334155; /* Slate 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ef4444;
+            color: #1a202c;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+        }
+        .flowchart-arrow {
+            color: #3b82f6; /* Blue 500 */
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .subject-item .icon {
+            color: #3b82f6;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ef4444;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a202c;
+            border: 4px solid #ef4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 32, 44, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #475569;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ef4444;
+            color: #ef4444;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ef4444;
+            color: #1a202c;
+            box-shadow: 0 0 15px #ef4444;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #334155; 
+            color: #e5e7eb; 
+            border-color: #475569; 
+        }
+        .lectures-btn:hover {
+            background-color: #475569;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">⛽ HPCL Recruitment Guide ⛽</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-blue-400">Your Guide to a Career in a Leading Oil & Gas Navratna</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is HPCL Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1e293b] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is HPCL Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Hindustan Petroleum Corporation Limited (HPCL) is a Maharatna PSU and a major integrated oil refining and marketing company in India. A career at HPCL offers an opportunity to be part of a dynamic and vital industry. HPCL recruits a diverse range of talent, including fresh Engineers through GATE, professionals for corporate functions like HR, Finance, and Law, and skilled technicians through their apprenticeship programs to run its complex refineries and vast marketing network.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process at HPCL is a comprehensive evaluation designed to select candidates with strong technical knowledge, professional skills, and behavioral competencies.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">GATE Score or Written Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Group Task</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">For Officer Posts</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Personal Interview</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria for HPCL roles are role-specific and require specific qualifications.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ef4444] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">For Engineers, the maximum age is **25 years**. For HR/Finance/Law Officers, it is typically **27-29 years**. For Technician Apprentices, the age range is **18-25 years**. Age relaxations apply.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ef4444] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">**Engineers:** 4-year full-time B.E./B.Tech in the relevant discipline. **Officers:** MBA/PGDM in HR, CA/ICWA, or LLB. **Technician Apprentice:** Diploma in Engineering.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#3b82f6] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is no official limit on the number of attempts for HPCL recruitment.</li>
+                             <li>Candidates can apply in consecutive years provided they meet the age and qualification requirements of the specific advertisement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Exam Pattern (Officers & Apprentices) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For non-GATE recruitment (Officers and Apprentices), HPCL conducts its own Computer Based Test (CBT).</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-red-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Part 1: General Aptitude 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs1-sub1">English Language</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Quantitative Aptitude</div></div>
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs2-sub1">Intellectual Potential Test (Reasoning)</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-red-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Part 2: Technical/Professional 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">⚙️</span><div id="gs3-sub1">Questions from the specific discipline (e.g., HR, Finance, Law, or specific engineering diploma stream) to test domain knowledge.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">HPCL provides comprehensive training to its new recruits to orient them to the petroleum industry and the company's work culture.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ef4444]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Officers</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A one-year probation period for all officers.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Structured induction and training program.</li>
+                            <li>On-the-job training at various locations like refineries, marketing terminals, etc.</li>
+                            <li>Confirmation in the 'A' grade is subject to satisfactory performance.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#3b82f6]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Technician Apprentice</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A one-year apprenticeship training program.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Training is provided as per the provisions of the Apprentices Act, 1961.</li>
+                           <li>A monthly stipend is paid during the training period.</li>
+                           <li>Focuses on providing practical, hands-on experience.</li>
+                           <li>HPCL does not guarantee employment after the apprenticeship.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Roles at HPCL are dynamic and critical, covering the entire spectrum of the downstream petroleum sector.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Engineers</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Managing refinery operations.</li>
+                           <li>Project planning and execution.</li>
+                           <li>Maintenance of plant and machinery.</li>
+                           <li>Ensuring process safety.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Officers (HR/Fin/Law)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Talent acquisition and management (HR).</li>
+                           <li>Corporate finance and accounting (Finance).</li>
+                           <li>Handling legal matters and contracts (Law).</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Technician Apprentice</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting in day-to-day operations.</li>
+                           <li>Supporting maintenance activities.</li>
+                           <li>Learning and applying technical skills under supervision.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an HPCL Professional 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A career at HPCL requires a strong technical base, adaptability, and a commitment to contributing to India's energy security.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ef4444] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">⚙️</span><div><strong class="text-white">Domain Knowledge:</strong> A deep and practical understanding of core engineering or professional subjects.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🧠</span><div><strong class="text-white">Problem-Solving & Innovation:</strong> The ability to analyze complex situations and find innovative and efficient solutions.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🤝</span><div><strong class="text-white">Teamwork & Leadership:</strong> Collaborating effectively in teams and showing leadership potential.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">📈</span><div><strong class="text-white">Commercial Acumen:</strong> An understanding of the business aspects of the oil and gas industry.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Preparation needs to be strategic, focusing either on a top-tier GATE score for engineers or a balanced approach for direct recruitment tests.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For Engineers (GATE):</h3>
+                        <ol class="relative border-l-4 border-[#ef4444] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ef4444] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Excel in the GATE Exam</h4>
+                                <p id="sec8-step1-desc" class="text-base">A very high score in your GATE paper is the first and most critical step to get shortlisted by HPCL.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ef4444] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Prepare for GD & Interview</h4>
+                                <p id="sec8-step2-desc" class="text-base">Once shortlisted, focus on group tasks and personal interviews. Revise your core subjects and be well-versed with the oil and gas industry.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For Officers & Apprentices:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Balance Both Sections:</strong> The Computer Based Test has both general aptitude and technical/professional sections. Both need to be prepared well.</li>
+                            <li><strong>Practice Mock Tests:</strong> Take online mock tests to improve your speed, accuracy, and time management for the CBT.</li>
+                            <li><strong>Know Your Company:</strong> Research HPCL's business, its refineries, marketing network, and recent performance before the interview.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Engineer recruitment at HPCL is synchronized with the GATE timeline. Other vacancies, including for officers and apprentices, are advertised on their career portal as needed.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Notifications for Engineers through GATE are typically released after the GATE exam. Other vacancies appear on the Hindustan Petroleum website's "Careers" section.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application & Screening</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> After online applications, candidates are shortlisted based on GATE scores or written test marks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">GD & Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Shortlisted candidates are invited for Group Tasks and Personal Interviews, which carry significant weightage in the final selection.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Selection</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A final merit list is compiled based on scores from all stages, followed by a medical fitness test and issuance of the offer of employment.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Securing a position at HPCL requires avoiding common pitfalls that can hinder your chances in this highly competitive environment.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Low GATE Score:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">For engineers, not giving GATE the required seriousness and ending up with a score below HPCL's high cut-off.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Poor Performance in GD/Interview:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Failing to demonstrate communication skills, technical depth, and a positive attitude during the crucial final stages.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Not Reading the Advertisement:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Missing key eligibility details like minimum percentage, medical standards, or valid GATE paper codes.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Lack of Industry Knowledge:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Being unaware of the latest trends in the petroleum sector, renewable energy, and HPCL's role and projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">High-quality coaching and resources are readily available for aspirants targeting HPCL and other oil sector PSUs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Engineers (GATE)</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Enrolling in a reputed GATE coaching institute (online or offline) is the most effective strategy.</li>
+                           <li>Focus on solving previous years' papers and taking numerous mock tests.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📖 For Officers & Apprentices</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">A balanced approach is needed.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>For the technical part, refer to your standard degree/diploma textbooks.</li>
+                            <li>For general aptitude, follow resources for exams like CAT (for Officers) or SSC/Banking (for Apprentices).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">HPCL offers a fast-paced and merit-driven career path, providing opportunities to grow from an entry-level position to the highest leadership roles in the corporation.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0c1427]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Typical Syllabus (Direct Recruitment) 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus for HPCL's direct recruitment tests usually has two parts: a general aptitude section and a technical/professional knowledge section.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Technical/Professional Knowledge</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | Delivering Happiness.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Screening</h3>
+            <p id="prelims-modal-p1">The initial shortlisting is based on a competitive test. For Engineers, it's the score in the Graduate Aptitude Test in Engineering (GATE). For other roles like HR/Finance Officers and Apprentices, HPCL conducts its own Computer Based Test (CBT), which evaluates general aptitude and domain knowledge.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Group Task / Skill Test</h3>
+            <p id="mains-modal-p1">Candidates shortlisted from the first stage are called for the next round. For officer positions, this usually involves a Group Task to assess teamwork, leadership, and problem-solving skills. For Technician Apprentices, a Skill Test may be conducted to evaluate practical abilities.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Personal Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">This is the final selection stage for officer posts. A panel of senior HPCL management assesses candidates on their technical knowledge, behavioral competencies, and overall suitability for a career in the petroleum industry. The final merit list is based on the combined scores of all stages.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">HPCL Officer Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'engineers': { 
+                        name: 'Engineers (through GATE)', 
+                        icon: '🎓',
+                        description: 'HPCL recruits fresh engineers for its core technical operations in disciplines like Mechanical, Civil, Electrical, and Instrumentation based on their GATE scores.',
+                        cta: 'Learn More'
+                    },
+                    'officers': { 
+                        name: 'HR, Finance, Law Officers', 
+                        icon: '💼',
+                        description: 'Professionals with specialized qualifications (MBA, CA, LLB) are recruited to manage key corporate functions and provide expert support to the business.',
+                        cta: 'Learn More'
+                    },
+                    'apprentice': { 
+                        name: 'Technician Apprentice', 
+                        icon: '🛠️',
+                        description: 'A program for Diploma Engineers to gain one year of hands-on training in real industrial environments at HPCL\'s refineries and other locations.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'engineers': { 
+                        name: 'इंजीनियर (गेट के माध्यम से)', 
+                        icon: '🎓',
+                        description: 'एचपीसीएल गेट स्कोर के आधार पर मैकेनिकल, सिविल, इलेक्ट्रिकल और इंस्ट्रूमेंटेशन जैसे विषयों में अपने मुख्य तकनीकी संचालन के लिए नए इंजीनियरों की भर्ती करता है।',
+                        cta: 'और जानें'
+                    },
+                    'officers': { 
+                        name: 'मानव संसाधन, वित्त, विधि अधिकारी', 
+                        icon: '💼',
+                        description: 'विशेष योग्यता (एमबीए, सीए, एलएलबी) वाले पेशेवरों को प्रमुख कॉर्पोरेट कार्यों का प्रबंधन करने और व्यवसाय को विशेषज्ञ सहायता प्रदान करने के लिए भर्ती किया जाता है।',
+                        cta: 'और जानें'
+                    },
+                    'apprentice': { 
+                        name: 'तकनीशियन अपरेंटिस', 
+                        icon: '🛠️',
+                        description: 'डिप्लोमा इंजीनियरों के लिए एचपीसीएल की रिफाइनरियों और अन्य स्थानों पर वास्तविक औद्योगिक वातावरण में एक साल का व्यावहारिक प्रशिक्षण प्राप्त करने का एक कार्यक्रम।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Officer (Grade A/S1)", desc: "Entry-level position after confirmation from probation/training." },
+                        { rank: "Senior Officer (Grade B/S2)", desc: "First promotion, typically after 2-4 years, with increased responsibilities." },
+                        { rank: "Assistant Manager (Grade C/S3)", desc: "A mid-level management role leading small teams or projects." },
+                        { rank: "Deputy Manager (Grade D/S4)", desc: "Responsible for managing a specific section or area within a larger department." },
+                        { rank: "Manager (Grade E/S5)", desc: "Heading a department and playing a key role in operational or strategic decisions." },
+                        { rank: "DGM / GM / CGM", desc: "Senior leadership positions with broad responsibilities for entire locations or business verticals." },
+                        { rank: "Director / Chairman", desc: "The highest executive positions, guiding the entire Maharatna corporation." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "अधिकारी (ग्रेड ए/एस1)", desc: "परिवीक्षा/प्रशिक्षण से पुष्टि के बाद प्रवेश स्तर का पद।" },
+                        { rank: "वरिष्ठ अधिकारी (ग्रेड बी/एस2)", desc: "पहली पदोन्नति, आमतौर पर 2-4 वर्षों के बाद, बढ़ी हुई जिम्मेदारियों के साथ।" },
+                        { rank: "सहायक प्रबंधक (ग्रेड सी/एस3)", desc: "छोटी टीमों या परियोजनाओं का नेतृत्व करने वाली एक मध्य-स्तरीय प्रबंधन भूमिका।" },
+                        { rank: "उप प्रबंधक (ग्रेड डी/एस4)", desc: "एक बड़े विभाग के भीतर एक विशिष्ट अनुभाग या क्षेत्र के प्रबंधन के लिए जिम्मेदार।" },
+                        { rank: "प्रबंधक (ग्रेड ई/एस5)", desc: "एक विभाग का नेतृत्व करना और परिचालन या रणनीतिक निर्णयों में एक महत्वपूर्ण भूमिका निभाना।" },
+                        { rank: "डीजीएम / जीएम / सीजीएम", desc: "पूरे स्थानों या व्यावसायिक कार्यक्षेत्रों के लिए व्यापक जिम्मेदारियों के साथ वरिष्ठ नेतृत्व पद।" },
+                        { rank: "निदेशक / अध्यक्ष", desc: "उच्चतम कार्यकारी पद, जो पूरे महारत्न निगम का मार्गदर्शन करते हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⛽ HPCL Recruitment Guide ⛽',
+                    'header-subtitle': 'Your Guide to a Career in a Leading Oil & Gas Navratna',
+                    'sec1-title': '1. What is HPCL Recruitment? 💡',
+                    'sec1-p1': 'Hindustan Petroleum Corporation Limited (HPCL) is a Maharatna PSU and a major integrated oil refining and marketing company in India. A career at HPCL offers an opportunity to be part of a dynamic and vital industry. HPCL recruits a diverse range of talent, including fresh Engineers through GATE, professionals for corporate functions like HR, Finance, and Law, and skilled technicians through their apprenticeship programs to run its complex refineries and vast marketing network.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process at HPCL is a comprehensive evaluation designed to select candidates with strong technical knowledge, professional skills, and behavioral competencies.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'GATE Score or Written Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Group Task', 'sec2-step2-desc': 'For Officer Posts',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'Personal Interview',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria for HPCL roles are role-specific and require specific qualifications.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'For Engineers, the maximum age is **25 years**. For HR/Finance/Law Officers, it is typically **27-29 years**. For Technician Apprentices, the age range is **18-25 years**. Age relaxations apply.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': '**Engineers:** 4-year full-time B.E./B.Tech in the relevant discipline. **Officers:** MBA/PGDM in HR, CA/ICWA, or LLB. **Technician Apprentice:** Diploma in Engineering.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is no official limit on the number of attempts for HPCL recruitment.</li><li>Candidates can apply in consecutive years provided they meet the age and qualification requirements of the specific advertisement.</li>',
+                    'sec4-title': '4. Exam Pattern (Officers & Apprentices) 📚',
+                    'sec4-p1': 'For non-GATE recruitment (Officers and Apprentices), HPCL conducts its own Computer Based Test (CBT).',
+                    'gs1-title': 'Part 1: General Aptitude 📜', 'gs1-sub1': 'English Language', 'gs1-sub2': 'Quantitative Aptitude', 'gs2-sub1': 'Intellectual Potential Test (Reasoning)',
+                    'gs2-title': 'Part 2: Technical/Professional 🏛️', 'gs3-sub1': 'Questions from the specific discipline (e.g., HR, Finance, Law, or specific engineering diploma stream) to test domain knowledge.',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'HPCL provides comprehensive training to its new recruits to orient them to the petroleum industry and the company\'s work culture.',
+                    'sec5-hindi-title': '1. Officers', 'sec5-hindi-p1': 'A one-year probation period for all officers.', 'sec5-hindi-list': '<li>Structured induction and training program.</li><li>On-the-job training at various locations like refineries, marketing terminals, etc.</li><li>Confirmation in the \'A\' grade is subject to satisfactory performance.</li>',
+                    'sec5-essay-title': '2. Technician Apprentice', 'sec5-essay-p1': 'A one-year apprenticeship training program.', 'sec5-essay-list': '<li>Training is provided as per the provisions of the Apprentices Act, 1961.</li><li>A monthly stipend is paid during the training period.</li><li>Focuses on providing practical, hands-on experience.</li><li>HPCL does not guarantee employment after the apprenticeship.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'Roles at HPCL are dynamic and critical, covering the entire spectrum of the downstream petroleum sector.',
+                    'sec6-eng-title': 'Engineers', 'sec6-eng-list': '<li>Managing refinery operations.</li><li>Project planning and execution.</li><li>Maintenance of plant and machinery.</li><li>Ensuring process safety.</li>',
+                    'sec6-elec-title': 'Officers (HR/Fin/Law)', 'sec6-elec-list': '<li>Talent acquisition and management (HR).</li><li>Corporate finance and accounting (Finance).</li><li>Handling legal matters and contracts (Law).</li>',
+                    'sec6-naic-title': 'Technician Apprentice', 'sec6-naic-list': '<li>Assisting in day-to-day operations.</li><li>Supporting maintenance activities.</li><li>Learning and applying technical skills under supervision.</li>',
+                    'sec7-title': '7. Qualities of an HPCL Professional 🎙️',
+                    'sec7-p1': 'A career at HPCL requires a strong technical base, adaptability, and a commitment to contributing to India\'s energy security.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">⚙️</span><div><strong class="text-white">Domain Knowledge:</strong> A deep and practical understanding of core engineering or professional subjects.</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🧠</span><div><strong class="text-white">Problem-Solving & Innovation:</strong> The ability to analyze complex situations and find innovative and efficient solutions.</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🤝</span><div><strong class="text-white">Teamwork & Leadership:</strong> Collaborating effectively in teams and showing leadership potential.</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">📈</span><div><strong class="text-white">Commercial Acumen:</strong> An understanding of the business aspects of the oil and gas industry.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'Preparation needs to be strategic, focusing either on a top-tier GATE score for engineers or a balanced approach for direct recruitment tests.',
+                    'sec8-steps-title': '📚 For Engineers (GATE):',
+                    'sec8-step1-title': 'Excel in the GATE Exam', 'sec8-step1-desc': 'A very high score in your GATE paper is the first and most critical step to get shortlisted by HPCL.',
+                    'sec8-step2-title': 'Prepare for GD & Interview', 'sec8-step2-desc': 'Once shortlisted, focus on group tasks and personal interviews. Revise your core subjects and be well-versed with the oil and gas industry.',
+                    'sec8-revision-title': '🔄 For Officers & Apprentices:',
+                    'sec8-revision-list': '<li><strong>Balance Both Sections:</strong> The Computer Based Test has both general aptitude and technical/professional sections. Both need to be prepared well.</li><li><strong>Practice Mock Tests:</strong> Take online mock tests to improve your speed, accuracy, and time management for the CBT.</li><li><strong>Know Your Company:</strong> Research HPCL\'s business, its refineries, marketing network, and recent performance before the interview.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Engineer recruitment at HPCL is synchronized with the GATE timeline. Other vacancies, including for officers and apprentices, are advertised on their career portal as needed.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Notifications for Engineers through GATE are typically released after the GATE exam. Other vacancies appear on the Hindustan Petroleum website\'s "Careers" section.',
+                    'sec9-step2-title': 'Application & Screening', 'sec9-step2-desc': '<strong>Timeline:</strong> After online applications, candidates are shortlisted based on GATE scores or written test marks.',
+                    'sec9-step3-title': 'GD & Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates are invited for Group Tasks and Personal Interviews, which carry significant weightage in the final selection.',
+                    'sec9-step4-title': 'Final Selection', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is compiled based on scores from all stages, followed by a medical fitness test and issuance of the offer of employment.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Securing a position at HPCL requires avoiding common pitfalls that can hinder your chances in this highly competitive environment.',
+                    'sec10-mistake1-title': 'Low GATE Score:', 'sec10-mistake1-desc': 'For engineers, not giving GATE the required seriousness and ending up with a score below HPCL\'s high cut-off.',
+                    'sec10-mistake2-title': 'Poor Performance in GD/Interview:', 'sec10-mistake2-desc': 'Failing to demonstrate communication skills, technical depth, and a positive attitude during the crucial final stages.',
+                    'sec10-mistake3-title': 'Not Reading the Advertisement:', 'sec10-mistake3-desc': 'Missing key eligibility details like minimum percentage, medical standards, or valid GATE paper codes.',
+                    'sec10-mistake4-title': 'Lack of Industry Knowledge:', 'sec10-mistake4-desc': 'Being unaware of the latest trends in the petroleum sector, renewable energy, and HPCL\'s role and projects.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'High-quality coaching and resources are readily available for aspirants targeting HPCL and other oil sector PSUs.',
+                    'sec11-gov-title': '📚 For Engineers (GATE)', 'sec11-gov-list': '<li>Enrolling in a reputed GATE coaching institute (online or offline) is the most effective strategy.</li><li>Focus on a reputed test series to benchmark your performance.</li>',
+                    'sec11-pvt-title': '📖 For Officers & Apprentices', 'sec11-pvt-p1': 'A balanced approach is needed.', 'sec11-pvt-list': '<li>For the technical part, refer to your standard degree/diploma textbooks.</li><li>For general aptitude, follow resources for exams like CAT (for Officers) or SSC/Banking (for Apprentices).</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'HPCL offers a fast-paced and merit-driven career path, providing opportunities to grow from an entry-level position to the highest leadership roles in the corporation.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Typical Syllabus (Direct Recruitment) 📚',
+                    'sec13-p1': 'The syllabus for HPCL\'s direct recruitment tests usually has two parts: a general aptitude section and a technical/professional knowledge section.',
+                    'syllabus-oir-title': 'General Aptitude',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Technical/Professional Knowledge',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Core Engineering/Diploma Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">Subjects for HR, Finance, Law</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Delivering Happiness.',
+                    'interviewChartData': {
+                        labels: ['Domain Knowledge', 'Problem Solving', 'Teamwork', 'Commercial Acumen'],
+                        data: [95, 90, 88, 85]
+                    }
+                },
+                'hi': {
+                    'header-title': '⛽ एचपीसीएल भर्ती गाइड ⛽',
+                    'header-subtitle': 'एक अग्रणी तेल और गैस नवरत्न में करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. एचपीसीएल भर्ती क्या है? 💡',
+                    'sec1-p1': 'हिंदुस्तान पेट्रोलियम कॉर्पोरेशन लिमिटेड (एचपीसीएल) एक महारत्न पीएसयू और भारत की एक प्रमुख एकीकृत तेल शोधन और विपणन कंपनी है। एचपीसीएल में एक कैरियर एक गतिशील और महत्वपूर्ण उद्योग का हिस्सा बनने का अवसर प्रदान करता है। एचपीसीएल गेट के माध्यम से नए इंजीनियरों, मानव संसाधन, वित्त और कानून जैसे कॉर्पोरेट कार्यों के लिए पेशेवरों, और अपनी जटिल रिफाइनरियों और विशाल विपणन नेटवर्क को चलाने के लिए प्रशिक्षुता कार्यक्रमों के माध्यम से कुशल तकनीशियनों सहित विविध प्रकार की प्रतिभाओं की भर्ती करता है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'एचपीसीएल में चयन प्रक्रिया एक व्यापक मूल्यांकन है जिसे मजबूत तकनीकी ज्ञान, पेशेवर कौशल और व्यवहारिक दक्षताओं वाले उम्मीदवारों का चयन करने के लिए डिज़ाइन किया गया है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'गेट स्कोर या लिखित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'समूह कार्य', 'sec2-step2-desc': 'अधिकारी पदों के लिए',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'व्यक्तिगत साक्षात्कार',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'एचपीसीएल भूमिकाओं के लिए पात्रता मानदंड भूमिका-विशिष्ट हैं और विशिष्ट योग्यता की आवश्यकता होती है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'इंजीनियरों के लिए, अधिकतम आयु **25 वर्ष** है। मानव संसाधन/वित्त/विधि अधिकारियों के लिए, यह आमतौर पर **27-29 वर्ष** है। तकनीशियन अपरेंटिस के लिए, आयु सीमा **18-25 वर्ष** है। छूट लागू होती है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': '**इंजीनियर:** प्रासंगिक अनुशासन में 4-वर्षीय पूर्णकालिक बी.ई./बी.टेक। **अधिकारी:** मानव संसाधन में एमबीए/पीजीडीएम, सीए/आईसीडब्ल्यूए, या एलएलबी। **तकनीशियन अपरेंटिस:** इंजीनियरिंग में डिप्लोमा।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>एचपीसीएल भर्ती के लिए प्रयासों की संख्या पर कोई आधिकारिक सीमा नहीं है।</li><li>उम्मीदवार लगातार वर्षों में आवेदन कर सकते हैं बशर्ते वे विशिष्ट विज्ञापन की आयु और योग्यता आवश्यकताओं को पूरा करते हों।</li>',
+                    'sec4-title': '4. परीक्षा पैटर्न (अधिकारी और अपरेंटिस) 📚',
+                    'sec4-p1': 'गैर-गेट भर्ती (अधिकारी और अपरेंटिस) के लिए, एचपीसीएल अपनी स्वयं की कंप्यूटर आधारित परीक्षा (सीबीटी) आयोजित करता है।',
+                    'gs1-title': 'भाग 1: सामान्य योग्यता 📜', 'gs1-sub1': 'अंग्रेजी भाषा', 'gs1-sub2': 'मात्रात्मक योग्यता', 'gs2-sub1': 'बौद्धिक क्षमता परीक्षण (तर्क)',
+                    'gs2-title': 'भाग 2: तकनीकी/व्यावसायिक 🏛️', 'gs3-sub1': 'डोमेन ज्ञान का परीक्षण करने के लिए विशिष्ट अनुशासन (जैसे, मानव संसाधन, वित्त, कानून, या विशिष्ट इंजीनियरिंग डिप्लोमा स्ट्रीम) से प्रश्न।',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'एचपीसीएल अपने नए रंगरूटों को पेट्रोलियम उद्योग और कंपनी की कार्य संस्कृति के बारे में बताने के लिए व्यापक प्रशिक्षण प्रदान करता है।',
+                    'sec5-hindi-title': '1. अधिकारी', 'sec5-hindi-p1': 'सभी अधिकारियों के लिए एक साल की परिवीक्षा अवधि।', 'sec5-hindi-list': '<li>संरचित प्रेरण और प्रशिक्षण कार्यक्रम।</li><li>रिफाइनरियों, विपणन टर्मिनलों आदि जैसे विभिन्न स्थानों पर ऑन-द-जॉब प्रशिक्षण।</li><li>\'ए\' ग्रेड में पुष्टि संतोषजनक प्रदर्शन के अधीन है।</li>',
+                    'sec5-essay-title': '2. तकनीशियन अपरेंटिस', 'sec5-essay-p1': 'एक वर्षीय शिक्षुता प्रशिक्षण कार्यक्रम।', 'sec5-essay-list': '<li>प्रशिक्षण अपरेंटिस अधिनियम, 1961 के प्रावधानों के अनुसार प्रदान किया जाता है।</li><li>प्रशिक्षण अवधि के दौरान एक मासिक वजीफा दिया जाता है।</li><li>व्यावहारिक, व्यावहारिक अनुभव प्रदान करने पर केंद्रित है।</li><li>एचपीसीएल शिक्षुता के बाद रोजगार की गारंटी नहीं देता है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'एचपीसीएल में भूमिकाएं गतिशील और महत्वपूर्ण हैं, जो डाउनस्ट्रीम पेट्रोलियम क्षेत्र के पूरे स्पेक्ट्रम को कवर करती हैं।',
+                    'sec6-eng-title': 'इंजीनियर', 'sec6-eng-list': '<li>रिफाइनरी संचालन का प्रबंधन।</li><li>परियोजना योजना और निष्पादन।</li><li>संयंत्र और मशीनरी का रखरखाव।</li><li>प्रक्रिया सुरक्षा सुनिश्चित करना।</li>',
+                    'sec6-elec-title': 'अधिकारी (मानव संसाधन/वित्त/कानून)', 'sec6-elec-list': '<li>प्रतिभा अधिग्रहण और प्रबंधन (मानव संसाधन)।</li><li>कॉर्पोरेट वित्त और लेखा (वित्त)।</li><li>कानूनी मामलों और अनुबंधों को संभालना (कानून)।</li>',
+                    'sec6-naic-title': 'तकनीशियन अपरेंटिस', 'sec6-naic-list': '<li>दिन-प्रतिदिन के कार्यों में सहायता करना।</li><li>रखरखाव गतिविधियों का समर्थन करना।</li><li>पर्यवेक्षण के तहत तकनीकी कौशल सीखना और लागू करना।</li>',
+                    'sec7-title': '7. एक एचपीसीएल पेशेवर के गुण 🎙️',
+                    'sec7-p1': 'एचपीसीएल में एक कैरियर के लिए एक मजबूत तकनीकी आधार, अनुकूलनशीलता और भारत की ऊर्जा सुरक्षा में योगदान करने की प्रतिबद्धता की आवश्यकता होती है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">⚙️</span><div><strong class="text-white">डोमेन ज्ञान:</strong> मुख्य इंजीनियरिंग या पेशेवर विषयों की एक गहरी और व्यावहारिक समझ।</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🧠</span><div><strong class="text-white">समस्या-समाधान और नवाचार:</strong> जटिल स्थितियों का विश्लेषण करने और नवीन और कुशल समाधान खोजने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">🤝</span><div><strong class="text-white">टीम वर्क और नेतृत्व:</strong> टीमों में प्रभावी ढंग से सहयोग करना और नेतृत्व क्षमता दिखाना।</div></li><li class="flex items-start"><span class="text-2xl text-[#3b82f6] mr-3">📈</span><div><strong class="text-white">वाणिज्यिक कौशल:</strong> तेल और गैस उद्योग के व्यावसायिक पहलुओं की समझ।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'तैयारी को रणनीतिक होने की आवश्यकता है, या तो इंजीनियरों के लिए एक शीर्ष स्तरीय गेट स्कोर पर ध्यान केंद्रित करना या सीधी भर्ती परीक्षणों के लिए एक संतुलित दृष्टिकोण।',
+                    'sec8-steps-title': '📚 इंजीनियरों के लिए (GATE):',
+                    'sec8-step1-title': 'गेट परीक्षा में उत्कृष्टता प्राप्त करें', 'sec8-step1-desc': 'एचपीसीएल द्वारा शॉर्टलिस्ट किए जाने के लिए आपका गेट पेपर में बहुत अधिक स्कोर पहला और सबसे महत्वपूर्ण कदम है।',
+                    'sec8-step2-title': 'जीडी और साक्षात्कार के लिए तैयारी करें', 'sec8-step2-desc': 'शॉर्टलिस्ट होने के बाद, समूह कार्यों और व्यक्तिगत साक्षात्कारों पर ध्यान केंद्रित करें। अपने मुख्य विषयों को संशोधित करें और तेल और गैस उद्योग के साथ अच्छी तरह से वाकिफ रहें।',
+                    'sec8-revision-title': '🔄 अधिकारियों और अपरेंटिस के लिए:',
+                    'sec8-revision-list': '<li><strong>दोनों वर्गों को संतुलित करें:</strong> कंप्यूटर आधारित परीक्षा में सामान्य योग्यता और तकनीकी/पेशेवर दोनों खंड होते हैं। दोनों को अच्छी तरह से तैयार करने की आवश्यकता है।</li><li><strong>मॉक टेस्ट का अभ्यास करें:</strong> सीबीटी के लिए अपनी गति, सटीकता और समय प्रबंधन में सुधार के लिए ऑनलाइन मॉक टेस्ट दें।</li><li><strong>अपनी कंपनी को जानें:</strong> साक्षात्कार से पहले एचपीसीएल के व्यवसाय, इसकी रिफाइनरियों, विपणन नेटवर्क और हाल के प्रदर्शन पर शोध करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'एचपीसीएल में इंजीनियर भर्ती गेट समयरेखा के साथ सिंक्रनाइज़ है। अधिकारियों और प्रशिक्षुओं सहित अन्य रिक्तियों का विज्ञापन आवश्यकतानुसार उनके करियर पोर्टल पर किया जाता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> गेट परीक्षा के बाद गेट के माध्यम से इंजीनियरों के लिए सूचनाएं जारी की जाती हैं। अन्य रिक्तियां हिंदुस्तान पेट्रोलियम वेबसाइट के "करियर" अनुभाग पर दिखाई देती हैं।',
+                    'sec9-step2-title': 'आवेदन और स्क्रीनिंग', 'sec9-step2-desc': '<strong>समयरेखा:</strong> ऑनलाइन आवेदनों के बाद, उम्मीदवारों को गेट स्कोर या लिखित परीक्षा के अंकों के आधार पर शॉर्टलिस्ट किया जाता है।',
+                    'sec9-step3-title': 'जीडी और साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों को समूह कार्यों और व्यक्तिगत साक्षात्कारों के लिए आमंत्रित किया जाता है, जिनका अंतिम चयन में महत्वपूर्ण महत्व होता है।',
+                    'sec9-step4-title': 'अंतिम चयन', 'sec9-step4-desc': '<strong>समयरेखा:</strong> सभी चरणों के अंकों के आधार पर एक अंतिम मेरिट सूची संकलित की जाती है, जिसके बाद एक चिकित्सा फिटनेस परीक्षण और रोजगार के प्रस्ताव का मुद्दा होता है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'एचपीसीएल में एक पद हासिल करने के लिए इस अत्यधिक प्रतिस्पर्धी माहौल में आपकी संभावनाओं में बाधा डालने वाली सामान्य नुकसानों से बचना आवश्यक है।',
+                    'sec10-mistake1-title': 'कम गेट स्कोर:', 'sec10-mistake1-desc': 'इंजीनियरों के लिए, गेट को आवश्यक गंभीरता नहीं देना और एचपीसीएल के उच्च कट-ऑफ से नीचे के स्कोर के साथ समाप्त होना।',
+                    'sec10-mistake2-title': 'जीडी/साक्षात्कार में खराब प्रदर्शन:', 'sec10-mistake2-desc': 'महत्वपूर्ण अंतिम चरणों के दौरान संचार कौशल, तकनीकी गहराई और एक सकारात्मक दृष्टिकोण प्रदर्शित करने में विफल होना।',
+                    'sec10-mistake3-title': 'विज्ञापन नहीं पढ़ना:', 'sec10-mistake3-desc': 'न्यूनतम प्रतिशत, चिकित्सा मानकों, या वैध गेट पेपर कोड जैसे प्रमुख पात्रता विवरणों को याद करना।',
+                    'sec10-mistake4-title': 'उद्योग ज्ञान का अभाव:', 'sec10-mistake4-desc': 'पेट्रोलियम क्षेत्र, नवीकरणीय ऊर्जा और एचपीसीएल की भूमिका और परियोजनाओं में नवीनतम रुझानों से अनभिज्ञ होना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'एचपीसीएल और अन्य तेल क्षेत्र के पीएसयू को लक्षित करने वाले उम्मीदवारों के लिए उच्च गुणवत्ता वाली कोचिंग और संसाधन आसानी से उपलब्ध हैं।',
+                    'sec11-gov-title': '📚 इंजीनियरों के लिए (GATE)', 'sec11-gov-list': '<li>एक प्रतिष्ठित गेट कोचिंग संस्थान (ऑनलाइन या ऑफलाइन) में दाखिला लेना सबसे प्रभावी रणनीति है।</li><li>अपने प्रदर्शन को बेंचमार्क करने के लिए एक प्रतिष्ठित टेस्ट श्रृंखला पर ध्यान दें।</li>',
+                    'sec11-pvt-title': '📖 अधिकारियों और अपरेंटिस के लिए', 'sec11-pvt-p1': 'एक संतुलित दृष्टिकोण की आवश्यकता है।', 'sec11-pvt-list': '<li>तकनीकी भाग के लिए, अपनी मानक डिग्री/डिप्लोमा पाठ्यपुस्तकों का संदर्भ लें।</li><li>सामान्य योग्यता के लिए, कैट (अधिकारियों के लिए) या एसएससी/बैंकिंग (अपरेंटिस के लिए) जैसी परीक्षाओं के लिए संसाधनों का पालन करें।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'एचपीसीएल एक तेज-तर्रार और योग्यता-संचालित कैरियर पथ प्रदान करता है, जो एक प्रवेश स्तर की स्थिति से निगम में उच्चतम नेतृत्व भूमिकाओं तक बढ़ने के अवसर प्रदान करता है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. विशिष्ट पाठ्यक्रम (सीधी भर्ती) 📚',
+                    'sec13-p1': 'एचपीसीएल की सीधी भर्ती परीक्षाओं के लिए पाठ्यक्रम में आमतौर पर दो भाग होते हैं: एक सामान्य योग्यता अनुभाग और एक तकनीकी/पेशेवर ज्ञान अनुभाग।',
+                    'syllabus-oir-title': 'सामान्य योग्यता',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'तकनीकी/व्यावसायिक ज्ञान',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">मुख्य इंजीनियरिंग/डिप्लोमा विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">मानव संसाधन, वित्त, कानून के लिए विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | खुशियां प्रदान करना।',
+                    'interviewChartData': {
+                        labels: ['डोमेन ज्ञान', 'समस्या समाधान', 'टीम वर्क', 'वाणिज्यिक कौशल'],
+                        data: [95, 90, 88, 85]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#1e293b]/50 rounded-xl text-center border-2 border-slate-700 hover:border-yellow-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(250, 204, 21, 0.7)',
+                            borderColor: '#facc15',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#dbeafe' },
+                                grid: { color: 'rgba(219, 234, 254, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#dbeafe', font: { size: 14 } },
+                                grid: { color: 'rgba(219, 234, 254, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
