@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Gato: The Ultimate Generalist AI Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Google DeepMind's Gato, the multi-modal, multi-task, multi-embodiment generalist agent. Understand its technology, capabilities, and significance in the path to AGI.">
+    <meta name="keywords" content="Google, DeepMind, Gato, Generalist AI, Multimodal AI, Artificial General Intelligence, AGI, Transformer, AI Agent, Robotics">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1b26; /* Very Dark Indigo */
+            color: #e3e4e6; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #9333ea, #0ea5e9) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 27, 38, 0.85); /* Dark Indigo Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #3c3d52; /* Medium Indigo */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(147, 51, 234, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #9333ea; /* Purple 600 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #9333ea; /* Purple 600 */
+            color: #9333ea;
+            background: #2a2b3a; /* Darker Indigo */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.2);
+            text-shadow: 0 0 5px rgba(147, 51, 234, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #9333ea;
+            color: #1a1b26;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(147, 51, 234, 0.5);
+        }
+        .flowchart-arrow {
+            color: #0ea5e9; /* Sky 500 */
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0ea5e9;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+        .subject-item .icon {
+            color: #0ea5e9;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #9333ea;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a1b26;
+            border: 4px solid #9333ea;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 27, 38, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2b3a;
+            color: #e3e4e6;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #3c3d52;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #9333ea, #7e22ce);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(147, 51, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(147, 51, 234, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #9333ea;
+            color: #9333ea;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #9333ea;
+            color: #ffffff;
+            box-shadow: 0 0 15px #9333ea;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #3c3d52; 
+            color: #e3e4e6; 
+            border-color: #4a4b6d; 
+        }
+        .lectures-btn:hover {
+            background-color: #4a4b6d;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🤖 Google DeepMind's Gato: The Ultimate Guide 🤖</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-sky-400">Understanding the First Generalist AI Agent</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Gato? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2b3a] via-[#1a1b26] to-[#1a1b26]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Google's Gato? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Gato, developed by Google DeepMind, is a groundbreaking AI model described as a "generalist agent." Unlike specialized AI that excels at one task (like playing chess or generating text), Gato is a single, multi-modal model that can perform a huge variety of tasks without being retrained. It can play video games, caption images, engage in dialogue, and even control a real robot arm. Gato represents a significant step towards creating Artificial General Intelligence (AGI).</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Generalist Agent Approach 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Gato's magic lies in its ability to treat every task as a sequence of tokens, whether that's a word, a pixel, a button press, or a robot joint action.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Tokenization</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">All data (text, images, actions) is converted to tokens</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Gato Model</span><br><span id="sec2-step2-name">Transformer</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">A single model processes the sequence of tokens</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Action Token</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Model predicts the next token, which is an action</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Key Concepts -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Key Concepts Behind Gato ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Gato is built on several fundamental concepts from modern AI research.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#9333ea] mr-4">🔄</span><div><strong id="sec3-age-title" class="text-white text-lg">Transformer Architecture:</strong> <span id="sec3-age-desc">Like GPT and other modern LLMs, Gato is based on the transformer architecture, which is excellent at processing sequential data.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#9333ea] mr-4">🧩</span><div><strong id="sec3-edu-title" class="text-white text-lg">Tokenization:</strong> <span id="sec3-edu-desc">The key innovation is its ability to tokenize everything—text, images, robot arm movements, button presses—into a single, flat sequence that the model can process.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#0ea5e9] pb-2">Multi-everything 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Multi-modal:</strong> It can process multiple types of data (modalities).</li>
+                             <li><strong>Multi-task:</strong> It can perform hundreds of different tasks.</li>
+                             <li><strong>Multi-embodiment:</strong> Its knowledge is not just abstract; it can be applied in both simulated environments (video games) and the physical world (robotics).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. What Can Gato Do? 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Gato was trained on 604 distinct tasks, demonstrating an unprecedented level of versatility for a single AI model.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Play Atari Games</h3>
+                    </div>
+                     <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Caption Images</h3>
+                    </div>
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Engage in Dialogue</h3>
+                    </div>
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Control a Robot Arm</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training a Generalist 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Gato was trained on a massive and extremely diverse dataset collected from various real and simulated environments.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#9333ea]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A vast collection of experiences.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Included text, images, and actions from a wide range of sources.</li>
+                            <li>Real-world robotic data for tasks like stacking blocks.</li>
+                            <li>Simulated 3D environment data (like MuJoCo).</li>
+                            <li>Text from massive language datasets (like C4).</li>
+                            <li>Image and text data from datasets like ALIGN.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#0ea5e9]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Training Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Learning to predict the next action.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>All this diverse data was serialized into a flat sequence of tokens.</li>
+                           <li>The model was trained using supervised learning to predict the next token in the sequence.</li>
+                           <li>For an agent, the "next token" is an action, like a joystick movement or a robot arm command.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Tasks Gato Can Perform 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The same Gato model, with the same network weights, can perform a huge variety of tasks without any task-specific fine-tuning.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Vision-Language</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Image Captioning</li>
+                           <li>Visual Question Answering</li>
+                           <li>Following instructions in simulated worlds</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Robotics</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Stacking blocks with a real Sawywer robot arm</li>
+                           <li>Controlling robotic arms in simulation</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Gaming & Text</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Playing classic Atari games</li>
+                           <li>Engaging in general text-based dialogue</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Key Innovations & Significance 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Gato's main contribution is demonstrating that a single, large-scale transformer model can be a viable path toward creating a generalist agent.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#9333ea] pb-2">Why Gato is Important:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">☝️</span><div><strong class="text-white">Single Generalist Model:</strong> It proved that one network can learn to perform a wide variety of tasks from different domains and embodiments.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">📈</span><div><strong class="text-white">Scalability:</strong> The research suggests that simply scaling up the size of the model and the diversity of the training data could lead to even more capable generalist agents.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🤖</span><div><strong class="text-white">A Path to AGI:</strong> Gato provides a concrete research direction and a proof-of-concept for building more general-purpose AI systems, a key step toward Artificial General Intelligence.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. The Path to Generalist AI 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Building on Gato, the path to more capable generalist agents involves scaling up several key aspects of the model and its training.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Research Directions:</h3>
+                        <ol class="relative border-l-4 border-[#9333ea] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#9333ea] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Scaling Up the Model</h4>
+                                <p id="sec8-step1-desc" class="text-base">Increasing the number of parameters in the transformer network to enhance its learning capacity.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#9333ea] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Expanding the Dataset</h4>
+                                <p id="sec8-step2-desc" class="text-base">Training on an even larger and more diverse dataset covering more tasks, modalities, and embodiments.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#9333ea] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Improving Architecture</h4>
+                                <p id="sec8-step3-desc" class="text-base">Developing more efficient tokenization methods and transformer architectures to handle longer sequences and real-time interaction.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 The Goal:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>To create AI agents that can understand and perform any task a human can, across a wide variety of environments.</li>
+                            <li>These agents could then be applied to solve major scientific and real-world problems.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Timeline 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Gato is a milestone in a long line of research at Google DeepMind aimed at creating more general and capable AI.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">AlphaGo</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> 2016. A specialized agent that mastered the game of Go.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">AlphaStar & OpenAI Five</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> 2019. AI agents that achieved grandmaster level at complex video games like StarCraft II and Dota 2.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Gato Launch</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> May 2022. DeepMind unveils Gato, a single generalist agent that can perform hundreds of different tasks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Gemini & Future Agents</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Present & Future. Models like Gemini build on Gato's multimodal foundation, and future research will focus on creating even more capable agents like "Robotic Transformer 2" (RT-2).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Challenges 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While a significant step, Gato is a research prototype and has several key limitations.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Jack of All Trades, Master of None:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Gato can perform many tasks, but it does not achieve state-of-the-art performance on any single one. Specialized models still outperform it.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">No Continuous Learning:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Like most current models, Gato cannot learn new tasks or remember past interactions continuously without being retrained.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Limited Context Window:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Gato has a limited memory (context window of 1024 tokens), which restricts its ability to perform tasks that require long-term planning.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">No True Understanding:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Gato is a pattern-matching system. It does not have a real-world understanding, consciousness, or common sense.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access Gato 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Gato is a research project and is not available as a public product or API.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Research Paper</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>The primary way to understand Gato is by reading the official research paper published by Google DeepMind, titled "A Generalist Agent."</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Successor Models</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Gato's learnings are being incorporated into newer models.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>The multimodal and agentic capabilities of models like Google's Gemini and Robotic Transformers (RT-2) are direct descendants of the research pioneered by Gato.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Towards AGI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Gato is a crucial proof-of-concept on the long road to Artificial General Intelligence (AGI). The future of AI research will build on this generalist approach, scaling up models and training them on even more diverse data to create agents that can learn and perform a vast range of tasks, ultimately leading to AI systems with human-like general intelligence.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core AI concepts is fundamental to grasping the innovation behind Gato.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Generalist vs. Specialist AI</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Tokenization & Modalities</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-purple-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Solving intelligence to advance science and benefit humanity.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Tokenization</h3>
+            <p id="prelims-modal-p1">The first step is to convert all forms of data into a unified format. Gato "tokenizes" everything: words in a dialogue, pixels in an image, joystick movements in a game, and even the positions and forces of a robot's joints. This creates a single, flat sequence of numbers that the model can understand.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Gato Model: Transformer</h3>
+            <p id="mains-modal-p1">This unified sequence of tokens is fed into a single, large Transformer neural network. The Transformer processes the sequence, using its attention mechanism to understand the relationships and context between different tokens, regardless of whether they represent text, an image, or a past action.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Action Token</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">After processing the input sequence, Gato's task is always the same: predict the next token in the sequence. This "next token" is then decoded back into a meaningful action. If the task was a dialogue, the action is the next word. If the task was a game, the action is a button press. If the task was robotics, the action is a specific joint movement.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Gato</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'multimodal': { 
+                        name: 'Multi-Modal', 
+                        icon: '🤖',
+                        description: 'Gato can process and act upon text, images, and other forms of data within a single model.',
+                        cta: 'Learn More'
+                    },
+                    'multitask': { 
+                        name: 'Multi-Task', 
+                        icon: '📋',
+                        description: 'It can perform a wide variety of tasks, from playing games to captioning images, without needing to be retrained for each one.',
+                        cta: 'Learn More'
+                    },
+                    'multiembodiment': { 
+                        name: 'Multi-Embodiment', 
+                        icon: '🦾',
+                        description: 'Gato can control different "bodies," whether it\'s a character in a video game or a real-world robot arm.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'multimodal': { 
+                        name: 'बहु-विध', 
+                        icon: '🤖',
+                        description: 'गाटो एक ही मॉडल के भीतर पाठ, चित्र और डेटा के अन्य रूपों पर प्रक्रिया और कार्य कर सकता है।',
+                        cta: 'और जानें'
+                    },
+                    'multitask': { 
+                        name: 'बहु-कार्य', 
+                        icon: '📋',
+                        description: 'यह गेम खेलने से लेकर छवियों को कैप्शन देने तक, प्रत्येक के लिए फिर से प्रशिक्षित होने की आवश्यकता के बिना विभिन्न प्रकार के कार्य कर सकता है।',
+                        cta: 'और जानें'
+                    },
+                    'multiembodiment': { 
+                        name: 'बहु-अवतार', 
+                        icon: '🦾',
+                        description: 'गाटो अलग-अलग "शरीरों" को नियंत्रित कर सकता है, चाहे वह वीडियो गेम में एक चरित्र हो या वास्तविक दुनिया का रोबोट हाथ।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "A Single Generalist Agent", desc: "Unlike previous AI that were masters of one skill, Gato is a jack-of-all-trades, using the same network to perform many different tasks." },
+                        { rank: "Unified Tokenization", desc: "Its key innovation is converting all forms of data—images, text, button presses, joint torques—into a single unified language (tokens) that a transformer can understand." },
+                        { rank: "A Step Towards AGI", desc: "While not AGI itself, Gato demonstrates that a scalable, general-purpose agent is a viable and promising path of research for achieving Artificial General Intelligence." },
+                        { rank: "Embodied Intelligence", desc: "It bridges the gap between digital intelligence (like chatbots) and physical intelligence (like robotics), showing how a single model can operate in both realms." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "एक एकल सामान्यज्ञ एजेंट", desc: "पिछले एआई के विपरीत जो एक कौशल के स्वामी थे, गाटो एक जैक-ऑफ-ऑल-ट्रेड्स है, जो कई अलग-अलग कार्यों को करने के लिए एक ही नेटवर्क का उपयोग करता है।" },
+                        { rank: "एकीकृत टोकनीकरण", desc: "इसका मुख्य नवाचार सभी प्रकार के डेटा-छवियों, पाठ, बटन प्रेस, संयुक्त टॉर्क- को एक ही एकीकृत भाषा (टोकन) में परिवर्तित करना है जिसे एक ट्रांसफार्मर समझ सकता है।" },
+                        { rank: "एजीआई की ओर एक कदम", desc: "हालांकि यह स्वयं एजीआई नहीं है, गाटो दर्शाता है कि एक स्केलेबल, सामान्य-उद्देश्य वाला एजेंट आर्टिफिशियल जनरल इंटेलिजेंस प्राप्त करने के लिए एक व्यवहार्य और आशाजनक शोध पथ है।" },
+                        { rank: "सन्निहित बुद्धिमत्ता", desc: "यह डिजिटल बुद्धिमत्ता (जैसे चैटबॉट) और भौतिक बुद्धिमत्ता (जैसे रोबोटिक्स) के बीच की खाई को पाटता है, यह दर्शाता है कि एक ही मॉडल दोनों क्षेत्रों में कैसे काम कर सकता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🤖 Google DeepMind\'s Gato: The Ultimate Guide 🤖',
+                    'header-subtitle': 'Understanding the First Generalist AI Agent',
+                    'sec1-title': '1. What is Google\'s Gato? 💡',
+                    'sec1-p1': 'Gato, developed by Google DeepMind, is a groundbreaking AI model described as a "generalist agent." Unlike specialized AI that excels at one task (like playing chess or generating text), Gato is a single, multi-modal model that can perform a huge variety of tasks without being retrained. It can play video games, caption images, engage in dialogue, and even control a real robot arm. Gato represents a significant step towards creating Artificial General Intelligence (AGI).',
+                    'sec2-title': '2. The Generalist Agent Approach 🎯',
+                    'sec2-p1': 'Gato\'s magic lies in its ability to treat every task as a sequence of tokens, whether that\'s a word, a pixel, a button press, or a robot joint action.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Tokenization', 'sec2-step1-desc': 'All data (text, images, actions) is converted to tokens',
+                    'sec2-step2-title': 'Gato Model', 'sec2-step2-name': 'Transformer', 'sec2-step2-desc': 'A single model processes the sequence of tokens',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Action Token', 'sec2-step3-desc': 'Model predicts the next token, which is an action',
+                    'sec3-title': '3. Key Concepts Behind Gato ✅',
+                    'sec3-p1': 'Gato is built on several fundamental concepts from modern AI research.',
+                    'sec3-age-title': 'Transformer Architecture:', 'sec3-age-desc': 'Like GPT and other modern LLMs, Gato is based on the transformer architecture, which is excellent at processing sequential data.',
+                    'sec3-edu-title': 'Tokenization:', 'sec3-edu-desc': 'The key innovation is its ability to tokenize everything—text, images, robot arm movements, button presses—into a single, flat sequence that the model can process.',
+                    'sec3-attempts-title': 'Multi-everything 📊',
+                    'sec3-agerelax-list': '<li><strong>Multi-modal:</strong> It can process multiple types of data (modalities).</li><li><strong>Multi-task:</strong> It can perform hundreds of different tasks.</li><li><strong>Multi-embodiment:</strong> Its knowledge is not just abstract; it can be applied in both simulated environments (video games) and the physical world (robotics).</li>',
+                    'sec4-title': '4. What Can Gato Do? 📚',
+                    'sec4-p1': 'Gato was trained on 604 distinct tasks, demonstrating an unprecedented level of versatility for a single AI model.',
+                    'gs1-title': 'Play Atari Games',
+                    'gs2-title': 'Caption Images',
+                    'gs3-title': 'Engage in Dialogue',
+                    'gs4-title': 'Control a Robot Arm',
+                    'sec5-title': '5. Training a Generalist 🏛️',
+                    'sec5-p1': 'Gato was trained on a massive and extremely diverse dataset collected from various real and simulated environments.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A vast collection of experiences.', 'sec5-hindi-list': '<li>Included text, images, and actions from a wide range of sources.</li><li>Real-world robotic data for tasks like stacking blocks.</li><li>Simulated 3D environment data (like MuJoCo).</li><li>Text from massive language datasets (like C4).</li><li>Image and text data from datasets like ALIGN.</li>',
+                    'sec5-essay-title': '2. The Training Process', 'sec5-essay-p1': 'Learning to predict the next action.', 'sec5-essay-list': '<li>All this diverse data was serialized into a flat sequence of tokens.</li><li>The model was trained using supervised learning to predict the next token in the sequence.</li><li>For an agent, the "next token" is an action, like a joystick movement or a robot arm command.</li>',
+                    'sec6-title': '6. Tasks Gato Can Perform 🌟',
+                    'sec6-p1': 'The same Gato model, with the same network weights, can perform a huge variety of tasks without any task-specific fine-tuning.',
+                    'sec6-eng-title': 'Vision-Language', 'sec6-eng-list': '<li>Image Captioning</li><li>Visual Question Answering</li><li>Following instructions in simulated worlds</li>',
+                    'sec6-elec-title': 'Robotics', 'sec6-elec-list': '<li>Stacking blocks with a real Sawywer robot arm</li><li>Controlling robotic arms in simulation</li>',
+                    'sec6-naic-title': 'Gaming & Text', 'sec6-naic-list': '<li>Playing classic Atari games</li><li>Engaging in general text-based dialogue</li>',
+                    'sec7-title': '7. Key Innovations & Significance 🎙️',
+                    'sec7-p1': 'Gato\'s main contribution is demonstrating that a single, large-scale transformer model can be a viable path toward creating a generalist agent.',
+                    'sec7-qualities-title': 'Why Gato is Important:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">☝️</span><div><strong class="text-white">Single Generalist Model:</strong> It proved that one network can learn to perform a wide variety of tasks from different domains and embodiments.</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">📈</span><div><strong class="text-white">Scalability:</strong> The research suggests that simply scaling up the size of the model and the diversity of the training data could lead to even more capable generalist agents.</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🤖</span><div><strong class="text-white">A Path to AGI:</strong> Gato provides a concrete research direction and a proof-of-concept for building more general-purpose AI systems, a key step toward Artificial General Intelligence.</div></li>',
+                    'sec8-title': '8. The Path to Generalist AI 📈',
+                    'sec8-p1': 'Building on Gato, the path to more capable generalist agents involves scaling up several key aspects of the model and its training.',
+                    'sec8-steps-title': '📚 Key Research Directions:',
+                    'sec8-step1-title': 'Scaling Up the Model', 'sec8-step1-desc': 'Increasing the number of parameters in the transformer network to enhance its learning capacity.',
+                    'sec8-step2-title': 'Expanding the Dataset', 'sec8-step2-desc': 'Training on an even larger and more diverse dataset covering more tasks, modalities, and embodiments.',
+                    'sec8-step3-title': 'Improving Architecture', 'sec8-step3-desc': 'Developing more efficient tokenization methods and transformer architectures to handle longer sequences and real-time interaction.',
+                    'sec8-revision-title': '🔄 The Goal:',
+                    'sec8-revision-list': '<li>To create AI agents that can understand and perform any task a human can, across a wide variety of environments.</li><li>These agents could then be applied to solve major scientific and real-world problems.</li>',
+                    'sec9-title': '9. Model Timeline 🗓️',
+                    'sec9-p1': 'Gato is a milestone in a long line of research at Google DeepMind aimed at creating more general and capable AI.',
+                    'sec9-step1-title': 'AlphaGo', 'sec9-step1-desc': '<strong>Timeline:</strong> 2016. A specialized agent that mastered the game of Go.',
+                    'sec9-step2-title': 'AlphaStar & OpenAI Five', 'sec9-step2-desc': '<strong>Timeline:</strong> 2019. AI agents that achieved grandmaster level at complex video games like StarCraft II and Dota 2.',
+                    'sec9-step3-title': 'Gato Launch', 'sec9-step3-desc': '<strong>Timeline:</strong> May 2022. DeepMind unveils Gato, a single generalist agent that can perform hundreds of different tasks.',
+                    'sec9-step4-title': 'Gemini & Future Agents', 'sec9-step4-desc': '<strong>Timeline:</strong> Present & Future. Models like Gemini build on Gato\'s multimodal foundation, and future research will focus on creating even more capable agents like "Robotic Transformer 2" (RT-2).',
+                    'sec10-title': '10. Limitations & Challenges 🚫',
+                    'sec10-p1': 'While a significant step, Gato is a research prototype and has several key limitations.',
+                    'sec10-mistake1-title': 'Jack of All Trades, Master of None:', 'sec10-mistake1-desc': 'Gato can perform many tasks, but it does not achieve state-of-the-art performance on any single one. Specialized models still outperform it.',
+                    'sec10-mistake2-title': 'No Continuous Learning:', 'sec10-mistake2-desc': 'Like most current models, Gato cannot learn new tasks or remember past interactions continuously without being retrained.',
+                    'sec10-mistake3-title': 'Limited Context Window:', 'sec10-mistake3-desc': 'Gato has a limited memory (context window of 1024 tokens), which restricts its ability to perform tasks that require long-term planning.',
+                    'sec10-mistake4-title': 'No True Understanding:', 'sec10-mistake4-desc': 'Gato is a pattern-matching system. It does not have a real-world understanding, consciousness, or common sense.',
+                    'sec11-title': '11. How to Access Gato 🏫',
+                    'sec11-p1': 'Gato is a research project and is not available as a public product or API.',
+                    'sec11-gov-title': '📚 Research Paper', 'sec11-gov-list': '<li>The primary way to understand Gato is by reading the official research paper published by Google DeepMind, titled "A Generalist Agent."</li>',
+                    'sec11-pvt-title': '💻 Successor Models', 'sec11-pvt-p1': 'Gato\'s learnings are being incorporated into newer models.', 'sec11-pvt-list': '<li>The multimodal and agentic capabilities of models like Google\'s Gemini and Robotic Transformers (RT-2) are direct descendants of the research pioneered by Gato.</li>',
+                    'sec12-title': '12. The Future: Towards AGI 🚀',
+                    'sec12-p1': 'Gato is a crucial proof-of-concept on the long road to Artificial General Intelligence (AGI). The future of AI research will build on this generalist approach, scaling up models and training them on even more diverse data to create agents that can learn and perform a vast range of tasks, ultimately leading to AI systems with human-like general intelligence.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core AI concepts is fundamental to grasping the innovation behind Gato.',
+                    'syllabus-oir-title': 'Generalist vs. Specialist AI',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">Specialist (e.g., AlphaGo)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Generalist (e.g., Gato)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Tokenization & Modalities',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">Tokenization</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">Multimodality & Embodiment</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Solving intelligence to advance science and benefit humanity.',
+                    'interviewChartData': {
+                        labels: ['Gaming', 'Robotics', 'Vision', 'Language'],
+                        data: [75, 60, 70, 80] // Example data representing comparative performance
+                    }
+                },
+                'hi': {
+                    'header-title': '🤖 गूगल डीपमाइंड का गाटो: अंतिम गाइड 🤖',
+                    'header-subtitle': 'पहले सामान्यज्ञ एआई एजेंट को समझना',
+                    'sec1-title': '1. गूगल का गाटो क्या है? 💡',
+                    'sec1-p1': 'गूगल डीपमाइंड द्वारा विकसित गाटो, एक अभूतपूर्व एआई मॉडल है जिसे "सामान्यज्ञ एजेंट" के रूप में वर्णित किया गया है। विशेष एआई के विपरीत जो एक कार्य में उत्कृष्टता प्राप्त करता है (जैसे शतरंज खेलना या पाठ उत्पन्न करना), गाटो एक एकल, बहु-विध मॉडल है जो फिर से प्रशिक्षित किए बिना बड़ी संख्या में कार्य कर सकता है। यह वीडियो गेम खेल सकता है, छवियों को कैप्शन दे सकता है, संवाद में संलग्न हो सकता है, और यहां तक कि एक वास्तविक रोबोट हाथ को भी नियंत्रित कर सकता है। गाटो आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) बनाने की दिशा में एक महत्वपूर्ण कदम का प्रतिनिधित्व करता है।',
+                    'sec2-title': '2. सामान्यज्ञ एजेंट दृष्टिकोण 🎯',
+                    'sec2-p1': 'गाटो का जादू हर कार्य को टोकन के एक अनुक्रम के रूप में मानने की क्षमता में निहित है, चाहे वह एक शब्द हो, एक पिक्सेल हो, एक बटन प्रेस हो, या एक रोबोट संयुक्त क्रिया हो।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'टोकनीकरण', 'sec2-step1-desc': 'सभी डेटा (पाठ, चित्र, क्रियाएं) टोकन में परिवर्तित हो जाते हैं',
+                    'sec2-step2-title': 'गाटो मॉडल', 'sec2-step2-name': 'ट्रांसफार्मर', 'sec2-step2-desc': 'एक एकल मॉडल टोकन के अनुक्रम को संसाधित करता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'एक्शन टोकन', 'sec2-step3-desc': 'मॉडल अगले टोकन की भविष्यवाणी करता है, जो एक क्रिया है',
+                    'sec3-title': '3. गाटो के पीछे की मुख्य अवधारणाएँ ✅',
+                    'sec3-p1': 'गाटो आधुनिक एआई अनुसंधान से कई मौलिक अवधारणाओं पर बनाया गया है।',
+                    'sec3-age-title': 'ट्रांसफार्मर वास्तुकला:', 'sec3-age-desc': 'जीपीटी और अन्य आधुनिक एलएलएम की तरह, गाटो ट्रांसफार्मर वास्तुकला पर आधारित है, जो अनुक्रमिक डेटा को संसाधित करने में उत्कृष्ट है।',
+                    'sec3-edu-title': 'टोकनीकरण:', 'sec3-edu-desc': 'मुख्य नवाचार इसकी हर चीज को टोकन करने की क्षमता है - पाठ, चित्र, रोबोट हाथ की गतिविधियां, बटन प्रेस - एक एकल, सपाट अनुक्रम में जिसे मॉडल संसाधित कर सकता है।',
+                    'sec3-attempts-title': 'बहु-सब कुछ 📊',
+                    'sec3-agerelax-list': '<li><strong>बहु-विध:</strong> यह कई प्रकार के डेटा (विधियों) को संसाधित कर सकता है।</li><li><strong>बहु-कार्य:</strong> यह सैकड़ों विभिन्न कार्य कर सकता है।</li><li><strong>बहु-अवतार:</strong> इसका ज्ञान केवल अमूर्त नहीं है; इसे नकली वातावरण (वीडियो गेम) और भौतिक दुनिया (रोबोटिक्स) दोनों में लागू किया जा सकता है।</li>',
+                    'sec4-title': '4. गाटो क्या कर सकता है? 📚',
+                    'sec4-p1': 'गाटो को 604 अलग-अलग कार्यों पर प्रशिक्षित किया गया था, जो एक एकल एआई मॉडल के लिए अभूतपूर्व स्तर की बहुमुखी प्रतिभा का प्रदर्शन करता है।',
+                    'gs1-title': 'अटारी गेम खेलें',
+                    'gs2-title': 'छवियों को कैप्शन दें',
+                    'gs3-title': 'संवाद में संलग्न हों',
+                    'gs4-title': 'एक रोबोट हाथ को नियंत्रित करें',
+                    'sec5-title': '5. एक सामान्यज्ञ को प्रशिक्षित करना 🏛️',
+                    'sec5-p1': 'गाटो को विभिन्न वास्तविक और नकली वातावरणों से एकत्र किए गए एक विशाल और अत्यंत विविध डेटासेट पर प्रशिक्षित किया गया था।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'अनुभवों का एक विशाल संग्रह।', 'sec5-hindi-list': '<li>विभिन्न स्रोतों से पाठ, चित्र और क्रियाएं शामिल हैं।</li><li>ब्लॉक स्टैकिंग जैसे कार्यों के लिए वास्तविक दुनिया का रोबोटिक डेटा।</li><li>नकली 3डी वातावरण डेटा (जैसे मुजोको)।</li><li>विशाल भाषा डेटासेट (जैसे सी4) से पाठ।</li><li>एएलआईजीएन जैसे डेटासेट से छवि और पाठ डेटा।</li>',
+                    'sec5-essay-title': '2. प्रशिक्षण प्रक्रिया', 'sec5-essay-p1': 'अगली क्रिया की भविष्यवाणी करना सीखना।', 'sec5-essay-list': '<li>इस सभी विविध डेटा को टोकन के एक सपाट अनुक्रम में क्रमबद्ध किया गया था।</li><li>मॉडल को अनुक्रम में अगले टोकन की भविष्यवाणी करने के लिए पर्यवेक्षित शिक्षण का उपयोग करके प्रशिक्षित किया गया था।</li><li>एक एजेंट के लिए, "अगला टोकन" एक क्रिया है, जैसे जॉयस्टिक आंदोलन या रोबोट हाथ कमांड।</li>',
+                    'sec6-title': '6. गाटो द्वारा किए जा सकने वाले कार्य 🌟',
+                    'sec6-p1': 'एक ही गाटो मॉडल, एक ही नेटवर्क भार के साथ, बिना किसी कार्य-विशिष्ट फाइन-ट्यूनिंग के बड़ी संख्या में विभिन्न कार्य कर सकता है।',
+                    'sec6-eng-title': 'दृष्टि-भाषा', 'sec6-eng-list': '<li>छवि कैप्शनिंग</li><li>दृश्य प्रश्न उत्तर</li><li>नकली दुनिया में निर्देशों का पालन करना</li>',
+                    'sec6-elec-title': 'रोबोटिक्स', 'sec6-elec-list': '<li>एक वास्तविक सॉयर रोबोट हाथ से ब्लॉक स्टैकिंग</li><li>सिमुलेशन में रोबोटिक हथियारों को नियंत्रित करना</li>',
+                    'sec6-naic-title': 'गेमिंग और टेक्स्ट', 'sec6-naic-list': '<li>क्लासिक अटारी गेम खेलना</li><li>सामान्य पाठ-आधारित संवाद में संलग्न होना</li>',
+                    'sec7-title': '7. मुख्य नवाचार और महत्व 🎙️',
+                    'sec7-p1': 'गाटो का मुख्य योगदान यह प्रदर्शित करना है कि एक एकल, बड़े पैमाने पर ट्रांसफार्मर मॉडल एक सामान्यज्ञ एजेंट बनाने की दिशा में एक व्यवहार्य मार्ग हो सकता है।',
+                    'sec7-qualities-title': 'गाटो क्यों महत्वपूर्ण है:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">☝️</span><div><strong class="text-white">एकल सामान्यज्ञ एजेंट:</strong> इसने साबित कर दिया कि एक नेटवर्क विभिन्न डोमेन और अवतारों से विभिन्न प्रकार के कार्य करना सीख सकता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">📈</span><div><strong class="text-white">मापनीयता:</strong> शोध से पता चलता है कि केवल मॉडल के आकार और प्रशिक्षण डेटा की विविधता को बढ़ाने से और भी अधिक सक्षम सामान्यज्ञ एजेंट बन सकते हैं।</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🤖</span><div><strong class="text-white">एजीआई का एक मार्ग:</strong> गाटो अधिक सामान्य-उद्देश्य वाली एआई प्रणालियों के निर्माण के लिए एक ठोस शोध दिशा और एक अवधारणा का प्रमाण प्रदान करता है, जो आर्टिफिशियल जनरल इंटेलिजेंस की दिशा में एक महत्वपूर्ण कदम है।</div></li>',
+                    'sec8-title': '8. सामान्यज्ञ एआई का मार्ग 📈',
+                    'sec8-p1': 'गाटो पर निर्माण, अधिक सक्षम सामान्यज्ञ एजेंटों का मार्ग मॉडल और उसके प्रशिक्षण के कई प्रमुख पहलुओं को बढ़ाने में शामिल है।',
+                    'sec8-steps-title': '📚 प्रमुख शोध दिशाएँ:',
+                    'sec8-step1-title': 'मॉडल को बढ़ाना', 'sec8-step1-desc': 'इसकी सीखने की क्षमता को बढ़ाने के लिए ट्रांसफार्मर नेटवर्क में मापदंडों की संख्या बढ़ाना।',
+                    'sec8-step2-title': 'डेटासेट का विस्तार', 'sec8-step2-desc': 'और भी बड़े और अधिक विविध डेटासेट पर प्रशिक्षण जिसमें अधिक कार्य, तौर-तरीके और अवतार शामिल हैं।',
+                    'sec8-step3-title': 'वास्तुकला में सुधार', 'sec8-step3-desc': 'लंबी अनुक्रमों और वास्तविक समय की बातचीत को संभालने के लिए अधिक कुशल टोकनीकरण विधियों और ट्रांसफार्मर आर्किटेक्चर का विकास करना।',
+                    'sec8-revision-title': '🔄 लक्ष्य:',
+                    'sec8-revision-list': '<li>ऐसे एआई एजेंट बनाना जो विभिन्न प्रकार के वातावरणों में मानव द्वारा किए जा सकने वाले किसी भी कार्य को समझ और कर सकें।</li><li>इन एजेंटों को तब प्रमुख वैज्ञानिक और वास्तविक दुनिया की समस्याओं को हल करने के लिए लागू किया जा सकता है।</li>',
+                    'sec9-title': '9. मॉडल टाइमलाइन 🗓️',
+                    'sec9-p1': 'गाटो गूगल डीपमाइंड में अनुसंधान की एक लंबी श्रृंखला में एक मील का पत्थर है जिसका उद्देश्य अधिक सामान्य और सक्षम एआई बनाना है।',
+                    'sec9-step1-title': 'अल्फागो', 'sec9-step1-desc': '<strong>समयरेखा:</strong> 2016। एक विशेष एजेंट जिसने गो के खेल में महारत हासिल की।',
+                    'sec9-step2-title': 'अल्फास्टार और ओपनएआई फाइव', 'sec9-step2-desc': '<strong>समयरेखा:</strong> 2019। एआई एजेंट जिन्होंने स्टारक्राफ्ट II और डोटा 2 जैसे जटिल वीडियो गेम में ग्रैंडमास्टर स्तर हासिल किया।',
+                    'sec9-step3-title': 'गाटो लॉन्च', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मई 2022। डीपमाइंड ने गाटो का अनावरण किया, एक एकल सामान्यज्ञ एजेंट जो सैकड़ों विभिन्न कार्य कर सकता है।',
+                    'sec9-step4-title': 'जेमिनी और भविष्य के एजेंट', 'sec9-step4-desc': '<strong>समयरेखा:</strong> वर्तमान और भविष्य। जेमिनी जैसे मॉडल गाटो के मल्टीमॉडल नींव पर आधारित हैं, और भविष्य के शोध "रोबोटिक ट्रांसफार्मर 2" (आरटी-2) जैसे और भी अधिक सक्षम एजेंट बनाने पर ध्यान केंद्रित करेंगे।',
+                    'sec10-title': '10. सीमाएं और चुनौतियां 🚫',
+                    'sec10-p1': 'हालांकि एक महत्वपूर्ण कदम, गाटो एक शोध प्रोटोटाइप है और इसकी कई प्रमुख सीमाएं हैं।',
+                    'sec10-mistake1-title': 'हरफनमौला, किसी का उस्ताद नहीं:', 'sec10-mistake1-desc': 'गाटो कई कार्य कर सकता है, लेकिन यह किसी एक पर अत्याधुनिक प्रदर्शन प्राप्त नहीं करता है। विशेष मॉडल अभी भी इससे बेहतर प्रदर्शन करते हैं।',
+                    'sec10-mistake2-title': 'कोई निरंतर सीखना नहीं:', 'sec10-mistake2-desc': 'अधिकांश मौजूदा मॉडलों की तरह, गाटो फिर से प्रशिक्षित किए बिना लगातार नए कार्य नहीं सीख सकता है या पिछली बातचीत को याद नहीं रख सकता है।',
+                    'sec10-mistake3-title': 'सीमित संदर्भ विंडो:', 'sec10-mistake3-desc': 'गाटो की एक सीमित मेमोरी (1024 टोकन की संदर्भ विंडो) है, जो लंबी अवधि की योजना की आवश्यकता वाले कार्यों को करने की इसकी क्षमता को प्रतिबंधित करती है।',
+                    'sec10-mistake4-title': 'कोई सच्ची समझ नहीं:', 'sec10-mistake4-desc': 'गाटो एक पैटर्न-मिलान प्रणाली है। इसमें वास्तविक दुनिया की समझ, चेतना या सामान्य ज्ञान नहीं है।',
+                    'sec11-title': '11. गाटो तक कैसे पहुँचें 🏫',
+                    'sec11-p1': 'गाटो एक शोध परियोजना है और यह एक सार्वजनिक उत्पाद या एपीआई के रूप में उपलब्ध नहीं है।',
+                    'sec11-gov-title': '📚 शोध पत्र', 'sec11-gov-list': '<li>गाटो को समझने का प्राथमिक तरीका गूगल डीपमाइंड द्वारा प्रकाशित आधिकारिक शोध पत्र पढ़ना है, जिसका शीर्षक "एक सामान्यज्ञ एजेंट" है।</li>',
+                    'sec11-pvt-title': '💻 उत्तराधिकारी मॉडल', 'sec11-pvt-p1': 'गाटो की सीख को नए मॉडलों में शामिल किया जा रहा है।', 'sec11-pvt-list': '<li>गूगल के जेमिनी और रोबोटिक ट्रांसफार्मर (आरटी-2) जैसे मॉडलों की मल्टीमॉडल और एजेंटिक क्षमताएं गाटो द्वारा अग्रणी शोध के प्रत्यक्ष वंशज हैं।</li>',
+                    'sec12-title': '12. भविष्य: एजीआई की ओर 🚀',
+                    'sec12-p1': 'गाटो आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) की लंबी सड़क पर एक महत्वपूर्ण अवधारणा का प्रमाण है। एआई अनुसंधान का भविष्य इस सामान्यज्ञ दृष्टिकोण पर आधारित होगा, मॉडल को बढ़ाएगा और उन्हें और भी विविध डेटा पर प्रशिक्षित करेगा ताकि ऐसे एजेंट बनाए जा सकें जो विशाल श्रेणी के कार्यों को सीख और कर सकें, अंततः मानव जैसी सामान्य बुद्धि वाली एआई प्रणालियों की ओर ले जाएगा।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'गाटो के पीछे के नवाचार को समझने के लिए इन मुख्य एआई अवधारणाओं को समझना मौलिक है।',
+                    'syllabus-oir-title': 'सामान्यज्ञ बनाम विशेषज्ञ एआई',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🎯</span><div class="flex-grow">विशेषज्ञ (जैसे, अल्फागो)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">सामान्यज्ञ (जैसे, गाटो)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'टोकनीकरण और तौर-तरीके',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧩</span><div class="flex-grow">टोकनीकरण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">मल्टीमॉडल और अवतार</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | विज्ञान को आगे बढ़ाने और मानवता को लाभ पहुंचाने के लिए बुद्धिमत्ता का समाधान।',
+                    'interviewChartData': {
+                        labels: ['गेमिंग', 'रोबोटिक्स', 'दृष्टि', 'भाषा'],
+                        data: [75, 60, 70, 80]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-purple-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Performance Score (vs. Expert)',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(147, 51, 234, 0.7)',
+                                'rgba(14, 165, 233, 0.7)',
+                                'rgba(234, 179, 8, 0.7)',
+                                'rgba(52, 211, 153, 0.7)'
+                            ],
+                            borderColor: [
+                                '#9333ea',
+                                '#0ea5e9',
+                                '#eab308',
+                                '#22c55e'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
