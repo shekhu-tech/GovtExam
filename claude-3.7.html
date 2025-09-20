@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic Claude 3.7: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Anthropic's hypothetical Claude 3.7 model. Understand its next-generation capabilities like tool use, autonomous agency, and advanced safety.">
+    <meta name="keywords" content="Anthropic, Claude 3.7, Tool Use, Autonomous AI, Constitutional AI, Large Language Models, AI Safety, Multimodal AI, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1c1c; /* Deep Charcoal */
+            color: #e0e0e0; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #39ff14, #7df9ff) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(28, 28, 28, 0.85); /* Darker Charcoal Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #444444; /* Medium Gray */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(57, 255, 20, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #39ff14; /* Electric Lime */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #39ff14; /* Electric Lime */
+            color: #39ff14;
+            background: #2a2a2a; /* Dark Gray */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #39ff14;
+            color: #1c1c1c;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+        }
+        .flowchart-arrow {
+            color: #7df9ff; /* Electric Cyan */
+            text-shadow: 0 0 10px rgba(125, 249, 255, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #7df9ff;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #2a2a2a;
+        }
+        .subject-item:hover {
+            background-color: rgba(125, 249, 255, 0.1);
+        }
+        .subject-item .icon {
+            color: #7df9ff;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #39ff14;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1c1c1c;
+            border: 4px solid #39ff14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(28, 28, 28, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #444444;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #a3a3a3; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #39ff14, #22c55e);
+            color: #1c1c1c;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(57, 255, 20, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(57, 255, 20, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #39ff14;
+            color: #39ff14;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #39ff14;
+            color: #1c1c1c;
+            box-shadow: 0 0 15px #39ff14;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #7df9ff, #00bfff);
+            color: #1c1c1c;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #444444; 
+            color: #e0e0e0; 
+            border-color: #555555; 
+        }
+        .lectures-btn:hover {
+            background-color: #555555;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🤖 Anthropic Claude 3.7: The Ultimate Guide 🤖</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-lime-300 to-cyan-400">The Next Frontier in AI: Tool Use and Agency</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Claude 3.7? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2a2a] via-[#1c1c1c] to-[#1c1c1c]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Claude 3.7? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Claude 3.7 is the latest iteration in Anthropic's series of advanced AI models. Building on the benchmark-setting performance of the Claude 3 family, version 3.7 represents a significant leap towards more practical and autonomous AI. Its defining new feature is **Tool Use**, which allows the model to interact with external tools and APIs, enabling it to perform complex, multi-step actions, access live data, and interact with other software systems. This transforms Claude from a conversationalist into a proactive digital assistant.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Claude 3.7 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Claude 3.7 expands on the Constitutional AI framework by integrating a sophisticated mechanism for tool selection and execution, allowing it to perform actions in the real world.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">User Request</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">User gives a complex task</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Claude 3.7</span><br><span id="sec2-step2-name">Tool Selection</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Model chooses the right tool/API</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Action & Result</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Executes action and provides the result</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Claude 3.7's advanced capabilities are being rolled out, primarily targeting developers and enterprise customers who can build safe and powerful applications.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#39ff14] mr-4">🧑‍💻</span><div><strong id="sec3-age-title" class="text-white text-lg">Developers & Businesses:</strong> <span id="sec3-age-desc">The Tool Use feature is primarily available through the Anthropic API, allowing developers to build sophisticated AI agents.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#39ff14] mr-4">⭐</span><div><strong id="sec3-edu-title" class="text-white text-lg">Pro Users:</strong> <span id="sec3-edu-desc">The core reasoning and vision capabilities of the model are available to Claude Pro subscribers at claude.ai.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#7df9ff] pb-2">Availability 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>Tool Use is in beta and accessible via the API and through cloud partners like Google Cloud and AWS.</li>
+                             <li>The underlying model's improved reasoning is being rolled out to all platforms where Claude 3 Opus is available.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Next-Generation Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Claude 3.7 goes beyond passive generation, introducing capabilities that allow it to act as an intelligent agent.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-lime-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Tool Use (Function Calling)</h3>
+                        <p class="text-sm">Connects to external APIs and databases to fetch real-time data and perform actions.</p>
+                    </div>
+                     <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-lime-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Autonomous Agency</h3>
+                         <p class="text-sm">Can break down a complex goal into a sequence of steps and use different tools to accomplish it.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-lime-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Advanced Vision</h3>
+                         <p class="text-sm">Enhanced understanding of complex charts, graphs, and multi-image layouts for sophisticated visual analysis.</p>
+                    </div>
+                    <div class="bg-[#2a2a2a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-lime-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Higher Accuracy</h3>
+                         <p class="text-sm">Further reduction in model hallucinations and improved accuracy in recalling information from long documents.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is Claude 3.7 Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Claude 3.7's training process builds on the Constitutional AI framework with an added layer of training for tool selection and safe execution.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#39ff14]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Core Model</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The model is an iteration on the Claude 3 Opus architecture, trained on a more recent and diverse dataset of text and images to enhance its reasoning and vision capabilities.</p>
+                    </div>
+                    <div class="p-6 bg-[#2a2a2a] rounded-xl border-2 border-[#7df9ff]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Training for Tool Use</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">The model is specifically fine-tuned on a massive dataset of API documentation and examples of tool usage. It learns to:
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Understand a user's intent and select the appropriate tool.</li>
+                           <li>Generate the correct syntax to call that tool or API.</li>
+                           <li>Process the tool's output and present it to the user in a natural language format.</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The ability to use tools transforms Claude from a knowledge base into a powerful action-oriented agent, unlocking a new class of applications.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Personal Assistants</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Booking flights and hotels by interacting with travel APIs.</li>
+                           <li>Managing calendars and sending emails.</li>
+                           <li>Ordering groceries from online stores.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Business Automation</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Automating internal workflows by connecting to company databases and software.</li>
+                           <li>Creating intelligent customer support agents that can process refunds or update orders.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Data Analysis</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fetching real-time stock market data and generating analysis reports.</li>
+                           <li>Querying internal company databases to answer business questions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Claude 3.7 is evaluated on new, more complex benchmarks that test its ability to use tools accurately and perform multi-step reasoning.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#39ff14] pb-2">Key Evaluation Areas:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛠️</span><div><strong class="text-white">Tool Use Accuracy:</strong> Benchmarks that measure the model's ability to correctly select and use a tool to solve a given problem.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🧠</span><div><strong class="text-white">Multi-step Reasoning:</strong> More complex benchmarks that require the model to chain multiple tool calls and reasoning steps to arrive at a final answer.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛡️</span><div><strong class="text-white">Safety in Action:</strong> Evaluating the model's ability to refuse to use tools for harmful, unethical, or dangerous purposes.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting for Tool Use 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To effectively leverage Claude 3.7's tool use capabilities, developers need to provide the model with a clear definition of the available tools.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#39ff14] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#39ff14] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Define Your Tools</h4>
+                                <p id="sec8-step1-desc" class="text-base">In your API call, provide a clear, structured definition (e.g., in JSON schema) of each tool, including its name, description, and input parameters.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#39ff14] rounded-full -left-2.5 border-4 border-[#2a2a2a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Write Good Descriptions</h4>
+                                <p id="sec8-step2-desc" class="text-base">The model relies heavily on the tool descriptions to decide when to use them. Make them clear, concise, and unambiguous.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 The Workflow:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>The user makes a request.</li>
+                            <li>The model, seeing the available tools, decides a tool is needed and responds with the JSON for the tool call.</li>
+                            <li>Your application code executes this tool/API call.</li>
+                            <li>You send the result from the tool back to the model.</li>
+                            <li>The model uses this result to formulate the final natural language answer for the user.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Versions -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Claude 3.7 is the latest step in a rapid evolutionary path, moving from pure language models to multimodal, action-taking agents.</p>
+                <div class="career-path-timeline">
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Claude 3 Family Launch</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2024. Set new industry benchmarks for intelligence and introduced vision capabilities.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step5-title" class="font-semibold text-xl text-white mb-1">Claude 3.7 Release</h4>
+                        <p id="sec9-step5-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Q3 2025 (Hypothetical). Introduces Tool Use and agentic capabilities, transforming the model into a practical assistant that can perform actions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Safety 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">With the ability to take actions, safety becomes even more critical. Anthropic has built in multiple layers of protection.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Requires Human Oversight:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Autonomous agents are not yet fully reliable. Critical actions should always require human confirmation before execution.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Potential for Errors:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">The model might misunderstand a request and call the wrong tool or provide incorrect parameters, leading to unexpected outcomes.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Complex Setup:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Implementing tool use effectively requires careful design of the tools, prompts, and the application logic that handles the interaction flow.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Safety Guardrails:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">The model is designed to refuse to use tools that could cause harm, such as deleting files or sending malicious emails.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Access to Claude 3.7's agentic features is primarily through developer-focused platforms.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For General Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Claude Pro:** Users can experience the enhanced reasoning and vision of the underlying 3.7 model through the claude.ai interface.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">The API is the primary gateway to Tool Use.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Anthropic API:** The Tool Use feature is available in beta through the API for developers to build agent-like applications.</li>
+                            <li>**Cloud Platforms:** Enterprise access is available via Amazon Bedrock and Google Cloud Vertex AI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: AI Agents & AGI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Claude 3.7's tool-using capability is a major milestone on the path to creating truly helpful AI assistants and, eventually, Artificial General Intelligence (AGI). The future will see AI move from being a tool for information retrieval to being a proactive partner that can execute complex tasks and workflows on our behalf, fundamentally changing how we interact with technology.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these advanced concepts is key to grasping the power and potential of models like Claude 3.7.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Tool Use / Function Calling</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Agentic AI</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | AI research and products that put safety at the frontier.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: User Request</h3>
+            <p id="prelims-modal-p1">The process starts when a user provides a complex, action-oriented prompt, such as "What's the current price of Anthropic's stock and send an email summary to my team?" This prompt can also include images or documents for context.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Claude 3.7: Tool Selection</h3>
+            <p id="mains-modal-p1">The model analyzes the user's intent. It recognizes that to fulfill the request, it needs to perform actions. It consults its available set of tools (defined by the developer) and decides to use a 'stock_price_api' tool first, and then an 'email_sending' tool.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Action & Result</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The model first returns the appropriate command to call the stock API. The application executes this, gets the price, and sends it back to the model. The model then uses this information to compose an email and returns the command to call the email API, which the application executes. Finally, it provides a natural language summary to the user confirming the actions taken.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Claude 3.7</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'opus': { 
+                        name: 'Claude 3.7 Opus', 
+                        icon: '🏆',
+                        description: 'The flagship and most intelligent model in the series, featuring state-of-the-art reasoning, vision, and tool use capabilities for the most complex tasks.',
+                        cta: 'Learn More'
+                    },
+                    'sonnet': { 
+                        name: 'Claude 3.7 Sonnet', 
+                        icon: '🧠',
+                        description: 'The ideal balance of intelligence and speed. Sonnet 3.7 is enhanced with tool use capabilities, making it perfect for scaling enterprise applications.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'opus': { 
+                        name: 'क्लॉड 3.7 ओपस', 
+                        icon: '🏆',
+                        description: 'श्रृंखला का प्रमुख और सबसे बुद्धिमान मॉडल, जो सबसे जटिल कार्यों के लिए अत्याधुनिक तर्क, दृष्टि और उपकरण उपयोग क्षमताओं को प्रदर्शित करता है।',
+                        cta: 'और जानें'
+                    },
+                    'sonnet': { 
+                        name: 'क्लॉड 3.7 सॉनेट', 
+                        icon: '🧠',
+                        description: 'बुद्धिमत्ता और गति का आदर्श संतुलन। सॉनेट 3.7 को उपकरण उपयोग क्षमताओं के साथ बढ़ाया गया है, जो इसे उद्यम अनुप्रयोगों को बढ़ाने के लिए एकदम सही बनाता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Tool Use", desc: "The ability to reliably connect to and interact with external tools, APIs, and databases to perform actions." },
+                        { rank: "Agentic Behavior", desc: "Can independently plan and execute a sequence of actions to accomplish a complex, multi-step goal." },
+                        { rank: "Next-Level Reasoning", desc: "Builds on Claude 3 Opus's industry-leading performance with even more accurate and nuanced understanding." },
+                        { rank: "Enhanced Safety for Actions", desc: "Incorporates strong safety guardrails to prevent the misuse of tools for harmful or unintended purposes." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "उपकरण का उपयोग", desc: "कार्यों को करने के लिए बाहरी उपकरणों, एपीआई और डेटाबेस से मज़बूती से जुड़ने और बातचीत करने की क्षमता।" },
+                        { rank: "एजेंटिक व्यवहार", desc: "एक जटिल, बहु-चरणीय लक्ष्य को पूरा करने के लिए कार्यों के एक अनुक्रम की स्वतंत्र रूप से योजना और निष्पादन कर सकता है।" },
+                        { rank: "अगले स्तर का तर्क", desc: "और भी अधिक सटीक और सूक्ष्म समझ के साथ क्लॉड 3 ओपस के उद्योग-अग्रणी प्रदर्शन पर आधारित है।" },
+                        { rank: "कार्यों के लिए बढ़ी हुई सुरक्षा", desc: "हानिकारक या अनपेक्षित उद्देश्यों के लिए उपकरणों के दुरुपयोग को रोकने के लिए मजबूत सुरक्षा गार्डरेल शामिल हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🤖 Anthropic Claude 3.7: The Ultimate Guide 🤖',
+                    'header-subtitle': 'The Next Frontier in AI: Tool Use and Agency',
+                    'sec1-title': '1. What is Claude 3.7? 💡',
+                    'sec1-p1': 'Claude 3.7 is the latest iteration in Anthropic\'s series of advanced AI models. Building on the benchmark-setting performance of the Claude 3 family, version 3.7 represents a significant leap towards more practical and autonomous AI. Its defining new feature is **Tool Use**, which allows the model to interact with external tools and APIs, enabling it to perform complex, multi-step actions, access live data, and interact with other software systems. This transforms Claude from a conversationalist into a proactive digital assistant.',
+                    'sec2-title': '2. The Technology Behind Claude 3.7 🎯',
+                    'sec2-p1': 'Claude 3.7 expands on the Constitutional AI framework by integrating a sophisticated mechanism for tool selection and execution, allowing it to perform actions in the real world.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'User Request', 'sec2-step1-desc': 'User gives a complex task',
+                    'sec2-step2-title': 'Claude 3.7', 'sec2-step2-name': 'Tool Selection', 'sec2-step2-desc': 'Model chooses the right tool/API',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Action & Result', 'sec2-step3-desc': 'Executes action and provides the result',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Claude 3.7\'s advanced capabilities are being rolled out, primarily targeting developers and enterprise customers who can build safe and powerful applications.',
+                    'sec3-age-title': 'Developers & Businesses:', 'sec3-age-desc': 'The Tool Use feature is primarily available through the Anthropic API, allowing developers to build sophisticated AI agents.',
+                    'sec3-edu-title': 'Pro Users:', 'sec3-edu-desc': 'The core reasoning and vision capabilities of the model are available to Claude Pro subscribers at claude.ai.',
+                    'sec3-attempts-title': 'Availability 📊',
+                    'sec3-agerelax-list': '<li>Tool Use is in beta and accessible via the API and through cloud partners like Google Cloud and AWS.</li><li>The underlying model\'s improved reasoning is being rolled out to all platforms where Claude 3 Opus is available.</li>',
+                    'sec4-title': '4. Next-Generation Capabilities 📚',
+                    'sec4-p1': 'Claude 3.7 goes beyond passive generation, introducing capabilities that allow it to act as an intelligent agent.',
+                    'gs1-title': 'Tool Use (Function Calling)',
+                    'gs2-title': 'Autonomous Agency',
+                    'gs3-title': 'Advanced Vision',
+                    'gs4-title': 'Higher Accuracy',
+                    'sec5-title': '5. How is Claude 3.7 Trained? 🏛️',
+                    'sec5-p1': 'Claude 3.7\'s training process builds on the Constitutional AI framework with an added layer of training for tool selection and safe execution.',
+                    'sec5-hindi-title': '1. The Core Model', 'sec5-hindi-p1': 'The model is an iteration on the Claude 3 Opus architecture, trained on a more recent and diverse dataset of text and images to enhance its reasoning and vision capabilities.',
+                    'sec5-essay-title': '2. Training for Tool Use', 'sec5-essay-p1': 'The model is specifically fine-tuned on a massive dataset of API documentation and examples of tool usage. It learns to:<ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm"><li>Understand a user\'s intent and select the appropriate tool.</li><li>Generate the correct syntax to call that tool or API.</li><li>Process the tool\'s output and present it to the user in a natural language format.</li></ul>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'The ability to use tools transforms Claude from a knowledge base into a powerful action-oriented agent, unlocking a new class of applications.',
+                    'sec6-eng-title': 'Personal Assistants', 'sec6-eng-list': '<li>Booking flights and hotels by interacting with travel APIs.</li><li>Managing calendars and sending emails.</li><li>Ordering groceries from online stores.</li>',
+                    'sec6-elec-title': 'Business Automation', 'sec6-elec-list': '<li>Automating internal workflows by connecting to company databases and software.</li><li>Creating intelligent customer support agents that can process refunds or update orders.</li>',
+                    'sec6-naic-title': 'Data Analysis', 'sec6-naic-list': '<li>Fetching real-time stock market data and generating analysis reports.</li><li>Querying internal company databases to answer business questions.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Claude 3.7 is evaluated on new, more complex benchmarks that test its ability to use tools accurately and perform multi-step reasoning.',
+                    'sec7-qualities-title': 'Key Evaluation Areas:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛠️</span><div><strong class="text-white">Tool Use Accuracy:</strong> Benchmarks that measure the model\'s ability to correctly select and use a tool to solve a given problem.</div></li><li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🧠</span><div><strong class="text-white">Multi-step Reasoning:</strong> More complex benchmarks that require the model to chain multiple tool calls and reasoning steps to arrive at a final answer.</div></li><li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛡️</span><div><strong class="text-white">Safety in Action:</strong> Evaluating the model\'s ability to refuse to use tools for harmful, unethical, or dangerous purposes.</div></li>',
+                    'sec8-title': '8. Prompting for Tool Use 📈',
+                    'sec8-p1': 'To effectively leverage Claude 3.7\'s tool use capabilities, developers need to provide the model with a clear definition of the available tools.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Define Your Tools', 'sec8-step1-desc': 'In your API call, provide a clear, structured definition (e.g., in JSON schema) of each tool, including its name, description, and input parameters.',
+                    'sec8-step2-title': 'Write Good Descriptions', 'sec8-step2-desc': 'The model relies heavily on the tool descriptions to decide when to use them. Make them clear, concise, and unambiguous.',
+                    'sec8-revision-title': '🔄 The Workflow:',
+                    'sec8-revision-list': '<li>The user makes a request.</li><li>The model, seeing the available tools, decides a tool is needed and responds with the JSON for the tool call.</li><li>Your application code executes this tool/API call.</li><li>You send the result from the tool back to the model.</li><li>The model uses this result to formulate the final natural language answer for the user.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Claude 3.7 is the latest step in a rapid evolutionary path, moving from pure language models to multimodal, action-taking agents.',
+                    'sec9-step4-title': 'Claude 3 Family Launch', 'sec9-step4-desc': '<strong>Timeline:</strong> March 2024. Set new industry benchmarks for intelligence and introduced vision capabilities.',
+                    'sec9-step5-title': 'Claude 3.7 Release', 'sec9-step5-desc': '<strong>Timeline:</strong> Q3 2025 (Hypothetical). Introduces Tool Use and agentic capabilities, transforming the model into a practical assistant that can perform actions.',
+                    'sec10-title': '10. Limitations & Safety 🚫',
+                    'sec10-p1': 'With the ability to take actions, safety becomes even more critical. Anthropic has built in multiple layers of protection.',
+                    'sec10-mistake1-title': 'Requires Human Oversight:', 'sec10-mistake1-desc': 'Autonomous agents are not yet fully reliable. Critical actions should always require human confirmation before execution.',
+                    'sec10-mistake2-title': 'Potential for Errors:', 'sec10-mistake2-desc': 'The model might misunderstand a request and call the wrong tool or provide incorrect parameters, leading to unexpected outcomes.',
+                    'sec10-mistake3-title': 'Complex Setup:', 'sec10-mistake3-desc': 'Implementing tool use effectively requires careful design of the tools, prompts, and the application logic that handles the interaction flow.',
+                    'sec10-mistake4-title': 'Safety Guardrails:', 'sec10-mistake4-desc': 'The model is designed to refuse to use tools that could cause harm, such as deleting files or sending malicious emails.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'Access to Claude 3.7\'s agentic features is primarily through developer-focused platforms.',
+                    'sec11-gov-title': '📚 For General Users', 'sec11-gov-list': '<li>**Claude Pro:** Users can experience the enhanced reasoning and vision of the underlying 3.7 model through the claude.ai interface.</li>',
+                    'sec11-pvt-title': '💻 For Developers', 'sec11-pvt-p1': 'The API is the primary gateway to Tool Use.', 'sec11-pvt-list': '<li>**Anthropic API:** The Tool Use feature is available in beta through the API for developers to build agent-like applications.</li><li>**Cloud Platforms:** Enterprise access is available via Amazon Bedrock and Google Cloud Vertex AI.</li>',
+                    'sec12-title': '12. The Future: AI Agents & AGI 🚀',
+                    'sec12-p1': 'Claude 3.7\'s tool-using capability is a major milestone on the path to creating truly helpful AI assistants and, eventually, Artificial General Intelligence (AGI). The future will see AI move from being a tool for information retrieval to being a proactive partner that can execute complex tasks and workflows on our behalf, fundamentally changing how we interact with technology.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these advanced concepts is key to grasping the power and potential of models like Claude 3.7.',
+                    'syllabus-oir-title': 'Tool Use / Function Calling',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">API Integration</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Agentic AI',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">Planning & Execution</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | AI research and products that put safety at the frontier.',
+                    'interviewChartData': {
+                        labels: ['Tool Use', 'Reasoning', 'Vision', 'Safety'],
+                        data: [92, 96, 91, 95] // Example data representing comparative scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🤖 एंथ्रोपिक क्लॉड 3.7: अंतिम गाइड 🤖',
+                    'header-subtitle': 'एआई में अगला मोर्चा: उपकरण का उपयोग और एजेंसी',
+                    'sec1-title': '1. क्लॉड 3.7 क्या है? 💡',
+                    'sec1-p1': 'क्लॉड 3.7 एंथ्रोपिक के उन्नत एआई मॉडल की श्रृंखला में नवीनतम पुनरावृत्ति है। क्लॉड 3 परिवार के बेंचमार्क-सेटिंग प्रदर्शन पर निर्माण, संस्करण 3.7 अधिक व्यावहारिक और स्वायत्त एआई की ओर एक महत्वपूर्ण छलांग का प्रतिनिधित्व करता है। इसकी परिभाषित नई सुविधा **उपकरण का उपयोग** है, जो मॉडल को बाहरी उपकरणों और एपीआई के साथ बातचीत करने की अनुमति देती है, जिससे यह जटिल, बहु-चरणीय कार्य करने, लाइव डेटा तक पहुंचने और अन्य सॉफ्टवेयर सिस्टम के साथ बातचीत करने में सक्षम होता है। यह क्लॉड को एक वार्ताकार से एक सक्रिय डिजिटल सहायक में बदल देता है।',
+                    'sec2-title': '2. क्लॉड 3.7 के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'क्लॉड 3.7 उपकरण चयन और निष्पादन के लिए एक परिष्कृत तंत्र को एकीकृत करके संवैधानिक एआई ढांचे का विस्तार करता है, जिससे यह वास्तविक दुनिया में कार्य कर सकता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'उपयोगकर्ता अनुरोध', 'sec2-step1-desc': 'उपयोगकर्ता एक जटिल कार्य देता है',
+                    'sec2-step2-title': 'क्लॉड 3.7', 'sec2-step2-name': 'उपकरण चयन', 'sec2-step2-desc': 'मॉडल सही उपकरण/एपीआई चुनता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'कार्रवाई और परिणाम', 'sec2-step3-desc': 'कार्रवाई निष्पादित करता है और परिणाम प्रदान करता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'क्लॉड 3.7 की उन्नत क्षमताओं को रोल आउट किया जा रहा है, जो मुख्य रूप से डेवलपर्स और उद्यम ग्राहकों को लक्षित करता है जो सुरक्षित और शक्तिशाली एप्लिकेशन बना सकते हैं।',
+                    'sec3-age-title': 'डेवलपर्स और व्यवसाय:', 'sec3-age-desc': 'उपकरण उपयोग सुविधा मुख्य रूप से एंथ्रोपिक एपीआई के माध्यम से उपलब्ध है, जिससे डेवलपर्स को परिष्कृत एआई एजेंट बनाने की अनुमति मिलती है।',
+                    'sec3-edu-title': 'प्रो उपयोगकर्ता:', 'sec3-edu-desc': 'मॉडल की मुख्य तर्क और दृष्टि क्षमताएं claude.ai पर क्लॉड प्रो ग्राहकों के लिए उपलब्ध हैं।',
+                    'sec3-attempts-title': 'उपलब्धता 📊',
+                    'sec3-agerelax-list': '<li>उपकरण का उपयोग बीटा में है और एपीआई के माध्यम से और गूगल क्लाउड और एडब्ल्यूएस जैसे क्लाउड भागीदारों के माध्यम से सुलभ है।</li><li>अंतर्निहित मॉडल के बेहतर तर्क को सभी प्लेटफार्मों पर रोल आउट किया जा रहा है जहां क्लॉड 3 ओपस उपलब्ध है।</li>',
+                    'sec4-title': '4. अगली पीढ़ी की क्षमताएं 📚',
+                    'sec4-p1': 'क्लॉड 3.7 निष्क्रिय पीढ़ी से परे जाता है, ऐसी क्षमताएं पेश करता है जो इसे एक बुद्धिमान एजेंट के रूप में कार्य करने की अनुमति देती हैं।',
+                    'gs1-title': 'उपकरण का उपयोग (फ़ंक्शन कॉलिंग)',
+                    'gs2-title': 'स्वायत्त एजेंसी',
+                    'gs3-title': 'उन्नत दृष्टि',
+                    'gs4-title': 'उच्च सटीकता',
+                    'sec5-title': '5. क्लॉड 3.7 को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'क्लॉड 3.7 की प्रशिक्षण प्रक्रिया उपकरण चयन और सुरक्षित निष्पादन के लिए प्रशिक्षण की एक अतिरिक्त परत के साथ संवैधानिक एआई ढांचे पर आधारित है।',
+                    'sec5-hindi-title': '1. कोर मॉडल', 'sec5-hindi-p1': 'यह मॉडल क्लॉड 3 ओपस आर्किटेक्चर पर एक पुनरावृत्ति है, जिसे तर्क और दृष्टि क्षमताओं को बढ़ाने के लिए पाठ और छवियों के अधिक हालिया और विविध डेटासेट पर प्रशिक्षित किया गया है।',
+                    'sec5-essay-title': '2. उपकरण उपयोग के लिए प्रशिक्षण', 'sec5-essay-p1': 'मॉडल को विशेष रूप से एपीआई दस्तावेज़ीकरण और उपकरण उपयोग के उदाहरणों के एक विशाल डेटासेट पर ठीक-ठीक किया गया है। यह सीखता ہے:<ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm"><li>उपयोगकर्ता के इरादे को समझना और उपयुक्त उपकरण का चयन करना।</li><li>उस उपकरण या एपीआई को कॉल करने के लिए सही सिंटैक्स उत्पन्न करना।</li><li>उपकरण के आउटपुट को संसाधित करना और इसे उपयोगकर्ता को एक प्राकृतिक भाषा प्रारूप में प्रस्तुत करना।</li></ul>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'उपकरणों का उपयोग करने की क्षमता क्लॉड को एक ज्ञान के आधार से एक शक्तिशाली क्रिया-उन्मुख एजेंट में बदल देती है, जिससे अनुप्रयोगों का एक नया वर्ग खुल जाता है।',
+                    'sec6-eng-title': 'व्यक्तिगत सहायक', 'sec6-eng-list': '<li>यात्रा एपीआई के साथ बातचीत करके उड़ानें और होटल बुक करना।</li><li>कैलेंडर प्रबंधित करना और ईमेल भेजना।</li><li>ऑनलाइन स्टोर से किराने का सामान ऑर्डर करना।</li>',
+                    'sec6-elec-title': 'व्यापार स्वचालन', 'sec6-elec-list': '<li>कंपनी डेटाबेस और सॉफ्टवेयर से जुड़कर आंतरिक वर्कफ़्लो को स्वचालित करना।</li><li>बुद्धिमान ग्राहक सहायता एजेंट बनाना जो धनवापसी की प्रक्रिया कर सकते हैं या ऑर्डर अपडेट कर सकते हैं।</li>',
+                    'sec6-naic-title': 'डेटा विश्लेषण', 'sec6-naic-list': '<li>वास्तविक समय के शेयर बाजार डेटा को प्राप्त करना और विश्लेषण रिपोर्ट तैयार करना।</li><li>व्यावसायिक प्रश्नों का उत्तर देने के लिए आंतरिक कंपनी डेटाबेस से पूछताछ करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'क्लॉड 3.7 का मूल्यांकन नए, अधिक जटिल बेंचमार्क पर किया जाता है जो उपकरणों का सटीक रूप से उपयोग करने और बहु-चरणीय तर्क करने की इसकी क्षमता का परीक्षण करते हैं।',
+                    'sec7-qualities-title': 'मुख्य मूल्यांकन क्षेत्र:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛠️</span><div><strong class="text-white">उपकरण उपयोग सटीकता:</strong> बेंचमार्क जो किसी दी गई समस्या को हल करने के लिए एक उपकरण को सही ढंग से चुनने और उपयोग करने की मॉडल की क्षमता को मापते हैं।</div></li><li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🧠</span><div><strong class="text-white">बहु-चरणीय तर्क:</strong> अधिक जटिल बेंचमार्क जिनके लिए मॉडल को अंतिम उत्तर पर पहुंचने के लिए कई टूल कॉल और तर्क चरणों को श्रृंखलाबद्ध करने की आवश्यकता होती है।</div></li><li class="flex items-start"><span class="text-2xl text-[#7df9ff] mr-3">🛡️</span><div><strong class="text-white">कार्रवाई में सुरक्षा:</strong> हानिकारक, अनैतिक या खतरनाक उद्देश्यों के लिए उपकरणों का उपयोग करने से इनकार करने की मॉडल की क्षमता का मूल्यांकन करना।</div></li>',
+                    'sec8-title': '8. उपकरण उपयोग के लिए प्रॉम्प्टिंग 📈',
+                    'sec8-p1': 'क्लॉड 3.7 की उपकरण उपयोग क्षमताओं का प्रभावी ढंग से लाभ उठाने के लिए, डेवलपर्स को मॉडल को उपलब्ध उपकरणों की एक स्पष्ट परिभाषा प्रदान करने की आवश्यकता है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'अपने उपकरण परिभाषित करें', 'sec8-step1-desc': 'अपने एपीआई कॉल में, प्रत्येक उपकरण की एक स्पष्ट, संरचित परिभाषा (जैसे, जेएसओएन स्कीमा में) प्रदान करें, जिसमें उसका नाम, विवरण और इनपुट पैरामीटर शामिल हैं।',
+                    'sec8-step2-title': 'अच्छे विवरण लिखें', 'sec8-step2-desc': 'मॉडल यह तय करने के लिए उपकरण विवरणों पर बहुत अधिक निर्भर करता है कि उनका उपयोग कब करना है। उन्हें स्पष्ट, संक्षिप्त और unambiguous बनाएं।',
+                    'sec8-revision-title': '🔄 वर्कफ़्लो:',
+                    'sec8-revision-list': '<li>उपयोगकर्ता एक अनुरोध करता है।</li><li>मॉडल, उपलब्ध उपकरणों को देखकर, यह तय करता है कि एक उपकरण की आवश्यकता है और टूल कॉल के लिए जेएसओएन के साथ प्रतिक्रिया करता है।</li><li>आपका एप्लिकेशन कोड इस टूल/एपीआई कॉल को निष्पादित करता है।</li><li>आप टूल से परिणाम वापस मॉडल को भेजते हैं।</li><li>मॉडल इस परिणाम का उपयोग उपयोगकर्ता के लिए अंतिम प्राकृतिक भाषा उत्तर तैयार करने के लिए करता है।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'क्लॉड 3.7 एक तीव्र विकासवादी पथ में नवीनतम कदम है, जो शुद्ध भाषा मॉडल से मल्टीमॉडल, एक्शन-टेकिंग एजेंटों की ओर बढ़ रहा है।',
+                    'sec9-step4-title': 'क्लॉड 3 परिवार लॉन्च', 'sec9-step4-desc': '<strong>समयरेखा:</strong> मार्च 2024। खुफिया जानकारी के लिए नए उद्योग बेंचमार्क स्थापित किए और दृष्टि क्षमताओं को पेश किया।',
+                    'sec9-step5-title': 'क्लॉड 3.7 रिलीज', 'sec9-step5-desc': '<strong>समयरेखा:</strong> Q3 2025 (काल्पनिक)। उपकरण उपयोग और एजेंटिक क्षमताओं का परिचय देता है, मॉडल को एक व्यावहारिक सहायक में बदल देता है जो कार्य कर सकता है।',
+                    'sec10-title': '10. सीमाएं और सुरक्षा 🚫',
+                    'sec10-p1': 'कार्रवाई करने की क्षमता के साथ, सुरक्षा और भी महत्वपूर्ण हो जाती है। एंथ्रोपिक ने सुरक्षा की कई परतें बनाई हैं।',
+                    'sec10-mistake1-title': 'मानव निरीक्षण की आवश्यकता है:', 'sec10-mistake1-desc': 'स्वायत्त एजेंट अभी तक पूरी तरह से विश्वसनीय नहीं हैं। महत्वपूर्ण कार्यों के लिए निष्पादन से पहले हमेशा मानव पुष्टि की आवश्यकता होनी चाहिए।',
+                    'sec10-mistake2-title': 'त्रुटियों की संभावना:', 'sec10-mistake2-desc': 'मॉडल एक अनुरोध को गलत समझ सकता है और गलत टूल को कॉल कर सकता है या गलत पैरामीटर प्रदान कर सकता है, जिससे अप्रत्याशित परिणाम हो सकते हैं।',
+                    'sec10-mistake3-title': 'जटिल सेटअप:', 'sec10-mistake3-desc': 'उपकरण उपयोग को प्रभावी ढंग से लागू करने के लिए उपकरणों, संकेतों और एप्लिकेशन तर्क के सावधानीपूर्वक डिजाइन की आवश्यकता होती है जो इंटरैक्शन प्रवाह को संभालता है।',
+                    'sec10-mistake4-title': 'सुरक्षा गार्डरेल:', 'sec10-mistake4-desc': 'मॉडल को उन उपकरणों का उपयोग करने से इनकार करने के लिए डिज़ाइन किया गया है जो नुकसान पहुंचा सकते हैं, जैसे कि फाइलें हटाना या दुर्भावनापूर्ण ईमेल भेजना।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'क्लॉड 3.7 की एजेंटिक सुविधाओं तक पहुंच मुख्य रूप से डेवलपर-केंद्रित प्लेटफार्मों के माध्यम से है।',
+                    'sec11-gov-title': '📚 सामान्य उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**क्लॉड प्रो:** उपयोगकर्ता claude.ai इंटरफ़ेस के माध्यम से अंतर्निहित 3.7 मॉडल के उन्नत तर्क और दृष्टि का अनुभव कर सकते हैं।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स के लिए', 'sec11-pvt-p1': 'एपीआई उपकरण उपयोग का प्राथमिक प्रवेश द्वार है।', 'sec11-pvt-list': '<li>**एंथ्रोपिक एपीआई:** उपकरण उपयोग सुविधा डेवलपर्स के लिए एजेंट-जैसे एप्लिकेशन बनाने के लिए एपीआई के माध्यम से बीटा में उपलब्ध है।</li><li>**क्लाउड प्लेटफॉर्म:** एंटरप्राइज एक्सेस अमेज़ॅन बेडरॉक और गूगल क्लाउड वर्टेक्स एआई के माध्यम से उपलब्ध है।</li>',
+                    'sec12-title': '12. भविष्य: एआई एजेंट और एजीआई 🚀',
+                    'sec12-p1': 'क्लॉड 3.7 की उपकरण-उपयोग क्षमता वास्तव में सहायक एआई सहायकों और अंततः, आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) बनाने के मार्ग पर एक प्रमुख मील का पत्थर है। भविष्य में एआई सूचना पुनर्प्राप्ति के लिए एक उपकरण होने से एक सक्रिय भागीदार बनने की ओर बढ़ेगा जो हमारी ओर से जटिल कार्यों और वर्कफ़्लो को निष्पादित कर सकता है, जिससे हम प्रौद्योगिकी के साथ कैसे बातचीत करते हैं, यह मौलिक रूप से बदल जाएगा।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन उन्नत अवधारणाओं को समझने से क्लॉड 3.7 जैसे मॉडलों की शक्ति और क्षमता को समझने में मदद मिलती है।',
+                    'syllabus-oir-title': 'उपकरण उपयोग / फ़ंक्शन कॉलिंग',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔧</span><div class="flex-grow">एपीआई एकीकरण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'एजेंटिक एआई',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">योजना और निष्पादन</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एआई अनुसंधान और उत्पाद जो सुरक्षा को सबसे आगे रखते हैं।',
+                    'interviewChartData': {
+                        labels: ['उपकरण उपयोग', 'तर्क', 'दृष्टि', 'सुरक्षा'],
+                        data: [92, 96, 91, 95]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Capability Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(57, 255, 20, 0.7)',
+                            borderColor: '#39ff14',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
