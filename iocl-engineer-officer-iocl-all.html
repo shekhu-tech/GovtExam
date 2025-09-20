@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOCL Recruitment Guide (Engineers, Apprentices & Other Posts)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to recruitment in IOCL for roles like Engineers/Officers through GATE, Technician & Trade Apprentices, Assistant Quality Control Officers, and Medical Officers.">
+    <meta name="keywords" content="IOCL Recruitment, IOCL GATE, IOCL Apprentice, Indian Oil Jobs, PSU Jobs, Government Engineering Jobs, IOCL Officer">
+    <meta name="author" content="IOCL Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1b2a; /* Deep Navy Blue */
+            color: #e0e1dd; /* Off-white */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #f97316, #0ea5e9) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(23, 37, 59, 0.85); /* Darker Navy Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #415a77; /* Steel Blue */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f97316; /* Orange 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f97316; /* Orange 500 */
+            color: #f97316;
+            background: #1b263b; /* Darker Steel Blue */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #f97316;
+            color: #0d1b2a;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.5);
+        }
+        .flowchart-arrow {
+            color: #0ea5e9; /* Sky Blue 500 */
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0ea5e9;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+        .subject-item .icon {
+            color: #0ea5e9;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #f97316;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #0d1b2a;
+            border: 4px solid #f97316;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(13, 27, 42, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1b263b;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #415a77;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f97316, #ea580c);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f97316;
+            color: #f97316;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f97316;
+            color: #0d1b2a;
+            box-shadow: 0 0 15px #f97316;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #1b263b; 
+            color: #e0e1dd; 
+            border-color: #415a77; 
+        }
+        .lectures-btn:hover {
+            background-color: #415a77;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">⛽ IOCL Recruitment Guide ⛽</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-sky-400">Your Guide to a Career with India's Energy Maharatna</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is IOCL Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1b263b] via-[#0d1b2a] to-[#0d1b2a]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is IOCL Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Indian Oil Corporation Limited (IOCL) is a diversified, integrated energy major and a Maharatna PSU. A career at IOCL means being part of the entire hydrocarbon value chain—from refining and pipeline transportation to marketing. IOCL recruits a wide array of talent: fresh Engineers and Officers through GATE, skilled Technicians and Trade Apprentices for its refineries and pipelines, and specialized professionals like Quality Control Officers and Medical Officers.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process at IOCL is tailored to the role, utilizing national-level exams for engineers and comprehensive tests for other technical and professional positions.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Screening</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">GATE Score / Written Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">GD / Skill Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">GD for Officers, Skill Test for Apprentices</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">For Officer Cadre</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria are diverse, catering to a wide range of qualifications from ITI to Post-Graduate degrees.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#facc15] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically **26 years** for Engineers/Officers, **18-24 years** for Apprentices, and **30 years** for AQCOs. Age relaxations for reserved categories are as per rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#facc15] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">**Engineers:** B.E./B.Tech. **Apprentices:** Diploma in Engineering or ITI in a relevant trade. **AQCO:** Master's Degree in Chemistry. **Medical Officer:** MBBS with relevant experience.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#38bdf8] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is no specified limit on the number of attempts for IOCL's direct recruitment exams.</li>
+                             <li>Candidates can apply for different posts and recruitment drives as long as they meet the specific eligibility criteria for each advertisement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Exam Pattern (Apprentice/AQCO) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">For direct recruitment of apprentices and officers, IOCL conducts an objective-type written test.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1e293b]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Technical Discipline 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">⚙️</span><div id="gs3-sub1">Questions from the relevant technical subject (e.g., Mechanical, Chemical, Chemistry) based on the required qualification (Diploma/ITI/M.Sc).</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#1e293b]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-yellow-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">General Aptitude 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">🧠</span><div id="gs1-sub1">Generic Aptitude, Reasoning</div></div>
+                           <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Basic English Language Skills</div></div>
+                           <div class="subject-item"><span class="icon">🌍</span><div id="gs2-sub1">General Awareness</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Apprenticeship 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">IOCL invests heavily in training its new recruits to prepare them for the challenges of the hydrocarbon industry.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1e293b] rounded-xl border-2 border-[#facc15]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Engineers / Officers</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A one-year training and probation period.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Induction at the Indian Oil Institute of Petroleum Management (IiPM).</li>
+                            <li>Classroom and on-the-job training at refineries, pipeline divisions, or marketing locations.</li>
+                            <li>Confirmation at A Grade after successful completion of probation.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1e293b] rounded-xl border-2 border-[#38bdf8]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Apprentices</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A structured apprenticeship program.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Apprenticeship training for a period of one to two years as per the Apprentices Act.</li>
+                           <li>Receive a monthly stipend during the training.</li>
+                           <li>Focuses on developing practical, hands-on skills.</li>
+                           <li>Note: IOCL does not guarantee employment after apprenticeship.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Roles at IndianOil are diverse, spanning the entire energy value chain from refining crude oil to delivering fuel at retail outlets.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Engineers / Officers</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Managing refinery process units.</li>
+                           <li>Overseeing pipeline operations.</li>
+                           <li>Project management and execution.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Apprentices</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Assisting in maintenance activities.</li>
+                           <li>Operating equipment under supervision.</li>
+                           <li>Learning and applying technical skills.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">AQCO</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Testing of petroleum products.</li>
+                           <li>Ensuring quality standards are met.</li>
+                           <li>Managing laboratory equipment.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-fin-title" class="subject-category-heading">Medical Officer</h3>
+                        <ul id="sec6-fin-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Providing healthcare to employees.</li>
+                           <li>Managing occupational health centers.</li>
+                           <li>Conducting health check-ups.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an IndianOil Professional 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A career at IOCL, the "Energy of India," requires a strong technical base, a commitment to safety, and the dynamism to work in a fast-paced environment.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#facc15] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">⚙️</span><div><strong class="text-white">Technical Foundation:</strong> A robust understanding of core engineering or technical principles is crucial for plant and pipeline operations.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🛡️</span><div><strong class="text-white">Safety First Mindset:</strong> The hydrocarbon industry demands an uncompromising commitment to safety procedures and protocols.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Ability:</strong> The capability to quickly diagnose and resolve operational issues in a high-stakes environment.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🤝</span><div><strong class="text-white">Teamwork & Collaboration:</strong> Working effectively in large, diverse teams is key to the successful operation of integrated refineries and business units.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Preparation needs to be tailored to the specific role. GATE is the focus for Engineers, while direct exam aspirants must balance technical and non-technical subjects.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For Engineers (GATE):</h3>
+                        <ol class="relative border-l-4 border-[#facc15] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#facc15] rounded-full -left-2.5 border-4 border-[#1e293b]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Aim for a Top GATE Score</h4>
+                                <p id="sec8-step1-desc" class="text-base">Recruitment for Engineers/Officers is primarily through GATE. A high score in your respective discipline (e.g., Chemical, Mechanical, Civil) is essential to be shortlisted.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#facc15] rounded-full -left-2.5 border-4 border-[#1e293b]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Prepare for GD & Interview</h4>
+                                <p id="sec8-step2-desc" class="text-base">After being shortlisted, focus on GD/GT and Personal Interview preparation. Revise your core subjects and stay updated on the oil and gas sector.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For Apprentices & AQCO:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Master Your Domain Syllabus:</strong> The written test has a significant portion dedicated to your technical discipline. Cover your Diploma/ITI/M.Sc syllabus thoroughly.</li>
+                            <li><strong>Practice Aptitude Questions:</strong> Don't neglect the general aptitude, reasoning, and English sections. Practice regularly to maximize your score.</li>
+                            <li><strong>Solve Previous Papers:</strong> Go through past question papers of IOCL and other oil sector PSUs to understand the pattern and difficulty level.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">IOCL's recruitment for Engineers is linked to the GATE exam schedule. Apprentice and other vacancies are advertised throughout the year based on the requirements of its refineries, pipelines, and marketing divisions.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Engineer recruitment ads appear after GATE registration. Other vacancies are posted on the IOCL careers portal (iocl.com).</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Application & Screening</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Candidates apply online. Shortlisting for interviews (for Engineers) happens after GATE results are out. For others, it's based on written test marks.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">GDPI / Skill Test</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Further selection rounds for shortlisted candidates are conducted a few weeks after the initial screening result.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result & Joining</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A final merit list is prepared, followed by a pre-employment medical examination and the issuance of offer letters.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Competition for a job in a Maharatna like IOCL is fierce. Avoid these common errors to enhance your selection prospects.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Insufficient GATE Preparation:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">For Engineers, not dedicating enough effort to secure a top rank in GATE, which is the primary gateway to IOCL.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Neglecting Interview Rounds:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Performing well in the written test but not preparing adequately for the GD and Personal Interview, which have significant weightage.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Lack of Industry Awareness:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Being unaware of IOCL's business verticals, its competition, and the current trends in the global oil and gas industry.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Ignoring Physical Fitness:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Failing to meet the stringent medical and physical fitness standards required for roles in refineries and plant locations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Aspirants have access to excellent resources for both GATE-based and direct recruitment exams for IOCL.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Engineers (GATE)</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Specialized GATE coaching institutes and online platforms offer the most structured preparation for various engineering branches.</li>
+                           <li>Consistent practice with mock tests is essential.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📖 For Apprentices & Others</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Focus on diploma/ITI/degree level books.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Core subject textbooks are the best resource for the technical paper.</li>
+                            <li>For the aptitude section, practice from books and online sources for general government exams.</li>
+                            <li>Solving previous papers of IOCL and other oil PSUs is highly recommended.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">IOCL offers a dynamic and fulfilling career path with ample opportunities for learning, growth, and rising to top management positions.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1e293b] to-[#0c1427]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Typical Syllabus (Direct Recruitment) 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus for direct recruitment tests (e.g., for Apprentices) is generally a mix of general aptitude and core technical subjects.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#0c1427] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Technical Discipline</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | The Energy of India.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Initial Screening</h3>
+            <p id="prelims-modal-p1">The first level of screening depends on the post. For Engineers/Officers, it is based on the Graduate Aptitude Test in Engineering (GATE) score. For roles like Technician Apprentice and Assistant Quality Control Officer, IOCL conducts its own online Written Test.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: GD / Skill Test</h3>
+            <p id="mains-modal-p1">Candidates shortlisted from the initial screening proceed to the next stage. For officer cadre posts, this is typically a Group Discussion (GD), Group Task (GT), and/or Group Presentation. For Technician and Trade Apprentices, a Skill/Proficiency/Physical Test (SPPT) is conducted, which is qualifying in nature.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Personal Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">This is the final stage for officer-level recruitment. A panel of senior IOCL officials assesses the candidate's technical knowledge, behavioral skills, and overall suitability. The final merit list is prepared based on the combined weightage of the screening score (GATE/Written), GD/GT, and Personal Interview.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">IOCL Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'gate': { 
+                        name: 'Engineers / Officers', 
+                        icon: '🎓',
+                        description: 'IOCL recruits fresh graduates as Engineers or Officers through GATE in various disciplines like Chemical, Mechanical, Electrical, and Civil for its refineries, pipelines, and marketing divisions.',
+                        cta: 'Learn More'
+                    },
+                    'apprentice': { 
+                        name: 'Technician & Trade Apprentice', 
+                        icon: '🛠️',
+                        description: 'A major recruitment drive for Diploma holders (Technician Apprentice) and ITI pass-outs (Trade Apprentice) to provide hands-on training in real-world industrial settings at various IOCL locations.',
+                        cta: 'Learn More'
+                    },
+                    'aqco': { 
+                        name: 'Asst. Quality Control Officer', 
+                        icon: '🔬',
+                        description: 'A specialized role for Post-Graduates in Chemistry. AQCOs are responsible for quality control and testing of petroleum products to ensure they meet stringent standards.',
+                        cta: 'Learn More'
+                    },
+                    'medical': { 
+                        name: 'Medical Officers', 
+                        icon: '⚕️',
+                        description: 'IOCL operates its own hospitals and occupational health centers for its employees. It recruits MBBS doctors and Specialists to provide comprehensive medical care.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'gate': { 
+                        name: 'इंजीनियर / अधिकारी', 
+                        icon: '🎓',
+                        description: 'आईओसीएल अपनी रिफाइनरियों, पाइपलाइनों और विपणन प्रभागों के लिए केमिकल, मैकेनिकल, इलेक्ट्रिकल और सिविल जैसे विभिन्न विषयों में गेट के माध्यम से इंजीनियरों या अधिकारियों के रूप में नए स्नातकों की भर्ती करता है।',
+                        cta: 'और जानें'
+                    },
+                    'apprentice': { 
+                        name: 'तकनीशियन और ट्रेड अपरेंटिस', 
+                        icon: '🛠️',
+                        description: 'डिप्लोमा धारकों (तकनीशियन अपरेंटिस) और आईटीआई पास-आउट (ट्रेड अपरेंटिस) के लिए विभिन्न आईओसीएल स्थानों पर वास्तविक दुनिया के औद्योगिक सेटिंग्स में व्यावहारिक प्रशिक्षण प्रदान करने के लिए एक प्रमुख भर्ती अभियान।',
+                        cta: 'और जानें'
+                    },
+                    'aqco': { 
+                        name: 'सहायक गुणवत्ता नियंत्रण अधिकारी', 
+                        icon: '🔬',
+                        description: 'रसायन विज्ञान में स्नातकोत्तर के लिए एक विशेष भूमिका। AQCOs पेट्रोलियम उत्पादों की गुणवत्ता नियंत्रण और परीक्षण के लिए जिम्मेदार हैं ताकि यह सुनिश्चित हो सके कि वे कड़े मानकों को पूरा करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'medical': { 
+                        name: 'चिकित्सा अधिकारी', 
+                        icon: '⚕️',
+                        description: 'आईओसीएल अपने कर्मचारियों के लिए अपने स्वयं के अस्पताल और व्यावसायिक स्वास्थ्य केंद्र संचालित करता है। यह व्यापक चिकित्सा देखभाल प्रदान करने के लिए एमबीबीएस डॉक्टरों और विशेषज्ञों की भर्ती करता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Grade 'A' Officer", desc: "Entry-level position for engineers and other officers after one year of training." },
+                        { rank: "Senior Officer (Grade 'B')", desc: "The first promotion, typically occurring after 3-4 years of service." },
+                        { rank: "Assistant Manager (Grade 'C')", desc: "A mid-level role with team leadership and project management responsibilities." },
+                        { rank: "Deputy Manager (Grade 'D')", desc: "Leads a specific section or function within a department." },
+                        { rank: "Manager (Grade 'E')", desc: "A senior management role, often heading a small department or a key operational area." },
+                        { rank: "DGM / GM / CGM", desc: "Senior leadership positions with responsibility for entire departments, locations, or strategic initiatives." },
+                        { rank: "Executive Director / Director", desc: "The highest leadership roles, forming the core management team of the corporation." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "ग्रेड 'ए' अधिकारी", desc: "एक साल के प्रशिक्षण के बाद इंजीनियरों और अन्य अधिकारियों के लिए प्रवेश स्तर की स्थिति।" },
+                        { rank: "वरिष्ठ अधिकारी (ग्रेड 'बी')", desc: "पहली पदोन्नति, आमतौर पर 3-4 साल की सेवा के बाद होती है।" },
+                        { rank: "सहायक प्रबंधक (ग्रेड 'सी')", desc: "टीम नेतृत्व और परियोजना प्रबंधन जिम्मेदारियों के साथ एक मध्य-स्तरीय भूमिका।" },
+                        { rank: "उप प्रबंधक (ग्रेड 'डी')", desc: "एक विभाग के भीतर एक विशिष्ट अनुभाग या कार्य का नेतृत्व करता है।" },
+                        { rank: "प्रबंधक (ग्रेड 'ई')", desc: "एक वरिष्ठ प्रबंधन भूमिका, जो अक्सर एक छोटे विभाग या एक प्रमुख परिचालन क्षेत्र का नेतृत्व करती है।" },
+                        { rank: "डीजीएम / जीएम / सीजीएम", desc: "पूरे विभागों, स्थानों या रणनीतिक पहलों के लिए जिम्मेदारी के साथ वरिष्ठ नेतृत्व पद।" },
+                        { rank: "कार्यकारी निदेशक / निदेशक", desc: "उच्चतम नेतृत्व भूमिकाएं, जो निगम की मुख्य प्रबंधन टीम का गठन करती हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '⛽ IOCL Recruitment Guide ⛽',
+                    'header-subtitle': 'Your Guide to a Career with India\'s Energy Maharatna',
+                    'sec1-title': '1. What is IOCL Recruitment? 💡',
+                    'sec1-p1': 'Indian Oil Corporation Limited (IOCL) is a diversified, integrated energy major and a Maharatna PSU. A career at IOCL means being part of the entire hydrocarbon value chain—from refining and pipeline transportation to marketing. IOCL recruits a wide array of talent: fresh Engineers and Officers through GATE, skilled Technicians and Trade Apprentices for its refineries and pipelines, and specialized professionals like Quality Control Officers and Medical Officers.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process at IOCL is tailored to the role, utilizing national-level exams for engineers and comprehensive tests for other technical and professional positions.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Screening', 'sec2-step1-desc': 'GATE Score / Written Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'GD / Skill Test', 'sec2-step2-desc': 'GD for Officers, Skill Test for Apprentices',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'For Officer Cadre',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria are diverse, catering to a wide range of qualifications from ITI to Post-Graduate degrees.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically **26 years** for Engineers/Officers, **18-24 years** for Apprentices, and **30 years** for AQCOs. Age relaxations for reserved categories are as per rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': '**Engineers:** B.E./B.Tech. **Apprentices:** Diploma in Engineering or ITI in a relevant trade. **AQCO:** Master\'s Degree in Chemistry. **Medical Officer:** MBBS with relevant experience.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is no specified limit on the number of attempts for IOCL\'s direct recruitment exams.</li><li>Candidates can apply for different posts and recruitment drives as long as they meet the specific eligibility criteria for each advertisement.</li>',
+                    'sec4-title': '4. Exam Pattern (Apprentice/AQCO) 📚',
+                    'sec4-p1': 'For direct recruitment of apprentices and officers, IOCL conducts an objective-type written test.',
+                    'gs1-title': 'Technical Discipline 📜', 'gs3-sub1': 'Questions from the relevant technical subject (e.g., Mechanical, Chemical, Chemistry) based on the required qualification (Diploma/ITI/M.Sc).',
+                    'gs2-title': 'General Aptitude 🏛️', 'gs1-sub1': 'Generic Aptitude, Reasoning', 'gs1-sub2': 'Basic English Language Skills', 'gs2-sub1': 'General Awareness',
+                    'sec5-title': '5. Training & Apprenticeship 🏛️',
+                    'sec5-p1': 'IOCL invests heavily in training its new recruits to prepare them for the challenges of the hydrocarbon industry.',
+                    'sec5-hindi-title': '1. Engineers / Officers', 'sec5-hindi-p1': 'A one-year training and probation period.', 'sec5-hindi-list': '<li>Induction at the Indian Oil Institute of Petroleum Management (IiPM).</li><li>Classroom and on-the-job training at refineries, pipeline divisions, or marketing locations.</li><li>Confirmation at A Grade after successful completion of probation.</li>',
+                    'sec5-essay-title': '2. Apprentices', 'sec5-essay-p1': 'A structured apprenticeship program.', 'sec5-essay-list': '<li>Apprenticeship training for a period of one to two years as per the Apprentices Act.</li><li>Receive a monthly stipend during the training.</li><li>Focuses on developing practical, hands-on skills.</li><li>Note: IOCL does not guarantee employment after apprenticeship.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'Roles at IndianOil are diverse, spanning the entire energy value chain from refining crude oil to delivering fuel at retail outlets.',
+                    'sec6-eng-title': 'Engineers / Officers', 'sec6-eng-list': '<li>Managing refinery process units.</li><li>Overseeing pipeline operations.</li><li>Project management and execution.</li>',
+                    'sec6-elec-title': 'Apprentices', 'sec6-elec-list': '<li>Assisting in maintenance activities.</li><li>Operating equipment under supervision.</li><li>Learning and applying technical skills.</li>',
+                    'sec6-naic-title': 'AQCO', 'sec6-naic-list': '<li>Testing of petroleum products.</li><li>Ensuring quality standards are met.</li><li>Managing laboratory equipment.</li>',
+                    'sec6-fin-title': 'Medical Officer', 'sec6-fin-list': '<li>Providing healthcare to employees.</li><li>Managing occupational health centers.</li><li>Conducting health check-ups.</li>',
+                    'sec7-title': '7. Qualities of an IndianOil Professional 🎙️',
+                    'sec7-p1': 'A career at IOCL, the "Energy of India," requires a strong technical base, a commitment to safety, and the dynamism to work in a fast-paced environment.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">⚙️</span><div><strong class="text-white">Technical Foundation:</strong> A robust understanding of core engineering or technical principles is crucial for plant and pipeline operations.</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🛡️</span><div><strong class="text-white">Safety First Mindset:</strong> The hydrocarbon industry demands an uncompromising commitment to safety procedures and protocols.</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🧠</span><div><strong class="text-white">Problem-Solving Ability:</strong> The capability to quickly diagnose and resolve operational issues in a high-stakes environment.</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🤝</span><div><strong class="text-white">Teamwork & Collaboration:</strong> Working effectively in large, diverse teams is key to the successful operation of integrated refineries and business units.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'Preparation needs to be tailored to the specific role. GATE is the focus for Engineers, while direct exam aspirants must balance technical and non-technical subjects.',
+                    'sec8-steps-title': '📚 For Engineers (GATE):',
+                    'sec8-step1-title': 'Aim for a Top GATE Score', 'sec8-step1-desc': 'Recruitment for Engineers/Officers is primarily through GATE. A high score in your respective discipline (e.g., Chemical, Mechanical, Civil) is essential to be shortlisted.',
+                    'sec8-step2-title': 'Prepare for GD & Interview', 'sec8-step2-desc': 'After being shortlisted, focus on GD/GT and Personal Interview preparation. Revise your core subjects and stay updated on the oil and gas sector.',
+                    'sec8-revision-title': '🔄 For Apprentices & AQCO:',
+                    'sec8-revision-list': '<li><strong>Master Your Domain Syllabus:</strong> The written test has a significant portion dedicated to your technical discipline. Cover your Diploma/ITI/M.Sc syllabus thoroughly.</li><li><strong>Practice Aptitude Questions:</strong> Don\'t neglect the general aptitude, reasoning, and English sections. Practice regularly to maximize your score.</li><li><strong>Solve Previous Papers:</strong> Go through past question papers of IOCL and other oil sector PSUs to understand the pattern and difficulty level.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'IOCL\'s recruitment for Engineers is linked to the GATE exam schedule. Apprentice and other vacancies are advertised throughout the year based on the requirements of its refineries, pipelines, and marketing divisions.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Engineer recruitment ads appear after GATE registration. Other vacancies are posted on the IOCL careers portal (iocl.com).',
+                    'sec9-step2-title': 'Application & Screening', 'sec9-step2-desc': '<strong>Timeline:</strong> Candidates apply online. Shortlisting for interviews (for Engineers) happens after GATE results are out. For others, it\'s based on written test marks.',
+                    'sec9-step3-title': 'GDPI / Skill Test', 'sec9-step3-desc': '<strong>Timeline:</strong> Further selection rounds for shortlisted candidates are conducted a few weeks after the initial screening result.',
+                    'sec9-step4-title': 'Final Result & Joining', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared, followed by a pre-employment medical examination and the issuance of offer letters.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition for a job in a Maharatna like IOCL is fierce. Avoid these common errors to enhance your selection prospects.',
+                    'sec10-mistake1-title': 'Insufficient GATE Preparation:', 'sec10-mistake1-desc': 'For Engineers, not dedicating enough effort to secure a top rank in GATE, which is the primary gateway to IOCL.',
+                    'sec10-mistake2-title': 'Neglecting Interview Rounds:', 'sec10-mistake2-desc': 'Performing well in the written test but not preparing adequately for the GD and Personal Interview, which have significant weightage.',
+                    'sec10-mistake3-title': 'Lack of Industry Awareness:', 'sec10-mistake3-desc': 'Being unaware of IOCL\'s business verticals, its competition, and the current trends in the global oil and gas industry.',
+                    'sec10-mistake4-title': 'Ignoring Physical Fitness:', 'sec10-mistake4-desc': 'Failing to meet the stringent medical and physical fitness standards required for roles in refineries and plant locations.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Aspirants have access to excellent resources for both GATE-based and direct recruitment exams for IOCL.',
+                    'sec11-gov-title': '📚 For Engineers (GATE)', 'sec11-gov-list': '<li>Specialized GATE coaching institutes and online platforms offer the most structured preparation for various engineering branches.</li><li>Consistent practice with mock tests is essential.</li>',
+                    'sec11-pvt-title': '📖 For Apprentices & Others', 'sec11-pvt-p1': 'Focus on diploma/ITI/degree level books.', 'sec11-pvt-list': '<li>Core subject textbooks are the best resource for the technical paper.</li><li>For the aptitude section, practice from books and online sources for general government exams.</li><li>Solving previous papers of IOCL and other oil PSUs is highly recommended.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'IOCL offers a dynamic and fulfilling career path with ample opportunities for learning, growth, and rising to top management positions.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Typical Syllabus (Direct Recruitment) 📚',
+                    'sec13-p1': 'The syllabus for direct recruitment tests (e.g., for Apprentices) is generally a mix of general aptitude and core technical subjects.',
+                    'syllabus-oir-title': 'General Aptitude',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness & English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Technical Discipline',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Relevant Diploma/ITI/M.Sc Syllabus</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | The Energy of India.',
+                    'interviewChartData': {
+                        labels: ['Technical Skill', 'Safety Mindset', 'Problem Solving', 'Teamwork'],
+                        data: [95, 98, 90, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '⛽ आईओसीएल भर्ती गाइड ⛽',
+                    'header-subtitle': 'भारत की ऊर्जा महारत्न के साथ करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. आईओसीएल भर्ती क्या है? 💡',
+                    'sec1-p1': 'इंडियन ऑयल कॉर्पोरेशन लिमिटेड (आईओसीएल) एक विविध, एकीकृत ऊर्जा प्रमुख और एक महारत्न पीएसयू है। आईओसीएल में एक कैरियर का अर्थ है संपूर्ण हाइड्रोकार्बन मूल्य श्रृंखला का हिस्सा बनना - शोधन और पाइपलाइन परिवहन से लेकर विपणन तक। आईओसीएल प्रतिभा की एक विस्तृत श्रृंखला की भर्ती करता है: गेट के माध्यम से नए इंजीनियर और अधिकारी, इसकी रिफाइनरियों और पाइपलाइनों के लिए कुशल तकनीशियन और ट्रेड अपरेंटिस, और गुणवत्ता नियंत्रण अधिकारी और चिकित्सा अधिकारी जैसे विशेष पेशेवर।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'आईओसीएल में चयन प्रक्रिया भूमिका के अनुरूप है, जिसमें इंजीनियरों के लिए राष्ट्रीय स्तर की परीक्षाओं और अन्य तकनीकी और पेशेवर पदों के लिए व्यापक परीक्षणों का उपयोग किया जाता है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'स्क्रीनिंग', 'sec2-step1-desc': 'गेट स्कोर / लिखित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'जीडी / कौशल परीक्षण', 'sec2-step2-desc': 'अधिकारियों के लिए जीडी, अपरेंटिस के लिए कौशल परीक्षण',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'अधिकारी संवर्ग के लिए',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पात्रता मानदंड विविध हैं, जो आईटीआई से लेकर स्नातकोत्तर डिग्री तक की योग्यताओं की एक विस्तृत श्रृंखला को पूरा करते हैं।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर इंजीनियरों/अधिकारियों के लिए **26 वर्ष**, अपरेंटिस के लिए **18-24 वर्ष**, और एक्यूसीओ के लिए **30 वर्ष**। आरक्षित श्रेणियों के लिए आयु में छूट नियमों के अनुसार है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': '**इंजीनियर:** बी.ई./बी.टेक। **अपरेंटिस:** इंजीनियरिंग में डिप्लोमा या एक प्रासंगिक ट्रेड में आईटीआई। **एक्यूसीओ:** रसायन विज्ञान में मास्टर डिग्री। **चिकित्सा अधिकारी:** प्रासंगिक अनुभव के साथ एमबीबीएस।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>आईओसीएल की सीधी भर्ती परीक्षाओं के लिए प्रयासों की संख्या पर कोई निर्दिष्ट सीमा नहीं है।</li><li>उम्मीदवार विभिन्न पदों और भर्ती अभियानों के लिए तब तक आवेदन कर सकते हैं जब तक वे प्रत्येक विज्ञापन के लिए विशिष्ट पात्रता मानदंडों को पूरा करते हैं।</li>',
+                    'sec4-title': '4. परीक्षा पैटर्न (अपरेंटिस/एक्यूसीओ) 📚',
+                    'sec4-p1': 'अपरेंटिस और अधिकारियों की सीधी भर्ती के लिए, आईओसीएल एक वस्तुनिष्ठ प्रकार की लिखित परीक्षा आयोजित करता है।',
+                    'gs1-title': 'तकनीकी अनुशासन 📜', 'gs3-sub1': 'आवश्यक योग्यता (डिप्लोमा/आईटीआई/एम.एससी) के आधार पर प्रासंगिक तकनीकी विषय (जैसे, मैकेनिकल, केमिकल, रसायन विज्ञान) से प्रश्न।',
+                    'gs2-title': 'सामान्य योग्यता 🏛️', 'gs1-sub1': 'सामान्य योग्यता, तर्क', 'gs1-sub2': 'बुनियादी अंग्रेजी भाषा कौशल', 'gs2-sub1': 'सामान्य जागरूकता',
+                    'sec5-title': '5. प्रशिक्षण और शिक्षुता 🏛️',
+                    'sec5-p1': 'आईओसीएल अपने नए रंगरूटों को हाइड्रोकार्बन उद्योग की चुनौतियों के लिए तैयार करने के लिए प्रशिक्षण में भारी निवेश करता है।',
+                    'sec5-hindi-title': '1. इंजीनियर / अधिकारी', 'sec5-hindi-p1': 'एक साल का प्रशिक्षण और परिवीक्षा अवधि।', 'sec5-hindi-list': '<li>इंडियन ऑयल इंस्टीट्यूट ऑफ पेट्रोलियम मैनेजमेंट (IiPM) में प्रेरण।</li><li>रिफाइनरियों, पाइपलाइन डिवीजनों या विपणन स्थानों पर कक्षा और ऑन-द-जॉब प्रशिक्षण।</li><li>परिवीक्षा के सफल समापन के बाद ए ग्रेड में पुष्टि।</li>',
+                    'sec5-essay-title': '2. अपरेंटिस', 'sec5-essay-p1': 'एक संरचित शिक्षुता कार्यक्रम।', 'sec5-essay-list': '<li>अपरेंटिस अधिनियम के अनुसार एक से दो साल की अवधि के लिए शिक्षुता प्रशिक्षण।</li><li>प्रशिक्षण के दौरान मासिक वजीफा प्राप्त करें।</li><li>व्यावहारिक, व्यावहारिक कौशल विकसित करने पर केंद्रित है।</li><li>नोट: आईओसीएल शिक्षुता के बाद रोजगार की गारंटी नहीं देता है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'इंडियन ऑयल में भूमिकाएं विविध हैं, जो कच्चे तेल के शोधन से लेकर खुदरा दुकानों पर ईंधन पहुंचाने तक पूरी ऊर्जा मूल्य श्रृंखला में फैली हुई हैं।',
+                    'sec6-eng-title': 'इंजीनियर / अधिकारी', 'sec6-eng-list': '<li>रिफाइनरी प्रक्रिया इकाइयों का प्रबंधन।</li><li>पाइपलाइन संचालन की देखरेख।</li><li>परियोजना प्रबंधन और निष्पादन।</li>',
+                    'sec6-elec-title': 'अपरेंटिस', 'sec6-elec-list': '<li>रखरखाव गतिविधियों में सहायता करना।</li><li>पर्यवेक्षण के तहत उपकरणों का संचालन।</li><li>तकनीकी कौशल सीखना और लागू करना।</li>',
+                    'sec6-naic-title': 'एक्यूसीओ', 'sec6-naic-list': '<li>पेट्रोलियम उत्पादों का परीक्षण।</li><li>गुणवत्ता मानकों को पूरा करना सुनिश्चित करना।</li><li>प्रयोगशाला उपकरणों का प्रबंधन।</li>',
+                    'sec6-fin-title': 'चिकित्सा अधिकारी', 'sec6-fin-list': '<li>कर्मचारियों को स्वास्थ्य सेवा प्रदान करना।</li><li>व्यावसायिक स्वास्थ्य केंद्रों का प्रबंधन।</li><li>स्वास्थ्य जांच आयोजित करना।</li>',
+                    'sec7-title': '7. एक इंडियन ऑयल पेशेवर के गुण 🎙️',
+                    'sec7-p1': 'आईओसीएल, "भारत की ऊर्जा" में एक कैरियर के लिए एक मजबूत तकनीकी आधार, सुरक्षा के प्रति प्रतिबद्धता और तेज-तर्रार वातावरण में काम करने की गतिशीलता की आवश्यकता होती है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">⚙️</span><div><strong class="text-white">तकनीकी नींव:</strong> संयंत्र और पाइपलाइन संचालन के लिए मुख्य इंजीनियरिंग या तकनीकी सिद्धांतों की एक मजबूत समझ महत्वपूर्ण है।</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🛡️</span><div><strong class="text-white">सुरक्षा प्रथम मानसिकता:</strong> हाइड्रोकार्बन उद्योग सुरक्षा प्रक्रियाओं और प्रोटोकॉल के लिए एक असम्बद्ध प्रतिबद्धता की मांग करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🧠</span><div><strong class="text-white">समस्या-समाधान क्षमता:</strong> उच्च-दांव वाले वातावरण में परिचालन मुद्दों का जल्दी से निदान और समाधान करने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🤝</span><div><strong class="text-white">टीम वर्क और सहयोग:</strong> एकीकृत रिफाइनरियों और व्यावसायिक इकाइयों के सफल संचालन के लिए बड़ी, विविध टीमों में प्रभावी ढंग से काम करना महत्वपूर्ण है।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'तैयारी को विशिष्ट भूमिका के अनुरूप बनाने की आवश्यकता है। गेट इंजीनियरों के लिए ध्यान केंद्रित है, जबकि सीधी परीक्षा के उम्मीदवारों को तकनीकी और गैर-तकनीकी विषयों को संतुलित करना चाहिए।',
+                    'sec8-steps-title': '📚 इंजीनियरों के लिए (GATE):',
+                    'sec8-step1-title': 'एक शीर्ष गेट स्कोर का लक्ष्य रखें', 'sec8-step1-desc': 'इंजीनियरों/अधिकारियों के लिए भर्ती मुख्य रूप से गेट के माध्यम से होती है। शॉर्टलिस्ट होने के लिए आपके संबंधित अनुशासन (जैसे, केमिकल, मैकेनिकल, सिविल) में एक उच्च स्कोर आवश्यक है।',
+                    'sec8-step2-title': 'जीडी और साक्षात्कार के लिए तैयारी करें', 'sec8-step2-desc': 'शॉर्टलिस्ट होने के बाद, जीडी/जीटी और व्यक्तिगत साक्षात्कार की तैयारी पर ध्यान केंद्रित करें। अपने मुख्य विषयों को संशोधित करें और तेल और गैस क्षेत्र पर अपडेट रहें।',
+                    'sec8-revision-title': '🔄 अपरेंटिस और एक्यूसीओ के लिए:',
+                    'sec8-revision-list': '<li><strong>अपने डोमेन पाठ्यक्रम में महारत हासिल करें:</strong> लिखित परीक्षा में आपके तकनीकी अनुशासन के लिए एक महत्वपूर्ण हिस्सा समर्पित है। अपने डिप्लोमा/आईटीआई/एम.एससी पाठ्यक्रम को अच्छी तरह से कवर करें।</li><li><strong>योग्यता प्रश्नों का अभ्यास करें:</strong> सामान्य योग्यता, तर्क और अंग्रेजी वर्गों की उपेक्षा न करें। अपना स्कोर अधिकतम करने के लिए नियमित रूप से अभ्यास करें।</li><li><strong>पिछले प्रश्नपत्र हल करें:</strong> पैटर्न और कठिनाई स्तर को समझने के लिए आईओसीएल और अन्य तेल क्षेत्र के पीएसयू के पिछले प्रश्नपत्रों को देखें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'आईओसीएल की इंजीनियरों के लिए भर्ती गेट परीक्षा अनुसूची से जुड़ी हुई है। अपरेंटिस और अन्य रिक्तियों का विज्ञापन इसकी रिफाइनरियों, पाइपलाइनों और विपणन प्रभागों की आवश्यकताओं के आधार पर पूरे वर्ष किया जाता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> इंजीनियर भर्ती विज्ञापन गेट पंजीकरण के बाद दिखाई देते हैं। अन्य रिक्तियां आईओसीएल करियर पोर्टल (iocl.com) पर पोस्ट की जाती हैं।',
+                    'sec9-step2-title': 'आवेदन और स्क्रीनिंग', 'sec9-step2-desc': '<strong>समयरेखा:</strong> उम्मीदवार ऑनलाइन आवेदन करते हैं। साक्षात्कार (इंजीनियरों के लिए) के लिए शॉर्टलिस्टिंग गेट परिणाम आने के बाद होती है। दूसरों के लिए, यह लिखित परीक्षा के अंकों पर आधारित है।',
+                    'sec9-step3-title': 'जीडीपीआई / कौशल परीक्षण', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों के लिए आगे के चयन दौर प्रारंभिक स्क्रीनिंग परिणाम के कुछ सप्ताह बाद आयोजित किए जाते हैं।',
+                    'sec9-step4-title': 'अंतिम परिणाम और ज्वाइनिंग', 'sec9-step4-desc': '<strong>समयरेखा:</strong> एक अंतिम मेरिट सूची तैयार की जाती है, जिसके बाद एक पूर्व-रोजगार चिकित्सा परीक्षा और प्रस्ताव पत्रों का मुद्दा होता है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'आईओसीएल जैसे महारत्न में नौकरी के लिए प्रतिस्पर्धा भयंकर है। अपनी चयन की संभावनाओं को बढ़ाने के लिए इन सामान्य त्रुटियों से बचें।',
+                    'sec10-mistake1-title': 'अपर्याप्त गेट तैयारी:', 'sec10-mistake1-desc': 'इंजीनियरों के लिए, गेट में एक शीर्ष रैंक हासिल करने के लिए पर्याप्त प्रयास समर्पित नहीं करना, जो आईओसीएल का प्राथमिक प्रवेश द्वार है।',
+                    'sec10-mistake2-title': 'साक्षात्कार दौर की उपेक्षा:', 'sec10-mistake2-desc': 'लिखित परीक्षा में अच्छा प्रदर्शन करना लेकिन जीडी और व्यक्तिगत साक्षात्कार के लिए पर्याप्त तैयारी नहीं करना, जिसका महत्वपूर्ण महत्व है।',
+                    'sec10-mistake3-title': 'उद्योग जागरूकता का अभाव:', 'sec10-mistake3-desc': 'आईओसीएल के व्यावसायिक कार्यक्षेत्रों, इसकी प्रतिस्पर्धा और वैश्विक तेल और गैस उद्योग में वर्तमान रुझानों से अनभिज्ञ होना।',
+                    'sec10-mistake4-title': 'शारीरिक फिटनेस की अनदेखी:', 'sec10-mistake4-desc': 'रिफाइनरियों और संयंत्र स्थानों में भूमिकाओं के लिए आवश्यक कड़े चिकित्सा और शारीरिक फिटनेस मानकों को पूरा करने में विफल होना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'उम्मीदवारों के पास आईओसीएल के लिए गेट-आधारित और सीधी भर्ती परीक्षाओं दोनों के लिए उत्कृष्ट संसाधन हैं।',
+                    'sec11-gov-title': '📚 इंजीनियरों के लिए (GATE)', 'sec11-gov-list': '<li>विशेषज्ञ गेट कोचिंग संस्थान और ऑनलाइन प्लेटफॉर्म विभिन्न इंजीनियरिंग शाखाओं के लिए सबसे संरचित तैयारी प्रदान करते हैं।</li><li>मॉक टेस्ट के साथ लगातार अभ्यास आवश्यक है।</li>',
+                    'sec11-pvt-title': '📖 अपरेंटिस और अन्य के लिए', 'sec11-pvt-p1': 'डिप्लोमा/आईटीआई/डिग्री स्तर की पुस्तकों पर ध्यान दें।', 'sec11-pvt-list': '<li>मुख्य विषय की पाठ्यपुस्तकें तकनीकी पेपर के लिए सबसे अच्छा संसाधन हैं।</li><li>योग्यता अनुभाग के लिए, सामान्य सरकारी परीक्षाओं के लिए पुस्तकों और ऑनलाइन स्रोतों से अभ्यास करें।</li><li>आईओसीएल और अन्य तेल पीएसयू के पिछले प्रश्नपत्रों को हल करना अत्यधिक अनुशंसित है।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'आईओसीएल सीखने, विकास और शीर्ष प्रबंधन पदों तक बढ़ने के पर्याप्त अवसरों के साथ एक गतिशील और पूर्ण कैरियर पथ प्रदान करता है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. विशिष्ट पाठ्यक्रम (सीधी भर्ती) 📚',
+                    'sec13-p1': 'सीधी भर्ती परीक्षणों (जैसे, अपरेंटिस के लिए) के लिए पाठ्यक्रम आम तौर पर सामान्य योग्यता और मुख्य तकनीकी विषयों का मिश्रण है।',
+                    'syllabus-oir-title': 'सामान्य योग्यता',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता और अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'तकनीकी अनुशासन',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">प्रासंगिक डिप्लोमा/आईटीआई/एम.एससी पाठ्यक्रम</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | भारत की ऊर्जा।',
+                    'interviewChartData': {
+                        labels: ['तकनीकी कौशल', 'सुरक्षा मानसिकता', 'समस्या समाधान', 'टीम वर्क'],
+                        data: [95, 98, 90, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#1e293b]/50 rounded-xl text-center border-2 border-slate-700 hover:border-yellow-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(250, 204, 21, 0.7)',
+                            borderColor: '#facc15',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#dbeafe' },
+                                grid: { color: 'rgba(219, 234, 254, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#dbeafe', font: { size: 14 } },
+                                grid: { color: 'rgba(219, 234, 254, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
