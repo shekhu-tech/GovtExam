@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Llama 3.2: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Meta's next-generation Llama 3.2 models. Understand its open-source nature, multimodal capabilities, applications, and future potential.">
+    <meta name="keywords" content="Meta, Llama 3, Llama 3.2, Open Source AI, Large Language Models, AI, Artificial Intelligence, Multimodal AI, Generative AI, RLAIF">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #e5e7eb; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ec4899, #0ea5e9) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.8); /* Gray 900 Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #374151; /* Gray 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ec4899; /* Pink 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ec4899; /* Pink 500 */
+            color: #ec4899;
+            background: #1f2937; /* Gray 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+            text-shadow: 0 0 5px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ec4899;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-arrow {
+            color: #0ea5e9; /* Sky 500 */
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0ea5e9;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+        .subject-item .icon {
+            color: #0ea5e9;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ec4899;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #ec4899;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            color: #e5e7eb;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ec4899, #d946ef);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ec4899;
+            color: #ec4899;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ec4899;
+            color: #111827;
+            box-shadow: 0 0 15px #ec4899;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🦙 Meta's Llama 3.2: The Ultimate Guide 🦙</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-sky-400">The Next Evolution in Open Source AI</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Llama 3.2? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Meta's Llama 3.2? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Llama 3.2 is the next-generation family of open-source large language models from Meta. Building on the massive success of Llama 2, this new series represents a significant leap in performance, efficiency, and capability. Llama 3.2 introduces **full multimodality**, allowing it to understand and process not just text, but also images, audio, and video. It is designed to be the most powerful and accessible open-source model, empowering developers to create more sophisticated and helpful AI applications than ever before.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Llama 3.2 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Llama 3.2 utilizes an advanced Transformer architecture and is refined with state-of-the-art alignment techniques for superior performance and safety.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Pre-training</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Learning from a massive multimodal dataset</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Post-training</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Fine-tuning with SFT & RLAIF</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Red Teaming</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Extensive safety and adversarial testing</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Following its open-source philosophy, Meta aims to make Llama 3.2 widely available across numerous platforms.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🌐</span><div><strong id="sec3-age-title" class="text-white text-lg">Open Source Community:</strong> <span id="sec3-age-desc">The model weights are freely available for download for research and most commercial applications.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">☁️</span><div><strong id="sec3-edu-title" class="text-white text-lg">Cloud Platforms:</strong> <span id="sec3-edu-desc">Available on all major cloud providers like AWS, Google Cloud, and Microsoft Azure for easy, scalable deployment.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#0ea5e9] pb-2">Hardware & Devices 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Optimized Versions:</strong> Llama 3.2 will be available in various sizes, optimized to run on a wide range of hardware, from large GPU clusters to personal computers and mobile devices.</li>
+                             <li><strong>Hardware Partners:</strong> Meta is collaborating with partners like NVIDIA, Intel, and Qualcomm to optimize performance on their latest chips.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Next-Generation Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Llama 3.2 introduces full multimodality and significantly enhanced reasoning, setting a new standard for open-source models.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Full Multimodality</h3>
+                        <p class="text-sm">Understands and generates content from text, images, audio, and video.</p>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Advanced Reasoning</h3>
+                         <p class="text-sm">Improved performance on complex, multi-step reasoning, coding, and math problems.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Massive Context</h3>
+                         <p class="text-sm">A significantly larger context window (over 1M tokens), allowing it to process and analyze entire books or codebases.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Improved Safety</h3>
+                         <p class="text-sm">Enhanced safety features powered by new versions of Llama Guard and other advanced alignment techniques.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is Llama 3.2 Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Llama 3.2 is trained on an unprecedented scale, using a massive custom-built GPU infrastructure and a highly curated dataset.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ec4899]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A vastly expanded and more recent dataset.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Pre-trained on over 15 trillion tokens of publicly available data, including text, code, images, and video.</li>
+                            <li>The data undergoes extensive filtering and curation to improve quality and reduce bias.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#0ea5e9]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Alignment Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A combination of advanced techniques.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Uses a combination of Supervised Fine-Tuning (SFT), Reinforcement Learning with Human Feedback (RLHF), and a new technique, Reinforcement Learning with AI Feedback (RLAIF).</li>
+                           <li>RLAIF allows for faster and more scalable safety alignment by using a powerful AI model to help label data.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Llama 3.2's multimodal and enhanced reasoning capabilities open up new frontiers for AI applications.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">AI Agents</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Building sophisticated autonomous agents that can reason and take multi-step actions.</li>
+                           <li>Creating more capable and helpful personal and professional assistants.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Multimodal Content</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Generating video from text or images.</li>
+                           <li>Creating presentations from documents.</li>
+                           <li>Analyzing and describing the content of videos.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Advanced Coding</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Generating entire codebases from high-level specifications.</li>
+                           <li>Advanced debugging and code optimization.</li>
+                           <li>Serving as an expert pair programmer for complex projects.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Llama 3.2 is expected to set new state-of-the-art performance records for open-source models, rivaling and even surpassing the best proprietary models available.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ec4899] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🧠</span><div><strong class="text-white">Reasoning & Knowledge (MMLU):</strong> Expected to achieve near-human-level scores on general knowledge and reasoning tasks.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">💻</span><div><strong class="text-white">Coding (HumanEval):</strong> A significant leap in performance for complex code generation, debugging, and planning.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🖼️</span><div><strong class="text-white">Multimodal Benchmarks:</strong> Strong performance on benchmarks that test the ability to reason across text, images, and video.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Llama 3.2: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To effectively use Llama 3.2's multimodal and reasoning capabilities, prompts should be structured to provide rich context across different data types.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#ec4899] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Interleave Modalities</h4>
+                                <p id="sec8-step1-desc" class="text-base">Provide a sequence of text and images in your prompt to ask complex visual reasoning questions.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Leverage the Context Window</h4>
+                                <p id="sec8-step2-desc" class="text-base">Provide entire documents, codebases, or transcripts as context for in-depth analysis and question-answering.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Chain of Thought for Multimodality:</strong> Ask the model to "think step by step" when analyzing complex images or charts to improve accuracy.</li>
+                            <li><strong>System Prompts for Safety:</strong> Use robust system prompts and tools like Llama Guard 2 to ensure the model's outputs remain safe and on-topic.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Llama 3.2 represents a major milestone in Meta's mission to build and openly share advanced AI technology.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Llama 2 Release</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> July 2023. Established a new standard for open-source LLMs and enabled commercial use.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Llama 3 Release</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> April 2024. Delivered a major performance leap with models up to 70B parameters, outperforming many proprietary models.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Llama 3.2 Release</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Q4 2025 (Hypothetical). The introduction of a fully multimodal, 400B+ parameter model that redefines state-of-the-art for open-source AI.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Responsible Use 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">As AI models become more powerful, a commitment to responsible development and deployment is more important than ever.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Misinformation Potential:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">The ability to generate realistic multimodal content increases the risk of creating sophisticated misinformation. Fact-checking is essential.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Bias Amplification:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Models can still reflect and amplify biases present in their training data, requiring careful implementation of safety guardrails.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Resource Intensive:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Running the largest versions of Llama 3.2 requires significant computational resources, which can be a barrier for individual developers.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Responsible Use:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">All users must adhere to Meta's Acceptable Use Policy and implement safety tools like Llama Guard 2 to prevent misuse.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use Llama 3.2 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Meta will continue its strategy of broad and open distribution for Llama 3.2.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Developers & Hobbyists</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Hugging Face:** The easiest way to get started with the models using the `transformers` library.</li>
+                           <li>**Direct Download:** Apply for access on the Meta AI website to download the model weights.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Enterprise Use</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Use managed cloud services for scalable deployments.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Available on all major cloud platforms, including Microsoft Azure, AWS, and Google Cloud.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Open-Source AGI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Llama 3.2 continues Meta's push to make state-of-the-art AI openly available, accelerating innovation and collaboration across the globe. The rapid progress in open-source models is a key driver on the path to developing safe and beneficial Artificial General Intelligence (AGI).</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core concepts is fundamental to appreciating the technology behind Llama 3.2.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Open Source AI</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Advanced Alignment</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Building the future of AI, openly.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Pre-training</h3>
+            <p id="prelims-modal-p1">The model is trained on a colossal dataset of over 15 trillion tokens, including a vast amount of text, code, images, and video data. This unsupervised phase builds the model's foundational knowledge and its ability to understand patterns across different modalities.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Post-training Alignment</h3>
+            <p id="mains-modal-p1">After pre-training, the model is extensively fine-tuned for safety and helpfulness. This involves a combination of Supervised Fine-Tuning (SFT) and advanced techniques like Reinforcement Learning with both Human and AI Feedback (RLHF & RLAIF) to align the model's behavior with desired principles.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Red Teaming & Safety</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Before release, the model undergoes rigorous adversarial testing, or "Red Teaming," where internal and external experts try to make the model produce harmful or biased content. This helps identify and mitigate potential risks. Tools like Llama Guard 2 are also developed to help filter unsafe outputs.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Llama 3.2</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    's': { 
+                        name: 'Llama 3.2 8B', 
+                        icon: '⚡',
+                        description: 'A highly efficient and fast model, ideal for on-device applications, simple chatbots, and tasks requiring low latency.',
+                        cta: 'Learn More'
+                    },
+                    'm': { 
+                        name: 'Llama 3.2 70B', 
+                        icon: '🧠',
+                        description: 'The balanced model, offering a great combination of performance and efficiency for a wide range of enterprise and developer applications.',
+                        cta: 'Learn More'
+                    },
+                    'l': { 
+                        name: 'Llama 3.2 405B+', 
+                        icon: '🏆',
+                        description: 'The flagship, state-of-the-art model designed for the most complex reasoning and multimodal tasks, rivaling the best proprietary models.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    's': { 
+                        name: 'लामा 3.2 8B', 
+                        icon: '⚡',
+                        description: 'एक अत्यधिक कुशल और तेज़ मॉडल, जो ऑन-डिवाइस अनुप्रयोगों, सरल चैटबॉट्स और कम विलंबता की आवश्यकता वाले कार्यों के लिए आदर्श है।',
+                        cta: 'और जानें'
+                    },
+                    'm': { 
+                        name: 'लामा 3.2 70B', 
+                        icon: '🧠',
+                        description: 'संतुलित मॉडल, जो उद्यम और डेवलपर अनुप्रयोगों की एक विस्तृत श्रृंखला के लिए प्रदर्शन और दक्षता का एक बड़ा संयोजन प्रदान करता है।',
+                        cta: 'और जानें'
+                    },
+                    'l': { 
+                        name: 'लामा 3.2 405B+', 
+                        icon: '🏆',
+                        description: 'प्रमुख, अत्याधुनिक मॉडल जो सबसे जटिल तर्क और मल्टीमॉडल कार्यों के लिए डिज़ाइन किया गया है, जो सर्वोत्तम मालिकाना मॉडल को टक्कर देता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Openness", desc: "Committed to being open source, allowing for widespread access, innovation, and scrutiny by the global research community." },
+                        { rank: "State-of-the-Art Performance", desc: "Aims to be the best open model, directly competing with and even surpassing top closed-source models on key benchmarks." },
+                        { rank: "Full Multimodality", desc: "Natively built to handle text, images, audio, and video, enabling more seamless and powerful applications." },
+                        { rank: "Responsible Development", desc: "A strong emphasis on safety through advanced alignment techniques and the release of tools like Llama Guard to help developers build responsibly." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "खुलापन", desc: "ओपन सोर्स होने के लिए प्रतिबद्ध, वैश्विक अनुसंधान समुदाय द्वारा व्यापक पहुंच, नवाचार और जांच की अनुमति देता है।" },
+                        { rank: "अत्याधुनिक प्रदर्शन", desc: "सर्वश्रेष्ठ खुला मॉडल बनने का लक्ष्य, प्रमुख बेंचमार्क पर शीर्ष बंद-स्रोत मॉडल के साथ सीधे प्रतिस्पर्धा करना और यहां तक कि उनसे आगे निकलना।" },
+                        { rank: "पूर्ण मल्टीमॉडल", desc: "मूल रूप से पाठ, चित्र, ऑडियो और वीडियो को संभालने के लिए बनाया गया है, जो अधिक सहज और शक्तिशाली अनुप्रयोगों को सक्षम करता है।" },
+                        { rank: "जिम्मेदार विकास", desc: "उन्नत संरेखण तकनीकों के माध्यम से सुरक्षा पर एक मजबूत जोर और डेवलपर्स को जिम्मेदारी से निर्माण में मदद करने के लिए लामा गार्ड जैसे उपकरणों की रिहाई।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🦙 Meta\'s Llama 3.2: The Ultimate Guide 🦙',
+                    'header-subtitle': 'The Next Evolution in Open Source AI',
+                    'sec1-title': '1. What is Meta\'s Llama 3.2? 💡',
+                    'sec1-p1': 'Llama 3.2 is the next-generation family of open-source large language models from Meta. Building on the massive success of Llama 2, this new series represents a significant leap in performance, efficiency, and capability. Llama 3.2 introduces **full multimodality**, allowing it to understand and process not just text, but also images, audio, and video. It is designed to be the most powerful and accessible open-source model, empowering developers to create more sophisticated and helpful AI applications than ever before.',
+                    'sec2-title': '2. The Technology Behind Llama 3.2 🎯',
+                    'sec2-p1': 'Llama 3.2 utilizes an advanced Transformer architecture and is refined with state-of-the-art alignment techniques for superior performance and safety.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Pre-training', 'sec2-step1-desc': 'Learning from a massive multimodal dataset',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Post-training', 'sec2-step2-desc': 'Fine-tuning with SFT & RLAIF',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Red Teaming', 'sec2-step3-desc': 'Extensive safety and adversarial testing',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Following its open-source philosophy, Meta aims to make Llama 3.2 widely available across numerous platforms.',
+                    'sec3-age-title': 'Open Source Community:', 'sec3-age-desc': 'The model weights are freely available for download for research and most commercial applications.',
+                    'sec3-edu-title': 'Cloud Platforms:', 'sec3-edu-desc': 'Available on all major cloud providers like AWS, Google Cloud, and Microsoft Azure for easy, scalable deployment.',
+                    'sec3-attempts-title': 'Hardware & Devices 📊',
+                    'sec3-agerelax-list': '<li><strong>Optimized Versions:</strong> Llama 3.2 will be available in various sizes, optimized to run on a wide range of hardware, from large GPU clusters to personal computers and mobile devices.</li><li><strong>Hardware Partners:</strong> Meta is collaborating with partners like NVIDIA, Intel, and Qualcomm to optimize performance on their latest chips.</li>',
+                    'sec4-title': '4. Next-Generation Capabilities 📚',
+                    'sec4-p1': 'Llama 3.2 introduces full multimodality and significantly enhanced reasoning, setting a new standard for open-source models.',
+                    'gs1-title': 'Full Multimodality',
+                    'gs2-title': 'Advanced Reasoning',
+                    'gs3-title': 'Massive Context',
+                    'gs4-title': 'Improved Safety',
+                    'sec5-title': '5. How is Llama 3.2 Trained? 🏛️',
+                    'sec5-p1': 'Llama 3.2 is trained on an unprecedented scale, using a massive custom-built GPU infrastructure and a highly curated dataset.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A vastly expanded and more recent dataset.', 'sec5-hindi-list': '<li>Pre-trained on over 15 trillion tokens of publicly available data, including text, code, images, and video.</li><li>The data undergoes extensive filtering and curation to improve quality and reduce bias.</li>',
+                    'sec5-essay-title': '2. The Alignment Process', 'sec5-essay-p1': 'A combination of advanced techniques.', 'sec5-essay-list': '<li>Uses a combination of Supervised Fine-Tuning (SFT), Reinforcement Learning with Human Feedback (RLHF), and a new technique, Reinforcement Learning with AI Feedback (RLAIF).</li><li>RLAIF allows for faster and more scalable safety alignment by using a powerful AI model to help label data.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'Llama 3.2\'s multimodal and enhanced reasoning capabilities open up new frontiers for AI applications.',
+                    'sec6-eng-title': 'AI Agents', 'sec6-eng-list': '<li>Building sophisticated autonomous agents that can reason and take multi-step actions.</li><li>Creating more capable and helpful personal and professional assistants.</li>',
+                    'sec6-elec-title': 'Multimodal Content', 'sec6-elec-list': '<li>Generating video from text or images.</li><li>Creating presentations from documents.</li><li>Analyzing and describing the content of videos.</li>',
+                    'sec6-naic-title': 'Advanced Coding', 'sec6-naic-list': '<li>Generating entire codebases from high-level specifications.</li><li>Advanced debugging and code optimization.</li><li>Serving as an expert pair programmer for complex projects.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Llama 3.2 is expected to set new state-of-the-art performance records for open-source models, rivaling and even surpassing the best proprietary models available.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🧠</span><div><strong class="text-white">Reasoning & Knowledge (MMLU):</strong> Expected to achieve near-human-level scores on general knowledge and reasoning tasks.</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">💻</span><div><strong class="text-white">Coding (HumanEval):</strong> A significant leap in performance for complex code generation, debugging, and planning.</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🖼️</span><div><strong class="text-white">Multimodal Benchmarks:</strong> Strong performance on benchmarks that test the ability to reason across text, images, and video.</div></li>',
+                    'sec8-title': '8. Prompting Llama 3.2: Best Practices 📈',
+                    'sec8-p1': 'To effectively use Llama 3.2\'s multimodal and reasoning capabilities, prompts should be structured to provide rich context across different data types.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Interleave Modalities', 'sec8-step1-desc': 'Provide a sequence of text and images in your prompt to ask complex visual reasoning questions.',
+                    'sec8-step2-title': 'Leverage the Context Window', 'sec8-step2-desc': 'Provide entire documents, codebases, or transcripts as context for in-depth analysis and question-answering.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Chain of Thought for Multimodality:</strong> Ask the model to "think step by step" when analyzing complex images or charts to improve accuracy.</li><li><strong>System Prompts for Safety:</strong> Use robust system prompts and tools like Llama Guard 2 to ensure the model\'s outputs remain safe and on-topic.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Llama 3.2 represents a major milestone in Meta\'s mission to build and openly share advanced AI technology.',
+                    'sec9-step2-title': 'Llama 2 Release', 'sec9-step2-desc': '<strong>Timeline:</strong> July 2023. Established a new standard for open-source LLMs and enabled commercial use.',
+                    'sec9-step3-title': 'Llama 3 Release', 'sec9-step3-desc': '<strong>Timeline:</strong> April 2024. Delivered a major performance leap with models up to 70B parameters, outperforming many proprietary models.',
+                    'sec9-step4-title': 'Llama 3.2 Release', 'sec9-step4-desc': '<strong>Timeline:</strong> Q4 2025 (Hypothetical). The introduction of a fully multimodal, 400B+ parameter model that redefines state-of-the-art for open-source AI.',
+                    'sec10-title': '10. Limitations & Responsible Use 🚫',
+                    'sec10-p1': 'As AI models become more powerful, a commitment to responsible development and deployment is more important than ever.',
+                    'sec10-mistake1-title': 'Misinformation Potential:', 'sec10-mistake1-desc': 'The ability to generate realistic multimodal content increases the risk of creating sophisticated misinformation. Fact-checking is essential.',
+                    'sec10-mistake2-title': 'Bias Amplification:', 'sec10-mistake2-desc': 'Models can still reflect and amplify biases present in their training data, requiring careful implementation of safety guardrails.',
+                    'sec10-mistake3-title': 'Resource Intensive:', 'sec10-mistake3-desc': 'Running the largest versions of Llama 3.2 requires significant computational resources, which can be a barrier for individual developers.',
+                    'sec10-mistake4-title': 'Responsible Use:', 'sec10-mistake4-desc': 'All users must adhere to Meta\'s Acceptable Use Policy and implement safety tools like Llama Guard 2 to prevent misuse.',
+                    'sec11-title': '11. How to Access & Use Llama 3.2 🏫',
+                    'sec11-p1': 'Meta will continue its strategy of broad and open distribution for Llama 3.2.',
+                    'sec11-gov-title': '📚 For Developers & Hobbyists', 'sec11-gov-list': '<li>**Hugging Face:** The easiest way to get started with the models using the `transformers` library.</li><li>**Direct Download:** Apply for access on the Meta AI website to download the model weights.</li>',
+                    'sec11-pvt-title': '💻 For Enterprise Use', 'sec11-pvt-p1': 'Use managed cloud services for scalable deployments.', 'sec11-pvt-list': '<li>Available on all major cloud platforms, including Microsoft Azure, AWS, and Google Cloud.</li>',
+                    'sec12-title': '12. The Future: Open-Source AGI 🚀',
+                    'sec12-p1': 'The release of Llama 2 has catalyzed a global wave of innovation in open-source AI. The upcoming Llama 3 is highly anticipated and is expected to feature full multimodality and even more powerful reasoning capabilities, further narrowing the gap between open and closed-source models and empowering a new generation of AI-powered products and services.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core concepts is fundamental to appreciating the technology behind Llama 3.2.',
+                    'syllabus-oir-title': 'Open Source AI',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Democratizing AI</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Advanced Alignment',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">RLAIF & SFT</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Building the future of AI, openly.',
+                    'interviewChartData': {
+                        labels: ['MMLU', 'GSM8K', 'HumanEval', 'MATH'],
+                        data: [85.5, 96.0, 85.1, 75.3] // Hypothetical Llama 3.2 scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🦙 मेटा का लामा 3.2: अंतिम गाइड 🦙',
+                    'header-subtitle': 'ओपन सोर्स एआई में अगला विकास',
+                    'sec1-title': '1. मेटा का लामा 3.2 क्या है? 💡',
+                    'sec1-p1': 'लामा 3.2 मेटा से ओपन-सोर्स बड़े भाषा मॉडल की अगली पीढ़ी का परिवार है। लामा 2 की भारी सफलता पर आधारित, यह नई श्रृंखला प्रदर्शन, दक्षता और क्षमता में एक महत्वपूर्ण छलांग का प्रतिनिधित्व करती है। लामा 3.2 **पूर्ण मल्टीमॉडल** का परिचय देता है, जिससे यह न केवल पाठ, बल्कि छवियों, ऑडियो और वीडियो को भी समझ और संसाधित कर सकता है। इसे सबसे शक्तिशाली और सुलभ ओपन-सोर्स मॉडल के रूप में डिज़ाइन किया गया है, जो डेवलपर्स को पहले से कहीं अधिक परिष्कृत और सहायक एआई एप्लिकेशन बनाने के लिए सशक्त बनाता है।',
+                    'sec2-title': '2. लामा 3.2 के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'लामा 3.2 एक उन्नत ट्रांसफार्मर वास्तुकला का उपयोग करता है और बेहतर प्रदर्शन और सुरक्षा के लिए अत्याधुनिक संरेखण तकनीकों के साथ परिष्कृत है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'पूर्व-प्रशिक्षण', 'sec2-step1-desc': 'एक विशाल मल्टीमॉडल डेटासेट से सीखना',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'प्रशिक्षण के बाद', 'sec2-step2-desc': 'SFT और RLAIF के साथ फाइन-ट्यूनिंग',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'रेड टीमिंग', 'sec2-step3-desc': 'व्यापक सुरक्षा और प्रतिकूल परीक्षण',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'अपने ओपन-सोर्स दर्शन का पालन करते हुए, मेटा का लक्ष्य लामा 3.2 को कई प्लेटफार्मों पर व्यापक रूप से उपलब्ध कराना है।',
+                    'sec3-age-title': 'ओपन सोर्स समुदाय:', 'sec3-age-desc': 'मॉडल भार अनुसंधान और अधिकांश वाणिज्यिक अनुप्रयोगों के लिए डाउनलोड के लिए स्वतंत्र रूप से उपलब्ध हैं।',
+                    'sec3-edu-title': 'क्लाउड प्लेटफॉर्म:', 'sec3-edu-desc': 'आसान, स्केलेबल परिनियोजन के लिए एडब्ल्यूएस, गूगल क्लाउड और माइक्रोसॉफ्ट एज़्योर जैसे सभी प्रमुख क्लाउड प्रदाताओं पर उपलब्ध है।',
+                    'sec3-attempts-title': 'हार्डवेयर और उपकरण 📊',
+                    'sec3-agerelax-list': '<li><strong>अनुकूलित संस्करण:</strong> लामा 3.2 विभिन्न आकारों में उपलब्ध होगा, जो बड़े जीपीयू क्लस्टर से लेकर व्यक्तिगत कंप्यूटर और मोबाइल उपकरणों तक, हार्डवेयर की एक विस्तृत श्रृंखला पर चलाने के लिए अनुकूलित है।</li><li><strong>हार्डवेयर भागीदार:</strong> मेटा अपने नवीनतम चिप्स पर प्रदर्शन को अनुकूलित करने के लिए एनवीडिया, इंटेल और क्वालकॉम जैसे भागीदारों के साथ सहयोग कर रहा है।</li>',
+                    'sec4-title': '4. अगली पीढ़ी की क्षमताएं 📚',
+                    'sec4-p1': 'लामा 3.2 पूर्ण मल्टीमॉडल और काफी बढ़ी हुई तर्क क्षमता का परिचय देता है, जो ओपन-सोर्स मॉडल के लिए एक नया मानक स्थापित करता है।',
+                    'gs1-title': 'पूर्ण मल्टीमॉडल',
+                    'gs2-title': 'उन्नत तर्क',
+                    'gs3-title': 'विशाल संदर्भ',
+                    'gs4-title': 'बेहतर सुरक्षा',
+                    'sec5-title': '5. लामा 3.2 को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'लामा 3.2 को एक अभूतपूर्व पैमाने पर प्रशिक्षित किया जाता है, जिसमें एक विशाल कस्टम-निर्मित जीपीयू बुनियादी ढांचे और एक उच्च क्यूरेटेड डेटासेट का उपयोग किया जाता है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'एक बहुत विस्तारित और अधिक हालिया डेटासेट।', 'sec5-hindi-list': '<li>पाठ, कोड, छवियों और वीडियो सहित सार्वजनिक रूप से उपलब्ध डेटा के 15 ट्रिलियन से अधिक टोकन पर पूर्व-प्रशिक्षित।</li><li>गुणवत्ता में सुधार और पूर्वाग्रह को कम करने के लिए डेटा व्यापक फ़िल्टरिंग और क्यूरेशन से गुजरता है।</li>',
+                    'sec5-essay-title': '2. संरेखण प्रक्रिया', 'sec5-essay-p1': 'उन्नत तकनीकों का एक संयोजन।', 'sec5-essay-list': '<li>पर्यवेक्षित फाइन-ट्यूनिंग (एसएफटी), मानव प्रतिक्रिया के साथ सुदृढीकरण सीखना (आरएलएचएफ), और एक नई तकनीक, एआई प्रतिक्रिया के साथ सुदृढीकरण सीखना (आरएलएआईएफ) के संयोजन का उपयोग करता है।</li><li>आरएलएआईएफ डेटा को लेबल करने में मदद करने के लिए एक शक्तिशाली एआई मॉडल का उपयोग करके तेजी से और अधिक स्केलेबल सुरक्षा संरेखण की अनुमति देता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'लामा 3.2 की मल्टीमॉडल और बढ़ी हुई तर्क क्षमताएं एआई अनुप्रयोगों के लिए नई सीमाएं खोलती हैं।',
+                    'sec6-eng-title': 'एआई एजेंट', 'sec6-eng-list': '<li>परिष्कृत स्वायत्त एजेंट बनाना जो तर्क कर सकते हैं और बहु-चरणीय कार्य कर सकते हैं।</li><li>अधिक सक्षम और सहायक व्यक्तिगत और पेशेवर सहायक बनाना।</li>',
+                    'sec6-elec-title': 'मल्टीमॉडल सामग्री', 'sec6-elec-list': '<li>पाठ या छवियों से वीडियो बनाना।</li><li>दस्तावेजों से प्रस्तुतियाँ बनाना।</li><li>वीडियो की सामग्री का विश्लेषण और वर्णन करना।</li>',
+                    'sec6-naic-title': 'उन्नत कोडिंग', 'sec6-naic-list': '<li>उच्च-स्तरीय विनिर्देशों से संपूर्ण कोडबेस उत्पन्न करना।</li><li>उन्नत डीबगिंग और कोड अनुकूलन।</li><li>जटिल परियोजनाओं के लिए एक विशेषज्ञ जोड़ी प्रोग्रामर के रूप में सेवा करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'लामा 3.2 से ओपन-सोर्स मॉडल के लिए नए अत्याधुनिक प्रदर्शन रिकॉर्ड स्थापित करने की उम्मीद है, जो उपलब्ध सर्वोत्तम मालिकाना मॉडल को टक्कर देता है और यहां तक कि उनसे आगे भी निकल जाता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🧠</span><div><strong class="text-white">तर्क और ज्ञान (एमएमएलयू):</strong> सामान्य ज्ञान और तर्क कार्यों पर मानव-स्तर के निकट स्कोर प्राप्त करने की उम्मीद है।</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">💻</span><div><strong class="text-white">कोडिंग (ह्यूमनइवल):</strong> जटिल कोड जनरेशन, डीबगिंग और योजना के लिए प्रदर्शन में एक महत्वपूर्ण छलांग।</div></li><li class="flex items-start"><span class="text-2xl text-[#0ea5e9] mr-3">🖼️</span><div><strong class="text-white">मल्टीमॉडल बेंचमार्क:</strong> पाठ, छवियों और वीडियो में तर्क करने की क्षमता का परीक्षण करने वाले बेंचमार्क पर मजबूत प्रदर्शन।</div></li>',
+                    'sec8-title': '8. लामा 3.2 को प्रॉम्प्ट करना: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'लामा 3.2 की मल्टीमॉडल और तर्क क्षमताओं का प्रभावी ढंग से उपयोग करने के लिए, प्रॉम्प्ट को विभिन्न डेटा प्रकारों में समृद्ध संदर्भ प्रदान करने के लिए संरचित किया जाना चाहिए।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'तौर-तरीकों को इंटरलीव करें', 'sec8-step1-desc': 'जटिल दृश्य तर्क प्रश्न पूछने के लिए अपने प्रॉम्प्ट में पाठ और छवियों का एक अनुक्रम प्रदान करें।',
+                    'sec8-step2-title': 'संदर्भ विंडो का लाभ उठाएं', 'sec8-step2-desc': 'गहन विश्लेषण और प्रश्न-उत्तर के लिए संदर्भ के रूप में संपूर्ण दस्तावेज़, कोडबेस या प्रतिलेख प्रदान करें।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>मल्टीमॉडल के लिए विचार श्रृंखला:</strong> सटीकता में सुधार के लिए जटिल छवियों या चार्ट का विश्लेषण करते समय मॉडल को "कदम-दर-कदम सोचने" के लिए कहें।</li><li><strong>सुरक्षा के लिए सिस्टम प्रॉम्प्ट:</strong> यह सुनिश्चित करने के लिए कि मॉडल के आउटपुट सुरक्षित और विषय पर बने रहें, मजबूत सिस्टम प्रॉम्प्ट और लामा गार्ड 2 जैसे उपकरणों का उपयोग करें।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'लामा 3.2 उन्नत एआई प्रौद्योगिकी के निर्माण और खुले तौर पर साझा करने के मेटा के मिशन में एक प्रमुख मील का पत्थर का प्रतिनिधित्व करता है।',
+                    'sec9-step2-title': 'लामा 2 रिलीज', 'sec9-step2-desc': '<strong>समयरेखा:</strong> जुलाई 2023। ओपन-सोर्स एलएलएम के लिए एक नया मानक स्थापित किया और वाणिज्यिक उपयोग को सक्षम किया।',
+                    'sec9-step3-title': 'लामा 3 रिलीज', 'sec9-step3-desc': '<strong>समयरेखा:</strong> अप्रैल 2024। 70B मापदंडों तक के मॉडल के साथ एक प्रमुख प्रदर्शन छलांग दी, जो कई मालिकाना मॉडल से बेहतर प्रदर्शन कर रहा है।',
+                    'sec9-step4-title': 'लामा 3.2 रिलीज', 'sec9-step4-desc': '<strong>समयरेखा:</strong> Q4 2025 (काल्पनिक)। एक पूरी तरह से मल्टीमॉडल, 400B+ पैरामीटर मॉडल का परिचय जो ओपन-सोर्स एआई के लिए अत्याधुनिक को फिर से परिभाषित करता है।',
+                    'sec10-title': '10. सीमाएं और जिम्मेदार उपयोग 🚫',
+                    'sec10-p1': 'जैसे-जैसे एआई मॉडल अधिक शक्तिशाली होते जाते हैं, जिम्मेदार विकास और परिनियोजन के प्रति प्रतिबद्धता पहले से कहीं अधिक महत्वपूर्ण है।',
+                    'sec10-mistake1-title': 'गलत सूचना की संभावना:', 'sec10-mistake1-desc': 'यथार्थवादी मल्टीमॉडल सामग्री उत्पन्न करने की क्षमता परिष्कृत गलत सूचना बनाने के जोखिम को बढ़ाती है। तथ्य-जांच आवश्यक है।',
+                    'sec10-mistake2-title': 'पूर्वाग्रह प्रवर्धन:', 'sec10-mistake2-desc': 'मॉडल अभी भी अपने प्रशिक्षण डेटा में मौजूद पूर्वाग्रहों को प्रतिबिंबित और बढ़ा सकते हैं, जिसके लिए सुरक्षा गार्डरेल के सावधानीपूर्वक कार्यान्वयन की आवश्यकता होती है।',
+                    'sec10-mistake3-title': 'संसाधन गहन:', 'sec10-mistake3-desc': 'लामा 3.2 के सबसे बड़े संस्करणों को चलाने के लिए महत्वपूर्ण कम्प्यूटेशनल संसाधनों की आवश्यकता होती है, जो व्यक्तिगत डेवलपर्स के लिए एक बाधा हो सकती है।',
+                    'sec10-mistake4-title': 'जिम्मेदार उपयोग:', 'sec10-mistake4-desc': 'सभी उपयोगकर्ताओं को मेटा की स्वीकार्य उपयोग नीति का पालन करना चाहिए और दुरुपयोग को रोकने के लिए लामा गार्ड 2 जैसे सुरक्षा उपकरणों को लागू करना चाहिए।',
+                    'sec11-title': '11. लामा 3.2 तक कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'मेटा लामा 3.2 के लिए व्यापक और खुले वितरण की अपनी रणनीति जारी रखेगा।',
+                    'sec11-gov-title': '📚 डेवलपर्स और हॉबीस्ट के लिए', 'sec11-gov-list': '<li><strong>हगिंग फेस:</strong> `ट्रांसफार्मर` लाइब्रेरी का उपयोग करके मॉडल के साथ शुरुआत करने का सबसे आसान तरीका।</li><li><strong>सीधा डाउनलोड:</strong> मॉडल भार डाउनलोड करने के लिए मेटा एआई वेबसाइट पर पहुंच के लिए आवेदन करें।</li>',
+                    'sec11-pvt-title': '💻 उद्यम उपयोग के लिए', 'sec11-pvt-p1': 'स्केलेबल परिनियोजन के लिए प्रबंधित क्लाउड सेवाओं का उपयोग करें।', 'sec11-pvt-list': '<li>माइक्रोसॉफ्ट एज़्योर, एडब्ल्यूएस और गूगल क्लाउड सहित सभी प्रमुख क्लाउड प्लेटफार्मों पर उपलब्ध है।</li>',
+                    'sec12-title': '12. भविष्य: ओपन-सोर्स एजीआई 🚀',
+                    'sec12-p1': 'लामा 2 की रिलीज ने ओपन-सोर्स एआई में नवाचार की एक वैश्विक लहर को उत्प्रेरित किया है। आगामी लामा 3 का बेसब्री से इंतजार है और इसमें पूर्ण मल्टीमॉडल और और भी अधिक शक्तिशाली तर्क क्षमताओं की सुविधा होने की उम्मीद है, जिससे खुले और बंद-स्रोत मॉडल के बीच की खाई को और कम किया जा सकेगा और एआई-संचालित उत्पादों और सेवाओं की एक नई पीढ़ी को सशक्त बनाया जा सकेगा।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'लामा 3.2 के पीछे की तकनीक की सराहना करने के लिए इन मुख्य अवधारणाओं को समझना मौलिक है।',
+                    'syllabus-oir-title': 'ओपन सोर्स एआई',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">एआई का लोकतंत्रीकरण</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'उन्नत संरेखण',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">आरएलएआईएफ और एसएफटी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एआई के भविष्य का निर्माण, खुले तौर पर।',
+                    'interviewChartData': {
+                        labels: ['एमएमएलयू', 'जीएसएम8के', 'ह्यूमनइवल', 'मैथ'],
+                        data: [85.5, 96.0, 85.1, 75.3]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-purple-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Llama 3.2 405B Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(147, 51, 234, 0.7)',
+                                'rgba(14, 165, 233, 0.7)',
+                                'rgba(234, 179, 8, 0.7)',
+                                'rgba(52, 211, 153, 0.7)'
+                            ],
+                            borderColor: [
+                                '#9333ea',
+                                '#0ea5e9',
+                                '#eab308',
+                                '#22c55e'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
