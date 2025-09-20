@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic Claude 3: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Anthropic's Claude 3 model family (Opus, Sonnet, Haiku). Understand its next-generation capabilities, vision, performance, and applications.">
+    <meta name="keywords" content="Anthropic, Claude 3, Opus, Sonnet, Haiku, Constitutional AI, Large Language Models, AI Safety, Multimodal AI, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a2a24; /* Dark Green/Teal */
+            color: #dad7cd; /* Cream */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #d4af37, #a3b18a) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 42, 36, 0.85); /* Dark Green Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #344e41; /* Medium Green */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #d4af37; /* Gold */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #d4af37; /* Gold */
+            color: #d4af37;
+            background: #3a5a40; /* Darker Green */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #d4af37;
+            color: #1a2a24;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+        .flowchart-arrow {
+            color: #a3b18a; /* Light Green */
+            text-shadow: 0 0 10px rgba(163, 177, 138, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #a3b18a;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #344e41;
+        }
+        .subject-item:hover {
+            background-color: rgba(163, 177, 138, 0.15);
+        }
+        .subject-item .icon {
+            color: #a3b18a;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #d4af37;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a2a24;
+            border: 4px solid #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 42, 36, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #344e41;
+            color: #dad7cd;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #588157;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #dad7cd; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #d4af37, #bc9c22);
+            color: #1a2a24;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #d4af37;
+            color: #1a2a24;
+            box-shadow: 0 0 15px #d4af37;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #a3b18a, #8a9a5b);
+            color: #1a2a24;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #3a5a40; 
+            color: #dad7cd; 
+            border-color: #588157; 
+        }
+        .lectures-btn:hover {
+            background-color: #588157;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🤖 Anthropic Claude 3: The Ultimate Guide 🤖</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-lime-300">A New Generation of Intelligence: Opus, Sonnet & Haiku</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Claude 3? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#344e41] via-[#1a2a24] to-[#1a2a24]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is the Claude 3 Family? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">The Claude 3 family is Anthropic's next generation of AI models, setting new industry benchmarks across a wide range of cognitive tasks. The family includes three state-of-the-art models in ascending order of capability: **Claude 3 Haiku**, **Claude 3 Sonnet**, and **Claude 3 Opus**. Each model offers a unique balance of intelligence, speed, and cost, allowing users to choose the optimal tool for their specific application, from instant customer chats to complex, multi-step tasks.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Claude 3 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Claude 3 models build upon Anthropic's legacy of safety and research, incorporating advanced new capabilities like vision, while further reducing undesirable behaviors like hallucinations.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Multimodal Prompt</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">User provides text and/or images</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Claude 3 Model</span><br><span id="sec2-step2-name">Advanced Reasoning</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Model processes and understands the query</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Nuanced Response</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">A fast, intelligent, and safe response is generated</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Anthropic is making the Claude 3 family widely available through its own products and partnerships with leading cloud providers.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#d4af37] mr-4">👤</span><div><strong id="sec3-age-title" class="text-white text-lg">General Users:</strong> <span id="sec3-age-desc">Can access Sonnet for free on claude.ai, and the most intelligent model, Opus, through the paid Claude Pro subscription.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#d4af37] mr-4">🧑‍💻</span><div><strong id="sec3-edu-title" class="text-white text-lg">Developers:</strong> <span id="sec3-edu-desc">All three models (Opus, Sonnet, Haiku) are available via the Anthropic API for building next-generation AI applications.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#a3b18a] pb-2">Enterprise & Cloud 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Businesses:</strong> Can access the models for large-scale deployments through platforms like Amazon Bedrock and Google Cloud's Vertex AI Model Garden.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Next-Generation Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The Claude 3 models introduce several groundbreaking capabilities that set a new standard for intelligent systems.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Vision & Multimodality</h3>
+                        <p class="text-sm">Ability to understand and analyze images, charts, graphs, and technical diagrams.</p>
+                    </div>
+                     <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Near-Instant Speed</h3>
+                         <p class="text-sm">Haiku is the fastest and most cost-effective model in its intelligence category, enabling real-time chat experiences.</p>
+                    </div>
+                    <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Top-Level Performance</h3>
+                         <p class="text-sm">Opus sets new industry benchmarks on most common evaluation benchmarks for AI systems, including expert knowledge and reasoning.</p>
+                    </div>
+                    <div class="bg-[#3a5a40]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-stone-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-amber-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Fewer Refusals</h3>
+                         <p class="text-sm">The models show an improved understanding of context and are much less likely to refuse to answer prompts that border on safety guardrails.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Data 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">The Claude 3 family is trained on a proprietary mix of internal and publicly available data, with a continued emphasis on safety and harmlessness.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#3a5a40] rounded-xl border-2 border-[#d4af37]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A diverse, up-to-date dataset.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained on a mix of internal, licensed, and publicly available data up to August 2023.</li>
+                            <li>The multimodal capabilities come from training on a vast dataset of images, charts, and diagrams alongside text.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#3a5a40] rounded-xl border-2 border-[#a3b18a]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Constitutional AI</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">The core safety principle remains.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>The Claude 3 models continue to be trained using Anthropic's Constitutional AI approach.</li>
+                           <li>This ensures a strong foundation of safety and helps the models avoid generating harmful or biased content, leading to fewer refusals on benign prompts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The spectrum of models in the Claude 3 family caters to a wide range of business and creative applications.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Haiku (Speed)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Live customer support chats.</li>
+                           <li>Content moderation.</li>
+                           <li>Optimizing logistics and inventory.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Sonnet (Balance)</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Data processing and RAG.</li>
+                           <li>Sales forecasting and marketing.</li>
+                           <li>Code generation and quality control.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Opus (Power)</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Scientific research and discovery.</li>
+                           <li>Complex financial modeling.</li>
+                           <li>Strategic analysis and forecasting.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Claude 3 Opus, the most powerful model, has set new standards by outperforming all other available models on most of the common AI evaluation benchmarks.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#d4af37] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">Undergraduate & Graduate Reasoning:</strong> Opus demonstrates expert-level understanding and reasoning on benchmarks like MMLU (undergraduate) and GPQA (graduate).</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🔢</span><div><strong class="text-white">Math & Coding:</strong> Shows strong performance on complex math problem-solving (MATH benchmark) and code generation (HumanEval).</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">👁️</span><div><strong class="text-white">Vision Capabilities:</strong> All Claude 3 models possess strong vision capabilities, allowing them to analyze and interpret visual inputs like charts and photos.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Claude 3: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">With its improved instruction-following and vision capabilities, prompting Claude 3 effectively can yield exceptional results.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#d4af37] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#d4af37] rounded-full -left-2.5 border-4 border-[#3a5a40]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Provide Visual Context</h4>
+                                <p id="sec8-step1-desc" class="text-base">Upload images, charts, or documents alongside your text prompt to ask questions or get analysis based on the visual data.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#d4af37] rounded-full -left-2.5 border-4 border-[#3a5a40]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Use Clear, Structured Prompts</h4>
+                                <p id="sec8-step2-desc" class="text-base">Continue to use techniques like XML tags to structure complex prompts and provide clear examples of the desired output format.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Iterative Refinement:</strong> Engage in a conversation. If Opus gives a good but not perfect answer, give it feedback and ask it to refine its previous response.</li>
+                             <li><strong>Complex Multi-step Instructions:</strong> The Claude 3 models are better at following long and complex multi-step instructions within a single prompt.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Versions -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">The Claude 3 family represents a significant leap from the Claude 2 series, offering a spectrum of models for different needs.</p>
+                <div class="career-path-timeline">
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Claude 2.1</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> November 2023. Introduced a 200K token context window and reduced hallucinations.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Claude 3 Family Launch</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2024. Introduction of Opus, Sonnet, and Haiku, setting new benchmarks and introducing vision capabilities.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Safety 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Despite their advancements, the Claude 3 models still have limitations and are developed with a strong focus on safety.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">No Real-time Internet:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">The models' knowledge is still limited to their training data, which has a cut-off date and is not connected to the live internet.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Reduced but Present Hallucinations:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">While significantly more accurate, the models can still occasionally generate incorrect information. Fact-checking remains crucial.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-gray-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">No Audio/Video Generation:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">The models can understand images but cannot yet process audio or generate image/video output.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Safety Above All:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Anthropic continues to prioritize safety, so the models will refuse to engage with prompts that violate their safety policies.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">The Claude 3 models are available across multiple platforms for different user needs.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For General Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**claude.ai:** Use Sonnet for free and subscribe to Claude Pro to access Opus, the most powerful model.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers & Enterprise</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Build applications with the API or on the cloud.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Anthropic API:** Offers access to Opus, Sonnet, and Haiku with a simple pay-as-you-go pricing model.</li>
+                            <li>**Cloud Platforms:** Amazon Bedrock and Google Cloud Vertex AI provide access to Sonnet and Haiku for enterprise use cases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future of AI Assistants 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">The Claude 3 family pushes the boundaries of what's possible with AI. The future points towards more powerful, multimodal, and reliable AI systems that act as true collaborators, with a foundational commitment to safety and ethics to ensure they benefit humanity.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these concepts helps explain the advancements and architecture behind the Claude 3 family.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Multimodality</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Model Spectrum</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | AI research and products that put safety at the frontier.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Multimodal Prompt</h3>
+            <p id="prelims-modal-p1">The process begins when a user provides input, which can now include both text and images. For example, a user can upload a photo of a meal and ask for the recipe, or upload a chart and ask for a detailed analysis.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Claude 3 Model: Advanced Reasoning</h3>
+            <p id="mains-modal-p1">The model processes the combined text and visual information. It uses its advanced reasoning capabilities to understand the context, analyze the data, and formulate a response that is consistent with its safety training ("Constitutional AI").</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Nuanced Response</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The model generates a high-quality, nuanced text response. Claude 3 models are significantly less likely to refuse to answer prompts that border on their safety guardrails compared to previous generations, providing more helpful and context-aware answers.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Claude 3</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'haiku': { 
+                        name: 'Claude 3 Haiku', 
+                        icon: '⚡',
+                        description: 'The fastest and most compact model for near-instant responsiveness. Ideal for live customer chats and content moderation.',
+                        cta: 'Learn More'
+                    },
+                    'sonnet': { 
+                        name: 'Claude 3 Sonnet', 
+                        icon: '🧠',
+                        description: 'The ideal balance of intelligence and speed, designed for enterprise workloads like data processing, code generation, and sales forecasting.',
+                        cta: 'Learn More'
+                    },
+                    'opus': { 
+                        name: 'Claude 3 Opus', 
+                        icon: '🏆',
+                        description: 'The most intelligent and powerful model, setting new industry benchmarks for expert tasks like strategic analysis, research, and complex problem-solving.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'haiku': { 
+                        name: 'क्लॉड 3 हाइकु', 
+                        icon: '⚡',
+                        description: 'लगभग-तात्कालिक जवाबदेही के लिए सबसे तेज़ और सबसे कॉम्पैक्ट मॉडल। लाइव ग्राहक चैट और सामग्री मॉडरेशन के लिए आदर्श।',
+                        cta: 'और जानें'
+                    },
+                    'sonnet': { 
+                        name: 'क्लॉड 3 सॉनेट', 
+                        icon: '🧠',
+                        description: 'बुद्धिमत्ता और गति का आदर्श संतुलन, डेटा प्रोसेसिंग, कोड जनरेशन और बिक्री पूर्वानुमान जैसे उद्यम कार्यभार के लिए डिज़ाइन किया गया है।',
+                        cta: 'और जानें'
+                    },
+                    'opus': { 
+                        name: 'क्लॉड 3 ओपस', 
+                        icon: '🏆',
+                        description: 'सबसे बुद्धिमान और शक्तिशाली मॉडल, जो रणनीतिक विश्लेषण, अनुसंधान और जटिल समस्या-समाधान जैसे विशेषज्ञ कार्यों के लिए नए उद्योग बेंचमार्क स्थापित करता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Top-Tier Performance", desc: "Opus surpasses other models like GPT-4 on most benchmarks for reasoning, math, and expert knowledge." },
+                        { rank: "Vision Capabilities", desc: "All Claude 3 models can analyze and understand visual input like images, charts, and graphs, a first for the Claude family." },
+                        { rank: "Spectrum of Choice", desc: "Offers a family of models (Haiku, Sonnet, Opus) allowing users to choose the best balance of speed, intelligence, and cost." },
+                        { rank: "Improved Safety", desc: "The models are less likely to refuse harmless prompts and demonstrate a more nuanced understanding of safety guardrails." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "शीर्ष-स्तरीय प्रदर्शन", desc: "ओपस तर्क, गणित और विशेषज्ञ ज्ञान के लिए अधिकांश बेंचमार्क पर जीपीटी-4 जैसे अन्य मॉडलों से आगे निकल जाता है।" },
+                        { rank: "दृष्टि क्षमताएं", desc: "सभी क्लॉड 3 मॉडल छवियों, चार्ट और ग्राफ़ जैसे दृश्य इनपुट का विश्लेषण और समझ सकते हैं, जो क्लॉड परिवार के लिए पहली बार है।" },
+                        { rank: "पसंद का स्पेक्ट्रम", desc: "मॉडल का एक परिवार (हाइकु, सॉनेट, ओपस) प्रदान करता है जो उपयोगकर्ताओं को गति, बुद्धिमत्ता और लागत का सबसे अच्छा संतुलन चुनने की अनुमति देता है।" },
+                        { rank: "बेहतर सुरक्षा", desc: "मॉडल हानिरहित संकेतों को अस्वीकार करने की संभावना कम है और सुरक्षा रेलिंग की अधिक सूक्ष्म समझ प्रदर्शित करते हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🤖 Anthropic Claude 3: The Ultimate Guide 🤖',
+                    'header-subtitle': 'A New Generation of Intelligence: Opus, Sonnet & Haiku',
+                    'sec1-title': '1. What is the Claude 3 Family? 💡',
+                    'sec1-p1': 'The Claude 3 family is Anthropic\'s next generation of AI models, setting new industry benchmarks across a wide range of cognitive tasks. The family includes three state-of-the-art models in ascending order of capability: **Claude 3 Haiku**, **Claude 3 Sonnet**, and **Claude 3 Opus**. Each model offers a unique balance of intelligence, speed, and cost, allowing users to choose the optimal tool for their specific application, from instant customer chats to complex, multi-step tasks.',
+                    'sec2-title': '2. The Technology Behind Claude 3 🎯',
+                    'sec2-p1': 'Claude 3 models build upon Anthropic\'s legacy of safety and research, incorporating advanced new capabilities like vision, while further reducing undesirable behaviors like hallucinations.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Multimodal Prompt', 'sec2-step1-desc': 'User provides text and/or images',
+                    'sec2-step2-title': 'Claude 3 Model', 'sec2-step2-name': 'Advanced Reasoning', 'sec2-step2-desc': 'Model processes and understands the query',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Nuanced Response', 'sec2-step3-desc': 'A fast, intelligent, and safe response is generated',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Anthropic is making the Claude 3 family widely available through its own products and partnerships with leading cloud providers.',
+                    'sec3-age-title': 'General Users:', 'sec3-age-desc': 'Can access Sonnet for free on claude.ai, and the most intelligent model, Opus, through the paid Claude Pro subscription.',
+                    'sec3-edu-title': 'Developers:', 'sec3-edu-desc': 'All three models (Opus, Sonnet, Haiku) are available via the Anthropic API for building next-generation AI applications.',
+                    'sec3-attempts-title': 'Enterprise & Cloud 📊',
+                    'sec3-agerelax-list': '<li><strong>Businesses:</strong> Can access the models for large-scale deployments through platforms like Amazon Bedrock and Google Cloud\'s Vertex AI Model Garden.</li>',
+                    'sec4-title': '4. Next-Generation Capabilities 📚',
+                    'sec4-p1': 'The Claude 3 models introduce several groundbreaking capabilities that set a new standard for intelligent systems.',
+                    'gs1-title': 'Vision & Multimodality',
+                    'gs2-title': 'Near-Instant Speed',
+                    'gs3-title': 'Top-Level Performance',
+                    'gs4-title': 'Fewer Refusals',
+                    'sec5-title': '5. Training & Data 🏛️',
+                    'sec5-p1': 'The Claude 3 family is trained on a proprietary mix of internal and publicly available data, with a continued emphasis on safety and harmlessness.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A diverse, up-to-date dataset.', 'sec5-hindi-list': '<li>Trained on a mix of internal, licensed, and publicly available data up to August 2023.</li><li>The multimodal capabilities come from training on a vast dataset of images, charts, and diagrams alongside text.</li>',
+                    'sec5-essay-title': '2. Constitutional AI', 'sec5-essay-p1': 'The core safety principle remains.', 'sec5-essay-list': '<li>The Claude 3 models continue to be trained using Anthropic\'s Constitutional AI approach.</li><li>This ensures a strong foundation of safety and helps the models avoid generating harmful or biased content, leading to fewer refusals on benign prompts.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'The spectrum of models in the Claude 3 family caters to a wide range of business and creative applications.',
+                    'sec6-eng-title': 'Haiku (Speed)', 'sec6-eng-list': '<li>Live customer support chats.</li><li>Content moderation.</li><li>Optimizing logistics and inventory.</li>',
+                    'sec6-elec-title': 'Sonnet (Balance)', 'sec6-elec-list': '<li>Data processing and RAG.</li><li>Sales forecasting and marketing.</li><li>Code generation and quality control.</li>',
+                    'sec6-naic-title': 'Opus (Power)', 'sec6-naic-list': '<li>Scientific research and discovery.</li><li>Complex financial modeling.</li><li>Strategic analysis and forecasting.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Claude 3 Opus, the most powerful model, has set new standards by outperforming all other available models on most of the common AI evaluation benchmarks.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">Undergraduate & Graduate Reasoning:</strong> Opus demonstrates expert-level understanding and reasoning on benchmarks like MMLU (undergraduate) and GPQA (graduate).</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🔢</span><div><strong class="text-white">Math & Coding:</strong> Shows strong performance on complex math problem-solving (MATH benchmark) and code generation (HumanEval).</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">👁️</span><div><strong class="text-white">Vision Capabilities:</strong> All Claude 3 models possess strong vision capabilities, allowing them to analyze and interpret visual inputs like charts and photos.</div></li>',
+                    'sec8-title': '8. Prompting Claude 3: Best Practices 📈',
+                    'sec8-p1': 'With its improved instruction-following and vision capabilities, prompting Claude 3 effectively can yield exceptional results.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Provide Visual Context', 'sec8-step1-desc': 'Upload images, charts, or documents alongside your text prompt to ask questions or get analysis based on the visual data.',
+                    'sec8-step2-title': 'Use Clear, Structured Prompts', 'sec8-step2-desc': 'Continue to use techniques like XML tags to structure complex prompts and provide clear examples of the desired output format.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Iterative Refinement:</strong> Engage in a conversation. If Opus gives a good but not perfect answer, give it feedback and ask it to refine its previous response.</li><li><strong>Complex Multi-step Instructions:</strong> The Claude 3 models are better at following long and complex multi-step instructions within a single prompt.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'The Claude 3 family represents a significant leap from the Claude 2 series, offering a spectrum of models for different needs.',
+                    'sec9-step3-title': 'Claude 2.1', 'sec9-step3-desc': '<strong>Timeline:</strong> November 2023. Introduced a 200K token context window and reduced hallucinations.',
+                    'sec9-step4-title': 'Claude 3 Family Launch', 'sec9-step4-desc': '<strong>Timeline:</strong> March 2024. Introduction of Opus, Sonnet, and Haiku, setting new benchmarks and introducing vision capabilities.',
+                    'sec10-title': '10. Limitations & Safety 🚫',
+                    'sec10-p1': 'Despite their advancements, the Claude 3 models still have limitations and are developed with a strong focus on safety.',
+                    'sec10-mistake1-title': 'No Real-time Internet:', 'sec10-mistake1-desc': 'The models\' knowledge is still limited to their training data, which has a cut-off date and is not connected to the live internet.',
+                    'sec10-mistake2-title': 'Reduced but Present Hallucinations:', 'sec10-mistake2-desc': 'While significantly more accurate, the models can still occasionally generate incorrect information. Fact-checking remains crucial.',
+                    'sec10-mistake3-title': 'No Audio/Video Generation:', 'sec10-mistake3-desc': 'The models can understand images but cannot yet process audio or generate image/video output.',
+                    'sec10-mistake4-title': 'Safety Above All:', 'sec10-mistake4-desc': 'Anthropic continues to prioritize safety, so the models will refuse to engage with prompts that violate their safety policies.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'The Claude 3 models are available across multiple platforms for different user needs.',
+                    'sec11-gov-title': '📚 For General Users', 'sec11-gov-list': '<li>**claude.ai:** Use Sonnet for free and subscribe to Claude Pro to access Opus, the most powerful model.</li>',
+                    'sec11-pvt-title': '💻 For Developers & Enterprise', 'sec11-pvt-p1': 'Build applications with the API or on the cloud.', 'sec11-pvt-list': '<li>**Anthropic API:** Offers access to Opus, Sonnet, and Haiku with a simple pay-as-you-go pricing model.</li><li>**Cloud Platforms:** Amazon Bedrock and Google Cloud Vertex AI provide access to Sonnet and Haiku for enterprise use cases.</li>',
+                    'sec12-title': '12. The Future of AI Assistants 🚀',
+                    'sec12-p1': 'The Claude 3 family pushes the boundaries of what\'s possible with AI. The future points towards more powerful, multimodal, and reliable AI systems that act as true collaborators, with a foundational commitment to safety and ethics to ensure they benefit humanity.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these concepts helps explain the advancements and architecture behind the Claude 3 family.',
+                    'syllabus-oir-title': 'Multimodality',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">👁️</span><div class="flex-grow">Vision Capabilities</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Model Spectrum',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">Speed vs. Intelligence Trade-off</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | AI research and products that put safety at the frontier.',
+                    'interviewChartData': {
+                        labels: ['Opus', 'Sonnet', 'Haiku'],
+                        data: [95, 80, 70] // Example data for overall capability
+                    }
+                },
+                'hi': {
+                    'header-title': '🤖 एंथ्रोपिक क्लॉड 3: अंतिम गाइड 🤖',
+                    'header-subtitle': 'खुफिया जानकारी की एक नई पीढ़ी: ओपस, सॉनेट और हाइकु',
+                    'sec1-title': '1. क्लॉड 3 परिवार क्या है? 💡',
+                    'sec1-p1': 'क्लॉड 3 परिवार एंथ्रोपिक के एआई मॉडल की अगली पीढ़ी है, जो संज्ञानात्मक कार्यों की एक विस्तृत श्रृंखला में नए उद्योग बेंचमार्क स्थापित करता है। परिवार में क्षमता के आरोही क्रम में तीन अत्याधुनिक मॉडल शामिल हैं: **क्लॉड 3 हाइकु**, **क्लॉड 3 सॉनेट**, और **क्लॉड 3 ओपस**। प्रत्येक मॉडल बुद्धिमत्ता, गति और लागत का एक अनूठा संतुलन प्रदान करता है, जिससे उपयोगकर्ता अपने विशिष्ट अनुप्रयोग के लिए इष्टतम उपकरण चुन सकते हैं, तत्काल ग्राहक चैट से लेकर जटिल, बहु-चरणीय कार्यों तक।',
+                    'sec2-title': '2. क्लॉड 3 के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'क्लॉड 3 मॉडल एंथ्रोपिक की सुरक्षा और अनुसंधान की विरासत पर आधारित हैं, जिसमें दृष्टि जैसी उन्नत नई क्षमताओं को शामिल किया गया है, जबकि मतिभ्रम जैसे अवांछनीय व्यवहारों को और कम किया गया है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'मल्टीमॉडल प्रॉम्प्ट', 'sec2-step1-desc': 'उपयोगकर्ता पाठ और/या छवियां प्रदान करता है',
+                    'sec2-step2-title': 'क्लॉड 3 मॉडल', 'sec2-step2-name': 'उन्नत तर्क', 'sec2-step2-desc': 'मॉडल क्वेरी को संसाधित और समझता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'सूक्ष्म प्रतिक्रिया', 'sec2-step3-desc': 'एक तेज, बुद्धिमान और सुरक्षित प्रतिक्रिया उत्पन्न होती है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'एंथ्रोपिक क्लॉड 3 परिवार को अपने स्वयं के उत्पादों और प्रमुख क्लाउड प्रदाताओं के साथ साझेदारी के माध्यम से व्यापक रूप से उपलब्ध करा रहा है।',
+                    'sec3-age-title': 'सामान्य उपयोगकर्ता:', 'sec3-age-desc': 'claude.ai पर सॉनेट को मुफ्त में एक्सेस कर सकते हैं, और सबसे बुद्धिमान मॉडल, ओपस, को सशुल्क क्लॉड प्रो सदस्यता के माध्यम से।',
+                    'sec3-edu-title': 'डेवलपर्स:', 'sec3-edu-desc': 'सभी तीन मॉडल (ओपस, सॉनेट, हाइकु) अगली पीढ़ी के एआई अनुप्रयोगों के निर्माण के लिए एंथ्रोपिक एपीआई के माध्यम से उपलब्ध हैं।',
+                    'sec3-attempts-title': 'उद्यम और क्लाउड 📊',
+                    'sec3-agerelax-list': '<li><strong>व्यवसाय:</strong> बड़े पैमाने पर परिनियोजन के लिए अमेज़ॅन बेडरॉक और गूगल क्लाउड के वर्टेक्स एआई मॉडल गार्डन जैसे प्लेटफार्मों के माध्यम से मॉडल का उपयोग कर सकते हैं।</li>',
+                    'sec4-title': '4. अगली पीढ़ी की क्षमताएं 📚',
+                    'sec4-p1': 'क्लॉड 3 मॉडल कई अभूतपूर्व क्षमताएं पेश करते हैं जो बुद्धिमान प्रणालियों के लिए एक नया मानक स्थापित करते हैं।',
+                    'gs1-title': 'दृष्टि और मल्टीमॉडल',
+                    'gs2-title': 'लगभग-तात्कालिक गति',
+                    'gs3-title': 'शीर्ष-स्तरीय प्रदर्शन',
+                    'gs4-title': 'कम इनकार',
+                    'sec5-title': '5. प्रशिक्षण और डेटा 🏛️',
+                    'sec5-p1': 'क्लॉड 3 परिवार को आंतरिक और सार्वजनिक रूप से उपलब्ध डेटा के एक मालिकाना मिश्रण पर प्रशिक्षित किया जाता है, जिसमें सुरक्षा और हानिरहितता पर निरंतर जोर दिया जाता है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'एक विविध, अद्यतित डेटासेट।', 'sec5-hindi-list': '<li>अगस्त 2023 तक आंतरिक, लाइसेंस प्राप्त और सार्वजनिक रूप से उपलब्ध डेटा के मिश्रण पर प्रशिक्षित।</li><li>मल्टीमॉडल क्षमताएं पाठ के साथ-साथ छवियों, चार्ट और आरेखों के एक विशाल डेटासेट पर प्रशिक्षण से आती हैं।</li>',
+                    'sec5-essay-title': '2. संवैधानिक एआई', 'sec5-essay-p1': 'मुख्य सुरक्षा सिद्धांत बना हुआ है।', 'sec5-essay-list': '<li>क्लॉड 3 मॉडल को एंथ्रोपिक के संवैधानिक एआई दृष्टिकोण का उपयोग करके प्रशिक्षित किया जाना जारी है।</li><li>यह सुरक्षा की एक मजबूत नींव सुनिश्चित करता है और मॉडल को हानिकारक या पक्षपाती सामग्री उत्पन्न करने से बचने में मदद करता है, जिससे सौम्य संकेतों पर कम इनकार होता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'क्लॉड 3 परिवार में मॉडल का स्पेक्ट्रम व्यापार और रचनात्मक अनुप्रयोगों की एक विस्तृत श्रृंखला को पूरा करता है।',
+                    'sec6-eng-title': 'हाइकु (गति)', 'sec6-eng-list': '<li>लाइव ग्राहक सहायता चैट।</li><li>सामग्री मॉडरेशन।</li><li>रसद और सूची का अनुकूलन।</li>',
+                    'sec6-elec-title': 'सॉनेट (संतुलन)', 'sec6-elec-list': '<li>डेटा प्रोसेसिंग और आरएजी।</li><li>बिक्री पूर्वानुमान और विपणन।</li><li>कोड जनरेशन और गुणवत्ता नियंत्रण।</li>',
+                    'sec6-naic-title': 'ओपस (शक्ति)', 'sec6-naic-list': '<li>वैज्ञानिक अनुसंधान और खोज।</li><li>जटिल वित्तीय मॉडलिंग।</li><li>रणनीतिक विश्लेषण और पूर्वानुमान।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'क्लॉड 3 ओपस, सबसे शक्तिशाली मॉडल, ने अधिकांश सामान्य एआई मूल्यांकन बेंचमार्क पर अन्य सभी उपलब्ध मॉडलों से बेहतर प्रदर्शन करके नए मानक स्थापित किए हैं।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🧠</span><div><strong class="text-white">स्नातक और स्नातकोत्तर तर्क:</strong> ओपस एमएमएलयू (स्नातक) और जीपीक्यूए (स्नातक) जैसे बेंचमार्क पर विशेषज्ञ-स्तर की समझ और तर्क प्रदर्शित करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">🔢</span><div><strong class="text-white">गणित और कोडिंग:</strong> जटिल गणित समस्या-समाधान (मैथ बेंचमार्क) और कोड जनरेशन (ह्यूमनइवल) पर मजबूत प्रदर्शन दिखाता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#a3b18a] mr-3">👁️</span><div><strong class="text-white">दृष्टि क्षमताएं:</strong> सभी क्लॉड 3 मॉडल में मजबूत दृष्टि क्षमताएं हैं, जो उन्हें चार्ट और तस्वीरों जैसे दृश्य इनपुट का विश्लेषण और व्याख्या करने की अनुमति देती हैं।</div></li>',
+                    'sec8-title': '8. क्लॉड 3 को प्रॉम्प्ट करना: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'इसकी बेहतर निर्देश-पालन और दृष्टि क्षमताओं के साथ, क्लॉड 3 को प्रभावी ढंग से प्रॉम्प्ट करने से असाधारण परिणाम मिल सकते हैं।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'दृश्य संदर्भ प्रदान करें', 'sec8-step1-desc': 'प्रश्न पूछने या दृश्य डेटा के आधार पर विश्लेषण प्राप्त करने के लिए अपने पाठ प्रॉम्प्ट के साथ चित्र, चार्ट या दस्तावेज़ अपलोड करें।',
+                    'sec8-step2-title': 'स्पष्ट, संरचित प्रॉम्प्ट का उपयोग करें', 'sec8-step2-desc': 'जटिल प्रॉम्प्ट को संरचित करने और वांछित आउटपुट प्रारूप के स्पष्ट उदाहरण प्रदान करने के लिए एक्सएमएल टैग जैसी तकनीकों का उपयोग करना जारी रखें।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>पुनरावृत्ति शोधन:</strong> एक बातचीत में संलग्न हों। यदि ओपस एक अच्छा लेकिन सही उत्तर नहीं देता है, तो इसे प्रतिक्रिया दें और अपनी पिछली प्रतिक्रिया को परिष्कृत करने के लिए कहें।</li><li><strong>जटिल बहु-चरणीय निर्देश:</strong> क्लॉड 3 मॉडल एक ही प्रॉम्प्ट के भीतर लंबे और जटिल बहु-चरणीय निर्देशों का पालन करने में बेहतर हैं।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'क्लॉड 3 परिवार क्लॉड 2 श्रृंखला से एक महत्वपूर्ण छलांग का प्रतिनिधित्व करता है, जो विभिन्न आवश्यकताओं के लिए मॉडल का एक स्पेक्ट्रम प्रदान करता है।',
+                    'sec9-step3-title': 'क्लॉड 2.1', 'sec9-step3-desc': '<strong>समयरेखा:</strong> नवंबर 2023। एक 200K टोकन संदर्भ विंडो पेश की और मतिभ्रम को कम किया।',
+                    'sec9-step4-title': 'क्लॉड 3 परिवार लॉन्च', 'sec9-step4-desc': '<strong>समयरेखा:</strong> मार्च 2024। ओपस, सॉनेट और हाइकु का परिचय, नए बेंचमार्क स्थापित करना और दृष्टि क्षमताओं को पेश करना।',
+                    'sec10-title': '10. सीमाएं और सुरक्षा 🚫',
+                    'sec10-p1': 'उनकी प्रगति के बावजूद, क्लॉड 3 मॉडल में अभी भी सीमाएं हैं और उन्हें सुरक्षा पर एक मजबूत ध्यान देने के साथ विकसित किया गया है।',
+                    'sec10-mistake1-title': 'कोई वास्तविक समय इंटरनेट नहीं:', 'sec10-mistake1-desc': 'मॉडल का ज्ञान अभी भी उनके प्रशिक्षण डेटा तक ही सीमित है, जिसकी एक कट-ऑफ तिथि है और यह लाइव इंटरनेट से नहीं जुड़ा है।',
+                    'sec10-mistake2-title': 'कम लेकिन वर्तमान मतिभ्रम:', 'sec10-mistake2-desc': 'हालांकि काफी अधिक सटीक, मॉडल अभी भी कभी-कभी गलत जानकारी उत्पन्न कर सकते हैं। तथ्य-जांच महत्वपूर्ण बनी हुई है।',
+                    'sec10-mistake3-title': 'कोई ऑडियो/वीडियो जनरेशन नहीं:', 'sec10-mistake3-desc': 'मॉडल छवियों को समझ सकते हैं लेकिन अभी तक ऑडियो को संसाधित नहीं कर सकते हैं या छवि/वीडियो आउटपुट उत्पन्न नहीं कर सकते हैं।',
+                    'sec10-mistake4-title': 'सबसे ऊपर सुरक्षा:', 'sec10-mistake4-desc': 'एंथ्रोपिक सुरक्षा को प्राथमिकता देना जारी रखता है, इसलिए मॉडल उन संकेतों के साथ जुड़ने से इनकार कर देंगे जो उनकी सुरक्षा नीतियों का उल्लंघन करते हैं।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'क्लॉड 3 मॉडल विभिन्न उपयोगकर्ता आवश्यकताओं के लिए कई प्लेटफार्मों पर उपलब्ध हैं।',
+                    'sec11-gov-title': '📚 सामान्य उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**claude.ai:** सॉनेट का मुफ्त में उपयोग करें और सबसे शक्तिशाली मॉडल, ओपस तक पहुंचने के लिए क्लॉड प्रो की सदस्यता लें।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स और उद्यम के लिए', 'sec11-pvt-p1': 'एपीआई या क्लाउड पर एप्लिकेशन बनाएं।', 'sec11-pvt-list': '<li>**एंथ्रोपिक एपीआई:** एक साधारण पे-एज़-यू-गो मूल्य निर्धारण मॉडल के साथ ओपस, सॉनेट और हाइकु तक पहुंच प्रदान करता है।</li><li>**क्लाउड प्लेटफॉर्म:** अमेज़ॅन बेडरॉक और गूगल क्लाउड वर्टेक्स एआई उद्यम उपयोग के मामलों के लिए सॉनेट और हाइकु तक पहुंच प्रदान करते हैं।</li>',
+                    'sec12-title': '12. एआई सहायकों का भविष्य 🚀',
+                    'sec12-p1': 'क्लॉड 3 परिवार एआई के साथ क्या संभव है, इसकी सीमाओं को आगे बढ़ाता है। भविष्य में और भी अधिक शक्तिशाली, मल्टीमॉडल और विश्वसनीय एआई सिस्टम की ओर इशारा करता है जो सच्चे सहयोगी के रूप में कार्य करते हैं, यह सुनिश्चित करने के लिए सुरक्षा और नैतिकता के प्रति एक मूलभूत प्रतिबद्धता के साथ कि वे मानवता को लाभ पहुंचाते हैं।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन अवधारणाओं को समझने से क्लॉड 3 परिवार के पीछे की प्रगति और वास्तुकला को समझाने में मदद मिलती है।',
+                    'syllabus-oir-title': 'मल्टीमॉडल',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">👁️</span><div class="flex-grow">दृष्टि क्षमताएं</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मॉडल स्पेक्ट्रम',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚖️</span><div class="flex-grow">गति बनाम बुद्धिमत्ता ट्रेड-ऑफ</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एआई अनुसंधान और उत्पाद जो सुरक्षा को सबसे आगे रखते हैं।',
+                    'interviewChartData': {
+                        labels: ['ओपस', 'सॉनेट', 'हाइकु'],
+                        data: [95, 80, 70]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Overall Capability Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(255, 127, 80, 0.7)',
+                            borderColor: '#ff7f50',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
