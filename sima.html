@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google SIMA: The Ultimate Generalist AI Agent Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Google DeepMind's SIMA, the Scalable Instructable Multiworld Agent. Understand its technology, capabilities, and its role in creating AI that can play any video game.">
+    <meta name="keywords" content="Google, DeepMind, SIMA, Generalist AI Agent, AI in Gaming, Multimodal AI, Artificial General Intelligence, AGI, Transformer, AI Agent, Video Games">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1b26; /* Very Dark Indigo */
+            color: #e3e4e6; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #f43f5e, #38bdf8) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 27, 38, 0.85); /* Dark Indigo Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #3c3d52; /* Medium Indigo */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(244, 63, 94, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f43f5e; /* Rose 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f43f5e; /* Rose 500 */
+            color: #f43f5e;
+            background: #2a2b3a; /* Darker Indigo */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+            text-shadow: 0 0 5px rgba(244, 63, 94, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #f43f5e;
+            color: #1a1b26;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+        }
+        .flowchart-arrow {
+            color: #38bdf8; /* Sky 500 */
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #38bdf8;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(56, 189, 248, 0.1);
+        }
+        .subject-item .icon {
+            color: #38bdf8;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #f43f5e;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a1b26;
+            border: 4px solid #f43f5e;
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 27, 38, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2b3a;
+            color: #e3e4e6;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #3c3d52;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f43f5e, #e11d48);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(244, 63, 94, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(244, 63, 94, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f43f5e;
+            color: #f43f5e;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f43f5e;
+            color: #ffffff;
+            box-shadow: 0 0 15px #f43f5e;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #38bdf8, #0ea5e9);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #3c3d52; 
+            color: #e3e4e6; 
+            border-color: #4a4b6d; 
+        }
+        .lectures-btn:hover {
+            background-color: #4a4b6d;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🎮 Google DeepMind's SIMA: The Ultimate Guide 🎮</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-rose-400 to-sky-400">The AI Agent That Can Play (Almost) Any Video Game</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is SIMA? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2b3a] via-[#1a1b26] to-[#1a1b26]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Google's SIMA? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">SIMA, which stands for **Scalable Instructable Multiworld Agent**, is a research project from Google DeepMind aimed at creating a generalist AI agent that can understand natural language instructions and perform tasks across a wide variety of video game environments. Unlike previous game-playing AIs that were trained to master a single game, SIMA's goal is to learn to play *any* game, just like a human would, by observing the screen and following instructions.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Generalist Agent Approach 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">SIMA learns to map what it sees and what it's told to do directly to keyboard and mouse actions, bypassing the need for custom game APIs.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Perception</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Game Screen + Language Instruction</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">SIMA Model</span><br><span id="sec2-step2-name">Reasoning</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Connects language to visual context</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Action</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Predicts Keyboard & Mouse output</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Key Concepts -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Key Concepts Behind SIMA ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">SIMA represents a shift from training AI to achieve a high score to training it to follow instructions.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#f43f5e] mr-4">🗣️</span><div><strong id="sec3-age-title" class="text-white text-lg">Language-Driven:</strong> <span id="sec3-age-desc">SIMA's actions are guided by natural language instructions, not just by an in-game objective like winning.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#f43f5e] mr-4">🌍</span><div><strong id="sec3-edu-title" class="text-white text-lg">Multi-World Training:</strong> <span id="sec3-edu-desc">It is trained across a diverse portfolio of video games to learn general skills, rather than mastering the specific rules of just one game.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#38bdf8] pb-2">Technical Approach 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>Game-Agnostic Interface:</strong> SIMA perceives games just like a human: by looking at the screen and using a keyboard and mouse. It does not require access to the game's internal code.</li>
+                             <li><strong>Behavioral Cloning:</strong> It learns by observing human players and cloning their behavior (mapping observations to actions).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. What Can SIMA Do? 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">SIMA was trained and evaluated on its ability to perform short, instructional tasks across a variety of 3D virtual environments.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-rose-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Navigation</h3>
+                        <p class="text-sm">"Go to the ladder," "Turn left at the intersection."</p>
+                    </div>
+                     <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-rose-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Object Manipulation</h3>
+                         <p class="text-sm">"Pick up the key," "Break the rock with the pickaxe."</p>
+                    </div>
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-rose-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Menu Usage</h3>
+                         <p class="text-sm">"Open the map," "Check your inventory."</p>
+                    </div>
+                    <div class="bg-[#2a2b3a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-rose-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Simple Crafting</h3>
+                         <p class="text-sm">"Build a crafting table," "Craft a helmet."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training a Generalist Gamer 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">SIMA was trained by recording pairs of human players—one playing the game and the other providing instructions—across many different games.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#f43f5e]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Diverse Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Data was collected from a portfolio of 9 different video games.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Partnered with game developers to get access to games like *No Man's Sky*, *Teardown*, and *Valheim*.</li>
+                            <li>Also used custom research environments built in Unity.</li>
+                            <li>The data consists of video frames, language instructions, and the corresponding keyboard/mouse actions.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2b3a] rounded-xl border-2 border-[#38bdf8]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Training Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Learning to map language and vision to actions.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>SIMA uses a pre-trained vision model to understand the game screen.</li>
+                           <li>A transformer-based model then processes the combination of image data and text instructions.</li>
+                           <li>The model is trained to predict the next keyboard or mouse action the human player would take in that situation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Potential Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">While SIMA is a research project, the technology behind it has far-reaching implications for gaming, robotics, and other AI applications.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Gaming Industry</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>AI-powered game testers that can find bugs by following instructions.</li>
+                           <li>More realistic and responsive Non-Player Characters (NPCs).</li>
+                           <li>Assistive AI agents that can help new players learn a game.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Robotics</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>A stepping stone towards creating robots that can understand natural language commands in real-world environments.</li>
+                           <li>Skills learned in virtual worlds could be transferred to physical robots.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">General AI</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Improving language-grounding in AI models.</li>
+                           <li>Creating more helpful and capable AI assistants that can operate software or browse the web.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Evaluation 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">SIMA's performance is not measured by winning games, but by how well it can follow instructions. It was evaluated on 600 basic skills across the different game worlds.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#f43f5e] pb-2">Key Evaluation Metrics:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🎯</span><div><strong class="text-white">Instruction Following:</strong> The primary metric is whether the agent successfully completes the task described in the natural language instruction.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🌐</span><div><strong class="text-white">Generalization:</strong> A key test is how well an agent trained on multiple games performs in a completely new, unseen game environment.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">📊</span><div><strong class="text-white">Skill Coverage:</strong> The agent is evaluated on a broad range of skills, such as navigation, object interaction, and menu use, to assess its general competency.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. The Path to More General Agents 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The SIMA project highlights the next steps in research needed to build even more capable and general-purpose AI agents.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Research Directions:</h3>
+                        <ol class="relative border-l-4 border-[#f43f5e] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f43f5e] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">More Diverse Environments</h4>
+                                <p id="sec8-step1-desc" class="text-base">Training the agent on thousands of different video games and virtual worlds to improve its generalization capabilities.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#f43f5e] rounded-full -left-2.5 border-4 border-[#2a2b3a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Handling Long-Term Tasks</h4>
+                                <p id="sec8-step2-desc" class="text-base">Developing models that can handle complex, multi-step instructions that require long-term planning and memory.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 The Ultimate Goal:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li>To create a single AI agent that can understand human language and perform any task in any virtual or physical environment.</li>
+                            <li>Such an agent could act as a truly helpful partner in both our digital and real lives.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Timeline 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">SIMA builds upon a legacy of DeepMind research into creating agents that can act in complex environments.</p>
+                <div class="career-path-timeline">
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Gato Launch</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> May 2022. DeepMind introduces Gato, a single generalist agent that can perform hundreds of tasks, including robotics and gaming.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">SIMA Announcement</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2024. Google DeepMind announces SIMA, a research project focused specifically on creating an instructable agent for any video game environment.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & Challenges 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">SIMA is a research project and currently has important limitations.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Not a Superhuman Player:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">SIMA is not designed to win games. Its performance is often below that of an average human player; its strength is its generality.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Short-Term Tasks Only:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Currently, SIMA can only perform simple tasks that take about 10 seconds to complete. It cannot handle long-term strategic planning.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">No Learning in Real-Time:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">SIMA cannot learn new skills while playing a game. All its knowledge comes from its initial training phase.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Not a Public Product:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">SIMA is a research project and is not available for public use or via an API at this time.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Learn More 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">As SIMA is a research initiative, the best way to learn more is through official publications from Google DeepMind.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Research Paper</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Read the official technical report and blog post published by Google DeepMind for a detailed explanation of the architecture and results.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Successor Models</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">The technology will evolve.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>The principles behind SIMA will influence future generalist agents from Google, including advancements in robotics and the Gemini family of models.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: AI as a Player 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">SIMA is a fundamental step towards creating AI agents that are not just players, but partners. The future envisions AI that can seamlessly join a human player in any online game, understand goals through natural conversation, and act as a helpful teammate, revolutionizing co-operative gameplay and digital interaction.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core AI concepts is fundamental to grasping the innovation behind SIMA.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Generalist Agent</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Language Grounding</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-purple-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Solving intelligence to advance science and benefit humanity.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Perception</h3>
+            <p id="prelims-modal-p1">SIMA's process begins by perceiving the virtual world just like a human: it takes in the raw pixel data from the game screen and a natural language instruction provided by a human (e.g., "Climb the ladder").</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">SIMA Model: Reasoning</h3>
+            <p id="mains-modal-p1">The model's core is a powerful transformer that has been trained to find the connection between the language instruction and the visual data on the screen. It reasons about what action is required to fulfill the command within the current game context.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Action</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Based on its reasoning, the model's output is not text, but a direct action in the game. It predicts the next sequence of keyboard presses and mouse movements required to execute the instruction, which are then sent to the game controller.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of SIMA</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'generalist': { 
+                        name: 'Generalist Agent', 
+                        icon: '🌐',
+                        description: 'Unlike AI trained to be superhuman at one game, SIMA is a generalist taught to be an instructed player across many games.',
+                        cta: 'Learn More'
+                    },
+                    'language': { 
+                        name: 'Language-Driven', 
+                        icon: '🗣️',
+                        description: 'SIMA\'s actions are guided by natural language, focusing on understanding and executing commands rather than just maximizing a score.',
+                        cta: 'Learn More'
+                    },
+                    'agnostic': { 
+                        name: 'Game Agnostic', 
+                        icon: '🎮',
+                        description: 'It doesn\'t need a custom API for each game. It learns to play any game that uses a standard keyboard and mouse interface, just by watching.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'generalist': { 
+                        name: 'सामान्यज्ञ एजेंट', 
+                        icon: '🌐',
+                        description: 'एक गेम में siêu मानव बनने के लिए प्रशिक्षित एआई के विपरीत, SIMA एक सामान्यज्ञ है जिसे कई खेलों में एक निर्देशित खिलाड़ी बनना सिखाया जाता है।',
+                        cta: 'और जानें'
+                    },
+                    'language': { 
+                        name: 'भाषा-चालित', 
+                        icon: '🗣️',
+                        description: 'SIMA के कार्य प्राकृतिक भाषा द्वारा निर्देशित होते हैं, जो केवल स्कोर को अधिकतम करने के बजाय कमांड को समझने और निष्पादित करने पर ध्यान केंद्रित करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'agnostic': { 
+                        name: 'खेल अज्ञेयवादी', 
+                        icon: '🎮',
+                        description: 'इसे प्रत्येक गेम के लिए एक कस्टम एपीआई की आवश्यकता नहीं है। यह केवल देखकर, एक मानक कीबोर्ड और माउस इंटरफ़ेस का उपयोग करने वाले किसी भी गेम को खेलना सीखता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Language as the Interface", desc: "SIMA proves that natural language is a powerful and scalable way to instruct AI agents in complex environments." },
+                        { rank: "Focus on Generality, Not Score", desc: "It shifts the research paradigm from creating superhuman specialists to creating competent generalists." },
+                        { rank: "No Need for Game APIs", desc: "By learning from pixels and keyboard/mouse output, it can theoretically learn to play any game without needing custom code." },
+                        { rank: "A Bridge to Robotics", desc: "The skills learned in diverse virtual 3D worlds are a direct stepping stone to creating agents that can operate in the physical world." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "इंटरफ़ेस के रूप में भाषा", desc: "SIMA साबित करता है कि प्राकृतिक भाषा जटिल वातावरण में एआई एजेंटों को निर्देश देने का एक शक्तिशाली और स्केलेबल तरीका है।" },
+                        { rank: "सामान्यता पर ध्यान दें, स्कोर पर नहीं", desc: "यह अनुसंधान प्रतिमान को siêu मानव विशेषज्ञ बनाने से सक्षम सामान्यज्ञ बनाने में बदल देता है।" },
+                        { rank: "खेल एपीआई की कोई आवश्यकता नहीं", desc: "पिक्सेल और कीबोर्ड/माउस आउटपुट से सीखकर, यह सैद्धांतिक रूप से कस्टम कोड की आवश्यकता के बिना कोई भी गेम खेलना सीख सकता है।" },
+                        { rank: "रोबोटिक्स के लिए एक पुल", desc: "विविध आभासी 3डी दुनिया में सीखे गए कौशल भौतिक दुनिया में काम कर सकने वाले एजेंट बनाने की दिशा में एक सीधा कदम हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎮 Google DeepMind\'s SIMA: The Ultimate Guide 🎮',
+                    'header-subtitle': 'The AI Agent That Can Play (Almost) Any Video Game',
+                    'sec1-title': '1. What is Google\'s SIMA? 💡',
+                    'sec1-p1': 'SIMA, which stands for **Scalable Instructable Multiworld Agent**, is a research project from Google DeepMind aimed at creating a generalist AI agent that can understand natural language instructions and perform tasks across a wide variety of video game environments. Unlike previous game-playing AIs that were trained to master a single game, SIMA\'s goal is to learn to play *any* game, just like a human would, by observing the screen and following instructions.',
+                    'sec2-title': '2. The Generalist Agent Approach 🎯',
+                    'sec2-p1': 'SIMA learns to map what it sees and what it\'s told to do directly to keyboard and mouse actions, bypassing the need for custom game APIs.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Perception', 'sec2-step1-desc': 'Game Screen + Language Instruction',
+                    'sec2-step2-title': 'SIMA Model', 'sec2-step2-name': 'Reasoning', 'sec2-step2-desc': 'Connects language to visual context',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Action', 'sec2-step3-desc': 'Predicts Keyboard & Mouse output',
+                    'sec3-title': '3. Key Concepts Behind SIMA ✅',
+                    'sec3-p1': 'SIMA represents a shift from training AI to achieve a high score to training it to follow instructions.',
+                    'sec3-age-title': 'Language-Driven:', 'sec3-age-desc': 'SIMA\'s actions are guided by natural language instructions, not just by an in-game objective like winning.',
+                    'sec3-edu-title': 'Multi-World Training:', 'sec3-edu-desc': 'It is trained across a diverse portfolio of video games to learn general skills, rather than mastering the specific rules of just one game.',
+                    'sec3-attempts-title': 'Technical Approach 📊',
+                    'sec3-agerelax-list': '<li><strong>Game-Agnostic Interface:</strong> SIMA perceives games just like a human: by looking at the screen and using a keyboard and mouse. It does not require access to the game\'s internal code.</li><li><strong>Behavioral Cloning:</strong> It learns by observing human players and cloning their behavior (mapping observations to actions).</li>',
+                    'sec4-title': '4. What Can SIMA Do? 📚',
+                    'sec4-p1': 'SIMA was trained and evaluated on its ability to perform short, instructional tasks across a variety of 3D virtual environments.',
+                    'gs1-title': 'Navigation',
+                    'gs2-title': 'Object Manipulation',
+                    'gs3-title': 'Menu Usage',
+                    'gs4-title': 'Simple Crafting',
+                    'sec5-title': '5. Training a Generalist Gamer 🏛️',
+                    'sec5-p1': 'SIMA was trained by recording pairs of human players—one playing the game and the other providing instructions—across many different games.',
+                    'sec5-hindi-title': '1. The Diverse Dataset', 'sec5-hindi-p1': 'Data was collected from a portfolio of 9 different video games.', 'sec5-hindi-list': '<li>Partnered with game developers to get access to games like *No Man\'s Sky*, *Teardown*, and *Valheim*.</li><li>Also used custom research environments built in Unity.</li><li>The data consists of video frames, language instructions, and the corresponding keyboard/mouse actions.</li>',
+                    'sec5-essay-title': '2. The Training Process', 'sec5-essay-p1': 'Learning to map language and vision to actions.', 'sec5-essay-list': '<li>SIMA uses a pre-trained vision model to understand the game screen.</li><li>A transformer-based model then processes the combination of image data and text instructions.</li><li>The model is trained to predict the next keyboard or mouse action the human player would take in that situation.</li>',
+                    'sec6-title': '6. Potential Applications & Use Cases 🌟',
+                    'sec6-p1': 'While SIMA is a research project, the technology behind it has far-reaching implications for gaming, robotics, and other AI applications.',
+                    'sec6-eng-title': 'Gaming Industry', 'sec6-eng-list': '<li>AI-powered game testers that can find bugs by following instructions.</li><li>More realistic and responsive Non-Player Characters (NPCs).</li><li>Assistive AI agents that can help new players learn a game.</li>',
+                    'sec6-elec-title': 'Robotics', 'sec6-elec-list': '<li>A stepping stone towards creating robots that can understand natural language commands in real-world environments.</li><li>Skills learned in virtual worlds could be transferred to physical robots.</li>',
+                    'sec6-naic-title': 'General AI', 'sec6-naic-list': '<li>Improving language-grounding in AI models.</li><li>Creating more helpful and capable AI assistants that can operate software or browse the web.</li>',
+                    'sec7-title': '7. Performance & Evaluation 🎙️',
+                    'sec7-p1': 'SIMA\'s performance is not measured by winning games, but by how well it can follow instructions. It was evaluated on 600 basic skills across the different game worlds.',
+                    'sec7-qualities-title': 'Key Evaluation Metrics:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🎯</span><div><strong class="text-white">Instruction Following:</strong> The primary metric is whether the agent successfully completes the task described in the natural language instruction.</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🌐</span><div><strong class="text-white">Generalization:</strong> A key test is how well an agent trained on multiple games performs in a completely new, unseen game environment.</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">📊</span><div><strong class="text-white">Skill Coverage:</strong> The agent is evaluated on a broad range of skills, such as navigation, object interaction, and menu use, to assess its general competency.</div></li>',
+                    'sec8-title': '8. The Path to More General Agents 📈',
+                    'sec8-p1': 'The SIMA project highlights the next steps in research needed to build even more capable and general-purpose AI agents.',
+                    'sec8-steps-title': '📚 Key Research Directions:',
+                    'sec8-step1-title': 'More Diverse Environments', 'sec8-step1-desc': 'Training the agent on thousands of different video games and virtual worlds to improve its generalization capabilities.',
+                    'sec8-step2-title': 'Handling Long-Term Tasks', 'sec8-step2-desc': 'Developing models that can handle complex, multi-step instructions that require long-term planning and memory.',
+                    'sec8-revision-title': '🔄 The Ultimate Goal:',
+                    'sec8-revision-list': '<li>To create a single AI agent that can understand human language and perform any task in any virtual or physical environment.</li><li>Such an agent could act as a truly helpful partner in both our digital and real lives.</li>',
+                    'sec9-title': '9. Model Timeline 🗓️',
+                    'sec9-p1': 'SIMA builds upon a legacy of DeepMind research into creating agents that can act in complex environments.',
+                    'sec9-step3-title': 'Gato Launch', 'sec9-step3-desc': '<strong>Timeline:</strong> May 2022. DeepMind introduces Gato, a single generalist agent that can perform hundreds of tasks, including robotics and gaming.',
+                    'sec9-step4-title': 'SIMA Announcement', 'sec9-step4-desc': '<strong>Timeline:</strong> March 2024. Google DeepMind announces SIMA, a research project focused specifically on creating an instructable agent for any video game environment.',
+                    'sec10-title': '10. Limitations & Challenges 🚫',
+                    'sec10-p1': 'SIMA is a research project and currently has important limitations.',
+                    'sec10-mistake1-title': 'Not a Superhuman Player:', 'sec10-mistake1-desc': 'SIMA is not designed to win games. Its performance is often below that of an average human player; its strength is its generality.',
+                    'sec10-mistake2-title': 'Short-Term Tasks Only:', 'sec10-mistake2-desc': 'Currently, SIMA can only perform simple tasks that take about 10 seconds to complete. It cannot handle long-term strategic planning.',
+                    'sec10-mistake3-title': 'No Learning in Real-Time:', 'sec10-mistake3-desc': 'SIMA cannot learn new skills while playing a game. All its knowledge comes from its initial training phase.',
+                    'sec10-mistake4-title': 'Not a Public Product:', 'sec10-mistake4-desc': 'SIMA is a research project and is not available for public use or via an API at this time.',
+                    'sec11-title': '11. How to Learn More 🏫',
+                    'sec11-p1': 'As SIMA is a research initiative, the best way to learn more is through official publications from Google DeepMind.',
+                    'sec11-gov-title': '📚 Research Paper', 'sec11-gov-list': '<li>Read the official technical report and blog post published by Google DeepMind for a detailed explanation of the architecture and results.</li>',
+                    'sec11-pvt-title': '💻 Successor Models', 'sec11-pvt-p1': 'The technology will evolve.', 'sec11-pvt-list': '<li>The principles behind SIMA will influence future generalist agents from Google, including advancements in robotics and the Gemini family of models.</li>',
+                    'sec12-title': '12. The Future: AI as a Player 🚀',
+                    'sec12-p1': 'SIMA is a fundamental step towards creating AI agents that are not just players, but partners. The future envisions AI that can seamlessly join a human player in any online game, understand goals through natural conversation, and act as a helpful teammate, revolutionizing co-operative gameplay and digital interaction.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core AI concepts is fundamental to grasping the innovation behind SIMA.',
+                    'syllabus-oir-title': 'Generalist Agent',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">Single model for multiple tasks</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Language Grounding',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔗</span><div class="flex-grow">Connecting language to actions/vision</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Solving intelligence to advance science and benefit humanity.',
+                    'interviewChartData': {
+                        labels: ['Navigation', 'Object Use', 'Menu Use', 'Generalization'],
+                        data: [70, 65, 60, 55] // Example data representing skill scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🎮 गूगल डीपमाइंड का सिमा: अंतिम गाइड 🎮',
+                    'header-subtitle': 'वह एआई एजेंट जो (लगभग) कोई भी वीडियो गेम खेल सकता है',
+                    'sec1-title': '1. गूगल का सिमा क्या है? 💡',
+                    'sec1-p1': 'सिमा, जिसका अर्थ है **स्केलेबल इंस्ट्रक्टेबल मल्टीवर्ल्ड एजेंट**, गूगल डीपमाइंड का एक शोध प्रोजेक्ट है जिसका उद्देश्य एक सामान्यज्ञ एआई एजेंट बनाना है जो प्राकृतिक भाषा के निर्देशों को समझ सकता है और विभिन्न प्रकार के वीडियो गेम वातावरणों में कार्य कर सकता है। पिछले गेम-खेलने वाले एआई के विपरीत जिन्हें एक ही गेम में महारत हासिल करने के लिए प्रशिक्षित किया गया था, सिमा का लक्ष्य स्क्रीन को देखकर और निर्देशों का पालन करके, किसी भी गेम को खेलना सीखना है, जैसे एक इंसान करता है।',
+                    'sec2-title': '2. सामान्यज्ञ एजेंट दृष्टिकोण 🎯',
+                    'sec2-p1': 'सिमा का जादू यह है कि वह जो देखता है और जो उसे करने के लिए कहा जाता है, उसे सीधे कीबोर्ड और माउस क्रियाओं से जोड़ना सीखता है, जिससे कस्टम गेम एपीआई की आवश्यकता समाप्त हो जाती है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'अवधारणा', 'sec2-step1-desc': 'गेम स्क्रीन + भाषा निर्देश',
+                    'sec2-step2-title': 'सिमा मॉडल', 'sec2-step2-name': 'तर्क', 'sec2-step2-desc': 'भाषा को दृश्य संदर्भ से जोड़ता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'क्रिया', 'sec2-step3-desc': 'कीबोर्ड और माउस आउटपुट की भविष्यवाणी करता है',
+                    'sec3-title': '3. सिमा के पीछे की मुख्य अवधारणाएँ ✅',
+                    'sec3-p1': 'सिमा एआई को उच्च स्कोर प्राप्त करने के लिए प्रशिक्षित करने से हटकर उसे निर्देशों का पालन करने के लिए प्रशिक्षित करने का प्रतिनिधित्व करता है।',
+                    'sec3-age-title': 'भाषा-चालित:', 'sec3-age-desc': 'सिमा की क्रियाएं प्राकृतिक भाषा के निर्देशों द्वारा निर्देशित होती हैं, न कि केवल जीतने जैसे इन-गेम उद्देश्य से।',
+                    'sec3-edu-title': 'बहु-विश्व प्रशिक्षण:', 'sec3-edu-desc': 'इसे केवल एक गेम के विशिष्ट नियमों में महारत हासिल करने के बजाय, सामान्य कौशल सीखने के लिए वीडियो गेम के एक विविध पोर्टफोलियो में प्रशिक्षित किया जाता है।',
+                    'sec3-attempts-title': 'तकनीकी दृष्टिकोण 📊',
+                    'sec3-agerelax-list': '<li><strong>खेल अज्ञेयवादी इंटरफ़ेस:</strong> सिमा खेलों को ठीक वैसे ही मानता है जैसे एक इंसान: स्क्रीन को देखकर और कीबोर्ड और माउस का उपयोग करके। इसे गेम के आंतरिक कोड तक पहुंचने की आवश्यकता नहीं है।</li><li><strong>व्यवहार क्लोनिंग:</strong> यह मानव खिलाड़ियों को देखकर और उनके व्यवहार की नकल करके सीखता है (अवलोकन को क्रियाओं से मैप करना)।</li>',
+                    'sec4-title': '4. सिमा क्या कर सकता है? 📚',
+                    'sec4-p1': 'सिमा को 3डी आभासी वातावरणों की एक किस्म में छोटे, निर्देशात्मक कार्यों को करने की क्षमता पर प्रशिक्षित और मूल्यांकन किया गया था।',
+                    'gs1-title': 'नेविगेशन',
+                    'gs2-title': 'वस्तु हेरफेर',
+                    'gs3-title': 'मेनू उपयोग',
+                    'gs4-title': 'सरल क्राफ्टिंग',
+                    'sec5-title': '5. एक सामान्यज्ञ गेमर को प्रशिक्षित करना 🏛️',
+                    'sec5-p1': 'सिमा को मानव खिलाड़ियों के जोड़े रिकॉर्ड करके प्रशिक्षित किया गया था - एक गेम खेल रहा था और दूसरा कई अलग-अलग खेलों में निर्देश प्रदान कर रहा था।',
+                    'sec5-hindi-title': '1. विविध डेटासेट', 'sec5-hindi-p1': '9 अलग-अलग वीडियो गेम के एक पोर्टफोलियो से डेटा एकत्र किया गया था।', 'sec5-hindi-list': '<li>*नो मैन्स स्काई*, *टीयरडाउन*, और *वलहेम* जैसे खेलों तक पहुंच प्राप्त करने के लिए गेम डेवलपर्स के साथ भागीदारी की।</li><li>यूनिटी में निर्मित कस्टम अनुसंधान वातावरणों का भी उपयोग किया।</li><li>डेटा में वीडियो फ्रेम, भाषा निर्देश और संबंधित कीबोर्ड/माउस क्रियाएं शामिल हैं।</li>',
+                    'sec5-essay-title': '2. प्रशिक्षण प्रक्रिया', 'sec5-essay-p1': 'भाषा और दृष्टि को क्रियाओं से मैप करना सीखना।', 'sec5-essay-list': '<li>सिमा गेम स्क्रीन को समझने के लिए एक पूर्व-प्रशिक्षित दृष्टि मॉडल का उपयोग करता है।</li><li>एक ट्रांसफार्मर-आधारित मॉडल तब छवि डेटा और पाठ निर्देशों के संयोजन को संसाधित करता है।</li><li>मॉडल को उस स्थिति में मानव खिलाड़ी द्वारा की जाने वाली अगली कीबोर्ड या माउस क्रिया की भविष्यवाणी करने के लिए प्रशिक्षित किया जाता है।</li>',
+                    'sec6-title': '6. संभावित अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'हालांकि सिमा एक शोध परियोजना है, इसके पीछे की तकनीक में गेमिंग, रोबोटिक्स और अन्य एआई अनुप्रयोगों के लिए दूरगामी प्रभाव हैं।',
+                    'sec6-eng-title': 'गेमिंग उद्योग', 'sec6-eng-list': '<li>एआई-संचालित गेम परीक्षक जो निर्देशों का पालन करके बग ढूंढ सकते हैं।</li><li>अधिक यथार्थवादी और उत्तरदायी गैर-खिलाड़ी वर्ण (एनपीसी)।</li><li>सहायक एआई एजेंट जो नए खिलाड़ियों को एक गेम सीखने में मदद कर सकते हैं।</li>',
+                    'sec6-elec-title': 'रोबोटिक्स', 'sec6-elec-list': '<li>वास्तविक दुनिया के वातावरण में प्राकृतिक भाषा आदेशों को समझ सकने वाले रोबोट बनाने की दिशा में एक कदम।</li><li>आभासी दुनिया में सीखे गए कौशल को भौतिक रोबोटों में स्थानांतरित किया जा सकता है।</li>',
+                    'sec6-naic-title': 'सामान्य एआई', 'sec6-naic-list': '<li>एआई मॉडल में भाषा-ग्राउंडिंग में सुधार।</li><li>अधिक सहायक और सक्षम एआई सहायक बनाना जो सॉफ्टवेयर संचालित कर सकते हैं या वेब ब्राउज़ कर सकते हैं।</li>',
+                    'sec7-title': '7. प्रदर्शन और मूल्यांकन 🎙️',
+                    'sec7-p1': 'सिमा का प्रदर्शन गेम जीतने से नहीं, बल्कि निर्देशों का कितनी अच्छी तरह पालन कर सकता है, से मापा जाता है। इसका मूल्यांकन विभिन्न गेम दुनियाओं में 600 बुनियादी कौशलों पर किया गया था।',
+                    'sec7-qualities-title': 'मुख्य मूल्यांकन मेट्रिक्स:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🎯</span><div><strong class="text-white">निर्देश पालन:</strong> प्राथमिक मीट्रिक यह है कि क्या एजेंट प्राकृतिक भाषा निर्देश में वर्णित कार्य को सफलतापूर्वक पूरा करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">🌐</span><div><strong class="text-white">सामान्यीकरण:</strong> एक प्रमुख परीक्षण यह है कि कई खेलों पर प्रशिक्षित एक एजेंट पूरी तरह से नए, अनदेखे खेल के माहौल में कितना अच्छा प्रदर्शन करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#38bdf8] mr-3">📊</span><div><strong class="text-white">कौशल कवरेज:</strong> एजेंट का मूल्यांकन नेविगेशन, वस्तु संपर्क और मेनू उपयोग जैसे कौशल की एक विस्तृत श्रृंखला पर किया जाता है, ताकि इसकी सामान्य क्षमता का आकलन किया जा सके।</div></li>',
+                    'sec8-title': '8. अधिक सामान्य एजेंटों का मार्ग 📈',
+                    'sec8-p1': 'सिमा परियोजना और भी अधिक सक्षम और सामान्य-उद्देश्य वाले एआई एजेंटों के निर्माण के लिए आवश्यक अनुसंधान में अगले कदमों पर प्रकाश डालती है।',
+                    'sec8-steps-title': '📚 प्रमुख शोध दिशाएँ:',
+                    'sec8-step1-title': 'अधिक विविध वातावरण', 'sec8-step1-desc': 'इसकी सामान्यीकरण क्षमताओं को बेहतर बनाने के लिए हजारों विभिन्न वीडियो गेम और आभासी दुनिया में एजेंट को प्रशिक्षित करना।',
+                    'sec8-step2-title': 'दीर्घकालिक कार्यों को संभालना', 'sec8-step2-desc': 'ऐसे मॉडल विकसित करना जो जटिल, बहु-चरणीय निर्देशों को संभाल सकें जिनके लिए दीर्घकालिक योजना और स्मृति की आवश्यकता होती है।',
+                    'sec8-revision-title': '🔄 अंतिम लक्ष्य:',
+                    'sec8-revision-list': '<li>एक एकल एआई एजेंट बनाना जो मानव भाषा को समझ सके और किसी भी आभासी या भौतिक वातावरण में कोई भी कार्य कर सके।</li><li>ऐसे एजेंट तब हमारे डिजिटल और वास्तविक जीवन दोनों में एक सच्चे सहायक भागीदार के रूप में कार्य कर सकते हैं।</li>',
+                    'sec9-title': '9. मॉडल टाइमलाइन 🗓️',
+                    'sec9-p1': 'सिमा डीपमाइंड के अनुसंधान की एक लंबी श्रृंखला में एक मील का पत्थर है जिसका उद्देश्य अधिक सामान्य और सक्षम एजेंट बनाना है।',
+                    'sec9-step3-title': 'गाटो लॉन्च', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मई 2022। डीपमाइंड ने गाटो का अनावरण किया, एक एकल सामान्यज्ञ एजेंट जो सैकड़ों विभिन्न कार्य कर सकता है, जिसमें रोबोटिक्स और गेमिंग शामिल हैं।',
+                    'sec9-step4-title': 'सिमा घोषणा', 'sec9-step4-desc': '<strong>समयरेखा:</strong> मार्च 2024। गूगल डीपमाइंड ने सिमा की घोषणा की, एक शोध परियोजना जो विशेष रूप से किसी भी वीडियो गेम वातावरण के लिए एक निर्देश योग्य एजेंट बनाने पर केंद्रित है।',
+                    'sec10-title': '10. सीमाएं और चुनौतियां 🚫',
+                    'sec10-p1': 'सिमा एक शोध परियोजना है और वर्तमान में इसकी महत्वपूर्ण सीमाएं हैं।',
+                    'sec10-mistake1-title': 'सुपरह्यूमन खिलाड़ी नहीं:', 'sec10-mistake1-desc': 'सिमा को गेम जीतने के लिए डिज़ाइन नहीं किया गया है। इसका प्रदर्शन अक्सर एक औसत मानव खिलाड़ी से कम होता है; इसकी ताकत इसकी सामान्यता है।',
+                    'sec10-mistake2-title': 'केवल अल्पकालिक कार्य:', 'sec10-mistake2-desc': 'वर्तमान में, सिमा केवल सरल कार्य कर सकता है जिन्हें पूरा होने में लगभग 10 सेकंड लगते हैं। यह दीर्घकालिक रणनीतिक योजना को नहीं संभाल सकता है।',
+                    'sec10-mistake3-title': 'वास्तविक समय में कोई सीखना नहीं:', 'sec10-mistake3-desc': 'सिमा गेम खेलते समय नए कौशल नहीं सीख सकता है। इसका सारा ज्ञान इसके प्रारंभिक प्रशिक्षण चरण से आता है।',
+                    'sec10-mistake4-title': 'सार्वजनिक उत्पाद नहीं:', 'sec10-mistake4-desc': 'सिमा एक शोध परियोजना है और इस समय सार्वजनिक उपयोग या एपीआई के माध्यम से उपलब्ध नहीं है।',
+                    'sec11-title': '11. और कैसे जानें 🏫',
+                    'sec11-p1': 'चूंकि सिमा एक शोध पहल है, इसलिए अधिक जानने का सबसे अच्छा तरीका गूगल डीपमाइंड से आधिकारिक प्रकाशनों के माध्यम से है।',
+                    'sec11-gov-title': '📚 शोध पत्र', 'sec11-gov-list': '<li>वास्तुकला और परिणामों की विस्तृत व्याख्या के लिए गूगल डीपमाइंड द्वारा प्रकाशित आधिकारिक तकनीकी रिपोर्ट और ब्लॉग पोस्ट पढ़ें।</li>',
+                    'sec11-pvt-title': '💻 उत्तराधिकारी मॉडल', 'sec11-pvt-p1': 'प्रौद्योगिकी विकसित होगी।', 'sec11-pvt-list': '<li>सिमा के पीछे के सिद्धांत गूगल से भविष्य के सामान्यज्ञ एजेंटों को प्रभावित करेंगे, जिसमें रोबोटिक्स और जेमिनी मॉडल परिवार में प्रगति शामिल है।</li>',
+                    'sec12-title': '12. भविष्य: एक खिलाड़ी के रूप में एआई 🚀',
+                    'sec12-p1': 'सिमा एआई एजेंट बनाने की दिशा में एक मौलिक कदम है जो सिर्फ खिलाड़ी नहीं, बल्कि भागीदार हैं। भविष्य में ऐसे एआई की कल्पना की गई है जो किसी भी ऑनलाइन गेम में एक मानव खिलाड़ी के साथ सहजता से शामिल हो सकता है, प्राकृतिक बातचीत के माध्यम से लक्ष्यों को समझ सकता है, और एक सहायक टीम के साथी के रूप में कार्य कर सकता है, जिससे सहकारी गेमप्ले और डिजिटल इंटरैक्शन में क्रांति आ सकती है।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'सिमा के पीछे के नवाचार को समझने के लिए इन मुख्य एआई अवधारणाओं को समझना मौलिक है।',
+                    'syllabus-oir-title': 'सामान्यज्ञ एजेंट',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌐</span><div class="flex-grow">कई कार्यों के लिए एकल मॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'भाषा ग्राउंडिंग',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔗</span><div class="flex-grow">भाषा को क्रियाओं/दृष्टि से जोड़ना</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | विज्ञान को आगे बढ़ाने और मानवता को लाभ पहुंचाने के लिए बुद्धिमत्ता का समाधान।',
+                    'interviewChartData': {
+                        labels: ['नेविगेशन', 'वस्तु उपयोग', 'मेनू उपयोग', 'सामान्यीकरण'],
+                        data: [70, 65, 60, 55]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-purple-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Skill Score (%)',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(147, 51, 234, 0.7)',
+                                'rgba(14, 165, 233, 0.7)',
+                                'rgba(234, 179, 8, 0.7)',
+                                'rgba(52, 211, 153, 0.7)'
+                            ],
+                            borderColor: [
+                                '#9333ea',
+                                '#0ea5e9',
+                                '#eab308',
+                                '#22c55e'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
