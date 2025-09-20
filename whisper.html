@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Whisper: The Ultimate ASR Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to OpenAI's Whisper model. Understand its technology, capabilities, applications, and its impact on automatic speech recognition (ASR).">
+    <meta name="keywords" content="OpenAI, Whisper, ASR, Automatic Speech Recognition, AI Transcription, Speech-to-Text, AI, Artificial Intelligence, Machine Learning">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212; /* Dark Charcoal */
+            color: #e0e0e0; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #00f0b5, #9f7aea) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(28, 28, 28, 0.85); /* Dark Gray Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #333333; /* Medium Gray */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(0, 240, 181, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #00f0b5; /* Vibrant Teal */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #00f0b5; /* Vibrant Teal */
+            color: #00f0b5;
+            background: #1c1c1c; /* Darker Gray */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 240, 181, 0.2);
+            text-shadow: 0 0 5px rgba(0, 240, 181, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #00f0b5;
+            color: #121212;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(0, 240, 181, 0.5);
+        }
+        .flowchart-arrow {
+            color: #9f7aea; /* Light Purple */
+            text-shadow: 0 0 10px rgba(159, 122, 234, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #9f7aea;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(159, 122, 234, 0.1);
+        }
+        .subject-item .icon {
+            color: #9f7aea;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #00f0b5;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #121212;
+            border: 4px solid #00f0b5;
+            box-shadow: 0 0 15px rgba(0, 240, 181, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1c1c1c;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #333333;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #00f0b5, #00d4a1);
+            color: #121212;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 240, 181, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 240, 181, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #00f0b5;
+            color: #00f0b5;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #00f0b5;
+            color: #121212;
+            box-shadow: 0 0 15px #00f0b5;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #9f7aea, #8b5cf6);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #2a2a2a; 
+            color: #e0e0e0; 
+            border-color: #333333; 
+        }
+        .lectures-btn:hover {
+            background-color: #333333;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🎙️ OpenAI Whisper: The Ultimate Guide 🎙️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-400">Unlocking the Power of Automated Speech Recognition</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Whisper? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1c1c1c] via-[#121212] to-[#121212]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is OpenAI Whisper? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">OpenAI Whisper is a state-of-the-art Automatic Speech Recognition (ASR) model. Unlike general-purpose models like GPT, Whisper is specifically designed for one primary task: converting spoken language into written text with remarkable accuracy. Trained on a vast and diverse dataset of audio, it achieves human-level robustness and accuracy across a wide range of languages, accents, and noisy environments, making it a powerful tool for transcription and translation.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. How Whisper Works 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Whisper uses a sophisticated end-to-end Transformer architecture to process audio and predict the corresponding text sequence.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Audio File</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Audio is split into 30-second chunks</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Whisper Model</span><br><span id="sec2-step2-name">Encoder-Decoder</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Audio is processed and text is predicted</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Text Transcript</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">The final transcribed text is generated</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Whisper is designed to be accessible to a broad audience, from individual developers to large corporations.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#00f0b5] mr-4">🧑‍💻</span><div><strong id="sec3-age-title" class="text-white text-lg">Developers & Researchers:</strong> <span id="sec3-age-desc">The primary users, integrating Whisper into applications for transcription, translation, and voice-enabled features.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#00f0b5] mr-4">🎬</span><div><strong id="sec3-edu-title" class="text-white text-lg">Content Creators & Media:</strong> <span id="sec3-edu-desc">Used for creating accurate subtitles for videos, transcribing podcasts, and generating text from interviews.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#9f7aea] pb-2">Primary Platforms 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>OpenAI API:</strong> The easiest way to use the latest, most optimized Whisper model on a pay-as-you-go basis.</li>
+                             <li><strong>Open Source:</strong> OpenAI has open-sourced the Whisper models and code, allowing anyone to run them on their own hardware.</li>
+                             <li><strong>Third-Party Services:</strong> Numerous applications and services have integrated Whisper to offer transcription features.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Whisper's architecture allows it to perform multiple complex speech-processing tasks simultaneously.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#1c1c1c]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-400 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Transcription</h3>
+                        <p class="text-sm">Highly accurate speech-to-text in multiple languages.</p>
+                    </div>
+                     <div class="bg-[#1c1c1c]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-400 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Translation</h3>
+                         <p class="text-sm">Translating speech from any supported language directly into English text.</p>
+                    </div>
+                    <div class="bg-[#1c1c1c]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-400 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Language ID</h3>
+                         <p class="text-sm">Automatically identifying the language being spoken in the audio.</p>
+                    </div>
+                    <div class="bg-[#1c1c1c]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-teal-400 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Timestamping</h3>
+                         <p class="text-sm">Providing word-level or segment-level timestamps for easy navigation and subtitling.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How was Whisper Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Whisper's robustness comes from its unique training on a massive and incredibly diverse dataset, which distinguishes it from traditional ASR systems.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1c1c1c] rounded-xl border-2 border-[#00f0b5]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A large and diverse supervised dataset.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained on **680,000 hours** of multilingual and multitask supervised data collected from the web.</li>
+                            <li>This diversity improves robustness to different accents, background noise, and technical language.</li>
+                            <li>About one-third of the audio data is non-English, enabling powerful multilingual capabilities.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1c1c1c] rounded-xl border-2 border-[#9f7aea]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Training Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A multitask learning approach.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>The model is trained to predict the text transcript of the audio.</li>
+                           <li>Special tokens are used in the input to steer the model towards performing specific tasks like language identification, timestamping, and transcription.</li>
+                           <li>This multitask format allows a single model to perform diverse speech-processing tasks without needing separate models.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Whisper's high accuracy and robustness have unlocked a wide range of applications for automated speech-to-text technology.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Media & Content</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Automatic subtitling and captioning for videos.</li>
+                           <li>Transcribing podcasts and interviews for articles.</li>
+                           <li>Creating searchable archives of audio/video content.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Business & Productivity</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Transcribing meetings, calls, and webinars.</li>
+                           <li>Voice notes and dictation for hands-free typing.</li>
+                           <li>Improving accessibility for hearing-impaired individuals.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Developer Tools</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Building voice-controlled interfaces and applications.</li>
+                           <li>Analyzing audio data for sentiment or keywords.</li>
+                           <li>Powering voice-based virtual assistants.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Whisper's performance is typically measured by its Word Error Rate (WER) on various standard academic datasets. A lower WER indicates higher accuracy.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#00f0b5] pb-2">Key Benchmark: Word Error Rate (WER)</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">📊</span><div><strong class="text-white">What it is:</strong> WER is the industry standard for measuring ASR accuracy. It calculates the number of errors (substitutions, deletions, insertions) divided by the total number of words.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🎯</span><div><strong class="text-white">Robustness:</strong> Whisper achieves state-of-the-art results on many datasets, showing strong performance even on noisy audio and diverse accents where older models struggled.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🌍</span><div><strong class="text-white">Multilingual Performance:</strong> The model shows remarkably low WER across a wide variety of languages, not just English.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Best Practices -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Best Practices for Using Whisper 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">To get the highest quality transcripts from Whisper, it's important to follow some best practices for your audio input.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#00f0b5] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f0b5] rounded-full -left-2.5 border-4 border-[#1c1c1c]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">High-Quality Audio</h4>
+                                <p id="sec8-step1-desc" class="text-base">The cleaner the audio, the better the transcript. Use a good microphone and minimize background noise and echo.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#00f0b5] rounded-full -left-2.5 border-4 border-[#1c1c1c]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Clear Speech</h4>
+                                <p id="sec8-step2-desc" class="text-base">Speak clearly and at a moderate pace. Avoid mumbling or speaking too quickly. Multiple speakers talking over each other will reduce accuracy.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f0b5] rounded-full -left-2.5 border-4 border-[#1c1c1c]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Use the Right Model</h4>
+                                <p id="sec8-step3-desc" class="text-base">For best results, use the largest model size (`large-v3`) your hardware can support. For API users, the latest model is always recommended.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 API & Prompting:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Provide Contextual Prompts:</strong> Use the `prompt` parameter in the API to provide a list of correct spellings for specific names, jargon, or acronyms to improve their transcription accuracy.</li>
+                            <li><strong>Chunking Long Audio:</strong> For very long audio files, it's best to split them into smaller chunks (e.g., 10-15 minutes) before sending them to the API.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Versions -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Versions & Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">OpenAI has released several versions of the open-source Whisper model, each improving on the last in terms of accuracy, language support, and efficiency.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Whisper (v1) Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> September 2022. OpenAI open-sources the first Whisper models, setting a new standard for ASR accuracy.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Whisper API Launch</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2023. The highly optimized `large-v2` model is made available through the API, making it easy for developers to use.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Whisper Large-v3 Release</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> November 2023. An updated and improved version with better performance across many languages is released.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Pitfalls & Limitations 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Despite its power, Whisper is not perfect. Understanding its limitations helps in setting the right expectations.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Speaker Diarization:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Whisper does not natively identify who is speaking (speaker diarization). The output is a single block of text, regardless of the number of speakers.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Real-time Transcription:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">The open-source models are not optimized for real-time transcription out-of-the-box and can have high latency without specialized engineering.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Hallucinating Text:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">On silent or ambiguous audio segments, the model can sometimes "hallucinate" and generate repetitive or nonsensical text.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Struggles with Jargon:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">While robust, it can still make errors on highly specific technical jargon, unusual names, or acronyms not well-represented in its training data.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">There are multiple ways to use Whisper, from simple API calls to running the model on your own machine.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Via OpenAI API</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>The easiest and most efficient method. Simply sign up for an API key.</li>
+                           <li>Send an audio file to the API endpoint and receive the text transcript back.</li>
+                           <li>No need to manage complex hardware or software dependencies.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Open Source</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">For those with technical expertise.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Download the model and code from the official OpenAI GitHub repository.</li>
+                            <li>Requires a powerful computer with a modern GPU (like NVIDIA) for reasonable performance.</li>
+                            <li>Gives you full control over the model and its usage.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future of Speech Recognition 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Whisper has set a new baseline for ASR. The future will likely see even more advanced capabilities, moving beyond simple transcription to a deeper understanding of spoken communication.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Expected Advancements</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#101827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core ASR Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these fundamental concepts of Automatic Speech Recognition (ASR) helps in appreciating the technology behind Whisper.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Fundamental Ideas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Architectural Components</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-purple-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | The Future of Speech is Here.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Audio File</h3>
+            <p id="prelims-modal-p1">The process begins with an audio file (e.g., MP3, WAV, M4A). Whisper automatically breaks this audio down into 30-second segments. Each segment is then converted into a spectrogram, a visual representation of the spectrum of frequencies of a signal as it varies with time.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Whisper Model: Encoder-Decoder</h3>
+            <p id="mains-modal-p1">The spectrogram is passed to an encoder which creates a numerical representation of the audio. This representation is then passed to a decoder, which has been trained to predict the corresponding text transcript, including capitalization and punctuation. It performs tasks like language identification and translation at this stage.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Text Transcript</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The decoder generates the final text output. A special filtering mechanism is used to handle repetitive transcriptions or hallucinations. The outputs from all the 30-second chunks are then stitched together to form the complete, final transcript of the original audio file.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">The Future of Speech Recognition</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'transcription': { 
+                        name: 'Multilingual Transcription', 
+                        icon: '🌐',
+                        description: 'Whisper can accurately transcribe speech in nearly 100 languages, making it a powerful tool for global communication and content creation.',
+                        cta: 'Learn More'
+                    },
+                    'translation': { 
+                        name: 'Speech-to-English Translation', 
+                        icon: '🔄',
+                        description: 'The model can take speech in any of its supported languages and directly translate it into written English text, streamlining cross-lingual workflows.',
+                        cta: 'Learn More'
+                    },
+                    'robustness': { 
+                        name: 'Robustness to Noise', 
+                        icon: '🔊',
+                        description: 'Trained on a diverse dataset, Whisper shows remarkable performance in transcribing audio with significant background noise, accents, and technical jargon.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'transcription': { 
+                        name: 'बहुभाषी प्रतिलेखन', 
+                        icon: '🌐',
+                        description: 'व्हिस्पर लगभग 100 भाषाओं में भाषण का सटीक प्रतिलेखन कर सकता है, जो इसे वैश्विक संचार और सामग्री निर्माण के लिए एक शक्तिशाली उपकरण बनाता है।',
+                        cta: 'और जानें'
+                    },
+                    'translation': { 
+                        name: 'भाषण-से-अंग्रेजी अनुवाद', 
+                        icon: '🔄',
+                        description: 'मॉडल अपनी किसी भी समर्थित भाषा में भाषण ले सकता है और सीधे इसे लिखित अंग्रेजी पाठ में अनुवाद कर सकता है, जिससे क्रॉस-लिंगुअल वर्कफ़्लो सुव्यवस्थित होता है।',
+                        cta: 'और जानें'
+                    },
+                    'robustness': { 
+                        name: 'शोर के प्रति मजबूती', 
+                        icon: '🔊',
+                        description: 'एक विविध डेटासेट पर प्रशिक्षित, व्हिस्पर महत्वपूर्ण पृष्ठभूमि शोर, लहजे और तकनीकी शब्दजाल के साथ ऑडियो का प्रतिलेखन करने में उल्लेखनीय प्रदर्शन दिखाता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Real-time, Low Latency", desc: "Future models will be highly optimized for instant, real-time transcription and translation, enabling seamless live applications." },
+                        { rank: "Speaker Diarization", desc: "AI will be able to accurately identify and label different speakers in a single audio file ('Who spoke what?')." },
+                        { rank: "Emotional & Tonal Understanding", desc: "Models will go beyond text to understand the emotion, tone, and intent behind the spoken words." },
+                        { rank: "Voice Cloning & Generation", desc: "Realistic text-to-speech capabilities that can clone a person's voice from a small audio sample." },
+                        { rank: "Deeper Integration", desc: "ASR will become a standard, invisible feature in most applications, from operating systems to wearable devices." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "वास्तविक समय, कम विलंबता", desc: "भविष्य के मॉडल तत्काल, वास्तविक समय प्रतिलेखन और अनुवाद के लिए अत्यधिक अनुकूलित होंगे, जिससे निर्बाध लाइव एप्लिकेशन सक्षम होंगे।" },
+                        { rank: "वक्ता डायराइजेशन", desc: "एआई एक ही ऑडियो फ़ाइल में विभिन्न वक्ताओं की सटीक पहचान और लेबलिंग करने में सक्षम होगा ('किसने क्या कहा?')।" },
+                        { rank: "भावनात्मक और तानवाला समझ", desc: "मॉडल बोले गए शब्दों के पीछे की भावना, स्वर और इरादे को समझने के लिए पाठ से परे जाएंगे।" },
+                        { rank: "आवाज क्लोनिंग और पीढ़ी", desc: "यथार्थवादी टेक्स्ट-टू-स्पीच क्षमताएं जो एक छोटे ऑडियो नमूने से किसी व्यक्ति की आवाज का क्लोन बना सकती हैं।" },
+                        { rank: "गहरा एकीकरण", desc: "एएसआर ऑपरेटिंग सिस्टम से लेकर पहनने योग्य उपकरणों तक अधिकांश अनुप्रयोगों में एक मानक, अदृश्य सुविधा बन जाएगा।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎙️ OpenAI Whisper: The Ultimate Guide 🎙️',
+                    'header-subtitle': 'Unlocking the Power of Automated Speech Recognition',
+                    'sec1-title': '1. What is OpenAI Whisper? 💡',
+                    'sec1-p1': 'OpenAI Whisper is a state-of-the-art Automatic Speech Recognition (ASR) model. Unlike general-purpose models like GPT, Whisper is specifically designed for one primary task: converting spoken language into written text with remarkable accuracy. Trained on a vast and diverse dataset of audio, it achieves human-level robustness and accuracy across a wide range of languages, accents, and noisy environments, making it a powerful tool for transcription and translation.',
+                    'sec2-title': '2. How Whisper Works 🎯',
+                    'sec2-p1': 'Whisper uses a sophisticated end-to-end Transformer architecture to process audio and predict the corresponding text sequence.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Audio File', 'sec2-step1-desc': 'Audio is split into 30-second chunks',
+                    'sec2-step2-title': 'Whisper Model', 'sec2-step2-name': 'Encoder-Decoder', 'sec2-step2-desc': 'Audio is processed and text is predicted',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Text Transcript', 'sec2-step3-desc': 'The final transcribed text is generated',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Whisper is designed to be accessible to a broad audience, from individual developers to large corporations.',
+                    'sec3-age-title': 'Developers & Researchers:', 'sec3-age-desc': 'The primary users, integrating Whisper into applications for transcription, translation, and voice-enabled features.',
+                    'sec3-edu-title': 'Content Creators & Media:', 'sec3-edu-desc': 'Used for creating accurate subtitles for videos, transcribing podcasts, and generating text from interviews.',
+                    'sec3-attempts-title': 'Primary Platforms 📊',
+                    'sec3-agerelax-list': '<li><strong>OpenAI API:</strong> The easiest way to use the latest, most optimized Whisper model on a pay-as-you-go basis.</li><li><strong>Open Source:</strong> OpenAI has open-sourced the Whisper models and code, allowing anyone to run them on their own hardware.</li><li><strong>Third-Party Services:</strong> Numerous applications and services have integrated Whisper to offer transcription features.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Whisper\'s architecture allows it to perform multiple complex speech-processing tasks simultaneously.',
+                    'gs1-title': 'Transcription',
+                    'gs2-title': 'Translation',
+                    'gs3-title': 'Language ID',
+                    'gs4-title': 'Timestamping',
+                    'sec5-title': '5. How was Whisper Trained? 🏛️',
+                    'sec5-p1': 'Whisper\'s robustness comes from its unique training on a massive and incredibly diverse dataset, which distinguishes it from traditional ASR systems.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A large and diverse supervised dataset.', 'sec5-hindi-list': '<li>Trained on **680,000 hours** of multilingual and multitask supervised data collected from the web.</li><li>This diversity improves robustness to different accents, background noise, and technical language.</li><li>About one-third of the audio data is non-English, enabling powerful multilingual capabilities.</li>',
+                    'sec5-essay-title': '2. The Training Process', 'sec5-essay-p1': 'A multitask learning approach.', 'sec5-essay-list': '<li>The model is trained to predict the text transcript of the audio.</li><li>Special tokens are used in the input to steer the model towards performing specific tasks like language identification, timestamping, and transcription.</li><li>This multitask format allows a single model to perform diverse speech-processing tasks without needing separate models.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'Whisper\'s high accuracy and robustness have unlocked a wide range of applications for automated speech-to-text technology.',
+                    'sec6-eng-title': 'Media & Content', 'sec6-eng-list': '<li>Automatic subtitling and captioning for videos.</li><li>Transcribing podcasts and interviews for articles.</li><li>Creating searchable archives of audio/video content.</li>',
+                    'sec6-elec-title': 'Business & Productivity', 'sec6-elec-list': '<li>Transcribing meetings, calls, and webinars.</li><li>Voice notes and dictation for hands-free typing.</li><li>Improving accessibility for hearing-impaired individuals.</li>',
+                    'sec6-naic-title': 'Developer Tools', 'sec6-naic-list': '<li>Building voice-controlled interfaces and applications.</li><li>Analyzing audio data for sentiment or keywords.</li><li>Powering voice-based virtual assistants.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Whisper\'s performance is typically measured by its Word Error Rate (WER) on various standard academic datasets. A lower WER indicates higher accuracy.',
+                    'sec7-qualities-title': 'Key Benchmark: Word Error Rate (WER)',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">📊</span><div><strong class="text-white">What it is:</strong> WER is the industry standard for measuring ASR accuracy. It calculates the number of errors (substitutions, deletions, insertions) divided by the total number of words.</div></li><li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🎯</span><div><strong class="text-white">Robustness:</strong> Whisper achieves state-of-the-art results on many datasets, showing strong performance even on noisy audio and diverse accents where older models struggled.</div></li><li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🌍</span><div><strong class="text-white">Multilingual Performance:</strong> The model shows remarkably low WER across a wide variety of languages, not just English.</div></li>',
+                    'sec8-title': '8. Best Practices for Using Whisper 📈',
+                    'sec8-p1': 'To get the highest quality transcripts from Whisper, it\'s important to follow some best practices for your audio input.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'High-Quality Audio', 'sec8-step1-desc': 'The cleaner the audio, the better the transcript. Use a good microphone and minimize background noise and echo.',
+                    'sec8-step2-title': 'Clear Speech', 'sec8-step2-desc': 'Speak clearly and at a moderate pace. Avoid mumbling or speaking too quickly. Multiple speakers talking over each other will reduce accuracy.',
+                    'sec8-step3-title': 'Use the Right Model', 'sec8-step3-desc': 'For best results, use the largest model size (`large-v3`) your hardware can support. For API users, the latest model is always recommended.',
+                    'sec8-revision-title': '🔄 API & Prompting:',
+                    'sec8-revision-list': '<li><strong>Provide Contextual Prompts:</strong> Use the `prompt` parameter in the API to provide a list of correct spellings for specific names, jargon, or acronyms to improve their transcription accuracy.</li><li><strong>Chunking Long Audio:</strong> For very long audio files, it\'s best to split them into smaller chunks (e.g., 10-15 minutes) before sending them to the API.</li>',
+                    'sec9-title': '9. Model Versions & Evolution 🗓️',
+                    'sec9-p1': 'OpenAI has released several versions of the open-source Whisper model, each improving on the last in terms of accuracy, language support, and efficiency.',
+                    'sec9-step1-title': 'Whisper (v1) Release', 'sec9-step1-desc': '<strong>Timeline:</strong> September 2022. OpenAI open-sources the first Whisper models, setting a new standard for ASR accuracy.',
+                    'sec9-step2-title': 'Whisper API Launch', 'sec9-step2-desc': '<strong>Timeline:</strong> March 2023. The highly optimized `large-v2` model is made available through the API, making it easy for developers to use.',
+                    'sec9-step3-title': 'Whisper Large-v3 Release', 'sec9-step3-desc': '<strong>Timeline:</strong> November 2023. An updated and improved version with better performance across many languages is released.',
+                    'sec10-title': '10. Common Pitfalls & Limitations 🚫',
+                    'sec10-p1': 'Despite its power, Whisper is not perfect. Understanding its limitations helps in setting the right expectations.',
+                    'sec10-mistake1-title': 'Speaker Diarization:', 'sec10-mistake1-desc': 'Whisper does not natively identify who is speaking (speaker diarization). The output is a single block of text, regardless of the number of speakers.',
+                    'sec10-mistake2-title': 'Real-time Transcription:', 'sec10-mistake2-desc': 'The open-source models are not optimized for real-time transcription out-of-the-box and can have high latency without specialized engineering.',
+                    'sec10-mistake3-title': 'Hallucinating Text:', 'sec10-mistake3-desc': 'On silent or ambiguous audio segments, the model can sometimes "hallucinate" and generate repetitive or nonsensical text.',
+                    'sec10-mistake4-title': 'Struggles with Jargon:', 'sec10-mistake4-desc': 'While robust, it can still make errors on highly specific technical jargon, unusual names, or acronyms not well-represented in its training data.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'There are multiple ways to use Whisper, from simple API calls to running the model on your own machine.',
+                    'sec11-gov-title': '📚 Via OpenAI API', 'sec11-gov-list': '<li>The easiest and most efficient method. Simply sign up for an API key.</li><li>Send an audio file to the API endpoint and receive the text transcript back.</li><li>No need to manage complex hardware or software dependencies.</li>',
+                    'sec11-pvt-title': '💻 Open Source', 'sec11-pvt-p1': 'For those with technical expertise.', 'sec11-pvt-list': '<li>Download the model and code from the official OpenAI GitHub repository.</li><li>Requires a powerful computer with a modern GPU (like NVIDIA) for reasonable performance.</li><li>Gives you full control over the model and its usage.</li>',
+                    'sec12-title': '12. The Future of Speech Recognition 🚀',
+                    'sec12-p1': 'Whisper has set a new baseline for ASR. The future will likely see even more advanced capabilities, moving beyond simple transcription to a deeper understanding of spoken communication.',
+                    'sec12-career-btn': 'View Expected Advancements',
+                    'sec13-title': '13. Core ASR Concepts 📚',
+                    'sec13-p1': 'Understanding these fundamental concepts of Automatic Speech Recognition (ASR) helps in appreciating the technology behind Whisper.',
+                    'syllabus-oir-title': 'Fundamental Ideas',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔊</span><div class="flex-grow">Phonemes & Spectrograms</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">Word Error Rate (WER)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Architectural Components',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➡️</span><div class="flex-grow">Encoder-Decoder Models</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Transformer & Attention</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | The Future of Speech is Here.',
+                    'interviewChartData': {
+                        labels: ['Clean Audio', 'Noisy Audio', 'Accented Speech', 'Translation'],
+                        data: [98, 92, 90, 95] // Example data representing high accuracy %
+                    }
+                },
+                'hi': {
+                    'header-title': '🎙️ ओपनएआई व्हिस्पर: अंतिम गाइड 🎙️',
+                    'header-subtitle': 'स्वचालित वाक् पहचान की शक्ति को अनलॉक करना',
+                    'sec1-title': '1. ओपनएआई व्हिस्पर क्या है? 💡',
+                    'sec1-p1': 'ओपनएआई व्हिस्पर एक अत्याधुनिक स्वचालित वाक् पहचान (एएसआर) मॉडल है। जीपीटी जैसे सामान्य-उद्देश्य मॉडल के विपरीत, व्हिस्पर विशेष रूप से एक प्राथमिक कार्य के लिए डिज़ाइन किया गया है: बोली जाने वाली भाषा को उल्लेखनीय सटीकता के साथ लिखित पाठ में परिवर्तित करना। ऑडियो के एक विशाल और विविध डेटासेट पर प्रशिक्षित, यह भाषाओं, लहजे और शोर वाले वातावरण की एक विस्तृत श्रृंखला में मानव-स्तर की मजबूती और सटीकता प्राप्त करता है, जो इसे प्रतिलेखन और अनुवाद के लिए एक शक्तिशाली उपकरण बनाता है।',
+                    'sec2-title': '2. व्हिस्पर कैसे काम करता है 🎯',
+                    'sec2-p1': 'व्हिस्पर ऑडियो को संसाधित करने और संबंधित पाठ अनुक्रम की भविष्यवाणी करने के लिए एक परिष्कृत एंड-टू-एंड ट्रांसफार्मर आर्किटेक्चर का उपयोग करता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'ऑडियो फ़ाइल', 'sec2-step1-desc': 'ऑडियो को 30-सेकंड के हिस्सों में विभाजित किया गया है',
+                    'sec2-step2-title': 'व्हिस्पर मॉडल', 'sec2-step2-name': 'एनकोडर-डिकोडर', 'sec2-step2-desc': 'ऑडियो संसाधित होता है और पाठ की भविष्यवाणी की जाती है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'पाठ प्रतिलेख', 'sec2-step3-desc': 'अंतिम प्रतिलेखित पाठ उत्पन्न होता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'व्हिस्पर को व्यक्तिगत डेवलपर्स से लेकर बड़े निगमों तक, एक व्यापक दर्शक वर्ग के लिए सुलभ होने के लिए डिज़ाइन किया गया है।',
+                    'sec3-age-title': 'डेवलपर्स और शोधकर्ता:', 'sec3-age-desc': 'प्राथमिक उपयोगकर्ता, प्रतिलेखन, अनुवाद और आवाज-सक्षम सुविधाओं के लिए अनुप्रयोगों में व्हिस्पर को एकीकृत करते हैं।',
+                    'sec3-edu-title': 'सामग्री निर्माता और मीडिया:', 'sec3-edu-desc': 'वीडियो के लिए सटीक उपशीर्षक बनाने, पॉडकास्ट का प्रतिलेखन करने और साक्षात्कारों से पाठ उत्पन्न करने के लिए उपयोग किया जाता है।',
+                    'sec3-attempts-title': 'प्राथमिक प्लेटफॉर्म 📊',
+                    'sec3-agerelax-list': '<li><strong>ओपनएआई एपीआई:</strong> नवीनतम, सबसे अनुकूलित व्हिस्पर मॉडल का उपयोग करने का सबसे आसान तरीका पे-एज़-यू-गो आधार पर है।</li><li><strong>ओपन सोर्स:</strong> ओपनएआई ने व्हिस्पर मॉडल और कोड को ओपन-सोर्स किया है, जिससे कोई भी उन्हें अपने हार्डवेयर पर चला सकता है।</li><li><strong>तृतीय-पक्ष सेवाएं:</strong> कई अनुप्रयोगों और सेवाओं ने प्रतिलेखन सुविधाएँ प्रदान करने के लिए व्हिस्पर को एकीकृत किया है।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'व्हिस्पर का आर्किटेक्चर इसे एक साथ कई जटिल भाषण-प्रसंस्करण कार्यों को करने की अनुमति देता है।',
+                    'gs1-title': 'प्रतिलेखन',
+                    'gs2-title': 'अनुवाद',
+                    'gs3-title': 'भाषा आईडी',
+                    'gs4-title': 'टाइमस्टैम्पिंग',
+                    'sec5-title': '5. व्हिस्पर को कैसे प्रशिक्षित किया गया? 🏛️',
+                    'sec5-p1': 'व्हिस्पर की मजबूती एक विशाल और अविश्वसनीय रूप से विविध डेटासेट पर इसके अद्वितीय प्रशिक्षण से आती है, जो इसे पारंपरिक एएसआर सिस्टम से अलग करती है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'एक बड़ा और विविध पर्यवेक्षित डेटासेट।', 'sec5-hindi-list': '<li>वेब से एकत्र किए गए **680,000 घंटे** के बहुभाषी और मल्टीटास्क पर्यवेक्षित डेटा पर प्रशिक्षित।</li><li>यह विविधता विभिन्न लहजे, पृष्ठभूमि शोर और तकनीकी भाषा के प्रति मजबूती में सुधार करती है।</li><li>लगभग एक-तिहाई ऑडियो डेटा गैर-अंग्रेजी है, जो शक्तिशाली बहुभाषी क्षमताओं को सक्षम करता है।</li>',
+                    'sec5-essay-title': '2. प्रशिक्षण प्रक्रिया', 'sec5-essay-p1': 'एक मल्टीटास्क सीखने का दृष्टिकोण।', 'sec5-essay-list': '<li>मॉडल को ऑडियो के पाठ प्रतिलेख की भविष्यवाणी करने के लिए प्रशिक्षित किया जाता है।</li><li>इनपुट में विशेष टोकन का उपयोग मॉडल को भाषा पहचान, टाइमस्टैम्पिंग और प्रतिलेखन जैसे विशिष्ट कार्यों को करने की ओर ले जाने के लिए किया जाता है।</li><li>यह मल्टीटास्क प्रारूप एक ही मॉडल को अलग-अलग मॉडल की आवश्यकता के बिना विविध भाषण-प्रसंस्करण कार्यों को करने की अनुमति देता है।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'व्हिस्पर की उच्च सटीकता और मजबूती ने स्वचालित भाषण-से-पाठ प्रौद्योगिकी के लिए अनुप्रयोगों की एक विस्तृत श्रृंखला को खोल दिया है।',
+                    'sec6-eng-title': 'मीडिया और सामग्री', 'sec6-eng-list': '<li>वीडियो के लिए स्वचालित उपशीर्षक और कैप्शनिंग।</li><li>लेखों के लिए पॉडकास्ट और साक्षात्कारों का प्रतिलेखन।</li><li>ऑडियो/वीडियो सामग्री के खोज योग्य अभिलेखागार बनाना।</li>',
+                    'sec6-elec-title': 'व्यापार और उत्पादकता', 'sec6-elec-list': '<li>बैठकों, कॉलों और वेबिनारों का प्रतिलेखन।</li><li>हैंड्स-फ्री टाइपिंग के लिए वॉयस नोट्स और डिक्टेशन।</li><li>सुनने में अक्षम व्यक्तियों के लिए पहुंच में सुधार।</li>',
+                    'sec6-naic-title': 'डेवलपर उपकरण', 'sec6-naic-list': '<li>आवाज-नियंत्रित इंटरफेस और एप्लिकेशन बनाना।</li><li>भावना या कीवर्ड के लिए ऑडियो डेटा का विश्लेषण।</li><li>आवाज-आधारित वर्चुअल सहायकों को शक्ति प्रदान करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'व्हिस्पर के प्रदर्शन को आमतौर पर विभिन्न मानक अकादमिक डेटासेट पर इसकी शब्द त्रुटि दर (WER) द्वारा मापा जाता है। कम WER उच्च सटीकता को इंगित करता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क: शब्द त्रुटि दर (WER)',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">📊</span><div><strong class="text-white">यह क्या है:</strong> WER एएसआर सटीकता को मापने के लिए उद्योग मानक है। यह त्रुटियों की संख्या (प्रतिस्थापन, विलोपन, सम्मिलन) को कुल शब्दों की संख्या से विभाजित करके गणना करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🎯</span><div><strong class="text-white">मजबूती:</strong> व्हिस्पर कई डेटासेट पर अत्याधुनिक परिणाम प्राप्त करता है, शोर वाले ऑडियो और विविध लहजे पर भी मजबूत प्रदर्शन दिखाता है जहां पुराने मॉडल संघर्ष करते थे।</div></li><li class="flex items-start"><span class="text-2xl text-[#9f7aea] mr-3">🌍</span><div><strong class="text-white">बहुभाषी प्रदर्शन:</strong> मॉडल केवल अंग्रेजी ही नहीं, बल्कि विभिन्न प्रकार की भाषाओं में उल्लेखनीय रूप से कम WER दिखाता है।</div></li>',
+                    'sec8-title': '8. व्हिस्पर का उपयोग करने के लिए सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'व्हिस्पर से उच्चतम गुणवत्ता वाले प्रतिलेख प्राप्त करने के लिए, अपने ऑडियो इनपुट के लिए कुछ सर्वोत्तम प्रथाओं का पालन करना महत्वपूर्ण है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'उच्च गुणवत्ता वाला ऑडियो', 'sec8-step1-desc': 'ऑडियो जितना साफ होगा, प्रतिलेख उतना ही बेहतर होगा। एक अच्छा माइक्रोफ़ोन का उपयोग करें और पृष्ठभूमि शोर और गूंज को कम करें।',
+                    'sec8-step2-title': 'स्पष्ट भाषण', 'sec8-step2-desc': 'स्पष्ट रूप से और मध्यम गति से बोलें। बड़बड़ाने या बहुत तेजी से बोलने से बचें। एक दूसरे पर बोलने वाले कई वक्ता सटीकता को कम कर देंगे।',
+                    'sec8-step3-title': 'सही मॉडल का उपयोग करें', 'sec8-step3-desc': 'सर्वोत्तम परिणामों के लिए, सबसे बड़े मॉडल आकार (`large-v3`) का उपयोग करें जिसे आपका हार्डवेयर समर्थन कर सकता है। एपीआई उपयोगकर्ताओं के लिए, हमेशा नवीनतम मॉडल की सिफारिश की जाती है।',
+                    'sec8-revision-title': '🔄 एपीआई और प्रॉम्प्टिंग:',
+                    'sec8-revision-list': '<li><strong>प्रासंगिक प्रॉम्प्ट प्रदान करें:</strong> विशिष्ट नामों, शब्दजाल या परिवर्णी शब्दों के लिए सही वर्तनी की एक सूची प्रदान करने के लिए एपीआई में `प्रॉम्प्ट` पैरामीटर का उपयोग करें ताकि उनकी प्रतिलेखन सटीकता में सुधार हो सके।</li><li><strong>लंबी ऑडियो को विभाजित करना:</strong> बहुत लंबी ऑडियो फाइलों के लिए, उन्हें एपीआई को भेजने से पहले छोटे हिस्सों (जैसे, 10-15 मिनट) में विभाजित करना सबसे अच्छा है।</li>',
+                    'sec9-title': '9. मॉडल संस्करण और विकास 🗓️',
+                    'sec9-p1': 'ओपनएआई ने ओपन-सोर्स व्हिस्पर मॉडल के कई संस्करण जारी किए हैं, जिनमें से प्रत्येक सटीकता, भाषा समर्थन और दक्षता के मामले में अंतिम में सुधार करता है।',
+                    'sec9-step1-title': 'व्हिस्पर (v1) रिलीज', 'sec9-step1-desc': '<strong>समयरेखा:</strong> सितंबर 2022। ओपनएआई पहले व्हिस्पर मॉडल को ओपन-सोर्स करता है, जो एएसआर सटीकता के लिए एक नया मानक स्थापित करता है।',
+                    'sec9-step2-title': 'व्हिस्पर एपीआई लॉन्च', 'sec9-step2-desc': '<strong>समयरेखा:</strong> मार्च 2023। अत्यधिक अनुकूलित `large-v2` मॉडल एपीआई के माध्यम से उपलब्ध कराया गया है, जिससे डेवलपर्स के लिए इसका उपयोग करना आसान हो गया है।',
+                    'sec9-step3-title': 'व्हिस्पर लार्ज-v3 रिलीज', 'sec9-step3-desc': '<strong>समयरेखा:</strong> नवंबर 2023। कई भाषाओं में बेहतर प्रदर्शन के साथ एक अद्यतन और बेहतर संस्करण जारी किया गया है।',
+                    'sec10-title': '10. सामान्य नुकसान और सीमाएं 🚫',
+                    'sec10-p1': 'अपनी शक्ति के बावजूद, व्हिस्पर सही नहीं है। इसकी सीमाओं को समझने से सही उम्मीदें स्थापित करने में मदद मिलती है।',
+                    'sec10-mistake1-title': 'वक्ता डायराइजेशन:', 'sec10-mistake1-desc': 'व्हिस्पर स्वाभाविक रूप से यह नहीं पहचानता कि कौन बोल रहा है (स्पीकर डायराइजेशन)। आउटपुट पाठ का एक ही ब्लॉक है, चाहे कितने भी वक्ता हों।',
+                    'sec10-mistake2-title': 'वास्तविक समय प्रतिलेखन:', 'sec10-mistake2-desc': 'ओपन-सोर्स मॉडल आउट-ऑफ-द-बॉक्स वास्तविक समय प्रतिलेखन के लिए अनुकूलित नहीं हैं और विशेष इंजीनियरिंग के बिना उच्च विलंबता हो सकती है।',
+                    'sec10-mistake3-title': 'मतिभ्रम पाठ:', 'sec10-mistake3-desc': 'चुप या अस्पष्ट ऑडियो खंडों पर, मॉडल कभी-कभी "मतिभ्रम" कर सकता है और दोहरावदार या निरर्थक पाठ उत्पन्न कर सकता है।',
+                    'sec10-mistake4-title': 'शब्दजाल के साथ संघर्ष:', 'sec10-mistake4-desc': 'मजबूत होते हुए भी, यह अभी भी अत्यधिक विशिष्ट तकनीकी शब्दजाल, असामान्य नामों या परिवर्णी शब्दों पर त्रुटियां कर सकता है जो इसके प्रशिक्षण डेटा में अच्छी तरह से प्रतिनिधित्व नहीं करते हैं।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'व्हिस्पर का उपयोग करने के कई तरीके हैं, साधारण एपीआई कॉल से लेकर अपने स्वयं के मशीन पर मॉडल चलाने तक।',
+                    'sec11-gov-title': '📚 ओपनएआई एपीआई के माध्यम से', 'sec11-gov-list': '<li>सबसे आसान और सबसे कुशल तरीका। बस एक एपीआई कुंजी के लिए साइन अप करें।</li><li>एपीआई एंडपॉइंट पर एक ऑडियो फ़ाइल भेजें और पाठ प्रतिलेख वापस प्राप्त करें।</li><li>जटिल हार्डवेयर या सॉफ्टवेयर निर्भरता का प्रबंधन करने की कोई आवश्यकता नहीं है।</li>',
+                    'sec11-pvt-title': '💻 ओपन सोर्स', 'sec11-pvt-p1': 'तकनीकी विशेषज्ञता वाले लोगों के लिए।', 'sec11-pvt-list': '<li>आधिकारिक ओपनएआई गिटहब रिपॉजिटरी से मॉडल और कोड डाउनलोड करें।</li><li>उचित प्रदर्शन के लिए एक आधुनिक जीपीयू (जैसे एनवीआईडीआईए) के साथ एक शक्तिशाली कंप्यूटर की आवश्यकता है।</li><li>आपको मॉडल और इसके उपयोग पर पूर्ण नियंत्रण देता है।</li>',
+                    'sec12-title': '12. वाक् पहचान का भविष्य 🚀',
+                    'sec12-p1': 'व्हिस्पर ने एएसआर के लिए एक नई आधार रेखा स्थापित की है। भविष्य में और भी उन्नत क्षमताएं देखने को मिलेंगी, जो साधारण प्रतिलेखन से परे बोली जाने वाली संचार की गहरी समझ तक जाएंगी।',
+                    'sec12-career-btn': 'अपेक्षित प्रगति देखें',
+                    'sec13-title': '13. मुख्य एएसआर अवधारणाएं 📚',
+                    'sec13-p1': 'स्वचालित वाक् पहचान (एएसआर) की इन मूलभूत अवधारणाओं को समझना व्हिस्पर के पीछे की तकनीक की सराहना करने में मदद करता है।',
+                    'syllabus-oir-title': 'मूलभूत विचार',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔊</span><div class="flex-grow">फोनमेस और स्पेक्ट्रोग्राम</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">शब्द त्रुटि दर (WER)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'स्थापत्य घटक',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">➡️</span><div class="flex-grow">एनकोडर-डिकोडर मॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">ट्रांसफार्मर और ध्यान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | भाषण का भविष्य यहाँ है।',
+                    'interviewChartData': {
+                        labels: ['साफ ऑडियो', 'शोरगुल वाला ऑडियो', 'विदेशी लहजा', 'अनुवाद'],
+                        data: [98, 92, 90, 95] 
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-teal-400 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Accuracy (%)',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(0, 240, 181, 0.7)',
+                            borderColor: '#00f0b5',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
