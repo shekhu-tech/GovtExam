@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Codex: The Ultimate Developer's Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to OpenAI's Codex, the AI model that powers GitHub Copilot. Understand its technology, capabilities, applications, and its evolution into newer GPT models.">
+    <meta name="keywords" content="OpenAI, Codex, GitHub Copilot, AI Code Generation, GPT-3, Python, JavaScript, AI for Developers, Large Language Models">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #e5e7eb; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #22c55e, #0ea5e9) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(17, 24, 39, 0.85); /* Gray 900 Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #374151; /* Gray 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #22c55e; /* Emerald 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #22c55e; /* Emerald 500 */
+            color: #22c55e;
+            background: #1f2937; /* Gray 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+            text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #22c55e;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+        }
+        .flowchart-arrow {
+            color: #0ea5e9; /* Sky 500 */
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0ea5e9;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(14, 165, 233, 0.1);
+        }
+        .subject-item .icon {
+            color: #0ea5e9;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #22c55e;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #22c55e;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #22c55e, #16a34a);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #22c55e;
+            color: #22c55e;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #22c55e;
+            color: #111827;
+            box-shadow: 0 0 15px #22c55e;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">💻 OpenAI Codex: The Ultimate Guide 💻</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-sky-400">Understanding the AI that Revolutionized Coding</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Codex? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is OpenAI Codex? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">OpenAI Codex was a groundbreaking AI model, a descendant of GPT-3, specifically fine-tuned for understanding and generating programming code. Its primary capability was translating natural language comments into working code across dozens of programming languages. It was the core technology that powered the first version of GitHub Copilot, transforming the way developers write, debug, and understand code.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. How Codex Works 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Codex interprets a developer's intent from natural language and context, then generates the most probable code sequence to fulfill that request, acting like a highly advanced autocomplete.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Natural Language</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Developer writes a comment or function name</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Codex</span><br><span id="sec2-step2-name">Interpretation</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Model understands context and intent</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Code Generation</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Suggests one or more code snippets</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">While the original Codex models are now deprecated, their capabilities have been integrated into and surpassed by newer models accessible to everyone.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#0ea5e9] mr-4">🧑‍💻</span><div><strong id="sec3-age-title" class="text-white text-lg">Developers:</strong> <span id="sec3-age-desc">The primary audience, using it for code completion, writing boilerplate code, and learning new languages.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#0ea5e9] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Students & Learners:</strong> <span id="sec3-edu-desc">An invaluable tool for understanding complex algorithms, getting explanations for code, and accelerating the learning process.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#22c55e] pb-2">Primary Platforms 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>GitHub Copilot:</strong> The most famous application powered by Codex technology, integrated directly into code editors like VS Code.</li>
+                             <li><strong>OpenAI API:</strong> The underlying models are accessible via the API for building custom applications.</li>
+                             <li><strong>ChatGPT:</strong> Newer models like GPT-4 and GPT-4o within ChatGPT have powerful coding abilities inherited from Codex.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Codex was designed with a wide range of programming-related tasks in mind, making it a versatile "pair programmer".</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-emerald-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Code Generation</h3>
+                        <p class="text-sm">Translating natural language comments into functional code.</p>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-emerald-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Code Completion</h3>
+                         <p class="text-sm">Autocompleting the current line or entire function blocks.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-emerald-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Code Explanation</h3>
+                         <p class="text-sm">Explaining what a complex piece of code does in plain English.</p>
+                    </div>
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-emerald-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Debugging & Refactoring</h3>
+                         <p class="text-sm">Finding bugs in code and suggesting more efficient ways to rewrite it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How was Codex Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Codex was created by fine-tuning the GPT-3 model on a massive corpus of publicly available source code, primarily from GitHub.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#00f6ff]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A vast collection of code and natural language.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained on billions of lines of code from publicly available sources.</li>
+                            <li>Included code from over a dozen programming languages like Python, JavaScript, Go, Perl, PHP, Ruby, Swift, and TypeScript.</li>
+                            <li>The dataset also included natural language, allowing it to understand comments and documentation.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ff00e1]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Fine-Tuning Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Specializing the general GPT-3 model for coding.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Codex started as a base GPT-3 model, which already had some coding ability.</li>
+                           <li>It was then specifically trained (fine-tuned) on the massive code dataset.</li>
+                           <li>This process taught the model the syntax, patterns, and logic of programming, making it a code specialist.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Codex and its successors are used to accelerate software development and make programming more accessible.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Accelerating Development</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Writing boilerplate and repetitive code instantly.</li>
+                           <li>Generating unit tests for functions.</li>
+                           <li>Prototyping new features and applications quickly.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Learning & Education</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Explaining complex code in simple terms.</li>
+                           <li>Translating code from one language to another.</li>
+                           <li>Providing examples for learning new libraries or frameworks.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Data Science & Automation</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Writing complex SQL queries from natural language.</li>
+                           <li>Generating Python scripts for data analysis and visualization.</li>
+                           <li>Automating simple tasks with shell scripts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Codex's ability to generate correct code is measured using specialized benchmarks that test its problem-solving and coding skills.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#00f6ff] pb-2">Key Benchmark: HumanEval</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">What it is:</strong> HumanEval is an industry-standard benchmark created by OpenAI to evaluate code generation models.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">How it works:</strong> It consists of 164 programming problems with function signatures, docstrings, and unit tests. The model's task is to write the correct function body.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📈</span><div><strong class="text-white">pass@k metric:</strong> Performance is measured using "pass@k," which is the percentage of problems for which at least one of the first 'k' generated solutions passes the unit tests.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting for Code: Best Practices 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Getting the best code from models like Codex requires clear, well-structured prompts that provide sufficient context.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#00f6ff] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Write Detailed Comments</h4>
+                                <p id="sec8-step1-desc" class="text-base">Instead of a vague comment like "// function to add numbers," write a detailed docstring: "/** a function that takes two integers, a and b, and returns their sum */".</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Provide Context</h4>
+                                <p id="sec8-step2-desc" class="text-base">The model uses the surrounding code as context. Ensure helper functions, class definitions, or relevant variables are present in the context window.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#00f6ff] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Break Down Problems</h4>
+                                <p id="sec8-step3-desc" class="text-base">For complex logic, break down the problem into smaller functions and prompt for each one individually.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Specify Libraries/Frameworks:</strong> Mention the specific libraries you want to use (e.g., "using pandas, read the csv file...").</li>
+                            <li><strong>Review and Debug:</strong> Always treat AI-generated code as a first draft. Review it carefully for errors, security vulnerabilities, and inefficiencies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Deprecation & Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Deprecation & Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">The original Codex models have been deprecated, but their powerful capabilities have been integrated into and improved upon in the latest generation of GPT models.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Codex API Launch</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> August 2021. OpenAI launches the Codex API, making its code generation capabilities widely available to developers.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">GitHub Copilot Launch</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> October 2021 (Technical Preview). The first major product powered by Codex, bringing AI pair programming to the masses.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Codex Deprecation</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2023. OpenAI announces the deprecation of the original Codex API models, encouraging users to migrate to the more capable GPT-3.5-Turbo and GPT-4 models.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Codex Legacy Lives On</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Present. The advanced coding abilities of models like GPT-4 and GPT-4o are a direct evolution of the research and development that went into creating Codex.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Pitfalls & Cautions 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Using AI for coding requires a new set of best practices. Blindly trusting AI-generated code can lead to significant problems.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Introducing Bugs:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">The model can generate code that looks correct but contains subtle bugs or logical errors. Always test thoroughly.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Security Vulnerabilities:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">AI-generated code may not always follow security best practices, potentially introducing vulnerabilities like SQL injection.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Outdated Practices:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">The model may suggest using deprecated libraries or outdated coding patterns based on its training data.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">License Infringement:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">The model may generate code that is a verbatim copy of code from its training data, which could have restrictive licenses.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access Codex Capabilities 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">While the "Codex" brand is retired, its powerful code-generation technology is more accessible than ever through OpenAI's current product lineup.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For End-Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ChatGPT (GPT-4/4o):** The simplest way. Just ask for code in plain English. Ideal for learning, debugging, and small scripts.</li>
+                           <li>**GitHub Copilot:** The ultimate developer tool, integrated into your editor for real-time code suggestions.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Build custom solutions using the API.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**OpenAI API:** Use the latest GPT-4 and GPT-4-Turbo models through the API for building applications that require code generation capabilities.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future of AI in Coding 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Codex was just the beginning. The future of software development will be a deep collaboration between human developers and increasingly capable AI partners. We can expect AI to handle more complex tasks, from entire application scaffolding to autonomous debugging and deployment.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Expected Advancements</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#101827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core Coding AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these concepts is key to effectively using and reasoning about AI code generation tools.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Fundamental Ideas</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Evaluation & Application</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Empowering Developers with Artificial Intelligence.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Natural Language</h3>
+            <p id="prelims-modal-p1">The process starts with the developer providing a prompt. This can be a comment in plain English describing a function (e.g., "# function to fetch user data from an API"), a function signature, or even just the beginning of a line of code.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Codex: Interpretation</h3>
+            <p id="mains-modal-p1">The Codex model receives the input along with the surrounding code as context. It uses its vast training on billions of lines of code to understand the programmer's intent, the programming language being used, and the logical steps required to fulfill the request.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Code Generation</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Based on its interpretation, the model generates the most statistically likely sequence of code tokens that would follow the prompt. In tools like GitHub Copilot, it presents this as a greyed-out suggestion that the developer can accept, reject, or modify.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">The Future of AI in Software Development</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'nl_to_code': { 
+                        name: 'Natural Language to Code', 
+                        icon: '🗣️',
+                        description: 'The primary function of Codex. It translates human language instructions, such as comments or docstrings, into functional code in a variety of programming languages.',
+                        cta: 'Learn More'
+                    },
+                    'completion': { 
+                        name: 'Code Completion', 
+                        icon: '➡️',
+                        description: 'Like an advanced IntelliSense, Codex can suggest completions for single lines or entire blocks of code based on the context of the file you are editing.',
+                        cta: 'Learn More'
+                    },
+                    'explanation': { 
+                        name: 'Code Explanation & Refactoring', 
+                        icon: '💡',
+                        description: 'Codex can analyze existing code snippets and provide a natural language explanation of what they do. It can also suggest ways to refactor or improve the code for efficiency or readability.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'nl_to_code': { 
+                        name: 'प्राकृतिक भाषा से कोड', 
+                        icon: '🗣️',
+                        description: 'कोडेक्स का प्राथमिक कार्य। यह मानव भाषा के निर्देशों, जैसे टिप्पणियों या डॉकस्ट्रिंग्स, को विभिन्न प्रोग्रामिंग भाषाओं में कार्यात्मक कोड में अनुवाद करता है।',
+                        cta: 'और जानें'
+                    },
+                    'completion': { 
+                        name: 'कोड समापन', 
+                        icon: '➡️',
+                        description: 'एक उन्नत इंटेलीसेंस की तरह, कोडेक्स आपके द्वारा संपादित की जा रही फ़ाइल के संदर्भ के आधार पर एकल पंक्तियों या कोड के पूरे ब्लॉक के लिए समापन का सुझाव दे सकता है।',
+                        cta: 'और जानें'
+                    },
+                    'explanation': { 
+                        name: 'कोड स्पष्टीकरण और रिफैक्टरिंग', 
+                        icon: '💡',
+                        description: 'कोडेक्स मौजूदा कोड स्निपेट्स का विश्लेषण कर सकता है और वे क्या करते हैं, इसकी एक प्राकृतिक भाषा व्याख्या प्रदान कर सकता है। यह दक्षता या पठनीयता के लिए कोड को रिफैक्टर करने या सुधारने के तरीके भी सुझा सकता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "AI as a Co-pilot", desc: "AI will become an indispensable 'pair programmer' for every developer, handling boilerplate code and suggesting solutions." },
+                        { rank: "Natural Language Programming", desc: "The barrier to entry for programming will lower, as more complex software can be created using plain English instructions." },
+                        { rank: "Autonomous Code Generation", desc: "Future AI systems may be able to generate, test, and debug entire applications from a high-level description of the requirements." },
+                        { rank: "AI-Powered Debugging", desc: "AI tools will be able to automatically identify the root cause of complex bugs and even suggest the correct fix." },
+                        { rank: "Shift in Developer Roles", desc: "Developers' roles will shift from writing line-by-line code to becoming system architects, prompt engineers, and AI supervisors." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "एक सह-पायलट के रूप में एआई", desc: "एआई हर डेवलपर के लिए एक अनिवार्य 'जोड़ी प्रोग्रामर' बन जाएगा, जो बॉयलरप्लेट कोड को संभालता है और समाधान सुझाता है।" },
+                        { rank: "प्राकृतिक भाषा प्रोग्रामिंग", desc: "प्रोग्रामिंग के लिए प्रवेश की बाधा कम हो जाएगी, क्योंकि सादे अंग्रेजी निर्देशों का उपयोग करके अधिक जटिल सॉफ्टवेयर बनाया जा सकता है।" },
+                        { rank: "स्वायत्त कोड जनरेशन", desc: "भविष्य की एआई प्रणालियाँ आवश्यकताओं के एक उच्च-स्तरीय विवरण से संपूर्ण अनुप्रयोगों को उत्पन्न, परीक्षण और डीबग करने में सक्षम हो सकती हैं।" },
+                        { rank: "एआई-संचालित डीबगिंग", desc: "एआई उपकरण जटिल बगों के मूल कारण की स्वचालित रूप से पहचान करने और यहां तक कि सही समाधान सुझाने में भी सक्षम होंगे।" },
+                        { rank: "डेवलपर भूमिकाओं में बदलाव", desc: "डेवलपर्स की भूमिकाएं लाइन-बाय-लाइन कोड लिखने से हटकर सिस्टम आर्किटेक्ट, प्रॉम्प्ट इंजीनियर और एआई पर्यवेक्षक बनने की ओर बढ़ेंगी।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '💻 OpenAI Codex: The Ultimate Guide 💻',
+                    'header-subtitle': 'Understanding the AI that Revolutionized Coding',
+                    'sec1-title': '1. What is OpenAI Codex? 💡',
+                    'sec1-p1': 'OpenAI Codex was a groundbreaking AI model, a descendant of GPT-3, specifically fine-tuned for understanding and generating programming code. Its primary capability was translating natural language comments into working code across dozens of programming languages. It was the core technology that powered the first version of GitHub Copilot, transforming the way developers write, debug, and understand code.',
+                    'sec2-title': '2. How Codex Works 🎯',
+                    'sec2-p1': 'Codex interprets a developer\'s intent from natural language and context, then generates the most probable code sequence to fulfill that request, acting like a highly advanced autocomplete.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Natural Language', 'sec2-step1-desc': 'Developer writes a comment or function name',
+                    'sec2-step2-title': 'Codex', 'sec2-step2-name': 'Interpretation', 'sec2-step2-desc': 'Model understands context and intent',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Code Generation', 'sec2-step3-desc': 'Suggests one or more code snippets',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'While the original Codex models are now deprecated, their capabilities have been integrated into and surpassed by newer models accessible to everyone.',
+                    'sec3-age-title': 'Developers:', 'sec3-age-desc': 'The primary audience, using it for code completion, writing boilerplate code, and learning new languages.',
+                    'sec3-edu-title': 'Students & Learners:', 'sec3-edu-desc': 'An invaluable tool for understanding complex algorithms, getting explanations for code, and accelerating the learning process.',
+                    'sec3-attempts-title': 'Primary Platforms 📊',
+                    'sec3-agerelax-list': '<li><strong>GitHub Copilot:</strong> The most famous application powered by Codex technology, integrated directly into code editors like VS Code.</li><li><strong>OpenAI API:</strong> The underlying models are accessible via the API for building custom applications.</li><li><strong>ChatGPT:</strong> Newer models like GPT-4 and GPT-4o within ChatGPT have powerful coding abilities inherited from Codex.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Codex was designed with a wide range of programming-related tasks in mind, making it a versatile "pair programmer".',
+                    'gs1-title': 'Code Generation',
+                    'gs2-title': 'Code Completion',
+                    'gs3-title': 'Code Explanation',
+                    'gs4-title': 'Debugging & Refactoring',
+                    'sec5-title': '5. How was Codex Trained? 🏛️',
+                    'sec5-p1': 'Codex was created by fine-tuning the GPT-3 model on a massive corpus of publicly available source code, primarily from GitHub.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A vast collection of code and natural language.', 'sec5-hindi-list': '<li>Trained on billions of lines of code from publicly available sources.</li><li>Included code from over a dozen programming languages like Python, JavaScript, Go, Perl, PHP, Ruby, Swift, and TypeScript.</li><li>The dataset also included natural language, allowing it to understand comments and documentation.</li>',
+                    'sec5-essay-title': '2. The Fine-Tuning Process', 'sec5-essay-p1': 'Specializing the general GPT-3 model for coding.', 'sec5-essay-list': '<li>Codex started as a base GPT-3 model, which already had some coding ability.</li><li>It was then specifically trained (fine-tuned) on the massive code dataset.</li><li>This process taught the model the syntax, patterns, and logic of programming, making it a code specialist.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'Codex and its successors are used to accelerate software development and make programming more accessible.',
+                    'sec6-eng-title': 'Accelerating Development', 'sec6-eng-list': '<li>Writing boilerplate and repetitive code instantly.</li><li>Generating unit tests for functions.</li><li>Prototyping new features and applications quickly.</li>',
+                    'sec6-elec-title': 'Learning & Education', 'sec6-elec-list': '<li>Explaining complex code in simple terms.</li><li>Translating code from one language to another.</li><li>Providing examples for learning new libraries or frameworks.</li>',
+                    'sec6-naic-title': 'Data Science & Automation', 'sec6-naic-list': '<li>Writing complex SQL queries from natural language.</li><li>Generating Python scripts for data analysis and visualization.</li><li>Automating simple tasks with shell scripts.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Codex\'s ability to generate correct code is measured using specialized benchmarks that test its problem-solving and coding skills.',
+                    'sec7-qualities-title': 'Key Benchmark: HumanEval',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">What it is:</strong> HumanEval is an industry-standard benchmark created by OpenAI to evaluate code generation models.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">How it works:</strong> It consists of 164 programming problems with function signatures, docstrings, and unit tests. The model\'s task is to write the correct function body.</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📈</span><div><strong class="text-white">pass@k metric:</strong> Performance is measured using "pass@k," which is the percentage of problems for which at least one of the first \'k\' generated solutions passes the unit tests.</div></li>',
+                    'sec8-title': '8. Prompting for Code: Best Practices 📈',
+                    'sec8-p1': 'Getting the best code from models like Codex requires clear, well-structured prompts that provide sufficient context.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Write Detailed Comments', 'sec8-step1-desc': 'Instead of a vague comment like "// function to add numbers," write a detailed docstring: "/** a function that takes two integers, a and b, and returns their sum */".',
+                    'sec8-step2-title': 'Provide Context', 'sec8-step2-desc': 'The model uses the surrounding code as context. Ensure helper functions, class definitions, or relevant variables are present in the context window.',
+                    'sec8-step3-title': 'Break Down Problems', 'sec8-step3-desc': 'For complex logic, break down the problem into smaller functions and prompt for each one individually.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Specify Libraries/Frameworks:</strong> Mention the specific libraries you want to use (e.g., "using pandas, read the csv file...").</li><li><strong>Review and Debug:</strong> Always treat AI-generated code as a first draft. Review it carefully for errors, security vulnerabilities, and inefficiencies.</li>',
+                    'sec9-title': '9. Deprecation & Evolution 🗓️',
+                    'sec9-p1': 'The original Codex models have been deprecated, but their powerful capabilities have been integrated into and improved upon in the latest generation of GPT models.',
+                    'sec9-step1-title': 'Codex API Launch', 'sec9-step1-desc': '<strong>Timeline:</strong> August 2021. OpenAI launches the Codex API, making its code generation capabilities widely available to developers.',
+                    'sec9-step2-title': 'GitHub Copilot Launch', 'sec9-step2-desc': '<strong>Timeline:</strong> October 2021 (Technical Preview). The first major product powered by Codex, bringing AI pair programming to the masses.',
+                    'sec9-step3-title': 'Codex Deprecation', 'sec9-step3-desc': '<strong>Timeline:</strong> March 2023. OpenAI announces the deprecation of the original Codex API models, encouraging users to migrate to the more capable GPT-3.5-Turbo and GPT-4 models.',
+                    'sec9-step4-title': 'Codex Legacy Lives On', 'sec9-step4-desc': '<strong>Timeline:</strong> Present. The advanced coding abilities of models like GPT-4 and GPT-4o are a direct evolution of the research and development that went into creating Codex.',
+                    'sec10-title': '10. Common Pitfalls & Cautions 🚫',
+                    'sec10-p1': 'Using AI for coding requires a new set of best practices. Blindly trusting AI-generated code can lead to significant problems.',
+                    'sec10-mistake1-title': 'Introducing Bugs:', 'sec10-mistake1-desc': 'The model can generate code that looks correct but contains subtle bugs or logical errors. Always test thoroughly.',
+                    'sec10-mistake2-title': 'Security Vulnerabilities:', 'sec10-mistake2-desc': 'AI-generated code may not always follow security best practices, potentially introducing vulnerabilities like SQL injection.',
+                    'sec10-mistake3-title': 'Outdated Practices:', 'sec10-mistake3-desc': 'The model may suggest using deprecated libraries or outdated coding patterns based on its training data.',
+                    'sec10-mistake4-title': 'License Infringement:', 'sec10-mistake4-desc': 'The model may generate code that is a verbatim copy of code from its training data, which could have restrictive licenses.',
+                    'sec11-title': '11. How to Access Codex Capabilities 🏫',
+                    'sec11-p1': 'While the "Codex" brand is retired, its powerful code-generation technology is more accessible than ever through OpenAI\'s current product lineup.',
+                    'sec11-gov-title': '📚 For End-Users', 'sec11-gov-list': '<li>**ChatGPT (GPT-4/4o):** The simplest way. Just ask for code in plain English. Ideal for learning, debugging, and small scripts.</li><li>**GitHub Copilot:** The ultimate developer tool, integrated into your editor for real-time code suggestions.</li>',
+                    'sec11-pvt-title': '💻 For Developers', 'sec11-pvt-p1': 'Build custom solutions using the API.', 'sec11-pvt-list': '<li>**OpenAI API:** Use the latest GPT-4 and GPT-4-Turbo models through the API for building applications that require code generation capabilities.</li>',
+                    'sec12-title': '12. The Future of AI in Coding 🚀',
+                    'sec12-p1': 'Codex was just the beginning. The future of software development will be a deep collaboration between human developers and increasingly capable AI partners. We can expect AI to handle more complex tasks, from entire application scaffolding to autonomous debugging and deployment.',
+                    'sec12-career-btn': 'View Expected Advancements',
+                    'sec13-title': '13. Core Coding AI Concepts 📚',
+                    'sec13-p1': 'Understanding these concepts is key to effectively using and reasoning about AI code generation tools.',
+                    'syllabus-oir-title': 'Fundamental Ideas',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📄</span><div class="flex-grow">Natural Language Processing (NLP)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Fine-Tuning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Evaluation & Application',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">Code Generation Benchmarks</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">Human-in-the-loop</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Empowering Developers with Artificial Intelligence.',
+                    'interviewChartData': {
+                        labels: ['HumanEval (Python)', 'MBPP (Python)', 'HumanEval (JS)', 'HumanEval (C++)'],
+                        data: [73, 80, 65, 50] // Example data for advanced models
+                    }
+                },
+                'hi': {
+                    'header-title': '💻 ओपनएआई कोडेक्स: अंतिम गाइड 💻',
+                    'header-subtitle': 'कोडिंग में क्रांति लाने वाले एआई को समझना',
+                    'sec1-title': '1. ओपनएआई कोडेक्स क्या है? 💡',
+                    'sec1-p1': 'ओपनएआई कोडेक्स एक अभूतपूर्व एआई मॉडल था, जो जीपीटी-3 का वंशज था, जिसे विशेष रूप से प्रोग्रामिंग कोड को समझने और उत्पन्न करने के लिए ठीक-ठीक किया गया था। इसकी प्राथमिक क्षमता प्राकृतिक भाषा टिप्पणियों को दर्जनों प्रोग्रामिंग भाषाओं में काम करने वाले कोड में अनुवाद करना था। यह मुख्य तकनीक थी जिसने गिटहब कोपायलट के पहले संस्करण को संचालित किया, जिससे डेवलपर्स द्वारा कोड लिखने, डीबग करने और समझने के तरीके को बदल दिया गया।',
+                    'sec2-title': '2. कोडेक्स कैसे काम करता है 🎯',
+                    'sec2-p1': 'कोडेक्स एक डेवलपर के इरादे को प्राकृतिक भाषा और संदर्भ से व्याख्या करता है, फिर उस अनुरोध को पूरा करने के लिए सबसे संभावित कोड अनुक्रम उत्पन्न करता है, जो एक अत्यधिक उन्नत स्वत: पूर्ण की तरह काम करता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'प्राकृतिक भाषा', 'sec2-step1-desc': 'डेवलपर एक टिप्पणी या फ़ंक्शन नाम लिखता है',
+                    'sec2-step2-title': 'कोडेक्स', 'sec2-step2-name': 'व्याख्या', 'sec2-step2-desc': 'मॉडल संदर्भ और इरादे को समझता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'कोड जनरेशन', 'sec2-step3-desc': 'एक या अधिक कोड स्निपेट्स का सुझाव देता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'जबकि मूल कोडेक्स मॉडल अब पदावनत हो गए हैं, उनकी क्षमताओं को नए मॉडलों में एकीकृत और पार कर लिया गया है जो सभी के लिए सुलभ हैं।',
+                    'sec3-age-title': 'डेवलपर्स:', 'sec3-age-desc': 'प्राथमिक दर्शक, कोड पूरा करने, बॉयलरप्लेट कोड लिखने और नई भाषाएं सीखने के लिए इसका उपयोग करते हैं।',
+                    'sec3-edu-title': 'छात्र और शिक्षार्थी:', 'sec3-edu-desc': 'जटिल एल्गोरिदम को समझने, कोड के लिए स्पष्टीकरण प्राप्त करने और सीखने की प्रक्रिया को तेज करने के लिए एक अमूल्य उपकरण।',
+                    'sec3-attempts-title': 'प्राथमिक प्लेटफॉर्म 📊',
+                    'sec3-agerelax-list': '<li><strong>गिटहब कोपायलट:</strong> कोडेक्स तकनीक द्वारा संचालित सबसे प्रसिद्ध एप्लिकेशन, सीधे वीएस कोड जैसे कोड संपादकों में एकीकृत।</li><li><strong>ओपनएआई एपीआई:</strong> अंतर्निहित मॉडल कस्टम एप्लिकेशन बनाने के लिए एपीआई के माध्यम से सुलभ हैं।</li><li><strong>चैटजीपीटी:</strong> चैटजीपीटी के भीतर जीपीटी-4 और जीपीटी-4ओ जैसे नए मॉडलों में कोडेक्स से विरासत में मिली शक्तिशाली कोडिंग क्षमताएं हैं।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'कोडेक्स को प्रोग्रामिंग से संबंधित कार्यों की एक विस्तृत श्रृंखला को ध्यान में रखकर बनाया गया था, जो इसे एक बहुमुखी "जोड़ी प्रोग्रामर" बनाता है।',
+                    'gs1-title': 'कोड जनरेशन',
+                    'gs2-title': 'कोड समापन',
+                    'gs3-title': 'कोड स्पष्टीकरण',
+                    'gs4-title': 'डीबगिंग और रिफैक्टरिंग',
+                    'sec5-title': '5. कोडेक्स को कैसे प्रशिक्षित किया गया? 🏛️',
+                    'sec5-p1': 'कोडेक्स को मुख्य रूप से गिटहब से सार्वजनिक रूप से उपलब्ध स्रोत कोड के एक विशाल कॉर्पस पर जीपीटी-3 मॉडल को ठीक-ठीक करके बनाया गया था।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'कोड और प्राकृतिक भाषा का एक विशाल संग्रह।', 'sec5-hindi-list': '<li>सार्वजनिक रूप से उपलब्ध स्रोतों से अरबों लाइनों के कोड पर प्रशिक्षित।</li><li>पायथन, जावास्क्रिप्ट, गो, पर्ल, पीएचपी, रूबी, स्विफ्ट और टाइपस्क्रिप्ट जैसी एक दर्जन से अधिक प्रोग्रामिंग भाषाओं से कोड शामिल है।</li><li>डेटासेट में प्राकृतिक भाषा भी शामिल थी, जिससे यह टिप्पणियों और दस्तावेज़ीकरण को समझ सकता था।</li>',
+                    'sec5-essay-title': '2. फाइन-ट्यूनिंग प्रक्रिया', 'sec5-essay-p1': 'कोडिंग के लिए सामान्य जीपीटी-3 मॉडल को विशेष बनाना।', 'sec5-essay-list': '<li>कोडेक्स एक आधार जीपीटी-3 मॉडल के रूप में शुरू हुआ, जिसमें पहले से ही कुछ कोडिंग क्षमता थी।</li><li>इसे तब विशेष रूप से विशाल कोड डेटासेट पर प्रशिक्षित (ठीक-ठीक) किया गया था।</li><li>इस प्रक्रिया ने मॉडल को प्रोग्रामिंग के सिंटैक्स, पैटर्न और तर्क सिखाए, जिससे यह एक कोड विशेषज्ञ बन गया।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'कोडेक्स और उसके उत्तराधिकारियों का उपयोग सॉफ्टवेयर विकास में तेजी लाने और प्रोग्रामिंग को और अधिक सुलभ बनाने के लिए किया जाता है।',
+                    'sec6-eng-title': 'विकास में तेजी लाना', 'sec6-eng-list': '<li>बॉयलरप्लेट और दोहराव वाले कोड को तुरंत लिखना।</li><li>फ़ंक्शंस के लिए यूनिट टेस्ट जेनरेट करना।</li><li>नई सुविधाओं और अनुप्रयोगों का तेजी से प्रोटोटाइप बनाना।</li>',
+                    'sec6-elec-title': 'सीखना और शिक्षा', 'sec6-elec-list': '<li>जटिल कोड को सरल शब्दों में समझाना।</li><li>कोड को एक भाषा से दूसरी भाषा में अनुवाद करना।</li><li>नई लाइब्रेरी या फ्रेमवर्क सीखने के लिए उदाहरण प्रदान करना।</li>',
+                    'sec6-naic-title': 'डेटा विज्ञान और स्वचालन', 'sec6-naic-list': '<li>प्राकृतिक भाषा से जटिल एसक्यूएल क्वेरी लिखना।</li><li>डेटा विश्लेषण और विज़ुअलाइज़ेशन के लिए पायथन स्क्रिप्ट जेनरेट करना।</li><li>शेल स्क्रिप्ट के साथ सरल कार्यों को स्वचालित करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'सही कोड उत्पन्न करने की कोडेक्स की क्षमता को विशेष बेंचमार्क का उपयोग करके मापा जाता है जो इसकी समस्या-समाधान और कोडिंग कौशल का परीक्षण करते हैं।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क: ह्यूमनइवल',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">💻</span><div><strong class="text-white">यह क्या है:</strong> ह्यूमनइवल कोड जनरेशन मॉडल का मूल्यांकन करने के लिए ओपनएआई द्वारा बनाया गया एक उद्योग-मानक बेंचमार्क है।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">🧠</span><div><strong class="text-white">यह कैसे काम करता है:</strong> इसमें फ़ंक्शन हस्ताक्षर, डॉकस्ट्रिंग्स और यूनिट टेस्ट के साथ 164 प्रोग्रामिंग समस्याएं होती हैं। मॉडल का कार्य सही फ़ंक्शन बॉडी लिखना है।</div></li><li class="flex items-start"><span class="text-2xl text-[#ff00e1] mr-3">📈</span><div><strong class="text-white">पास@के मीट्रिक:</strong> प्रदर्शन को "पास@के" का उपयोग करके मापा जाता है, जो उन समस्याओं का प्रतिशत है जिनके लिए पहले \'के\' उत्पन्न समाधानों में से कम से कम एक यूनिट टेस्ट पास करता है।</div></li>',
+                    'sec8-title': '8. कोड के लिए प्रॉम्प्टिंग: सर्वोत्तम अभ्यास 📈',
+                    'sec8-p1': 'कोडेक्स जैसे मॉडलों से सर्वश्रेष्ठ कोड प्राप्त करने के लिए स्पष्ट, अच्छी तरह से संरचित प्रॉम्प्ट की आवश्यकता होती है जो पर्याप्त संदर्भ प्रदान करते हैं।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'विस्तृत टिप्पणियाँ लिखें', 'sec8-step1-desc': '"// संख्याओं को जोड़ने के लिए फ़ंक्शन" जैसी अस्पष्ट टिप्पणी के बजाय, एक विस्तृत डॉकस्ट्रिंग लिखें: "/** एक फ़ंक्शन जो दो पूर्णांक, ए और बी लेता है, और उनका योग लौटाता है */"।',
+                    'sec8-step2-title': 'संदर्भ प्रदान करें', 'sec8-step2-desc': 'मॉडल आसपास के कोड को संदर्भ के रूप में उपयोग करता है। सुनिश्चित करें कि सहायक फ़ंक्शंस, क्लास परिभाषाएं, या प्रासंगिक चर संदर्भ विंडो में मौजूद हैं।',
+                    'sec8-step3-title': 'समस्याओं को तोड़ें', 'sec8-step3-desc': 'जटिल तर्क के लिए, समस्या को छोटे कार्यों में तोड़ें और प्रत्येक के लिए व्यक्तिगत रूप से प्रॉम्प्ट करें।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>लाइब्रेरी/फ्रेमवर्क निर्दिष्ट करें:</strong> उन विशिष्ट पुस्तकालयों का उल्लेख करें जिनका आप उपयोग करना चाहते हैं (जैसे, "पांडा का उपयोग करते हुए, सीएसवी फ़ाइल पढ़ें...")।</li><li><strong>समीक्षा और डीबग करें:</strong> एआई-जनित कोड को हमेशा पहले मसौदे के रूप में मानें। त्रुटियों, सुरक्षा कमजोरियों और अक्षमताओं के लिए इसकी सावधानीपूर्वक समीक्षा करें।</li>',
+                    'sec9-title': '9. पदावनति और विकास 🗓️',
+                    'sec9-p1': 'मूल कोडेक्स मॉडल पदावनत कर दिए गए हैं, लेकिन उनकी शक्तिशाली क्षमताओं को नवीनतम पीढ़ी के जीपीटी मॉडल में एकीकृत और बेहतर बनाया गया है।',
+                    'sec9-step1-title': 'कोडेक्स एपीआई लॉन्च', 'sec9-step1-desc': '<strong>समयरेखा:</strong> अगस्त 2021। ओपनएआई ने कोडेक्स एपीआई लॉन्च किया, जिससे इसकी कोड जनरेशन क्षमताएं डेवलपर्स के लिए व्यापक रूप से उपलब्ध हो गईं।',
+                    'sec9-step2-title': 'गिटहब कोपायलट लॉन्च', 'sec9-step2-desc': '<strong>समयरेखा:</strong> अक्टूबर 2021 (तकनीकी पूर्वावलोकन)। कोडेक्स द्वारा संचालित पहला प्रमुख उत्पाद, जनता के लिए एआई जोड़ी प्रोग्रामिंग लाना।',
+                    'sec9-step3-title': 'कोडेक्स पदावनति', 'sec9-step3-desc': '<strong>समयरेखा:</strong> मार्च 2023। ओपनएआई ने मूल कोडेक्स एपीआई मॉडल के पदावनति की घोषणा की, जिससे उपयोगकर्ताओं को अधिक सक्षम जीपीटी-3.5-टर्बो और जीपीटी-4 मॉडल में माइग्रेट करने के लिए प्रोत्साहित किया गया।',
+                    'sec9-step4-title': 'कोडेक्स विरासत जीवित है', 'sec9-step4-desc': '<strong>समयरेखा:</strong> वर्तमान। जीपीटी-4 और जीपीटी-4ओ जैसे मॉडलों की उन्नत कोडिंग क्षमताएं कोडेक्स बनाने में गए अनुसंधान और विकास का प्रत्यक्ष विकास हैं।',
+                    'sec10-title': '10. सामान्य नुकसान और चेतावनियाँ 🚫',
+                    'sec10-p1': 'कोडिंग के लिए एआई का उपयोग करने के लिए सर्वोत्तम प्रथाओं के एक नए सेट की आवश्यकता है। एआई-जनित कोड पर आँख मूंदकर भरोसा करने से महत्वपूर्ण समस्याएं हो सकती हैं।',
+                    'sec10-mistake1-title': 'बग का परिचय:', 'sec10-mistake1-desc': 'मॉडल ऐसा कोड उत्पन्न कर सकता है जो सही दिखता है लेकिन इसमें सूक्ष्म बग या तार्किक त्रुटियां होती हैं। हमेशा अच्छी तरह से परीक्षण करें।',
+                    'sec10-mistake2-title': 'सुरक्षा कमजोरियाँ:', 'sec10-mistake2-desc': 'एआई-जनित कोड हमेशा सुरक्षा सर्वोत्तम प्रथाओं का पालन नहीं कर सकता है, संभावित रूप से एसक्यूएल इंजेक्शन जैसी कमजोरियों का परिचय देता है।',
+                    'sec10-mistake3-title': 'पुरानी प्रथाएं:', 'sec10-mistake3-desc': 'मॉडल अपने प्रशिक्षण डेटा के आधार पर पदावनत पुस्तकालयों या पुराने कोडिंग पैटर्न का उपयोग करने का सुझाव दे सकता है।',
+                    'sec10-mistake4-title': 'लाइसेंस उल्लंघन:', 'sec10-mistake4-desc': 'मॉडल ऐसा कोड उत्पन्न कर सकता है जो उसके प्रशिक्षण डेटा से कोड की एक शब्दशः प्रति है, जिसमें प्रतिबंधात्मक लाइसेंस हो सकते हैं।',
+                    'sec11-title': '11. कोडेक्स क्षमताओं तक कैसे पहुँचें 🏫',
+                    'sec11-p1': 'जबकि "कोडेक्स" ब्रांड सेवानिवृत्त हो गया है, इसकी शक्तिशाली कोड-जनरेशन तकनीक ओपनएआई के वर्तमान उत्पाद लाइनअप के माध्यम से पहले से कहीं अधिक सुलभ है।',
+                    'sec11-gov-title': '📚 अंतिम-उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**चैटजीपीटी (जीपीटी-4/4ओ):** सबसे सरल तरीका। बस सादे अंग्रेजी में कोड मांगें। सीखने, डीबगिंग और छोटी स्क्रिप्ट के लिए आदर्श।</li><li>**गिटहब कोपायलट:** अंतिम डेवलपर टूल, वास्तविक समय कोड सुझावों के लिए आपके संपादक में एकीकृत।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स के लिए', 'sec11-pvt-p1': 'एपीआई का उपयोग करके कस्टम समाधान बनाएं।', 'sec11-pvt-list': '<li>**ओपनएआई एपीआई:** कोड जनरेशन क्षमताओं की आवश्यकता वाले एप्लिकेशन बनाने के लिए एपीआई के माध्यम से नवीनतम जीपीटी-4 और जीपीटी-4-टर्बो मॉडल का उपयोग करें।</li>',
+                    'sec12-title': '12. कोडिंग में एआई का भविष्य 🚀',
+                    'sec12-p1': 'कोडेक्स सिर्फ शुरुआत थी। सॉफ्टवेयर विकास का भविष्य मानव डेवलपर्स और तेजी से सक्षम एआई भागीदारों के बीच एक गहरा सहयोग होगा। हम उम्मीद कर सकते हैं कि एआई अधिक जटिल कार्यों को संभालेगा, पूरे एप्लिकेशन स्कैफोल्डिंग से लेकर स्वायत्त डीबगिंग और परिनियोजन तक।',
+                    'sec12-career-btn': 'अपेक्षित प्रगति देखें',
+                    'sec13-title': '13. मुख्य कोडिंग एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन अवधारणाओं को समझना एआई कोड जनरेशन टूल का प्रभावी ढंग से उपयोग करने और उनके बारे में तर्क करने की कुंजी है।',
+                    'syllabus-oir-title': 'मूलभूत विचार',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📄</span><div class="flex-grow">प्राकृतिक भाषा प्रसंस्करण (एनएलपी)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">फाइन-ट्यूनिंग</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मूल्यांकन और अनुप्रयोग',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📈</span><div class="flex-grow">कोड जनरेशन बेंचमार्क</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤝</span><div class="flex-grow">ह्यूमन-इन-द-लूप</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | डेवलपर्स को आर्टिफिशियल इंटेलिजेंस के साथ सशक्त बनाना।',
+                    'interviewChartData': {
+                        labels: ['ह्यूमनइवल (पायथन)', 'एमबीपीपी (पायथन)', 'ह्यूमनइवल (जेएस)', 'ह्यूमनइवल (सी++)'],
+                        data: [73, 80, 65, 50] 
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'pass@1 Accuracy',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(0, 246, 255, 0.7)',
+                            borderColor: '#00f6ff',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e7ff' },
+                                grid: { color: 'rgba(224, 231, 255, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e7ff', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 231, 255, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
