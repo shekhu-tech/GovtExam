@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Sora: The Ultimate Text-to-Video Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to OpenAI's Sora model. Understand the technology, capabilities, applications, and the future of AI text-to-video generation.">
+    <meta name="keywords" content="OpenAI, Sora, AI Video Generation, Text-to-Video, AI Film, Artificial Intelligence, Prompt Engineering, Generative AI, Video Synthesis">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d2b; /* Deep Indigo/Night */
+            color: #e0e7ff; /* Lavender 100 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ec4899, #06b6d4) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(13, 13, 43, 0.8); /* Dark Indigo Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #312e81; /* Indigo 800 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ec4899; /* Pink 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ec4899; /* Pink 500 */
+            color: #ec4899;
+            background: #312e81; /* Indigo 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+            text-shadow: 0 0 5px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ec4899;
+            color: #1e1b4b;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-arrow {
+            color: #06b6d4; /* Cyan 500 */
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #06b6d4;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(6, 182, 212, 0.1);
+        }
+        .subject-item .icon {
+            color: #06b6d4;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ec4899;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #0d0d2b;
+            border: 4px solid #ec4899;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(13, 13, 43, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #312e81;
+            color: #e0e7ff;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4f46e5;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #c7d2fe; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ec4899, #d946ef);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ec4899;
+            color: #ec4899;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ec4899;
+            color: #1e1b4b;
+            box-shadow: 0 0 15px #ec4899;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #06b6d4, #22d3ee);
+            color: #1e1b4b;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #312e81; 
+            color: #c7d2fe; 
+            border-color: #4338ca; 
+        }
+        .lectures-btn:hover {
+            background-color: #4338ca;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🎬 OpenAI Sora: The Ultimate Guide 🎬</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-cyan-400">The AI Model that Creates Video from Text</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Sora? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#312e81] via-[#1e1b4b] to-[#1e1b4b]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is OpenAI Sora? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Sora is a groundbreaking text-to-video model from OpenAI. It can create realistic and imaginative video scenes up to a minute long from simple text instructions. Sora is not just an animation tool; it's a world simulator. It demonstrates a deep understanding of language, the physical world, and cinematography, allowing it to generate high-definition videos with multiple characters, specific motions, and detailed backgrounds, all while maintaining visual consistency.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. How Sora Works 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Sora generates videos using a diffusion model, starting from noise and gradually refining it into a coherent scene guided by the text prompt. It operates on "patches" of video data.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Text Prompt</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-400">User writes a detailed scene description</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Sora Model</span><br><span id="sec2-step2-name">Diffusion on Patches</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-400">Generates video from static noise</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Generated Video</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-400">A high-definition video clip is created</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Currently, access to Sora is limited as OpenAI focuses on safety and feedback from a select group of users.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🛡️</span><div><strong id="sec3-age-title" class="text-white text-lg">Red Teamers:</strong> <span id="sec3-age-desc">Cybersecurity and AI safety experts who are testing the model for potential harms, biases, and vulnerabilities.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🎨</span><div><strong id="sec3-edu-title" class="text-white text-lg">Visual Artists & Filmmakers:</strong> <span id="sec3-edu-desc">A select group of creative professionals have been given access to explore Sora's potential and provide feedback on its creative capabilities.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#06b6d4] pb-2">Future Access 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>OpenAI plans to make Sora publicly available in the future, likely integrated into products like ChatGPT.</li>
+                             <li>A developer API will also be released, allowing for integration into various applications and creative tools.</li>
+                             <li>The exact timeline for public release has not yet been announced.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-slate-900/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Sora is more than just a text-to-video converter; it possesses a range of advanced generative capabilities.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Text-to-Video</h3>
+                        <p class="text-sm">Creating high-fidelity videos directly from text prompts.</p>
+                    </div>
+                     <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Image-to-Video</h3>
+                         <p class="text-sm">Animating a still image and bringing it to life based on text instructions.</p>
+                    </div>
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Video-to-Video</h3>
+                         <p class="text-sm">Extending an existing video clip or changing its style completely based on a prompt.</p>
+                    </div>
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">World Simulation</h3>
+                         <p class="text-sm">Generating videos that demonstrate an understanding of how objects and characters interact with the physical world.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is Sora Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Sora is trained as a diffusion transformer on a massive dataset of videos and images, learning to convert visual data into "patches."</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#312e81] rounded-xl border-2 border-[#ec4899]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A vast and diverse set of video-text pairs.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Trained on a large quantity of publicly available and licensed videos.</li>
+                            <li>Does not use user data from OpenAI products like ChatGPT or DALL-E.</li>
+                            <li>The model learns the relationship between descriptive captions and the visual content of videos.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#312e81] rounded-xl border-2 border-[#06b6d4]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Spacetime Patches</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">A novel way to represent video data.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Sora learns by converting videos into smaller units called "patches," which are like the 'tokens' in a language model.</li>
+                           <li>This allows the model to train on videos and images of varying durations, resolutions, and aspect ratios.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Potential Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Sora has the potential to revolutionize numerous creative and professional fields, acting as a powerful tool for visual storytelling and simulation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Filmmaking & Animation</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Rapidly prototyping film scenes and storyboards.</li>
+                           <li>Generating complex animated sequences.</li>
+                           <li>Creating entire short films from a script.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Marketing & Advertising</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Creating engaging video ads for products.</li>
+                           <li>Visualizing marketing campaign concepts.</li>
+                           <li>Generating dynamic content for social media.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Education & Simulation</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Simulating scientific phenomena or historical events.</li>
+                           <li>Creating training videos for complex tasks.</li>
+                           <li>Illustrating educational concepts visually.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Evaluation 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Evaluating text-to-video models is an emerging field. It focuses on visual quality, prompt fidelity, and the temporal consistency of the generated videos.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ec4899] pb-2">Key Evaluation Metrics:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎨</span><div><strong class="text-white">Visual Quality:</strong> The clarity, resolution, and aesthetic appeal of the generated video frames.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎯</span><div><strong class="text-white">Prompt Following:</strong> How accurately the video depicts the characters, actions, and scenes described in the text prompt.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏳</span><div><strong class="text-white">Temporal Coherence:</strong> The ability to maintain the appearance of characters and objects consistently across different frames of the video.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">World Simulation:</strong> How well the generated video adheres to basic principles of physics and cause-and-effect.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompt Engineering for Video 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Writing effective prompts for Sora will be key to unlocking its full creative potential. This involves being a good writer and a good director.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#ec4899] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Set the Scene</h4>
+                                <p id="sec8-step1-desc" class="text-base">Start by describing the character(s), the setting, and the overall mood of the video.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Describe the Action</h4>
+                                <p id="sec8-step2-desc" class="text-base">Clearly state the specific actions and movements you want to see in the video, in sequential order.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Add Cinematic Details</h4>
+                                <p id="sec8-step3-desc" class="text-base">Include details about the style (e.g., "cinematic, 35mm film"), camera shots (e.g., "drone view," "close-up"), and lighting.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Iterative Prompting:</strong> Start with a broad prompt, see the result, and then add or modify details to refine the video in subsequent generations.</li>
+                            <li><strong>Storyboarding:</strong> Break down a complex scene into a series of smaller prompts to generate individual clips that can be edited together.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Evolution from DALL-E -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Evolution from DALL-E to Sora 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Sora is a natural evolution of OpenAI's work on generative models, building upon the transformer architecture that powers both GPT and DALL-E.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">DALL-E 2 Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> April 2022. Mastered high-fidelity text-to-image generation.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">GPT-4 Release</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> March 2023. Greatly improved language understanding and reasoning, crucial for interpreting complex video prompts.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Sora Announcement</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> February 2024. OpenAI unveils its text-to-video model, showcasing its ability to generate long, coherent, high-quality video clips.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Current Limitations & Safety 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">As a cutting-edge technology, Sora has limitations and presents new safety challenges that OpenAI is actively working to address.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Physics Simulation:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">May not accurately simulate the physics of complex scenes, like glass shattering or objects interacting in unconventional ways.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Cause and Effect:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Can struggle with cause and effect over long sequences. For example, a character might take a bite out of a cookie, but the cookie shows no bite mark later.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Character Consistency:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Maintaining the consistent appearance of a specific character throughout a long video can be challenging.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Misinformation & Bias:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">The potential for creating realistic fake videos is a major safety concern. OpenAI is developing tools to detect misleading content and prevent harmful generations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access Sora (Future) 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">When Sora is released to the public, it is expected to be available through OpenAI's existing platforms.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For General Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ChatGPT Integration:** Sora will likely be integrated into ChatGPT, especially for Plus and Team subscribers, allowing for conversational video generation.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">An API will enable powerful custom applications.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**OpenAI API:** A dedicated Sora API endpoint will allow developers to build text-to-video features into their own software and creative tools.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future of Creativity & Media 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Sora represents a paradigm shift in digital content creation. It has the potential to democratize filmmaking, accelerate creative workflows, and create entirely new forms of visual media and entertainment. The impact on industries from film to gaming to education will be profound.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Potential Impacts</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#101827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core Video AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core concepts provides insight into the powerful technology that makes Sora possible.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Fundamental Models</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Ideas</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Simulating Reality from Language.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Text Prompt</h3>
+            <p id="prelims-modal-p1">The process begins with a user providing a detailed text prompt describing the desired video scene. An advanced language model first expands this prompt to add more detail and nuance before converting it into a numerical representation (embedding) that the video model can understand.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Sora Model: Diffusion on Patches</h3>
+            <p id="mains-modal-p1">Sora starts with "patches" of static-like noise. Guided by the text embedding, it uses a diffusion process to remove this noise over many steps, gradually transforming the static into a clear, coherent video sequence. This "spacetime patch" approach allows it to handle different resolutions and durations effectively.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Generated Video</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final output is a high-definition video clip up to one minute long, created entirely from the initial text prompt. The model generates the motion, characters, and environment, maintaining consistency throughout the clip to create a realistic and compelling visual narrative.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Potential Impacts of Text-to-Video AI</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'text_to_video': { 
+                        name: 'Text-to-Video', 
+                        icon: '✍️',
+                        description: 'Sora\'s primary capability: generating a complete, high-definition video clip from a simple or complex text description.',
+                        cta: 'Learn More'
+                    },
+                    'image_to_video': { 
+                        name: 'Image-to-Video', 
+                        icon: '🖼️',
+                        description: 'The model can take a static image as input and animate it, creating a moving scene while preserving the details of the original image.',
+                        cta: 'Learn More'
+                    },
+                    'video_to_video': { 
+                        name: 'Video-to-Video', 
+                        icon: '🎬',
+                        description: 'Sora can take an existing video and extend it forward or backward in time, or change its style and environment completely based on a text prompt.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'text_to_video': { 
+                        name: 'टेक्स्ट-टू-वीडियो', 
+                        icon: '✍️',
+                        description: 'सोरा की प्राथमिक क्षमता: एक सरल या जटिल पाठ विवरण से एक पूर्ण, हाई-डेफिनिशन वीडियो क्लिप बनाना।',
+                        cta: 'और जानें'
+                    },
+                    'image_to_video': { 
+                        name: 'इमेज-टू-वीडियो', 
+                        icon: '🖼️',
+                        description: 'मॉडल एक स्थिर छवि को इनपुट के रूप में ले सकता है और इसे एनिमेट कर सकता है, मूल छवि के विवरण को संरक्षित करते हुए एक गतिशील दृश्य बना सकता है।',
+                        cta: 'और जानें'
+                    },
+                    'video_to_video': { 
+                        name: 'वीडियो-टू-वीडियो', 
+                        icon: '🎬',
+                        description: 'सोरा एक मौजूदा वीडियो ले सकता है और इसे समय में आगे या पीछे बढ़ा सकता है, या एक पाठ संकेत के आधार पर इसकी शैली और वातावरण को पूरी तरह से बदल सकता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Democratizing Filmmaking", desc: "Allowing individual creators and small studios to produce high-quality visual effects and scenes without large budgets." },
+                        { rank: "Accelerating Prototyping", desc: "Enabling designers, architects, and game developers to quickly visualize concepts and ideas in motion." },
+                        { rank: "Personalized Content", desc: "Creating dynamic, personalized video content for education, marketing, and entertainment on a massive scale." },
+                        { rank: "New Art Forms", desc: "Giving rise to entirely new forms of art and visual storytelling that were previously unimaginable." },
+                        { rank: "Ethical & Societal Challenges", desc: "Raising important questions about misinformation, copyright, and the nature of reality, requiring robust safety and detection tools." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "फिल्म निर्माण का लोकतंत्रीकरण", desc: "व्यक्तिगत रचनाकारों और छोटे स्टूडियो को बड़े बजट के बिना उच्च-गुणवत्ता वाले दृश्य प्रभाव और दृश्य बनाने की अनुमति देना।" },
+                        { rank: "प्रोटोटाइपिंग में तेजी", desc: "डिजाइनरों, वास्तुकारों और गेम डेवलपर्स को गति में अवधारणाओं और विचारों की जल्दी से कल्पना करने में सक्षम बनाना।" },
+                        { rank: "व्यक्तिगत सामग्री", desc: "बड़े पैमाने पर शिक्षा, विपणन और मनोरंजन के लिए गतिशील, व्यक्तिगत वीडियो सामग्री बनाना।" },
+                        { rank: "नई कला रूप", desc: "कला और दृश्य कहानी कहने के पूरी तरह से नए रूपों को जन्म देना जो पहले अकल्पनीय थे।" },
+                        { rank: "नैतिक और सामाजिक चुनौतियां", desc: "गलत सूचना, कॉपीराइट और वास्तविकता की प्रकृति के बारे में महत्वपूर्ण प्रश्न उठाना, जिसके लिए मजबूत सुरक्षा और पहचान उपकरणों की आवश्यकता होती है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎬 OpenAI Sora: The Ultimate Guide 🎬',
+                    'header-subtitle': 'The AI Model that Creates Video from Text',
+                    'sec1-title': '1. What is OpenAI Sora? 💡',
+                    'sec1-p1': 'Sora is a groundbreaking text-to-video model from OpenAI. It can create realistic and imaginative video scenes up to a minute long from simple text instructions. Sora is not just an animation tool; it\'s a world simulator. It demonstrates a deep understanding of language, the physical world, and cinematography, allowing it to generate high-definition videos with multiple characters, specific motions, and detailed backgrounds, all while maintaining visual consistency.',
+                    'sec2-title': '2. How Sora Works 🎯',
+                    'sec2-p1': 'Sora generates videos using a diffusion model, starting from noise and gradually refining it into a coherent scene guided by the text prompt. It operates on "patches" of video data.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Text Prompt', 'sec2-step1-desc': 'User writes a detailed scene description',
+                    'sec2-step2-title': 'Sora Model', 'sec2-step2-name': 'Diffusion on Patches', 'sec2-step2-desc': 'Generates video from static noise',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Generated Video', 'sec2-step3-desc': 'A high-definition video clip is created',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'Currently, access to Sora is limited as OpenAI focuses on safety and feedback from a select group of users.',
+                    'sec3-age-title': 'Red Teamers:', 'sec3-age-desc': 'Cybersecurity and AI safety experts who are testing the model for potential harms, biases, and vulnerabilities.',
+                    'sec3-edu-title': 'Visual Artists & Filmmakers:', 'sec3-edu-desc': 'A select group of creative professionals have been given access to explore Sora\'s potential and provide feedback on its creative capabilities.',
+                    'sec3-attempts-title': 'Future Access 📊',
+                    'sec3-agerelax-list': '<li>OpenAI plans to make Sora publicly available in the future, likely integrated into products like ChatGPT.</li><li>A developer API will also be released, allowing for integration into various applications and creative tools.</li><li>The exact timeline for public release has not yet been announced.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Sora is more than just a text-to-video converter; it possesses a range of advanced generative capabilities.',
+                    'gs1-title': 'Text-to-Video',
+                    'gs2-title': 'Image-to-Video',
+                    'gs3-title': 'Video-to-Video',
+                    'gs4-title': 'World Simulation',
+                    'sec5-title': '5. How is Sora Trained? 🏛️',
+                    'sec5-p1': 'Sora is trained as a diffusion transformer on a massive dataset of videos and images, learning to convert visual data into "patches."',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A vast and diverse set of video-text pairs.', 'sec5-hindi-list': '<li>Trained on a large quantity of publicly available and licensed videos.</li><li>Does not use user data from OpenAI products like ChatGPT or DALL-E.</li><li>The model learns the relationship between descriptive captions and the visual content of videos.</li>',
+                    'sec5-essay-title': '2. Spacetime Patches', 'sec5-essay-p1': 'A novel way to represent video data.', 'sec5-essay-list': '<li>Sora learns by converting videos into smaller units called "patches," which are like the \'tokens\' in a language model.</li><li>This allows the model to train on videos and images of varying durations, resolutions, and aspect ratios.</li>',
+                    'sec6-title': '6. Potential Applications & Use Cases 🌟',
+                    'sec6-p1': 'Sora has the potential to revolutionize numerous creative and professional fields, acting as a powerful tool for visual storytelling and simulation.',
+                    'sec6-eng-title': 'Filmmaking & Animation', 'sec6-eng-list': '<li>Rapidly prototyping film scenes and storyboards.</li><li>Generating complex animated sequences.</li><li>Creating entire short films from a script.</li>',
+                    'sec6-elec-title': 'Marketing & Advertising', 'sec6-elec-list': '<li>Creating engaging video ads for products.</li><li>Visualizing marketing campaign concepts.</li><li>Generating dynamic content for social media.</li>',
+                    'sec6-naic-title': 'Education & Simulation', 'sec6-naic-list': '<li>Simulating scientific phenomena or historical events.</li><li>Creating training videos for complex tasks.</li><li>Illustrating educational concepts visually.</li>',
+                    'sec7-title': '7. Performance & Evaluation 🎙️',
+                    'sec7-p1': 'Evaluating text-to-video models is an emerging field. It focuses on visual quality, prompt fidelity, and the temporal consistency of the generated videos.',
+                    'sec7-qualities-title': 'Key Evaluation Metrics:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎨</span><div><strong class="text-white">Visual Quality:</strong> The clarity, resolution, and aesthetic appeal of the generated video frames.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎯</span><div><strong class="text-white">Prompt Following:</strong> How accurately the video depicts the characters, actions, and scenes described in the text prompt.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏳</span><div><strong class="text-white">Temporal Coherence:</strong> The ability to maintain the appearance of characters and objects consistently across different frames of the video.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">World Simulation:</strong> How well the generated video adheres to basic principles of physics and cause-and-effect.</div></li>',
+                    'sec8-title': '8. Prompt Engineering for Video 📈',
+                    'sec8-p1': 'Writing effective prompts for Sora will be key to unlocking its full creative potential. This involves being a good writer and a good director.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Set the Scene', 'sec8-step1-desc': 'Start by describing the character(s), the setting, and the overall mood of the video.',
+                    'sec8-step2-title': 'Describe the Action', 'sec8-step2-desc': 'Clearly state the specific actions and movements you want to see in the video, in sequential order.',
+                    'sec8-step3-title': 'Add Cinematic Details', 'sec8-step3-desc': 'Include details about the style (e.g., "cinematic, 35mm film"), camera shots (e.g., "drone view," "close-up"), and lighting.',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Iterative Prompting:</strong> Start with a broad prompt, see the result, and then add or modify details to refine the video in subsequent generations.</li><li><strong>Storyboarding:</strong> Break down a complex scene into a series of smaller prompts to generate individual clips that can be edited together.</li>',
+                    'sec9-title': '9. Evolution from DALL-E to Sora 🗓️',
+                    'sec9-p1': 'Sora is a natural evolution of OpenAI\'s work on generative models, building upon the transformer architecture that powers both GPT and DALL-E.',
+                    'sec9-step1-title': 'DALL-E 2 Release', 'sec9-step1-desc': '<strong>Timeline:</strong> April 2022. Mastered high-fidelity text-to-image generation.',
+                    'sec9-step2-title': 'GPT-4 Release', 'sec9-step2-desc': '<strong>Timeline:</strong> March 2023. Greatly improved language understanding and reasoning, crucial for interpreting complex video prompts.',
+                    'sec9-step3-title': 'Sora Announcement', 'sec9-step3-desc': '<strong>Timeline:</strong> February 2024. OpenAI unveils its text-to-video model, showcasing its ability to generate long, coherent, high-quality video clips.',
+                    'sec10-title': '10. Current Limitations & Safety 🚫',
+                    'sec10-p1': 'As a cutting-edge technology, Sora has limitations and presents new safety challenges that OpenAI is actively working to address.',
+                    'sec10-mistake1-title': 'Physics Simulation:', 'sec10-mistake1-desc': 'May not accurately simulate the physics of complex scenes, like glass shattering or objects interacting in unconventional ways.',
+                    'sec10-mistake2-title': 'Cause and Effect:', 'sec10-mistake2-desc': 'Can struggle with cause and effect over long sequences. For example, a character might take a bite out of a cookie, but the cookie shows no bite mark later.',
+                    'sec10-mistake3-title': 'Character Consistency:', 'sec10-mistake3-desc': 'Maintaining the consistent appearance of a specific character throughout a long video can be challenging.',
+                    'sec10-mistake4-title': 'Misinformation & Bias:', 'sec10-mistake4-desc': 'The potential for creating realistic fake videos is a major safety concern. OpenAI is developing tools to detect misleading content and prevent harmful generations.',
+                    'sec11-title': '11. How to Access Sora (Future) 🏫',
+                    'sec11-p1': 'When Sora is released to the public, it is expected to be available through OpenAI\'s existing platforms.',
+                    'sec11-gov-title': '📚 For General Users', 'sec11-gov-list': '<li>**ChatGPT Integration:** Sora will likely be integrated into ChatGPT, especially for Plus and Team subscribers, allowing for conversational video generation.</li>',
+                    'sec11-pvt-title': '💻 For Developers', 'sec11-pvt-p1': 'An API will enable powerful custom applications.', 'sec11-pvt-list': '<li>**OpenAI API:** A dedicated Sora API endpoint will allow developers to build text-to-video features into their own software and creative tools.</li>',
+                    'sec12-title': '12. The Future of Creativity & Media 🚀',
+                    'sec12-p1': 'Sora represents a paradigm shift in digital content creation. It has the potential to democratize filmmaking, accelerate creative workflows, and create entirely new forms of visual media and entertainment. The impact on industries from film to gaming to education will be profound.',
+                    'sec12-career-btn': 'View Potential Impacts',
+                    'sec13-title': '13. Core Video AI Concepts 📚',
+                    'sec13-p1': 'Understanding these core concepts provides insight into the powerful technology that makes Sora possible.',
+                    'syllabus-oir-title': 'Fundamental Models',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌀</span><div class="flex-grow">Diffusion Transformer (DiT)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Key Ideas',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📦</span><div class="flex-grow">Spacetime Latent Patches</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Simulating Reality from Language.',
+                    'interviewChartData': {
+                        labels: ['Visual Quality', 'Prompt Adherence', 'Coherence', 'World Simulation'],
+                        data: [90, 85, 80, 75] // Example data representing quality scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🎬 ओपनएआई सोरा: अंतिम गाइड 🎬',
+                    'header-subtitle': 'पाठ से वीडियो बनाने वाला एआई मॉडल',
+                    'sec1-title': '1. ओपनएआई सोरा क्या है? 💡',
+                    'sec1-p1': 'सोरा ओपनएआई का एक अभूतपूर्व टेक्स्ट-टू-वीडियो मॉडल है। यह सरल पाठ निर्देशों से एक मिनट तक के यथार्थवादी और कल्पनाशील वीडियो दृश्य बना सकता है। सोरा सिर्फ एक एनीमेशन उपकरण नहीं है; यह एक विश्व सिम्युलेटर है। यह भाषा, भौतिक दुनिया और छायांकन की गहरी समझ को प्रदर्शित करता है, जिससे यह कई पात्रों, विशिष्ट गतियों और विस्तृत पृष्ठभूमि के साथ उच्च-परिभाषा वाले वीडियो उत्पन्न कर सकता है, जबकि दृश्य स्थिरता बनाए रखता है।',
+                    'sec2-title': '2. सोरा कैसे काम करता है 🎯',
+                    'sec2-p1': 'सोरा एक प्रसार मॉडल का उपयोग करके वीडियो उत्पन्न करता है, जो शोर से शुरू होता है और धीरे-धीरे इसे पाठ संकेत द्वारा निर्देशित एक सुसंगत दृश्य में परिष्कृत करता है। यह वीडियो डेटा के "पैच" पर काम करता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'पाठ संकेत', 'sec2-step1-desc': 'उपयोगकर्ता एक विस्तृत दृश्य विवरण लिखता है',
+                    'sec2-step2-title': 'सोरा मॉडल', 'sec2-step2-name': 'पैच पर प्रसार', 'sec2-step2-desc': 'स्थैतिक शोर से वीडियो उत्पन्न करता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'उत्पन्न वीडियो', 'sec2-step3-desc': 'एक उच्च-परिभाषा वीडियो क्लिप बनाई जाती है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'वर्तमान में, सोरा तक पहुंच सीमित है क्योंकि ओपनएआई सुरक्षा और उपयोगकर्ताओं के एक चुनिंदा समूह से प्रतिक्रिया पर ध्यान केंद्रित करता है।',
+                    'sec3-age-title': 'रेड टीमर्स:', 'sec3-age-desc': 'साइबर सुरक्षा और एआई सुरक्षा विशेषज्ञ जो संभावित नुकसान, पूर्वाग्रहों और कमजोरियों के लिए मॉडल का परीक्षण कर रहे हैं।',
+                    'sec3-edu-title': 'दृश्य कलाकार और फिल्म निर्माता:', 'sec3-edu-desc': 'रचनात्मक पेशेवरों के एक चुनिंदा समूह को सोरा की क्षमता का पता लगाने और इसकी रचनात्मक क्षमताओं पर प्रतिक्रिया प्रदान करने के लिए पहुंच दी गई है।',
+                    'sec3-attempts-title': 'भविष्य की पहुंच 📊',
+                    'sec3-agerelax-list': '<li>ओपनएआई भविष्य में सोरा को सार्वजनिक रूप से उपलब्ध कराने की योजना बना रहा है, जो संभवतः चैटजीपीटी जैसे उत्पादों में एकीकृत होगा।</li><li>एक डेवलपर एपीआई भी जारी किया जाएगा, जो विभिन्न अनुप्रयोगों और रचनात्मक उपकरणों में एकीकरण की अनुमति देगा।</li><li>सार्वजनिक रिलीज के लिए सटीक समयरेखा अभी तक घोषित नहीं की गई है।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'सोरा केवल एक टेक्स्ट-टू-वीडियो कनवर्टर से कहीं अधिक है; यह उन्नत जनरेटिव क्षमताओं की एक श्रृंखला रखता है।',
+                    'gs1-title': 'टेक्स्ट-टू-वीडियो',
+                    'gs2-title': 'इमेज-टू-वीडियो',
+                    'gs3-title': 'वीडियो-टू-वीडियो',
+                    'gs4-title': 'विश्व सिमुलेशन',
+                    'sec5-title': '5. सोरा को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'सोरा को वीडियो और छवियों के एक विशाल डेटासेट पर एक प्रसार ट्रांसफार्मर के रूप में प्रशिक्षित किया जाता है, जो दृश्य डेटा को "पैच" में बदलना सीखता है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'वीडियो-टेक्स्ट जोड़े का एक विशाल और विविध सेट।', 'sec5-hindi-list': '<li>बड़ी मात्रा में सार्वजनिक रूप से उपलब्ध और लाइसेंस प्राप्त वीडियो पर प्रशिक्षित।</li><li>चैटजीपीटी या डाल-ई जैसे ओपनएआई उत्पादों से उपयोगकर्ता डेटा का उपयोग नहीं करता है।</li><li>मॉडल वर्णनात्मक कैप्शन और वीडियो की दृश्य सामग्री के बीच संबंध सीखता है।</li>',
+                    'sec5-essay-title': '2. स्पेसटाइम पैच', 'sec5-essay-p1': 'वीडियो डेटा का प्रतिनिधित्व करने का एक नया तरीका।', 'sec5-essay-list': '<li>सोरा वीडियो को "पैच" नामक छोटी इकाइयों में परिवर्तित करके सीखता है, जो एक भाषा मॉडल में \'टोकन\' की तरह हैं।</li><li>यह मॉडल को अलग-अलग अवधि, संकल्प और पहलू अनुपात के वीडियो और छवियों पर प्रशिक्षित करने की अनुमति देता है।</li>',
+                    'sec6-title': '6. संभावित अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'सोरा में कई रचनात्मक और पेशेवर क्षेत्रों में क्रांति लाने की क्षमता है, जो दृश्य कहानी कहने और सिमुलेशन के लिए एक शक्तिशाली उपकरण के रूप में कार्य करता है।',
+                    'sec6-eng-title': 'फिल्म निर्माण और एनीमेशन', 'sec6-eng-list': '<li>फिल्म के दृश्यों और स्टोरीबोर्ड का तेजी से प्रोटोटाइप बनाना।</li><li>जटिल एनिमेटेड अनुक्रम उत्पन्न करना।</li><li>एक स्क्रिप्ट से पूरी लघु फिल्में बनाना।</li>',
+                    'sec6-elec-title': 'विपणन और विज्ञापन', 'sec6-elec-list': '<li>उत्पादों के लिए आकर्षक वीडियो विज्ञापन बनाना।</li><li>विपणन अभियान अवधारणाओं की कल्पना करना।</li><li>सोशल मीडिया के लिए गतिशील सामग्री उत्पन्न करना।</li>',
+                    'sec6-naic-title': 'शिक्षा और सिमुलेशन', 'sec6-naic-list': '<li>वैज्ञानिक घटनाओं या ऐतिहासिक घटनाओं का अनुकरण करना।</li><li>जटिल कार्यों के लिए प्रशिक्षण वीडियो बनाना।</li><li>शैक्षिक अवधारणाओं को नेत्रहीन रूप से चित्रित करना।</li>',
+                    'sec7-title': '7. प्रदर्शन और मूल्यांकन 🎙️',
+                    'sec7-p1': 'टेक्स्ट-टू-वीडियो मॉडल का मूल्यांकन एक उभरता हुआ क्षेत्र है। यह दृश्य गुणवत्ता, शीघ्र निष्ठा और उत्पन्न वीडियो की लौकिक स्थिरता पर केंद्रित है।',
+                    'sec7-qualities-title': 'मुख्य मूल्यांकन मेट्रिक्स:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎨</span><div><strong class="text-white">दृश्य गुणवत्ता:</strong> उत्पन्न वीडियो फ्रेम की स्पष्टता, संकल्प और सौंदर्य अपील।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🎯</span><div><strong class="text-white">शीघ्र पालन:</strong> वीडियो पाठ संकेत में वर्णित पात्रों, कार्यों और दृश्यों को कितनी सटीकता से चित्रित करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏳</span><div><strong class="text-white">लौकिक सुसंगतता:</strong> वीडियो के विभिन्न फ्रेमों में पात्रों और वस्तुओं की उपस्थिति को लगातार बनाए रखने की क्षमता।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">विश्व सिमुलेशन:</strong> उत्पन्न वीडियो भौतिकी और कारण-और-प्रभाव के मूल सिद्धांतों का कितनी अच्छी तरह पालन करता है।</div></li>',
+                    'sec8-title': '8. वीडियो के लिए प्रॉम्प्ट इंजीनियरिंग 📈',
+                    'sec8-p1': 'सोरा से अपनी पूरी रचनात्मक क्षमता को अनलॉक करने के लिए प्रभावी प्रॉम्प्ट लिखना महत्वपूर्ण होगा। इसमें एक अच्छा लेखक और एक अच्छा निर्देशक होना शामिल है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'दृश्य सेट करें', 'sec8-step1-desc': 'चरित्र (ओं), सेटिंग और वीडियो के समग्र मूड का वर्णन करके शुरू करें।',
+                    'sec8-step2-title': 'कार्रवाई का वर्णन करें', 'sec8-step2-desc': 'वीडियो में आप जो विशिष्ट क्रियाएं और गतिविधियां देखना चाहते हैं, उन्हें क्रम से स्पष्ट रूप से बताएं।',
+                    'sec8-step3-title': 'सिनेमाई विवरण जोड़ें', 'sec8-step3-desc': 'शैली (जैसे, "सिनेमाई, 35 मिमी फिल्म"), कैमरा शॉट्स (जैसे, "ड्रोन व्यू," "क्लोज-अप"), और प्रकाश व्यवस्था के बारे में विवरण शामिल करें।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>पुनरावृत्ति प्रॉम्प्टिंग:</strong> एक व्यापक प्रॉम्प्ट के साथ शुरू करें, परिणाम देखें, और फिर बाद की पीढ़ियों में वीडियो को परिष्कृत करने के लिए विवरण जोड़ें या संशोधित करें।</li><li><strong>स्टोरीबोर्डिंग:</strong> एक जटिल दृश्य को अलग-अलग क्लिप बनाने के लिए छोटे प्रॉम्प्ट की एक श्रृंखला में तोड़ें जिन्हें एक साथ संपादित किया जा सकता है।</li>',
+                    'sec9-title': '9. डाल-ई से सोरा तक का विकास 🗓️',
+                    'sec9-p1': 'सोरा ओपनएआई के जनरेटिव मॉडल पर काम का एक स्वाभाविक विकास है, जो जीपीटी और डाल-ई दोनों को शक्ति देने वाले ट्रांसफार्मर आर्किटेक्चर पर आधारित है।',
+                    'sec9-step1-title': 'डाल-ई 2 रिलीज', 'sec9-step1-desc': '<strong>समयरेखा:</strong> अप्रैल 2022। उच्च-निष्ठा टेक्स्ट-टू-इमेज जनरेशन में महारत हासिल की।',
+                    'sec9-step2-title': 'जीपीटी-4 रिलीज', 'sec9-step2-desc': '<strong>समयरेखा:</strong> मार्च 2023। भाषा की समझ और तर्क में बहुत सुधार हुआ, जो जटिल वीडियो प्रॉम्प्ट की व्याख्या के लिए महत्वपूर्ण है।',
+                    'sec9-step3-title': 'सोरा घोषणा', 'sec9-step3-desc': '<strong>समयरेखा:</strong> फरवरी 2024। ओपनएआई अपने टेक्स्ट-टू-वीडियो मॉडल का अनावरण करता है, जो लंबी, सुसंगत, उच्च-गुणवत्ता वाली वीडियो क्लिप बनाने की अपनी क्षमता को प्रदर्शित करता है।',
+                    'sec10-title': '10. वर्तमान सीमाएं और सुरक्षा 🚫',
+                    'sec10-p1': 'एक अत्याधुनिक तकनीक के रूप में, सोरा की सीमाएं हैं और नई सुरक्षा चुनौतियां प्रस्तुत करती हैं जिन्हें ओपनएआई सक्रिय रूप से संबोधित करने के लिए काम कर रहा है।',
+                    'sec10-mistake1-title': 'भौतिकी सिमुलेशन:', 'sec10-mistake1-desc': 'जटिल दृश्यों की भौतिकी का सटीक अनुकरण नहीं कर सकता है, जैसे कांच का टूटना या अपरंपरागत तरीकों से वस्तुओं का संपर्क।',
+                    'sec10-mistake2-title': 'कारण और प्रभाव:', 'sec10-mistake2-desc': 'लंबी अनुक्रमों पर कारण और प्रभाव के साथ संघर्ष कर सकता है। उदाहरण के लिए, एक चरित्र एक कुकी से एक टुकड़ा ले सकता है, लेकिन कुकी पर बाद में कोई काटने का निशान नहीं दिखाई देता है।',
+                    'sec10-mistake3-title': 'चरित्र स्थिरता:', 'sec10-mistake3-desc': 'एक लंबे वीडियो के दौरान एक विशिष्ट चरित्र की सुसंगत उपस्थिति बनाए रखना चुनौतीपूर्ण हो सकता है।',
+                    'sec10-mistake4-title': 'गलत सूचना और पूर्वाग्रह:', 'sec10-mistake4-desc': 'यथार्थवादी नकली वीडियो बनाने की क्षमता एक प्रमुख सुरक्षा चिंता है। ओपनएआई भ्रामक सामग्री का पता लगाने और हानिकारक पीढ़ियों को रोकने के लिए उपकरण विकसित कर रहा है।',
+                    'sec11-title': '11. सोरा तक कैसे पहुंचें (भविष्य) 🏫',
+                    'sec11-p1': 'जब सोरा जनता के लिए जारी किया जाएगा, तो यह ओपनएआई के मौजूदा प्लेटफार्मों के माध्यम से उपलब्ध होने की उम्मीद है।',
+                    'sec11-gov-title': '📚 सामान्य उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**चैटजीपीटी एकीकरण:** सोरा को संभवतः चैटजीपीटी में एकीकृत किया जाएगा, विशेष रूप से प्लस और टीम ग्राहकों के लिए, जिससे संवादी वीडियो निर्माण की अनुमति मिलेगी।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स के लिए', 'sec11-pvt-p1': 'एक एपीआई शक्तिशाली कस्टम अनुप्रयोगों को सक्षम करेगा।', 'sec11-pvt-list': '<li>**ओपनएआई एपीआई:** एक समर्पित सोरा एपीआई एंडपॉइंट डेवलपर्स को अपने स्वयं के सॉफ्टवेयर और रचनात्मक उपकरणों में टेक्स्ट-टू-वीडियो सुविधाएँ बनाने की अनुमति देगा।</li>',
+                    'sec12-title': '12. रचनात्मकता और मीडिया का भविष्य 🚀',
+                    'sec12-p1': 'सोरा डिजिटल सामग्री निर्माण में एक प्रतिमान बदलाव का प्रतिनिधित्व करता है। इसमें फिल्म निर्माण को लोकतांत्रिक बनाने, रचनात्मक वर्कफ़्लो में तेजी लाने और दृश्य मीडिया और मनोरंजन के पूरी तरह से नए रूपों को बनाने की क्षमता है। फिल्म से लेकर गेमिंग से लेकर शिक्षा तक के उद्योगों पर इसका गहरा प्रभाव पड़ेगा।',
+                    'sec12-career-btn': 'संभावित प्रभाव देखें',
+                    'sec13-title': '13. मुख्य वीडियो एआई अवधारणाएं 📚',
+                    'sec13-p1': 'इन मुख्य अवधारणाओं को समझने से उस शक्तिशाली तकनीक में अंतर्दृष्टि मिलती है जो सोरा को संभव बनाती है।',
+                    'syllabus-oir-title': 'मौलिक मॉडल',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌀</span><div class="flex-grow">डिफ्यूजन ट्रांसफार्मर (DiT)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मुख्य विचार',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📦</span><div class="flex-grow">स्पेसटाइम अव्यक्त पैच</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | भाषा से वास्तविकता का अनुकरण।',
+                    'interviewChartData': {
+                        labels: ['दृश्य गुणवत्ता', 'शीघ्र पालन', 'सुसंगतता', 'विश्व सिमुलेशन'],
+                        data: [90, 85, 80, 75]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Evaluation Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(0, 191, 255, 0.7)',
+                            borderColor: '#00bfff',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e7ff' },
+                                grid: { color: 'rgba(224, 231, 255, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e7ff', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 231, 255, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
