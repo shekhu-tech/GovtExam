@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAIL Recruitment Guide (MT, OCTT, ACTT & Other Posts)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to recruitment in SAIL for roles like Management Trainee (MT), Operator-cum-Technician Trainee (OCTT), Attendant-cum-Technician Trainee (ACTT), and Medical Officers.">
+    <meta name="keywords" content="SAIL Recruitment, SAIL MT, SAIL OCTT, SAIL ACTT, Steel Authority of India Limited, PSU Jobs, Government Engineering Jobs, Medical Officer Jobs">
+    <meta name="author" content="SAIL Recruitment Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Gray 900 */
+            color: #f3f4f6; /* Gray 100 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ff6700, #00a9e0) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(31, 41, 55, 0.8); /* Gray 800 Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #4b5563; /* Gray 600 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(255, 103, 0, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff6700; /* Molten Orange */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ff6700; /* Molten Orange */
+            color: #ff6700;
+            background: #374151; /* Gray 700 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 103, 0, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ff6700;
+            color: #111827;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(255, 103, 0, 0.5);
+        }
+        .flowchart-arrow {
+            color: #00a9e0; /* Steel Blue */
+            text-shadow: 0 0 10px rgba(0, 169, 224, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00a9e0;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(0, 169, 224, 0.1);
+        }
+        .subject-item .icon {
+            color: #00a9e0;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ff6700;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #111827;
+            border: 4px solid #ff6700;
+            box-shadow: 0 0 15px rgba(255, 103, 0, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4b5563;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ff6700, #f97316);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 103, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 103, 0, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ff6700;
+            color: #ff6700;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ff6700;
+            color: #111827;
+            box-shadow: 0 0 15px #ff6700;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #00a9e0, #008cba);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #374151; 
+            color: #d1d5db; 
+            border-color: #4b5563; 
+        }
+        .lectures-btn:hover {
+            background-color: #4b5563;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🏭 SAIL Recruitment Guide 🏭</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-sky-400">Your Guide to a Career in India's Steel Backbone</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is SAIL Recruitment? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#1f2937] via-[#111827] to-[#111827]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is SAIL Recruitment? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Steel Authority of India Limited (SAIL) is a Maharatna PSU and one of the largest steel-making companies in India. Recruitment in SAIL offers a robust and challenging career in the core manufacturing sector. SAIL recruits a wide spectrum of talent, from fresh graduates as Management Trainees to skilled technicians and operators, who are essential for running its massive steel plants and associated facilities across the nation.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process at SAIL is multi-tiered and designed to assess candidates' technical knowledge, practical skills, and suitability for an industrial environment.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Written Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Online Computer Based Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">GD / Skill Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">GD for MTs, Skill/Trade Test for others</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Interview</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">For MTs and Medical Posts</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility criteria vary significantly across different posts.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ff6700] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically **28 years** for Management Trainees & OCTT, and **30-41 years** for Medical Officers, depending on specialization. Age relaxation for reserved categories is as per Govt. rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ff6700] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">**MT(Tech):** B.E./B.Tech. **MT(Admin):** MBA/PGDM. **OCTT:** Diploma in Engineering. **ACTT:** Matriculation with ITI. **Medical Officer:** MBBS/PG Degree/Diploma.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#00a9e0] pb-2">Number of Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>There is no fixed limit on the number of attempts for SAIL recruitment examinations.</li>
+                             <li>Candidates are eligible to apply for any vacancy as long as they fulfill the age and qualification criteria mentioned in the specific advertisement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Written Test Pattern (Tech Posts) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The online test for technical posts like OCTT and ACTT usually consists of two main parts.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Part 1: General Aptitude 📜</h3>
+                        <div class="space-y-3 flex-grow">
+                            <div class="subject-item"><span class="icon">🧠</span><div id="gs1-sub1">Logical Reasoning</div></div>
+                            <div class="subject-item"><span class="icon">📊</span><div id="gs1-sub2">Quantitative Aptitude</div></div>
+                            <div class="subject-item"><span class="icon">📖</span><div id="gs2-sub1">General English</div></div>
+                             <div class="subject-item"><span class="icon">🌍</span><div id="gs2-sub2">General Knowledge</div></div>
+                        </div>
+                    </div>
+                     <div class="bg-[#1f2937]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Part 2: Domain Knowledge 🏛️</h3>
+                        <div class="space-y-3 flex-grow">
+                           <div class="subject-item"><span class="icon">⚙️</span><div id="gs3-sub1">Questions from the specific technical stream (e.g., Mechanical, Metallurgy, Electrical, Civil) based on the Diploma/ITI syllabus.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">All new trainees at SAIL undergo a mandatory training and probation period to learn the intricacies of steel manufacturing and the company's work culture.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#ff6700]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Training Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">The duration and nature of training vary by post.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Management Trainees undergo one year of training.</li>
+                            <li>OCTT and ACTT candidates undergo a two-year training period.</li>
+                            <li>Training includes both classroom sessions and extensive on-the-job training at various plant locations.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#1f2937] rounded-xl border-2 border-[#00a9e0]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Probation & Placement</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">After training, successful candidates are absorbed into the regular grades.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Upon successful completion of training, candidates are placed on probation for one year.</li>
+                           <li>They are absorbed into regular posts and pay scales (e.g., MTs at E-1 grade, OCTTs at S-3 grade).</li>
+                           <li>Final posting is at one of SAIL's integrated steel plants or other units.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Roles at SAIL are diverse, covering everything from core steel production and maintenance to corporate and medical functions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Management Trainee</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Leading teams in plant operations.</li>
+                           <li>Project Management (Technical).</li>
+                           <li>Corporate Functions (Administration).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">OCTT / ACTT</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Operating heavy machinery and equipment.</li>
+                           <li>Maintenance of plant infrastructure.</li>
+                           <li>Ensuring production quality.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Medical Officer</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Providing primary healthcare to employees.</li>
+                           <li>Managing hospital wards and OPDs.</li>
+                           <li>Conducting health awareness programs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-fin-title" class="subject-category-heading">Medical Specialist</h3>
+                        <ul id="sec6-fin-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Providing expert care in a specific domain.</li>
+                           <li>Handling complex medical cases.</li>
+                           <li>Guiding junior medical officers.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a SAIL Employee 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">A career in the steel industry demands a unique blend of technical skill, physical robustness, and a paramount focus on safety.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ff6700] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">⚙️</span><div><strong class="text-white">Technical Foundation:</strong> A strong base in core engineering, diploma, or ITI subjects is essential for plant operations.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🛡️</span><div><strong class="text-white">Safety Orientation:</strong> A deep commitment to industrial safety protocols is non-negotiable in a heavy industry environment.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">💪</span><div><strong class="text-white">Physical & Mental Robustness:</strong> The ability to work in challenging plant environments, often in shifts.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🤝</span><div><strong class="text-white">Team Spirit:</strong> Collaborating effectively within large, diverse teams to achieve production targets.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Success hinges on building a strong foundation in your specific technical domain while also preparing for the general aptitude sections.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 For Technical Posts (MT/OCTT/ACTT):</h3>
+                        <ol class="relative border-l-4 border-[#ff6700] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff6700] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Master Your Domain</h4>
+                                <p id="sec8-step1-desc" class="text-base">The technical paper holds the highest weightage. Thoroughly revise your entire B.Tech/Diploma/ITI syllabus, focusing on core subjects relevant to the steel industry (e.g., Metallurgy, Mechanical).</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ff6700] rounded-full -left-2.5 border-4 border-[#1f2937]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Practice Aptitude Questions</h4>
+                                <p id="sec8-step2-desc" class="text-base">Regularly solve questions on reasoning, quantitative aptitude, and English to score well in the general paper.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 For All Posts:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Solve Previous SAIL Papers:</strong> This is the best way to understand the exam's difficulty level and the types of questions asked.</li>
+                            <li><strong>Prepare for Skill/Trade Test:</strong> For OCTT/ACTT, practical knowledge is key. Be prepared for a hands-on test of your trade skills.</li>
+                            <li><strong>Prepare for GD/Interview:</strong> Research SAIL, its various steel plants, its products, and recent news about the company and the steel sector.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">SAIL announces recruitment drives based on the manpower requirements of its different plants and units across the country.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">Notification Release</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Vacancies are advertised on the SAIL website (sail.co.in) under the "Careers" section.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">Written Examination</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A Computer Based Test (CBT) is conducted a month or two after the application period closes.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Skill Test / GD & Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> Shortlisted candidates are called for the second stage. The weightage for Written Test, GD, and Interview is typically 75:10:15 for MTs.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Final Result & Medicals</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-300">Timeline:</strong> A final merit list is published, followed by a rigorous pre-employment medical examination at a company hospital.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Getting a job in a Maharatna like SAIL is a dream for many. Don't let these common mistakes derail your preparation.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Neglecting the Non-Technical Paper:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Focusing exclusively on the domain paper and ignoring the general aptitude section, which is crucial for overall scoring.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Superficial Technical Knowledge:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Having only surface-level knowledge of technical subjects without the in-depth understanding required for the written test and interview.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Ignoring Medical Standards:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Not being aware of the stringent medical and physical fitness standards required for a job in a steel plant.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Poor Interview & GD Skills:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Having good technical knowledge but failing to communicate it effectively during the Group Discussion and Interview rounds.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Aspirants can find a wide range of study materials and coaching options for SAIL's technical and non-technical recruitment exams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Technical Subjects</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Standard textbooks for your B.Tech / Diploma / ITI course are the most important resource.</li>
+                           <li>Online platforms and coaching centers for exams like GATE, ESE, and SSC-JE are very helpful.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">📖 For General Aptitude</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Practice is key for the non-technical section.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Follow resources for banking and SSC exams for Quant, Reasoning, and English.</li>
+                            <li>Read newspapers and monthly magazines for General Knowledge and current affairs.</li>
+                            <li>Online test series are crucial for improving speed and accuracy.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">SAIL offers a stable and well-structured career path, with promotions based on performance and seniority, allowing employees to grow from trainee levels to top management.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#111827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Typical Syllabus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The written test syllabus for technical posts (OCTT/ACTT) is primarily based on the respective Diploma/ITI curriculum.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#111827] p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow duration-300">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Domain Knowledge</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/20">
+            <p id="footer-text" class="text-gray-400 text-lg font-medium">&copy; 2025 | There's a little bit of SAIL in everybody's life.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Written Test</h3>
+            <p id="prelims-modal-p1">This is an online Computer Based Test (CBT). It typically consists of two parts: a general aptitude paper (testing reasoning, quantitative ability, English, and GK) and a domain knowledge paper with questions from the relevant technical/professional discipline.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: GD / Skill Test</h3>
+            <p id="mains-modal-p1">For Management Trainees, shortlisted candidates are called for a Group Discussion (GD). For technical posts like Operator-cum-Technician and Attendant-cum-Technician, a Skill Test or Trade Test is conducted to assess the practical skills of the candidates.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Interview</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">The final stage for executive and medical posts is a personal interview. A panel assesses the candidate's technical knowledge, managerial competencies, and overall personality fit for the organization. For non-executive posts, the selection is often based on the written and skill test marks only.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-gray-300 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">SAIL Career Progression</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'mt': { 
+                        name: 'Management Trainee (MT)', 
+                        icon: '🧑‍💼',
+                        description: 'Entry-level officer roles for graduates in Technical (Engineering) and Administration (MBA/PGDM) streams. They are groomed to become future leaders of the company.',
+                        cta: 'Learn More'
+                    },
+                    'octt': { 
+                        name: 'Operator-cum-Technician', 
+                        icon: '🛠️',
+                        description: 'Diploma Engineers are recruited as OCTTs. They are responsible for operating and maintaining the machinery and equipment in SAIL\'s massive steel plants.',
+                        cta: 'Learn More'
+                    },
+                    'actt': { 
+                        name: 'Attendant-cum-Technician', 
+                        icon: '👷',
+                        description: 'Recruited from candidates with ITI qualifications. They provide hands-on technical support and assistance in various maintenance and operational tasks.',
+                        cta: 'Learn More'
+                    },
+                    'medical': { 
+                        name: 'Medical Officer & Specialist', 
+                        icon: '⚕️',
+                        description: 'SAIL runs its own large hospitals and medical centers for its employees. It recruits Medical Officers (MBBS) and Specialists (MD/MS/DNB) to provide healthcare services.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'mt': { 
+                        name: 'प्रबंधन प्रशिक्षु (MT)', 
+                        icon: '🧑‍💼',
+                        description: 'तकनीकी (इंजीनियरिंग) और प्रशासन (एमबीए/पीजीडीएम) धाराओं में स्नातकों के लिए प्रवेश स्तर के अधिकारी भूमिकाएं। उन्हें कंपनी के भविष्य के नेताओं के रूप में तैयार किया जाता है।',
+                        cta: 'और जानें'
+                    },
+                    'octt': { 
+                        name: 'ऑपरेटर-सह-तकनीशियन', 
+                        icon: '🛠️',
+                        description: 'डिप्लोमा इंजीनियरों को ओसीटीटी के रूप में भर्ती किया जाता है। वे सेल के विशाल इस्पात संयंत्रों में मशीनरी और उपकरणों के संचालन और रखरखाव के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    },
+                    'actt': { 
+                        name: 'अटेंडेंट-सह-तकनीशियन', 
+                        icon: '👷',
+                        description: 'आईटीआई योग्यता वाले उम्मीदवारों से भर्ती किया गया। वे विभिन्न रखरखाव और परिचालन कार्यों में व्यावहारिक तकनीकी सहायता और सहायता प्रदान करते हैं।',
+                        cta: 'और जानें'
+                    },
+                    'medical': { 
+                        name: 'चिकित्सा अधिकारी और विशेषज्ञ', 
+                        icon: '⚕️',
+                        description: 'सेल अपने कर्मचारियों के लिए अपने बड़े अस्पताल और चिकित्सा केंद्र चलाता है। यह स्वास्थ्य सेवाएं प्रदान करने के लिए चिकित्सा अधिकारियों (एमबीबीएस) और विशेषज्ञों (एमडी/एमएस/डीएनबी) की भर्ती करता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Trainee (MT/OCTT/ACTT)", desc: "A training period of 1-2 years depending on the post." },
+                        { rank: "Junior Manager (E-1) / Technician (S-3/S-1)", desc: "Absorption into the regular grade after successful completion of training." },
+                        { rank: "Assistant Manager (E-2) / Sr. Technician", desc: "First promotion based on performance and seniority." },
+                        { rank: "Deputy Manager (E-3)", desc: "A mid-level management role with supervisory responsibilities." },
+                        { rank: "Manager (E-4)", desc: "Leading a specific department or section within the plant or corporate office." },
+                        { rank: "AGM / DGM / GM", desc: "Senior management positions with responsibility for entire departments or major functions." },
+                        { rank: "Executive Director / Director", desc: "The highest leadership roles, responsible for the overall strategy and performance of the company." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "प्रशिक्षु (MT/OCTT/ACTT)", desc: "पद के आधार पर 1-2 साल की प्रशिक्षण अवधि।" },
+                        { rank: "कनिष्ठ प्रबंधक (ई-1) / तकनीशियन (एस-3/एस-1)", desc: "प्रशिक्षण के सफल समापन के बाद नियमित ग्रेड में अवशोषण।" },
+                        { rank: "सहायक प्रबंधक (ई-2) / वरिष्ठ तकनीशियन", desc: "प्रदर्शन और वरिष्ठता के आधार पर पहली पदोन्नति।" },
+                        { rank: "उप प्रबंधक (ई-3)", desc: "पर्यवेक्षी जिम्मेदारियों के साथ एक मध्य-स्तरीय प्रबंधन भूमिका।" },
+                        { rank: "प्रबंधक (ई-4)", desc: "संयंत्र या कॉर्पोरेट कार्यालय के भीतर एक विशिष्ट विभाग या अनुभाग का नेतृत्व करना।" },
+                        { rank: "एजीएम / डीजीएम / जीएम", desc: "पूरे विभागों या प्रमुख कार्यों के लिए जिम्मेदारी के साथ वरिष्ठ प्रबंधन पद।" },
+                        { rank: "कार्यकारी निदेशक / निदेशक", desc: "उच्चतम नेतृत्व भूमिकाएं, जो कंपनी की समग्र रणनीति और प्रदर्शन के लिए जिम्मेदार हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🏭 SAIL Recruitment Guide 🏭',
+                    'header-subtitle': 'Your Guide to a Career in India\'s Steel Backbone',
+                    'sec1-title': '1. What is SAIL Recruitment? 💡',
+                    'sec1-p1': 'Steel Authority of India Limited (SAIL) is a Maharatna PSU and one of the largest steel-making companies in India. Recruitment in SAIL offers a robust and challenging career in the core manufacturing sector. SAIL recruits a wide spectrum of talent, from fresh graduates as Management Trainees to skilled technicians and operators, who are essential for running its massive steel plants and associated facilities across the nation.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process at SAIL is multi-tiered and designed to assess candidates\' technical knowledge, practical skills, and suitability for an industrial environment.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Test', 'sec2-step1-desc': 'Online Computer Based Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'GD / Skill Test', 'sec2-step2-desc': 'GD for MTs, Skill/Trade Test for others',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Interview', 'sec2-step3-desc': 'For MTs and Medical Posts',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility criteria vary significantly across different posts.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically **28 years** for Management Trainees & OCTT, and **30-41 years** for Medical Officers, depending on specialization. Age relaxation for reserved categories is as per Govt. rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': '**MT(Tech):** B.E./B.Tech. **MT(Admin):** MBA/PGDM. **OCTT:** Diploma in Engineering. **ACTT:** Matriculation with ITI. **Medical Officer:** MBBS/PG Degree/Diploma.',
+                    'sec3-attempts-title': 'Number of Attempts 📊',
+                    'sec3-agerelax-list': '<li>There is no fixed limit on the number of attempts for SAIL recruitment examinations.</li><li>Candidates are eligible to apply for any vacancy as long as they fulfill the age and qualification criteria mentioned in the specific advertisement.</li>',
+                    'sec4-title': '4. Written Test Pattern (Tech Posts) 📚',
+                    'sec4-p1': 'The online test for technical posts like OCTT and ACTT usually consists of two main parts.',
+                    'gs1-title': 'Part 1: General Aptitude 📜', 'gs1-sub1': 'Logical Reasoning', 'gs1-sub2': 'Quantitative Aptitude', 'gs2-sub1': 'General English', 'gs2-sub2': 'General Knowledge',
+                    'gs2-title': 'Part 2: Domain Knowledge 🏛️', 'gs3-sub1': 'Questions from the specific technical stream (e.g., Mechanical, Metallurgy, Electrical, Civil) based on the Diploma/ITI syllabus.',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'All new trainees at SAIL undergo a mandatory training and probation period to learn the intricacies of steel manufacturing and the company\'s work culture.',
+                    'sec5-hindi-title': '1. Training Period', 'sec5-hindi-p1': 'The duration and nature of training vary by post.', 'sec5-hindi-list': '<li>Management Trainees undergo one year of training.</li><li>OCTT and ACTT candidates undergo a two-year training period.</li><li>Training includes both classroom sessions and extensive on-the-job training at various plant locations.</li>',
+                    'sec5-essay-title': '2. Probation & Placement', 'sec5-essay-p1': 'After training, successful candidates are absorbed into the regular grades.', 'sec5-essay-list': '<li>Upon successful completion of training, candidates are placed on probation for one year.</li><li>They are absorbed into regular posts and pay scales (e.g., MTs at E-1 grade, OCTTs at S-3 grade).</li><li>Final posting is at one of SAIL\'s integrated steel plants or other units.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'Roles at SAIL are diverse, covering everything from core steel production and maintenance to corporate and medical functions.',
+                    'sec6-eng-title': 'Management Trainee', 'sec6-eng-list': '<li>Leading teams in plant operations.</li><li>Project Management (Technical).</li><li>Corporate Functions (Administration).</li>',
+                    'sec6-elec-title': 'OCTT / ACTT', 'sec6-elec-list': '<li>Operating heavy machinery and equipment.</li><li>Maintenance of plant infrastructure.</li><li>Ensuring production quality.</li>',
+                    'sec6-naic-title': 'Medical Officer', 'sec6-naic-list': '<li>Providing primary healthcare to employees.</li><li>Managing hospital wards and OPDs.</li><li>Conducting health awareness programs.</li>',
+                    'sec6-fin-title': 'Medical Specialist', 'sec6-fin-list': '<li>Providing expert care in a specific domain.</li><li>Handling complex medical cases.</li><li>Guiding junior medical officers.</li>',
+                    'sec7-title': '7. Qualities of a SAIL Employee 🎙️',
+                    'sec7-p1': 'A career in the steel industry demands a unique blend of technical skill, physical robustness, and a paramount focus on safety.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">⚙️</span><div><strong class="text-white">Technical Foundation:</strong> A strong base in core engineering, diploma, or ITI subjects is essential for plant operations.</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🛡️</span><div><strong class="text-white">Safety Orientation:</strong> A deep commitment to industrial safety protocols is non-negotiable in a heavy industry environment.</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">💪</span><div><strong class="text-white">Physical & Mental Robustness:</strong> The ability to work in challenging plant environments, often in shifts.</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🤝</span><div><strong class="text-white">Team Spirit:</strong> Collaborating effectively within large, diverse teams to achieve production targets.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'Success hinges on building a strong foundation in your specific technical domain while also preparing for the general aptitude sections.',
+                    'sec8-steps-title': '📚 For Technical Posts (MT/OCTT/ACTT):',
+                    'sec8-step1-title': 'Master Your Domain', 'sec8-step1-desc': 'The technical paper holds the highest weightage. Thoroughly revise your entire B.Tech/Diploma/ITI syllabus, focusing on core subjects relevant to the steel industry (e.g., Metallurgy, Mechanical).',
+                    'sec8-step2-title': 'Practice Aptitude Questions', 'sec8-step2-desc': 'Regularly solve questions on reasoning, quantitative aptitude, and English to score well in the general paper.',
+                    'sec8-revision-title': '🔄 For All Posts:',
+                    'sec8-revision-list': '<li><strong>Solve Previous SAIL Papers:</strong> This is the best way to understand the exam\'s difficulty level and the types of questions asked.</li><li><strong>Prepare for Skill/Trade Test:</strong> For OCTT/ACTT, practical knowledge is key. Be prepared for a hands-on test of your trade skills.</li><li><strong>Prepare for GD/Interview:</strong> Research SAIL, its various steel plants, its products, and recent news about the company and the steel sector.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'SAIL announces recruitment drives based on the manpower requirements of its different plants and units across the country.',
+                    'sec9-step1-title': 'Notification Release', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the SAIL website (sail.co.in) under the "Careers" section.',
+                    'sec9-step2-title': 'Written Examination', 'sec9-step2-desc': '<strong>Timeline:</strong> A Computer Based Test (CBT) is conducted a month or two after the application period closes.',
+                    'sec9-step3-title': 'Skill Test / GD & Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates are called for the second stage. The weightage for Written Test, GD, and Interview is typically 75:10:15 for MTs.',
+                    'sec9-step4-title': 'Final Result & Medicals', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is published, followed by a rigorous pre-employment medical examination at a company hospital.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Getting a job in a Maharatna like SAIL is a dream for many. Don\'t let these common mistakes derail your preparation.',
+                    'sec10-mistake1-title': 'Neglecting the Non-Technical Paper:', 'sec10-mistake1-desc': 'Focusing exclusively on the domain paper and ignoring the general aptitude section, which is crucial for overall scoring.',
+                    'sec10-mistake2-title': 'Superficial Technical Knowledge:', 'sec10-mistake2-desc': 'Having only surface-level knowledge of technical subjects without the in-depth understanding required for the written test and interview.',
+                    'sec10-mistake3-title': 'Ignoring Medical Standards:', 'sec10-mistake3-desc': 'Not being aware of the stringent medical and physical fitness standards required for a job in a steel plant.',
+                    'sec10-mistake4-title': 'Poor Interview & GD Skills:', 'sec10-mistake4-desc': 'Having good technical knowledge but failing to communicate it effectively during the Group Discussion and Interview rounds.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Aspirants can find a wide range of study materials and coaching options for SAIL\'s technical and non-technical recruitment exams.',
+                    'sec11-gov-title': '📚 For Technical Subjects', 'sec11-gov-list': '<li>Standard textbooks for your B.Tech / Diploma / ITI course are the most important resource.</li><li>Online platforms and coaching centers for exams like GATE, ESE, and SSC-JE are very helpful.</li>',
+                    'sec11-pvt-title': '📖 For General Aptitude', 'sec11-pvt-p1': 'Practice is key for the non-technical section.', 'sec11-pvt-list': '<li>Follow resources for banking and SSC exams for Quant, Reasoning, and English.</li><li>Read newspapers and monthly magazines for General Knowledge and current affairs.</li><li>Online test series are crucial for improving speed and accuracy.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'SAIL offers a stable and well-structured career path, with promotions based on performance and seniority, allowing employees to grow from trainee levels to top management.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Typical Syllabus 📚',
+                    'sec13-p1': 'The written test syllabus for technical posts (OCTT/ACTT) is primarily based on the respective Diploma/ITI curriculum.',
+                    'syllabus-oir-title': 'General Aptitude',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning & Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Knowledge & English</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Domain Knowledge',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">Core Technical Diploma/ITI Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">Admin/Medical Domain Subjects</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | There\'s a little bit of SAIL in everybody\'s life.',
+                    'interviewChartData': {
+                        labels: ['Technical Skill', 'Safety Focus', 'Robustness', 'Team Spirit'],
+                        data: [95, 98, 90, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '🏭 सेल भर्ती गाइड 🏭',
+                    'header-subtitle': 'भारत की इस्पात रीढ़ में करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. सेल भर्ती क्या है? 💡',
+                    'sec1-p1': 'स्टील अथॉरिटी ऑफ इंडिया लिमिटेड (सेल) एक महारत्न पीएसयू है और भारत की सबसे बड़ी इस्पात बनाने वाली कंपनियों में से एक है। सेल में भर्ती मुख्य विनिर्माण क्षेत्र में एक मजबूत और चुनौतीपूर्ण कैरियर प्रदान करती है। सेल प्रबंधन प्रशिक्षुओं के रूप में नए स्नातकों से लेकर कुशल तकनीशियनों और ऑपरेटरों तक प्रतिभा का एक व्यापक स्पेक्ट्रम भर्ती करता है, जो देश भर में अपने विशाल इस्पात संयंत्रों और संबंधित सुविधाओं को चलाने के लिए आवश्यक हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'सेल में चयन प्रक्रिया बहु-स्तरीय है और उम्मीदवारों के तकनीकी ज्ञान, व्यावहारिक कौशल और एक औद्योगिक वातावरण के लिए उपयुक्तता का आकलन करने के लिए डिज़ाइन की गई है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'लिखित परीक्षा', 'sec2-step1-desc': 'ऑनलाइन कंप्यूटर आधारित परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'जीडी / कौशल परीक्षण', 'sec2-step2-desc': 'एमटी के लिए जीडी, दूसरों के लिए कौशल/ट्रेड टेस्ट',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'साक्षात्कार', 'sec2-step3-desc': 'एमटी और चिकित्सा पदों के लिए',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'पात्रता मानदंड विभिन्न पदों पर काफी भिन्न होते हैं।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर प्रबंधन प्रशिक्षुओं और ओसीटीटी के लिए **28 वर्ष**, और विशेषज्ञता के आधार पर चिकित्सा अधिकारियों के लिए **30-41 वर्ष**। आरक्षित श्रेणियों के लिए आयु में छूट सरकारी नियमों के अनुसार है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': '**एमटी(टेक):** बी.ई./बी.टेक। **एमटी(एडमिन):** एमबीए/पीजीडीएम। **ओसीटीटी:** इंजीनियरिंग में डिप्लोमा। **एसीटीटी:** आईटीआई के साथ मैट्रिक। **चिकित्सा अधिकारी:** एमबीबीएस/पीजी डिग्री/डिप्लोमा।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या 📊',
+                    'sec3-agerelax-list': '<li>सेल भर्ती परीक्षाओं के लिए प्रयासों की संख्या पर कोई निश्चित सीमा नहीं है।</li><li>उम्मीदवार किसी भी रिक्ति के लिए तब तक आवेदन करने के पात्र हैं जब तक वे विशिष्ट विज्ञापन में उल्लिखित आयु और योग्यता मानदंडों को पूरा करते हैं।</li>',
+                    'sec4-title': '4. लिखित परीक्षा पैटर्न (तकनीकी पद) 📚',
+                    'sec4-p1': 'ओसीटीटी और एसीटीटी जैसे तकनीकी पदों के लिए ऑनलाइन परीक्षा में आमतौर पर दो मुख्य भाग होते हैं।',
+                    'gs1-title': 'भाग 1: सामान्य योग्यता 📜', 'gs1-sub1': 'तार्किक तर्क', 'gs1-sub2': 'मात्रात्मक योग्यता', 'gs2-sub1': 'सामान्य अंग्रेजी', 'gs2-sub2': 'सामान्य ज्ञान',
+                    'gs2-title': 'भाग 2: डोमेन ज्ञान 🏛️', 'gs3-sub1': 'डिप्लोमा/आईटीआई पाठ्यक्रम के आधार पर विशिष्ट तकनीकी स्ट्रीम (जैसे, मैकेनिकल, धातुकर्म, इलेक्ट्रिकल, सिविल) से प्रश्न।',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'सेल में सभी नए प्रशिक्षु इस्पात निर्माण की जटिलताओं और कंपनी की कार्य संस्कृति को सीखने के लिए एक अनिवार्य प्रशिक्षण और परिवीक्षा अवधि से गुजरते हैं।',
+                    'sec5-hindi-title': '1. प्रशिक्षण अवधि', 'sec5-hindi-p1': 'प्रशिक्षण की अवधि और प्रकृति पद के अनुसार भिन्न होती है।', 'sec5-hindi-list': '<li>प्रबंधन प्रशिक्षु एक वर्ष का प्रशिक्षण लेते हैं।</li><li>ओसीटीटी और एसीटीटी उम्मीदवार दो साल की प्रशिक्षण अवधि से गुजरते हैं।</li><li>प्रशिक्षण में विभिन्न संयंत्र स्थानों पर कक्षा सत्र और व्यापक ऑन-द-जॉब प्रशिक्षण दोनों शामिल हैं।</li>',
+                    'sec5-essay-title': '2. परिवीक्षा और प्लेसमेंट', 'sec5-essay-p1': 'प्रशिक्षण के बाद, सफल उम्मीदवारों को नियमित ग्रेड में समाहित कर लिया जाता है।', 'sec5-essay-list': '<li>प्रशिक्षण के सफल समापन पर, उम्मीदवारों को एक वर्ष के लिए परिवीक्षा पर रखा जाता है।</li><li>उन्हें नियमित पदों और वेतनमानों में समाहित किया जाता है (जैसे, ई-1 ग्रेड पर एमटी, एस-3 ग्रेड पर ओसीटीटी)।</li><li>अंतिम पोस्टिंग सेल के एकीकृत इस्पात संयंत्रों या अन्य इकाइयों में से एक पर है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'सेल में भूमिकाएं विविध हैं, जिसमें मुख्य इस्पात उत्पादन और रखरखाव से लेकर कॉर्पोरेट और चिकित्सा कार्यों तक सब कुछ शामिल है।',
+                    'sec6-eng-title': 'प्रबंधन प्रशिक्षु', 'sec6-eng-list': '<li>संयंत्र संचालन में अग्रणी टीमें।</li><li>परियोजना प्रबंधन (तकनीकी)।</li><li>कॉर्पोरेट कार्य (प्रशासन)।</li>',
+                    'sec6-elec-title': 'ओसीटीटी / एसीटीटी', 'sec6-elec-list': '<li>भारी मशीनरी और उपकरणों का संचालन।</li><li>संयंत्र के बुनियादी ढांचे का रखरखाव।</li><li>उत्पादन की गुणवत्ता सुनिश्चित करना।</li>',
+                    'sec6-naic-title': 'चिकित्सा अधिकारी', 'sec6-naic-list': '<li>कर्मचारियों को प्राथमिक स्वास्थ्य सेवा प्रदान करना।</li><li>अस्पताल के वार्डों और ओपीडी का प्रबंधन।</li><li>स्वास्थ्य जागरूकता कार्यक्रम आयोजित करना।</li>',
+                    'sec6-fin-title': 'चिकित्सा विशेषज्ञ', 'sec6-fin-list': '<li>एक विशिष्ट डोमेन में विशेषज्ञ देखभाल प्रदान करना।</li><li>जटिल चिकित्सा मामलों को संभालना।</li><li>जूनियर चिकित्सा अधिकारियों का मार्गदर्शन करना।</li>',
+                    'sec7-title': '7. एक सेल कर्मचारी के गुण 🎙️',
+                    'sec7-p1': 'इस्पात उद्योग में एक कैरियर के लिए तकनीकी कौशल, शारीरिक मजबूती और सुरक्षा पर एक सर्वोपरि ध्यान का एक अनूठा मिश्रण आवश्यक है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">⚙️</span><div><strong class="text-white">तकनीकी नींव:</strong> संयंत्र संचालन के लिए मुख्य इंजीनियरिंग, डिप्लोमा या आईटीआई विषयों में एक मजबूत आधार आवश्यक है।</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🛡️</span><div><strong class="text-white">सुरक्षा अभिविन्यास:</strong> एक भारी उद्योग वातावरण में औद्योगिक सुरक्षा प्रोटोकॉल के लिए एक गहरी प्रतिबद्धता गैर-परक्राम्य है।</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">💪</span><div><strong class="text-white">शारीरिक और मानसिक मजबूती:</strong> चुनौतीपूर्ण संयंत्र वातावरण में काम करने की क्षमता, अक्सर शिफ्टों में।</div></li><li class="flex items-start"><span class="text-2xl text-[#00a9e0] mr-3">🤝</span><div><strong class="text-white">टीम भावना:</strong> उत्पादन लक्ष्यों को प्राप्त करने के लिए बड़ी, विविध टीमों के भीतर प्रभावी ढंग से सहयोग करना।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'सफलता आपके विशिष्ट तकनीकी डोमेन में एक मजबूत नींव बनाने पर निर्भर करती है, जबकि सामान्य योग्यता वर्गों के लिए भी तैयारी करती है।',
+                    'sec8-steps-title': '📚 तकनीकी पदों के लिए (MT/OCTT/ACTT):',
+                    'sec8-step1-title': 'अपने डोमेन में महारत हासिल करें', 'sec8-step1-desc': 'तकनीकी पेपर का भार सबसे अधिक होता है। अपने पूरे बी.टेक/डिप्लोमा/आईटीआई पाठ्यक्रम को अच्छी तरह से संशोधित करें, इस्पात उद्योग से संबंधित मुख्य विषयों (जैसे, धातुकर्म, मैकेनिकल) पर ध्यान केंद्रित करें।',
+                    'sec8-step2-title': 'योग्यता प्रश्नों का अभ्यास करें', 'sec8-step2-desc': 'सामान्य पेपर में अच्छा स्कोर करने के लिए तर्क, मात्रात्मक योग्यता और अंग्रेजी पर नियमित रूप से प्रश्नों को हल करें।',
+                    'sec8-revision-title': '🔄 सभी पदों के लिए:',
+                    'sec8-revision-list': '<li><strong>पिछले सेल प्रश्नपत्र हल करें:</strong> यह परीक्षा के कठिनाई स्तर और पूछे गए प्रश्नों के प्रकार को समझने का सबसे अच्छा तरीका है।</li><li><strong>कौशल/ट्रेड टेस्ट के लिए तैयारी करें:</strong> ओसीटीटी/एसीटीटी के लिए, व्यावहारिक ज्ञान महत्वपूर्ण है। अपने व्यापार कौशल के एक व्यावहारिक परीक्षण के लिए तैयार रहें।</li><li><strong>जीडी/साक्षात्कार के लिए तैयारी करें:</strong> सेल, उसके विभिन्न इस्पात संयंत्रों, उसके उत्पादों और कंपनी और इस्पात क्षेत्र के बारे में हाल के समाचारों पर शोध करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'सेल देश भर में अपने विभिन्न संयंत्रों और इकाइयों की জনशक्ति आवश्यकताओं के आधार पर भर्ती अभियान की घोषणा करता है।',
+                    'sec9-step1-title': 'अधिसूचना जारी', 'sec9-step1-desc': '<strong>समयरेखा:</strong> रिक्तियों का विज्ञापन सेल वेबसाइट (sail.co.in) पर "करियर" के तहत किया जाता है।',
+                    'sec9-step2-title': 'लिखित परीक्षा', 'sec9-step2-desc': '<strong>समयरेखा:</strong> आवेदन अवधि समाप्त होने के एक या दो महीने बाद एक कंप्यूटर आधारित परीक्षा (सीबीटी) आयोजित की जाती है।',
+                    'sec9-step3-title': 'कौशल परीक्षण / जीडी और साक्षात्कार', 'sec9-step3-desc': '<strong>समयरेखा:</strong> शॉर्टलिस्ट किए गए उम्मीदवारों को दूसरे चरण के लिए बुलाया जाता है। एमटी के लिए लिखित परीक्षा, जीडी और साक्षात्कार का भार आमतौर पर 75:10:15 है।',
+                    'sec9-step4-title': 'अंतिम परिणाम और चिकित्सा', 'sec9-step4-desc': '<strong>समयरेखा:</strong> एक अंतिम मेरिट सूची प्रकाशित की जाती है, जिसके बाद एक कंपनी अस्पताल में एक कठोर पूर्व-रोजगार चिकित्सा परीक्षा होती है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'सेल जैसे महारत्न में नौकरी पाना कई लोगों का सपना होता है। इन सामान्य गलतियों को अपनी तैयारी में बाधा न बनने दें।',
+                    'sec10-mistake1-title': 'गैर-तकनीकी पेपर की उपेक्षा:', 'sec10-mistake1-desc': 'केवल डोमेन पेपर पर ध्यान केंद्रित करना और सामान्य योग्यता अनुभाग को अनदेखा करना, जो समग्र स्कोरिंग के लिए महत्वपूर्ण है।',
+                    'sec10-mistake2-title': 'सतही तकनीकी ज्ञान:', 'sec10-mistake2-desc': 'लिखित परीक्षा और साक्षात्कार के लिए आवश्यक गहन समझ के बिना तकनीकी विषयों का केवल सतही ज्ञान होना।',
+                    'sec10-mistake3-title': 'चिकित्सा मानकों की अनदेखी:', 'sec10-mistake3-desc': 'एक इस्पात संयंत्र में नौकरी के लिए आवश्यक कड़े चिकित्सा और शारीरिक फिटनेस मानकों से अवगत नहीं होना।',
+                    'sec10-mistake4-title': 'खराब साक्षात्कार और जीडी कौशल:', 'sec10-mistake4-desc': 'अच्छा तकनीकी ज्ञान होना लेकिन समूह चर्चा और साक्षात्कार दौर के दौरान इसे प्रभावी ढंग से संप्रेषित करने में विफल होना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'उम्मीदवार सेल की तकनीकी और गैर-तकनीकी भर्ती परीक्षाओं के लिए अध्ययन सामग्री और कोचिंग विकल्पों की एक विस्तृत श्रृंखला पा सकते हैं।',
+                    'sec11-gov-title': '📚 तकनीकी विषयों के लिए', 'sec11-gov-list': '<li>आपके बी.टेक / डिप्लोमा / आईटीआई पाठ्यक्रम के लिए मानक पाठ्यपुस्तकें सबसे महत्वपूर्ण संसाधन हैं।</li><li>गेट, ईएसई और एसएससी-जेई जैसी परीक्षाओं के लिए ऑनलाइन प्लेटफॉर्म और कोचिंग सेंटर बहुत मददगार हैं।</li>',
+                    'sec11-pvt-title': '📖 सामान्य योग्यता के लिए', 'sec11-pvt-p1': 'गैर-तकनीकी अनुभाग के लिए अभ्यास महत्वपूर्ण है।', 'sec11-pvt-list': '<li>क्वांट, रीजनिंग और अंग्रेजी के लिए बैंकिंग और एसएससी परीक्षाओं के लिए संसाधनों का पालन करें।</li><li>सामान्य ज्ञान और समसामयिक मामलों के लिए समाचार पत्र और मासिक पत्रिकाएं पढ़ें।</li><li>गति और सटीकता में सुधार के लिए ऑनलाइन टेस्ट श्रृंखला महत्वपूर्ण है।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'सेल एक स्थिर और अच्छी तरह से संरचित कैरियर पथ प्रदान करता है, जिसमें प्रदर्शन और वरिष्ठता के आधार पर पदोन्नति होती है, जिससे कर्मचारियों को प्रशिक्षु स्तर से शीर्ष प्रबंधन तक बढ़ने की अनुमति मिलती है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. विशिष्ट पाठ्यक्रम 📚',
+                    'sec13-p1': 'तकनीकी पदों (ओसीटीटी/एसीटीटी) के लिए लिखित परीक्षा का पाठ्यक्रम मुख्य रूप से संबंधित डिप्लोमा/आईटीआई पाठ्यक्रम पर आधारित है।',
+                    'syllabus-oir-title': 'सामान्य योग्यता',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क और मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य ज्ञान और अंग्रेजी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'डोमेन ज्ञान',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⚙️</span><div class="flex-grow">मुख्य तकनीकी डिप्लोमा/आईटीआई विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💼</span><div class="flex-grow">व्यवस्थापक/चिकित्सा डोमेन विषय</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | हर किसी के जीवन में थोड़ा सा सेल है।',
+                    'interviewChartData': {
+                        labels: ['तकनीकी कौशल', 'सुरक्षा फोकस', 'मजबूती', 'टीम भावना'],
+                        data: [95, 98, 90, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#1f2937]/50 rounded-xl text-center border-2 border-slate-700 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-gray-400 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-gray-300">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(255, 103, 0, 0.7)',
+                            borderColor: '#ff6700',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#f3f4f6' },
+                                grid: { color: 'rgba(243, 244, 246, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#f3f4f6', font: { size: 14 } },
+                                grid: { color: 'rgba(243, 244, 246, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
