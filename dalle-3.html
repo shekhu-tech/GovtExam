@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI DALL-E: The Ultimate Image Generation Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to OpenAI's DALL-E models. Understand the technology, capabilities, applications, and the art of prompt engineering for text-to-image generation.">
+    <meta name="keywords" content="OpenAI, DALL-E, DALL-E 3, AI Image Generation, Text-to-Image, AI Art, Artificial Intelligence, Prompt Engineering, Generative AI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Deep Indigo */
+            color: #e0e0e0; /* Light Gray */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ff7f50, #1e90ff) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(26, 26, 46, 0.85); /* Dark Indigo Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #3c3c5a; /* Medium Indigo */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(255, 127, 80, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff7f50; /* Coral */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ff7f50; /* Coral */
+            color: #ff7f50;
+            background: #2a2a4a; /* Darker Indigo */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.2);
+            text-shadow: 0 0 5px rgba(255, 127, 80, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ff7f50;
+            color: #1a1a2e;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(255, 127, 80, 0.5);
+        }
+        .flowchart-arrow {
+            color: #1e90ff; /* Dodger Blue */
+            text-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #1e90ff;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(30, 144, 255, 0.1);
+        }
+        .subject-item .icon {
+            color: #1e90ff;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ff7f50;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1a1a2e;
+            border: 4px solid #ff7f50;
+            box-shadow: 0 0 15px rgba(255, 127, 80, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #2a2a4a;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #3c3c5a;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ff7f50, #ff6347);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 127, 80, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 127, 80, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ff7f50;
+            color: #ff7f50;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ff7f50;
+            color: #1a1a2e;
+            box-shadow: 0 0 15px #ff7f50;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #1e90ff, #4169e1);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #2a2a4a; 
+            color: #e0e0e0; 
+            border-color: #3c3c5a; 
+        }
+        .lectures-btn:hover {
+            background-color: #3c3c5a;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🎨 OpenAI DALL-E: The Ultimate Guide 🎨</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-sky-400">Mastering the Art of AI Image Generation</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is DALL-E? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#2a2a4a] via-[#1a1a2e] to-[#1a1a2e]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is OpenAI DALL-E? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">DALL-E is a series of AI models developed by OpenAI that create original, realistic images and art from a simple text description. It uses a deep learning process called diffusion to interpret natural language prompts and translate them into visual representations. From photorealistic images to paintings in the style of famous artists, DALL-E has revolutionized digital art, design, and creative expression, making it possible for anyone to become a visual creator.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. How DALL-E Works 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">DALL-E works by associating text with images. It learns the relationship between words and visual concepts and then uses a 'diffusion' process to generate a new image from a pattern of random dots.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Input</span><br><span id="sec2-step1-name">Text Prompt</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">User provides a detailed description</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">DALL-E Model</span><br><span id="sec2-step2-name">Diffusion Process</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Model generates an image from noise</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Output</span><br><span id="sec2-step3-name">Generated Image</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">One or more unique images are created</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">OpenAI has made DALL-E accessible through various platforms, targeting everyone from casual users to professional developers.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🎨</span><div><strong id="sec3-age-title" class="text-white text-lg">General Public:</strong> <span id="sec3-age-desc">DALL-E is available for free through Microsoft Copilot (formerly Bing Image Creator) and within ChatGPT for Plus subscribers.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ff7f50] mr-4">🧑‍💻</span><div><strong id="sec3-edu-title" class="text-white text-lg">Developers & Businesses:</strong> <span id="sec3-edu-desc">The DALL-E API allows developers to integrate powerful image generation capabilities directly into their own applications and services.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#1e90ff] pb-2">Primary Platforms 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li><strong>ChatGPT Plus:</strong> The latest DALL-E 3 model is integrated, allowing for conversational image creation and refinement.</li>
+                             <li><strong>DALL-E API:</strong> Provides programmatic access for building custom applications.</li>
+                             <li><strong>Microsoft Copilot:</strong> Offers free access to DALL-E 3 for generating images.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Core Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Modern versions of DALL-E offer a suite of powerful features beyond simple image generation.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#2a2a4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Text-to-Image</h3>
+                        <p class="text-sm">Creating images from detailed text prompts.</p>
+                    </div>
+                     <div class="bg-[#2a2a4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Inpainting</h3>
+                         <p class="text-sm">Editing a specific part of an existing image by erasing a section and describing the replacement.</p>
+                    </div>
+                    <div class="bg-[#2a2a4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Outpainting</h3>
+                         <p class="text-sm">Extending an image beyond its original borders by generating new content that matches the style.</p>
+                    </div>
+                    <div class="bg-[#2a2a4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Variations</h3>
+                         <p class="text-sm">Creating multiple different versions of an image inspired by the original.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is DALL-E Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">DALL-E's ability to understand and visualize concepts comes from its training on a colossal dataset of text-image pairs scraped from the internet.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#2a2a4a] rounded-xl border-2 border-[#ff7f50]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">Hundreds of millions of images and their corresponding text descriptions.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>The model learns to associate words like "astronaut" or "avocado" with their visual characteristics.</li>
+                            <li>It also learns styles, attributes, and relationships (e.g., "in the style of Van Gogh," "a cat wearing a hat").</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#2a2a4a] rounded-xl border-2 border-[#1e90ff]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Diffusion Model</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Learning to create order from chaos.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>The model is trained by taking clean images, progressively adding random noise until only static remains.</li>
+                           <li>It then learns to reverse this process: starting with random noise and, guided by the text prompt, removing the noise step-by-step to "reveal" a new image.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">DALL-E is a transformative tool for creative professionals and businesses, enabling rapid ideation and content creation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Art & Design</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Creating unique digital art and illustrations.</li>
+                           <li>Generating mood boards and design concepts.</li>
+                           <li>Visualizing architectural and product designs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Marketing & Advertising</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Creating custom images for social media posts.</li>
+                           <li>Generating ad creatives and campaign visuals.</li>
+                           <li>Prototyping brand logos and mascots.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Entertainment & Education</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Creating storyboards for films and animations.</li>
+                           <li>Designing characters for games and stories.</li>
+                           <li>Illustrating concepts for educational materials.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Evaluation 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Evaluating AI-generated images is complex. It involves both automated scores and human judgment on aspects like prompt adherence and aesthetic quality.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ff7f50] pb-2">Key Evaluation Metrics:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎯</span><div><strong class="text-white">Prompt Adherence:</strong> How well does the generated image match the user's text description?</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎨</span><div><strong class="text-white">Aesthetic Quality:</strong> The artistic and visual appeal of the image. Is it well-composed and visually pleasing?</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">📸</span><div><strong class="text-white">Photorealism:</strong> For realistic images, how closely does the output resemble a real photograph?</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🤔</span><div><strong class="text-white">Coherence:</strong> Does the image make sense logically? Are objects and characters depicted correctly without strange artifacts?</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompt Engineering for Images 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">The art of writing a good prompt is the single most important skill for getting high-quality results from DALL-E.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#ff7f50] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#2a2a4a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Be Highly Descriptive</h4>
+                                <p id="sec8-step1-desc" class="text-base">Combine a clear subject with details about the environment, lighting, and mood. Use vivid adjectives.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#2a2a4a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Specify the Style</h4>
+                                <p id="sec8-step2-desc" class="text-base">Mention the desired artistic style, e.g., "photorealistic," "in the style of Van Gogh," "digital art," "3D render," "anime."</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ff7f50] rounded-full -left-2.5 border-4 border-[#2a2a4a]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Include Technical Details</h4>
+                                <p id="sec8-step3-desc" class="text-base">Add details about camera angles, lens types, and lighting (e.g., "cinematic lighting," "wide-angle shot," "macro photography").</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Advanced Techniques:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Iterate on Prompts:</strong> Start with a simple idea and progressively add more detail to refine the image.</li>
+                            <li><strong>"Negative Prompting":</strong> While not a direct feature in DALL-E 3, you can try to steer it away from unwanted elements by specifying what not to include, though results may vary.</li>
+                            <li><strong>Use ChatGPT for Prompts:</strong> Ask ChatGPT to act as a "prompt engineer" and generate detailed, creative prompts for you based on a simple idea.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Versions -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">The DALL-E series has seen rapid evolution, with each version bringing significant improvements in quality, realism, and prompt understanding.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">DALL-E 1</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> January 2021. The first model, which amazed the world by creating surreal and creative images like an "avocado armchair."</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">DALL-E 2</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> April 2022. A major leap in realism and resolution. It introduced powerful features like inpainting and outpainting.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">DALL-E 3</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> September 2023. Another significant improvement, particularly in its ability to understand complex, detailed prompts and render text accurately. Natively integrated with ChatGPT.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Pitfalls & Limitations 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While incredibly powerful, DALL-E still has limitations that users should be aware of.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Artifacts (Hands & Limbs):</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">AI models sometimes struggle with generating anatomically correct hands, feet, and limbs, leading to extra or missing fingers.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Rendering Text:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">While DALL-E 3 is much better, accurately rendering specific text within an image can still be challenging and may result in gibberish.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Complex Spatial Relationships:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">The model may struggle with very complex prompts describing precise spatial arrangements of multiple objects.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Copyright & Ethical Concerns:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Using prompts with copyrighted characters or in the style of living artists raises ethical questions. OpenAI has safety filters to prevent harmful generations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Getting started with DALL-E is easy, with several official platforms available.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For General Users</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ChatGPT Plus:** The most powerful and integrated experience. Simply start a conversation and ask for an image.</li>
+                           <li>**Microsoft Copilot:** Provides free access to DALL-E 3 via its web and mobile apps.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Developers</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Integrate DALL-E into your own applications.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**OpenAI API:** Use the DALL-E 3 model endpoint by getting an API key from the OpenAI developer platform.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Video, 3D & Beyond 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">DALL-E is a stepping stone towards more advanced forms of generative media. The technology is rapidly evolving, with text-to-video models like OpenAI's Sora already demonstrating incredible potential. The future will likely bring real-time generation, 3D models from text, and seamless integration into virtual and augmented reality.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Expected Advancements</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-gradient-to-br from-[#1f2937] to-[#101827]">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Art Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these core concepts provides a deeper insight into the technology that makes DALL-E possible.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Fundamental Models</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#101827] p-6 rounded-lg shadow-lg border border-slate-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Key Ideas</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Creating at the Speed of Thought.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Input: Text Prompt</h3>
+            <p id="prelims-modal-p1">The process begins when a user provides a descriptive text prompt. This prompt is first processed by a language model (like a component of GPT-4) to create a detailed and nuanced understanding of the request, which is then converted into a numerical representation called an embedding.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">DALL-E Model: Diffusion Process</h3>
+            <p id="mains-modal-p1">The model starts with a field of random visual noise. Guided by the text embedding, it iteratively refines this noise over several steps. In each step, it predicts and removes a small amount of noise, gradually shaping the random pattern into a coherent image that matches the text description.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Output: Generated Image</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">After the diffusion process is complete, the final result is a brand-new image that has been created from scratch based on the user's prompt. The model can generate multiple unique variations for the same prompt, offering creative choices.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">The Future of Generative Media</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'dalle2': { 
+                        name: 'DALL-E 2', 
+                        icon: '🖼️',
+                        description: 'The second iteration of the model, which introduced higher resolution, greater realism, and powerful editing features like inpainting and outpainting.',
+                        cta: 'Learn More'
+                    },
+                    'dalle3': { 
+                        name: 'DALL-E 3', 
+                        icon: '🎨',
+                        description: 'The latest version, natively integrated with ChatGPT. It understands prompts with significantly more nuance and detail, and is much better at rendering legible text.',
+                        cta: 'Learn More'
+                    },
+                    'api': { 
+                        name: 'DALL-E API', 
+                        icon: '🔌',
+                        description: 'Allows developers to integrate OpenAI\'s state-of-the-art image generation models directly into their own applications and products.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'dalle2': { 
+                        name: 'डाल-ई 2', 
+                        icon: '🖼️',
+                        description: 'मॉडल का दूसरा पुनरावृत्ति, जिसने उच्च रिज़ॉल्यूशन, अधिक यथार्थवाद और इनपेंटिंग और आउटपेंटिंग जैसी शक्तिशाली संपादन सुविधाएँ पेश कीं।',
+                        cta: 'और जानें'
+                    },
+                    'dalle3': { 
+                        name: 'डाल-ई 3', 
+                        icon: '🎨',
+                        description: 'नवीनतम संस्करण, जो चैटजीपीटी के साथ मूल रूप से एकीकृत है। यह प्रॉम्प्ट को काफी अधिक सूक्ष्मता और विस्तार से समझता है, और सुपाठ्य पाठ प्रस्तुत करने में बहुत बेहतर है।',
+                        cta: 'और जानें'
+                    },
+                    'api': { 
+                        name: 'डाल-ई एपीआई', 
+                        icon: '🔌',
+                        description: 'डेवलपर्स को ओपनएआई के अत्याधुनिक छवि निर्माण मॉडल को सीधे अपने स्वयं के अनुप्रयोगों और उत्पादों में एकीकृत करने की अनुमति देता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Text-to-Video", desc: "Models like OpenAI's Sora are already showing the ability to generate high-definition, coherent video clips from text prompts." },
+                        { rank: "3D Model Generation", desc: "AI will be able to generate complex 3D models from text or images, revolutionizing gaming, VFX, and industrial design." },
+                        { rank: "Interactive & Real-time", desc: "Future tools will allow for real-time, conversational editing of images and videos, making the creative process more fluid." },
+                        { rank: "Personalized Models", desc: "AI that can be fine-tuned on your personal style to consistently generate content that matches your aesthetic." },
+                        { rank: "Integration with Virtual Worlds", desc: "Seamless generation of assets and environments for AR/VR and metaverse applications directly from thought or speech." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "टेक्स्ट-टू-वीडियो", desc: "ओपनएआई के सोरा जैसे मॉडल पहले से ही टेक्स्ट प्रॉम्प्ट से हाई-डेफिनिशन, सुसंगत वीडियो क्लिप उत्पन्न करने की क्षमता दिखा रहे हैं।" },
+                        { rank: "3डी मॉडल जनरेशन", desc: "एआई टेक्स्ट या छवियों से जटिल 3डी मॉडल उत्पन्न करने में सक्षम होगा, जिससे गेमिंग, वीएफएक्स और औद्योगिक डिजाइन में क्रांति आ जाएगी।" },
+                        { rank: "इंटरैक्टिव और रीयल-टाइम", desc: "भविष्य के उपकरण छवियों और वीडियो के वास्तविक समय, संवादी संपादन की अनुमति देंगे, जिससे रचनात्मक प्रक्रिया अधिक तरल हो जाएगी।" },
+                        { rank: "व्यक्तिगत मॉडल", desc: "एआई जिसे आपकी व्यक्तिगत शैली पर ठीक किया जा सकता है ताकि लगातार ऐसी सामग्री उत्पन्न हो सके जो आपके सौंदर्य से मेल खाती हो।" },
+                        { rank: "आभासी दुनिया के साथ एकीकरण", desc: "एआर/वीआर और मेटावर्स अनुप्रयोगों के लिए सीधे विचार या भाषण से संपत्ति और वातावरण का निर्बाध निर्माण।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🎨 OpenAI DALL-E: The Ultimate Guide 🎨',
+                    'header-subtitle': 'Mastering the Art of AI Image Generation',
+                    'sec1-title': '1. What is OpenAI DALL-E? 💡',
+                    'sec1-p1': 'DALL-E is a series of AI models developed by OpenAI that create original, realistic images and art from a simple text description. It uses a deep learning process called diffusion to interpret natural language prompts and translate them into visual representations. From photorealistic images to paintings in the style of famous artists, DALL-E has revolutionized digital art, design, and creative expression, making it possible for anyone to become a visual creator.',
+                    'sec2-title': '2. How DALL-E Works 🎯',
+                    'sec2-p1': 'DALL-E works by associating text with images. It learns the relationship between words and visual concepts and then uses a \'diffusion\' process to generate a new image from a pattern of random dots.',
+                    'sec2-step1-title': 'Input', 'sec2-step1-name': 'Text Prompt', 'sec2-step1-desc': 'User provides a detailed description',
+                    'sec2-step2-title': 'DALL-E Model', 'sec2-step2-name': 'Diffusion Process', 'sec2-step2-desc': 'Model generates an image from noise',
+                    'sec2-step3-title': 'Output', 'sec2-step3-name': 'Generated Image', 'sec2-step3-desc': 'One or more unique images are created',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'OpenAI has made DALL-E accessible through various platforms, targeting everyone from casual users to professional developers.',
+                    'sec3-age-title': 'General Public:', 'sec3-age-desc': 'DALL-E is available for free through Microsoft Copilot (formerly Bing Image Creator) and within ChatGPT for Plus subscribers.',
+                    'sec3-edu-title': 'Developers & Businesses:', 'sec3-edu-desc': 'The DALL-E API allows developers to integrate powerful image generation capabilities directly into their own applications and services.',
+                    'sec3-attempts-title': 'Primary Platforms 📊',
+                    'sec3-agerelax-list': '<li><strong>ChatGPT Plus:</strong> The latest DALL-E 3 model is integrated, allowing for conversational image creation and refinement.</li><li><strong>DALL-E API:</strong> Provides programmatic access for building custom applications.</li><li><strong>Microsoft Copilot:</strong> Offers free access to DALL-E 3 for generating images.</li>',
+                    'sec4-title': '4. Core Capabilities 📚',
+                    'sec4-p1': 'Modern versions of DALL-E offer a suite of powerful features beyond simple image generation.',
+                    'gs1-title': 'Text-to-Image',
+                    'gs2-title': 'Inpainting',
+                    'gs3-title': 'Outpainting',
+                    'gs4-title': 'Variations',
+                    'sec5-title': '5. How is DALL-E Trained? 🏛️',
+                    'sec5-p1': 'DALL-E\'s ability to understand and visualize concepts comes from its training on a colossal dataset of text-image pairs scraped from the internet.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'Hundreds of millions of images and their corresponding text descriptions.', 'sec5-hindi-list': '<li>The model learns to associate words like "astronaut" or "avocado" with their visual characteristics.</li><li>It also learns styles, attributes, and relationships (e.g., "in the style of Van Gogh," "a cat wearing a hat").</li>',
+                    'sec5-essay-title': '2. The Diffusion Model', 'sec5-essay-p1': 'Learning to create order from chaos.', 'sec5-essay-list': '<li>The model is trained by taking clean images, progressively adding random noise until only static remains.</li><li>It then learns to reverse this process: starting with random noise and, guided by the text prompt, removing the noise step-by-step to "reveal" a new image.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'DALL-E is a transformative tool for creative professionals and businesses, enabling rapid ideation and content creation.',
+                    'sec6-eng-title': 'Art & Design', 'sec6-eng-list': '<li>Creating unique digital art and illustrations.</li><li>Generating mood boards and design concepts.</li><li>Visualizing architectural and product designs.</li>',
+                    'sec6-elec-title': 'Marketing & Advertising', 'sec6-elec-list': '<li>Creating custom images for social media posts.</li><li>Generating ad creatives and campaign visuals.</li><li>Prototyping brand logos and mascots.</li>',
+                    'sec6-naic-title': 'Entertainment & Education', 'sec6-naic-list': '<li>Creating storyboards for films and animations.</li><li>Designing characters for games and stories.</li><li>Illustrating concepts for educational materials.</li>',
+                    'sec7-title': '7. Performance & Evaluation 🎙️',
+                    'sec7-p1': 'Evaluating AI-generated images is complex. It involves both automated scores and human judgment on aspects like prompt adherence and aesthetic quality.',
+                    'sec7-qualities-title': 'Key Evaluation Metrics:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎯</span><div><strong class="text-white">Prompt Adherence:</strong> How well does the generated image match the user\'s text description?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎨</span><div><strong class="text-white">Aesthetic Quality:</strong> The artistic and visual appeal of the image. Is it well-composed and visually pleasing?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">📸</span><div><strong class="text-white">Photorealism:</strong> For realistic images, how closely does the output resemble a real photograph?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🤔</span><div><strong class="text-white">Coherence:</strong> Does the image make sense logically? Are objects and characters depicted correctly without strange artifacts?</div></li>',
+                    'sec8-title': '8. Prompt Engineering for Images 📈',
+                    'sec8-p1': 'The art of writing a good prompt is the single most important skill for getting high-quality results from DALL-E.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Be Highly Descriptive', 'sec8-step1-desc': 'Combine a clear subject with details about the environment, lighting, and mood. Use vivid adjectives.',
+                    'sec8-step2-title': 'Specify the Style', 'sec8-step2-desc': 'Mention the desired artistic style, e.g., "photorealistic," "in the style of Van Gogh," "digital art," "3D render," "anime."',
+                    'sec8-step3-title': 'Include Technical Details', 'sec8-step3-desc': 'Add details about camera angles, lens types, and lighting (e.g., "cinematic lighting," "wide-angle shot," "macro photography").',
+                    'sec8-revision-title': '🔄 Advanced Techniques:',
+                    'sec8-revision-list': '<li><strong>Iterate on Prompts:</strong> Start with a simple idea and progressively add more detail to refine the image.</li><li><strong>"Negative Prompting":</strong> While not a direct feature in DALL-E 3, you can try to steer it away from unwanted elements by specifying what not to include, though results may vary.</li><li><strong>Use ChatGPT for Prompts:</strong> Ask ChatGPT to act as a "prompt engineer" and generate detailed, creative prompts for you based on a simple idea.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'The DALL-E series has seen rapid evolution, with each version bringing significant improvements in quality, realism, and prompt understanding.',
+                    'sec9-step1-title': 'DALL-E 1', 'sec9-step1-desc': '<strong>Timeline:</strong> January 2021. The first model, which amazed the world by creating surreal and creative images like an "avocado armchair."',
+                    'sec9-step2-title': 'DALL-E 2', 'sec9-step2-desc': '<strong>Timeline:</strong> April 2022. A major leap in realism and resolution. It introduced powerful features like inpainting and outpainting.',
+                    'sec9-step3-title': 'DALL-E 3', 'sec9-step3-desc': '<strong>Timeline:</strong> September 2023. Another significant improvement, particularly in its ability to understand complex, detailed prompts and render text accurately. Natively integrated with ChatGPT.',
+                    'sec10-title': '10. Common Pitfalls & Limitations 🚫',
+                    'sec10-p1': 'While incredibly powerful, DALL-E still has limitations that users should be aware of.',
+                    'sec10-mistake1-title': 'Artifacts (Hands & Limbs):', 'sec10-mistake1-desc': 'AI models sometimes struggle with generating anatomically correct hands, feet, and limbs, leading to extra or missing fingers.',
+                    'sec10-mistake2-title': 'Rendering Text:', 'sec10-mistake2-desc': 'While DALL-E 3 is much better, accurately rendering specific text within an image can still be challenging and may result in gibberish.',
+                    'sec10-mistake3-title': 'Complex Spatial Relationships:', 'sec10-mistake3-desc': 'The model may struggle with very complex prompts describing precise spatial arrangements of multiple objects.',
+                    'sec10-mistake4-title': 'Copyright & Ethical Concerns:', 'sec10-mistake4-desc': 'Using prompts with copyrighted characters or in the style of living artists raises ethical questions. OpenAI has safety filters to prevent harmful generations.',
+                    'sec11-title': '11. How to Access & Use 🏫',
+                    'sec11-p1': 'Getting started with DALL-E is easy, with several official platforms available.',
+                    'sec11-gov-title': '📚 For General Users', 'sec11-gov-list': '<li>**ChatGPT Plus:** The most powerful and integrated experience. Simply start a conversation and ask for an image.</li><li>**Microsoft Copilot:** Provides free access to DALL-E 3 via its web and mobile apps.</li>',
+                    'sec11-pvt-title': '💻 For Developers', 'sec11-pvt-p1': 'Integrate DALL-E into your own applications.', 'sec11-pvt-list': '<li>**OpenAI API:** Use the DALL-E 3 model endpoint by getting an API key from the OpenAI developer platform.</li>',
+                    'sec12-title': '12. The Future: Video, 3D & Beyond 🚀',
+                    'sec12-p1': 'DALL-E is a stepping stone towards more advanced forms of generative media. The technology is rapidly evolving, with text-to-video models like OpenAI\'s Sora already demonstrating incredible potential. The future will likely bring real-time generation, 3D models from text, and seamless integration into virtual and augmented reality.',
+                    'sec12-career-btn': 'View Expected Advancements',
+                    'sec13-title': '13. Core AI Art Concepts 📚',
+                    'sec13-p1': 'Understanding these core concepts provides a deeper insight into the technology that makes DALL-E possible.',
+                    'syllabus-oir-title': 'Fundamental Models',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌀</span><div class="flex-grow">Diffusion Models</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔗</span><div class="flex-grow">CLIP (Contrastive Language–Image Pre-training)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Key Ideas',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌌</span><div class="flex-grow">Latent Space</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Embeddings</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Creating at the Speed of Thought.',
+                    'interviewChartData': {
+                        labels: ['Prompt Adherence', 'Aesthetics', 'Photorealism', 'Coherence'],
+                        data: [90, 85, 88, 80] // Example data for DALL-E 3
+                    }
+                },
+                'hi': {
+                    'header-title': '🎨 ओपनएआई डाल-ई: अंतिम गाइड 🎨',
+                    'header-subtitle': 'एआई छवि निर्माण की कला में महारत हासिल करना',
+                    'sec1-title': '1. ओपनएआई डाल-ई क्या है? 💡',
+                    'sec1-p1': 'डाल-ई ओपनएआई द्वारा विकसित एआई मॉडल की एक श्रृंखला है जो एक साधारण पाठ विवरण से मूल, यथार्थवादी छवियां और कला बनाती है। यह प्राकृतिक भाषा के संकेतों की व्याख्या करने और उन्हें दृश्य अभ्यावेदन में अनुवाद करने के लिए प्रसार नामक एक गहन शिक्षण प्रक्रिया का उपयोग करता है। यथार्थवादी छवियों से लेकर प्रसिद्ध कलाकारों की शैली में चित्रों तक, डाल-ई ने डिजिटल कला, डिजाइन और रचनात्मक अभिव्यक्ति में क्रांति ला दी है, जिससे किसी के लिए भी एक दृश्य निर्माता बनना संभव हो गया है।',
+                    'sec2-title': '2. डाल-ई कैसे काम करता है 🎯',
+                    'sec2-p1': 'डाल-ई पाठ को छवियों के साथ जोड़कर काम करता है। यह शब्दों और दृश्य अवधारणाओं के बीच संबंध सीखता है और फिर यादृच्छिक बिंदुओं के एक पैटर्न से एक नई छवि उत्पन्न करने के लिए एक \'प्रसार\' प्रक्रिया का उपयोग करता है।',
+                    'sec2-step1-title': 'इनपुट', 'sec2-step1-name': 'पाठ संकेत', 'sec2-step1-desc': 'उपयोगकर्ता एक विस्तृत विवरण प्रदान करता है',
+                    'sec2-step2-title': 'डाल-ई मॉडल', 'sec2-step2-name': 'प्रसार प्रक्रिया', 'sec2-step2-desc': 'मॉडल शोर से एक छवि उत्पन्न करता है',
+                    'sec2-step3-title': 'आउटपुट', 'sec2-step3-name': 'उत्पन्न छवि', 'sec2-step3-desc': 'एक या अधिक अनूठी छवियां बनाई जाती हैं',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'ओपनएआई ने डाल-ई को विभिन्न प्लेटफार्मों के माध्यम से सुलभ बनाया है, जो आकस्मिक उपयोगकर्ताओं से लेकर पेशेवर डेवलपर्स तक सभी को लक्षित करता है।',
+                    'sec3-age-title': 'आम जनता:', 'sec3-age-desc': 'डाल-ई माइक्रोसॉफ्ट कोपायलट (पूर्व में बिंग इमेज क्रिएटर) के माध्यम से मुफ्त में और प्लस ग्राहकों के लिए चैटजीपीटी के भीतर उपलब्ध है।',
+                    'sec3-edu-title': 'डेवलपर्स और व्यवसाय:', 'sec3-edu-desc': 'डाल-ई एपीआई डेवलपर्स को शक्तिशाली छवि निर्माण क्षमताओं को सीधे अपने स्वयं के अनुप्रयोगों और सेवाओं में एकीकृत करने की अनुमति देता है।',
+                    'sec3-attempts-title': 'प्राथमिक प्लेटफॉर्म 📊',
+                    'sec3-agerelax-list': '<li><strong>चैटजीपीटी प्लस:</strong> नवीनतम डाल-ई 3 मॉडल एकीकृत है, जो संवादी छवि निर्माण और शोधन की अनुमति देता है।</li><li><strong>डाल-ई एपीआई:</strong> कस्टम एप्लिकेशन बनाने के लिए प्रोग्रामेटिक एक्सेस प्रदान करता है।</li><li><strong>माइक्रोसॉफ्ट कोपायलट:</strong> छवियां बनाने के लिए डाल-ई 3 तक मुफ्त पहुंच प्रदान करता है।</li>',
+                    'sec4-title': '4. मुख्य क्षमताएं 📚',
+                    'sec4-p1': 'डाल-ई के आधुनिक संस्करण साधारण छवि निर्माण से परे शक्तिशाली सुविधाओं का एक सूट प्रदान करते हैं।',
+                    'gs1-title': 'टेक्स्ट-टू-इमेज',
+                    'gs2-title': 'इनपेंटिंग',
+                    'gs3-title': 'आउटपेंटिंग',
+                    'gs4-title': 'वेरिएशन',
+                    'sec5-title': '5. डाल-ई को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'अवधारणाओं को समझने और कल्पना करने की डाल-ई की क्षमता इंटरनेट से स्क्रैप किए गए टेक्स्ट-इमेज जोड़े के एक विशाल डेटासेट पर इसके प्रशिक्षण से आती है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': 'सैकड़ों लाखों छवियां और उनके संबंधित पाठ विवरण।', 'sec5-hindi-list': '<li>मॉडल "अंतरिक्ष यात्री" या "एवोकाडो" जैसे शब्दों को उनकी दृश्य विशेषताओं के साथ जोड़ना सीखता है।</li><li>यह शैलियों, विशेषताओं और संबंधों को भी सीखता है (जैसे, "वैन गॉग की शैली में," "एक टोपी पहने एक बिल्ली")।</li>',
+                    'sec5-essay-title': '2. प्रसार मॉडल', 'sec5-essay-p1': 'अराजकता से व्यवस्था बनाना सीखना।', 'sec5-essay-list': '<li>मॉडल को साफ छवियां लेकर प्रशिक्षित किया जाता है, धीरे-धीरे यादृच्छिक शोर जोड़कर जब तक कि केवल स्थैतिक न रह जाए।</li><li>यह तब इस प्रक्रिया को उलटना सीखता है: यादृच्छिक शोर से शुरू होकर और, पाठ संकेत द्वारा निर्देशित, एक नई छवि को "प्रकट" करने के लिए शोर को चरण-दर-चरण हटाकर।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'डाल-ई रचनात्मक पेशेवरों और व्यवसायों के लिए एक परिवर्तनकारी उपकरण है, जो तेजी से विचार और सामग्री निर्माण को सक्षम करता है।',
+                    'sec6-eng-title': 'कला और डिजाइन', 'sec6-eng-list': '<li>अद्वितीय डिजिटल कला और चित्र बनाना।</li><li>मूड बोर्ड और डिजाइन अवधारणाएं बनाना।</li><li>वास्तुशिल्प और उत्पाद डिजाइनों की कल्पना करना।</li>',
+                    'sec6-elec-title': 'विपणन और विज्ञापन', 'sec6-elec-list': '<li>सोशल मीडिया पोस्ट के लिए कस्टम छवियां बनाना।</li><li>विज्ञापन क्रिएटिव और अभियान दृश्य बनाना।</li><li>ब्रांड लोगो और शुभंकरों का प्रोटोटाइप बनाना।</li>',
+                    'sec6-naic-title': 'मनोरंजन और शिक्षा', 'sec6-naic-list': '<li>फिल्मों और एनिमेशन के लिए स्टोरीबोर्ड बनाना।</li><li>खेलों और कहानियों के लिए पात्रों को डिजाइन करना।</li><li>शैक्षिक सामग्री के लिए अवधारणाओं का चित्रण।</li>',
+                    'sec7-title': '7. प्रदर्शन और मूल्यांकन 🎙️',
+                    'sec7-p1': 'एआई-जनित छवियों का मूल्यांकन जटिल है। इसमें स्वचालित स्कोर और शीघ्र पालन और सौंदर्य गुणवत्ता जैसे पहलुओं पर मानव निर्णय दोनों शामिल हैं।',
+                    'sec7-qualities-title': 'मुख्य मूल्यांकन मेट्रिक्स:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎯</span><div><strong class="text-white">शीघ्र पालन:</strong> उत्पन्न छवि उपयोगकर्ता के पाठ विवरण से कितनी अच्छी तरह मेल खाती है?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🎨</span><div><strong class="text-white">सौंदर्य गुणवत्ता:</strong> छवि की कलात्मक और दृश्य अपील। क्या यह अच्छी तरह से रचित और देखने में मनभावन है?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">📸</span><div><strong class="text-white">फोटोरियलिज्म:</strong> यथार्थवादी छवियों के लिए, आउटपुट एक वास्तविक तस्वीर जैसा कितना दिखता है?</div></li><li class="flex items-start"><span class="text-2xl text-[#1e90ff] mr-3">🤔</span><div><strong class="text-white">सुसंगतता:</strong> क्या छवि तार्किक रूप से समझ में आती है? क्या वस्तुओं और पात्रों को अजीब कलाकृतियों के बिना सही ढंग से चित्रित किया गया है?</div></li>',
+                    'sec8-title': '8. छवियों के लिए प्रॉम्प्ट इंजीनियरिंग 📈',
+                    'sec8-p1': 'एक अच्छा प्रॉम्प्ट लिखने की कला डाल-ई से उच्च-गुणवत्ता वाले परिणाम प्राप्त करने के लिए एकमात्र सबसे महत्वपूर्ण कौशल है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'अत्यधिक वर्णनात्मक बनें', 'sec8-step1-desc': 'एक स्पष्ट विषय को पर्यावरण, प्रकाश व्यवस्था और मनोदशा के बारे में विवरण के साथ मिलाएं। ज्वलंत विशेषणों का प्रयोग करें।',
+                    'sec8-step2-title': 'शैली निर्दिष्ट करें', 'sec8-step2-desc': 'वांछित कलात्मक शैली का उल्लेख करें, जैसे, "फोटोरियलिस्टिक," "वैन गॉग की शैली में," "डिजिटल कला," "3 डी रेंडर," "एनीमे।"',
+                    'sec8-step3-title': 'तकनीकी विवरण शामिल करें', 'sec8-step3-desc': 'कैमरा कोण, लेंस प्रकार और प्रकाश व्यवस्था के बारे में विवरण जोड़ें (जैसे, "सिनेमाई प्रकाश," "वाइड-एंगल शॉट," "मैक्रो फोटोग्राफी")।',
+                    'sec8-revision-title': '🔄 उन्नत तकनीकें:',
+                    'sec8-revision-list': '<li><strong>प्रॉम्प्ट पर पुनरावृति करें:</strong> एक साधारण विचार से शुरू करें और छवि को परिष्कृत करने के लिए उत्तरोत्तर अधिक विवरण जोड़ें।</li><li><strong>"नकारात्मक प्रॉम्प्टिंग":</strong> जबकि डाल-ई 3 में एक सीधी सुविधा नहीं है, आप अवांछित तत्वों से दूर रहने के लिए यह निर्दिष्ट करके कोशिश कर सकते हैं कि क्या शामिल नहीं करना है, हालांकि परिणाम भिन्न हो सकते हैं।</li><li><strong>प्रॉम्प्ट के लिए चैटजीपीटी का उपयोग करें:</strong> चैटजीपीटी को एक "प्रॉम्प्ट इंजीनियर" के रूप में कार्य करने के लिए कहें और एक साधारण विचार के आधार पर आपके लिए विस्तृत, रचनात्मक प्रॉम्प्ट उत्पन्न करें।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'डाल-ई श्रृंखला ने तेजी से विकास देखा है, जिसमें प्रत्येक संस्करण गुणवत्ता, यथार्थवाद और शीघ्र समझ में महत्वपूर्ण सुधार लाता है।',
+                    'sec9-step1-title': 'डाल-ई 1', 'sec9-step1-desc': '<strong>समयरेखा:</strong> जनवरी 2021। पहला मॉडल, जिसने "एवोकाडो आर्मचेयर" जैसी असली और रचनात्मक छवियां बनाकर दुनिया को चकित कर दिया।',
+                    'sec9-step2-title': 'डाल-ई 2', 'sec9-step2-desc': '<strong>समयरेखा:</strong> अप्रैल 2022। यथार्थवाद और संकल्प में एक बड़ी छलांग। इसने इनपेंटिंग और आउटपेंटिंग जैसी शक्तिशाली सुविधाओं को पेश किया।',
+                    'sec9-step3-title': 'डाल-ई 3', 'sec9-step3-desc': '<strong>समयरेखा:</strong> सितंबर 2023। एक और महत्वपूर्ण सुधार, विशेष रूप से जटिल, विस्तृत संकेतों को समझने और पाठ को सटीक रूप से प्रस्तुत करने की क्षमता में। मूल रूप से चैटजीपीटी के साथ एकीकृत।',
+                    'sec10-title': '10. सामान्य नुकसान और सीमाएं 🚫',
+                    'sec10-p1': 'अविश्वसनीय रूप से शक्तिशाली होते हुए भी, डाल-ई में अभी भी सीमाएँ हैं जिनसे उपयोगकर्ताओं को अवगत होना चाहिए।',
+                    'sec10-mistake1-title': 'कलाकृतियाँ (हाथ और अंग):', 'sec10-mistake1-desc': 'एआई मॉडल कभी-कभी शारीरिक रूप से सही हाथ, पैर और अंग उत्पन्न करने के लिए संघर्ष करते हैं, जिससे अतिरिक्त या लापता उंगलियां होती हैं।',
+                    'sec10-mistake2-title': 'पाठ प्रस्तुत करना:', 'sec10-mistake2-desc': 'हालांकि डाल-ई 3 बहुत बेहतर है, एक छवि के भीतर विशिष्ट पाठ को सटीक रूप से प्रस्तुत करना अभी भी चुनौतीपूर्ण हो सकता है और इसके परिणामस्वरूप अस्पष्ट पाठ हो सकता है।',
+                    'sec10-mistake3-title': 'जटिल स्थानिक संबंध:', 'sec10-mistake3-desc': 'मॉडल कई वस्तुओं की सटीक स्थानिक व्यवस्था का वर्णन करने वाले बहुत जटिल संकेतों के साथ संघर्ष कर सकता है।',
+                    'sec10-mistake4-title': 'कॉपीराइट और नैतिक चिंताएं:', 'sec10-mistake4-desc': 'कॉपीराइट किए गए पात्रों या जीवित कलाकारों की शैली में संकेतों का उपयोग करने से नैतिक प्रश्न उठते हैं। ओपनएआई के पास हानिकारक पीढ़ियों को रोकने के लिए सुरक्षा फिल्टर हैं।',
+                    'sec11-title': '11. कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'डाल-ई के साथ शुरुआत करना आसान है, कई आधिकारिक प्लेटफॉर्म उपलब्ध हैं।',
+                    'sec11-gov-title': '📚 सामान्य उपयोगकर्ताओं के लिए', 'sec11-gov-list': '<li>**चैटजीपीटी प्लस:** सबसे शक्तिशाली और एकीकृत अनुभव। बस एक बातचीत शुरू करें और एक छवि के लिए पूछें।</li><li>**माइक्रोसॉफ्ट कोपायलट:** अपने वेब और मोबाइल ऐप्स के माध्यम से डाल-ई 3 तक मुफ्त पहुंच प्रदान करता है।</li>',
+                    'sec11-pvt-title': '💻 डेवलपर्स के लिए', 'sec11-pvt-p1': 'डाल-ई को अपने स्वयं के अनुप्रयोगों में एकीकृत करें।', 'sec11-pvt-list': '<li>**ओपनएआई एपीआई:** ओपनएआई डेवलपर प्लेटफॉर्म से एक एपीआई कुंजी प्राप्त करके डाल-ई 3 मॉडल एंडपॉइंट का उपयोग करें।</li>',
+                    'sec12-title': '12. भविष्य: वीडियो, 3डी और परे 🚀',
+                    'sec12-p1': 'डाल-ई जनरेटिव मीडिया के अधिक उन्नत रूपों की ओर एक कदम है। प्रौद्योगिकी तेजी से विकसित हो रही है, ओपनएआई के सोरा जैसे टेक्स्ट-टू-वीडियो मॉडल पहले से ही अविश्वसनीय क्षमता का प्रदर्शन कर रहे हैं। भविष्य में संभवतः वास्तविक समय की पीढ़ी, पाठ से 3डी मॉडल और आभासी और संवर्धित वास्तविकता में निर्बाध एकीकरण होगा।',
+                    'sec12-career-btn': 'अपेक्षित प्रगति देखें',
+                    'sec13-title': '13. मुख्य एआई कला अवधारणाएं 📚',
+                    'sec13-p1': 'इन मुख्य अवधारणाओं को समझने से उस तकनीक में गहरी अंतर्दृष्टि मिलती है जो डाल-ई को संभव बनाती है।',
+                    'syllabus-oir-title': 'मौलिक मॉडल',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌀</span><div class="flex-grow">डिफ्यूजन मॉडल</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🔗</span><div class="flex-grow">क्लिप (कंट्रास्टिव लैंग्वेज-इमेज प्री-ट्रेनिंग)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'मुख्य विचार',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌌</span><div class="flex-grow">अव्यक्त स्थान</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">एम्बेडिंग</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | विचार की गति से बनाना।',
+                    'interviewChartData': {
+                        labels: ['शीघ्र पालन', 'सौंदर्यशास्त्र', 'फोटोरियलिज्म', 'सुसंगतता'],
+                        data: [90, 85, 88, 80]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Evaluation Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(255, 127, 80, 0.7)',
+                            borderColor: '#ff7f50',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e0e0' },
+                                grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e0e0', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 224, 224, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
