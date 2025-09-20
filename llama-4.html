@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Llama 4: The Ultimate Guide</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to Meta's next-generation Llama 4 models. Understand its advanced agency, multimodal reasoning, and its potential as a step towards open-source AGI.">
+    <meta name="keywords" content="Meta, Llama 4, Open Source AI, Large Language Models, AI, Artificial Intelligence, Multimodal AI, Generative AI, AI Agents, AGI">
+    <meta name="author" content="AI Tools Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #100c2a; /* Deep Space Blue */
+            color: #e8e4f5; /* Light Lavender */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #a855f7, #22d3ee) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(16, 12, 42, 0.8); /* Dark Blue Transparent */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #3c3a5e; /* Medium Purple/Blue */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #a855f7; /* Cosmic Purple */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #a855f7; /* Cosmic Purple */
+            color: #a855f7;
+            background: #231f4a; /* Darker Purple */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            text-shadow: 0 0 5px rgba(168, 85, 247, 0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+        }
+        .flowchart-arrow {
+            color: #22d3ee; /* Electric Cyan */
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #22d3ee;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+        }
+        .subject-item:hover {
+            background-color: rgba(34, 211, 238, 0.1);
+        }
+        .subject-item .icon {
+            color: #22d3ee;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #a855f7;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #100c2a;
+            border: 4px solid #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(16, 12, 42, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #231f4a;
+            color: #e8e4f5;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #3c3a5e;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #a5b4fc; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #a855f7, #9333ea);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #a855f7;
+            color: #a855f7;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+            box-shadow: 0 0 15px #a855f7;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #22d3ee, #0ea5e9);
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.2);
+        }
+        .lectures-btn {
+            background-color: #3c3a5e; 
+            color: #e8e4f5; 
+            border-color: #4f46e5; 
+        }
+        .lectures-btn:hover {
+            background-color: #4f46e5;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">🦙 Meta's Llama 4: The Ultimate Guide 🦙</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400">The Dawn of Open Source AGI</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is Llama 4? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#231f4a] via-[#100c2a] to-[#100c2a]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is Meta's Llama 4? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">Llama 4 is the hypothetical next major iteration of Meta's open-source large language model family, representing a monumental step towards Artificial General Intelligence (AGI). It builds upon the multimodal foundations of its predecessors to introduce **true agentic capabilities**, allowing it to not only understand complex tasks but also to autonomously plan, execute, and learn from them. With a vastly expanded parameter count and a groundbreaking architecture, Llama 4 is designed to be the most capable open-source AI ever created, pushing the boundaries of what's possible for developers, researchers, and creators.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: How It Works -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. The Technology Behind Llama 4 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">Llama 4 features a novel "Cognitive Architecture" that enables it to reason, plan, and interact with tools and environments in a sophisticated, multi-step manner.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Understanding</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-gray-400">Multimodal perception of the user's goal</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Planning</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-gray-400">Model creates a step-by-step action plan</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Execution</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-gray-400">Uses tools and self-corrects to achieve the goal</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Access & Availability -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Use It? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">In line with its open approach, Meta will make Llama 4 widely accessible, with a strong focus on enabling safe and responsible innovation.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#a855f7] mr-4">🌐</span><div><strong id="sec3-age-title" class="text-white text-lg">Open Source Community:</strong> <span id="sec3-age-desc">The smaller and mid-size models (10B, 90B) will be freely available for research and commercial use under a permissive license.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#a855f7] mr-4">🏢</span><div><strong id="sec3-edu-title" class="text-white text-lg">Enterprise & Cloud:</strong> <span id="sec3-edu-desc">The largest, most powerful model (500B+) will be available via a partnership model and on major cloud platforms for enterprise-grade applications.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#22d3ee] pb-2">Responsible Access 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>Access to the largest models may require an application process to ensure adherence to responsible AI practices.</li>
+                             <li>Meta will release advanced safety tools, like Llama Guard 3, to help developers build secure applications.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Core Capabilities -->
+            <section class="card bg-black/20">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Next-Generation Capabilities 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Llama 4 moves beyond simple input-output generation to become a proactive, reasoning, and action-taking partner.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#231f4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">Advanced Agency</h3>
+                        <p class="text-sm">Autonomously plans and executes multi-step tasks using a variety of tools.</p>
+                    </div>
+                     <div class="bg-[#231f4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Real-time Multimodality</h3>
+                         <p class="text-sm">Processes and reasons across a live stream of text, audio, and video data simultaneously.</p>
+                    </div>
+                    <div class="bg-[#231f4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Personalization</h3>
+                         <p class="text-sm">Ability to learn from interactions and safely adapt to a user's specific context and preferences.</p>
+                    </div>
+                    <div class="bg-[#231f4a]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-slate-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-purple-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">Self-Correction</h3>
+                         <p class="text-sm">Advanced capabilities to self-critique its own reasoning and correct its plan of action to achieve a goal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Data -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. How is Llama 4 Trained? 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">Llama 4 is trained on a synthetic and real-world dataset of unprecedented scale, using advanced techniques to teach it complex behaviors.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#231f4a] rounded-xl border-2 border-[#a855f7]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. The Dataset</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A dataset of over 50 trillion tokens.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Includes a massive amount of high-quality, multilingual data across all modalities.</li>
+                            <li>A significant portion is high-quality synthetic data generated by previous models to teach complex reasoning and planning.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#231f4a] rounded-xl border-2 border-[#22d3ee]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. The Alignment Process</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Focus on aligning agentic behavior.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Goes beyond simple RLHF and RLAIF.</li>
+                           <li>Trained in simulated environments to learn complex planning and tool use through trial and error (Reinforcement Learning).</li>
+                           <li>Extensive Constitutional AI principles are applied to ensure safe and ethical autonomous operation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Applications -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Applications & Use Cases 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Llama 4's agentic capabilities unlock applications that were previously science fiction, moving from content generation to task automation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Autonomous Agents</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Fully automated customer service and support systems.</li>
+                           <li>AI software engineers that can build, test, and deploy code.</li>
+                           <li>Personal AI assistants that can manage your entire digital life.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Scientific Research</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>AI research assistants that can analyze datasets and formulate hypotheses.</li>
+                           <li>Accelerating drug discovery and materials science.</li>
+                           <li>Simulating complex systems in physics and biology.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Creative Collaboration</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>AI film directors that can generate entire scenes based on a script.</li>
+                           <li>Interactive storytelling and dynamic game creation.</li>
+                           <li>Hyper-personalized educational tutors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Performance Benchmarks -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Performance & Benchmarks 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Llama 4 is evaluated on a new suite of benchmarks designed to test agentic capabilities and complex, multi-step reasoning, surpassing all prior models.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#a855f7] pb-2">Key Benchmarks:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🤖</span><div><strong class="text-white">AgentBench:</strong> Measures the model's ability to act as a functional agent in real-world computer environments.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🧠</span><div><strong class="text-white">GPQA & MMLU:</strong> Demonstrates near-perfect scores on benchmarks for graduate-level reasoning and expert knowledge.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🎬</span><div><strong class="text-white">Multimodal Understanding:</strong> Evaluated on its ability to understand and reason about long, complex videos and audio streams.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Prompt Engineering -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Prompting Llama 4: From Instruction to Intent 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">Prompting Llama 4 is less about giving step-by-step instructions and more about clearly defining a high-level goal or intent.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Principles:</h3>
+                        <ol class="relative border-l-4 border-[#a855f7] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#a855f7] rounded-full -left-2.5 border-4 border-[#231f4a]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Define the Goal</h4>
+                                <p id="sec8-step1-desc" class="text-base">Clearly state the final outcome you want to achieve (e.g., "Plan a 5-day trip to Tokyo for a family of four on a budget of $2000").</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#a855f7] rounded-full -left-2.5 border-4 border-[#231f4a]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Provide Constraints & Tools</h4>
+                                <p id="sec8-step2-desc" class="text-base">Specify the constraints (budget, dates) and grant the model access to the necessary tools (e.g., flight search API, hotel booking API).</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 The Interaction Model:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Clarification:</strong> The model may ask clarifying questions to better understand the goal.</li>
+                            <li><strong>Plan Presentation:</strong> It will present a step-by-step plan for your approval.</li>
+                            <li><strong>Execution with Oversight:</strong> Upon approval, it will execute the plan, providing updates and asking for confirmation at critical steps.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Model Evolution -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Model Evolution 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Llama 4 represents the culmination of Meta's open approach, building on the success of its predecessors to push the boundaries of AI.</p>
+                <div class="career-path-timeline">
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Llama 3 Release</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> April 2024. Set a new standard for open-source models, outperforming many proprietary competitors.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Llama 4 Release</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Q2 2026 (Hypothetical). Introduces true agency and advanced multimodality, marking a key milestone on the path to open-source AGI.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Limitations & The AGI Question 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">While Llama 4 is a massive leap forward, it is not AGI. The model still has limitations and raises new, complex safety considerations.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Lack of Consciousness:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Llama 4 is a highly advanced pattern-matching and prediction engine. It does not possess consciousness, self-awareness, or true understanding.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Complex Physical Interaction:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">While it can control robots, its understanding of nuanced, real-world physics and social cues is still limited.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">Agentic Safety:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Ensuring that autonomous agents always act safely and as intended is a massive and ongoing research challenge.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Resource Requirements:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">The largest Llama 4 model requires data center-scale computational power to run effectively.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: How to Access -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. How to Access & Use Llama 4 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Meta will continue its open approach, providing access through multiple channels.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 For Developers & Researchers</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Direct Download:** Smaller models (10B, 90B) will be available from the Meta AI website for local use.</li>
+                           <li>**Hugging Face:** Integration with popular platforms for easy experimentation.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 For Enterprise & Production</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Use managed services for reliability and scale.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>**Cloud Providers:** The full family of models, including the 500B+ version, will be available on AWS, Google Cloud, and Azure.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: The Future -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. The Future: Open-Source AGI 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">Llama 4 represents Meta's commitment to an open path towards AGI. By making such powerful models widely available, Meta aims to accelerate innovation, ensure broad access to the benefits of AI, and foster a global community dedicated to building safe and responsible artificial general intelligence.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Key Differentiators</button>
+            </section>
+
+            <!-- Section 13: Core Concepts -->
+            <section class="card bg-black/20">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Core AI Concepts 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Understanding these advanced concepts is key to grasping the leap forward that Llama 4 represents.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">AI Agents</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1a2a24] p-6 rounded-lg shadow-lg border border-stone-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Advanced Architectures</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | Building the future of AI, openly.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: Understanding</h3>
+            <p id="prelims-modal-p1">The process begins with the model using its advanced multimodal capabilities to understand the user's high-level goal. It can parse text, analyze uploaded images or documents, and even process video to build a comprehensive context of the task.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Planning</h3>
+            <p id="mains-modal-p1">Using its internal reasoning engine, Llama 4 breaks down the high-level goal into a logical sequence of smaller, executable steps. It identifies which tools or APIs are needed for each step and formulates a plan of action, which it can present to the user for approval.</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Execution</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">Llama 4 begins to execute the plan step-by-step. It calls the necessary tools, processes their outputs, and uses the results to inform the next step. It can self-correct if a step fails and will provide a final summary or result to the user once the entire task is complete.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Key Differentiators of Llama 4</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    's': { 
+                        name: 'Llama 4 10B', 
+                        icon: '⚡',
+                        description: 'A lightning-fast, highly efficient on-device model for real-time mobile applications and smart assistants.',
+                        cta: 'Learn More'
+                    },
+                    'm': { 
+                        name: 'Llama 4 90B', 
+                        icon: '🧠',
+                        description: 'The optimal balance of cutting-edge performance and efficiency, designed for the vast majority of enterprise and developer use cases.',
+                        cta: 'Learn More'
+                    },
+                    'l': { 
+                        name: 'Llama 4 500B+', 
+                        icon: '🏆',
+                        description: 'The flagship model, a state-of-the-art foundation for the most complex AI challenges, pushing the boundaries of what is possible with open-source AGI research.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    's': { 
+                        name: 'लामा 4 10B', 
+                        icon: '⚡',
+                        description: 'वास्तविक समय के मोबाइल अनुप्रयोगों और स्मार्ट सहायकों के लिए एक अत्यधिक कुशल और तेज़, ऑन-डिवाइस मॉडल।',
+                        cta: 'और जानें'
+                    },
+                    'm': { 
+                        name: 'लामा 4 90B', 
+                        icon: '🧠',
+                        description: 'संतुलित मॉडल, जो उद्यम और डेवलपर उपयोग के मामलों की एक विस्तृत श्रृंखला के लिए प्रदर्शन और दक्षता का एक बड़ा संयोजन प्रदान करता है।',
+                        cta: 'और जानें'
+                    },
+                    'l': { 
+                        name: 'लामा 4 500B+', 
+                        icon: '🏆',
+                        description: 'प्रमुख, अत्याधुनिक मॉडल जो सबसे जटिल एआई चुनौतियों के लिए डिज़ाइन किया गया है, जो ओपन-सोर्स एजीआई अनुसंधान के साथ क्या संभव है, उसकी सीमाओं को आगे बढ़ाता है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "True Agency", desc: "Unlike previous models that only generate output, Llama 4 can plan and execute multi-step tasks autonomously using tools." },
+                        { rank: "Natively Multimodal", desc: "Built from the ground up to seamlessly reason across text, images, audio, and video, providing a deeper understanding of the world." },
+                        { rank: "Open-Source Leadership", desc: "Aims to be the most powerful open model ever released, closing the gap with top proprietary systems and fostering global innovation." },
+                        { rank: "Advanced Safety", desc: "Incorporates next-generation safety protocols and alignment techniques to ensure that its powerful agentic capabilities are used responsibly." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "सच्ची एजेंसी", desc: "पिछले मॉडलों के विपरीत जो केवल आउटपुट उत्पन्न करते हैं, लामा 4 उपकरणों का उपयोग करके बहु-चरणीय कार्यों की स्वायत्त रूप से योजना और निष्पादन कर सकता है।" },
+                        { rank: "मूल रूप से मल्टीमॉडल", desc: "पाठ, छवियों, ऑडियो और वीडियो में सहजता से तर्क करने के लिए शुरू से बनाया गया है, जो दुनिया की गहरी समझ प्रदान करता है।" },
+                        { rank: "ओपन-सोर्स नेतृत्व", desc: "अब तक का सबसे शक्तिशाली खुला मॉडल बनने का लक्ष्य, शीर्ष मालिकाना प्रणालियों के साथ अंतर को कम करना और वैश्विक नवाचार को बढ़ावा देना।" },
+                        { rank: "उन्नत सुरक्षा", desc: "यह सुनिश्चित करने के लिए कि इसकी शक्तिशाली एजेंटिक क्षमताओं का जिम्मेदारी से उपयोग किया जाता है, अगली पीढ़ी के सुरक्षा प्रोटोकॉल और संरेखण तकनीकों को शामिल करता है।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🦙 Meta\'s Llama 4: The Ultimate Guide 🦙',
+                    'header-subtitle': 'The Dawn of Open Source AGI',
+                    'sec1-title': '1. What is Meta\'s Llama 4? 💡',
+                    'sec1-p1': 'Llama 4 is the hypothetical next major iteration of Meta\'s open-source large language model family, representing a monumental step towards Artificial General Intelligence (AGI). It builds upon the multimodal foundations of its predecessors to introduce **true agentic capabilities**, allowing it to not only understand complex tasks but also to autonomously plan, execute, and learn from them. With a vastly expanded parameter count and a groundbreaking architecture, Llama 4 is designed to be the most capable open-source AI ever created, pushing the boundaries of what\'s possible for developers, researchers, and creators.',
+                    'sec2-title': '2. The Technology Behind Llama 4 🎯',
+                    'sec2-p1': 'Llama 4 features a novel "Cognitive Architecture" that enables it to reason, plan, and interact with tools and environments in a sophisticated, multi-step manner.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Understanding', 'sec2-step1-desc': 'Multimodal perception of the user\'s goal',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Planning', 'sec2-step2-desc': 'Model creates a step-by-step action plan',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Execution', 'sec2-step3-desc': 'Uses tools and self-corrects to achieve the goal',
+                    'sec3-title': '3. Who Can Use It? ✅',
+                    'sec3-p1': 'In line with its open approach, Meta will make Llama 4 widely accessible, with a strong focus on enabling safe and responsible innovation.',
+                    'sec3-age-title': 'Open Source Community:', 'sec3-age-desc': 'The smaller and mid-size models (10B, 90B) will be freely available for research and commercial use under a permissive license.',
+                    'sec3-edu-title': 'Enterprise & Cloud:', 'sec3-edu-desc': 'The largest, most powerful model (500B+) will be available via a partnership model and on major cloud platforms for enterprise-grade applications.',
+                    'sec3-attempts-title': 'Responsible Access 📊',
+                    'sec3-agerelax-list': '<li>Access to the largest models may require an application process to ensure adherence to responsible AI practices.</li><li>Meta will release advanced safety tools, like Llama Guard 3, to help developers build secure applications.</li>',
+                    'sec4-title': '4. Next-Generation Capabilities 📚',
+                    'sec4-p1': 'Llama 4 moves beyond passive generation to become a proactive, reasoning, and action-taking partner.',
+                    'gs1-title': 'Advanced Agency',
+                    'gs2-title': 'Real-time Multimodality',
+                    'gs3-title': 'Personalization',
+                    'gs4-title': 'Self-Correction',
+                    'sec5-title': '5. How is Llama 4 Trained? 🏛️',
+                    'sec5-p1': 'Llama 4 is trained on a synthetic and real-world dataset of unprecedented scale, using advanced techniques to teach it complex behaviors.',
+                    'sec5-hindi-title': '1. The Dataset', 'sec5-hindi-p1': 'A dataset of over 50 trillion tokens.', 'sec5-hindi-list': '<li>Includes a massive amount of high-quality, multilingual data across all modalities.</li><li>A significant portion is high-quality synthetic data generated by previous models to teach complex reasoning and planning.</li>',
+                    'sec5-essay-title': '2. The Alignment Process', 'sec5-essay-p1': 'Focus on aligning agentic behavior.', 'sec5-essay-list': '<li>Goes beyond simple RLHF and RLAIF.</li><li>Trained in simulated environments to learn complex planning and tool use through trial and error (Reinforcement Learning).</li><li>Extensive Constitutional AI principles are applied to ensure safe and ethical autonomous operation.</li>',
+                    'sec6-title': '6. Key Applications & Use Cases 🌟',
+                    'sec6-p1': 'Llama 4\'s agentic capabilities unlock applications that were previously science fiction, moving from content generation to task automation.',
+                    'sec6-eng-title': 'Autonomous Agents', 'sec6-eng-list': '<li>Fully automated customer service and support systems.</li><li>AI software engineers that can build, test, and deploy code.</li><li>Personal AI assistants that can manage your entire digital life.</li>',
+                    'sec6-elec-title': 'Scientific Research', 'sec6-elec-list': '<li>AI research assistants that can analyze datasets and formulate hypotheses.</li><li>Accelerating drug discovery and materials science.</li><li>Simulating complex systems in physics and biology.</li>',
+                    'sec6-naic-title': 'Creative Collaboration', 'sec6-naic-list': '<li>AI film directors that can generate entire scenes based on a script.</li><li>Interactive storytelling and dynamic game creation.</li><li>Hyper-personalized educational tutors.</li>',
+                    'sec7-title': '7. Performance & Benchmarks 🎙️',
+                    'sec7-p1': 'Llama 4 is evaluated on a new suite of benchmarks designed to test agentic capabilities and complex, multi-step reasoning, surpassing all prior models.',
+                    'sec7-qualities-title': 'Key Benchmarks:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🤖</span><div><strong class="text-white">AgentBench:</strong> Measures the model\'s ability to act as a functional agent in real-world computer environments.</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🧠</span><div><strong class="text-white">GPQA & MMLU:</strong> Demonstrates near-perfect scores on benchmarks for graduate-level reasoning and expert knowledge.</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🎬</span><div><strong class="text-white">Multimodal Understanding:</strong> Evaluated on its ability to understand and reason about long, complex videos and audio streams.</div></li>',
+                    'sec8-title': '8. Prompting Llama 4: From Instruction to Intent 📈',
+                    'sec8-p1': 'Prompting Llama 4 is less about giving step-by-step instructions and more about clearly defining a high-level goal or intent.',
+                    'sec8-steps-title': '📚 Key Principles:',
+                    'sec8-step1-title': 'Define the Goal', 'sec8-step1-desc': 'Clearly state the final outcome you want to achieve (e.g., "Plan a 5-day trip to Tokyo for a family of four on a budget of $2000").',
+                    'sec8-step2-title': 'Provide Constraints & Tools', 'sec8-step2-desc': 'Specify the constraints (budget, dates) and grant the model access to the necessary tools (e.g., flight search API, hotel booking API).',
+                    'sec8-revision-title': '🔄 The Interaction Model:',
+                    'sec8-revision-list': '<li><strong>Clarification:</strong> The model may ask clarifying questions to better understand the goal.</li><li><strong>Plan Presentation:</strong> It will present a step-by-step plan for your approval.</li><li><strong>Execution with Oversight:</strong> Upon approval, it will execute the plan, providing updates and asking for confirmation at critical steps.</li>',
+                    'sec9-title': '9. Model Evolution 🗓️',
+                    'sec9-p1': 'Llama 4 represents the culmination of Meta\'s open approach, building on the success of its predecessors to push the boundaries of AI.',
+                    'sec9-step3-title': 'Llama 3 Release', 'sec9-step3-desc': '<strong>Timeline:</strong> April 2024. Set a new standard for open-source models, outperforming many proprietary competitors.',
+                    'sec9-step4-title': 'Llama 4 Release', 'sec9-step4-desc': '<strong>Timeline:</strong> Q2 2026 (Hypothetical). Introduces true agency and advanced multimodality, marking a key milestone on the path to open-source AGI.',
+                    'sec10-title': '10. Limitations & The AGI Question 🚫',
+                    'sec10-p1': 'While Llama 4 is a massive leap forward, it is not AGI. The model still has limitations and raises new, complex safety considerations.',
+                    'sec10-mistake1-title': 'Lack of Consciousness:', 'sec10-mistake1-desc': 'Llama 4 is a highly advanced pattern-matching and prediction engine. It does not possess consciousness, self-awareness, or true understanding.',
+                    'sec10-mistake2-title': 'Complex Physical Interaction:', 'sec10-mistake2-desc': 'While it can control robots, its understanding of nuanced, real-world physics and social cues is still limited.',
+                    'sec10-mistake3-title': 'Agentic Safety:', 'sec10-mistake3-desc': 'Ensuring that autonomous agents always act safely and as intended is a massive and ongoing research challenge.',
+                    'sec10-mistake4-title': 'Resource Requirements:', 'sec10-mistake4-desc': 'The largest Llama 4 model requires data center-scale computational power to run effectively.',
+                    'sec11-title': '11. How to Access & Use Llama 4 🏫',
+                    'sec11-p1': 'Meta will continue its open approach, providing access through multiple channels.',
+                    'sec11-gov-title': '📚 For Developers & Researchers', 'sec11-gov-list': '<li>**Direct Download:** Smaller models (10B, 90B) will be available from the Meta AI website for local use.</li><li>**Hugging Face:** Integration with popular platforms for easy experimentation.</li>',
+                    'sec11-pvt-title': '💻 For Enterprise & Production', 'sec11-pvt-p1': 'Use managed services for reliability and scale.', 'sec11-pvt-list': '<li>**Cloud Providers:** The full family of models, including the 500B+ version, will be available on AWS, Google Cloud, and Azure.</li>',
+                    'sec12-title': '12. The Future: Open-Source AGI 🚀',
+                    'sec12-p1': 'Llama 4 represents Meta\'s commitment to an open path towards AGI. By making such powerful models widely available, Meta aims to accelerate innovation, ensure broad access to the benefits of AI, and foster a global community dedicated to building safe and responsible artificial general intelligence.',
+                    'sec12-career-btn': 'View Key Differentiators',
+                    'sec13-title': '13. Core AI Concepts 📚',
+                    'sec13-p1': 'Understanding these advanced concepts is key to grasping the leap forward that Llama 4 represents.',
+                    'syllabus-oir-title': 'AI Agents',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">Autonomous Systems</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Advanced Architectures',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏗️</span><div class="flex-grow">Cognitive Architectures</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Building the future of AI, openly.',
+                    'interviewChartData': {
+                        labels: ['AgentBench', 'GPQA', 'MMLU', 'HumanEval'],
+                        data: [85, 94, 98, 92] // Hypothetical Llama 4 scores
+                    }
+                },
+                'hi': {
+                    'header-title': '🦙 मेटा का लामा 4: अंतिम गाइड 🦙',
+                    'header-subtitle': 'ओपन सोर्स एजीआई का उदय',
+                    'sec1-title': '1. मेटा का लामा 4 क्या है? 💡',
+                    'sec1-p1': 'लामा 4 मेटा के ओपन-सोर्स बड़े भाषा मॉडल परिवार का अगला प्रमुख पुनरावृत्ति है, जो आर्टिफिशियल जनरल इंटेलिजेंस (एजीआई) की दिशा में एक स्मारकीय कदम का प्रतिनिधित्व करता है। यह अपने पूर्ववर्तियों की मल्टीमॉडल नींव पर आधारित है ताकि **सच्ची एजेंटिक क्षमताओं** को पेश किया जा सके, जिससे यह न केवल जटिल कार्यों को समझ सके, बल्कि स्वायत्त रूप से योजना बना सके, निष्पादित कर सके और उनसे सीख सके। एक बहुत विस्तारित पैरामीटर गिनती और एक अभूतपूर्व वास्तुकला के साथ, लामा 4 को अब तक का सबसे सक्षम ओपन-सोर्स एआई बनाया गया है, जो डेवलपर्स, शोधकर्ताओं और रचनाकारों के लिए जो संभव है उसकी सीमाओं को आगे बढ़ाता है।',
+                    'sec2-title': '2. लामा 4 के पीछे की तकनीक 🎯',
+                    'sec2-p1': 'लामा 4 में एक उपन्यास "संज्ञानात्मक वास्तुकला" है जो इसे एक परिष्कृत, बहु-चरणीय तरीके से उपकरणों और वातावरणों के साथ तर्क करने, योजना बनाने और बातचीत करने में सक्षम बनाता है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'समझ', 'sec2-step1-desc': 'उपयोगकर्ता के लक्ष्य की मल्टीमॉडल धारणा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'योजना', 'sec2-step2-desc': 'मॉडल एक चरण-दर-चरण कार्य योजना बनाता है',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'निष्पादन', 'sec2-step3-desc': 'लक्ष्य प्राप्त करने के लिए उपकरणों का उपयोग करता है और स्वयं को सही करता है',
+                    'sec3-title': '3. इसका उपयोग कौन कर सकता है? ✅',
+                    'sec3-p1': 'अपने खुले दृष्टिकोण के अनुरूप, मेटा का लक्ष्य सुरक्षित और जिम्मेदार नवाचार को सक्षम करने पर एक मजबूत ध्यान देने के साथ, लामा 4 को व्यापक रूप से सुलभ बनाना है।',
+                    'sec3-age-title': 'ओपन सोर्स समुदाय:', 'sec3-age-desc': 'छोटे और मध्यम आकार के मॉडल (10B, 90B) एक अनुज्ञेय लाइसेंस के तहत अनुसंधान और वाणिज्यिक उपयोग के लिए स्वतंत्र रूप से उपलब्ध होंगे।',
+                    'sec3-edu-title': 'उद्यम और क्लाउड:', 'sec3-edu-desc': 'सबसे बड़ा, सबसे शक्तिशाली मॉडल (500B+) एक साझेदारी मॉडल के माध्यम से और उद्यम-ग्रेड अनुप्रयोगों के लिए प्रमुख क्लाउड प्लेटफार्मों पर उपलब्ध होगा।',
+                    'sec3-attempts-title': 'जिम्मेदार पहुंच 📊',
+                    'sec3-agerelax-list': '<li>सबसे बड़े मॉडलों तक पहुंच के लिए जिम्मेदार एआई प्रथाओं का पालन सुनिश्चित करने के लिए एक आवेदन प्रक्रिया की आवश्यकता हो सकती है।</li><li>मेटा डेवलपर्स को सुरक्षित एप्लिकेशन बनाने में मदद करने के लिए लामा गार्ड 3 जैसे उन्नत सुरक्षा उपकरण जारी करेगा।</li>',
+                    'sec4-title': '4. अगली पीढ़ी की क्षमताएं 📚',
+                    'sec4-p1': 'लामा 4 निष्क्रिय पीढ़ी से परे एक सक्रिय, तर्कशील और कार्रवाई करने वाले भागीदार बनने के लिए आगे बढ़ता है।',
+                    'gs1-title': 'उन्नत एजेंसी',
+                    'gs2-title': 'वास्तविक समय मल्टीमॉडल',
+                    'gs3-title': 'वैयक्तिकरण',
+                    'gs4-title': 'स्व-सुधार',
+                    'sec5-title': '5. लामा 4 को कैसे प्रशिक्षित किया जाता है? 🏛️',
+                    'sec5-p1': 'लामा 4 को एक अभूतपूर्व पैमाने पर सिंथेटिक और वास्तविक दुनिया के डेटासेट पर प्रशिक्षित किया जाता है, जिसमें इसे जटिल व्यवहार सिखाने के लिए उन्नत तकनीकों का उपयोग किया जाता है।',
+                    'sec5-hindi-title': '1. डेटासेट', 'sec5-hindi-p1': '50 ट्रिलियन से अधिक टोकन का एक डेटासेट।', 'sec5-hindi-list': '<li>सभी तौर-तरीकों में उच्च-गुणवत्ता, बहुभाषी डेटा की एक विशाल मात्रा शामिल है।</li><li>एक महत्वपूर्ण हिस्सा जटिल तर्क और योजना सिखाने के लिए पिछले मॉडलों द्वारा उत्पन्न उच्च-गुणवत्ता वाला सिंथेटिक डेटा है।</li>',
+                    'sec5-essay-title': '2. संरेखण प्रक्रिया', 'sec5-essay-p1': 'एजेंटिक व्यवहार को संरेखित करने पर ध्यान दें।', 'sec5-essay-list': '<li>सरल आरएलएचएफ और आरएलएआईएफ से परे जाता है।</li><li>परीक्षण और त्रुटि (सुदृढीकरण सीखना) के माध्यम से जटिल योजना और उपकरण उपयोग सीखने के लिए नकली वातावरण में प्रशिक्षित।</li><li>सुरक्षित और नैतिक स्वायत्त संचालन सुनिश्चित करने के लिए व्यापक संवैधानिक एआई सिद्धांत लागू किए जाते हैं।</li>',
+                    'sec6-title': '6. मुख्य अनुप्रयोग और उपयोग के मामले 🌟',
+                    'sec6-p1': 'लामा 4 की एजेंटिक क्षमताएं उन अनुप्रयोगों को अनलॉक करती हैं जो पहले विज्ञान कथा थे, सामग्री निर्माण से कार्य स्वचालन की ओर बढ़ते हुए।',
+                    'sec6-eng-title': 'स्वायत्त एजेंट', 'sec6-eng-list': '<li>पूरी तरह से स्वचालित ग्राहक सेवा और सहायता प्रणाली।</li><li>एआई सॉफ्टवेयर इंजीनियर जो कोड बना सकते हैं, परीक्षण कर सकते हैं और तैनात कर सकते हैं।</li><li>व्यक्तिगत एआई सहायक जो आपके पूरे डिजिटल जीवन का प्रबंधन कर सकते हैं।</li>',
+                    'sec6-elec-title': 'वैज्ञानिक अनुसंधान', 'sec6-elec-list': '<li>एआई अनुसंधान सहायक जो डेटासेट का विश्लेषण कर सकते हैं और परिकल्पना तैयार कर सकते हैं।</li><li>दवा की खोज और सामग्री विज्ञान में तेजी लाना।</li><li>भौतिकी और जीव विज्ञान में जटिल प्रणालियों का अनुकरण करना।</li>',
+                    'sec6-naic-title': 'रचनात्मक सहयोग', 'sec6-naic-list': '<li>एआई फिल्म निर्देशक जो एक स्क्रिप्ट के आधार पर पूरे दृश्य उत्पन्न कर सकते हैं।</li><li>इंटरैक्टिव कहानी और गतिशील खेल निर्माण।</li><li>अति-व्यक्तिगत शैक्षिक ट्यूटर।</li>',
+                    'sec7-title': '7. प्रदर्शन और बेंचमार्क 🎙️',
+                    'sec7-p1': 'लामा 4 का मूल्यांकन एजेंटिक क्षमताओं और जटिल, बहु-चरणीय तर्क का परीक्षण करने के लिए डिज़ाइन किए गए बेंचमार्क के एक नए सूट पर किया जाता है, जो सभी पिछले मॉडलों से बेहतर प्रदर्शन करता है।',
+                    'sec7-qualities-title': 'मुख्य बेंचमार्क:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🤖</span><div><strong class="text-white">एजेंटबेंच:</strong> वास्तविक दुनिया के कंप्यूटर वातावरण में एक कार्यात्मक एजेंट के रूप में कार्य करने की मॉडल की क्षमता को मापता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🧠</span><div><strong class="text-white">जीपीक्यूए और एमएमएलयू:</strong> स्नातक-स्तर के तर्क और विशेषज्ञ ज्ञान के लिए बेंचमार्क पर लगभग-सही स्कोर प्रदर्शित करता है।</div></li><li class="flex items-start"><span class="text-2xl text-[#22d3ee] mr-3">🎬</span><div><strong class="text-white">मल्टीमॉडल समझना:</strong> लंबी, जटिल वीडियो और ऑडियो धाराओं के बारे में तर्क करने और समझने की क्षमता पर मूल्यांकन किया गया।</div></li>',
+                    'sec8-title': '8. लामा 4 को प्रॉम्प्ट करना: निर्देश से इरादे तक 📈',
+                    'sec8-p1': 'लामा 4 को प्रॉम्प्ट करना चरण-दर-चरण निर्देश देने के बारे में कम है और एक उच्च-स्तरीय लक्ष्य या इरादे को स्पष्ट रूप से परिभाषित करने के बारे में अधिक है।',
+                    'sec8-steps-title': '📚 प्रमुख सिद्धांत:',
+                    'sec8-step1-title': 'लक्ष्य को परिभाषित करें', 'sec8-step1-desc': 'आप जो अंतिम परिणाम प्राप्त करना चाहते हैं उसे स्पष्ट रूप से बताएं (जैसे, "$2000 के बजट पर चार लोगों के परिवार के लिए टोक्यो की 5-दिवसीय यात्रा की योजना बनाएं")।',
+                    'sec8-step2-title': 'बाधाएं और उपकरण प्रदान करें', 'sec8-step2-desc': 'बाधाओं (बजट, तिथियां) को निर्दिष्ट करें और मॉडल को आवश्यक उपकरणों तक पहुंच प्रदान करें (जैसे, उड़ान खोज एपीआई, होटल बुकिंग एपीआई)।',
+                    'sec8-revision-title': '🔄 इंटरैक्शन मॉडल:',
+                    'sec8-revision-list': '<li><strong>स्पष्टीकरण:</strong> मॉडल लक्ष्य को बेहतर ढंग से समझने के लिए स्पष्टीकरण प्रश्न पूछ सकता है।</li><li><strong>योजना प्रस्तुति:</strong> यह आपकी मंजूरी के लिए एक चरण-दर-चरण योजना प्रस्तुत करेगा।</li><li><strong>निगरानी के साथ निष्पादन:</strong> मंजूरी मिलने पर, यह योजना को निष्पादित करेगा, अपडेट प्रदान करेगा और महत्वपूर्ण चरणों में पुष्टि के लिए पूछेगा।</li>',
+                    'sec9-title': '9. मॉडल विकास 🗓️',
+                    'sec9-p1': 'लामा 4 मेटा के खुले दृष्टिकोण की परिणति का प्रतिनिधित्व करता है, जो एआई की सीमाओं को आगे बढ़ाने के लिए अपने पूर्ववर्तियों की सफलता पर आधारित है।',
+                    'sec9-step3-title': 'लामा 3 रिलीज', 'sec9-step3-desc': '<strong>समयरेखा:</strong> अप्रैल 2024। ओपन-सोर्स मॉडल के लिए एक नया मानक स्थापित किया, जो कई मालिकाना प्रतिस्पर्धियों से बेहतर प्रदर्शन कर रहा है।',
+                    'sec9-step4-title': 'लामा 4 रिलीज', 'sec9-step4-desc': '<strong>समयरेखा:</strong> Q2 2026 (काल्पनिक)। सच्ची एजेंसी और उन्नत मल्टीमॉडल का परिचय देता है, जो ओपन-सोर्स एजीआई के मार्ग पर एक महत्वपूर्ण मील का पत्थर है।',
+                    'sec10-title': '10. सीमाएं और एजीआई प्रश्न 🚫',
+                    'sec10-p1': 'जबकि लामा 4 एक बहुत बड़ी छलांग है, यह एजीआई नहीं है। मॉडल में अभी भी सीमाएं हैं और यह नए, जटिल सुरक्षा विचार उठाता है।',
+                    'sec10-mistake1-title': 'चेतना का अभाव:', 'sec10-mistake1-desc': 'लामा 4 एक अत्यधिक उन्नत पैटर्न-मिलान और भविष्यवाणी इंजन है। इसमें चेतना, आत्म-जागरूकता या सच्ची समझ नहीं है।',
+                    'sec10-mistake2-title': 'जटिल शारीरिक संपर्क:', 'sec10-mistake2-desc': 'हालांकि यह रोबोट को नियंत्रित कर सकता है, लेकिन सूक्ष्म, वास्तविक दुनिया की भौतिकी और सामाजिक संकेतों की इसकी समझ अभी भी सीमित है।',
+                    'sec10-mistake3-title': 'एजेंटिक सुरक्षा:', 'sec10-mistake3-desc': 'यह सुनिश्चित करना कि स्वायत्त एजेंट हमेशा सुरक्षित और इच्छानुसार कार्य करें, एक बहुत बड़ी और चल रही शोध चुनौती है।',
+                    'sec10-mistake4-title': 'संसाधन आवश्यकताएँ:', 'sec10-mistake4-desc': 'सबसे बड़े लामा 4 मॉडल को प्रभावी ढंग से चलाने के लिए डेटा सेंटर-स्केल कम्प्यूटेशनल पावर की आवश्यकता होती है।',
+                    'sec11-title': '11. लामा 4 तक कैसे पहुंचें और उपयोग करें 🏫',
+                    'sec11-p1': 'मेटा अपने खुले दृष्टिकोण को जारी रखेगा, कई चैनलों के माध्यम से पहुंच प्रदान करेगा।',
+                    'sec11-gov-title': '📚 डेवलपर्स और शोधकर्ताओं के लिए', 'sec11-gov-list': '<li><strong>सीधा डाउनलोड:</strong> छोटे मॉडल (10B, 90B) स्थानीय उपयोग के लिए मेटा एआई वेबसाइट से उपलब्ध होंगे।</li><li><strong>हगिंग फेस:</strong> आसान प्रयोग के लिए लोकप्रिय प्लेटफार्मों के साथ एकीकरण।</li>',
+                    'sec11-pvt-title': '💻 उद्यम और उत्पादन के लिए', 'sec11-pvt-p1': 'विश्वसनीयता और पैमाने के लिए प्रबंधित सेवाओं का उपयोग करें।', 'sec11-pvt-list': '<li>**क्लाउड प्रदाता:** 500B+ संस्करण सहित मॉडल का पूरा परिवार एडब्ल्यूएस, गूगल क्लाउड और एज़्योर पर उपलब्ध होगा।</li>',
+                    'sec12-title': '12. भविष्य: ओपन-सोर्स एजीआई 🚀',
+                    'sec12-p1': 'लामा 4 एजीआई की ओर एक खुले रास्ते के प्रति मेटा की प्रतिबद्धता का प्रतिनिधित्व करता है। ऐसे शक्तिशाली मॉडलों को व्यापक रूप से उपलब्ध कराकर, मेटा का लक्ष्य नवाचार में तेजी लाना, एआई के लाभों तक व्यापक पहुंच सुनिश्चित करना और सुरक्षित और जिम्मेदार आर्टिफिशियल जनरल इंटेलिजेंस के निर्माण के लिए समर्पित एक वैश्विक समुदाय को बढ़ावा देना है।',
+                    'sec12-career-btn': 'मुख्य अंतर देखें',
+                    'sec13-title': '13. मुख्य एआई अवधारणाएं 📚',
+                    'sec13-p1': 'लामा 4 द्वारा प्रस्तुत छलांग को समझने के लिए इन उन्नत अवधारणाओं को समझना महत्वपूर्ण है।',
+                    'syllabus-oir-title': 'एआई एजेंट',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🤖</span><div class="flex-grow">स्वायत्त प्रणाली</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'उन्नत वास्तुकला',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🏗️</span><div class="flex-grow">संज्ञानात्मक वास्तुकला</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एआई के भविष्य का निर्माण, खुले तौर पर।',
+                    'interviewChartData': {
+                        labels: ['एजेंटबेंच', 'जीपीक्यूए', 'एमएमएलयू', 'ह्यूमनइवल'],
+                        data: [85, 94, 98, 92]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#2a2b3a]/50 rounded-xl text-center border-2 border-slate-700 hover:border-purple-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Llama 4 Score',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: [
+                                'rgba(147, 51, 234, 0.7)',
+                                'rgba(14, 165, 233, 0.7)',
+                                'rgba(236, 72, 153, 0.7)',
+                                'rgba(52, 211, 153, 0.7)'
+                            ],
+                            borderColor: [
+                                '#9333ea',
+                                '#0ea5e9',
+                                '#ec4899',
+                                '#22c55e'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e3e4e6' },
+                                grid: { color: 'rgba(227, 228, 230, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e3e4e6', font: { size: 14 } },
+                                grid: { color: 'rgba(227, 228, 230, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
