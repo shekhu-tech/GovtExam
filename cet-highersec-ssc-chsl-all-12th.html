@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRA CET Guide (12th Pass Level)</title>
+    <script src="redirect_if_needed.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to the National Recruitment Agency (NRA) Common Eligibility Test (CET) for 12th Pass Level posts like SSC CHSL, RRB NTPC, and IBPS Clerk.">
+    <meta name="keywords" content="NRA CET, Common Eligibility Test, SSC CHSL, RRB NTPC, IBPS Clerk, Government Jobs, 12th Pass Exams, Group C Jobs">
+    <meta name="author" content="NRA CET Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1e1b4b; /* Deep Indigo/Purple */
+            color: #e0e7ff; /* Lavender 100 */
+        }
+        .section-heading {
+            border-image: linear-gradient(to right, #ec4899, #06b6d4) 1;
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ffffff; /* White */
+        }
+        .card {
+            background: rgba(30, 27, 75, 0.8); /* Indigo Transparent */
+            backdrop-filter: blur(16px);
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #4338ca; /* Indigo 700 */
+        }
+        .card:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.25);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ec4899; /* Pink 500 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #ec4899; /* Pink 500 */
+            color: #ec4899;
+            background: #312e81; /* Indigo 800 */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .flowchart-step:hover {
+            background-color: #ec4899;
+            color: #1e1b4b;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+        .flowchart-arrow {
+            color: #06b6d4; /* Cyan 500 */
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .subject-category-heading {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #06b6d4;
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #312e81;
+        }
+        .subject-item:hover {
+            background-color: rgba(6, 182, 212, 0.15);
+        }
+        .subject-item .icon {
+            color: #06b6d4;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #ec4899;
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #1e1b4b;
+            border: 4px solid #ec4899;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.7);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(30, 27, 75, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #312e81;
+            color: #e0e7ff;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #4338ca;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #c7d2fe; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #f87171; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #ec4899, #d946ef);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ec4899;
+            color: #ec4899;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #ec4899;
+            color: #1e1b4b;
+            box-shadow: 0 0 15px #ec4899;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background: linear-gradient(45deg, #06b6d4, #22d3ee);
+            color: #1e1b4b;
+        }
+        .notes-btn:hover {
+            filter: brightness(1.1);
+        }
+        .lectures-btn {
+            background-color: #312e81; 
+            color: #c7d2fe; 
+            border-color: #4338ca; 
+        }
+        .lectures-btn:hover {
+            background-color: #4338ca;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#ffffff] mb-4 tracking-tight">📝 NRA CET Guide (12th Pass) 📝</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-cyan-400">Your Gateway to CHSL, NTPC, Clerk & More</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What is NRA CET? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-[#312e81] via-[#1e1b4b] to-[#1e1b4b]">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What is NRA CET (12th Pass)? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">The NRA CET for Higher Secondary (12th Pass) level is a unified preliminary exam for various non-gazetted government posts. It replaces the initial screening tests of major recruitment bodies like SSC, RRBs, and IBPS for posts requiring a 10+2 qualification. This single-window exam simplifies the application process, making it easier for millions of students to apply for a wide range of clerical and assistant-level government jobs.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The NRA CET serves as the first-level filter. Candidates clearing the CET can use their score to apply for the specialized Tier-II/Mains exams conducted by individual agencies for final selection.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">NRA CET</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-400">Common Eligibility Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Agency Mains</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-400">Mains/Tier-II by SSC/RRB/IBPS</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Skill Test</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-400">Typing/Skill Test as required</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">The primary requirement for this CET level is a 12th standard pass certificate.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-white text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 27 years** for most posts like SSC CHSL and IBPS Clerk. Age limits will be as per the final recruiting agency's norms. Relaxations apply.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#ec4899] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">Candidates must have passed the **Higher Secondary (12th Standard)** examination from a recognized board.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-white mb-4 border-b border-[#06b6d4] pb-2">CET Score Validity & Attempts 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>The CET score will be valid for **3 years**.</li>
+                             <li>There will be **no limit** on the number of attempts, subject to the upper age limit for the posts.</li>
+                             <li>A candidate's best valid score will be considered for applications.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-slate-900/50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Expected NRA CET Exam Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The online CET will have a common curriculum based on four core areas, with the difficulty level set at the Higher Secondary (12th) standard.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">General Intelligence & Reasoning</h3>
+                    </div>
+                     <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">General Awareness</h3>
+                    </div>
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Quantitative Aptitude</h3>
+                    </div>
+                    <div class="bg-[#312e81]/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-indigo-700 flex flex-col transition duration-300 hover:shadow-2xl hover:border-pink-500 hover:-translate-y-1">
+                        <h3 id="gs4-title" class="subject-category-heading">English Language</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Post-Selection Training 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">After clearing the final selection stage conducted by the respective agency, new recruits undergo a standard probation and training period.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-[#312e81] rounded-xl border-2 border-[#ec4899]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-white mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A period of probation is mandatory for all new appointees.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>The probation period is typically for two years.</li>
+                            <li>Performance is monitored for confirmation into permanent service.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-[#312e81] rounded-xl border-2 border-[#06b6d4]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-white mb-2">2. Induction Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Training is provided to equip recruits with necessary job skills.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Orientation on service rules and departmental functions.</li>
+                           <li>Specific training related to the job (e.g., banking software for clerks, postal rules for assistants).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities of Target Posts 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">These clerical and assistant roles are crucial for the day-to-day functioning of government departments and banks.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">SSC CHSL (LDC/JSA/DEO)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Maintaining office files and records.</li>
+                           <li>Drafting official letters and emails.</li>
+                           <li>Data entry and preparing official documents.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">RRB NTPC / IBPS Clerk</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Issuing tickets, managing accounts (Jr. Clerk in Railways).</li>
+                           <li>Handling customer transactions and queries (Bank Clerk).</li>
+                           <li>Assisting in various operational and administrative tasks.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of a Successful Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Success in the 12th Level CET requires a strong foundation in basic subjects, speed, and accuracy.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-white mb-6 border-b border-[#ec4899] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏱️</span><div><strong class="text-white">Speed & Accuracy:</strong> Crucial for solving a high volume of questions in a limited time.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">📚</span><div><strong class="text-white">Conceptual Clarity:</strong> A clear understanding of fundamental concepts of Maths, Reasoning, and English up to the 12th standard.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⌨️</span><div><strong class="text-white">Typing Skills:</strong> Important for clearing the skill tests for posts like LDC and DEO in the CHSL exam.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">General Awareness:</strong> Staying updated with current affairs and static GK is key for scoring well.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A systematic and disciplined approach is essential to cover the syllabus and develop the speed required for the CET.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-white mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#ec4899] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-white mb-1">Understand the Syllabus</h4>
+                                <p id="sec8-step1-desc" class="text-base">Go through the detailed syllabus for each of the four subjects and identify important topics.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-white mb-1">Build Strong Fundamentals</h4>
+                                <p id="sec8-step2-desc" class="text-base">Use NCERT books from Class 9 to 12 to build a strong foundation, especially for Quantitative Aptitude and General Awareness.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#ec4899] rounded-full -left-2.5 border-4 border-[#312e81]"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-white mb-1">Practice & Revise</h4>
+                                <p id="sec8-step3-desc" class="text-base">After covering a topic, solve previous year questions and take sectional tests. Regular revision is key to retention.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-white mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Solve Mock Tests:</strong> Dedicate the last 1-2 months before the exam exclusively to solving full-length mock tests and analyzing your performance.</li>
+                            <li><strong>Current Affairs:</strong> Make it a habit to read a newspaper daily and follow a monthly current affairs magazine.</li>
+                            <li><strong>Typing Practice:</strong> If you are targeting CHSL, practice typing for at least 30 minutes daily.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">The NRA CET will streamline the initial application and exam process into a predictable, biannual cycle.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-white mb-1">NRA CET Notification</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> Expected to be conducted twice a year.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-white mb-1">CET Online Exam & Scorecard</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> A single online exam, with scores valid for 3 years.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-white mb-1">Agency-Specific Notifications</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> SSC, RRB, and IBPS will advertise their vacancies for Mains exams, specifying the required CET score.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-white mb-1">Mains Exam & Final Selection</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-400">Timeline:</strong> The respective agency conducts the Mains and any further skill tests to prepare the final merit list.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The competition for 12th-level government jobs is immense. Avoid these common mistakes to stay ahead.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-300">Weak Fundamentals:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-400 mt-1">Jumping to shortcuts and tricks without having a clear understanding of basic concepts in Maths and Reasoning.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-300">Ignoring English/Language:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-400 mt-1">Not giving enough importance to the language paper, which is often a deciding factor in the final merit.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-300">No Mock Test Strategy:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-400 mt-1">Taking mock tests without a proper strategy or without analyzing the results to identify weak points.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-slate-900/50 rounded-lg border-2 border-red-700 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-500 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-300">Neglecting Skill Tests:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-400 mt-1">Forgetting to practice typing regularly while preparing for the written exam for posts like SSC CHSL.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Given the common syllabus, coaching resources for existing SSC CHSL and banking clerical exams are perfectly suited for CET preparation.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>NCERT books for foundational knowledge.</li>
+                           <li>Standard reference books for each subject (e.g., R.S. Aggarwal for Quant).</li>
+                           <li>Online platforms for practice quizzes and current affairs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Coaching Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Choose institutes with a good track record in SSC/Banking.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Both online and offline coaching options are widely available.</li>
+                            <li>A good online mock test series is non-negotiable for success.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">These entry-level clerical posts offer a secure government career with a well-defined path for promotions to higher administrative roles through departmental exams and seniority.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-slate-900/50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. Syllabus & Study Material 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The CET syllabus for the 12th Pass Level will cover four core subjects of general aptitude and awareness.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#1e1b4b] p-6 rounded-lg shadow-lg border border-indigo-700">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Reasoning & Quantitative Aptitude</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                    <div class="bg-[#1e1b4b] p-6 rounded-lg shadow-lg border border-indigo-700">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">English & General Awareness</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <!-- Content via JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-pink-500/20">
+            <p id="footer-text" class="text-slate-400 text-lg font-medium">&copy; 2025 | One Nation, One Exam for a Brighter Future.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-white mb-4">Stage 1: NRA Common Eligibility Test (CET)</h3>
+            <p id="prelims-modal-p1">This is the mandatory preliminary screening test. It will be an online objective exam with a common syllabus for all 12th-level posts, covering Reasoning, Quantitative Aptitude, English, and General Awareness. Your CET score will be valid for three years.</p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-white mb-4">Stage 2: Agency-Specific Mains Exam</h3>
+            <p id="mains-modal-p1">After qualifying CET, you can apply for the Mains exam for specific posts (like SSC CHSL Tier-II, RRB NTPC CBT-2, IBPS Clerk Mains) conducted by the respective agencies. The pattern and syllabus for this stage will be decided by the agency (SSC/RRB/IBPS).</p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-white mb-4">Stage 3: Skill Test</h3>
+            <p id="interview-modal-p1" class="text-base mb-3">This is the final stage for many clerical posts. For example, the SSC CHSL exam has a mandatory Typing Test / Data Entry Skill Test (DEST) after Tier-II, which is qualifying in nature. There is usually no interview for these 12th-level posts.</p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-white"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-indigo-200 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-white mb-6">Career Progression Path</h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'chsl': { 
+                        name: 'SSC CHSL', 
+                        icon: '📁',
+                        description: 'The Combined Higher Secondary Level exam by SSC recruits for posts like Lower Division Clerk (LDC), Junior Secretariat Assistant (JSA), and Data Entry Operators (DEO) in various central ministries.',
+                        cta: 'Learn More'
+                    },
+                    'ntpc': { 
+                        name: 'RRB NTPC (12th Level)', 
+                        icon: '🚂',
+                        description: 'Railway Recruitment Boards hire for Non-Technical Popular Categories (NTPC) posts like Junior Clerk cum Typist, Accounts Clerk cum Typist, and Trains Clerk based on 12th pass qualification.',
+                        cta: 'Learn More'
+                    },
+                    'clerk': { 
+                        name: 'IBPS Clerk / RRB Office Asst.', 
+                        icon: '🏦',
+                        description: 'The preliminary exam for Clerical cadre in Public Sector Banks and Office Assistant in Regional Rural Banks will be covered under CET. These are frontline customer-facing roles.',
+                        cta: 'Learn More'
+                    },
+                    'other': { 
+                        name: 'Other 12th Pass Exams', 
+                        icon: '📄',
+                        description: 'The CET score is expected to be adopted by various other central government organizations, state governments, and PSUs for screening candidates for similar clerical and assistant level posts.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'chsl': { 
+                        name: 'एसएससी सीएचएसएल', 
+                        icon: '📁',
+                        description: 'एसएससी द्वारा संयुक्त उच्चतर माध्यमिक स्तरीय परीक्षा विभिन्न केंद्रीय मंत्रालयों में लोअर डिवीजन क्लर्क (एलडीसी), जूनियर सचिवालय सहायक (जेएसए), और डेटा एंट्री ऑपरेटर (डीईओ) जैसे पदों के लिए भर्ती करती है।',
+                        cta: 'और जानें'
+                    },
+                    'ntpc': { 
+                        name: 'आरआरबी एनटीपीसी (12वीं स्तर)', 
+                        icon: '🚂',
+                        description: 'रेलवे भर्ती बोर्ड 12वीं पास योग्यता के आधार पर गैर-तकनीकी लोकप्रिय श्रेणियों (एनटीपीसी) के पदों जैसे जूनियर क्लर्क सह टाइपिस्ट, लेखा क्लर्क सह टाइपिस्ट और ट्रेन क्लर्क के लिए भर्ती करता है।',
+                        cta: 'और जानें'
+                    },
+                    'clerk': { 
+                        name: 'आईबीपीएस क्लर्क / आरआरबी ऑफिस असि.', 
+                        icon: '🏦',
+                        description: 'सार्वजनिक क्षेत्र के बैंकों में लिपिकीय संवर्ग और क्षेत्रीय ग्रामीण बैंकों में कार्यालय सहायक के लिए प्रारंभिक परीक्षा सीईटी के तहत कवर की जाएगी। ये फ्रंटलाइन ग्राहक-सामना करने वाली भूमिकाएं हैं।',
+                        cta: 'और जानें'
+                    },
+                    'other': { 
+                        name: 'अन्य 12वीं पास परीक्षाएं', 
+                        icon: '📄',
+                        description: 'सीईटी स्कोर को विभिन्न अन्य केंद्र सरकार के संगठनों, राज्य सरकारों और पीएसयू द्वारा समान लिपिकीय और सहायक स्तर के पदों के लिए उम्मीदवारों की स्क्रीनिंग के लिए अपनाए जाने की उम्मीद है।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "LDC / Junior Assistant", desc: "The starting point for a clerical career in central government offices." },
+                        { rank: "Upper Division Clerk (UDC)", desc: "The first promotion, usually through seniority or a limited departmental competitive exam." },
+                        { rank: "Assistant Section Officer (ASO)", desc: "A significant promotion to a supervisory role, often through competitive departmental exams." },
+                        { rank: "Section Officer & Higher", desc: "With long and dedicated service, there are opportunities to rise to gazetted officer ranks." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "एलडीसी / कनिष्ठ सहायक", desc: "केंद्र सरकार के कार्यालयों में एक लिपिकीय कैरियर के लिए प्रारंभिक बिंदु।" },
+                        { rank: "अपर डिवीजन क्लर्क (यूडीसी)", desc: "पहली पदोन्नति, आमतौर पर वरिष्ठता या एक सीमित विभागीय प्रतियोगी परीक्षा के माध्यम से।" },
+                        { rank: "सहायक अनुभाग अधिकारी (एएसओ)", desc: "एक पर्यवेक्षी भूमिका के लिए एक महत्वपूर्ण पदोन्नति, अक्सर प्रतियोगी विभागीय परीक्षाओं के माध्यम से।" },
+                        { rank: "अनुभाग अधिकारी और उच्चतर", desc: "लंबी और समर्पित सेवा के साथ, राजपत्रित अधिकारी रैंक तक बढ़ने के अवसर हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '📝 NRA CET Guide (12th Pass) 📝',
+                    'header-subtitle': 'Your Gateway to CHSL, NTPC, Clerk & More',
+                    'sec1-title': '1. What is NRA CET (12th Pass)? 💡',
+                    'sec1-p1': 'The NRA CET for Higher Secondary (12th Pass) level is a unified preliminary exam for various non-gazetted government posts. It replaces the initial screening tests of major recruitment bodies like SSC, RRBs, and IBPS for posts requiring a 10+2 qualification. This single-window exam simplifies the application process, making it easier for millions of students to apply for a wide range of clerical and assistant-level government jobs.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The NRA CET serves as the first-level filter. Candidates clearing the CET can use their score to apply for the specialized Tier-II/Mains exams conducted by individual agencies for final selection.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'NRA CET', 'sec2-step1-desc': 'Common Eligibility Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Agency Mains', 'sec2-step2-desc': 'Mains/Tier-II by SSC/RRB/IBPS',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Skill Test', 'sec2-step3-desc': 'Typing/Skill Test as required',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'The primary requirement for this CET level is a 12th standard pass certificate.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 27 years** for most posts like SSC CHSL and IBPS Clerk. Age limits will be as per the final recruiting agency\'s norms. Relaxations apply.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Candidates must have passed the **Higher Secondary (12th Standard)** examination from a recognized board.',
+                    'sec3-attempts-title': 'CET Score Validity & Attempts 📊',
+                    'sec3-agerelax-list': '<li>The CET score will be valid for **3 years**.</li><li>There will be **no limit** on the number of attempts, subject to the upper age limit for the posts.</li><li>A candidate\'s best valid score will be considered for applications.</li>',
+                    'sec4-title': '4. Expected NRA CET Exam Pattern 📚',
+                    'sec4-p1': 'The online CET will have a common curriculum based on four core areas, with the difficulty level set at the Higher Secondary (12th) standard.',
+                    'gs1-title': 'General Intelligence & Reasoning',
+                    'gs2-title': 'General Awareness',
+                    'gs3-title': 'Quantitative Aptitude',
+                    'gs4-title': 'English Language',
+                    'sec5-title': '5. Post-Selection Training 🏛️',
+                    'sec5-p1': 'After clearing the final selection stage conducted by the respective agency, new recruits undergo a standard probation and training period.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A period of probation is mandatory for all new appointees.', 'sec5-hindi-list': '<li>The probation period is typically for two years.</li><li>Performance is monitored for confirmation into permanent service.</li>',
+                    'sec5-essay-title': '2. Induction Training', 'sec5-essay-p1': 'Training is provided to equip recruits with necessary job skills.', 'sec5-essay-list': '<li>Orientation on service rules and departmental functions.</li><li>Specific training related to the job (e.g., banking software for clerks, postal rules for assistants).</li>',
+                    'sec6-title': '6. Key Responsibilities of Target Posts 🌟',
+                    'sec6-p1': 'These clerical and assistant roles are crucial for the day-to-day functioning of government departments and banks.',
+                    'sec6-eng-title': 'SSC CHSL (LDC/JSA/DEO)', 'sec6-eng-list': '<li>Maintaining office files and records.</li><li>Drafting official letters and emails.</li><li>Data entry and preparing official documents.</li>',
+                    'sec6-elec-title': 'RRB NTPC / IBPS Clerk', 'sec6-elec-list': '<li>Issuing tickets, managing accounts (Jr. Clerk in Railways).</li><li>Handling customer transactions and queries (Bank Clerk).</li><li>Assisting in various operational and administrative tasks.</li>',
+                    'sec7-title': '7. Qualities of a Successful Candidate 🎙️',
+                    'sec7-p1': 'Success in the 12th Level CET requires a strong foundation in basic subjects, speed, and accuracy.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏱️</span><div><strong class="text-white">Speed & Accuracy:</strong> Crucial for solving a high volume of questions in a limited time.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">📚</span><div><strong class="text-white">Conceptual Clarity:</strong> A clear understanding of fundamental concepts of Maths, Reasoning, and English up to the 12th standard.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⌨️</span><div><strong class="text-white">Typing Skills:</strong> Important for clearing the skill tests for posts like LDC and DEO in the CHSL exam.</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">General Awareness:</strong> Staying updated with current affairs and static GK is key for scoring well.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A systematic and disciplined approach is essential to cover the syllabus and develop the speed required for the CET.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Understand the Syllabus', 'sec8-step1-desc': 'Go through the detailed syllabus for each of the four subjects and identify important topics.',
+                    'sec8-step2-title': 'Build Strong Fundamentals', 'sec8-step2-desc': 'Use NCERT books from Class 9 to 12 to build a strong foundation, especially for Quantitative Aptitude and General Awareness.',
+                    'sec8-step3-title': 'Practice & Revise', 'sec8-step3-desc': 'After covering a topic, solve previous year questions and take sectional tests. Regular revision is key to retention.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Solve Mock Tests:</strong> Dedicate the last 1-2 months before the exam exclusively to solving full-length mock tests and analyzing your performance.</li><li><strong>Current Affairs:</strong> Make it a habit to read a newspaper daily and follow a monthly current affairs magazine.</li><li><strong>Typing Practice:</strong> If you are targeting CHSL, practice typing for at least 30 minutes daily.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'The NRA CET will streamline the initial application and exam process into a predictable, biannual cycle.',
+                    'sec9-step1-title': 'NRA CET Notification', 'sec9-step1-desc': '<strong>Timeline:</strong> Expected to be conducted twice a year.',
+                    'sec9-step2-title': 'CET Online Exam & Scorecard', 'sec9-step2-desc': '<strong>Timeline:</strong> A single online exam, with scores valid for 3 years.',
+                    'sec9-step3-title': 'Agency-Specific Notifications', 'sec9-step3-desc': '<strong>Timeline:</strong> SSC, RRB, and IBPS will advertise their vacancies for Mains exams, specifying the required CET score.',
+                    'sec9-step4-title': 'Mains Exam & Final Selection', 'sec9-step4-desc': '<strong>Timeline:</strong> The respective agency conducts the Mains and any further skill tests to prepare the final merit list.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'The competition for 12th-level government jobs is immense. Avoid these common mistakes to stay ahead.',
+                    'sec10-mistake1-title': 'Weak Fundamentals:', 'sec10-mistake1-desc': 'Jumping to shortcuts and tricks without having a clear understanding of basic concepts in Maths and Reasoning.',
+                    'sec10-mistake2-title': 'Ignoring English/Language:', 'sec10-mistake2-desc': 'Not giving enough importance to the language paper, which is often a deciding factor in the final merit.',
+                    'sec10-mistake3-title': 'No Mock Test Strategy:', 'sec10-mistake3-desc': 'Taking mock tests without a proper strategy or without analyzing the results to identify weak points.',
+                    'sec10-mistake4-title': 'Neglecting Skill Tests:', 'sec10-mistake4-desc': 'Forgetting to practice typing regularly while preparing for the written exam for posts like SSC CHSL.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Given the common syllabus, coaching resources for existing SSC CHSL and banking clerical exams are perfectly suited for CET preparation.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>NCERT books for foundational knowledge.</li><li>Standard reference books for each subject (e.g., R.S. Aggarwal for Quant).</li><li>Online platforms for practice quizzes and current affairs.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Choose institutes with a good track record in SSC/Banking.', 'sec11-pvt-list': '<li>Both online and offline coaching options are widely available.</li><li>A good online mock test series is non-negotiable for success.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'These entry-level clerical posts offer a secure government career with a well-defined path for promotions to higher administrative roles through departmental exams and seniority.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Syllabus & Study Material 📚',
+                    'sec13-p1': 'The CET syllabus for the 12th Pass Level will cover four core subjects of general aptitude and awareness.',
+                    'syllabus-oir-title': 'Reasoning & Quantitative Aptitude',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Reasoning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">Quantitative Aptitude</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'English & General Awareness',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">English Language</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | One Nation, One Exam for a Brighter Future.',
+                    'interviewChartData': {
+                        labels: ['Speed & Accuracy', 'Conceptual Clarity', 'Typing Skill', 'General Awareness'],
+                        data: [95, 90, 85, 88]
+                    }
+                },
+                'hi': {
+                    'header-title': '📝 एनआरए सीईटी गाइड (12वीं पास) 📝',
+                    'header-subtitle': 'सीएचएसएल, एनटीपीसी, क्लर्क और अन्य के लिए आपका प्रवेश द्वार',
+                    'sec1-title': '1. एनआरए सीईटी (12वीं पास) क्या है? 💡',
+                    'sec1-p1': 'उच्चतर माध्यमिक (12वीं पास) स्तर के लिए एनआरए सीईटी विभिन्न गैर-राजपत्रित सरकारी पदों के लिए एक एकीकृत प्रारंभिक परीक्षा है। यह 10+2 योग्यता की आवश्यकता वाले पदों के लिए एसएससी, आरआरबी और आईबीपीएस जैसे प्रमुख भर्ती निकायों के प्रारंभिक स्क्रीनिंग परीक्षणों की जगह लेता है। यह सिंगल-विंडो परीक्षा आवेदन प्रक्रिया को सरल बनाती है, जिससे लाखों छात्रों के लिए लिपिकीय और सहायक-स्तर की सरकारी नौकरियों की एक विस्तृत श्रृंखला के लिए आवेदन करना आसान हो जाता है।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'एनआरए सीईटी पहले स्तर के फिल्टर के रूप में कार्य करता है। सीईटी उत्तीर्ण करने वाले उम्मीदवार अंतिम चयन के लिए व्यक्तिगत एजेंसियों द्वारा आयोजित विशेष टियर- II/मेन्स परीक्षाओं के लिए अपने स्कोर का उपयोग कर सकते हैं।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'एनआरए सीईटी', 'sec2-step1-desc': 'सामान्य पात्रता परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'एजेंसी मेन्स', 'sec2-step2-desc': 'एसएससी/आरआरबी/आईबीपीएस द्वारा मेन्स/टियर- II',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'कौशल परीक्षण', 'sec2-step3-desc': 'आवश्यकतानुसार टाइपिंग/कौशल परीक्षण',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'इस सीईटी स्तर के लिए प्राथमिक आवश्यकता 12वीं कक्षा का उत्तीर्ण प्रमाण पत्र है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'आमतौर पर एसएससी सीएचएसएल और आईबीपीएस क्लर्क जैसे अधिकांश पदों के लिए **18 से 27 वर्ष** के बीच। आयु सीमा अंतिम भर्ती एजेंसी के मानदंडों के अनुसार होगी। छूट लागू होती है।',
+                    'sec3-edu-title': 'शैक्षिक योग्यता:', 'sec3-edu-desc': 'उम्मीदवारों को एक मान्यता प्राप्त बोर्ड से **उच्चतर माध्यमिक (12वीं कक्षा)** परीक्षा उत्तीर्ण करनी होगी।',
+                    'sec3-attempts-title': 'सीईटी स्कोर वैधता और प्रयास 📊',
+                    'sec3-agerelax-list': '<li>सीईटी स्कोर **3 साल** के लिए वैध होगा।</li><li>पदों के लिए ऊपरी आयु सीमा के अधीन प्रयासों की संख्या पर **कोई सीमा नहीं** होगी।</li><li>एक उम्मीदवार का सर्वश्रेष्ठ वैध स्कोर आवेदनों के लिए माना जाएगा।</li>',
+                    'sec4-title': '4. अपेक्षित एनआरए सीईटी परीक्षा पैटर्न 📚',
+                    'sec4-p1': 'ऑनलाइन सीईटी में चार मुख्य क्षेत्रों पर आधारित एक सामान्य पाठ्यक्रम होगा, जिसमें कठिनाई का स्तर उच्चतर माध्यमिक (12वीं) मानक पर निर्धारित किया जाएगा।',
+                    'gs1-title': 'सामान्य बुद्धि और तर्क',
+                    'gs2-title': 'सामान्य जागरूकता',
+                    'gs3-title': 'मात्रात्मक योग्यता',
+                    'gs4-title': 'अंग्रेजी भाषा',
+                    'sec5-title': '5. चयन के बाद प्रशिक्षण 🏛️',
+                    'sec5-p1': 'संबंधित एजेंसी द्वारा अंतिम चयन चरण को पार करने के बाद, नए रंगरूट एक मानक परिवीक्षा और प्रशिक्षण अवधि से गुजरते हैं।',
+                    'sec5-hindi-title': '1. परिवीक्षा अवधि', 'sec5-hindi-p1': 'सभी नए नियुक्तियों के लिए परिवीक्षा की अवधि अनिवार्य है।', 'sec5-hindi-list': '<li>परिवीक्षा अवधि आमतौर पर दो साल की होती है।</li><li>स्थायी सेवा में पुष्टि के लिए प्रदर्शन की निगरानी की जाती है।</li>',
+                    'sec5-essay-title': '2. प्रेरण प्रशिक्षण', 'sec5-essay-p1': 'रंगरूटों को आवश्यक नौकरी कौशल से लैस करने के लिए प्रशिक्षण प्रदान किया जाता है।', 'sec5-essay-list': '<li>सेवा नियमों और विभागीय कार्यों पर अभिविन्यास।</li><li>नौकरी से संबंधित विशिष्ट प्रशिक्षण (जैसे, क्लर्कों के लिए बैंकिंग सॉफ्टवेयर, सहायकों के लिए डाक नियम)।</li>',
+                    'sec6-title': '6. लक्षित पदों की मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'ये लिपिकीय और सहायक भूमिकाएं सरकारी विभागों और बैंकों के दिन-प्रतिदिन के कामकाज के लिए महत्वपूर्ण हैं।',
+                    'sec6-eng-title': 'एसएससी सीएचएसएल (एलडीसी/जेएसए/डीईओ)', 'sec6-eng-list': '<li>कार्यालय की फाइलों और रिकॉर्ड का रखरखाव।</li><li>आधिकारिक पत्रों और ईमेल का मसौदा तैयार करना।</li><li>डेटा प्रविष्टि और आधिकारिक दस्तावेज तैयार करना।</li>',
+                    'sec6-elec-title': 'आरआरबी एनटीपीसी / आईबीपीएस क्लर्क', 'sec6-elec-list': '<li>टिकट जारी करना, खातों का प्रबंधन (रेलवे में जूनियर क्लर्क)।</li><li>ग्राहक लेनदेन और प्रश्नों को संभालना (बैंक क्लर्क)।</li><li>विभिन्न परिचालन और प्रशासनिक कार्यों में सहायता करना।</li>',
+                    'sec7-title': '7. एक सफल उम्मीदवार के गुण 🎙️',
+                    'sec7-p1': '12वीं स्तर के सीईटी में सफलता के लिए बुनियादी विषयों, गति और सटीकता में एक मजबूत नींव की आवश्यकता होती है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⏱️</span><div><strong class="text-white">गति और सटीकता:</strong> सीमित समय में बड़ी संख्या में प्रश्नों को हल करने के लिए महत्वपूर्ण।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">📚</span><div><strong class="text-white">वैचारिक स्पष्टता:</strong> 12वीं कक्षा तक गणित, तर्क और अंग्रेजी की मौलिक अवधारणाओं की स्पष्ट समझ।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">⌨️</span><div><strong class="text-white">टाइपिंग कौशल:</strong> सीएचएसएल परीक्षा में एलडीसी और डीईओ जैसे पदों के लिए कौशल परीक्षण पास करने के लिए महत्वपूर्ण।</div></li><li class="flex items-start"><span class="text-2xl text-[#06b6d4] mr-3">🌍</span><div><strong class="text-white">सामान्य जागरूकता:</strong> अच्छा स्कोर करने के लिए समसामयिक मामलों और स्थैतिक जीके के साथ अद्यतन रहना महत्वपूर्ण है।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'सीईटी को क्रैक करने के लिए एक व्यवस्थित और अनुशासित दृष्टिकोण आवश्यक है ताकि पाठ्यक्रम को कवर किया जा सके और आवश्यक गति विकसित की जा सके।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'पाठ्यक्रम को समझें', 'sec8-step1-desc': 'चार विषयों में से प्रत्येक के लिए विस्तृत पाठ्यक्रम देखें और महत्वपूर्ण विषयों की पहचान करें।',
+                    'sec8-step2-title': 'मजबूत बुनियादी बातें बनाएं', 'sec8-step2-desc': 'विशेष रूप से मात्रात्मक योग्यता और सामान्य जागरूकता के लिए एक मजबूत नींव बनाने के लिए कक्षा 9 से 12 तक की एनसीईआरटी पुस्तकों का उपयोग करें।',
+                    'sec8-step3-title': 'अभ्यास और संशोधन', 'sec8-step3-desc': 'एक विषय को कवर करने के बाद, पिछले वर्ष के प्रश्नों को हल करें और अनुभागीय परीक्षण दें। नियमित संशोधन प्रतिधारण की कुंजी है।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>मॉक टेस्ट हल करें:</strong> परीक्षा से पहले अंतिम 1-2 महीने विशेष रूप से पूर्ण-लंबाई वाले मॉक टेस्ट हल करने और अपने प्रदर्शन का विश्लेषण करने के लिए समर्पित करें।</li><li><strong>समसामयिकी:</strong> दैनिक रूप से एक समाचार पत्र पढ़ने और एक मासिक समसामयिकी पत्रिका का पालन करने की आदत डालें।</li><li><strong>टाइपिंग अभ्यास:</strong> यदि आप सीएचएसएल को लक्षित कर रहे हैं, तो प्रतिदिन कम से कम 30 मिनट टाइपिंग का अभ्यास करें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'एनआरए सीईटी प्रारंभिक आवेदन और परीक्षा प्रक्रिया को एक अनुमानित, द्विवार्षिक चक्र में सुव्यवस्थित करेगा।',
+                    'sec9-step1-title': 'एनआरए सीईटी अधिसूचना', 'sec9-step1-desc': '<strong>समयरेखा:</strong> वर्ष में दो बार आयोजित होने की उम्मीद है।',
+                    'sec9-step2-title': 'सीईटी ऑनलाइन परीक्षा और स्कोरकार्ड', 'sec9-step2-desc': '<strong>समयरेखा:</strong> एक एकल ऑनलाइन परीक्षा, जिसमें स्कोर 3 साल के लिए वैध होंगे।',
+                    'sec9-step3-title': 'एजेंसी-विशिष्ट सूचनाएं', 'sec9-step3-desc': '<strong>समयरेखा:</strong> एसएससी, आरआरबी और आईबीपीएस आवश्यक सीईटी स्कोर निर्दिष्ट करते हुए मुख्य परीक्षाओं के लिए अपनी रिक्तियों का विज्ञापन करेंगे।',
+                    'sec9-step4-title': 'मुख्य परीक्षा और अंतिम चयन', 'sec9-step4-desc': '<strong>समयरेखा:</strong> संबंधित एजेंसी अंतिम मेरिट सूची तैयार करने के लिए मुख्य और किसी भी आगे के कौशल परीक्षण का आयोजन करती है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': '12वीं स्तर की सरकारी नौकरियों के लिए प्रतिस्पर्धा बहुत अधिक है। आगे रहने के लिए इन सामान्य गलतियों से बचें।',
+                    'sec10-mistake1-title': 'कमजोर बुनियादी बातें:', 'sec10-mistake1-desc': 'गणित और तर्क में बुनियादी अवधारणाओं की स्पष्ट समझ के बिना शॉर्टकट और ट्रिक्स पर कूदना।',
+                    'sec10-mistake2-title': 'अंग्रेजी/भाषा की अनदेखी:', 'sec10-mistake2-desc': 'भाषा पत्र को पर्याप्त महत्व नहीं देना, जो अक्सर अंतिम योग्यता में एक निर्णायक कारक होता है।',
+                    'sec10-mistake3-title': 'कोई मॉक टेस्ट रणनीति नहीं:', 'sec10-mistake3-desc': 'उचित रणनीति के बिना या कमजोर बिंदुओं की पहचान करने के लिए परिणामों का विश्लेषण किए बिना मॉक टेस्ट देना।',
+                    'sec10-mistake4-title': 'कौशल परीक्षणों की उपेक्षा:', 'sec10-mistake4-desc': 'एसएससी सीएचएसएल जैसे पदों के लिए लिखित परीक्षा की तैयारी करते समय नियमित रूप से टाइपिंग का अभ्यास करना भूल जाना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'मौजूदा एसएससी सीएचएसएल और बैंकिंग लिपिकीय परीक्षाओं के लिए कोचिंग संसाधन सीईटी की तैयारी के लिए पूरी तरह से उपयुक्त हैं।',
+                    'sec11-gov-title': '📚 स्व-अध्ययन', 'sec11-gov-list': '<li>मौलिक ज्ञान के निर्माण के लिए एनसीईआरटी की किताबें उत्कृष्ट हैं।</li><li>प्रत्येक विषय के लिए मानक संदर्भ पुस्तकें (जैसे, क्वांट के लिए आर.एस. अग्रवाल)।</li><li>अभ्यास क्विज़ और समसामयिक मामलों के लिए ऑनलाइन प्लेटफ़ॉर्म।</li>',
+                    'sec11-pvt-title': '💻 कोचिंग संस्थान', 'sec11-pvt-p1': 'एसएससी/बैंकिंग में अच्छे ट्रैक रिकॉर्ड वाले संस्थानों का चयन करें।', 'sec11-pvt-list': '<li>ऑनलाइन और ऑफलाइन दोनों कोचिंग विकल्प व्यापक रूप से उपलब्ध हैं।</li><li>सफलता के लिए एक अच्छी ऑनलाइन मॉक टेस्ट श्रृंखला गैर-परक्राम्य है।</li>',
+                    'sec12-title': '12. कैरियर विकास और पदोन्नति 🚀',
+                    'sec12-p1': 'ये प्रवेश स्तर के लिपिकीय पद विभागीय परीक्षाओं और वरिष्ठता के माध्यम से उच्च प्रशासनिक भूमिकाओं में पदोन्नति के लिए एक अच्छी तरह से परिभाषित मार्ग के साथ एक सुरक्षित सरकारी कैरियर प्रदान करते हैं।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. पाठ्यक्रम और अध्ययन सामग्री 📚',
+                    'sec13-p1': '12वीं पास स्तर के लिए सीईटी पाठ्यक्रम सामान्य योग्यता और जागरूकता के चार मुख्य विषयों को कवर करेगा।',
+                    'syllabus-oir-title': 'तर्क और मात्रात्मक योग्यता',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">तर्क</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📊</span><div class="flex-grow">मात्रात्मक योग्यता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'अंग्रेजी और सामान्य जागरूकता',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📖</span><div class="flex-grow">अंग्रेजी भाषा</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">सामान्य जागरूकता</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'footer-text': '&copy; 2025 | एक उज्जवल भविष्य के लिए एक राष्ट्र, एक परीक्षा।',
+                    'interviewChartData': {
+                        labels: ['गति और सटीकता', 'वैचारिक स्पष्टता', 'टाइपिंग कौशल', 'सामान्य जागरूकता'],
+                        data: [95, 90, 85, 88]
+                    }
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-[#312e81]/50 rounded-xl text-center border-2 border-indigo-800 hover:border-pink-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-white">${post.name}</h4>
+                        <p class="text-sm text-indigo-200 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-white mb-1">${step.rank}</h4>
+                        <p class="text-base text-indigo-200">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Qualities',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(236, 72, 153, 0.7)',
+                            borderColor: '#ec4899',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#e0e7ff' },
+                                grid: { color: 'rgba(224, 231, 255, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#e0e7ff', font: { size: 14 } },
+                                grid: { color: 'rgba(224, 231, 255, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const data = translations[currentLang].interviewChartData;
+                    interviewChartInstance.data.labels = data.labels;
+                    interviewChartInstance.data.datasets[0].data = data.data;
+                    interviewChartInstance.update();
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                renderCareerPath(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => document.getElementById(modalId)?.classList.add('active');
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en');
+        });
+    </script>
+</body>
+</html>
+
