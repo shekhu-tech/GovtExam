@@ -14,39 +14,82 @@
     
     <style>
         :root {
-            /* Premium Golden Color Scheme */
-            --golden-light: #FFFAEE;     /* Very light cream/gold */
-            --golden-medium: #FFE5A3;    /* Light golden yellow */
-            --golden-dark: #A37A00;      /* Darker, rich gold */
-            --brown-dark: #473600;       /* Deep brown for primary text */
-            --popup-bg: #fff;            /* White for popup content */
-            --popup-overlay-bg: rgba(0, 0, 0, 0.75);
-            --popup-link-hover: #FEF3C7; /* Light golden for list item hover */
-            --list-link-text: #5D4037;   /* Muted brown for links */
+            /* Premium Golden Color Scheme on Dark Background */
+            --golden-light: #3a321f;     /* Darker gold for card background */
+            --golden-medium: #FFE5A3;    /* Light golden yellow for highlights */
+            --golden-dark: #A37A00;      /* Darker, rich gold for borders/headings */
+            --text-light: #f3f4f6;       /* Light gray for primary text */
+            --popup-bg: #1f2937;         /* Dark gray for popup content */
+            --popup-overlay-bg: rgba(0, 0, 0, 0.85);
+            --popup-link-hover: #4b5563; /* Lighter gray for list item hover */
+            --list-link-text: #e5e7eb;   /* Muted white for links */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans Devangari', sans-serif;
-            background: linear-gradient(135deg, var(--golden-light) 0%, var(--golden-medium) 100%);
-            color: var(--brown-dark);
+            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            background-color: #111827; /* Dark background as requested */
+            color: var(--text-light);
         }
 
+        /* --- Header Styles --- */
+        .fixed-header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: #111827; /* Match body background */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-container {
+            padding-top: 130px; /* Adjust this value based on the final header height */
+        }
+        
+        @media (min-width: 640px) {
+            .main-container {
+                padding-top: 150px;
+            }
+        }
+
+        .shining-bar {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #A37A00, transparent);
+            background-size: 200% 100%;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+
         /* --- Global Styles --- */
-        .text-brown-dark { color: var(--brown-dark); }
+        .text-brown-dark { color: var(--text-light); } /* Changed for dark mode */
         .text-golden-dark { color: var(--golden-dark); }
 
-        /* --- Card Design --- */
+        /* --- Card Design for Dark Mode --- */
         .card {
-            background-color: var(--golden-light);
+            background-color: #1f2937; /* Darker card background */
             border-radius: 1.5rem;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08), 0 8px 15px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 8px 15px rgba(0, 0, 0, 0.15);
             padding: 2rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
             text-align: center;
-            border: 2px solid transparent;
+            border: 2px solid var(--golden-dark);
             height: 175px; 
             display: flex;
             flex-direction: column;
@@ -60,23 +103,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(255, 229, 163, 0.3), rgba(255, 250, 238, 0.1));
+            background: linear-gradient(45deg, rgba(163, 122, 0, 0.1), rgba(163, 122, 0, 0.05));
             opacity: 1;
             transition: opacity 0.3s ease-in-out;
             z-index: 1;
         }
         .card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.15), 0 15px 20px rgba(0, 0, 0, 0.1);
-            border-color: var(--golden-dark);
-        }
-        /* Glowing border on hover */
-        .card:hover {
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3), 0 15px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--golden-medium);
             -webkit-box-shadow: 0 0 20px var(--golden-dark);
             -moz-box-shadow: 0 0 20px var(--golden-dark);
             box-shadow: 0 0 20px var(--golden-dark);
         }
-
         .card-content {
             position: relative;
             z-index: 2;
@@ -90,29 +129,29 @@
         .card-heading {
             font-weight: 800;
             font-size: 1rem;
-            color: var(--brown-dark);
+            color: var(--text-light);
             margin-bottom: 0.5rem;
         }
         .card-sub-heading {
             font-size: 0.7rem;
-            color: var(--brown-dark);
+            color: #d1d5db; /* Lighter sub-heading color */
             font-weight: 500;
         }
 
         /* --- Updated Card Styles for PC --- */
         @media (min-width: 1024px) {
             .card {
-                height: 150px; /* PC और अन्य बड़ी स्क्रीन के लिए निश्चित ऊँचाई */
+                height: 150px;
             }
         }
         
         /* Mobile Responsive Card Styles */
         @media (max-width: 800px) {
             .card {
-                padding: 1rem; /* Smaller padding */
+                padding: 1rem;
                 border: 1px solid var(--golden-dark);
                 transform: none !important;
-                height: 130px; /* मोबाइल के लिए निश्चित ऊँचाई */
+                height: 130px;
             }
             .card-content {
                 display: flex;
@@ -121,26 +160,26 @@
                 align-items: center;
             }
             .card-icon {
-                font-size: 2rem; /* Smaller icon size */
+                font-size: 2rem;
                 margin-bottom: 0.5rem;
             }
             .card-heading {
-                font-size: 1rem; /* Smaller heading size */
+                font-size: 1rem;
                 font-weight: 700;
-                color: var(--brown-dark);
+                color: var(--text-light);
                 text-shadow: none;
                 margin-bottom: 0.25rem;
             }
             .card-sub-heading {
-                font-size: 0.75rem; /* Smaller sub-heading size */
-                color: var(--brown-dark);
+                font-size: 0.75rem;
+                color: #d1d5db;
             }
             .grid-cols-mobile-3 {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
         
-        /* --- Modal (Popup) Design --- */
+        /* --- Modal (Popup) Design for Dark Mode --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--popup-overlay-bg);
@@ -153,7 +192,7 @@
             background-color: var(--popup-bg);
             border-radius: 1.5rem;
             padding: 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             max-width: 650px;
             width: 95%;
             position: relative;
@@ -164,7 +203,6 @@
             max-height: 90vh;
             border: 5px solid var(--golden-dark);
             animation: modal-pop-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23EDE5D3' fill-opacity='0.5'%3E%3Cpath d='M0 10L10 0L0 0L0 10Z'/%3E%3Cpath d='M10 10L10 0L0 10L10 10Z'/%3E%3C/g%3E%3C/svg%3E");
         }
         
         @keyframes modal-pop-in {
@@ -182,11 +220,10 @@
         }
         .modal-close-button:hover { background-color: #e53e3e; transform: rotate(90deg); }
         
-        /* All list items now have a default golden border and glow */
         .modal-list a {
             display: block; 
             padding: 1rem 1.25rem; 
-            background-color: var(--golden-light);
+            background-color: #374151; /* Darker gray for list items */
             border-radius: 0.75rem; 
             margin-bottom: 0.75rem;
             color: var(--list-link-text);
@@ -194,257 +231,179 @@
             transition: all 0.2s ease-in-out;
             text-decoration: none; 
             border: 2px solid var(--golden-dark);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 15px var(--golden-dark);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 15px var(--golden-dark);
         }
         
-        /* Hover effect: Only changes background and moves slightly */
         .modal-list a:hover {
             background-color: var(--popup-link-hover);
             transform: translateX(5px);
         }
         
-        .modal-content h3 { color: var(--golden-dark); }
+        .modal-content h3 { color: var(--golden-medium); }
         .modal-content h3, .modal-content h4 {
-            color: var(--golden-dark);
-            border-bottom: 2px solid var(--golden-medium);
+            color: var(--golden-medium);
+            border-bottom: 2px solid var(--golden-dark);
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
 
-        /* Auto-Slider CSS */
+        /* --- Auto-Slider CSS --- */
         .slider-container {
             position: relative;
             width: 100%;
-            height: 200px; /* Adjust height as needed */
+            height: 200px;
             overflow: hidden;
-            /* ... (rest of the styles) ... */
         }
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* ... (rest of the styles) ... */
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; transition: opacity 1s ease-in-out;
         }
-        .slide.active {
-            opacity: 1;
-        }
-        /* अलग-अलग स्लाइड के लिए डिज़ाइन */
-        .slide-1  { background: linear-gradient(to right, #6366f1, #8b5cf6); border: 2px solid #8b5cf6; } /* Indigo-Violet */
-        .slide-2  { background: linear-gradient(to right, #10b981, #34d399); border: 2px solid #34d399; } /* Green */
-        .slide-3  { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; } /* Orange */
-        .slide-4  { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; } /* Red */
-        .slide-5  { background: linear-gradient(to right, #06b6d4, #22d3ee); border: 2px solid #22d3ee; } /* Cyan */
+        .slide.active { opacity: 1; }
+        .slide-1 { background: linear-gradient(to right, #6366f1, #8b5cf6); border: 2px solid #8b5cf6; }
+.slide-2 { background: linear-gradient(to right, #10b981, #34d399); border: 2px solid #34d399; }
+.slide-3 { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; }
+.slide-4 { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; }
+.slide-5 { background: linear-gradient(to right, #06b6d4, #22d3ee); border: 2px solid #22d3ee; }
+.slide-6 { background: linear-gradient(to right, #2563eb, #1d4ed8); border: 2px solid #1d4ed8; }
+.slide-7 { background: linear-gradient(to right, #d97706, #f59e0b); border: 2px solid #f59e0b; }
+.slide-8 { background: linear-gradient(to right, #14b8a6, #2dd4bf); border: 2px solid #2dd4bf; }
+.slide-9 { background: linear-gradient(to right, #be185d, #ec4899); border: 2px solid #ec4899; }
+.slide-10 { background: linear-gradient(to right, #059669, #10b981); border: 2px solid #10b981; }
+.slide-11 { background: linear-gradient(to right, #4c1d95, #6d28d9); border: 2px solid #6d28d9; }
+.slide-12 { background: linear-gradient(to right, #9d174d, #be185d); border: 2px solid #be185d; }
+.slide-13 { background: linear-gradient(to right, #166534, #15803d); border: 2px solid #15803d; }
+.slide-14 { background: linear-gradient(to right, #881337, #b91c1c); border: 2px solid #b91c1c; }
+.slide-15 { background: linear-gradient(to right, #1e3a8a, #1e40af); border: 2px solid #1e40af; }
+.slide-16 { background: linear-gradient(to right, #1d4ed8, #2563eb); border: 2px solid #2563eb; }
+.slide-17 { background: linear-gradient(to right, #083344, #0e7490); border: 2px solid #0e7490; }
+.slide-18 { background: linear-gradient(to right, #0d9488, #0f766e); border: 2px solid #0f766e; }
+.slide-19 { background: linear-gradient(to right, #d946ef, #e879f9); border: 2px solid #e879f9; }
+.slide-20 { background: linear-gradient(to right, #eab308, #facc15); border: 2px solid #facc15; }
+.slide-21 { background: linear-gradient(to right, #4f46e5, #6366f1); border: 2px solid #6366f1; }
+.slide-22 { background: linear-gradient(to right, #991b1b, #b91c1c); border: 2px solid #b91c1c; }
+.slide-23 { background: linear-gradient(to right, #0369a1, #0c4a6e); border: 2px solid #0c4a6e; }
+.slide-24 { background: linear-gradient(to right, #0d9488, #14b8a6); border: 2px solid #14b8a6; }
+.slide-25 { background: linear-gradient(to right, #9333ea, #a855f7); border: 2px solid #a855f7; }
+.slide-26 { background: linear-gradient(to right, #9a3412, #c2410c); border: 2px solid #c2410c; }
+.slide-27 { background: linear-gradient(to right, #155e75, #0891b2); border: 2px solid #0891b2; }
+.slide-28 { background: linear-gradient(to right, #9d174d, #ec4899); border: 2px solid #ec4899; }
+.slide-29 { background: linear-gradient(to right, #7e22ce, #a855f7); border: 2px solid #a855f7; }
+.slide-30 { background: linear-gradient(to right, #15803d, #16a34a); border: 2px solid #16a34a; }
+.slide-31 { background: linear-gradient(to right, #a21caf, #c026d3); border: 2px solid #c026d3; }
+.slide-32 { background: linear-gradient(to right, #b45309, #d97706); border: 2px solid #d97706; }
+.slide-33 { background: linear-gradient(to right, #dc2626, #ef4444); border: 2px solid #ef4444; }
+.slide-34 { background: linear-gradient(to right, #0891b2, #22d3ee); border: 2px solid #22d3ee; }
+.slide-35 { background: linear-gradient(to right, #65a30d, #84cc16); border: 2px solid #84cc16; }
+.slide-36 { background: linear-gradient(to right, #ca8a04, #eab308); border: 2px solid #eab308; }
+.slide-37 { background: linear-gradient(to right, #5b21b6, #7c3aed); border: 2px solid #7c3aed; }
+.slide-38 { background: linear-gradient(to right, #c2410c, #ea580c); border: 2px solid #ea580c; }
+.slide-39 { background: linear-gradient(to right, #166534, #10b981); border: 2px solid #10b981; }
+.slide-40 { background: linear-gradient(to right, #172554, #1e40af); border: 2px solid #1e40af; }
+.slide-41 { background: linear-gradient(to right, #991b1b, #ef4444); border: 2px solid #ef4444; }
+.slide-42 { background: linear-gradient(to right, #c026d3, #db2777); border: 2px solid #db2777; }
+.slide-43 { background: linear-gradient(to right, #2563eb, #1d4ed8); border: 2px solid #1d4ed8; }
+.slide-44 { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; }
+.slide-45 { background: linear-gradient(to right, #d97706, #f59e0b); border: 2px solid #f59e0b; }
+.slide-46 { background: linear-gradient(to right, #14b8a6, #2dd4bf); border: 2px solid #2dd4bf; }
+.slide-47 { background: linear-gradient(to right, #a855f7, #c026d3); border: 2px solid #c026d3; }
+.slide-48 { background: linear-gradient(to right, #0ea5e9, #06b6d4); border: 2px solid #06b6d4; }
+.slide-49 { background: linear-gradient(to right, #84cc16, #a3e635); border: 2px solid #a3e635; }
+.slide-50 { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; }
 
-        .slide-6  { background: linear-gradient(to right, #2563eb, #1d4ed8); border: 2px solid #1d4ed8; } /* Blue */
-        .slide-7  { background: linear-gradient(to right, #d97706, #f59e0b); border: 2px solid #f59e0b; } /* Amber */
-        .slide-8  { background: linear-gradient(to right, #14b8a6, #2dd4bf); border: 2px solid #2dd4bf; } /* Teal */
-        .slide-9  { background: linear-gradient(to right, #be185d, #ec4899); border: 2px solid #ec4899; } /* Pink */
-        .slide-10 { background: linear-gradient(to right, #059669, #10b981); border: 2px solid #10b981; } /* Emerald */
-
-        .slide-11 { background: linear-gradient(to right, #7c3aed, #a78bfa); border: 2px solid #a78bfa; } /* Purple */
-        .slide-12 { background: linear-gradient(to right, #dc2626, #ef4444); border: 2px solid #ef4444; } /* Crimson */
-        .slide-13 { background: linear-gradient(to right, #4b5563, #6b7280); border: 2px solid #6b7280; } /* Cool Gray */
-        .slide-14 { background: linear-gradient(to right, #0f766e, #0d9488); border: 2px solid #0d9488; } /* Dark Teal */
-        .slide-15 { background: linear-gradient(to right, #9d174d, #db2777); border: 2px solid #db2777; } /* Rose */
-
-        .slide-16 { background: linear-gradient(to right, #b91c1c, #e11d48); border: 2px solid #e11d48; } /* Deep Red */
-        .slide-17 { background: linear-gradient(to right, #1e3a8a, #3b82f6); border: 2px solid #3b82f6; } /* Royal Blue */
-        .slide-18 { background: linear-gradient(to right, #475569, #64748b); border: 2px solid #64748b; } /* Slate */
-        .slide-19 { background: linear-gradient(to right, #7f1d1d, #ef4444); border: 2px solid #ef4444; } /* Blood Red */
-        .slide-20 { background: linear-gradient(to right, #2e1065, #7c3aed); border: 2px solid #7c3aed; } /* Deep Violet */
-
-        .slide-21 { background: linear-gradient(to right, #064e3b, #10b981); border: 2px solid #10b981; } /* Jungle Green */
-        .slide-22 { background: linear-gradient(to right, #78350f, #d97706); border: 2px solid #d97706; } /* Bronze */
-        .slide-23 { background: linear-gradient(to right, #9333ea, #c084fc); border: 2px solid #c084fc; } /* Orchid */
-        .slide-24 { background: linear-gradient(to right, #991b1b, #f43f5e); border: 2px solid #f43f5e; } /* Candy Red */
-        .slide-25 { background: linear-gradient(to right, #0c4a6e, #0284c7); border: 2px solid #0284c7; } /* Ocean Blue */
-
-        
-        /* Mobile Bottom Nav CSS */
+        /* --- New Mobile Bottom Nav CSS --- */
         .bottom-nav {
-            background-color: black; /* बैकग्राउंड को काला करें */
-            border-top-color: #A37A00;
-        }
-        /* बटनों को प्रोफेशनल बनाने के लिए स्टाइल */
-        .bottom-nav a {
-            transition: all 0.2s ease-in-out;
-            border-radius: 0.75rem;
-            color: white; /* टेक्स्ट को सफेद करें */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* गहरा शैडो जोड़ें */
-            padding: 0.75rem 1.25rem;
-        }
-        .bottom-nav a:hover {
-            transform: scale(1.1);
-            background-color: #333; /* गहरा ग्रे रंग पर होवर */
-            box-shadow: 0 0 15px #FFD700; /* सुनहरा ग्लोइंग इफेक्ट */
-        }
-
-        /* --- New Pop-up Styles for the Payment Modal --- */
-        .popup-container-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: none; /* Hidden by default */
-            justify-content: center;
+            background-color: #000;
+            border-top: 2px solid var(--golden-dark);
+            box-shadow: 0 -5px 20px rgba(163, 122, 0, 0.2);
+            height: 64px;
+            display: flex;
+            justify-content: space-around;
             align-items: center;
-            z-index: 2000; /* High z-index to be on top of other modals */
+            padding: 0 10px;
         }
 
-        .popup-content {
-            background-color: transparent;
-            padding: 2.5rem;
-            border-radius: 1.5rem;
-            max-width: 95%;
-            width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border: 2px solid #FFD700;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-            animation: slideIn 0.5s ease-out forwards;
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af; /* Muted text color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.75rem;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .nav-item:hover, .nav-item.active {
+            color: #fff; /* Active/Hover text color */
         }
         
-        /* New Style for the "Enter Information" heading to match the button */
-        .golden-text-gradient-custom {
-            background-image: linear-gradient(45deg, #FFD700, #B8860B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .input-field {
-            background-color: #2a2a2a;
-            border: 1px solid #FFC107;
-            color: #E5E7EB;
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
-        }
-
-        .button-primary {
-            background-image: linear-gradient(45deg, #FFD700, #B8860B);
-            color: #1a1a1a;
-            transition: all 0.3s ease;
-        }
-
-        .button-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background-color: #374151;
-            border-radius: 9999px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background-image: linear-gradient(90deg, #FFD700, #B8860B);
-            transition: width 0.5s ease-in-out;
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2px;
         }
         
-        /* New Style for list items in the second popup */
-        .list-item-golden {
-            color: #FFD700; /* Button-like gold color */
+        .nav-item-central {
+            transform: translateY(-20px);
+            position: relative;
         }
-        .list-item-golden svg {
-            color: #FFD700; /* Ensure the SVG icon also matches */
-        }
-        
-        .spinner {
-            border: 4px solid #4B5563;
-            border-top: 4px solid #FFD700;
+
+        .central-icon-wrapper {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            animation: spin 1s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #4f46e5 0%, #312e81 100%);
+            border: 3px solid #fff;
+            box-shadow: 0 0 15px #4f46e5, 0 5px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .nav-item-central:hover .central-icon-wrapper {
+            transform: scale(1.1);
         }
 
-        .confetti-container {
+        .central-icon-wrapper svg {
+            width: 32px;
+            height: 32px;
+            color: #fff;
+        }
+
+        .nav-item-central .nav-text {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #FFD700;
-            transform-origin: 50% 50%;
-            animation: confetti-fall 2s ease-out forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
-        }
-
-        .triumph-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background-image: linear-gradient(90deg, #FFD700, #FFC107);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            bottom: -18px;
+            font-size: 0.75rem;
+            color: #fff;
         }
     </style>
 </head>
 <body class="leading-relaxed">
 
-    <div class="container mx-auto p-4 md:p-8 lg:p-12">
-
-        <header class="text-center">
+    <div class="fixed-header-container">
+        <header class="text-center p-4">
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-golden-dark mb-4 drop-shadow-md">🎯Your-True-Guide🎯</h1>
-            <p class="text-lg sm:text-xl md:text-2xl text-brown-dark font-semibold">Grow-With-Us-In-Every-Sector</p>
+             <div class="shining-bar"></div>
+    </div>
         </header>
+       
+    <br> <br><br>
 
+    <div class="container mx-auto p-4 md:p-8 lg:p-12 main-container">
+        
         <section class="latest-forms mt-0">
             <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">Latest-Recruitment</h2>
             </div>
             <div class="slider-container relative">
-    <div id="slides-wrapper" class="relative w-full h-full"></div>
-    <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❮</button>
-    <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❯</button>
-    <div id="progress-bar-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 h-2 bg-gray-300 rounded-full overflow-hidden">
-        <div id="progress-bar" class="h-full bg-golden-dark transition-all duration-5000 ease-linear" style="width: 0%;"></div>
-    </div>
-</div>
+                <div id="slides-wrapper" class="relative w-full h-full"></div>
+                <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❮</button>
+                <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❯</button>
+                <div id="progress-bar-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 h-2 bg-gray-600 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-golden-dark transition-all duration-5000 ease-linear" style="width: 0%;"></div>
+                </div>
+            </div>
         </section>
 
         <section id="govt-exam-section" class="govt-exam-guide-section mb-8">
@@ -452,7 +411,6 @@
                 <br>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Govt-Exam-Full-Guide</h2>
             </div>
-            <!-- Updated Grid Classes for PC (3 cards per row) -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <div class="card" data-modal-target="upscModal" data-keywords="upsc संघ लोक सेवा आयोग civil services ese cse ifos nda cds capf">
                     <div class="card-content">
@@ -494,6 +452,13 @@
                         <div class="card-icon">🗺️</div>
                         <h2 class="card-heading">राज्य PSCs/SSCs</h2>
                         <p class="card-sub-heading">राज्य स्तर की परीक्षाएँ</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="districtJobsModal" data-keywords="district level jobs collectorate court anganwadi panchayat">
+                    <div class="card-content">
+                        <div class="card-icon">📍</div>
+                        <h2 class="card-heading">जिला स्तरीय नौकरियाँ</h2>
+                        <p class="card-sub-heading">कलेक्ट्रेट, कोर्ट, पंचायत</p>
                     </div>
                 </div>
                 <div class="card" data-modal-target="ntaModal" data-keywords="nta राष्ट्रीय परीक्षण एजेंसी ugc net csir net cuet jee neet">
@@ -622,7 +587,7 @@
             <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-A.I- Tools Full Guide</h2>
             </div>
-            <div class="grid grid-cols-1 grid-cols-mobile-3 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <div class="card" data-modal-target="chatGPTModal" data-keywords="chatgpt openai conversational ai open ai llm gpt-4 gpt-3.5">
                     <div class="card-content">
                         <div class="card-icon">🤖</div>
@@ -684,6 +649,20 @@
                         <div class="card-icon">📦</div>
                         <h2 class="card-heading">Alibaba</h2>
                         <p class="card-sub-heading">Qwen 2.5</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="perplexityModal" data-keywords="perplexity ai answer engine conversational search">
+                    <div class="card-content">
+                        <div class="card-icon">❓</div>
+                        <h2 class="card-heading">Perplexity</h2>
+                        <p class="card-sub-heading">Conversational Search</p>
+                    </div>
+                </div>
+                <div class="card" data-modal-target="aiUtilitiesModal" data-keywords="prompt engineering generateprompt midjourney prompts runwayml elevenlabs">
+                    <div class="card-content">
+                        <div class="card-icon">🛠️</div>
+                        <h2 class="card-heading">AI Utilities</h2>
+                        <p class="card-sub-heading">Prompting, Video, Audio</p>
                     </div>
                 </div>
                 <div class="card" data-modal-target="othersAIModal" data-keywords="others minimax pixtral">
@@ -833,11 +812,29 @@
         <main id="card-grid" class="hidden">
         </main>
         
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-300">
-            <p class="text-gray-600 text-lg font-medium">©crapd.in 2025 सरकारी परीक्षा गाइड। आपकी सफलता के लिए हार्दिक शुभकामनाएँ।</p>
+        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-700">
+            <p class="text-gray-400 text-lg font-medium"> आपकी सफलता के लिए हार्दिक शुभकामनाएँ।</p>
         </footer>
     </div>
     
+    <div id="districtJobsModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" title="Close">&times;</button>
+            <h3 class="text-3xl font-bold mb-4">जिला स्तरीय नौकरियाँ</h3>
+            <div class="modal-list">
+                <a href="district-collector-office-jobs.html">Collector Office (Clerk, Peon, Data Entry)</a>
+                <a href="district-court-jobs.html">District Court (Steno, Clerk, Peon)</a>
+                <a href="district-health-department-jobs.html">Health Dept. (ANM, GNM, Lab Tech - Contract)</a>
+                <a href="district-icds-anganwadi-jobs.html">ICDS/Anganwadi (Supervisor, Worker, Helper)</a>
+                <a href="district-panchayati-raj-jobs.html">Panchayati Raj (Panchayat Sahayak, Rojgar Sevak)</a>
+                <a href="district-education-jobs.html">Education Dept. (Guest Teacher, Block Resource Person)</a>
+                <a href="district-land-records-jobs.html">Land Records (Patwari, Amin)</a>
+                <a href="district-municipal-jobs.html">Municipal Corp. (Safai Karamchari, Clerk)</a>
+                <a href="district-drda-jobs.html">District Rural Development Agency (DRDA) Posts</a>
+            </div>
+        </div>
+    </div>
+
     <div id="upscModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" title="Close">&times;</button>
@@ -1884,7 +1881,6 @@
             </div>
         </div>
     </div>
-    <!-- Modals -->
     <div id="chatGPTModal" class="modal-overlay">
     <div class="modal-content">
         <button class="modal-close-button" title="Close">&times;</button>
@@ -1989,6 +1985,31 @@
             <a href="minimax.html">MiniMax</a>
             <a href="pixtral.html">Pixtral</a>
             <a href="etc.html">etc.</a>
+        </div>
+    </div>
+</div>
+<div id="perplexityModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close-button" title="Close">&times;</button>
+        <h3 class="text-3xl font-bold mb-4">Perplexity AI</h3>
+        <div class="modal-list">
+            <a href="perplexity-search.html">Conversational Search Engine</a>
+            <a href="perplexity-copilot.html">Copilot Mode (GPT-4 Powered)</a>
+            <a href="perplexity-api.html">API Access</a>
+        </div>
+    </div>
+</div>
+<div id="aiUtilitiesModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close-button" title="Close">&times;</button>
+        <h3 class="text-3xl font-bold mb-4">AI Utilities & Tools</h3>
+        <div class="modal-list">
+            <a href="generate-prompt-ai.html">GeneratePrompt.ai</a>
+            <a href="midjourney-prompt-helper.html">Midjourney Prompt Helper</a>
+            <a href="prompt-perfect.html">PromptPerfect</a>
+            <a href="runway-ml.html">RunwayML (AI Video Tools)</a>
+            <a href="elevenlabs-ai.html">ElevenLabs (AI Voice Generation)</a>
+            <a href="synthesia-ai.html">Synthesia (AI Video Avatars)</a>
         </div>
     </div>
 </div>
@@ -2246,50 +2267,38 @@
     </div>
 </div>
     
-    <div class="fixed bottom-0 left-0 w-full md:hidden bg-golden-medium border-t-4 border-golden-dark shadow-lg bottom-nav z-10">
-        <div class="flex justify-around items-center h-16">
-            <a href="#govt-exam-section" class="flex flex-col items-center text-xs p-2">
-                <div class="card-icon">📚</div>
-                <span class="mt-1">सरकारी परीक्षा</span>
-            </a>
-            <a href="#ai-guide-section" class="flex flex-col items-center text-xs p-2">
-                <div class="card-icon">🧠</div>
-                <span class="mt-1">AI टूल्स</span>
-            </a>
-            <a href="#private-sector-section" class="flex flex-col items-center text-xs p-2">
-                <div class="card-icon">💼</div>
-                <span class="mt-1">प्राइवेट जॉब्स</span>
-            </a>
-        </div>
+    <div class="fixed bottom-0 left-0 w-full md:hidden bottom-nav z-50">
+        <a href="#govt-exam-section" class="nav-item">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+            <span class="nav-text">Public</span>
+        </a>
+        <a href="#private-sector-section" class="nav-item">
+             <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.75h16.5v8.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V9.75z M3.75 9.75L7.5 3.375h9L20.25 9.75" /></svg>
+            <span class="nav-text">Private</span>
+        </a>
+        <a href="index.html" class="nav-item nav-item-central">
+            <div class="central-icon-wrapper">
+                <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg>
+            </div>
+            <span class="nav-text">Home</span>
+        </a>
+        <a href="#contact" class="nav-item">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+            <span class="nav-text">Contact</span>
+        </a>
+        <a href="#ai-guide-section" class="nav-item">
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5a6 6 0 00-6-6v-1.5a6 6 0 00-6 6v1.5a6 6 0 006 6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75V15m0-6.75V6" /></svg>
+            <span class="nav-text">AI-Tools</span>
+        </a>
     </div>
+
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.card');
             const modals = document.querySelectorAll('.modal-overlay');
             const closeButtons = document.querySelectorAll('.modal-close-button');
-            const searchInput = document.getElementById('searchInput');
-            const noResultsMessage = document.getElementById('no-results-message');
-            const allCards = Array.from(cards);
-
-            // Enhanced Search Data Aggregation
-            allCards.forEach(card => {
-                const modalId = card.dataset.modalTarget;
-                const modal = document.getElementById(modalId);
-                let searchableText = (card.dataset.keywords || '').toLowerCase();
-                
-                searchableText += ' ' + (card.querySelector('.card-heading').textContent || '').toLowerCase();
-                searchableText += ' ' + (card.querySelector('.card-sub-heading').textContent || '').toLowerCase();
-
-                if (modal) {
-                    const links = modal.querySelectorAll('a');
-                    links.forEach(link => {
-                        searchableText += ' ' + (link.textContent || '').toLowerCase().replace(/—/g, ' ');
-                    });
-                }
-                card.dataset.searchText = searchableText;
-            });
-
+            
             const showModal = (modalId) => {
                 const modal = document.getElementById(modalId);
                 if (modal) {
@@ -2329,32 +2338,7 @@
                 }
             });
 
-            if(searchInput) {
-                searchInput.addEventListener('input', () => {
-                    const searchTerm = searchInput.value.toLowerCase().trim();
-                    let hasResults = false;
-    
-                    allCards.forEach(card => {
-                        const searchText = card.dataset.searchText || '';
-                        const isVisible = searchText.includes(searchTerm);
-                        
-                        if (isVisible) {
-                            card.style.display = 'block';
-                            hasResults = true;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-    
-                    if(noResultsMessage) {
-                        noResultsMessage.style.display = hasResults ? 'none' : 'block';
-                    }
-                });
-            }
-
-
             // Auto-Slider Script
-            // --- IMPROVED AUTO-SLIDER SCRIPT ---
             const slidesWrapper = document.getElementById('slides-wrapper');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -2364,77 +2348,102 @@
             let slideInterval;
             const slideDuration = 5000;
 
-            // Fetch data from a (mock) API
             async function fetchSlidesData() {
-                // In a real scenario, you'd fetch from a live API endpoint.
-                // Example: await fetch('https://api.example.com/latest-recruitments.json');
-                // For this example, we use hardcoded data.
                 return [
                     {
-    title: "Karnataka Grameena Bank (KGB) भर्ती 2025",
-    text: "Office Assistant और Scale I/II Officer पदों के लिए आवेदन अंतिम तिथि: 21 सितंबर 2025",
-    link: "https://www.karnatakagrameenabank.com/",
-    colorClass: "slide-1",
-    deadline: "2025-09-21"
+    "title": "IBPS RRB PO & Clerk भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 28 सितंबर 2025 (बढ़ी हुई तिथि)",
+    "link": "https://ibpsreg.ibps.in/rrbxivaug25/",
+    "colorClass": "slide-2",
+    "deadline": "2025-09-28"
   },
   {
-    title: "IBPS RRB PO & Clerk भर्ती 2025",
-    text: "प्रारंभ: 1 सितंबर 2025 | अंतिम तिथि: 21 सितंबर 2025",
-    link: "https://www.ibps.in/",
-    colorClass: "slide-2",
-    deadline: "2025-09-21"
+    "title": "MPESB Group 2 Sub‑Group 3 भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 23 सितंबर 2025",
+    "link": "https://esb.mp.gov.in/e_default.html",
+    "colorClass": "slide-3",
+    "deadline": "2025-09-23"
   },
   {
-    title: "MPESB Group 2 Sub‑Group 3 भर्ती 2025",
-    text: "Registration: 9 सित॰ 2025 से 23 सित॰ 2025 तक",
-    link: "https://esb.mp.gov.in",
-    colorClass: "slide-3",
-    deadline: "2025-09-23"
+    "title": "West Bengal SSC (WBSSC) Non‑Teaching भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 31 अक्टूबर 2025",
+    "link": "https://www.westbengalssc.com/",
+    "colorClass": "slide-4",
+    "deadline": "2025-10-31"
   },
   {
-    title: "West Bengal SSC (WBSSC) Non‑Teaching भर्ती 2025",
-    text: "Applications: 16 सित॰ 2025 से 31 अक्टूबर 2025 तक",
-    link: "https://wbssc.gov.in/",
-    colorClass: "slide-4",
-    deadline: "2025-10-31"
+    "title": "Canara Bank Trainee (Sales & Marketing) भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 6 अक्टूबर 2025",
+    "link": "https://www.canmoney.in/careers",
+    "colorClass": "slide-5",
+    "deadline": "2025-10-06"
   },
   {
-    title: "Canara Bank Trainee (Sales & Marketing) भर्ती 2025",
-    text: "अंतिम तिथि: 6 अक्टूबर 2025",
-    link: "https://www.canarabank.com/",
-    colorClass: "slide-5",
-    deadline: "2025-10-06"
+    "title": "RBI Grade B Officer भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 30 सितंबर 2025",
+    "link": "https://ibpsreg.ibps.in/rbioaug25/",
+    "colorClass": "slide-8",
+    "deadline": "2025-09-30"
   },
   {
-    title: "RPSC ASO (Assistant Statistical Officer) परीक्षा 2025",
-    text: "परीक्षा तिथि: 12 अक्टूबर 2025 (आवेदन तिथि पहले जारी हो चुकी है)",
-    link: "https://rpsc.rajasthan.gov.in/",
-    colorClass: "slide-6",
-    deadline: "2025-10-12"
+    "title": "BSF Head Constable (Radio Operator/Mechanic) भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 23 सितंबर 2025",
+    "link": "https://rectt.bsf.gov.in/",
+    "colorClass": "slide-9",
+    "deadline": "2025-09-23"
   },
   {
-    title: "Chandigarh JBT Teacher भर्ती 2025",
-    text: "Admit कार्ड उपलब्ध: 30 सित॰ 2025 | परीक्षा: 5 अक्टूबर 2025",
-    link: "https://www.chdeducation.gov.in/",
-    colorClass: "slide-7",
-    deadline: "2025-10-05"
+    "title": "AAI Junior Executive भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 27 सितंबर 2025",
+    "link": "https://cdn.digialm.com/EForms/configuredHtml/1258/95484/Index.html",
+    "colorClass": "slide-10",
+    "deadline": "2025-09-27"
+  },
+  {
+    "title": "Jharkhand Home Guard भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 30 सितंबर 2025",
+    "link": "https://recruitment.jharkhand.gov.in/",
+    "colorClass": "slide-11",
+    "deadline": "2025-09-30"
+  },
+  {
+    "title": "RVUNL Technician भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 25 सितंबर 2025",
+    "link": "https://ibpsonline.ibps.in/rrvnlpajan25/",
+    "colorClass": "slide-12",
+    "deadline": "2025-09-25"
+  },
+  {
+    "title": "UPPSC APO (Assistant Prosecution Officer) भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 16 अक्टूबर 2025",
+    "link": "https://uppsc.up.nic.in/CandidatePages/Notifications.aspx",
+    "colorClass": "slide-13",
+    "deadline": "2025-10-16"
+  },
+  {
+    "title": "ISRO Jr. Translation Officer & Assistant (Rajbhasha) भर्ती 2025",
+    "text": "आवेदन अंतिम तिथि: 13 अक्टूबर 2025",
+    "link": {
+      "जूनियर ट्रांसलेशन ऑफिसर": "https://www.isro.gov.in/SACRecruitment18.html",
+      "असिस्टेंट (राजभाषा)": "https://www.isro.gov.in/SACRecruitment17.html"
+    },
+    
+    "colorClass": "slide-14",
+    "deadline": "2025-10-13"
   }
                 ];
             }
 
             async function initializeSlider() {
                 slidesData = await fetchSlidesData();
-                
-                // Sort by deadline to show the most recent ones first
                 slidesData.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
-                
                 createSlides(slidesData);
                 showSlide(currentSlide);
                 startAutoSlide();
             }
 
             function createSlides(data) {
-                slidesWrapper.innerHTML = ''; // Clear existing slides
+                slidesWrapper.innerHTML = '';
                 data.forEach((item, index) => {
                     const slide = document.createElement('a');
                     const deadline = new Date(item.deadline);
@@ -2444,7 +2453,7 @@
                     
                     slide.href = item.link;
                     slide.target = "_blank";
-                    slide.className = `slide ${item.colorClass} rounded-xl shadow-lg p-6 text-center absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-1000`;
+                    slide.className = `slide ${item.colorClass} rounded-xl shadow-lg p-6 text-white text-center absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-1000`;
                     slide.style.zIndex = index === 0 ? 1 : 0;
                     
                     let contentHTML = `<h3 class="text-xl sm:text-2xl font-bold mb-2">${item.title}</h3>`;
@@ -2454,7 +2463,7 @@
                     }
 
                     if (item.link) {
-                        contentHTML += `<div class="mt-4"><button class="px-6 py-2 rounded-full text-white font-bold transition-transform transform ${isExpired ? 'bg-gray-500 cursor-not-allowed' : 'bg-golden-dark hover:scale-105'}" ${isExpired ? 'disabled' : ''}>${statusText}</button></div>`;
+                        contentHTML += `<div class="mt-4"><button class="px-6 py-2 rounded-full text-black bg-white font-bold transition-transform transform ${isExpired ? 'bg-gray-400 cursor-not-allowed' : 'hover:scale-105'}" ${isExpired ? 'disabled' : ''}>${statusText}</button></div>`;
                     }
                     
                     slide.innerHTML = contentHTML;
@@ -2511,9 +2520,7 @@
                 startAutoSlide();
             });
 
-            // Initial call to start the process
             initializeSlider();
-            
         });
     </script>
 </body>
