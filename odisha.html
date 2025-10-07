@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odisha District Level Jobs Guide (All Departments)</title>
+    <script src="redirect_if_needed.js"></script>  
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visual data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to District Level Jobs in Odisha across various departments like Collectorate, Courts, Health, and Panchayati Raj.">
+    <meta name="keywords" content="Odisha Government Jobs, OSSC, OPSC, District Level Jobs, Revenue Inspector, RI, Clerical Jobs, Odia Language">
+    <meta name="author" content="Odisha Jobs Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef8f3; /* Light Creamy Background */
+            color: #312e81; /* Indigo/Blue for main text contrast */
+        }
+        /* Odisha Colors: Saffron/Orange & Blue (Jagannath Theme) */
+        .section-heading {
+            border-image: linear-gradient(to right, #f97316, #3b82f6) 1; /* Orange & Blue */
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #1e40af; /* Darker Blue */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1); /* Blueish Shadow */
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #e0f2fe; /* Pale Blue Border */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(249, 115, 22, 0.15); /* Orange hover shadow */
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f97316; /* Orange border */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f97316; /* Orange */
+            color: #f97316; 
+            background: #fff7ed; /* Very Light Orange */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #f97316;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.4);
+        }
+        .flowchart-arrow {
+            color: #3b82f6; /* Blue Arrow */
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        }
+        .subject-category-heading {
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f97316; /* Orange border */
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #f1f5f9; /* Light Gray */
+        }
+        .subject-item:hover {
+            background-color: #bfdbfe; /* Lighter Blue */
+        }
+        .subject-item .icon {
+            color: #3b82f6; /* Blue Icon */
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #3b82f6; /* Blue Timeline */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #f97316; /* Orange Dot */
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+        }
+        /* Modal and Button styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(30, 64, 175, 0.85); /* Dark Blue */
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #1e40af;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #dbeafe;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #dc2626; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f97316, #ea580c); /* Orange Gradient */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f97316; /* Orange Border */
+            color: #f97316;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f97316; /* Active Orange */
+            color: #ffffff;
+            box-shadow: 0 0 15px #f97316;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background-color: #1e40af; /* Dark Blue */
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            background-color: #1e3a8a;
+        }
+        .lectures-btn {
+            background-color: #dbeafe; 
+            color: #1e40af; 
+            border-color: #93c5fd; 
+        }
+        .lectures-btn:hover {
+            background-color: #93c5fd;
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#1e40af] mb-4 tracking-tight">🌊 Odisha District Level Jobs Guide 🔆</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-blue-700">Your Guide to a Career in Odisha's Public Service</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="or">ଓଡ଼ିଆ</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are District Level Jobs? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-orange-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are District Level Jobs in Odisha? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">District Level Jobs in Odisha are the backbone of state administration, covering roles in all 30 districts. Recruitment for these Group 'C' and 'D' posts is managed primarily by the **Odisha Staff Selection Commission (OSSC)**, the **Odisha Public Service Commission (OPSC)**, and specific local bodies like the District Collectorates (Zilla Parishad). These roles offer stable employment and a direct opportunity to serve the Odia people.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for most posts is conducted by the OSSC through a multi-stage process that emphasizes English, Odia language proficiency, and General Studies.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Preliminary Exam</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">Objective MCQ Test (General Studies)</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Mains / Skill Test</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">Includes Odia & English Language Paper</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Doc Verification</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">Final Selection</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for Odisha Government jobs is based on educational qualifications, age limits, and essential Odia language skills.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **21 and 38 years** for General candidates. Age relaxation for SC/ST/OBC/Women categories is applicable as per Odisha Government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">Varies from **10th Pass** (Peon, Sanitation) to **12th Pass/Graduation** (Clerk, Revenue Inspector, Panchayat Executive Officer) and **Diploma/Degree** for technical roles.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-[#3b82f6] pb-2">Language and Domicile 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>The candidate must be able to **read, write, and speak Odia**, and must have passed Odia as a subject in the HSC/School Final Examination.</li>
+                             <li>A domicile certificate of Odisha is required for availing reservation benefits.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-blue-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. OSSC/OPSC District Level Exam Pattern 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Odisha recruitment exams often feature a compulsory language paper (Odia and English) that is critical for final merit ranking.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">General Studies & Current Affairs</h3>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">Odia & English Language Paper (Descriptive/Objective)</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Mathematics, Reasoning, and Computer Skills</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">New appointees undergo a mandatory probation period, often coupled with intensive training at the state level (e.g., Gopabandhu Academy of Administration).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-orange-100 rounded-xl border-2 border-[#f97316]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A standard two-year probation is required for confirmation of permanent service.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Performance is assessed through departmental examinations and work quality.</li>
+                            <li>Confirmation leads to full benefits and permanent employment status.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-orange-100 rounded-xl border-2 border-[#3b82f6]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. Training & Field Posting</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Specialized training is given based on the department and role (e.g., Revenue Inspector training).</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction training covers Odia government rules, ethical standards, and anti-corruption measures.</li>
+                           <li>Field training is mandatory for roles in Land Revenue and Panchayati Raj for practical exposure.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">These roles are the primary link between the State Government and the citizens at the district, block, and Panchayat level.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Revenue, Judicial & Admin</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Clerk/DEO:** Administrative support, data management, and public dealing in District Collectorates (Zilla Parishad).</li>
+                           <li>**Court Staff:** Supporting the judicial process in District and Subordinate Courts.</li>
+                            <li>**Revenue Inspector (RI) / Amin:** Land record maintenance, survey, and tax assessment (crucial field job).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Public Welfare & Health</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Health Dept:** ANM, GNM, and Lab Technicians providing community health services under NHM.</li>
+                           <li>**ICDS/Anganwadi:** Implementing child development and nutrition programs (Supervisor/Worker).</li>
+                           <li>**Education Dept:** Supporting school administration and non-teaching activities (BRPs, Clerks).</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Panchayat & Urban Services</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Panchayat Executive Officer (PEO) / Gram Rojgar Sevak:** Implementing rural schemes like MGNREGA and managing Gram Panchayat finances.</li>
+                           <li>**DRDA Staff:** Monitoring and executing district-level rural development plans.</li>
+                           <li>**Municipal/Nagar Palika Staff:** Managing civic amenities, public hygiene, and urban records.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an Ideal Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Success requires strong Odia language command, excellent general awareness (especially of Odisha GK), and competitive aptitude.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-[#f97316] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🗣️</span><div><strong class="text-slate-900">Odia Language Mastery:</strong> Mandatory proficiency in reading, writing, and speaking Odia, often tested through a descriptive paper.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">Odisha GK & Current Affairs:</strong> Deep knowledge of the state's history, culture, geography, and government schemes is critical for high scores.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">Numerical & Aptitude Skills:</strong> Strong command over Mathematics and Logical Reasoning is crucial for qualifying the written examination.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">Computer Skills:</strong> Proficiency in MS Office and internet usage is essential and often tested in a practical skill test (especially for LDC/DEO/PEO roles).</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A winning strategy for OSSC/OPSC exams involves balancing General Studies with the compulsory Odia language paper and rigorous practice.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#f97316] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Master Odia Language</h4>
+                                <p id="sec8-step1-desc" class="text-base">Focus on grammar, essay writing, and comprehension in Odia, as it is mandatory and score-boosting for the Mains exam.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Deep Dive into Odisha GK</h4>
+                                <p id="sec8-step2-desc" class="text-base">Use specialized local publications and government reports to cover the socio-economic and political history of Odisha.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Daily Aptitude Practice</h4>
+                                <p id="sec8-step3-desc" class="text-base">Practice Mathematics (up to matriculation level) and Reasoning daily to ensure speed and accuracy in the competitive paper.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Solve OSSC Previous Papers:</strong> The best way to understand the exam's specific pattern and time management requirements.</li>
+                            <li><strong>Read Local Newspapers:</strong> Follow publications like **The Samaja** or **Dharitri** for state-level news and current affairs.</li>
+                            <li><strong>Attempt Mock Tests:</strong> Regularly take full-length mock tests under timed conditions to simulate the actual exam environment.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Recruitment is conducted by the OSSC and OPSC based on specific recruitment calendars and vacancy reports from district offices.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Notification & Application</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Vacancies are advertised on the OSSC/OPSC official websites.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Preliminary & Mains Exam</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Multi-stage written tests are conducted, including the compulsory Odia language paper in the Mains/Stage II.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Skill Test / Document Verification</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Computer Skill Test for Clerical posts, followed by detailed document verification.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-slate-900 mb-1">Final Merit List & Appointment</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A final merit list is prepared based on the Mains score (and skill test status), leading to district-level postings.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Competition is high for government jobs in Odisha. Avoid these common pitfalls.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">Ignoring Odia Language Paper:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">Underestimating the compulsory Odia and English descriptive paper, which determines eligibility and rank.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">Shallow Odisha GK:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">Failing to focus on Odisha's economic survey, history, art, and culture, which forms a large part of the GK section.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">Lack of Computer Skills:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">Failing the mandatory practical Computer Skill Test for clerical posts due to insufficient hands-on practice (MS Office, data entry).</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">Poor Math & Reasoning Base:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">Neglecting quantitative aptitude and reasoning, which are high-scoring and mandatory subjects in the objective papers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Bhubaneswar and Cuttack are the main hubs for OPSC and OSSC exam coaching, offering specialized Odia language and technical courses.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>Odisha Board (BSE) textbooks for Odia language and foundation subjects.</li>
+                           <li>Dedicated books on Odisha GK, history, and economy by local publishers.</li>
+                           <li>Daily reading of Odia newspapers for language practice and current affairs.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Coaching Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Many institutes in the twin cities (Bhubaneswar-Cuttack) focus on OSSC and technical recruitment.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Choose an institute known for its strong faculty in Odia Descriptive writing and Math/Aptitude.</li>
+                            <li>Join test series that precisely simulate the OSSC/OPSC exam pattern for timing practice.</li>
+                            <li>Utilize online resources and government portals for the latest scheme updates (Odisha Current Affairs).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A government job in Odisha offers stability and a structured path, with promotions based on seniority, service record, and departmental exams.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-orange-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. OSSC District Exam Syllabus Focus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The OSSC syllabus typically covers General Awareness, language proficiency, Aptitude, and Computer applications.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">Odia & English Language</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🗣️</span><div class="flex-grow">Odia Language (Grammar, Translation, Essay)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Comprehension, Vocabulary)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Aptitude, GK & Computer</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Quantitative Aptitude and Reasoning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness (Odisha & National GK)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Skills (MS Office & Internet)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | Serving the people of Odisha.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="prelims-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="mains-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="interview-modal-p1"></p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            const serviceDetailsData = {
+                'en': {
+                    'collector': { 
+                        name: '1. Collector Office (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Clerical and administrative support roles in the District Collectorate (Zilla Parishad), essential for managing records, data entry, and public services.',
+                        cta: 'Learn More'
+                    },
+                    'court': { 
+                        name: '2. District Court (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Posts supporting the judicial processes, including Junior Clerks, Stenographers, and process servers within the District Judiciary.',
+                        cta: 'Learn More'
+                    },
+                    'health': { 
+                        name: '3. Health Dept. (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Contractual paramedical roles under the National Health Mission (NHM) or Health Society, vital for delivering primary healthcare services across communities and blocks.',
+                        cta: 'Learn More'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Key roles focused on monitoring, implementing, and delivering mother and child welfare and nutrition programs under the Social Welfare Department.',
+                        cta: 'Learn More'
+                    },
+                    'panchayat': {
+                        name: '5. Panchayati Raj (PEO, Rojgar Sevak)',
+                        icon: '🏘️',
+                        description: 'Posts like Panchayat Executive Officer (PEO) and Gram Rojgar Sevak crucial for implementing rural schemes, financial management, and block-level administration.',
+                        cta: 'Learn More'
+                    },
+                    'education': {
+                        name: '6. Education Dept. (Guest Teacher, Block Resource Person)',
+                        icon: '🏫',
+                        description: 'Temporary roles like Guest Teachers in government schools or Block Resource Persons (BRP) supporting teacher training, curriculum execution, and education quality initiatives.',
+                        cta: 'Learn More'
+                    },
+                     'land': {
+                        name: '7. Land Records (Revenue Inspector, Amin)',
+                        icon: '🗺️',
+                        description: 'Crucial field and office roles like Revenue Inspector (RI) and Amin, responsible for land measurement, revenue collection, record maintenance, and issuing certificates.',
+                        cta: 'Learn More'
+                    },
+                     'municipal': {
+                        name: '8. Municipal/Nagar Palika (Clerk, Sanitation Staff)',
+                        icon: '🏢',
+                        description: 'Jobs essential for urban local bodies, managing public works, sanitation (Safai Karamchari), civic records, and general clerical duties in cities like Bhubaneswar, Cuttack, and Berhampur.',
+                        cta: 'Learn More'
+                    },
+                     'drda': {
+                        name: '9. DRDA/District Planning Posts',
+                        icon: '🏞️',
+                        description: 'Staff hired by the District Rural Development Agency (DRDA) to implement and monitor flagship rural development and poverty alleviation programs across the district.',
+                        cta: 'Learn More'
+                    }
+                },
+                'or': { // Odia localization
+                    'collector': { 
+                        name: '୧. ଜିଲ୍ଲାପାଳ କାର୍ଯ୍ୟାଳୟ (କିରାଣି, ଡିଇଓ, ପିଅନ)', 
+                        icon: '🏛️',
+                        description: 'ଜିଲ୍ଲାପାଳ କାର୍ଯ୍ୟାଳୟରେ (ଜିଲ୍ଲା ପରିଷଦ) ପ୍ରଶାସନିକ ସହାୟତା ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଭୂମିକା, ଯାହାକି ରେକର୍ଡ, ଡାଟା ଏଣ୍ଟ୍ରି ଏବଂ ଜନସେବା ପରିଚାଳନା ପାଇଁ ଅତ୍ୟାବଶ୍ୟକ ଅଟେ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                    'court': { 
+                        name: '୨. ଜିଲ୍ଲା କୋର୍ଟ (ଷ୍ଟେନୋ, କିରାଣି, ପିଅନ)', 
+                        icon: '⚖️',
+                        description: 'ଜିଲ୍ଲା ନ୍ୟାୟପାଳିକା ମଧ୍ୟରେ ନ୍ୟାୟିକ ପ୍ରକ୍ରିୟାକୁ ସମର୍ଥନ କରୁଥିବା ପଦବୀ, ଯେଉଁଥିରେ ଜୁନିଅର କିରାଣି, ଷ୍ଟେନୋଗ୍ରାଫର ଏବଂ ସହାୟକ କର୍ମଚାରୀ ଅନ୍ତର୍ଭୁକ୍ତ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                    'health': { 
+                        name: '୩. ସ୍ୱାସ୍ଥ୍ୟ ବିଭାଗ (ANM, GNM, ଲ୍ୟାବ୍ ଟେକ୍ - ଚୁକ୍ତିଭିତ୍ତିକ)', 
+                        icon: '⚕️',
+                        description: 'ଜାତୀୟ ସ୍ୱାସ୍ଥ୍ୟ ମିଶନ (NHM) କିମ୍ବା ସ୍ୱାସ୍ଥ୍ୟ ସୋସାଇଟି ଅଧୀନରେ ଥିବା ଚୁକ୍ତିଭିତ୍ତିକ ପାରାମେଡିକାଲ୍ ଭୂମିକା, ଗୋଷ୍ଠୀ ଏବଂ ବ୍ଲକ ସ୍ତରରେ ପ୍ରାଥମିକ ସ୍ୱାସ୍ଥ୍ୟସେବା ଯୋଗାଇବା ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                    'icds': {
+                        name: '୪. ICDS/ଅଙ୍ଗନୱାଡି (ସୁପରଭାଇଜର, କର୍ମୀ, ସହାୟକ)',
+                        icon: '👧',
+                        description: 'ସାମାଜିକ କଲ୍ୟାଣ ବିଭାଗ ଅଧୀନରେ ମାଆ ଓ ଶିଶୁ କଲ୍ୟାଣ ଏବଂ ପୁଷ୍ଟିସାଧନ କାର୍ଯ୍ୟକ୍ରମର ତଦାରଖ, କାର୍ଯ୍ୟକାରିତା ଏବଂ ବିତରଣ ଉପରେ ଧ୍ୟାନ ଦେଉଥିବା ମୁଖ୍ୟ ଭୂମିକା।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                    'panchayat': {
+                        name: '୫. ପଞ୍ଚାୟତି ରାଜ (PEO, ରୋଜଗାର ସେବକ)',
+                        icon: '🏘️',
+                        description: 'ଗ୍ରାମାଞ୍ଚଳ ଯୋଜନା, ଆର୍ଥିକ ପରିଚାଳନା ଏବଂ ବ୍ଲକ ସ୍ତରୀୟ ପ୍ରଶାସନ ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ପଞ୍ଚାୟତ କାର୍ଯ୍ୟନିର୍ବାହୀ ଅଧିକାରୀ (PEO) ଏବଂ ଗ୍ରାମ ରୋଜଗାର ସେବକ ପଦବୀ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                    'education': {
+                        name: '୬. ଶିକ୍ଷା ବିଭାଗ (ଅତିଥି ଶିକ୍ଷକ, ବ୍ଲକ ରିସୋର୍ସ ପର୍ସନ)',
+                        icon: '🏫',
+                        description: 'ସରକାରୀ ବିଦ୍ୟାଳୟରେ ଅତିଥି ଶିକ୍ଷକ କିମ୍ବା ଶିକ୍ଷକ ତାଲିମ ଏବଂ ଶିକ୍ଷା ଗୁଣବତ୍ତା ପଦକ୍ଷେପଗୁଡ଼ିକୁ ସମର୍ଥନ କରୁଥିବା ବ୍ଲକ ରିସୋର୍ସ ପର୍ସନ (BRP) ଭଳି ଅସ୍ଥାୟୀ ଭୂମିକା।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                     'land': {
+                        name: '୭. ଭୂମି ରେକର୍ଡ (ରାଜସ୍ୱ ନିରୀକ୍ଷକ, ଆମିନ୍)',
+                        icon: '🗺️',
+                        description: 'ରାଜସ୍ୱ ନିରୀକ୍ଷକ (RI) ଏବଂ ଆମିନ୍ ଭଳି ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ କ୍ଷେତ୍ର ଏବଂ କାର୍ଯ୍ୟାଳୟ ଭୂମିକା, ଯାହାକି ଜମି ମାପ, ରାଜସ୍ୱ ସଂଗ୍ରହ, ରେକର୍ଡ ରକ୍ଷଣାବେକ୍ଷଣ ଏବଂ ପ୍ରମାଣପତ୍ର ଜାରି କରିବା ପାଇଁ ଦାୟୀ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                     'municipal': {
+                        name: '୮. ମ୍ୟୁନିସିପାଲ୍/ନଗର ପାଳିକା (କିରାଣି, ସଫେଇ କର୍ମଚାରୀ)',
+                        icon: '🏢',
+                        description: 'ଭୁବନେଶ୍ୱର, କଟକ ଏବଂ ବ୍ରହ୍ମପୁର ଭଳି ସହରରେ ଜନ କାର୍ଯ୍ୟ, ପରିମଳ (ସଫେଇ କର୍ମଚାରୀ), ନାଗରିକ ରେକର୍ଡ ଏବଂ ସାଧାରଣ କିରାଣି କାର୍ଯ୍ୟ ପରିଚାଳନା ପାଇଁ ସହରାଞ୍ଚଳ ସ୍ଥାନୀୟ ସଂସ୍ଥାଗୁଡ଼ିକ ପାଇଁ ଅତ୍ୟାବଶ୍ୟକ କାର୍ଯ୍ୟ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    },
+                     'drda': {
+                        name: '୯. DRDA/ଜିଲ୍ଲା ଯୋଜନା ପଦବୀ',
+                        icon: '🏞️',
+                        description: 'ଜିଲ୍ଲା ଗ୍ରାମ୍ୟ ଉନ୍ନୟନ ଏଜେନ୍ସି (DRDA) ଦ୍ୱାରା ନିଯୁକ୍ତ କର୍ମଚାରୀମାନେ ଜିଲ୍ଲା ସ୍ତରରେ ଗ୍ରାମ୍ୟ ଉନ୍ନୟନ ଏବଂ ଦାରିଦ୍ର୍ୟ ହ୍ରାସ କାର୍ଯ୍ୟକ୍ରମଗୁଡ଼ିକୁ କାର୍ଯ୍ୟକାରୀ କରିବା ଏବଂ ତଦାରଖ କରିବା ପାଇଁ ନିୟୋଜିତ।',
+                        cta: 'ଅଧିକ ଜାଣନ୍ତୁ'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-level (Junior Clerk / PEO / RI)", desc: "Joins the service at the base level, requiring mandatory computer proficiency and Odia language skills." },
+                        { rank: "Senior Clerk / Senior Revenue Inspector / Block Level Assistant", desc: "The first promotion, which brings increased pay and supervisory responsibilities, typically based on seniority and departmental exams." },
+                        { rank: "Head Clerk / Tehsildar (Promotional) / Section Officer", desc: "Further progression leading to middle management and independent charge of sections or blocks/Tahasil." },
+                        { rank: "Higher Administrative Posts (Gazetted Promotions)", desc: "With long and dedicated service, limited avenues exist to progress to gazetted officer ranks through departmental screening." }
+                    ]
+                },
+                'or': {
+                    path: [
+                        { rank: "ପ୍ରବେଶ ସ୍ତର (ଜୁନିଅର କିରାଣି / PEO / RI)", desc: "ବାଧ୍ୟତାମୂଳକ କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା ଏବଂ ଓଡିଆ ଭାଷା ଦକ୍ଷତା ଆବଶ୍ୟକ କରୁଥିବା ଆଧାର ସ୍ତରରେ ସେବାରେ ଯୋଗ ଦିଅନ୍ତି।" },
+                        { rank: "ବରିଷ୍ଠ କିରାଣି / ବରିଷ୍ଠ ରାଜସ୍ୱ ନିରୀକ୍ଷକ / ବ୍ଲକ ସ୍ତରୀୟ ସହାୟକ", desc: "ପ୍ରଥମ ପଦୋନ୍ନତି, ଯାହା ବେତନ ବୃଦ୍ଧି ଏବଂ ପର୍ଯ୍ୟବେକ୍ଷଣକାରୀ ଦାୟିତ୍ୱ ଆଣିଥାଏ, ସାଧାରଣତଃ ସିନିଅରିଟି ଏବଂ ବିଭାଗୀୟ ପରୀକ୍ଷା ଉପରେ ଆଧାରିତ।" },
+                        { rank: "ମୁଖ୍ୟ କିରାଣି / ତହସିଲଦାର (ପଦୋନ୍ନତି) / ବିଭାଗୀୟ ଅଧିକାରୀ", desc: "ମଧ୍ୟମ ପରିଚାଳନା ଏବଂ ବିଭାଗ କିମ୍ବା ବ୍ଲକ୍/ତହସିଲର ସ୍ୱାଧୀନ ଦାୟିତ୍ୱକୁ ନେଇ ଅଧିକ ଅଗ୍ରଗତି।" },
+                        { rank: "ଉଚ୍ଚ ପ୍ରଶାସନିକ ପଦବୀ (ଗେଜେଟେଡ୍ ପଦୋନ୍ନତି)", desc: "ଦୀର୍ଘ ଏବଂ ଉତ୍ସର୍ଗୀକୃତ ସେବା ସହିତ, ବିଭାଗୀୟ ସ୍କ୍ରିନିଂ ମାଧ୍ୟମରେ ଗେଜେଟେଡ୍ ଅଧିକାରୀ ପଦବୀକୁ ଉନ୍ନତି ପାଇଁ ସୀମିତ ରାସ୍ତା ଉପଲବ୍ଧ ଅଛି।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🌊 Odisha District Level Jobs Guide 🔆',
+                    'header-subtitle': 'Your Guide to a Career in Odisha\'s Public Service',
+                    'sec1-title': '1. What are District Level Jobs in Odisha? 💡',
+                    'sec1-p1': 'District Level Jobs in Odisha are the backbone of state administration, covering roles in all 30 districts. Recruitment for these Group \'C\' and \'D\' posts is managed primarily by the **Odisha Staff Selection Commission (OSSC)**, the **Odisha Public Service Commission (OPSC)**, and specific local bodies like the District Collectorates (Zilla Parishad). These roles offer stable employment and a direct opportunity to serve the Odia people.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for most posts is conducted by the OSSC through a multi-stage process that emphasizes English, Odia language proficiency, and General Studies.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Preliminary Exam', 'sec2-step1-desc': 'Objective MCQ Test (General Studies)',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Mains / Skill Test', 'sec2-step2-desc': 'Includes Odia & English Language Paper',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Doc Verification', 'sec2-step3-desc': 'Final Selection',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for Odisha Government jobs is based on educational qualifications, age limits, and essential Odia language skills.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **21 and 38 years** for General candidates. Age relaxation for SC/ST/OBC/Women categories is applicable as per Odisha Government rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Varies from **10th Pass** (Peon, Sanitation) to **12th Pass/Graduation** (Clerk, Revenue Inspector, Panchayat Executive Officer) and **Diploma/Degree** for technical roles.',
+                    'sec3-attempts-title': 'Language and Domicile 📊',
+                    'sec3-agerelax-list': '<li>The candidate must be able to **read, write, and speak Odia**, and must have passed Odia as a subject in the HSC/School Final Examination.</li><li>A domicile certificate of Odisha is required for availing reservation benefits.</li>',
+                    'sec4-title': '4. OSSC/OPSC District Level Exam Pattern 📚',
+                    'sec4-p1': 'Odisha recruitment exams often feature a compulsory language paper (Odia and English) that is critical for final merit ranking.',
+                    'gs1-title': 'General Studies & Current Affairs', 'gs2-title': 'Odia & English Language Paper (Descriptive/Objective)', 'gs3-title': 'Mathematics, Reasoning, and Computer Skills',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'New appointees undergo a mandatory probation period, often coupled with intensive training at the state level (e.g., Gopabandhu Academy of Administration).',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A standard two-year probation is required for confirmation of permanent service.', 'sec5-hindi-list': '<li>Performance is assessed through departmental examinations and work quality.</li><li>Confirmation leads to full benefits and permanent employment status.</li>',
+                    'sec5-essay-title': '2. Training & Field Posting', 'sec5-essay-p1': 'Specialized training is given based on the department and role (e.g., Revenue Inspector training).', 'sec5-essay-list': '<li>Induction training covers Odia government rules, ethical standards, and anti-corruption measures.</li><li>Field training is mandatory for roles in Land Revenue and Panchayati Raj for practical exposure.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'These roles are the primary link between the State Government and the citizens at the district, block, and Panchayat level.',
+                    'sec6-eng-title': 'Revenue, Judicial & Admin', 'sec6-eng-list': '<li>**Clerk/DEO:** Administrative support, data management, and public dealing in District Collectorates (Zilla Parishad).</li><li>**Court Staff:** Supporting the judicial process in District and Subordinate Courts.</li><li>**Revenue Inspector (RI) / Amin:** Land record maintenance, survey, and tax assessment (crucial field job).</li>',
+                    'sec6-elec-title': 'Public Welfare & Health', 'sec6-elec-list': '<li>**Health Dept:** ANM, GNM, and Lab Technicians providing community health services under NHM.</li><li>**ICDS/Anganwadi:** Implementing child development and nutrition programs (Supervisor/Worker).</li><li>**Education Dept:** Supporting school administration and non-teaching activities (BRPs, Clerks).</li>',
+                    'sec6-naic-title': 'Panchayat & Urban Services', 'sec6-naic-list': '<li>**Panchayat Executive Officer (PEO) / Gram Rojgar Sevak:** Implementing rural schemes like MGNREGA and managing Gram Panchayat finances.</li><li>**DRDA Staff:** Monitoring and executing district-level rural development plans.</li><li>**Municipal/Nagar Palika Staff:** Managing civic amenities, public hygiene, and urban records.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'Success requires strong Odia language command, excellent general awareness (especially of Odisha GK), and competitive aptitude.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🗣️</span><div><strong class="text-slate-900">Odia Language Mastery:</strong> Mandatory proficiency in reading, writing, and speaking Odia, often tested through a descriptive paper.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">Odisha GK & Current Affairs:</strong> Deep knowledge of the state\'s history, culture, geography, and government schemes is critical for high scores.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">Numerical & Aptitude Skills:</strong> Strong command over Mathematics and Logical Reasoning is crucial for qualifying the written examination.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">Computer Skills:</strong> Proficiency in MS Office and internet usage is essential and often tested in a practical skill test (especially for LDC/DEO/PEO roles).</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A winning strategy for OSSC/OPSC exams involves balancing General Studies with the compulsory Odia language paper and rigorous practice.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master Odia Language', 'sec8-step1-desc': 'Focus on grammar, essay writing, and comprehension in Odia, as it is mandatory and score-boosting for the Mains exam.',
+                    'sec8-step2-title': 'Deep Dive into Odisha GK', 'sec8-step2-desc': 'Use specialized local publications and government reports to cover the socio-economic and political history of Odisha.',
+                    'sec8-step3-title': 'Daily Aptitude Practice', 'sec8-step3-desc': 'Practice Mathematics (up to matriculation level) and Reasoning daily to ensure speed and accuracy in the competitive paper.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Solve OSSC Previous Papers:</strong> The best way to understand the exam\'s specific pattern and time management requirements.</li><li><strong>Read Local Newspapers:</strong> Follow publications like **The Samaja** or **Dharitri** for state-level news and current affairs.</li><li><strong>Attempt Mock Tests:</strong> Regularly take full-length mock tests under timed conditions to simulate the actual exam environment.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is conducted by the OSSC and OPSC based on specific recruitment calendars and vacancy reports from district offices.',
+                    'sec9-step1-title': 'Notification & Application', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the OSSC/OPSC official websites.',
+                    'sec9-step2-title': 'Preliminary & Mains Exam', 'sec9-step2-desc': '<strong>Timeline:</strong> Multi-stage written tests are conducted, including the compulsory Odia language paper in the Mains/Stage II.',
+                    'sec9-step3-title': 'Skill Test / Document Verification', 'sec9-step3-desc': '<strong>Timeline:</strong> Computer Skill Test for Clerical posts, followed by detailed document verification.',
+                    'sec9-step4-title': 'Final Merit List & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared based on the Mains score (and skill test status), leading to district-level postings.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition is high for government jobs in Odisha. Avoid these common pitfalls.',
+                    'sec10-mistake1-title': 'Ignoring Odia Language Paper:', 'sec10-mistake1-desc': 'Underestimating the compulsory Odia and English descriptive paper, which determines eligibility and rank.',
+                    'sec10-mistake2-title': 'Shallow Odisha GK:', 'sec10-mistake2-desc': 'Failing to focus on Odisha\'s economic survey, history, art, and culture, which forms a large part of the GK section.',
+                    'sec10-mistake3-title': 'Lack of Computer Skills:', 'sec10-mistake3-desc': 'Failing the mandatory practical Computer Skill Test for clerical posts due to insufficient hands-on practice (MS Office, data entry).',
+                    'sec10-mistake4-title': 'Poor Math & Reasoning Base:', 'sec10-mistake4-desc': 'Neglecting quantitative aptitude and reasoning, which are high-scoring and mandatory subjects in the objective papers.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Bhubaneswar and Cuttack are the main hubs for OPSC and OSSC exam coaching, offering specialized Odia language and technical courses.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>Odisha Board (BSE) textbooks for Odia language and foundation subjects.</li><li>Dedicated books on Odisha GK, history, and economy by local publishers.</li><li>Daily reading of Odia newspapers for language practice and current affairs.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Many institutes in the twin cities (Bhubaneswar-Cuttack) focus on OSSC and technical recruitment.', 'sec11-pvt-list': '<li>Choose an institute known for its strong faculty in Odia Descriptive writing and Math/Aptitude.</li><li>Join test series that precisely simulate the OSSC/OPSC exam pattern for timing practice.</li><li>Utilize online resources and government portals for the latest scheme updates (Odisha Current Affairs).</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'A government job in Odisha offers stability and a structured path, with promotions based on seniority, service record, and departmental exams.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. OSSC District Exam Syllabus Focus 📚',
+                    'sec13-p1': 'The OSSC syllabus typically covers General Awareness, language proficiency, Aptitude, and Computer applications.',
+                    'syllabus-oir-title': 'Odia & English Language',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🗣️</span><div class="flex-grow">Odia Language (Grammar, Translation, Essay)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Comprehension, Vocabulary)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Aptitude, GK & Computer',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Quantitative Aptitude and Reasoning</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Awareness (Odisha & National GK)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Skills (MS Office & Internet)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Serving the people of Odisha.',
+                    'interviewChartData': {
+                        labels: ['Odia Language Mastery', 'Odisha GK/Current Affairs', 'Aptitude/Maths', 'Computer Skills'],
+                        data: [95, 90, 88, 85]
+                    },
+                    'career-modal-title': 'Clerical/Revenue Cadre Career Progression',
+                    'prelims-modal-title': 'Stage 1: Preliminary Exam',
+                    'prelims-modal-p1': 'The Preliminary Examination is typically an objective (MCQ) test covering General Studies, Current Events, and Aptitude. This acts as a screening test to select candidates for the next stage.',
+                    'mains-modal-title': 'Stage 2: Mains Exam & Skill Test',
+                    'mains-modal-p1': 'Candidates shortlisted appear for the Mains Written Examination, which includes a compulsory paper on Odia and English language (often descriptive) and general subject papers. For posts like LDC, a mandatory Computer Skill Test is conducted thereafter.',
+                    'interview-modal-title': 'Stage 3: Document Verification',
+                    'interview-modal-p1': 'The final selection is based on the Mains exam score. Candidates must undergo strict verification of all original documents, especially the certificate proving Odia language proficiency (HSC Odia subject pass) and the Domicile/Caste certificates, before final appointment.'
+                },
+                'or': {
+                    'header-title': '🌊 ଓଡିଶା ଜିଲ୍ଲା ସ୍ତରୀୟ ଚାକିରି ପାଇଁ ମାର୍ଗଦର୍ଶିକା 🔆',
+                    'header-subtitle': 'ଓଡିଶାର ସରକାରୀ ସେବାରେ କ୍ୟାରିୟର ପାଇଁ ଆପଣଙ୍କର ମାର୍ଗଦର୍ଶକ',
+                    'sec1-title': '୧. ଓଡିଶାରେ ଜିଲ୍ଲା ସ୍ତରୀୟ ଚାକିରି କ’ଣ? 💡',
+                    'sec1-p1': 'ଓଡିଶାରେ ଜିଲ୍ଲା ସ୍ତରୀୟ ଚାକିରି ସମସ୍ତ ୩୦ଟି ଜିଲ୍ଲାରେ ପ୍ରଶାସନର ମୂଳଦୁଆ ଅଟେ। ଏହି ଗ୍ରୁପ୍ \'ସି\' ଏବଂ \'ଡି\' ପଦବୀଗୁଡ଼ିକ ପାଇଁ ମୁଖ୍ୟତଃ **ଓଡିଶା ଷ୍ଟାଫ୍ ସିଲେକ୍ସନ୍ କମିଶନ୍ (OSSC)**, **ଓଡିଶା ଲୋକସେବା ଆୟୋଗ (OPSC)**, ଏବଂ ଜିଲ୍ଲାପାଳ କାର୍ଯ୍ୟାଳୟ (ଜିଲ୍ଲା ପରିଷଦ) ଭଳି ସ୍ଥାନୀୟ ସଂସ୍ଥା ଦ୍ୱାରା ନିଯୁକ୍ତି ପରିଚାଳନା କରାଯାଏ। ଏହି ଭୂମିକାଗୁଡ଼ିକ ସ୍ଥିର ନିଯୁକ୍ତି ଏବଂ ଓଡିଆ ଲୋକଙ୍କ ସେବା କରିବାର ସିଧାସଳଖ ସୁଯୋଗ ପ୍ରଦାନ କରେ।',
+                    'sec2-title': '୨. ଚୟନ ପ୍ରକ୍ରିୟା: ପଥ 🎯',
+                    'sec2-p1': 'ଅଧିକାଂଶ ପଦବୀ ପାଇଁ ଚୟନ OSSC ଦ୍ୱାରା ଏକ ବହୁ-ସ୍ତରୀୟ ପ୍ରକ୍ରିୟା ମାଧ୍ୟମରେ କରାଯାଏ ଯାହା ଇଂରାଜୀ, ଓଡିଆ ଭାଷା ଦକ୍ଷତା ଏବଂ ସାଧାରଣ ଅଧ୍ୟୟନ ଉପରେ ଗୁରୁତ୍ୱ ଦେଇଥାଏ।',
+                    'sec2-step1-title': 'ପର୍ଯ୍ୟାୟ ୧:', 'sec2-step1-name': 'ପ୍ରାଥମିକ ପରୀକ୍ଷା', 'sec2-step1-desc': 'ବସ୍ତୁନିଷ୍ଠ MCQ ପରୀକ୍ଷା (ସାଧାରଣ ଅଧ୍ୟୟନ)',
+                    'sec2-step2-title': 'ପର୍ଯ୍ୟାୟ ୨:', 'sec2-step2-name': 'ମେନ୍ସ / ଦକ୍ଷତା ପରୀକ୍ଷା', 'sec2-step2-desc': 'ଓଡିଆ ଓ ଇଂରାଜୀ ଭାଷା ପେପର ଅନ୍ତର୍ଭୁକ୍ତ',
+                    'sec2-step3-title': 'ପର୍ଯ୍ୟାୟ ୩:', 'sec2-step3-name': 'ଡକ୍ୟୁମେଣ୍ଟ ଯାଞ୍ଚ', 'sec2-step3-desc': 'ଚୂଡାନ୍ତ ଚୟନ',
+                    'sec3-title': '୩. କିଏ ଆବେଦନ କରିପାରିବ? ✅',
+                    'sec3-p1': 'ଓଡିଶା ସରକାରୀ ଚାକିରି ପାଇଁ ଯୋଗ୍ୟତା ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା, ବୟସ ସୀମା ଏବଂ ଅତ୍ୟାବଶ୍ୟକ ଓଡିଆ ଭାଷା ଦକ୍ଷତା ଉପରେ ଆଧାରିତ।',
+                    'sec3-age-title': 'ବୟସ ସୀମା:', 'sec3-age-desc': 'ସାଧାରଣ ପ୍ରାର୍ଥୀଙ୍କ ପାଇଁ ସାଧାରଣତଃ **୨୧ ରୁ ୩୮ ବର୍ଷ** ମଧ୍ୟରେ। ଓଡିଶା ସରକାରଙ୍କ ନିୟମ ଅନୁଯାୟୀ SC/ST/OBC/ମହିଳା ବର୍ଗ ପାଇଁ ବୟସ କୋହଳ ଲାଗୁ ହୁଏ।',
+                    'sec3-edu-title': 'ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା:', 'sec3-edu-desc': '**୧୦ମ ପାସ୍** (ପିଅନ, ପରିମଳ) ଠାରୁ **୧୨ମ ପାସ୍/ସ୍ନାତକ** (କିରାଣି, ରାଜସ୍ୱ ନିରୀକ୍ଷକ, ପଞ୍ଚାୟତ କାର୍ଯ୍ୟନିର୍ବାହୀ ଅଧିକାରୀ) ଏବଂ ବୈଷୟିକ ଭୂମିକା ପାଇଁ **ଡିପ୍ଲୋମା/ଡିଗ୍ରୀ** ପର୍ଯ୍ୟନ୍ତ ଭିନ୍ନ ହୋଇଥାଏ।',
+                    'sec3-attempts-title': 'ଭାଷା ଏବଂ ଅଧିବାସ 📊',
+                    'sec3-agerelax-list': '<li>ପ୍ରାର୍ଥୀ **ଓଡିଆ ପଢି, ଲେଖି ଏବଂ କହିପାରୁଥିବେ** ଏବଂ HSC/ସ୍କୁଲ୍ ଫାଇନାଲ୍ ପରୀକ୍ଷାରେ ଓଡିଆକୁ ଏକ ବିଷୟ ଭାବରେ ପାସ୍ କରିଥିବେ।</li><li>ସଂରକ୍ଷଣ ସୁବିଧା ପାଇଁ ଓଡିଶାର ଅଧିବାସ ପ୍ରମାଣପତ୍ର ଆବଶ୍ୟକ।</li>',
+                    'sec4-title': '୪. OSSC/OPSC ଜିଲ୍ଲା ସ୍ତରୀୟ ପରୀକ୍ଷା ପାଟର୍ନ 📚',
+                    'sec4-p1': 'ଓଡିଶା ନିଯୁକ୍ତି ପରୀକ୍ଷାଗୁଡ଼ିକରେ ପ୍ରାୟତଃ ଏକ ବାଧ୍ୟତାମୂଳକ ଭାଷା ପେପର (ଓଡିଆ ଏବଂ ଇଂରାଜୀ) ଥାଏ ଯାହା ଚୂଡାନ୍ତ ମେଧାକ୍ରମ ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ।',
+                    'gs1-title': 'ସାଧାରଣ ଅଧ୍ୟୟନ ଓ ସାମ୍ପ୍ରତିକ ଘଟଣା', 'gs2-title': 'ଓଡିଆ ଓ ଇଂରାଜୀ ଭାଷା ପେପର (ବର୍ଣ୍ଣନାତ୍ମକ/ବସ୍ତୁନିଷ୍ଠ)', 'gs3-title': 'ଗଣିତ, ଯୁକ୍ତି ଓ କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା',
+                    'sec5-title': '୫. ତାଲିମ ଏବଂ ପ୍ରୋବେସନ୍ 🏛️',
+                    'sec5-p1': 'ନୂତନ ନିଯୁକ୍ତ ବ୍ୟକ୍ତିମାନେ ସ୍ଥାୟୀ ସେବା ନିଶ୍ଚିତ କରିବା ପୂର୍ବରୁ ଏକ ବାଧ୍ୟତାମୂଳକ ପ୍ରୋବେସନ୍ ଅବଧି ଦେଇ ଗତି କରନ୍ତି।',
+                    'sec5-hindi-title': '୧. ପ୍ରୋବେସନ୍ ଅବଧି', 'sec5-hindi-p1': 'ସ୍ଥାୟୀ ସେବା ନିଶ୍ଚିତ କରିବା ପାଇଁ ଏକ ସାଧାରଣ ଦୁଇ ବର୍ଷର ପ୍ରୋବେସନ୍ ଆବଶ୍ୟକ।', 'sec5-hindi-list': '<li>ବିଭାଗୀୟ ପରୀକ୍ଷା ଏବଂ କାର୍ଯ୍ୟ ଗୁଣବତ୍ତା ମାଧ୍ୟମରେ କାର୍ଯ୍ୟଦକ୍ଷତା ମୂଲ୍ୟାଙ୍କନ କରାଯାଏ।</li><li>ନିଶ୍ଚିତକରଣ ପରେ ସମ୍ପୂର୍ଣ୍ଣ ସୁବିଧା ଏବଂ ସ୍ଥାୟୀ ନିଯୁକ୍ତି ସ୍ଥିତି ମିଳେ।</li>',
+                    'sec5-essay-title': '୨. ତାଲିମ ଓ ଫିଲ୍ଡ ପୋଷ୍ଟିଂ', 'sec5-essay-p1': 'ବିଭାଗ ଏବଂ ଭୂମିକା ଉପରେ ଆଧାର କରି ସ୍ୱତନ୍ତ୍ର ତାଲିମ ଦିଆଯାଏ (ଉଦାହରଣ ସ୍ୱରୂପ, ରାଜସ୍ୱ ନିରୀକ୍ଷକ ତାଲିମ)।', 'sec5-essay-list': '<li>ଓଡିଆ ସରକାରୀ ନିୟମ, ନ ict ତିକ ମାନକ ଏବଂ ଦୁର୍ନୀତି ବିରୋଧୀ ପଦକ୍ଷେପଗୁଡ଼ିକୁ ନେଇ ଇଣ୍ଡକ୍ସନ୍ ତାଲିମ ଦିଆଯାଏ।</li><li>ବ୍ୟାବହାରିକ ଜ୍ଞାନ ପାଇଁ ରାଜସ୍ୱ ଏବଂ ପଞ୍ଚାୟତି ରାଜର ଭୂମିକା ପାଇଁ ଫିଲ୍ଡ ଟ୍ରେନିଂ ବାଧ୍ୟତାମୂଳକ।</li>',
+                    'sec6-title': '୬. ମୁଖ୍ୟ ଦାୟିତ୍ୱ 🌟',
+                    'sec6-p1': 'ଏହି ଭୂମିକାଗୁଡ଼ିକ ଜିଲ୍ଲା, ବ୍ଲକ୍ ଏବଂ ପଞ୍ଚାୟତ ସ୍ତରରେ ରାଜ୍ୟ ସରକାର ଏବଂ ନାଗରିକଙ୍କ ମଧ୍ୟରେ ମୁଖ୍ୟ ସଂଯୋଗ ଅଟେ।',
+                    'sec6-eng-title': 'ରାଜସ୍ୱ, ନ୍ୟାୟିକ ଓ ପ୍ରଶାସନ', 'sec6-eng-list': '<li>**କିରାଣି/ଡିଇଓ:** ଜିଲ୍ଲାପାଳ କାର୍ଯ୍ୟାଳୟରେ (ଜିଲ୍ଲା ପରିଷଦ) ପ୍ରଶାସନିକ ସହାୟତା, ଡାଟା ପରିଚାଳନା ଏବଂ ଜନସାଧାରଣଙ୍କ ସହିତ କାରବାର।</li><li>**କୋର୍ଟ କର୍ମଚାରୀ:** ଜିଲ୍ଲା ଏବଂ ଅଧୀନସ୍ଥ କୋର୍ଟରେ ନ୍ୟାୟିକ ପ୍ରକ୍ରିୟାକୁ ସମର୍ଥନ କରିବା।</li><li>**ରାଜସ୍ୱ ନିରୀକ୍ଷକ (RI) / ଆମିନ୍:** ଜମି ରେକର୍ଡ ରକ୍ଷଣାବେକ୍ଷଣ, ସର୍ବେକ୍ଷଣ ଏବଂ କର ମୂଲ୍ୟାଙ୍କନ (ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଫିଲ୍ଡ କାର୍ଯ୍ୟ)।</li>',
+                    'sec6-elec-title': 'ଜନ କଲ୍ୟାଣ ଓ ସ୍ୱାସ୍ଥ୍ୟ', 'sec6-elec-list': '<li>**ସ୍ୱାସ୍ଥ୍ୟ ବିଭାଗ:** ANM, GNM, ଏବଂ ଲ୍ୟାବ୍ ଟେକ୍ନିସିଆନ୍ NHM ଅଧୀନରେ ଗୋଷ୍ଠୀ ସ୍ୱାସ୍ଥ୍ୟ ସେବା ଯୋଗାଉଛନ୍ତି।</li><li>**ICDS/ଅଙ୍ଗନୱାଡି:** ଶିଶୁ ବିକାଶ ଏବଂ ପୁଷ୍ଟିସାଧନ କାର୍ଯ୍ୟକ୍ରମ କାର୍ଯ୍ୟକାରୀ କରିବା (ସୁପରଭାଇଜର/କର୍ମୀ)।</li><li>**ଶିକ୍ଷା ବିଭାଗ:** ବିଦ୍ୟାଳୟ ପ୍ରଶାସନ ଏବଂ ଅଣ-ଶିକ୍ଷଣ କାର୍ଯ୍ୟକଳାପକୁ ସମର୍ଥନ କରିବା (BRPs, କିରାଣି)।</li>',
+                    'sec6-naic-title': 'ପଞ୍ଚାୟତ ଓ ସହରାଞ୍ଚଳ ସେବା', 'sec6-naic-list': '<li>**ପଞ୍ଚାୟତ କାର୍ଯ୍ୟନିର୍ବାହୀ ଅଧିକାରୀ (PEO) / ଗ୍ରାମ ରୋଜଗାର ସେବକ:** MGNREGA ଭଳି ଗ୍ରାମାଞ୍ଚଳ ଯୋଜନା କାର୍ଯ୍ୟକାରୀ କରିବା ଏବଂ ଗ୍ରାମ ପଞ୍ଚାୟତ ଅର୍ଥ ପରିଚାଳନା କରିବା।</li><li>**DRDA କର୍ମଚାରୀ:** ଜିଲ୍ଲା ସ୍ତରୀୟ ଗ୍ରାମ୍ୟ ଉନ୍ନୟନ ଯୋଜନାଗୁଡ଼ିକୁ ତଦାରଖ ଏବଂ କାର୍ଯ୍ୟକାରୀ କରିବା।</li><li>**ମ୍ୟୁନିସିପାଲ୍/ନଗର ପାଳିକା କର୍ମଚାରୀ:** ନାଗରିକ ସୁବିଧା, ଜନ ସ୍ୱଚ୍ଛତା ଏବଂ ସହରୀ ରେକର୍ଡ ପରିଚାଳନା କରିବା।</li>',
+                    'sec7-title': '୭. ଜଣେ ଆଦର୍ଶ ପ୍ରାର୍ଥୀଙ୍କ ଗୁଣ 🎙️',
+                    'sec7-p1': 'ସଫଳତା ପାଇଁ ଦୃଢ଼ ଓଡିଆ ଭାଷା ଦକ୍ଷତା, ଉତ୍କୃଷ୍ଟ ସାଧାରଣ ସଚେତନତା (ବିଶେଷକରି ଓଡିଶା ଜିକେ), ଏବଂ ପ୍ରତିଯୋଗିତାମୂଳକ ଯୋଗ୍ୟତା ଆବଶ୍ୟକ।',
+                    'sec7-qualities-title': 'ମୁଖ୍ୟ ଦକ୍ଷତା:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🗣️</span><div><strong class="text-slate-900">ଓଡିଆ ଭାଷାରେ ନିପୁଣତା:</strong> ଓଡିଆ ପଢିବା, ଲେଖିବା ଏବଂ କହିବାରେ ବାଧ୍ୟତାମୂଳକ ଦକ୍ଷତା, ଯାହା ପ୍ରାୟତଃ ବର୍ଣ୍ଣନାତ୍ମକ ପେପର ମାଧ୍ୟମରେ ପରୀକ୍ଷା କରାଯାଏ।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">ଓଡିଶା ଜିକେ ଓ ସାମ୍ପ୍ରତିକ ଘଟଣା:</strong> ରାଜ୍ୟର ଇତିହାସ, ସଂସ୍କୃତି, ଭୂଗୋଳ ଏବଂ ସରକାରୀ ଯୋଜନାଗୁଡ଼ିକର ଗଭୀର ଜ୍ଞାନ ଉଚ୍ଚ ସ୍କୋର ପାଇଁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">ସାଂଖ୍ୟିକ ଓ ଯୁକ୍ତି ଦକ୍ଷତା:</strong> ଲିଖିତ ପରୀକ୍ଷାରେ ଯୋଗ୍ୟତା ହାସଲ କରିବା ପାଇଁ ଗଣିତ ଏବଂ ଲଜିକାଲ୍ ଯୁକ୍ତି ଉପରେ ଦୃଢ଼ ଦକ୍ଷତା ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା:</strong> MS Office ଏବଂ ଇଣ୍ଟରନେଟ୍ ବ୍ୟବହାରରେ ଦକ୍ଷତା ଅତ୍ୟାବଶ୍ୟକ ଏବଂ ପ୍ରାୟତଃ ଏକ ବ୍ୟାବହାରିକ ଦକ୍ଷତା ପରୀକ୍ଷାରେ ପରୀକ୍ଷା କରାଯାଏ (ବିଶେଷକରି LDC/DEO/PEO ଭୂମିକା ପାଇଁ)।</div></li>',
+                    'sec8-title': '୮. ଆପଣଙ୍କର ପ୍ରସ୍ତୁତି ରଣନୀତି 📈',
+                    'sec8-p1': 'OSSC/OPSC ପରୀକ୍ଷା ପାଇଁ ଏକ ବିଜୟୀ ରଣନୀତିରେ ସାଧାରଣ ଅଧ୍ୟୟନକୁ ବାଧ୍ୟତାମୂଳକ ଓଡିଆ ଭାଷା ପେପର ଏବଂ କଠୋର ଅଭ୍ୟାସ ସହିତ ସନ୍ତୁଳିତ କରିବା ଅନ୍ତର୍ଭୁକ୍ତ।',
+                    'sec8-steps-title': '📚 ମୁଖ୍ୟ ପଦକ୍ଷେପ:',
+                    'sec8-step1-title': 'ଓଡିଆ ଭାଷାରେ ନିପୁଣତା', 'sec8-step1-desc': 'ଓଡିଆରେ ବ୍ୟାକରଣ, ପ୍ରବନ୍ଧ ଲେଖା ଏବଂ ବୁଝାମଣା ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତୁ, କାରଣ ଏହା ମେନ୍ସ ପରୀକ୍ଷା ପାଇଁ ବାଧ୍ୟତାମୂଳକ ଏବଂ ସ୍କୋର ବଢାଇବାରେ ସହାୟକ।',
+                    'sec8-step2-title': 'ଓଡିଶା ଜିକେରେ ଗଭୀର ଅଧ୍ୟୟନ', 'sec8-step2-desc': 'ଓଡିଶାର ସାମାଜିକ-ଅର୍ଥନ ict ତିକ ଏବଂ ରାଜନ ict ତିକ ଇତିହାସକୁ ଆବରଣ କରିବା ପାଇଁ ସ୍ୱତନ୍ତ୍ର ସ୍ଥାନୀୟ ପ୍ରକାଶନ ଏବଂ ସରକାରୀ ରିପୋର୍ଟ ବ୍ୟବହାର କରନ୍ତୁ।',
+                    'sec8-step3-title': 'ଦୈନିକ ଯୋଗ୍ୟତା ଅଭ୍ୟାସ', 'sec8-step3-desc': 'ପ୍ରତିଯୋଗିତାମୂଳକ ପେପରରେ ଦ୍ରୁତତା ଏବଂ ସଠିକତା ନିଶ୍ଚିତ କରିବା ପାଇଁ ଦୈନିକ ଗଣିତ (ମାଟ୍ରିକୁଲେସନ୍ ସ୍ତର ପର୍ଯ୍ୟନ୍ତ) ଏବଂ ଯୁକ୍ତି ଅଭ୍ୟାସ କରନ୍ତୁ।',
+                    'sec8-revision-title': '🔄 ଅଭ୍ୟାସ ଓ ଅଭ୍ୟାସ:',
+                    'sec8-revision-list': '<li><strong>OSSC ପୂର୍ବ ପ୍ରଶ୍ନପତ୍ର ସମାଧାନ କରନ୍ତୁ:</strong> ପରୀକ୍ଷାର ନିର୍ଦ୍ଦିଷ୍ଟ ପାଟର୍ନ ଏବଂ ସମୟ ପରିଚାଳନା ଆବଶ୍ୟକତାକୁ ବୁଝିବାର ଏହା ସର୍ବୋତ୍ତମ ଉପାୟ।</li><li><strong>ସ୍ଥାନୀୟ ଖବରକାଗଜ ପଢନ୍ତୁ:</strong> ରାଜ୍ୟ ସ୍ତରୀୟ ଖବର ଏବଂ ସାମ୍ପ୍ରତିକ ଘଟଣାଗୁଡ଼ିକ ପାଇଁ **ସମାଜ** କିମ୍ବା **ଧରିତ୍ରୀ** ଭଳି ପ୍ରକାଶନକୁ ଅନୁସରଣ କରନ୍ତୁ।</li><li><strong>ମକ୍ ଟେଷ୍ଟ ଦିଅନ୍ତୁ:</strong> ପ୍ରକୃତ ପରୀକ୍ଷା ପରିବେଶକୁ ଅନୁକରଣ କରିବା ପାଇଁ ନିୟମିତ ଭାବରେ ସମୟ ସୀମା ମଧ୍ୟରେ ସମ୍ପୂର୍ଣ୍ଣ ମକ୍ ଟେଷ୍ଟ ଦିଅନ୍ତୁ।</li>',
+                    'sec9-title': '୯. ନିଯୁକ୍ତି ଚକ୍ର ଓ ପ୍ରକ୍ରିୟା 🗓️',
+                    'sec9-p1': 'ଜିଲ୍ଲା କାର୍ଯ୍ୟାଳୟଗୁଡ଼ିକର ନିର୍ଦ୍ଦିଷ୍ଟ ନିଯୁକ୍ତି କ୍ୟାଲେଣ୍ଡର ଏବଂ ଖାଲି ପଦବୀ ରିପୋର୍ଟ ଉପରେ ଆଧାର କରି OSSC ଏବଂ OPSC ଦ୍ୱାରା ନିଯୁକ୍ତି ପରିଚାଳନା କରାଯାଏ।',
+                    'sec9-step1-title': 'ବିଜ୍ଞପ୍ତି ଏବଂ ଆବେଦନ', 'sec9-step1-desc': '<strong>ସମୟସୀମା:</strong> OSSC/OPSC ଅଫିସିଆଲ୍ ୱେବସାଇଟରେ ଖାଲି ପଦବୀ ବିଜ୍ଞାପନ କରାଯାଏ।',
+                    'sec9-step2-title': 'ପ୍ରାଥମିକ ଓ ମେନ୍ସ ପରୀକ୍ଷା', 'sec9-step2-desc': '<strong>ସମୟସୀମା:</strong> ମଲ୍ଟି-ଷ୍ଟେଜ୍ ଲିଖିତ ପରୀକ୍ଷା କରାଯାଏ, ଯେଉଁଥିରେ ମେନ୍ସ/ପର୍ଯ୍ୟାୟ II ରେ ବାଧ୍ୟତାମୂଳକ ଓଡିଆ ଭାଷା ପେପର ଅନ୍ତର୍ଭୁକ୍ତ।',
+                    'sec9-step3-title': 'ଦକ୍ଷତା ପରୀକ୍ଷା / ଡକ୍ୟୁମେଣ୍ଟ ଯାଞ୍ଚ', 'sec9-step3-desc': '<strong>ସମୟସୀମା:</strong> କିରାଣି ପଦବୀ ପାଇଁ କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା ପରୀକ୍ଷା, ପରେ ବିସ୍ତୃତ ଡକ୍ୟୁମେଣ୍ଟ ଯାଞ୍ଚ କରାଯାଏ।',
+                    'sec9-step4-title': 'ଚୂଡାନ୍ତ ମେଧା ତାଲିକା ଏବଂ ନିଯୁକ୍ତି', 'sec9-step4-desc': '<strong>ସମୟସୀମା:</strong> ମେନ୍ସ ସ୍କୋର (ଏବଂ ଦକ୍ଷତା ପରୀକ୍ଷା ସ୍ଥିତି) ଉପରେ ଆଧାର କରି ଏକ ଚୂଡାନ୍ତ ମେଧା ତାଲିକା ପ୍ରସ୍ତୁତ କରାଯାଏ, ଯାହା ଜିଲ୍ଲା ସ୍ତରୀୟ ପୋଷ୍ଟିଂକୁ ନେଇଥାଏ।',
+                    'sec10-title': '୧୦. ଦୂର କରିବାକୁ ସାଧାରଣ ଭୁଲ 🚫',
+                    'sec10-p1': 'ଓଡିଶାରେ ସରକାରୀ ଚାକିରି ପାଇଁ ପ୍ରତିଯୋଗିତା ଅଧିକ। ଏହି ସାଧାରଣ ଭୁଲଗୁଡ଼ିକୁ ଦୂର କରନ୍ତୁ।',
+                    'sec10-mistake1-title': 'ଓଡିଆ ଭାଷା ପେପରକୁ ଅଣଦେଖା କରିବା:', 'sec10-mistake1-desc': 'ବାଧ୍ୟତାମୂଳକ ଓଡିଆ ଏବଂ ଇଂରାଜୀ ବର୍ଣ୍ଣନାତ୍ମକ ପେପରକୁ କମ୍ ଆକଳନ କରିବା, ଯାହା ଯୋଗ୍ୟତା ଏବଂ ମାନ୍ୟତା ସ୍ଥିର କରେ।',
+                    'sec10-mistake2-title': 'ଅଳ୍ପ ଓଡିଶା ଜିକେ ଜ୍ଞାନ:', 'sec10-mistake2-desc': 'ଓଡିଶାର ଅର୍ଥନ ict ତିକ ସର୍ବେକ୍ଷଣ, ଇତିହାସ, କଳା ଏବଂ ସଂସ୍କୃତି ଉପରେ ଧ୍ୟାନ ନ ଦେବା, ଯାହା ଜିକେ ବିଭାଗର ଏକ ବଡ ଅଂଶ ଅଟେ।',
+                    'sec10-mistake3-title': 'କମ୍ପ୍ୟୁଟର ଦକ୍ଷତାର ଅଭାବ:', 'sec10-mistake3-desc': 'ଅପର୍ଯ୍ୟାପ୍ତ ଅଭ୍ୟାସ (MS Office, ଡାଟା ଏଣ୍ଟ୍ରି) ହେତୁ କିରାଣି ପଦବୀ ପାଇଁ ବାଧ୍ୟତାମୂଳକ ବ୍ୟାବହାରିକ କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା ପରୀକ୍ଷାରେ ବିଫଳ ହେବା।',
+                    'sec10-mistake4-title': 'ଦୁର୍ବଳ ଗଣିତ ଓ ଯୁକ୍ତି ଆଧାର:', 'sec10-mistake4-desc': 'ପରିମାଣାତ୍ମକ ଯୋଗ୍ୟତା ଏବଂ ଯୁକ୍ତିକୁ ଅଣଦେଖା କରିବା, ଯାହା ବସ୍ତୁନିଷ୍ଠ ପେପରରେ ଅଧିକ ସ୍କୋରିଂ ଏବଂ ବାଧ୍ୟତାମୂଳକ ବିଷୟ ଅଟେ।',
+                    'sec11-title': '୧୧. କୋଚିଂ କେଉଁଠାରୁ ପାଇବେ 🏫',
+                    'sec11-p1': 'ଭୁବନେଶ୍ୱର ଏବଂ କଟକ OPSC ଏବଂ OSSC ପରୀକ୍ଷା କୋଚିଂ ପାଇଁ ମୁଖ୍ୟ ହବ୍ ଅଟେ, ଯାହା ସ୍ୱତନ୍ତ୍ର ଓଡିଆ ଭାଷା ଏବଂ ବୈଷୟିକ ପାଠ୍ୟକ୍ରମ ପ୍ରଦାନ କରେ।',
+                    'sec11-gov-title': '📚 ସ୍ୱ-ଅଧ୍ୟୟନ', 'sec11-gov-list': '<li>ଓଡିଆ ଭାଷା ଏବଂ ମୂଳ ବିଷୟ ପାଇଁ ଓଡିଶା ବୋର୍ଡ (BSE) ପାଠ୍ୟପୁସ୍ତକ।</li><li>ସ୍ଥାନୀୟ ପ୍ରକାଶକଙ୍କ ଦ୍ୱାରା ଓଡିଶା ଜିକେ, ଇତିହାସ ଏବଂ ଅର୍ଥନ ict ତିକ ଉପରେ ସ୍ୱତନ୍ତ୍ର ପୁସ୍ତକ।</li><li>ଭାଷା ଅଭ୍ୟାସ ଏବଂ ସାମ୍ପ୍ରତିକ ଘଟଣାଗୁଡ଼ିକ ପାଇଁ ଓଡିଆ ଖବରକାଗଜର ଦୈନିକ ପଠନ।</li>',
+                    'sec11-pvt-title': '💻 କୋଚିଂ ପ୍ରତିଷ୍ଠାନ', 'sec11-pvt-p1': 'ଯାଆଁଳା ସହରରେ (ଭୁବନେଶ୍ୱର-କଟକ) ଅନେକ ଅନୁଷ୍ଠାନ OSSC ଏବଂ ବୈଷୟିକ ନିଯୁକ୍ତି ଉପରେ ଧ୍ୟାନ ଦିଅନ୍ତି।', 'sec11-pvt-list': '<li>ଓଡିଆ ବର୍ଣ୍ଣନାତ୍ମକ ଲେଖା ଏବଂ ଗଣିତ/ଯୋଗ୍ୟତାରେ ଏହାର ଦୃଢ଼ ଅଧ୍ୟାପକଙ୍କ ପାଇଁ ଜଣାଶୁଣା ଏକ ଅନୁଷ୍ଠାନ ବାଛନ୍ତୁ।</li><li>ସମୟ ଅଭ୍ୟାସ ପାଇଁ OSSC/OPSC ପରୀକ୍ଷା ପାଟର୍ନକୁ ସଠିକ୍ ଭାବରେ ଅନୁକରଣ କରୁଥିବା ଟେଷ୍ଟ ସିରିଜରେ ଯୋଗ ଦିଅନ୍ତୁ।</li><li>ସର୍ବଶେଷ ଯୋଜନା ଅପଡେଟ୍ (ଓଡିଶା ସାମ୍ପ୍ରତିକ ଘଟଣା) ପାଇଁ ଅନଲାଇନ୍ ଉତ୍ସ ଏବଂ ସରକାରୀ ପୋର୍ଟାଲ୍ ବ୍ୟବହାର କରନ୍ତୁ।</li>',
+                    'sec12-title': '୧୨. କ୍ୟାରିୟର ବୃଦ୍ଧି ଏବଂ ପଦୋନ୍ନତି 🚀',
+                    'sec12-p1': 'ଓଡିଶାରେ ଏକ ସରକାରୀ ଚାକିରି ସ୍ଥିରତା ଏବଂ ଏକ ସଂରଚନାଗତ ପଥ ପ୍ରଦାନ କରେ, ଯେଉଁଥିରେ ସିନିଅରିଟି, ସେବା ରେକର୍ଡ ଏବଂ ବିଭାଗୀୟ ପରୀକ୍ଷା ଉପରେ ଆଧାର କରି ପଦୋନ୍ନତି ଦିଆଯାଏ।',
+                    'sec12-career-btn': 'କ୍ୟାରିୟର ଅଗ୍ରଗତି ଦେଖନ୍ତୁ',
+                    'sec13-title': '୧୩. OSSC ଜିଲ୍ଲା ପରୀକ୍ଷା ପାଠ୍ୟକ୍ରମ ଉପରେ ଧ୍ୟାନ 📚',
+                    'sec13-p1': 'OSSC ପାଠ୍ୟକ୍ରମରେ ସାଧାରଣତଃ ସାଧାରଣ ସଚେତନତା, ଭାଷା ଦକ୍ଷତା, ଯୋଗ୍ୟତା ଏବଂ କମ୍ପ୍ୟୁଟର ପ୍ରୟୋଗଗୁଡ଼ିକ ଅନ୍ତର୍ଭୁକ୍ତ।',
+                    'syllabus-oir-title': 'ଓଡିଆ ଓ ଇଂରାଜୀ ଭାଷା',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🗣️</span><div class="flex-grow">ଓଡିଆ ଭାଷା (ବ୍ୟାକରଣ, ଅନୁବାଦ, ପ୍ରବନ୍ଧ)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">ସାଧାରଣ ଇଂରାଜୀ (ବୁଝାମଣା, ଶବ୍ଦକୋଷ)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'ଯୋଗ୍ୟତା, ଜିକେ ଏବଂ କମ୍ପ୍ୟୁଟର',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">ପରିମାଣାତ୍ମକ ଯୋଗ୍ୟତା ଏବଂ ଯୁକ୍ତି</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">ସାଧାରଣ ସଚେତନତା (ଓଡିଶା ଏବଂ ଜାତୀୟ ଜିକେ)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା (MS Office & Internet)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | ଓଡିଶାବାସୀଙ୍କ ସେବାରେ।',
+                    'interviewChartData': {
+                        labels: ['ଓଡିଆ ଭାଷା ନିପୁଣତା', 'ଓଡିଶା ଜିକେ/ସାମ୍ପ୍ରତିକ ଘଟଣା', 'ଯୋଗ୍ୟତା/ଗଣିତ', 'କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା'],
+                        data: [95, 90, 88, 85]
+                    },
+                    'career-modal-title': 'କିରାଣି/ରାଜସ୍ୱ କ୍ୟାଡର କ୍ୟାରିୟର ଅଗ୍ରଗତି',
+                    'prelims-modal-title': 'ପର୍ଯ୍ୟାୟ ୧: ପ୍ରାଥମିକ ପରୀକ୍ଷା',
+                    'prelims-modal-p1': 'ପ୍ରାଥମିକ ପରୀକ୍ଷା ସାଧାରଣତଃ ଏକ ବସ୍ତୁନିଷ୍ଠ (MCQ) ପରୀକ୍ଷା ଯାହା ସାଧାରଣ ଅଧ୍ୟୟନ, ସାମ୍ପ୍ରତିକ ଘଟଣା ଏବଂ ଯୋଗ୍ୟତାକୁ ଆବରଣ କରେ। ଏହା ପରବର୍ତ୍ତୀ ପର୍ଯ୍ୟାୟ ପାଇଁ ପ୍ରାର୍ଥୀ ଚୟନ କରିବାକୁ ଏକ ସ୍କ୍ରିନିଂ ଟେଷ୍ଟ ଭାବରେ କାର୍ଯ୍ୟ କରେ।',
+                    'mains-modal-title': 'ପର୍ଯ୍ୟାୟ ୨: ମେନ୍ସ ପରୀକ୍ଷା ଏବଂ ଦକ୍ଷତା ପରୀକ୍ଷା',
+                    'mains-modal-p1': 'ସର୍ଟଲିଷ୍ଟ ହୋଇଥିବା ପ୍ରାର୍ଥୀମାନେ ମେନ୍ସ ଲିଖିତ ପରୀକ୍ଷା ପାଇଁ ହାଜର ହୁଅନ୍ତି, ଯେଉଁଥିରେ ଓଡିଆ ଏବଂ ଇଂରାଜୀ ଭାଷା (ପ୍ରାୟତଃ ବର୍ଣ୍ଣନାତ୍ମକ) ଏବଂ ସାଧାରଣ ବିଷୟ ପେପର ଉପରେ ଏକ ବାଧ୍ୟତାମୂଳକ ପେପର ଅନ୍ତର୍ଭୁକ୍ତ। LDC ଭଳି ପଦବୀ ପାଇଁ, ଏହା ପରେ ଏକ ବାଧ୍ୟତାମୂଳକ କମ୍ପ୍ୟୁଟର ଦକ୍ଷତା ପରୀକ୍ଷା କରାଯାଏ।',
+                    'interview-modal-title': 'ପର୍ଯ୍ୟାୟ ୩: ଡକ୍ୟୁମେଣ୍ଟ ଯାଞ୍ଚ',
+                    'interview-modal-p1': 'ଚୂଡାନ୍ତ ଚୟନ ମେନ୍ସ ପରୀକ୍ଷା ସ୍କୋର ଉପରେ ଆଧାରିତ। ପ୍ରାର୍ଥୀମାନେ ଚୂଡାନ୍ତ ନିଯୁକ୍ତି ପୂର୍ବରୁ ସମସ୍ତ ମୂଳ ଡକ୍ୟୁମେଣ୍ଟ, ବିଶେଷକରି ଓଡିଆ ଭାଷା ଦକ୍ଷତା ପ୍ରମାଣପତ୍ର (HSC ଓଡିଆ ବିଷୟରେ ପାସ୍) ଏବଂ ଅଧିବାସ/ଜାତି ପ୍ରମାଣପତ୍ରର କଠୋର ଯାଞ୍ଚ ଦେଇ ଗତି କରନ୍ତି।'
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                 if (!container) return;
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Importance',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(249, 115, 22, 0.7)', /* Orange */
+                            borderColor: '#f97316',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const lang = currentLang; 
+                    const data = translations[lang].interviewChartData;
+                    
+                    if (data && data.labels && data.data) { 
+                        interviewChartInstance.data.labels = data.labels;
+                        interviewChartInstance.data.datasets[0].data = data.data;
+                        interviewChartInstance.update();
+                    } else {
+                        console.error('Chart data missing or incomplete for language:', lang);
+                    }
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const titleKey = `${modalId.replace('Modal', '')}-modal-title`;
+                    const p1Key = `${modalId.replace('Modal', '')}-modal-p1`;
+                    const titleEl = modal.querySelector('h3');
+                    const p1El = modal.querySelector('p');
+
+                    const modalLang = currentLang;
+
+                    if (titleEl && translations[modalLang][titleKey]) {
+                        titleEl.innerHTML = translations[modalLang][titleKey];
+                    }
+                    if (p1El && translations[modalLang][p1Key]) {
+                        p1El.innerHTML = translations[modalLang][p1Key];
+                    }
+                    
+                    if (modalId === 'careerGrowthModal') {
+                        const careerTitleEl = modal.querySelector('#career-modal-title');
+                        if (careerTitleEl) {
+                           careerTitleEl.innerHTML = (modalLang === 'or') ? translations.or['career-modal-title'] : translations.en['career-modal-title'];
+                        }
+                        renderCareerPath(modalLang);
+                    }
+
+
+                    modal.classList.add('active');
+                }
+            };
+            
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en'); // Default to English for Odisha
+        });
+    </script>
+</body>
+</html>
