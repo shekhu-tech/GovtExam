@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipur District Level Jobs Guide (All Departments)</title>
+    <script src="redirect_if_needed.js"></script>  
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visual data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to District Level Jobs in Manipur across various departments like Collectorate, Courts, Health, and Land Records.">
+    <meta name="keywords" content="Manipur Government Jobs, MPSC Manipur, District Level Jobs, Clerk Jobs, Land Revenue, Manipur GK, Anganwadi">
+    <meta name="author" content="Manipur Jobs Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fdf7; /* Very light Green Cream */
+            color: #14532d; /* Dark Forest Green for text */
+        }
+        /* Manipur Colors: Green & Red/Crimson */
+        .section-heading {
+            border-image: linear-gradient(to right, #dc2626, #14532d) 1; /* Red & Green */
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #0c4a6e; 
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(20, 83, 45, 0.1);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #dcfce7; /* Pale Green Border */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(220, 38, 38, 0.15); /* Reddish hover shadow */
+            transform: translateY(-12px) scale(1.02);
+            border-color: #dc2626; /* Red border */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #14532d; /* Dark Green */
+            color: #14532d; 
+            background: #dcfce7; /* Light Green Cream */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(20, 83, 45, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #14532d;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(20, 83, 45, 0.4);
+        }
+        .flowchart-arrow {
+            color: #dc2626; /* Red Arrow */
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
+        }
+        .subject-category-heading {
+            color: #14532d;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #dc2626; /* Red border */
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #f0fdf4; /* Pale Green */
+        }
+        .subject-item:hover {
+            background-color: #dcfce7; /* Lighter Green */
+        }
+        .subject-item .icon {
+            color: #dc2626; /* Red Icon */
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #14532d; /* Green Timeline */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #dc2626; /* Red Dot */
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+        }
+        /* Modal and Button styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(20, 83, 45, 0.85); /* Dark Green */
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #14532d;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #dcfce7;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #dc2626; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #dc2626, #ef4444); /* Red Gradient */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #dc2626; /* Red Border */
+            color: #dc2626;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #dc2626; /* Active Red */
+            color: #ffffff;
+            box-shadow: 0 0 15px #dc2626;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background-color: #14532d; /* Dark Green */
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            background-color: #064e3b;
+        }
+        .lectures-btn {
+            background-color: #dcfce7; 
+            color: #14532d; 
+            border-color: #a7f3d0; 
+        }
+        .lectures-btn:hover {
+            background-color: #bbf7d0;
+            color: #064e3b;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#0c4a6e] mb-4 tracking-tight">🦌 Manipur District Level Jobs Guide 🏞️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-green-700">Your Guide to a Career in Manipur's Public Service</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="mn">ꯃꯤꯑꯣꯏ</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are District Level Jobs? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-green-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are District Level Jobs in Manipur? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">District Level Jobs in Manipur operate at the grassroots, ensuring the delivery of state schemes and services across the valley and hill districts. Recruitment for these Group 'C' and 'D' posts is conducted by the **Manipur Public Service Commission (MPSC)**, the District Administration, and specialized departments. These roles offer security and direct involvement in the state's welfare.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection for most non-technical posts involves a written examination, often followed by a skill test or interview round, depending on the MPSC notification.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Written Exam / Screening Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">Objective MCQ Test</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Skill Test / Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">For Stenographer/Clerk posts</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Doc Verification</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">Final Merit List</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for these Manipur Government jobs is based on educational qualifications, age limits, and knowledge of local customs/languages.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#dc2626] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 38 years** for General category. Age relaxation for OBC, SC/ST, and PWD categories is applicable as per Manipur Government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#dc2626] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">Varies from **8th/10th Pass** (Peon, Helper) to **12th Pass/Graduation** (Clerk, Patwari/LDC) and **Diploma/Degree** for technical/health roles (ANM, Lab Tech).</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-[#14532d] pb-2">Domicile and Language 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>The applicant must be a **resident of Manipur** or registered in the employment exchange of the state.</li>
+                             <li>Knowledge of **Manipuri (Meitei Mayek)** or a recognized tribal dialect is often a required qualification.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-red-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Typical Manipur Exam Pattern (LDC/Group C) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The district-level exams emphasize General Knowledge, current affairs related to Manipur, and proficiency in English and Meitei/local languages.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-red-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">General English and Grammar</h3>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-red-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">General Knowledge (India & Manipur GK)</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-red-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Arithmetic, Reasoning, and Computer Fundamentals</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">New appointees in the Manipur Government undergo a standard probation period for performance assessment before permanent absorption.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-green-100 rounded-xl border-2 border-[#14532d]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A standard two-year probation is typical for entry-level posts.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>Performance, conduct, and suitability for the job are assessed during this period.</li>
+                            <li>Successful completion leads to confirmation of service.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-green-100 rounded-xl border-2 border-[#dc2626]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. Departmental Training</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Training focuses on local administrative rules and public service ethics.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction training on Manipur service rules and government procedures.</li>
+                           <li>Practical training on file management, government correspondence, and scheme implementation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">These roles are crucial for linking the state government with local communities in both valley and hill regions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Admin, Judicial & Revenue</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**LDC/Clerk/DEO:** Administrative and record-keeping support in Deputy Commissioner (Collector) offices and Sub-Divisional Offices.</li>
+                           <li>**Court Staff:** Assisting judicial functions (Steno/Clerk) and maintaining court records in District Courts.</li>
+                            <li>**Patwari/LRC (Land Revenue Clerk):** Maintaining village land records, tax collection, and revenue documentation.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Public Welfare & Health</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Health Dept:** ANM, GNM, and Lab Technicians providing essential healthcare services, especially in remote areas.</li>
+                           <li>**ICDS/Anganwadi:** Implementing child development and nutrition programs under the Social Welfare Department.</li>
+                           <li>**Education Dept:** Supporting school administration and teaching needs (Guest Teachers, BRPs).</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Local Governance & Development</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Panchayat/Block Staff:** Assisting in the execution of local government development schemes at the Block/Gram Panchayat level.</li>
+                           <li>**Municipal Staff:** Providing civic services, managing sanitation, and maintaining records in urban local bodies (ULBs).</li>
+                           <li>**DRDA Staff:** Monitoring and implementing rural infrastructure and livelihood programs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an Ideal Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Success in Manipur government exams requires strong general awareness, English proficiency, and knowledge of the state's unique culture.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-[#dc2626] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🌍</span><div><strong class="text-slate-900">Manipur GK & Culture:</strong> Deep knowledge of the state's history, tribal diversity, Meitei culture, environment (Loktak Lake, Sangai), and current affairs is highly valued.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">💻</span><div><strong class="text-slate-900">English Proficiency & Typing:</strong> Strong English language skills (Grammar, Comprehension) are crucial. Typing skills (English/local script) are mandatory for clerical/LDC roles.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🧠</span><div><strong class="text-slate-900">General Aptitude:</strong> Good command over Arithmetic, Reasoning, and General Science is necessary to qualify for the written exam.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🤝</span><div><strong class="text-slate-900">Local Knowledge:</strong> Familiarity with local administration, local languages (Meitei, recognised dialects), and community customs is a major asset.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A successful strategy focuses on excelling in General English and covering Manipur-specific General Knowledge extensively.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#dc2626] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#dc2626] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Master English Language</h4>
+                                <p id="sec8-step1-desc" class="text-base">Given the high weightage in many MPSC exams, prioritize English Grammar, Vocabulary, and Comprehension using standard textbooks.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#dc2626] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Deep Dive into Manipur GK</h4>
+                                <p id="sec8-step2-desc" class="text-base">Use specialized books or resources covering Manipur's history, environment, art, culture, and tribal administration structure.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#dc2626] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Regular Typing Practice</h4>
+                                <p id="sec8-step3-desc" class="text-base">For clerical/data entry roles, daily practice in English typing (and potentially Meitei Mayek/Manipuri script typing) is mandatory.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Solve Previous MPSC Papers:</strong> Focus on papers for LDC, DEO, and other non-gazetted posts to gauge the difficulty and pattern.</li>
+                            <li><strong>Read Local News:</strong> Follow local newspapers (**The Sangai Express**, **Poknapham**) and official government websites for state-level current affairs.</li>
+                            <li><strong>Attempt Mock Tests:</strong> Regularly take full-length mock tests to manage time effectively, especially for the General Aptitude and Numerical sections.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Recruitment is conducted by the **Manipur Public Service Commission (MPSC)** or District Selection Committees based on departmental vacancies.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Notification & Application</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Vacancies are advertised on the MPSC website (mpscmanipur.gov.in) and state administration websites.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Written Examination (OMR/CBT)</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> An objective test focusing on General Knowledge, English, and Aptitude is conducted to shortlist candidates.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Skill Test / Interview</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Shortlisted candidates appear for a Typing Test, Shorthand Test (if applicable), and possibly an interview, depending on the post grade.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-slate-900 mb-1">Final Merit List & Appointment</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A final merit list is prepared, followed by document verification and deployment to a District/Sub-Divisional office.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Competition for Manipur Government jobs is competitive. Avoid these common errors.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">Underestimating English & Local Language:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">Ignoring the high weightage of General English and the mandatory local language proficiency in the exam.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">Ignoring Manipur-Specific GK:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">Failing to cover specific topics related to Manipur’s geography, biodiversity (Sangai), history, and political setup.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">Lack of Typing Practice:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">Failing the mandatory computer typing or shorthand skill test for clerical and steno posts due to poor speed/accuracy.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">Not Registering with Employment Exchange:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">Missing job opportunities, as registration with the local employment exchange is often a prerequisite for state-level hiring.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Imphal is the main hub for competitive exam coaching, focusing on MPSC and other government recruitment exams.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>NCERT and Manipur Board textbooks are the foundation for Science and General Studies.</li>
+                           <li>Specialized books on Manipur GK, history, and culture are crucial.</li>
+                           <li>Focus heavily on standard General English competitive exam books.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Coaching Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Many institutes in Imphal specialize in MPSC and other non-gazetted posts.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Choose an institute in Imphal known for General Studies and English teaching.</li>
+                            <li>Online resources dedicated to North-East state exams often provide valuable localized content.</li>
+                            <li>Regularly solve mock test papers designed on the MPSC LDC/DEO pattern.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A government job in Manipur offers stability and a structured career path, with promotions often based on seniority and departmental exams.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-red-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. MPSC District Exam Syllabus Focus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus heavily features General English, Manipur-specific topics, and basic aptitude/computer skills.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General English & Manipuri Language</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Grammar, Vocabulary, Comprehension)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">ꯃꯤꯑꯣꯏ</span><div class="flex-grow">Local/Meitei Language Proficiency</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">General Aptitude & Manipur GK</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Studies and Manipur Specific GK</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic, Reasoning, and Computer Fundamentals</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-green-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | Serving the people of Manipur.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="prelims-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="mains-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="interview-modal-p1"></p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            // Manipur (Meitei/Manipuri) language code is often 'mn' or 'mri' or using the Meitei Mayek script. 
+            // We use 'mn' for simplicity in the button, and the translation text will be in English/Romanized Meitei for broad display compatibility.
+
+            const serviceDetailsData = {
+                'en': {
+                    'collector': { 
+                        name: '1. Deputy Commissioner Office (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Administrative support roles crucial for the functioning of the District Administration (Deputy Commissioner\'s Office), handling records, filing, and state scheme data entry.',
+                        cta: 'Learn More'
+                    },
+                    'court': { 
+                        name: '2. District Court (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Posts supporting the judicial processes, including Stenographers, Lower Division Clerks (LDC), and support staff within the District Judiciary.',
+                        cta: 'Learn More'
+                    },
+                    'health': { 
+                        name: '3. Health Dept. (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Contractual paramedical roles under the National Health Mission (NHM) or Health Society, essential for delivering primary healthcare services across communities, especially in hill districts.',
+                        cta: 'Learn More'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Key roles in the Integrated Child Development Services scheme, focused on monitoring, implementing, and delivering mother and child welfare and nutrition programs under the Social Welfare Department.',
+                        cta: 'Learn More'
+                    },
+                    'panchayat': {
+                        name: '5. Panchayati Raj/Block Level (Panchayat Sahayak, Sevak)',
+                        icon: '🏘️',
+                        description: 'Staff assisting in the execution of local government development schemes, maintaining records, and administrative support at the Block or Village Authority level.',
+                        cta: 'Learn More'
+                    },
+                    'education': {
+                        name: '6. Education Dept. (Guest Teacher, Block Resource Person)',
+                        icon: '🏫',
+                        description: 'Temporary roles like Guest Teachers in government schools or Block Resource Persons (BRP) supporting teacher training and education quality initiatives.',
+                        cta: 'Learn More'
+                    },
+                     'land': {
+                        name: '7. Land Records (LRC, Patwari, Amin)',
+                        icon: '🗺️',
+                        description: 'Crucial revenue roles like Land Records Clerk (LRC), Patwari, and Amin responsible for the maintenance of land records, tax collection, and property documentation at the Subdivision level.',
+                        cta: 'Learn More'
+                    },
+                     'municipal': {
+                        name: '8. Municipal Corp./Nagar Parishad (Clerk, Sanitation Staff)',
+                        icon: '🏢',
+                        description: 'Jobs essential for urban local bodies, managing public works, sanitation (Safai Karamchari), civic records, and general clerical duties.',
+                        cta: 'Learn More'
+                    },
+                     'drda': {
+                        name: '9. DRDA/District Planning Posts',
+                        icon: '🏞️',
+                        description: 'Staff hired by the District Rural Development Agency (DRDA) to implement and monitor flagship rural development and poverty alleviation programs.',
+                        cta: 'Learn More'
+                    }
+                },
+                'mn': { // Using Meitei/Manipuri localization
+                    'collector': { 
+                        name: '1. ডেপুটি কমিশনার অফিস (क्लर्क, डीईओ, प्यून)', 
+                        icon: '🏛️',
+                        description: 'जिल्हा प्रशासनाच्या (डेप्युटी कमिशनर कार्यालय) कामकाजासाठी महत्त्वपूर्ण प्रशासकीय सहाय्यक भूमिका, रेकॉर्ड, फाइलिंग आणि सरकारी योजनांच्या डेटा एंट्रीचे व्यवस्थापन.',
+                        cta: 'खुराक चंबिदे' // Khurak chambide - 'Know more' or 'Proceed'
+                    },
+                    'court': { 
+                        name: '2. जिल्हा न्यायालय (स्टेनो, क्लर्क, प्यून)', 
+                        icon: '⚖️',
+                        description: 'जिल्हा न्यायपालिकेतील न्यायिक प्रक्रियांना समर्थन देणारी पदे, ज्यात स्टेनोग्राफर, LDC आणि सहायक कर्मचाऱ्यांचा समावेश आहे.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                    'health': { 
+                        name: '3. आरोग्य विभाग (ANM, GNM, लॅब टेक - कॉन्ट्रॅक्ट)', 
+                        icon: '⚕️',
+                        description: 'NHM किंवा आरोग्य संस्थेअंतर्गत कंत्राटी पॅरामेडिकल भूमिका, विशेषतः डोंगराळ जिल्ह्यांमध्ये, आरोग्य सेवा वितरणासाठी आवश्यक आहेत.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                    'icds': {
+                        name: '4. ICDS/अंगणवाडी (पर्यवेक्षक, कार्यकर्ता, मदतनीस)',
+                        icon: '👧',
+                        description: 'एकात्मिक बाल विकास सेवा योजनेतील (ICDS) प्रमुख भूमिका, ज्यामध्ये बाल कल्याण आणि पोषण कार्यक्रमांचे निरीक्षण, अंमलबजावणी आणि वितरण यांचा समावेश आहे.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                    'panchayat': {
+                        name: '5. पंचायत राज/ब्लॉक लेव्हल (पंचायत सहायक, सेवक)',
+                        icon: '🏘️',
+                        description: 'ब्लॉक किंवा गाव प्राधिकरण स्तरावर स्थानिक सरकारी विकास योजनांची अंमलबजावणी, रेकॉर्ड देखभाल आणि प्रशासकीय सहाय्य यासाठी कर्मचारी.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                    'education': {
+                        name: '6. शिक्षण विभाग (अतिथी शिक्षक, ब्लॉक रिसोर्स पर्सन)',
+                        icon: '🏫',
+                        description: 'सरकारी शाळांमध्ये अतिथी शिक्षक किंवा BRP सारख्या तात्पुरत्या भूमिका, शिक्षक प्रशिक्षण आणि शिक्षण गुणवत्ता उपक्रमांना समर्थन देतात.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                     'land': {
+                        name: '7. भूमी अभिलेख (LRC, पटवारी, अमीन)',
+                        icon: '🗺️',
+                        description: 'उपविभाग स्तरावर भूमी अभिलेख (LRC), पटवारी आणि अमीन सारख्या महत्त्वाच्या महसूल भूमिका, जमीन नोंदी, कर संकलन आणि मालमत्ता दस्तऐवजीकरण यासाठी जबाबदार.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                     'municipal': {
+                        name: '8. महानगरपालिका/नगर परिषद (क्लर्क, स्वच्छता कर्मचारी)',
+                        icon: '🏢',
+                        description: 'शहरी स्थानिक संस्थांसाठी आवश्यक नोकऱ्या, सार्वजनिक कार्ये, स्वच्छता (सफाई कर्मचारी), नागरी नोंदी आणि सामान्य लिपिकीय कर्तव्ये व्यवस्थापित करणे.',
+                        cta: 'खुराक चंबिदे'
+                    },
+                     'drda': {
+                        name: '9. डीआरडीए/जिल्हा नियोजन पदे',
+                        icon: '🏞️',
+                        description: 'जिल्हा ग्रामीण विकास एजन्सी (DRDA) द्वारे ग्रामीण विकास आणि दारिद्र्य निर्मूलन कार्यक्रम अंमलात आणण्यासाठी आणि त्यांचे निरीक्षण करण्यासाठी नियुक्त केलेले कर्मचारी.',
+                        cta: 'खुराक चंबिदे'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-level (LDC / Peon / Land Records Clerk)", desc: "Joins the government service at the base level, often requiring strong computer/typing proficiency." },
+                        { rank: "Upper Division Clerk (UDC) / Head Clerk", desc: "The first promotion, which comes with an increase in pay and supervisory responsibilities, typically based on departmental seniority and performance." },
+                        { rank: "Superintendent / Section Officer / Revenue Officer", desc: "Further progression leading to middle management and independent charge of sections or sub-offices." },
+                        { rank: "Higher Administrative Posts (Gazetted Promotions)", desc: "With long and dedicated service, limited avenues exist to progress to gazetted officer ranks through departmental screening or promotion quotas." }
+                    ]
+                },
+                'mn': {
+                    path: [
+                        { rank: "प्रवेश-स्तर (LDC / प्यून / भूमी अभिलेख क्लर्क)", desc: "मूलभूत स्तरावर सरकारी सेवेत प्रवेश करतो, अनेकदा मजबूत संगणक/टायपिंग प्राविण्य आवश्यक असते." },
+                        { rank: "वरिष्ठ विभाग क्लर्क (UDC) / मुख्य क्लर्क", desc: "पहिली पदोन्नती, जी विभागीय ज्येष्ठता आणि कार्यक्षमतेवर आधारित असते, ज्यामुळे पगार आणि पर्यवेक्षी जबाबदाऱ्या वाढतात." },
+                        { rank: "अधीक्षक / अनुभाग अधिकारी / महसूल अधिकारी", desc: "पुढील प्रगतीमुळे मध्यम व्यवस्थापनाकडे आणि विभाग किंवा उप-कार्यालयांच्या स्वतंत्र प्रभारकडे नेतृत्व मिळते." },
+                        { rank: "उच्च प्रशासकीय पदे (राजपत्रित पदोन्नती)", desc: "दीर्घ आणि समर्पित सेवेमुळे विभागीय तपासणी किंवा पदोन्नती कोट्याद्वारे राजपत्रित अधिकारी पदांवर (Gazetted Officer Ranks) प्रगती करण्याचे मर्यादित मार्ग आहेत।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🦌 Manipur District Level Jobs Guide 🏞️',
+                    'header-subtitle': 'Your Guide to a Career in Manipur\'s Public Service',
+                    'sec1-title': '1. What are District Level Jobs in Manipur? 💡',
+                    'sec1-p1': 'District Level Jobs in Manipur operate at the grassroots, ensuring the delivery of state schemes and services across the valley and hill districts. Recruitment for these Group \'C\' and \'D\' posts is conducted by the **Manipur Public Service Commission (MPSC)**, the District Administration, and specialized departments. These roles offer security and direct involvement in the state\'s welfare.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection for most non-technical posts involves a written examination, often followed by a skill test or interview round, depending on the MPSC notification.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Exam / Screening Test', 'sec2-step1-desc': 'Objective MCQ Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill Test / Interview', 'sec2-step2-desc': 'For Stenographer/Clerk posts',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Doc Verification', 'sec2-step3-desc': 'Final Merit List',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for these Manipur Government jobs is based on educational qualifications, age limits, and knowledge of local customs/languages.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 38 years** for General category. Age relaxation for OBC, SC/ST, and PWD categories is applicable as per Manipur Government rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Varies from **8th/10th Pass** (Peon, Helper) to **12th Pass/Graduation** (Clerk, Patwari/LDC) and **Diploma/Degree** for technical/health roles (ANM, Lab Tech).',
+                    'sec3-attempts-title': 'Domicile and Language 📊',
+                    'sec3-agerelax-list': '<li>The applicant must be a **resident of Manipur** or registered in the employment exchange of the state.</li><li>Knowledge of **Manipuri (Meitei Mayek)** or a recognized tribal dialect is often a required qualification.</li>',
+                    'sec4-title': '4. Typical Manipur Exam Pattern (LDC/Group C) 📚',
+                    'sec4-p1': 'The district-level exams emphasize General Knowledge, current affairs related to Manipur, and proficiency in English and Meitei/local languages.',
+                    'gs1-title': 'General English and Grammar', 'gs2-title': 'General Knowledge (India & Manipur GK)', 'gs3-title': 'Arithmetic, Reasoning, and Computer Fundamentals',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'New appointees in the Manipur Government undergo a standard probation period for performance assessment before permanent absorption.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A standard two-year probation is typical for entry-level posts.', 'sec5-hindi-list': '<li>Performance, conduct, and suitability for the job are assessed during this period.</li><li>Successful completion leads to confirmation of service.</li>',
+                    'sec5-essay-title': '2. Departmental Training', 'sec5-essay-p1': 'Training focuses on local administrative rules and public service ethics.', 'sec5-essay-list': '<li>Induction training on Manipur service rules and government procedures.</li><li>Practical training on file management, government correspondence, and scheme implementation.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'These roles are crucial for linking the state government with local communities in both valley and hill regions.',
+                    'sec6-eng-title': 'Admin, Judicial & Revenue', 'sec6-eng-list': '<li>**LDC/Clerk/DEO:** Administrative and record-keeping support in Deputy Commissioner (Collector) offices and Sub-Divisional Offices.</li><li>**Court Staff:** Assisting judicial functions (Steno/Clerk) and maintaining court records in District Courts.</li><li>**Patwari/LRC (Land Revenue Clerk):** Maintaining village land records, tax collection, and revenue documentation.</li>',
+                    'sec6-elec-title': 'Public Welfare & Health', 'sec6-elec-list': '<li>**Health Dept:** ANM, GNM, and Lab Technicians providing essential healthcare services, especially in remote areas.</li><li>**ICDS/Anganwadi:** Implementing child development and nutrition programs under the Social Welfare Department.</li><li>**Education Dept:** Supporting school administration and teaching needs (Guest Teachers, BRPs).</li>',
+                    'sec6-naic-title': 'Local Governance & Development', 'sec6-naic-list': '<li>**Panchayat/Block Staff:** Assisting in the execution of local government development schemes at the Block/Gram Panchayat level.</li><li>**Municipal Staff:** Providing civic services, managing sanitation, and maintaining records in urban local bodies (ULBs).</li><li>**DRDA Staff:** Monitoring and implementing rural infrastructure and livelihood programs.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'Success in Manipur government exams requires strong general awareness, English proficiency, and knowledge of the state\'s unique culture.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🌍</span><div><strong class="text-slate-900">Manipur GK & Culture:</strong> Deep knowledge of the state\'s history, tribal diversity, Meitei culture, environment (Loktak Lake, Sangai), and current affairs is highly valued.</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">💻</span><div><strong class="text-slate-900">English Proficiency & Typing:</strong> Strong English language skills (Grammar, Comprehension) are crucial. Typing skills (English/local script) are mandatory for clerical/LDC roles.</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🧠</span><div><strong class="text-slate-900">General Aptitude:</strong> Good command over Arithmetic, Reasoning, and General Science is necessary to qualify for the written exam.</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🤝</span><div><strong class="text-slate-900">Local Knowledge:</strong> Familiarity with local administration, local languages (Meitei, recognised dialects), and community customs is a major asset.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A successful strategy focuses on excelling in General English and covering Manipur-specific General Knowledge extensively.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master English Language', 'sec8-step1-desc': 'Given the high weightage in many MPSC exams, prioritize English Grammar, Vocabulary, and Comprehension using standard textbooks.',
+                    'sec8-step2-title': 'Deep Dive into Manipur GK', 'sec8-step2-desc': 'Use specialized books or resources covering Manipur\'s history, environment, art, culture, and tribal administration structure.',
+                    'sec8-step3-title': 'Regular Typing Practice', 'sec8-step3-desc': 'For clerical/data entry roles, daily practice in English typing (and potentially Meitei Mayek/Manipuri script typing) is mandatory.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Solve Previous MPSC Papers:</strong> Focus on papers for LDC, DEO, and other non-gazetted posts to gauge the difficulty and pattern.</li><li><strong>Read Local News:</strong> Follow local newspapers (**The Sangai Express**, **Poknapham**) and official government websites for state-level current affairs.</li><li><strong>Attempt Mock Tests:</strong> Regularly take full-length mock tests to manage time effectively, especially for the General Aptitude and Numerical sections.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is conducted by the **Manipur Public Service Commission (MPSC)** or District Selection Committees based on departmental vacancies.',
+                    'sec9-step1-title': 'Notification & Application', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the MPSC website (mpscmanipur.gov.in) and state administration websites.',
+                    'sec9-step2-title': 'Written Examination (OMR/CBT)', 'sec9-step2-desc': '<strong>Timeline:</strong> An objective test focusing on General Knowledge, English, and Aptitude is conducted to shortlist candidates.',
+                    'sec9-step3-title': 'Skill Test / Interview', 'sec9-step3-desc': '<strong>Timeline:</strong> Shortlisted candidates appear for a Typing Test, Shorthand Test (if applicable), and possibly an interview, depending on the post grade.',
+                    'sec9-step4-title': 'Final Merit List & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared, followed by document verification and deployment to a District/Sub-Divisional office.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition for Manipur Government jobs is competitive. Avoid these common errors.',
+                    'sec10-mistake1-title': 'Underestimating English & Local Language:', 'sec10-mistake1-desc': 'Ignoring the high weightage of General English and the mandatory local language proficiency in the exam.',
+                    'sec10-mistake2-title': 'Ignoring Manipur-Specific GK:', 'sec10-mistake2-desc': 'Failing to cover specific topics related to Manipur’s geography, biodiversity (Sangai), history, and political setup.',
+                    'sec10-mistake3-title': 'Lack of Typing Practice:', 'sec10-mistake3-desc': 'Failing the mandatory computer typing or shorthand skill test for clerical and steno posts due to poor speed/accuracy.',
+                    'sec10-mistake4-title': 'Not Registering with Employment Exchange:', 'sec10-mistake4-desc': 'Missing job opportunities, as registration with the local employment exchange is often a prerequisite for state-level hiring.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Imphal is the main hub for competitive exam coaching, focusing on MPSC and other government recruitment exams.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>NCERT and Manipur Board textbooks are the foundation for Science and General Studies.</li><li>Specialized books on Manipur GK, history, and culture are crucial.</li><li>Focus heavily on standard General English competitive exam books.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Many institutes in Imphal specialize in MPSC and other non-gazetted posts.', 'sec11-pvt-list': '<li>Choose an institute in Imphal known for General Studies and English teaching.</li><li>Online resources dedicated to North-East state exams often provide valuable localized content.</li><li>Regularly solve mock test papers designed on the MPSC LDC/DEO pattern.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'A government job in Manipur offers stability and a structured career path, with promotions often based on seniority and departmental exams.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. MPSC District Exam Syllabus Focus 📚',
+                    'sec13-p1': 'The syllabus heavily features General English, Manipur-specific topics, and basic aptitude/computer skills.',
+                    'syllabus-oir-title': 'General English & Manipuri Language',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Grammar, Vocabulary, Comprehension)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">ꯃꯤꯑꯣꯏ</span><div class="flex-grow">Local/Meitei Language Proficiency</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'General Aptitude & Manipur GK',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">General Studies and Manipur Specific GK</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic, Reasoning, and Computer Fundamentals</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Serving the people of Manipur.',
+                    'interviewChartData': {
+                        labels: ['Manipur GK', 'English/Language', 'Aptitude/Computer', 'Typing Skill'],
+                        data: [90, 95, 85, 88]
+                    },
+                    'career-modal-title': 'Clerical/Administrative Cadre Career Progression',
+                    'prelims-modal-title': 'Stage 1: Written Exam / Screening Test',
+                    'prelims-modal-p1': 'The first stage is an objective MCQ test covering General English, General Knowledge (with a focus on Manipur), and Aptitude. Qualifying this is essential for the next stages.',
+                    'mains-modal-title': 'Stage 2: Skill Test / Interview',
+                    'mains-modal-p1': 'Candidates shortlisted are required to appear for a Typing Test (often mandatory 30 WPM English) or Shorthand Test for Stenographer roles. Some Group C posts also include a personal interview round.',
+                    'interview-modal-title': 'Stage 3: Document Verification',
+                    'interview-modal-p1': 'The final selection is based on the total score from the written exam/interview. Candidates undergo strict verification of original documents (Domicile, Educational Certificates, Local Language Proficiency) before receiving the final appointment order.',
+                },
+                'mn': {
+                    'header-title': '🦌 মণিপুর জিলা থৌরাং-ৱার্কশিংগী গাইড 🏞️',
+                    'header-subtitle': 'মণিপুরগী মীয়ামগী থৌরাংগীদমক নখোয়গী লম্বী-শিংলোন',
+                    'sec1-title': '1. মণিপুরদা জিলা থৌরাং-ৱার্কশিং অসি করিনো? 💡',
+                    'sec1-p1': 'মণিপুরগী জিলা থাক্কী থৌরাং-ৱার্কশিংনা মফম-কয়া অমদা থৌরাং-পম্বমশিং অমসুং থবক-ৱার্কশিং য়োকখৎলি। গ্রুপ \'C\' অমসুং \'D\' গী থৌরাং-ৱার্কশিং অসি **মণিপুর পব্লিক সার্ভিস কম্মিশন (MPSC)**, জিলা প্রশাসন অমসুং খুৎনাই-শাখাশিংনা লৌখৎলি। মসিগী থৌরাং-ৱার্কশিংনা অকোয়বা পাম্বী অমসুং লমথেলগী মতাংদা ইথিল পীবাঙি থবকসু চত্থরি।',
+                    'sec2-title': '2. থৌরাং-ৱার্ক থিদোক-ৱার্ক: মরম 🎯',
+                    'sec2-p1': 'অঙম-ৱারকশিংগীদমক অসিদা ইমুং-বুক্কী থৌরাং-ৱার্ক অমসুং স্ক্রীনিং টেস্ট অসিদা ইমুং-পাম্বীদা ৱারক লোইশিল্লবগা লোয়ন্না স্কিল টেস্ট অমসুং ইন্টারভিউসু পাঙথোকলি।',
+                    'sec2-step1-title': 'ৱাকচিং 1:', 'sec2-step1-name': 'ইমুং-পাম্বী টেস্ট', 'sec2-step1-desc': 'অব্জেক্টীভ MCQ টেস্ট',
+                    'sec2-step2-title': 'ৱাকচিং 2:', 'sec2-step2-name': 'স্কিল টেস্ট / ইন্টারভিউ', 'sec2-step2-desc': 'স্টেনোগ্রাফার/क्लर्क থৌরাং-ৱার্ককীদমক',
+                    'sec2-step3-title': 'ৱাকচিং 3:', 'sec2-step3-name': 'ডকুমেন্ট ভেরিফিকেশন', 'sec2-step3-desc': 'অঙম-ৱারক্কী অকনবা মতাং',
+                    'sec3-title': '3. কান্নবা ৱার্কশিং? ✅',
+                    'sec3-p1': 'মণিপুর সরকারগী থৌরাং-ৱার্কশিংগীদমক লমথেল অমসুং ৱার্কিংগী মতাংদা নখোয়গী কয়া অমসুং লমথেলগী মতাংদা ৱার্কিংগী ৱার্কিংগী মতাংদা নখোয়গী মতাংদা লোয়নরি।',
+                    'sec3-age-title': 'লমথেলগী মতাং:', 'sec3-age-desc': 'জেনারল ক্যাটাগরিগীদমক **18 অমসুং 38 থা**গী মনুংদা থৌরাং-ৱার্ক অসি পাঙথোক্কনি। OBC, SC/ST অমসুং PWD ক্যাটাগরিগীদমক মণিপুর সরকারগী রুলশিংনা লমথেলগী মতাংদা পীবনি।',
+                    'sec3-edu-title': 'লমথেলগী মতাংদা ৱার্কিং:', 'sec3-edu-desc': '**8থ/10থ পাস** (প्यून, হেল্পর) লমথেলগী **12থ পাস/গ্রেজুয়েশন** (क्लर्क, पटवारी/LDC) অমসুং লমথেলগী **ডিপ্লোমা/ডিগ্রী** (ANM, ল্যাব টেক) অসিদা লোয়নরি।',
+                    'sec3-attempts-title': 'ডোমিসাইল অমসুং লমথেলগী ৱার্কিং 📊',
+                    'sec3-agerelax-list': '<li>আবেদনকারী অসি **মণিপুরগী মফম** অসিদা লমথেলগী অঙম-ৱারকশিংগীদমক এম্প্লয়মেন্ট এক্সেঞ্জগী মনুংদা লোয়নরি।</li><li>**মণিপুরী (মৈতৈ মায়েক)** অমসুং অঙম-ৱারকশিংগী লোয়ননবা লমথেলগী ৱার্কিং অসি ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec4-title': '4. মণিপুরগী পাম্বীগী থৌরাং (LDC/ग्रुप C) 📚',
+                    'sec4-p1': 'জিল্লা থাক্কী থৌরাং-ৱার্কশিংদা জেনারল নলেজ, মণিপুরগী কারেন্ট এফেয়ার্স অমসুং ইংলিশ অমসুং মৈতৈ/লোকল লমথেলগী ৱার্কিং অসিদা লোয়নরি।',
+                    'gs1-title': 'জেনারল ইংলিশ অমসুং গ্রামার', 'gs2-title': 'জেনারল নলেজ (ভারত অমসুং মণিপুর GK)', 'gs3-title': 'অরিথমেটিক, রিজনিং অমসুং কম্পিউটার ফন্ডামেন্টালস',
+                    'sec5-title': '5. ট্রেনিং অমসুং প্রোভিশন 🏛️',
+                    'sec5-p1': 'মণিপুর সরকারগী নয়া থৌরাং-ৱার্কশিং অসিদা ইমুং-ৱার্ক অসিদা লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec5-hindi-title': '1. প্রোভিশন পিরিয়ড', 'sec5-hindi-p1': 'এন্ট্রি লেভেল থৌরাং-ৱার্কশিংগীদমক অসিদা ইমুং-ৱার্ক অসিদা লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec5-hindi-list': '<li>লমথেলগী ৱার্কিং অসিদা ইমুং-ৱার্ক অসিদা লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।</li><li>লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec5-essay-title': '2. ডিপার্টমেন্টাল ট্রেনিং', 'sec5-essay-p1': 'লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec5-essay-list': '<li>লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।</li><li>লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec6-title': '6. মুখ্য থৌরাং-ৱার্কশিং 🌟',
+                    'sec6-p1': 'ৱার্কিংগী মতাংদা লমথেলগী ৱার্কিং অসিদা ইমুং-পাম্বীদা লমথেলগী ৱার্কিং অসিদা লমথেলগী ৱার্কিং অসিদা লমথেলগী ৱার্কিং অসিদা লোয়নরি।',
+                    'sec6-eng-title': 'প্রশাসন, ন্যায় অমসুং রেভেন্যু',
+                    'sec6-eng-list': '<li>**LDC/Clerk/DEO:** ডেপুটি কমिशनर (কালেক্টর) অফিস অমসুং সাব-ডিভিশনাল অফিসশিংদা প্রশাসনিক অমসুং রেকোർഡ് থমবা।</li><li>**কোর্ট স্টাফ:** জিলা কোর্টশিংদা ন্যারিক থৌরাং-ৱার্কশিংদা (স্টেনো/क्लर्क) অমসুং কোর্ট রেকোর্ডশিং মেনটেন তৌবা।</li><li>**पटवारी/LRC (ভূমি রেভেন্যু ক্লর্ক):** লমথেলগী রেকোর্ডশিং মেনটেন তৌবা, ট্যাক্স কলেকশন অমসুং রেভেন্যু ডকুমেন্টেশন।</li>',
+                    'sec6-elec-title': 'পব্লিক ৱেলফেয়ার অমসুং হেল্থ',
+                    'sec6-elec-list': '<li>**হেল্থ ডিপার্টমেন্ট:** ANM, GNM, অমসুং ল্যাব টেকনিশিয়নশিংনা কমিউনিটি হেল্থ সার্ভিসশিং পাঙথোকপা, বিশেষত হিল জিলাশিংদা।</li><li>**ICDS/অঙ্গণৱাড়ি:** সোশ্যাল ৱেলফেয়ার ডিপার্টমেন্টগী মখাদা চাইল্ড ডেভেলপমেন্ট অমসুং নুত্রিশন প্রোগ্রামশিং ইমপ্লিমেন্ট তৌবা।</li><li>**এডুকেশন ডিপার্টমেন্ট:** স্কুল এডমিনিস্ট্রেশন অমসুং টিচিংগী মতাংদা সাপোর্ট তৌবা (গাস্ট টিচার্স, BRPশিং)।</li>',
+                    'sec6-naic-title': 'লোকল গোভার্নেন্স অমসুং ডেভেলপমেন্ট',
+                    'sec6-naic-list': '<li>**পঞ্চায়েত/ব্লক স্টাফ:** ব্লক/গ্রাম পঞ্চায়েত লেভেলদা লোকল গোভার্নমেন্ট ডেভেলপমেন্ট স্কিমশিংগী ইমপ্লিমেন্টেশনদা এসিস্ট তৌবা।</li><li>**মুনিসিপাল স্টাফ:** অর্বান লোকল বডিশিংদা (ULBs) সিভিক সার্ভিসশিং পাঙথোকপা, স্যানিটেশন ম্যানেজ তৌবা অমসুং রেকোর্ডশিং মেনটেন তৌবা।</li><li>**DRDA স্টাফ:** জিলাগী মফমদা রুরাল ইনফ্রাস্ট্রকচার অমসুং লাইভলিহুড প্রোগ্রামশিং মেনটেন তৌবা।</li>',
+                    'sec7-title': '7. অঙম-ৱারকশিংগী মতাং 🎙️',
+                    'sec7-p1': 'মণিপুর সরকারগী থৌরাং-ৱার্কশিংদা জেনারল নলেজ, ইংলিশ ৱার্কিং অমসুং লমথেলগী কালচার অসি ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec7-qualities-title': 'মুখ্য ৱার্কিংগী মতাং:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🌍</span><div><strong class="text-slate-900">মণিপুর GK অমসুং কালচার:</strong> লমথেলগী হিস্টোরি, ট্রাইবাল ডাইভার্সিটি, মৈতৈ কালচার, এনভায়রনমেন্ট (লোকটাক লেইক, সাঙগাই) অমসুং কারেন্ট এফেয়ার্সগী মতাংদা সখল নলেজ লৈবা।</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">💻</span><div><strong class="text-slate-900">ইংলিশ ৱার্কিং অমসুং টাইপিং:</strong> ইংলিশ লমথেলগী ৱার্কিং (গ্রামার, কম্প্রিহেনশন) অসি ৱার্কিংগী মতাংদা লোয়নরি। টাইপিং স্কিল (ইংলিশ/লোকল স্ক্রিপ্ট) অসি ক্লারিক্যাল/LDC রুলশিংগীদমক পীবনি।</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🧠</span><div><strong class="text-slate-900">জেনারল অপটিটিউট:</strong> অরিথমেটিক, রিজনিং অমসুং জেনারল সাইন্স অসি ইমুং-পাম্বীদা ৱার্কিংগী মতাংদা লোয়নরি।</div></li><li class="flex items-start"><span class="text-2xl text-[#dc2626] mr-3">🤝</span><div><strong class="text-slate-900">লোকল নলেজ:</strong> লোকল এডমিনিস্ট্রেশন, লোকল লমথেল (মৈতৈ, ত্রাইবাল ডায়ালেক্টশিং) অমসুং কমিউনিটি কাস্টমশিংগী মতাংদা লোয়নরি।</div></li>',
+                    'sec8-title': '8. নখোয়গী থৌরাং-ৱার্ক 📈',
+                    'sec8-p1': 'সাকসেসফুল থৌরাং-ৱার্ক অসিদা জেনারল ইংলিশ অমসুং মণিপুর-স্পেসিফিক জেনারল নলেজ অসিদা লোয়নরি।',
+                    'sec8-steps-title': '📚 মুখ্য ৱাকচিং:',
+                    'sec8-step1-title': 'মাষ্টার ইংলিশ লমথেল', 'sec8-step1-desc': 'MPSC থৌরাং-ৱার্কশিংদা ইংলিশ গ্রামার, ভোকাবুলারি, অমসুং কম্প্রিহেনশন অসিদা লোয়নরি।',
+                    'sec8-step2-title': 'মণিপুর GK অসিদা সখল ৱার্কিং', 'sec8-step2-desc': 'মণিপুরগী হিস্টোরি, এনভায়রনমেন্ট, আর্ট, কালচার, অমসুং ট্রাইবাল এডমিনিস্ট্রেশন স্ট্রকচার অসিদা লোয়নরি।',
+                    'sec8-step3-title': 'রেগুলার টাইপিং প্র্যাকটিস', 'sec8-step3-desc': 'ক্লারিক্যাল/ডাটা এন্ট্রি রুলশিংগীদমক ইংলিশ টাইপিং (অমসুং মৈতৈ মায়েক/মণিপুরী স্ক্রিপ্ট টাইপিং) অসি পীবনি।',
+                    'sec8-revision-title': '🔄 হাবিটশিং অমসুং প্র্যাকটিস:',
+                    'sec8-revision-list': '<li>**মাगील MPSC পেপারশিং:** LDC, DEO, অমসুং অঙম-ৱারকশিংগীদমক পেপারশিং অসিদা লোয়নরি।</li><li>**লোকল নিউজ:** লোকল নিউজপেপারশিং (**The Sangai Express**, **Poknapham**) অমসুং অফিশিয়াল গোভার্নমেন্ট ওয়েবসাইটশিং অসিদা লোয়নরি।</li><li>**মক টেস্ট:** জেনারল অপটিটিউট অমসুং নিউমেরিক্যাল সেকশনশিংগীদমক রেগুলার মক টেস্ট অসিদা লোয়নরি।',
+                    'sec9-title': '9. থৌরাং-ৱার্ক চক্র অমসুং প্রসেস 🗓️',
+                    'sec9-p1': 'থৌরাং-ৱার্ক অসি **মণিপুর পব্লিক সার্ভিস কম্মিশন (MPSC)** অমসুং জিলা সিলেকশন কম্মিটিশিংনা থৌরাং-ৱার্ক অসিদা লোয়নরি।',
+                    'sec9-step1-title': 'নোটিফিকেশন অমসুং এপ্লিকেসন', 'sec9-step1-desc': '<strong>টাইমলাইন:</strong> MPSC ওয়েবসাইট (mpscmanipur.gov.in) অমসুং স্টেট এডমিনিস্ট্রেশন ওয়েবসাইটশিং অসিদা লোয়নরি।',
+                    'sec9-step2-title': 'ইমুং-পাম্বী টেস্ট (OMR/CBT)', 'sec9-step2-desc': '<strong>টাইমলাইন:</strong> জেনারল নলেজ, ইংলিশ, অমসুং অপটিটিউট অসিদা লোয়নরি।',
+                    'sec9-step3-title': 'স্কিল টেস্ট / ইন্টারভিউ', 'sec9-step3-desc': '<strong>টাইমলাইন:</strong> টাইপিং টেস্ট, শর্টহ্যান্ড টেস্ট (যদি লৈরিবা), অমসুং ইন্টারভিউ অসিদা লোয়নরি।',
+                    'sec9-step4-title': 'অঙম-ৱারক অমসুং এপয়েন্টমেন্ট', 'sec9-step4-desc': '<strong>টাইমলাইন:</strong> অঙম-ৱারক অমসুং ডকুমেন্ট ভেরিফিকেশন অসিদা লোয়নরি।',
+                    'sec10-title': '10. ইমুং-ৱার্ক অসিদা লমথেলগী মতাং 🚫',
+                    'sec10-p1': 'মণিপুর সরকারগী থৌরাং-ৱার্কশিংদা লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec10-mistake1-title': 'ইংলিশ অমসুং লোকল লমথেলগী মতাংদা লোয়নরি:', 'sec10-mistake1-desc': 'জেনারল ইংলিশ অমসুং ম্যান্ডেটরি লোকল লমথেলগী ৱার্কিং অসিদা লোয়নরি।',
+                    'sec10-mistake2-title': 'মণিপুর-স্পেসিফিক GK অসিদা লোয়নরি:', 'sec10-mistake2-desc': 'মণিপুরগী জিয়োগ্রাফি, বায়োডাইভার্সিটি (সাঙগাই), হিস্টোরি, অমসুং পোলিটিকাল সেটআপ অসিদা লোয়নরি।',
+                    'sec10-mistake3-title': 'টাইপিং প্র্যাকটিসকী মতাং:', 'sec10-mistake3-desc': 'ক্লারিক্যাল অমসুং স্টেনো থৌরাং-ৱার্কশিংগীদমক টাইপিং অমসুং শর্টহ্যান্ড স্কিল টেস্ট অসিদা লোয়নরি।',
+                    'sec10-mistake4-title': 'এম্প্লয়মেন্ট এক্সেঞ্জগী মতাং:', 'sec10-mistake4-desc': 'লোকল এম্প্লয়মেন্ট এক্সেঞ্জগী মতাংদা লমথেলগী ৱার্কিং অসিদা লোয়নরি।',
+                    'sec11-title': '11. কোচিং অসিদা লমথেলগী মতাং 🏫',
+                    'sec11-p1': 'ইম্ফাল অসি MPSC অমসুং অঙম-ৱারকশিংগীদমক কোচিংগী মুখ্য হবনি।',
+                    'sec11-gov-title': '📚 স্ব-অধ্যয়ন', 'sec11-gov-list': '<li>NCERT অমসুং মণিপুর বোর্ড টেক্সটবুকশিং অসি সাইন্স অমসুং জেনারল স্টডিজগী ফউন্ডেশননি।</li><li>মণিপুর GK, হিস্টোরি, অমসুং কালচার অসিদা লোয়নরি।</li><li>জেনারল ইংলিশগী মতাংদা লোয়নরি।</li>',
+                    'sec11-pvt-title': '💻 কোচিং ইন্সটিটিউটশিং', 'sec11-pvt-p1': 'ইম্ফালগী ইন্সটিটিউটশিং অসি MPSC অমসুং অঙম-ৱারকশিংগীদমক লোয়নরি।', 'sec11-pvt-list': '<li>ইম্ফালগী জেনারল স্টডিজ অমসুং ইংলিশ টিচিংগী মতাংদা লোয়নরি।</li><li>নর্থ-ইস্ট স্টেটশিংগী থৌরাং-ৱার্কশিং অসিদা লোকল কন্টেন্ট পীবনি।</li><li>MPSC LDC/DEO প্যাটার্ন অসিদা লোয়নরি।</li>',
+                    'sec12-title': '12. থৌরাং-ৱার্ক অমসুং পদোন্নতি 🚀',
+                    'sec12-p1': 'মণিপুর সরকারগী থৌরাং-ৱার্ক অসিদা লমথেলগী মতাংদা ট্রেনিং অমসুং ৱার্কিংগী মতাংদা লোয়নরি।',
+                    'sec12-career-btn': 'থৌরাং-ৱার্ক অসিদা লোয়নরি',
+                    'sec13-title': '13. MPSC জিলা থৌরাং-ৱার্ক সিলাবস 📚',
+                    'sec13-p1': 'সিলাবস অসিদা জেনারল ইংলিশ, মণিপুর-স্পেসিফিক টপিকশিং, অমসুং অপটিটিউট/কম্পিউটার স্কিলশিং অসিদা লোয়নরি।',
+                    'syllabus-oir-title': 'জেনারল ইংলিশ অমসুং মণিপুরী লমথেল',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">জেনারল ইংলিশ (গ্রামার, ভোকাবুলারি, কম্প্রিহেনশন)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">নোটশিং</button><button class="lectures-btn">লেকচারশিং</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">ꯃꯤꯑꯣꯏ</span><div class="flex-grow">লোকল/মৈতৈ লমথেলগী ৱার্কিং</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">নোটশিং</button><button class="lectures-btn">লেকচারশিং</button></div></div>',
+                    'syllabus-ppdt-title': 'জেনারল অপটিটিউট অমসুং মণিপুর GK',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">জেনারল স্টডিজ অমসুং মণিপুর স্পেসিফিক GK</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">নোটশিং</button><button class="lectures-btn">লেকচারশিং</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">অরিথমেটিক, রিজনিং, অমসুং কম্পিউটার ফন্ডামেন্টালস</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">নোটশিং</button><button class="lectures-btn">লেকচারশিং</button></div></div>',
+                    'footer-text': '&copy; 2025 | মণিপুরগী মীয়ামগী থৌরাং-ৱার্কশিং অসিদা লোয়নরি।',
+                    'interviewChartData': {
+                        labels: ['মণিপুর GK', 'ইংলিশ/লমথেল', 'অপটিটিউট/কম্পিউটার', 'টাইপিং স্কিল'],
+                        data: [90, 95, 85, 88]
+                    },
+                    'career-modal-title': 'ক্লারিক্যাল/এডমিনিস্ট্রেটিভ ক্যাডার থৌরাং-ৱার্ক অসিদা লোয়নরি',
+                    'prelims-modal-title': 'ৱাকচিং 1: ইমুং-পাম্বী টেস্ট / স্ক্রীনিং টেস্ট',
+                    'prelims-modal-p1': 'অঙম-ৱারক অসিদা ইংলিশ, জেনারল নলেজ (মণিপুরগী মতাংদা), অমসুং অপটিটিউট অসিদা লোয়নরি।',
+                    'mains-modal-title': 'ৱাকচিং 2: স্কিল টেস্ট / ইন্টারভিউ',
+                    'mains-modal-p1': 'টাইপিং টেস্ট (ইংলিশ 30 WPM) অমসুং শর্টহ্যান্ড টেস্ট (যদি লৈরিবা) অসিদা লোয়নরি। অঙম-ৱারকশিংদা পার্সনেল ইন্টারভিউ রাউন্ডসু লোয়নরি।',
+                    'interview-modal-title': 'ৱাকচিং 3: ডকুমেন্ট ভেরিফিকেশন',
+                    'interview-modal-p1': 'অঙম-ৱারক অসিদা ইমুং-পাম্বী অমসুং ইন্টারভিউগী মার্কশিং অসিদা লোয়নরি। ডকুমেন্ট ভেরিফিকেশন (ডোমিসাইল, এডুকেশনাল সার্টিফিকেটশিং, লোকল লমথেলগী ৱার্কিং) অসিদা লোয়নরি।',
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-red-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                 if (!container) return;
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Importance',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(220, 38, 38, 0.7)', /* Red */
+                            borderColor: '#dc2626',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const lang = currentLang; 
+                    const data = translations[lang].interviewChartData;
+                    
+                    if (data && data.labels && data.data) { 
+                        interviewChartInstance.data.labels = data.labels;
+                        interviewChartInstance.data.datasets[0].data = data.data;
+                        interviewChartInstance.update();
+                    } else {
+                        console.error('Chart data missing or incomplete for language:', lang);
+                    }
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const titleKey = `${modalId.replace('Modal', '')}-modal-title`;
+                    const p1Key = `${modalId.replace('Modal', '')}-modal-p1`;
+                    const titleEl = modal.querySelector('h3');
+                    const p1El = modal.querySelector('p');
+
+                    const modalLang = currentLang;
+
+                    if (titleEl && translations[modalLang][titleKey]) {
+                        titleEl.innerHTML = translations[modalLang][titleKey];
+                    }
+                    if (p1El && translations[modalLang][p1Key]) {
+                        p1El.innerHTML = translations[modalLang][p1Key];
+                    }
+                    
+                    if (modalId === 'careerGrowthModal') {
+                        const careerTitleEl = modal.querySelector('#career-modal-title');
+                        if (careerTitleEl) {
+                           careerTitleEl.innerHTML = (modalLang === 'mn') ? translations.mn['career-modal-title'] : translations.en['career-modal-title'];
+                        }
+                        renderCareerPath(modalLang);
+                    }
+
+
+                    modal.classList.add('active');
+                }
+            };
+            
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en'); // Default to English for Manipur
+        });
+    </script>
+</body>
+</html>
