@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meghalaya District Level Jobs Guide (All Departments)</title>
+    <script src="redirect_if_needed.js"></script>  
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visual data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to District Level Jobs in Meghalaya across various departments like the Deputy Commissioner's Office, Courts, Health, and District Councils.">
+    <meta name="keywords" content="Meghalaya Government Jobs, MPSC Meghalaya, District Council Jobs, LDC, UDC, Khasi, Jaintia, Garo Hills">
+    <meta name="author" content="Meghalaya Jobs Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Pale Sky Blue */
+            color: #14532d; /* Dark Forest Green for contrast */
+        }
+        /* Meghalaya Colors: Blue & Green (Mountains and Waterfalls) */
+        .section-heading {
+            border-image: linear-gradient(to right, #2563eb, #059669) 1; /* Blue & Emerald Green */
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #0c4a6e; /* Dark Blue */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #e0f2f1; /* Pale Cyan/Green Border */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(37, 99, 235, 0.15); /* Blueish hover shadow */
+            transform: translateY(-12px) scale(1.02);
+            border-color: #2563eb; /* Blue border */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #059669; /* Emerald Green */
+            color: #059669; 
+            background: #e6fffa; /* Very Light Green */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(5, 150, 105, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #059669;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(5, 150, 105, 0.4);
+        }
+        .flowchart-arrow {
+            color: #2563eb; /* Blue Arrow */
+            text-shadow: 0 0 10px rgba(37, 99, 235, 0.2);
+        }
+        .subject-category-heading {
+            color: #14532d;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #2563eb; /* Blue border */
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #f3f4f6; /* Light Gray */
+        }
+        .subject-item:hover {
+            background-color: #dbeafe; /* Lighter Blue */
+        }
+        .subject-item .icon {
+            color: #2563eb; /* Blue Icon */
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #059669; /* Green Timeline */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #2563eb; /* Blue Dot */
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+        }
+        /* Modal and Button styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(20, 83, 45, 0.85); /* Dark Green */
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #14532d;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #dcfce7;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #dc2626; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #2563eb, #3b82f6); /* Blue Gradient */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #2563eb; /* Blue Border */
+            color: #2563eb;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #2563eb; /* Active Blue */
+            color: #ffffff;
+            box-shadow: 0 0 15px #2563eb;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background-color: #059669; /* Dark Green */
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            background-color: #047857;
+        }
+        .lectures-btn {
+            background-color: #d1fae5; 
+            color: #065f46; 
+            border-color: #a7f3d0; 
+        }
+        .lectures-btn:hover {
+            background-color: #a7f3d0;
+            color: #064e3b;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#0c4a6e] mb-4 tracking-tight">🌧️ Meghalaya District Level Jobs Guide ⛰️</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-700">Your Guide to a Career in Meghalaya's Public Service</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="en">English</button>
+                <button type="button" class="lang-btn" data-lang="kha">Khasi</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are District Level Jobs? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-blue-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. What are District Level Jobs in Meghalaya? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">District Level Jobs in Meghalaya are essential for administration across the Khasi, Jaintia, and Garo Hills. Recruitment for Group 'C' and 'D' posts is conducted by the **Meghalaya Public Service Commission (MPSC)**, the **Autonomous District Councils (ADCs)**, and the respective Deputy Commissioner Offices. These roles ensure governance and service delivery at the grassroots level.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. Selection Process: The Pathway 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">The selection process is multi-layered, involving screening, written examinations, and frequently, a strong emphasis on the interview/personal assessment stage.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">Stage 1:</span><br><span id="sec2-step1-name">Written Exam / Screening Test</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">Objective/Descriptive Test (General Knowledge, English)</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">Stage 2:</span><br><span id="sec2-step2-name">Skill Test / Interview</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">For Clerical/Technical Posts</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">Stage 3:</span><br><span id="sec2-step3-name">Doc Verification</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">Final Merit List</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. Who Can Apply? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">Eligibility for these Meghalaya Government jobs is based on educational qualifications, age limits, and knowledge of the local context.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#2563eb] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">Age Limit:</strong> <span id="sec3-age-desc">Typically between **18 and 32 years** for General candidates. Age relaxation up to 5 years is applicable for SC/ST/OBC categories as per Meghalaya Government rules.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#2563eb] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">Educational Qualification:</strong> <span id="sec3-edu-desc">Varies from **8th/10th Pass** (Peon, Sanitation Staff) to **12th Pass/Graduation** (LDC, UDC, Steno) and **Diploma/Degree** for technical/health roles (GNM, Lab Tech).</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-[#059669] pb-2">Domicile and Language 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>The applicant must be a **permanent resident of Meghalaya** (State Domicile) and registered with a local employment exchange is often preferred.</li>
+                             <li>Knowledge of **local languages** (Khasi, Garo, or Jaintia) is often a required qualification, depending on the district/ADC jurisdiction.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-green-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. Typical MPSC/ADC Exam Pattern (LDC/Group C) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">District-level exams focus heavily on English composition, General Knowledge (with strong emphasis on Meghalaya), and basic aptitude.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">General English (Composition & Essay)</h3>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">General Knowledge & Meghalaya GK</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-blue-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">Aptitude, Reasoning, and Basic Computer</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. Training & Probation 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">New government employees in Meghalaya serve a mandatory probation period before their service is confirmed.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-blue-100 rounded-xl border-2 border-[#2563eb]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. Probation Period</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">A two-year probation period is standard for most entry-level government posts.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>The employee's performance, attendance, and adherence to service rules are monitored.</li>
+                            <li>Successful completion leads to regularization of service.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-blue-100 rounded-xl border-2 border-[#059669]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. Training and Induction</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">Training is provided by the Meghalaya Administrative Training Institute (MATI) or respective departments.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>Induction focuses on the unique service rules and the functioning of the Autonomous District Councils (ADCs).</li>
+                           <li>Practical training on file movement, public communication, and office automation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. Key Responsibilities 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">These roles are vital for administration and scheme implementation across Meghalaya's three major hill regions.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">Admin, Judicial & Land Revenue (ADC)</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**LDC/UDC/DEO:** Clerical support, record management, and data handling in Deputy Commissioner's Offices.</li>
+                           <li>**Court Staff:** Assisting judicial work (Steno/Clerk) in District Courts.</li>
+                            <li>**Revenue Staff (ADC):** Handling land records, customary laws, and tax collection within the District Council's jurisdiction.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">Public Welfare & Health</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**Health Dept:** ANM, GNM, and Lab Technicians providing crucial public health services under the National Health Mission.</li>
+                           <li>**ICDS/Anganwadi:** Implementing child development and nutrition programs (Supervisor, Worker).</li>
+                           <li>**Education Dept:** Supporting school operations and quality control (BRPs).</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">Local Governance & Development</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**DRDA Staff:** Implementing flagship rural development and poverty alleviation schemes.</li>
+                           <li>**Municipal/Nagar Parishad Staff:** Managing civic services, sanitation, and urban development in Shillong, Tura, etc.</li>
+                           <li>**Village Staff/Development:** Ground-level support for scheme delivery in the Village/Block Development Offices.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. Qualities of an Ideal Candidate 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">Success requires strong English proficiency, deep knowledge of Meghalaya's unique constitutional status, and general aptitude.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-[#2563eb] pb-2">Key Competencies:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🌍</span><div><strong class="text-slate-900">Meghalaya GK & Constitution:</strong> Strong knowledge of the state's geography, history, culture, and the role and functioning of the **Autonomous District Councils (ADCs)**.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">💻</span><div><strong class="text-slate-900">English Composition & Typing:</strong> Excellent command of English (often descriptive paper) and proficiency in computer operation/typing are mandatory for LDC/UDC posts.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🧠</span><div><strong class="text-slate-900">General Aptitude:</strong> Good command over Arithmetic, Reasoning, and General Science is necessary to qualify for the written exam.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🤝</span><div><strong class="text-slate-900">Local Language Skills:</strong> Familiarity with Khasi, Garo, or Jaintia dialects is a significant advantage in district-level administrative roles.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. Your Preparation Strategy 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">A successful strategy focuses on mastering English composition (essay/precise writing) and comprehensive Meghalaya-specific GK.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 Key Steps:</h3>
+                        <ol class="relative border-l-4 border-[#2563eb] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#2563eb] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Prioritize English Composition</h4>
+                                <p id="sec8-step1-desc" class="text-base">Many MPSC/ADC exams include descriptive papers (Essay, Precis Writing). Daily practice is crucial to score high.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#2563eb] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Master Meghalaya & ADC GK</h4>
+                                <p id="sec8-step2-desc" class="text-base">Focus on books and materials covering the history, geography, tribal customary laws, and the working of the three ADCs (KHADC, JHADC, GHADC).</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#2563eb] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Computer/Typing Proficiency</h4>
+                                <p id="sec8-step3-desc" class="text-base">For clerical posts, ensure you have strong English typing speed and are comfortable with the latest computer applications.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 Habits & Practice:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>Read Local News:</strong> Follow Shillong-based newspapers (**The Shillong Times**, **Highland Post**) for state-level current affairs.</li>
+                            <li><strong>Practice General Aptitude:</strong> Regularly solve Arithmetic and Reasoning questions relevant to North-East state PSC patterns.</li>
+                            <li><strong>ADC Rules:</strong> Familiarize yourself with the basic rules and functions of the specific Autonomous District Council relevant to your job location.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. Recruitment Cycle & Process 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">Recruitment is handled by the MPSC for State Cadre Posts and by the respective ADCs for District Council Posts.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">Notification & Application</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> Vacancies are advertised on the MPSC website (mpsc.nic.in) or respective ADC websites.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">Screening & Written Examination</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> An Objective/Descriptive exam is conducted, typically followed by an English Composition paper.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Interview/Personal Assessment</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A significant stage where candidates are assessed for suitability, communication skills, and local knowledge.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-slate-900 mb-1">Final Select List & Appointment</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">Timeline:</strong> A final merit list is prepared, followed by document verification and posting to the respective district/ADC office.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. Common Mistakes to Avoid 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">Competition is high in Meghalaya for government posts. Avoid these common errors.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">Ignoring Descriptive English:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">Neglecting Essay, Letter, and Precis writing practice, which often forms a critical part of the selection process.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">Shallow Meghalaya GK:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">Not covering the history, geography, tribal administration, and especially the **ADC structure and laws** in depth.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">Lack of Typing/Computer Skills:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">Underperforming in the computer proficiency and typing speed test, mandatory for LDC/DEO posts.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">Poor Interview Preparation:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">As interviews often hold high weightage, failing to prepare detailed answers on local issues, schemes, and personal suitability.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. Where to Get Coaching 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">Shillong is the primary center for MPSC and ADC exam coaching, with many institutes focusing on English and GK.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 Self-Study</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>NCERT and local school board textbooks for foundation knowledge.</li>
+                           <li>Specialized books covering Meghalaya GK, culture, and the Sixth Schedule/ADC provisions.</li>
+                           <li>Standard reference books for English Grammar and Comprehension.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 Coaching Institutes</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">Institutes in Shillong and Tura specialize in MPSC and ADC recruitment preparation.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>Choose an institute known for its General English and Essay writing programs.</li>
+                            <li>Join mock test series that simulate the MPSC/ADC question pattern.</li>
+                            <li>Focus on interview preparation, as this stage is crucial.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. Career Growth & Promotions 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">A government job in Meghalaya offers stability and a structured path, with promotions based on seniority and departmental exams.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">View Career Progression</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-green-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. MPSC/ADC District Exam Syllabus Focus 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">The syllabus focuses on English language proficiency, General Awareness, and basic computing skills.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">General English & Meghalaya GK</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Grammar, Comprehension, Essay)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⛰️</span><div class="flex-grow">General Knowledge and Meghalaya Specific GK (ADCs)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">Aptitude & Computer Fundamentals</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic, Reasoning, and Mental Ability</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Proficiency & Typing Skills</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-blue-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | Serving the people of Meghalaya.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="prelims-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="mains-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="interview-modal-p1"></p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'en';
+
+            // Khasi (Meghalaya) is primary local language, code 'kha'.
+            // The Khasi translation uses a simplified, Romanized script approximation for display compatibility.
+
+            const serviceDetailsData = {
+                'en': {
+                    'collector': { 
+                        name: '1. Deputy Commissioner Office (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Administrative support roles crucial for the functioning of the District Administration, handling records, filing, and state scheme data entry.',
+                        cta: 'Learn More'
+                    },
+                    'court': { 
+                        name: '2. District Court (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Posts supporting the judicial processes, including Stenographers, Lower Division Clerks (LDC), and support staff within the District Judiciary.',
+                        cta: 'Learn More'
+                    },
+                    'health': { 
+                        name: '3. Health Dept. (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Contractual paramedical roles under the National Health Mission (NHM) or Health Society, essential for delivering primary healthcare services across communities.',
+                        cta: 'Learn More'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Key roles in the Integrated Child Development Services scheme, focused on monitoring, implementing, and delivering mother and child welfare and nutrition programs under the Social Welfare Department.',
+                        cta: 'Learn More'
+                    },
+                    'panchayat': {
+                        name: '5. Local Admin/Block Level (Sahayak, Sevak)',
+                        icon: '🏘️',
+                        description: 'Staff assisting in the execution of local government development schemes, administrative support at the Block or Village Authority level (VECs/ADCs).',
+                        cta: 'Learn More'
+                    },
+                    'education': {
+                        name: '6. Education Dept. (Guest Teacher, Block Resource Person)',
+                        icon: '🏫',
+                        description: 'Temporary roles like Guest Teachers in government schools or Block Resource Persons (BRP) supporting teacher training and education quality initiatives.',
+                        cta: 'Learn More'
+                    },
+                     'land': {
+                        name: '7. ADC/Land Revenue Staff',
+                        icon: '🗺️',
+                        description: 'Revenue roles within the Autonomous District Councils (ADCs) responsible for land records, customary law adherence, tax collection, and documentation.',
+                        cta: 'Learn More'
+                    },
+                     'municipal': {
+                        name: '8. Municipal Corp./Local Bodies (Clerk, Sanitation Staff)',
+                        icon: '🏢',
+                        description: 'Jobs essential for urban local bodies, managing public works, sanitation (Safai Karamchari), civic records, and general clerical duties.',
+                        cta: 'Learn More'
+                    },
+                     'drda': {
+                        name: '9. DRDA/District Planning Posts',
+                        icon: '🏞️',
+                        description: 'Staff hired by the District Rural Development Agency (DRDA) to implement and monitor flagship rural development and poverty alleviation programs.',
+                        cta: 'Learn More'
+                    }
+                },
+                'kha': { // Khasi (Transliterated)
+                    'collector': { 
+                        name: '1. Ophis u Deputy Commissioner (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Ki kam iarap pyniaid kiba donkam eh na ka bynta ka jingtreikam jong ka District Administration, kaba peit ia ki kot ki sla, jingphiah ia ki file, bad jingtang ia ki jingdon jingem ha ka skhim sorkar.',
+                        cta: 'Pule Shuh'
+                    },
+                    'court': { 
+                        name: '2. Khoti District (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Ki kam iarap ia ki jingpyntreikam jong ka Ain (Justice), kiba kynthup ia ki Stenographers, LDC, bad ki nongiarap ha Khoti District.',
+                        cta: 'Pule Shuh'
+                    },
+                    'health': { 
+                        name: '3. Tnad Koit-Khiah (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Ki kam kiba iadei bad ka Koit-Khiah hapoh ka National Health Mission (NHM), kiba donkam eh ban ai jingshakri kaba nyngkong sha ki paidbah.',
+                        cta: 'Pule Shuh'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Ki kam bah ha ka Integrated Child Development Services, kaba peit ia ka jingbhalang jong ki khunlung bad ki kmie hapoh ka Tnad Social Welfare.',
+                        cta: 'Pule Shuh'
+                    },
+                    'panchayat': {
+                        name: '5. Ophis Shnong/Block (Sahayak, Sevak)',
+                        icon: '🏘️',
+                        description: 'Ki nongtrei kiba iarap ia ka jingpyntreikam ia ki skhim pynroi shnong, bad jingiarap pyniaid ha ki Block lane Village Authority (VEC/ADC) level.',
+                        cta: 'Pule Shuh'
+                    },
+                    'education': {
+                        name: '6. Tnad Pule-Dap (Guest Teacher, Block Resource Person)',
+                        icon: '🏫',
+                        description: 'Ki kam ba shipor kum ki Nonghikai Saphang ha ki skul sorkar, lane ki BRP kiba iarap ban pynmih jinglong ha ka Pule-Dap.',
+                        cta: 'Pule Shuh'
+                    },
+                     'land': {
+                        name: '7. Tnad Khajna/ADC (Ki Nongtrei Khajna)',
+                        icon: '🗺️',
+                        description: 'Ki kam Khajna hapoh ki Autonomous District Councils (ADCs), kiba peit ia ki jingdon jingem jong ka khyndew, ki riti ki dustur, bad ki jinglum khajna.',
+                        cta: 'Pule Shuh'
+                    },
+                     'municipal': {
+                        name: '8. Municipal Corp./Ki Tnad Shnong (Clerk, Sanitation Staff)',
+                        icon: '🏢',
+                        description: 'Ki kam kiba donkam ha ki shnong kiba heh, kiba pyniaid ia ki kam paidbah, jingkhuid jingsuba (Sanitation), bad ki kam pyniaid general clerical.',
+                        cta: 'Pule Shuh'
+                    },
+                     'drda': {
+                        name: '9. DRDA/Ki Kam Pynroi District',
+                        icon: '🏞️',
+                        description: 'Ki nongtrei kiba shah thung da ka DRDA ban pyntreikam bad peit ia ki skhim pynroi shnong bad ban pynjah ia ka jingduk.',
+                        cta: 'Pule Shuh'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-level (LDC / Peon / Health Worker)", desc: "Joins the service at the base level, often requiring essential computer skills and local language knowledge." },
+                        { rank: "Upper Division Clerk (UDC) / Head Clerk / Junior Engineer", desc: "The first promotion, which brings increased pay and supervisory responsibilities, often based on seniority and departmental exams." },
+                        { rank: "Superintendent / Section Officer / Block Development Officer (Promotional)", desc: "Further progression leading to middle management and independent charge of sections or blocks/ADCs." },
+                        { rank: "Higher Administrative Posts (Gazetted Promotions)", desc: "With long and dedicated service, limited avenues exist to progress to gazetted officer ranks through MPSC screening or promotion quotas." }
+                    ]
+                },
+                'kha': {
+                    path: [
+                        { rank: "Kyrdan sdang (LDC / Peon / Nongtrei Koit-Khiah)", desc: "Iasoh sha ka kam sorkar ha ka kyrdan tynrai, da kaba donkam ia ki jingtip computer bad jingtip ktien shnong." },
+                        { rank: "UDC / Head Clerk / Junior Engineer", desc: "Ka jingkiew kyrdan kaba nyngkong, kaba wallam ia ka jingroi ka tulop bad ki kam peit-pyrman, kiba shong ha ka senioritet bad ki exam tnad." },
+                        { rank: "Superintendent / Section Officer / BDO (Jingkiew)", desc: "Ka jingkiew kyrdan shuh shuh sha ka jingpyniaid pdeng bad jingpeit laitluid ia ki bynta shnong ne ki tnad ADC." },
+                        { rank: "Ki Kam Pyniaid Bakhraw (Gazetted Promotions)", desc: "Da ka jingshakri kaba slem bad kaba iaineh, ki lad ki lynti kiba khyndiat ki don ban kiew sha ki kyrdan ofisar Gazetted lyngba ka MPSC lane ki quota kiew kyrdan." }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🌧️ Meghalaya District Level Jobs Guide ⛰️',
+                    'header-subtitle': 'Your Guide to a Career in Meghalaya\'s Public Service',
+                    'sec1-title': '1. What are District Level Jobs in Meghalaya? 💡',
+                    'sec1-p1': 'District Level Jobs in Meghalaya are essential for administration across the Khasi, Jaintia, and Garo Hills. Recruitment for Group \'C\' and \'D\' posts is conducted by the **Meghalaya Public Service Commission (MPSC)**, the **Autonomous District Councils (ADCs)**, and the respective Deputy Commissioner Offices. These roles ensure governance and service delivery at the grassroots level.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'The selection process is multi-layered, involving screening, written examinations, and frequently, a strong emphasis on the interview/personal assessment stage.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Exam / Screening Test', 'sec2-step1-desc': 'Objective/Descriptive Test (General Knowledge, English)',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill Test / Interview', 'sec2-step2-desc': 'For Clerical/Technical Posts',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Doc Verification', 'sec2-step3-desc': 'Final Merit List',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for these Meghalaya Government jobs is based on educational qualifications, age limits, and knowledge of the local context.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 32 years** for General candidates. Age relaxation up to 5 years is applicable for SC/ST/OBC categories as per Meghalaya Government rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Varies from **8th/10th Pass** (Peon, Sanitation Staff) to **12th Pass/Graduation** (LDC, UDC, Steno) and **Diploma/Degree** for technical/health roles (GNM, Lab Tech).',
+                    'sec3-attempts-title': 'Domicile and Language 📊',
+                    'sec3-agerelax-list': '<li>The applicant must be a **permanent resident of Meghalaya** (State Domicile) and registered with a local employment exchange is often preferred.</li><li>Knowledge of **local languages** (Khasi, Garo, or Jaintia) is often a required qualification, depending on the district/ADC jurisdiction.</li>',
+                    'sec4-title': '4. Typical MPSC/ADC Exam Pattern (LDC/Group C) 📚',
+                    'sec4-p1': 'District-level exams focus heavily on English composition, General Knowledge (with strong emphasis on Meghalaya), and basic aptitude.',
+                    'gs1-title': 'General English (Composition & Essay)', 'gs2-title': 'General Knowledge & Meghalaya GK', 'gs3-title': 'Aptitude, Reasoning, and Basic Computer',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'New government employees in Meghalaya serve a mandatory probation period before their service is confirmed.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A two-year probation period is standard for most entry-level government posts.', 'sec5-hindi-list': '<li>The employee\'s performance, attendance, and adherence to service rules are monitored.</li><li>Successful completion leads to regularization of service.</li>',
+                    'sec5-essay-title': '2. Training and Induction', 'sec5-essay-p1': 'Training is provided by the Meghalaya Administrative Training Institute (MATI) or respective departments.', 'sec5-essay-list': '<li>Induction focuses on the unique service rules and the functioning of the Autonomous District Councils (ADCs).</li><li>Practical training on file movement, public communication, and office automation.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'These roles are vital for administration and scheme implementation across Meghalaya\'s three major hill regions.',
+                    'sec6-eng-title': 'Admin, Judicial & Land Revenue (ADC)', 'sec6-eng-list': '<li>**LDC/UDC/DEO:** Clerical support, record management, and data handling in Deputy Commissioner\'s Offices.</li><li>**Court Staff:** Assisting judicial work (Steno/Clerk) in District Courts.</li><li>**Revenue Staff (ADC):** Handling land records, customary laws, and tax collection within the District Council\'s jurisdiction.</li>',
+                    'sec6-elec-title': 'Public Welfare & Health', 'sec6-elec-list': '<li>**Health Dept:** ANM, GNM, and Lab Technicians providing crucial public health services under the National Health Mission.</li><li>**ICDS/Anganwadi:** Implementing child development and nutrition programs (Supervisor, Worker).</li><li>**Education Dept:** Supporting school operations and quality control (BRPs).</li>',
+                    'sec6-naic-title': 'Local Governance & Development', 'sec6-naic-list': '<li>**DRDA Staff:** Implementing flagship rural development and poverty alleviation schemes.</li><li>**Municipal/Nagar Parishad Staff:** Managing civic services, sanitation, and urban development in Shillong, Tura, etc.</li><li>**Village Staff/Development:** Ground-level support for scheme delivery in the Village/Block Development Offices.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'Success requires strong English proficiency, deep knowledge of Meghalaya\'s unique constitutional status, and general aptitude.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🌍</span><div><strong class="text-slate-900">Meghalaya GK & Constitution:</strong> Strong knowledge of the state\'s geography, history, culture, and the role and functioning of the **Autonomous District Councils (ADCs)**.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">💻</span><div><strong class="text-slate-900">English Composition & Typing:</strong> Excellent command of English (often descriptive paper) and proficiency in computer operation/typing are mandatory for LDC/UDC posts.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🧠</span><div><strong class="text-slate-900">General Aptitude:</strong> Good command over Arithmetic, Reasoning, and General Science is necessary to qualify for the written exam.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🤝</span><div><strong class="text-slate-900">Local Language Skills:</strong> Familiarity with Khasi, Garo, or Jaintia dialects is a significant advantage in district-level administrative roles.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A successful strategy focuses on mastering English composition (essay/precise writing) and comprehensive Meghalaya-specific GK.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Prioritize English Composition', 'sec8-step1-desc': 'Many MPSC/ADC exams include descriptive papers (Essay, Precis Writing). Daily practice is crucial to score high.',
+                    'sec8-step2-title': 'Master Meghalaya & ADC GK', 'sec8-step2-desc': 'Focus on books and materials covering the history, geography, tribal customary laws, and the working of the three ADCs (KHADC, JHADC, GHADC).',
+                    'sec8-step3-title': 'Computer/Typing Proficiency', 'sec8-step3-desc': 'For clerical posts, ensure you have strong English typing speed and are comfortable with the latest computer applications.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Read Local News:</strong> Follow Shillong-based newspapers (**The Shillong Times**, **Highland Post**) for state-level current affairs.</li><li><strong>Practice General Aptitude:</strong> Regularly solve Arithmetic and Reasoning questions relevant to North-East state PSC patterns.</li><li><strong>ADC Rules:</strong> Familiarize yourself with the basic rules and functions of the specific Autonomous District Council relevant to your job location.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is handled by the MPSC for State Cadre Posts and by the respective ADCs for District Council Posts.',
+                    'sec9-step1-title': 'Notification & Application', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the MPSC website (mpsc.nic.in) or respective ADC websites.',
+                    'sec9-step2-title': 'Screening & Written Examination', 'sec9-step2-desc': '<strong>Timeline:</strong> An Objective/Descriptive exam is conducted, typically followed by an English Composition paper.',
+                    'sec9-step3-title': 'Interview/Personal Assessment', 'sec9-step3-desc': '<strong>Timeline:</strong> A significant stage where candidates are assessed for suitability, communication skills, and local knowledge.',
+                    'sec9-step4-title': 'Final Select List & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> A final merit list is prepared, followed by document verification and deployment to a District/Sub-Divisional office.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition is high in Meghalaya for government posts. Avoid these common errors.',
+                    'sec10-mistake1-title': 'Ignoring Descriptive English:', 'sec10-mistake1-desc': 'Neglecting Essay, Letter, and Precis writing practice, which often forms a critical part of the selection process.',
+                    'sec10-mistake2-title': 'Shallow Meghalaya GK:', 'sec10-mistake2-desc': 'Not covering the history, geography, tribal administration, and especially the **ADC structure and laws** in depth.',
+                    'sec10-mistake3-title': 'Lack of Typing/Computer Skills:', 'sec10-mistake3-desc': 'Underperforming in the computer proficiency and typing speed test, mandatory for LDC/DEO posts.',
+                    'sec10-mistake4-title': 'Poor Interview Preparation:', 'sec10-mistake4-desc': 'As interviews often hold high weightage, failing to prepare detailed answers on local issues, schemes, and personal suitability.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Shillong is the primary center for MPSC and ADC exam coaching, with many institutes focusing on English and GK.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>NCERT and local school board textbooks for foundation knowledge.</li><li>Specialized books covering Meghalaya GK, culture, and the Sixth Schedule/ADC provisions.</li><li>Standard reference books for English Grammar and Comprehension.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Institutes in Shillong and Tura specialize in MPSC and ADC recruitment preparation.', 'sec11-pvt-list': '<li>Choose an institute known for its General English and Essay writing programs.</li><li>Join mock test series that simulate the MPSC/ADC question pattern.</li><li>Focus on interview preparation, as this stage is crucial.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'A government job in Meghalaya offers stability and a structured path, with promotions based on seniority and departmental exams.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. MPSC/ADC District Exam Syllabus Focus 📚',
+                    'sec13-p1': 'The syllabus focuses on English language proficiency, General Awareness, and basic computing skills.',
+                    'syllabus-oir-title': 'General English & Meghalaya GK',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Grammar, Comprehension, Essay)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⛰️</span><div class="flex-grow">General Knowledge and Meghalaya Specific GK (ADCs)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Aptitude & Computer Fundamentals',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic, Reasoning, and Mental Ability</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Proficiency & Typing Skills</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Serving the people of Meghalaya.',
+                    'interviewChartData': {
+                        labels: ['English Comp.', 'Meghalaya GK/ADC', 'Interview Focus', 'Aptitude'],
+                        data: [95, 90, 88, 85]
+                    },
+                    'career-modal-title': 'Clerical/Administrative Cadre Career Progression',
+                    'prelims-modal-title': 'Stage 1: Written Exam / Screening Test',
+                    'prelims-modal-p1': 'The first stage is a written examination which may be Objective (MCQ) or Descriptive (Composition). For highly sought-after posts, a screening test based on General Knowledge and English is often the first filter.',
+                    'mains-modal-title': 'Stage 2: Skill Test / Interview',
+                    'mains-modal-p1': 'Candidates shortlisted are required to appear for the Skill Test (Computer/Typing Proficiency, Shorthand for Steno roles). Most Group C posts in Meghalaya, especially MPSC posts, include a significant Personal Interview round.',
+                    'interview-modal-title': 'Stage 3: Document Verification',
+                    'interview-modal-p1': 'The final selection is based on the combined score of the written exam and interview. Candidates undergo strict verification of original documents (Domicile, Educational Certificates, ADC/Caste Certificates) before receiving the final appointment order.',
+                },
+                'kha': {
+                    'header-title': '🌧️ Meghalaya Jingshalan Kam District ⛰️',
+                    'header-subtitle': 'Ka Jingiarap Jong Phi ban Ioh Kam Sorkar ha Meghalaya',
+                    'sec1-title': '1. Ki Kam District ha Meghalaya ki Long Kumno? 💡',
+                    'sec1-p1': 'Ki Kam District Level ha Meghalaya ki long kiba donkam eh ban pyniaid ia ka Sorkar ha ki Lum Khasi, Jaintia, bad Garo. Ka jingthung kam ia ki kyrdan Group \'C\' bad \'D\' ka long lyngba ka **Meghalaya Public Service Commission (MPSC)**, ki **Autonomous District Councils (ADCs)**, bad ki Ophis u Deputy Commissioner. Kine ki kam ki ai jingiada bad jingiashim bynta ha ka jingbhalang jong ka Jylla.',
+                    'sec2-title': '2. Ka Rukom Jied Kam: Ka Lynti 🎯',
+                    'sec2-p1': 'Ka jingjied kam ka long kaba don bun tylli ki bynta, kaba kynthup ia ka jingpeit-tynrai, ki exam thoh, bad bunsien, ka jingpeit bniah ia ka interview/personal assessment stage.',
+                    'sec2-step1-title': 'Kyrdan 1:', 'sec2-step1-name': 'Exam Thoh / Screening Test', 'sec2-step1-desc': 'Test Objective/Descriptive (General Knowledge, English)',
+                    'sec2-step2-title': 'Kyrdan 2:', 'sec2-step2-name': 'Skill Test / Interview', 'sec2-step2-desc': 'Na ka bynta ki Kam Clerical/Technical',
+                    'sec2-step3-title': 'Kyrdan 3:', 'sec2-step3-name': 'Jingpeit Kot Sla', 'sec2-step3-desc': 'Ka List Jied Bakhadduh',
+                    'sec3-title': '3. Mano ba lah ban Aplai? ✅',
+                    'sec3-p1': 'Ka rukom ioh kam ha Meghalaya ka shong ha ki jingkynshew pule, ka rta, bad ka jingtip ia ki bynta shnong.',
+                    'sec3-age-title': 'Ka Rta:', 'sec3-age-desc': 'Ka rta ka long hapdeng **18 haduh 32 snem** na ka bynta ki General. Ka jingpynduna rta haduh 5 snem ka don na ka bynta ki SC/ST/OBC katkum ki Riti Sorkar Meghalaya.',
+                    'sec3-edu-title': 'Jingkynshew Pule:', 'sec3-edu-desc': 'Ka pher naduh **8th/10th Pass** (Peon, Sanitation Staff) haduh **12th Pass/Graduation** (LDC, UDC, Steno) bad **Diploma/Degree** na ka bynta ki kam Koit-Khiah/Technical (GNM, Lab Tech).',
+                    'sec3-attempts-title': 'Jinglong Trai Jylla bad Ktien 📊',
+                    'sec3-agerelax-list': '<li>U nongap kam u dei ban long **u trai shnong ba sah hajuh ha Meghalaya** bad la pynshlur ban don ha ka employment exchange shnong.</li><li>Ka jingtip ia ki **ktien shnong** (Khasi, Garo, lane Jaintia) ka dei ka jingkynshew kaba donkam, kaba shong ha ka district/ADC.</li>',
+                    'sec4-title': '4. Ka Rukom Exam MPSC/ADC (LDC/Group C) 📚',
+                    'sec4-p1': 'Ki exam district level ki peit bniah ia ka General English, General Knowledge (kaba peit ia ka Meghalaya), bad ka Aptitude tynrai.',
+                    'gs1-title': 'General English (Composition & Essay)', 'gs2-title': 'General Knowledge & Meghalaya GK', 'gs3-title': 'Aptitude, Reasoning, and Basic Computer',
+                    'sec5-title': '5. Training & Jingpeit Bniah (Probation) 🏛️',
+                    'sec5-p1': 'Ki nongtrei Sorkar thymmai ha Meghalaya ki hap ban shakri ia ka probation period ba la buh shwa ban pynskhem ia ka kam.',
+                    'sec5-hindi-title': '1. Ka Jingpeit Bniah (Probation Period)', 'sec5-hindi-p1': 'Ka jingpeit bniah kaba ar snem ka long kaba shongnia na ka bynta ki kam sdang.', 'sec5-hindi-list': '<li>Ia ka jingtreikam jong u nongtrei la peit ha kane ka por.</li><li>Ka jinglah ban pyndep kam bha ka ialam sha ka jingpynskhem ia ka kam.</li>',
+                    'sec5-essay-title': '2. Training bad Jinghikai', 'sec5-essay-p1': 'Ia ka training la ai da ka Meghalaya Administrative Training Institute (MATI) ne ki tnad bapher bapher.', 'sec5-essay-list': '<li>Ka jinghikai ka peit ia ki Riti Trei Kam Sorkar bad ka jingtreikam jong ki Autonomous District Councils (ADCs).</li><li>Ka jinghikai ia ka rukom pyniaid file, jingiadei bad u paidbah, bad office automation.</li>',
+                    'sec6-title': '6. Ki Kam Bah (Key Responsibilities) 🌟',
+                    'sec6-p1': 'Kine ki kam ki long kiba donkam eh ban pyniaid ia ka Sorkar bad ki skhim pynroi ha ki lai tylli ki lum bah ka Meghalaya.',
+                    'sec6-eng-title': 'Pyniaid, Khoti & Khajna (ADC)', 'sec6-eng-list': '<li>**LDC/UDC/DEO:** Iarap Clerk, peit jingkynshew, bad data ha ki Ophis u Deputy Commissioner.</li><li>**Nongtrei Khoti:** Iarap ia ki kam Khoti (Steno/Clerk) ha ki Khoti District.</li><li>**Nongtrei Khajna (ADC):** Peit ia ki kot sla Khyndew, ki riti ki dustur, bad jinglum khajna hapoh ka ADC.</li>',
+                    'sec6-elec-title': 'Jingbhalang Paidbah & Koit-Khiah', 'sec6-elec-list': '<li>**Tnad Koit-Khiah:** ANM, GNM, bad Lab Technicians kiba ai jingshakri Koit-Khiah hapoh ka National Health Mission.</li><li>**ICDS/Anganwadi:** Pyntreikam ia ki skhim pynroi khunlung bad Koit-Khiah (Supervisor, Worker).</li><li>**Tnad Pule-Dap:** Iarap ia ka jingtreikam skul bad jingpynlong (BRPs).</li>',
+                    'sec6-naic-title': 'Jingpyniaid Shnong & Jingpynroi',
+                    'sec6-naic-list': '<li>**Nongtrei DRDA:** Pyntreikam ia ki skhim pynroi shnong bad pynjah ia ka jingduk.</li><li>**Municipal/Nagar Parishad:** Pyniaid ia ki jingshakri shnong, jingkhuid jingsuba, bad jingpynroi ha Shillong, Tura, etc.</li><li>**Nongtrei Shnong/Pynroi:** Iarap ha ka kyrdan tynrai na ka bynta ki skhim ha ki Ophis Block Development.</li>',
+                    'sec7-title': '7. Ki Jinglong Jong U/Ka Nongap Kam Bha 🎙️',
+                    'sec7-p1': 'Ka jingjop ka donkam ia ka jingtip English kaba bha, ka jingtip bniah ia ki Riti Tynrai ka Meghalaya, bad ka Aptitude general.',
+                    'sec7-qualities-title': 'Ki Jingtreikam Bah:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🌍</span><div><strong class="text-slate-900">Meghalaya GK & Riti Tynrai:</strong> Jingtip bniah ia ka geography, history, culture, bad ka rukom treikam jong ki **Autonomous District Councils (ADCs)**.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">💻</span><div><strong class="text-slate-900">English Composition & Typing:</strong> Ka jingtip English kaba bha (bunsien descriptive paper) bad jingtrei computer/typing kaba donkam eh na ka bynta ki kam LDC/UDC.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🧠</span><div><strong class="text-slate-900">Aptitude General:</strong> Jingtip bha ia ka Arithmetic, Reasoning, bad General Science ban lah ban iaid ia ka exam thoh.</div></li><li class="flex items-start"><span class="text-2xl text-[#2563eb] mr-3">🤝</span><div><strong class="text-slate-900">Ktien Shnong:</strong> Jingtip ia ki ktien Khasi, Garo, lane Jaintia ka long ka jingmyntoi bah ha ki kam pyniaid district.</div></li>',
+                    'sec8-title': '8. Ka Riti Trei Kam Jong Phi 📈',
+                    'sec8-p1': 'Ka jingtreikam kaba jop ka dei ban peit bniah ia ka English composition (essay/precise writing) bad Meghalaya-specific GK bniah.',
+                    'sec8-steps-title': '📚 Ki Bynta Bah:',
+                    'sec8-step1-title': 'Peit Nyngkong ia ka English Composition', 'sec8-step1-desc': 'Bun ki exam MPSC/ADC ki don descriptive papers. Ka jingpyntrei man ka sngi ka long kaba donkam eh ban ioh mark heh.',
+                    'sec8-step2-title': 'Tip Bniah ia ka Meghalaya & ADC GK', 'sec8-step2-desc': 'Peit bniah ia ki kot kiba kynthup ia ka history, geography, ki riti dustur jong ki jaidbynriew, bad ka jingtreikam jong ki lai tylli ki ADCs (KHADC, JHADC, GHADC).',
+                    'sec8-step3-title': 'Jingtbit Computer/Typing', 'sec8-step3-desc': 'Na ka bynta ki kam clerical, peit ba phi don ka English typing speed kaba bha bad sngewthuh ia ki jingpyntreikam computer kiba thymmai.',
+                    'sec8-revision-title': '🔄 Ki Riti & Jingpyntrei:',
+                    'sec8-revision-list': '<li>**Pule Khubor Shnong:** Bud ia ki kot khubor Shillong (**The Shillong Times**, **Highland Post**) na ka bynta ki current affairs.</li><li>**Pyntrei Aptitude General:** Pyntrei man ka sngi ia ki jingkylli Arithmetic bad Reasoning kiba iadei bad ki exam PSC ka North-East.</li><li>**Riti ADC:** Sngewthuh ia ki riti tynrai bad ki kam jong ka Autonomous District Council kaba iadei bad ka kam jong phi.</li>',
+                    'sec9-title': '9. Ka Cycle Thung Kam & Jingtrei 🗓️',
+                    'sec9-p1': 'Ka jingthung kam ka long lyngba ka MPSC na ka bynta ki Kam State Cadre bad lyngba ki ADCs na ka bynta ki Kam District Council.',
+                    'sec9-step1-title': 'Jingpynbna & Jingap Kam', 'sec9-step1-desc': '<strong>Ka Por:</strong> Ki jingpynbna kam ki paw ha ka website MPSC (mpsc.nic.in) ne ki website ADC.',
+                    'sec9-step2-title': 'Jingpeit Bniah & Exam Thoh', 'sec9-step2-desc': '<strong>Ka Por:</strong> Ka exam Objective/Descriptive ka long, bad bunsien ka don ka English Composition paper.',
+                    'sec9-step3-title': 'Interview/Jingpeit Bniah Shimet', 'sec9-step3-desc': '<strong>Ka Por:</strong> Ka kyrdan kaba donkam eh ha kaba ia ki nongap kam la peit na ka bynta ka jingbit, ki jinglah iakren, bad jingtip shnong.',
+                    'sec9-step4-title': 'Ka List Jied Bakhadduh & Jingthung Kam', 'sec9-step4-desc': '<strong>Ka Por:</strong> Ka list jied bakhadduh ka long, bud sa da ka jingpeit kot sla bad jingthung kam ha ka Ophis District/ADC.',
+                    'sec10-title': '10. Ki Jingbakla Ba Dei ban Kiar 🚫',
+                    'sec10-p1': 'Ka jingiaknieh ka long kaba heh na ka bynta ki kam sorkar ha Meghalaya. Ki kiar ia kine ki jingbakla.',
+                    'sec10-mistake1-title': 'Blei ia ka Descriptive English:', 'sec10-mistake1-desc': 'Blei ia ka jingpyntrei Essay, Letter, bad Precis, kaba long ka bynta ba donkam eh jong ka jingjied kam.',
+                    'sec10-mistake2-title': 'Jingtip Meghalaya GK Ba Duna:', 'sec10-mistake2-desc': 'Ym shym pule bniah ia ka history, geography, jingpyniaid jaidbynriew, bad khamtam ia ki **ADC structure bad Ain**.',
+                    'sec10-mistake3-title': 'Jingduna Typing/Computer Skills:', 'sec10-mistake3-desc': 'Ym lah ban leh bha ha ka test computer bad typing speed, kaba donkam eh na ka bynta ki kam LDC/DEO.',
+                    'sec10-mistake4-title': 'Jingpynkhreh Interview Ba Duna:', 'sec10-mistake4-desc': 'Namarkate ki interview ki don mark heh, ym lah ban pynkhreh ia ki jubab bniah ia ki kam shnong, ki skhim, bad ka jingbit shimet.',
+                    'sec11-title': '11. Nangno Ban Ioh Coaching 🏫',
+                    'sec11-p1': 'Shillong ka dei ka jaka bah na ka bynta ki exam coaching MPSC bad ADC, kiba peit ia ka English bad GK.',
+                    'sec11-gov-title': '📚 Pule Dalade', 'sec11-gov-list': '<li>Ki kot pule NCERT bad ki kot pule shnong na ka bynta ka tynrai.</li><li>Ki kot bniah kiba peit ia ka Meghalaya GK, culture, bad ki Riti Tynrai/ADC.</li><li>Ki kot pule General English kiba shongnia na ka bynta ki exam iaknieh.</li>',
+                    'sec11-pvt-title': '💻 Ki Institute Coaching', 'sec11-pvt-p1': 'Ki Institute ha Shillong bad Tura ki pynkhreh na ka bynta ki MPSC bad ADC.', 'sec11-pvt-list': '<li>Jied ia ka institute kaba tip na ka bynta ki General English bad Essay writing programs.</li><li>Iasoh ha ki mock test series kiba iadei bad ka rukom exam MPSC/ADC.</li><li>Peit bniah ia ka jingpynkhreh interview, namarkate ka long kaba donkam eh.</li>',
+                    'sec12-title': '12. Ka Jingkiew Kyrdan & Jingroi 🚀',
+                    'sec12-p1': 'Ka kam sorkar ha Meghalaya ka ai jingiada bad ka lynti jingkiew kyrdan, kaba shong ha ka senioritet bad ki exam tnad.',
+                    'sec12-career-btn': 'Peit ia ka Jingkiew Kyrdan',
+                    'sec13-title': '13. MPSC/ADC District Exam Syllabus Focus 📚',
+                    'sec13-p1': 'Ka syllabus ka peit bniah ia ka English language, General Awareness, bad ki jingtip computer tynrai.',
+                    'syllabus-oir-title': 'General English & Meghalaya GK',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🇬🇧</span><div class="flex-grow">General English (Grammar, Comprehension, Essay)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">⛰️</span><div class="flex-grow">General Knowledge and Meghalaya Specific GK (ADCs)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Aptitude & Computer Fundamentals',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic, Reasoning, and Mental Ability</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Proficiency & Typing Skills</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Jingai ban Shakri ia ki Paidbah ka Meghalaya.',
+                    'interviewChartData': {
+                        labels: ['Jingthoh English', 'Meghalaya GK/ADC', 'Peit Interview', 'Aptitude'],
+                        data: [95, 90, 88, 85]
+                    },
+                    'career-modal-title': 'Clerical/Administrative Cadre Ka Lynti Jingkiew',
+                    'prelims-modal-title': 'Kyrdan 1: Exam Thoh / Screening Test',
+                    'prelims-modal-p1': 'Ka kyrdan kaba nyngkong ka dei ka exam thoh kaba lah ban long Objective (MCQ) ne Descriptive (Composition). Na ka bynta ki kam kiba heh, ka screening test kaba shong ha ka General Knowledge bad English ka dei ka jingjied kaba nyngkong.',
+                    'mains-modal-title': 'Kyrdan 2: Skill Test / Interview',
+                    'mains-modal-p1': 'Ia ki nongap kam ba la jied la donkam ban peit ia ka Skill Test (Jingtbit Computer/Typing Speed, Shorthand na ka bynta ki Kam Steno). Bun ki kam Group C ha Meghalaya, khamtam ki kam MPSC, ki don ka Personal Interview kaba donkam eh.',
+                    'interview-modal-title': 'Kyrdan 3: Jingpeit Kot Sla',
+                    'interview-modal-p1': 'Ka jingjied bakhadduh ka shong ha ki mark ba la ioh na ka exam thoh bad interview. Ia ki nongap kam la peit bniah ia ki kot sla tynrai (Jinglong Trai Shnong, Ki Kot Pule, ADC/Ki Kot SC/ST) shwa ban ioh ia ka order thung kam.',
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-blue-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                 if (!container) return;
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.en.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Importance',
+                            data: translations.en.interviewChartData.data,
+                            backgroundColor: 'rgba(37, 99, 235, 0.7)', /* Blue */
+                            borderColor: '#2563eb',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const lang = currentLang; 
+                    const data = translations[lang].interviewChartData;
+                    
+                    if (data && data.labels && data.data) { 
+                        interviewChartInstance.data.labels = data.labels;
+                        interviewChartInstance.data.datasets[0].data = data.data;
+                        interviewChartInstance.update();
+                    } else {
+                        console.error('Chart data missing or incomplete for language:', lang);
+                    }
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const titleKey = `${modalId.replace('Modal', '')}-modal-title`;
+                    const p1Key = `${modalId.replace('Modal', '')}-modal-p1`;
+                    const titleEl = modal.querySelector('h3');
+                    const p1El = modal.querySelector('p');
+
+                    const modalLang = currentLang;
+
+                    if (titleEl && translations[modalLang][titleKey]) {
+                        titleEl.innerHTML = translations[modalLang][titleKey];
+                    }
+                    if (p1El && translations[modalLang][p1Key]) {
+                        p1El.innerHTML = translations[modalLang][p1Key];
+                    }
+                    
+                    if (modalId === 'careerGrowthModal') {
+                        const careerTitleEl = modal.querySelector('#career-modal-title');
+                        if (careerTitleEl) {
+                           careerTitleEl.innerHTML = (modalLang === 'kha') ? translations.kha['career-modal-title'] : translations.en['career-modal-title'];
+                        }
+                        renderCareerPath(modalLang);
+                    }
+
+
+                    modal.classList.add('active');
+                }
+            };
+            
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('en'); // Default to English for Meghalaya
+        });
+    </script>
+</body>
+</html>
