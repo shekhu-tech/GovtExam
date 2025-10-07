@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मध्य प्रदेश जिला स्तरीय नौकरियाँ गाइड (सभी विभाग)</title>
+    <script src="redirect_if_needed.js"></script>  
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visual data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to District Level Jobs in Madhya Pradesh across various departments like Collectorate, Courts, Health, and Patwari.">
+    <meta name="keywords" content="Madhya Pradesh Government Jobs, MPESB, Vyapam, Patwari, Group 4, District Level Jobs, Clerk Jobs, MP GK, Anganwadi">
+    <meta name="author" content="Madhya Pradesh Jobs Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fff7ed; /* Light Orange Cream */
+            color: #7c2d12; /* Dark Brown/Rust */
+        }
+        /* MP Colors: Saffron/Orange & Green */
+        .section-heading {
+            border-image: linear-gradient(to right, #10b981, #f97316) 1; /* Green & Orange */
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #7c2d12;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(124, 45, 18, 0.1);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #fce7f3; /* Pale Pink/Orange Border */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(249, 115, 22, 0.15); /* Orangeish hover shadow */
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f97316; /* Orange border */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #10b981; /* Green */
+            color: #065f46; /* Dark Green */
+            background: #ecfdf5; /* Light Mint Green */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #10b981;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+        }
+        .flowchart-arrow {
+            color: #f97316; /* Orange Arrow */
+            text-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
+        }
+        .subject-category-heading {
+            color: #7c2d12;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f97316; /* Orange border */
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #fef3c7; /* Pale Yellow/Orange */
+        }
+        .subject-item:hover {
+            background-color: #fed7aa; /* Lighter Orange */
+        }
+        .subject-item .icon {
+            color: #f97316; /* Orange Icon */
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #10b981; /* Green Timeline */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #f97316; /* Orange Dot */
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+        }
+        /* Modal and Button styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(124, 45, 18, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #7c2d12;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #fce7f3;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #dc2626; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #f97316, #ea580c); /* Orange Gradient */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f97316; /* Orange Border */
+            color: #f97316;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f97316; /* Active Orange */
+            color: #ffffff;
+            box-shadow: 0 0 15px #f97316;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background-color: #10b981; /* Darker Green */
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            background-color: #059669;
+        }
+        .lectures-btn {
+            background-color: #ecfdf5; 
+            color: #065f46; 
+            border-color: #a7f3d0; 
+        }
+        .lectures-btn:hover {
+            background-color: #d1fae5;
+            color: #064e3b;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#7c2d12] mb-4 tracking-tight">🐅 मध्य प्रदेश जिला स्तरीय नौकरियाँ गाइड 🌳</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-emerald-600">मध्य प्रदेश की लोक सेवा में करियर के लिए आपकी मार्गदर्शिका</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn" data-lang="en">English</button>
+                <button type="button" class="lang-btn active" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are District Level Jobs? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-orange-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. मध्य प्रदेश में जिला स्तरीय नौकरियाँ क्या हैं? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">मध्य प्रदेश में जिला स्तरीय नौकरियाँ राज्य प्रशासन, ग्रामीण विकास और लोक कल्याण योजनाओं को जमीनी स्तर पर लागू करने के लिए महत्वपूर्ण हैं। इन पदों के लिए भर्ती मुख्य रूप से **कर्मचारी चयन बोर्ड (MPESB/Vyapam)**, जिला कलेक्टर कार्यालय, और अन्य स्थानीय समितियों द्वारा आयोजित की जाती है। **पटवारी** और **ग्रुप 4** (सहायक ग्रेड 3) के पद अत्यधिक मांग में हैं।</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. चयन प्रक्रिया: मार्ग 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">अधिकांश MPESB (Vyapam) परीक्षाओं में एकल या दो-चरणीय प्रक्रिया होती है, जिसमें लिखित परीक्षा और कौशल परीक्षा शामिल होती है।</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">चरण 1:</span><br><span id="sec2-step1-name">लिखित परीक्षा (CBT)</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">कंप्यूटर आधारित वस्तुनिष्ठ परीक्षा</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">चरण 2:</span><br><span id="sec2-step2-name">कौशल परीक्षण / दक्षता परीक्षा</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">पात्र उम्मीदवारों के लिए (टाईपिंग/कंप्यूटर)</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">चरण 3:</span><br><span id="sec2-step3-name">दस्तावेज़ सत्यापन</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">अंतिम चयन सूची</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. कौन आवेदन कर सकता है? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">इन मध्य प्रदेश सरकारी नौकरियों के लिए पात्रता MPESB द्वारा परिभाषित विशिष्ट शैक्षणिक योग्यता और आयु सीमा पर आधारित है।</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">आयु सीमा:</strong> <span id="sec3-age-desc">सामान्य वर्ग के लिए आमतौर पर **18 से 40 वर्ष** के बीच। आरक्षित श्रेणियों (SC/ST/OBC/PWD) और महिला उम्मीदवारों के लिए MP सरकार के नियमों के अनुसार आयु में छूट लागू है।</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">शैक्षणिक योग्यता:</strong> <span id="sec3-edu-desc">**8वीं/10वीं पास** (प्यून, सफाई कर्मचारी) से लेकर **12वीं पास/स्नातक** (क्लर्क, पटवारी, पंचायत सहायक) और तकनीकी/स्वास्थ्य रोंगों के लिए **डिप्लोमा/डिग्री** तक भिन्न होती है।</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-[#10b981] pb-2">प्रयासों की संख्या और डोमिसाइल 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>MPESB परीक्षाओं के लिए प्रयासों की संख्या पर कोई सीमा नहीं है, जो आयु मानदंडों के अधीन है।</li>
+                             <li>आरक्षण लाभ और अधिकतम आयु सीमा छूट के लिए **मध्य प्रदेश का मूल निवासी प्रमाण पत्र** (Domicile Certificate) आवश्यक है।</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-orange-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. MPESB (Vyapam) पटवारी / ग्रुप 4 परीक्षा पैटर्न 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">MPESB की परीक्षाओं में एक संयुक्त लिखित परीक्षा शामिल होती है, जिसमें सामान्य ज्ञान, हिंदी/अंग्रेजी और कंप्यूटर/गणित पर जोर दिया जाता है।</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">सामान्य ज्ञान और MP GK (General Knowledge)</h3>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">हिंदी, अंग्रेजी, और कंप्यूटर ज्ञान (Language & Computer)</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">गणित, तर्कशक्ति और ग्रामीण अर्थव्यवस्था (Quant & Rural)</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. प्रशिक्षण और परिवीक्षा 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">मध्य प्रदेश सरकार में नए नियुक्त अधिकारियों को उनकी सेवा की पुष्टि से पहले एक अनिवार्य परिवीक्षा अवधि और प्रशिक्षण से गुजरना पड़ता है।</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-green-100 rounded-xl border-2 border-[#10b981]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. परिवीक्षा अवधि (Probation Period)</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">अधिकांश पदों के लिए दो से तीन साल की परिवीक्षा अवधि लागू होती है।</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>इस दौरान, कर्मचारी के प्रदर्शन और आचरण का मूल्यांकन किया जाता है।</li>
+                            <li>पटवारी जैसे पदों के लिए विशेष राजस्व प्रशिक्षण अनिवार्य है।</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-green-100 rounded-xl border-2 border-[#f97316]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. ऑन-द-जॉब प्रशिक्षण और परीक्षा</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">नई नियुक्तियों को विभागीय नियमों और कर्तव्यों से परिचित कराने के लिए प्रशिक्षण दिया जाता है।</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>राजस्व/प्रशासनिक नियमावली और सरकारी योजनाओं के कार्यान्वयन पर इंडक्शन ट्रेनिंग।</li>
+                           <li>स्थायीकरण के लिए अनिवार्य विभागीय परीक्षाएँ (Departmental Exams) पास करना आवश्यक है।</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. मुख्य जिम्मेदारियां 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">ये पद मध्य प्रदेश में प्रशासन, राजस्व और ग्रामीण विकास कार्यों के लिए रीढ़ की हड्डी हैं।</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">प्रशासन, न्याय और राजस्व</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**पटवारी:** ग्राम स्तर पर भूमि रिकॉर्ड (खसरा, खतौनी) का रखरखाव और राजस्व संग्रह।</li>
+                           <li>**सहायक ग्रेड 3 (Clerk):** कलेक्टर, जिला पंचायत, और अन्य कार्यालयों में फाइलिंग, लेखन और प्रशासनिक सहायता।</li>
+                            <li>**कोर्ट स्टाफ:** न्यायिक कार्यों में सहायता (स्टेनो/क्लर्क) और कोर्ट रिकॉर्ड का प्रबंधन।</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">सामाजिक और लोक कल्याण</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ICDS/आंगनवाड़ी:** महिला एवं बाल विकास के कार्यक्रमों (पोषण, टीकाकरण) का पर्यवेक्षण और कार्यान्वयन।</li>
+                           <li>**स्वास्थ्य विभाग:** संविदा ANM/GNM/तकनीशियन, प्राथमिक स्वास्थ्य केंद्रों पर सामुदायिक स्वास्थ्य सेवाएँ प्रदान करना।</li>
+                           <li>**शिक्षा विभाग:** स्कूलों में शिक्षण आवश्यकताओं के लिए अतिथि शिक्षक और बीआरसी (BRC) स्टाफ।</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">स्थानीय शासन और विकास</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**पंचायत सचिव/सहायक:** ग्राम पंचायत स्तर पर योजनाओं का लेखा-जोखा और प्रशासन।</li>
+                           <li>**रोजगार सहायक:** ग्रामीण विकास योजनाओं, विशेषकर मनरेगा (MGNREGA) का कार्यान्वयन।</li>
+                           <li>**नगर निगम स्टाफ:** शहरी स्वच्छता, नागरिक रिकॉर्ड और बुनियादी नागरिक सुविधाएं प्रदान करना।</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. एक आदर्श उम्मीदवार के गुण 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">MPESB परीक्षाओं में सफलता के लिए MP का गहन ज्ञान, कंप्यूटर प्रवीणता और हिंदी टाइपिंग गति महत्वपूर्ण है।</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-[#f97316] pb-2">प्रमुख दक्षताएं:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">मध्य प्रदेश सामान्य ज्ञान (GK):</strong> MP का इतिहास, भूगोल, राजनीति, वन और जनजातीय संस्कृति का विस्तृत ज्ञान आवश्यक है।</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">हिंदी टाइपिंग और CPCT:</strong> क्लर्क/पटवारी पदों के लिए हिंदी/अंग्रेजी टाइपिंग गति (CPCT प्रमाण पत्र अक्सर अनिवार्य)।</li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">मजबूत योग्यता:</strong> गणित, सामान्य विज्ञान और तार्किक क्षमता पर अच्छी पकड़ लिखित परीक्षा में उच्च स्कोर के लिए महत्वपूर्ण है।</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">प्रशासनिक समझ:</strong> ग्रामीण अर्थव्यवस्था, पंचायती राज प्रणाली और सरकारी योजनाओं के बारे में बुनियादी ज्ञान।</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. आपकी तैयारी की रणनीति 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">MPESB परीक्षाओं के लिए एक सफल रणनीति में MP GK पर गहन ध्यान, हिंदी टाइपिंग का अभ्यास और पिछले प्रश्नों पर महारत शामिल है।</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 प्रमुख चरण:</h3>
+                        <ol class="relative border-l-4 border-[#f97316] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">मध्य प्रदेश GK पर महारत</h4>
+                                <p id="sec8-step1-desc" class="text-base">किसी भी MPESB परीक्षा में MP GK का वेटेज सबसे अधिक होता है। विशेष रूप से राज्य की जनजातियों, राष्ट्रीय उद्यानों और इतिहास पर ध्यान केंद्रित करें।</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">CPCT और टाइपिंग को प्राथमिकता दें</h4>
+                                <p id="sec8-step2-desc" class="text-base">क्लर्क/सहायक पदों के लिए, लिखित परीक्षा से पहले या बाद में कंप्यूटर प्रवीणता प्रमाणन परीक्षा (CPCT) उत्तीर्ण करना अनिवार्य है।</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#f97316] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-slate-900 mb-1">Vyapam पिछले प्रश्नपत्र हल करें</h4>
+                                <p id="sec8-step3-desc" class="text-base">MPESB (Vyapam) की पिछली परीक्षाओं के प्रश्नपत्रों को हल करने से परीक्षा पैटर्न और प्रश्नों की प्रकृति को समझने में मदद मिलेगी।</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 आदतें और अभ्यास:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>दैनिक समसामयिकी (Current Affairs):</strong> राष्ट्रीय और राज्य-स्तरीय समाचारों के लिए **दैनिक भास्कर** या **पत्रिका** जैसे स्थानीय हिंदी समाचार पत्र पढ़ें।</li>
+                            <li><strong>ग्रामीण अर्थव्यवस्था:</strong> पटवारी और पंचायत पदों के लिए कृषि, पंचायती राज और ग्रामीण विकास की मूल बातें पढ़ें।</li>
+                            <li><strong>नियमित मॉक टेस्ट:</strong> कंप्यूटर आधारित टेस्ट (CBT) फॉर्मेट में नियमित रूप से मॉक टेस्ट दें।</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. भर्ती चक्र और प्रक्रिया 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">भर्ती मुख्य रूप से **MPESB (कर्मचारी चयन बोर्ड)** द्वारा आयोजित की जाती है, जिसके बाद जिले-वार मेरिट और दस्तावेज़ सत्यापन होता है।</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">MPESB/Vyapam अधिसूचना</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">समयरेखा:</strong> रिक्तियों का विज्ञापन MPESB की आधिकारिक वेबसाइट पर (peb.mp.gov.in) किया जाता है।</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">लिखित परीक्षा (CBT)</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">समयरेखा:</strong> एक संयुक्त या एकल चरण की ऑनलाइन परीक्षा (CBT) आयोजित की जाती है।</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-slate-900 mb-1">परिणाम और मेरिट सूची</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">समयरेखा:</strong> MPESB परिणाम जारी करता है। जिला-वार/पद-वार मेरिट सूची (चयन सूची) जारी की जाती है।</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-slate-900 mb-1">दस्तावेज़ सत्यापन और नियुक्ति</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">समयरेखा:</strong> चयनित उम्मीदवारों को जिला/विभाग द्वारा सत्यापन के लिए बुलाया जाता है, जिसके बाद अंतिम नियुक्ति आदेश जारी किया जाता है।</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. बचने के लिए सामान्य गलतियाँ 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">MP सरकारी नौकरियों के लिए प्रतिस्पर्धा तीव्र है। इन गलतियों से बचें।</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">MP GK को नजरअंदाज करना:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">मध्य प्रदेश के इतिहास, जनजातियों, नदियों और राष्ट्रीय उद्यानों से संबंधित प्रश्नों के उच्च वेटेज को कम आंकना।</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">CPCT या टाइपिंग में देरी:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">क्लर्क/सहायक ग्रेड 3 पदों के लिए अनिवार्य कंप्यूटर प्रवीणता प्रमाणन परीक्षा (CPCT) या हिंदी/अंग्रेजी टाइपिंग का अभ्यास शुरू न करना।</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">ग्रामीण अर्थव्यवस्था/पंचायती राज की उपेक्षा:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">पटवारी जैसे पदों के लिए ग्रामीण विकास और अर्थव्यवस्था से संबंधित वर्गों को हल्के में लेना।</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">CBT अभ्यास की कमी:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">ऑनलाइन (CBT) परीक्षा प्रारूप में पर्याप्त गति और सटीकता प्राप्त करने के लिए नियमित अभ्यास न करना।</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. कोचिंग कहाँ से प्राप्त करें 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">भोपाल, इंदौर और ग्वालियर जैसे शहरों में कई संस्थान MPESB/Vyapam परीक्षाओं में विशेषज्ञता रखते हैं।</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 स्व-अध्ययन</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>MP बोर्ड की कक्षा 6 से 10 तक की पुस्तकें (विशेषकर सामाजिक विज्ञान के लिए)।</li>
+                           <li>MP GK पर समर्पित पुस्तकें (जैसे पुणेकर, महावीर) और मानक सामान्य अध्ययन पुस्तकें।</li>
+                           <li>स्थानीय हिंदी समाचार पत्र **दैनिक भास्कर** और **पत्रिका** का दैनिक पठन।</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 कोचिंग संस्थान</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">ऑनलाइन और ऑफलाइन दोनों तरह के कई प्लेटफॉर्म MPESB परीक्षाओं पर ध्यान केंद्रित करते हैं।</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>कोचिंग सेंटर (भोपाल, इंदौर) चुनें जो पटवारी और ग्रुप 4 परीक्षाओं में विशेषज्ञता रखते हों।</li>
+                            <li>MPESB/Vyapam के पैटर्न के लिए विशेष मॉक टेस्ट श्रृंखला में शामिल हों।</li>
+                            <li>हिंदी टाइपिंग (Inscript या Remington Gail) और CPCT पर विशेष ध्यान दें।</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. कैरियर विकास और पदोन्नति 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">MP सरकार में एक सरकारी नौकरी उत्कृष्ट स्थिरता और वरिष्ठता, प्रदर्शन और विभागीय परीक्षाओं के आधार पर संरचित कैरियर पथ प्रदान करती है।</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">कैरियर प्रगति देखें</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-orange-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. MPESB परीक्षा सिलाबस फोकस 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">MPESB सिलाबस में सामान्य ज्ञान (MP पर गहन ध्यान), योग्यता, हिंदी/अंग्रेजी और कंप्यूटर/ग्रामीण ज्ञान शामिल है।</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">सामान्य ज्ञान और कोर विषय</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🐅</span><div class="flex-grow">मध्य प्रदेश सामान्य ज्ञान (इतिहास, भूगोल, संस्कृति)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">सामान्य हिंदी और सामान्य अंग्रेजी (व्याकरण और शब्दावली)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">तकनीकी और संख्यात्मक योग्यता</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">सामान्य गणित और तार्किक क्षमता (Simple Arithmetic & Reasoning)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">कंप्यूटर ज्ञान और सूचना प्रौद्योगिकी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">ग्रामीण अर्थव्यवस्था और पंचायती राज (पटवारी के लिए)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | मध्य प्रदेश की जनता की सेवा में।</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="prelims-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="mains-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="interview-modal-p1"></p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'hi';
+
+            const serviceDetailsData = {
+                'en': {
+                    'collector': { 
+                        name: '1. Collector Office (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Clerical and support roles at the District Collectorate (Zila Panchayat/Revenue Offices), handling administrative tasks, records, and data entry for state schemes.',
+                        cta: 'Learn More'
+                    },
+                    'court': { 
+                        name: '2. District Court (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Posts supporting the judicial processes, including Stenographers, Clerks (Assistant Grade 3 equivalent), and support staff within the District and Sessions Courts.',
+                        cta: 'Learn More'
+                    },
+                    'health': { 
+                        name: '3. Health Dept. (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Contractual paramedical and technical roles under the National Health Mission (NHM) or local health societies, crucial for community health service delivery.',
+                        cta: 'Learn More'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Key roles for implementing the Integrated Child Development Services scheme, focused on monitoring, nutrition programs, and child welfare at the Anganwadi centres.',
+                        cta: 'Learn More'
+                    },
+                    'panchayat': {
+                        name: '5. Panchayati Raj (Panchayat Sahayak, Rojgar Sevak)',
+                        icon: '🏘️',
+                        description: 'Village-level staff responsible for administrative tasks, maintaining scheme accounts (like MGNREGA), and assisting Gram Panchayats with development work.',
+                        cta: 'Learn More'
+                    },
+                    'education': {
+                        name: '6. Education Dept. (Guest Teacher, BRC/BRP)',
+                        icon: '🏫',
+                        description: 'Temporary roles like Guest Teachers in government schools or Block Resource Persons (BRP) supporting teacher training and education quality initiatives at the block level.',
+                        cta: 'Learn More'
+                    },
+                     'land': {
+                        name: '7. Land Records (Patwari, Amin)',
+                        icon: '🗺️',
+                        description: 'Highly competitive and crucial roles (Patwari/Revenue Officer) responsible for maintaining land records (Khasra, Khatauni), property surveys, and land revenue collection at the Tehsil/Village level.',
+                        cta: 'Learn More'
+                    },
+                     'municipal': {
+                        name: '8. Municipal Corp. (Sanitation Staff, Clerk)',
+                        icon: '🏢',
+                        description: 'Jobs essential for urban local bodies (Nagar Nigam/Palika), managing public works, sanitation (Safai Karamchari), civic records, tax collection, and general clerical duties.',
+                        cta: 'Learn More'
+                    },
+                     'drda': {
+                        name: '9. DRDA Posts',
+                        icon: '🏞️',
+                        description: 'Staff hired by the District Rural Development Agency (DRDA) to implement and monitor flagship rural development and poverty alleviation programs across the district.',
+                        cta: 'Learn More'
+                    }
+                },
+                'hi': {
+                    'collector': { 
+                        name: '1. कलेक्टर कार्यालय (क्लर्क, चपरासी, डेटा एंट्री)', 
+                        icon: '🏛️',
+                        description: 'जिला कलेक्टर कार्यालय (जिला पंचायत/राजस्व कार्यालय) में लिपिकीय और सहायक भूमिकाएँ, जो प्रशासनिक कार्य, रिकॉर्ड और राज्य योजनाओं के लिए डेटा एंट्री संभालती हैं।',
+                        cta: 'और जानें'
+                    },
+                    'court': { 
+                        name: '2. जिला न्यायालय (स्टेनो, क्लर्क, चपरासी)', 
+                        icon: '⚖️',
+                        description: 'जिला एवं सत्र न्यायालयों के भीतर न्यायिक प्रक्रियाओं को समर्थन देने वाले पद, जिनमें स्टेनोग्राफर, क्लर्क (सहायक ग्रेड 3 के समकक्ष) और सहायक कर्मचारी शामिल हैं।',
+                        cta: 'और जानें'
+                    },
+                    'health': { 
+                        name: '3. स्वास्थ्य विभाग (ANM, GNM, लैब टेक - संविदा)', 
+                        icon: '⚕️',
+                        description: 'राष्ट्रीय स्वास्थ्य मिशन (NHM) या स्थानीय स्वास्थ्य समितियों के तहत संविदात्मक पैरामेडिकल और तकनीकी भूमिकाएँ, जो सामुदायिक स्वास्थ्य सेवा वितरण के लिए महत्वपूर्ण हैं।',
+                        cta: 'और जानें'
+                    },
+                    'icds': {
+                        name: '4. ICDS/आंगनवाड़ी (पर्यवेक्षक, कार्यकर्ता, सहायक)',
+                        icon: '👧',
+                        description: 'एकीकृत बाल विकास सेवा योजना को लागू करने के लिए प्रमुख भूमिकाएँ, जो आंगनवाड़ी केंद्रों पर निगरानी, पोषण कार्यक्रमों और बाल कल्याण पर केंद्रित हैं।',
+                        cta: 'और जानें'
+                    },
+                    'panchayat': {
+                        name: '5. पंचायती राज (पंचायत सहायक, रोजगार सेवक)',
+                        icon: '🏘️',
+                        description: 'ग्राम-स्तरीय कर्मचारी जो प्रशासनिक कार्यों, योजना खातों (जैसे मनरेगा) के रखरखाव और ग्राम पंचायतों को विकास कार्यों में सहायता करने के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    },
+                    'education': {
+                        name: '6. शिक्षा विभाग (अतिथि शिक्षक, बीआरसी/बीआरपी)',
+                        icon: '🏫',
+                        description: 'सरकारी स्कूलों में अतिथि शिक्षकों या ब्लॉक संसाधन व्यक्तियों (बीआरपी) जैसी अस्थायी भूमिकाएँ, जो ब्लॉक स्तर पर शिक्षक प्रशिक्षण और शिक्षा की गुणवत्ता पहल का समर्थन करती हैं।',
+                        cta: 'और जानें'
+                    },
+                     'land': {
+                        name: '7. भूमि रिकॉर्ड (पटवारी, अमीन)',
+                        icon: '🗺️',
+                        description: 'अत्यधिक प्रतिस्पर्धी और महत्वपूर्ण भूमिकाएँ (पटवारी/राजस्व अधिकारी) जो तहसील/ग्राम स्तर पर भूमि रिकॉर्ड (खसरा, खतौनी), संपत्ति सर्वेक्षण और भूमि राजस्व संग्रह के रखरखाव के लिए जिम्मेदार हैं।',
+                        cta: 'और जानें'
+                    },
+                     'municipal': {
+                        name: '8. नगर निगम (सफाई कर्मचारी, क्लर्क)',
+                        icon: '🏢',
+                        description: 'शहरी स्थानीय निकायों (नगर निगम/पालिका) के लिए आवश्यक नौकरियाँ, सार्वजनिक कार्यों, स्वच्छता (सफाई कर्मचारी), नागरिक रिकॉर्ड, कर संग्रह और सामान्य लिपिकीय कर्तव्यों का प्रबंधन करना।',
+                        cta: 'और जानें'
+                    },
+                     'drda': {
+                        name: '9. डीआरडीए पद',
+                        icon: '🏞️',
+                        description: 'जिला ग्रामीण विकास एजेंसी (DRDA) द्वारा जिले भर में प्रमुख ग्रामीण विकास और गरीबी उन्मूलन कार्यक्रमों को लागू करने और निगरानी करने के लिए नियुक्त कर्मचारी।',
+                        cta: 'और जानें'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-level (Assistant Gr-3 / Patwari)", desc: "Joins the government service at the base level, often requiring specific computer/typing certifications (CPCT) for clerical roles." },
+                        { rank: "Senior Assistant / Revenue Inspector", desc: "The first promotion, which comes with an increase in pay and supervisory responsibilities, typically based on departmental exams and seniority." },
+                        { rank: "Office Superintendent / Tehsildar (Promotional)", desc: "Further progression, often through departmental exams or selection, leading to higher management and block-level responsibilities." },
+                        { rank: "Higher Administrative Posts", desc: "With long and dedicated service, limited avenues exist to progress to higher administrative posts in the Secretariat or Directorate." }
+                    ]
+                },
+                'hi': {
+                    path: [
+                        { rank: "प्रवेश-स्तर (सहायक ग्रेड-3 / पटवारी)", desc: "वेतनमान के आधार पर सरकारी सेवा में प्रवेश करते हैं, अक्सर लिपिकीय भूमिकाओं के लिए विशिष्ट कंप्यूटर/टाइपिंग प्रमाणपत्र (CPCT) की आवश्यकता होती है।" },
+                        { rank: "वरिष्ठ सहायक / राजस्व निरीक्षक", desc: "पहली पदोन्नति, जो वेतन में वृद्धि और पर्यवेक्षी जिम्मेदारियों के साथ आती है, आमतौर पर विभागीय परीक्षाओं और वरिष्ठता पर आधारित होती है।" },
+                        { rank: "कार्यालय अधीक्षक / तहसीलदार (पदोन्नति से)", desc: "आगे की प्रगति, अक्सर विभागीय परीक्षाओं या चयन के माध्यम से, उच्च प्रबंधन और ब्लॉक-स्तरीय जिम्मेदारियों की ओर ले जाती है।" },
+                        { rank: "उच्च प्रशासनिक पद", desc: "लंबी और समर्पित सेवा के साथ, सचिवालय या निदेशालय में उच्च प्रशासनिक पदों पर प्रगति के सीमित रास्ते मौजूद हैं।" }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🐅 Madhya Pradesh District Level Jobs Guide 🌳',
+                    'header-subtitle': 'Your Guide to a Career in Madhya Pradesh\'s Public Service',
+                    'sec1-title': '1. What are District Level Jobs in Madhya Pradesh? 💡',
+                    'sec1-p1': 'District Level Jobs in Madhya Pradesh are crucial for administering state schemes and welfare programs at the grassroots level. Recruitment is primarily conducted through the **MP Staff Selection Board (MPESB/Vyapam)**, District Collector Office, and other local bodies. Key competitive posts include **Patwari** and **Group 4** (Assistant Grade 3).',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'Most MPESB (Vyapam) exams involve a single or two-stage process, including a written exam and a skill test for technical roles.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Exam (CBT)', 'sec2-step1-desc': 'Computer Based Objective Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill Test / Proficiency Test', 'sec2-step2-desc': 'For qualified candidates (Typing/Computer)',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Document Verification', 'sec2-step3-desc': 'Final Select List',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for these MP Government jobs is based on specific educational qualifications and age limits defined by MPESB.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 40 years** for General category. Age relaxation is applicable for reserved categories (SC/ST/OBC/PWD) and women candidates as per MP Government rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Varies from **8th/10th Pass** (Peon, Sanitation Staff) to **12th Pass/Graduation** (Clerk, Patwari, Panchayat Assistant) and **Diploma/Degree** for technical/health roles.',
+                    'sec3-attempts-title': 'Number of Attempts & Domicile 📊',
+                    'sec3-agerelax-list': '<li>There is no limit on the number of attempts for MPESB exams, subject to the age criteria.</li><li>A **Madhya Pradesh Domicile Certificate** is required to avail reservation benefits and maximum age relaxation.</li>',
+                    'sec4-title': '4. MPESB (Vyapam) Patwari / Group 4 Exam Pattern 📚',
+                    'sec4-p1': 'The typical MPESB exam includes a comprehensive written test emphasizing General Knowledge, Hindi/English, Computer, and sometimes Rural Economy (for Patwari).',
+                    'gs1-title': 'General Knowledge & MP GK', 'gs2-title': 'Hindi, English, & Computer Knowledge', 'gs3-title': 'Quant, Reasoning, & Rural Economy',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'New appointees in the MP Government undergo a mandatory probation period and training before their service is confirmed.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A probation period of two to three years is applicable for most posts.', 'sec5-hindi-list': '<li>Employee performance and conduct are assessed during this period.</li><li>Specific revenue training is mandatory for posts like Patwari.</li>',
+                    'sec5-essay-title': '2. On-the-Job Training & Exams', 'sec5-essay-p1': 'Training is imparted to familiarize recruits with departmental rules and duties.', 'sec5-essay-list': '<li>Induction training covers revenue/administrative manuals and government scheme implementation.</li><li>Passing mandatory Departmental Exams is necessary for permanent confirmation.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'These roles are the backbone of administration, revenue, and rural development functions in Madhya Pradesh.',
+                    'sec6-eng-title': 'Admin, Judicial & Revenue', 'sec6-eng-list': '<li>**Patwari:** Land record maintenance (Khasra, Khatauni) and revenue collection at the village level.</li><li>**Assistant Grade 3 (Clerk):** Filing, writing, and administrative support in Collectorates and Zila Panchayats.</li><li>**Court Staff:** Assisting judicial functions (Steno/Clerk) and managing court records.</li>',
+                    'sec6-elec-title': 'Social & Public Welfare', 'sec6-elec-list': '<li>**ICDS/Anganwadi:** Supervising and implementing mother and child development programs (nutrition, vaccination).</li><li>**Health Dept:** Contractual ANM/GNM/Technicians providing community health services at PHCs.</li><li>**Education Dept:** Guest Teachers and BRC staff for school support.</li>',
+                    'sec6-naic-title': 'Local Governance & Development', 'sec6-naic-list': '<li>**Panchayat Secretary/Assistant:** Scheme accounting and administration at the Gram Panchayat level.</li><li>**Rojgar Sevak:** Implementation of rural development schemes, especially MGNREGA.</li><li>**Municipal Corp. Staff:** Managing urban sanitation, records, and civic amenities.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'Success in MPESB exams requires deep knowledge of MP, computer proficiency, and good Hindi typing speed.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">Knowledge of Madhya Pradesh (GK):</strong> Detailed knowledge of MP\'s history, geography, tribal culture, forest, and current affairs is essential.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">Hindi Typing & CPCT:</strong> Hindi/English typing speed (CPCT certificate is often mandatory) is crucial for clerical/Patwari posts.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">Strong Aptitude:</strong> Good command over Maths, General Science, and Reasoning is vital to score high in the written exam.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">Administrative Understanding:</strong> Basic knowledge of rural economy, Panchayati Raj system, and government schemes.</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A successful strategy for MPESB exams involves deep focus on MP GK, practicing Hindi typing, and mastering previous question patterns.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master MP GK', 'sec8-step1-desc': 'MP GK has the highest weightage in any MPESB exam. Focus specifically on the state\'s tribes, national parks, and history.',
+                    'sec8-step2-title': 'Prioritize CPCT and Typing', 'sec8-step2-desc': 'For clerk/assistant posts, passing the Computer Proficiency Certification Test (CPCT) before or shortly after the written exam is mandatory.',
+                    'sec8-step3-title': 'Solve Vyapam Previous Papers', 'sec8-step3-desc': 'Solving previous papers from MPESB (Vyapam) helps understand the exam pattern and the exact nature of questions asked in various sections.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Daily Current Affairs:</strong> Read local Hindi newspapers like **Dainik Bhaskar** or **Patrika** for national and state-level news.</li><li><strong>Rural Economy/Panchayati Raj:</strong> Study the basics of agriculture, Panchayati Raj system, and rural development for Patwari and Panchayat posts.</li><li><strong>Regular Mock Tests:</strong> Take timed mock tests regularly in the Computer Based Test (CBT) format.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is conducted centrally by the **MPESB (Staff Selection Board)**, followed by district-wise merit and document verification.',
+                    'sec9-step1-title': 'MPESB/Vyapam Notification', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on the official MPESB website (peb.mp.gov.in).',
+                    'sec9-step2-title': 'Written Examination (CBT)', 'sec9-step2-desc': '<strong>Timeline:</strong> A single or two-stage online Computer Based Test (CBT) is conducted.',
+                    'sec9-step3-title': 'Result & Merit List', 'sec9-step3-desc': '<strong>Timeline:</strong> MPESB releases the results. District-wise/post-wise merit lists (selection list) are released.',
+                    'sec9-step4-title': 'Document Verification & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> Selected candidates are called by the district/department for verification, followed by the issuance of the final appointment order.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition for MP Government jobs is intense. Avoid these critical errors.',
+                    'sec10-mistake1-title': 'Ignoring MP GK:', 'sec10-mistake1-desc': 'Underestimating the high weightage of questions related to MP\'s history, tribes, rivers, and national parks.',
+                    'sec10-mistake2-title': 'Delaying CPCT or Typing:', 'sec10-mistake2-desc': 'Failing to start practice for the mandatory Computer Proficiency Certification Test (CPCT) or Hindi/English typing for clerical/Assistant Grade 3 posts.',
+                    'sec10-mistake3-title': 'Neglecting Rural Economy/Panchayati Raj:', 'sec10-mistake3-desc': 'Taking the sections related to rural development and economy lightly, especially for posts like Patwari.',
+                    'sec10-mistake4-title': 'Lack of CBT Practice:', 'sec10-mistake4-desc': 'Failing to practice regularly in the online (CBT) format to achieve sufficient speed and accuracy.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Institutions in cities like Bhopal, Indore, and Gwalior specialize in MPESB/Vyapam exams.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>MP Board books from classes 6 to 10 (especially for Social Science).</li><li>Dedicated books on MP GK (e.g., Punekar, Mahavir) and standard General Studies books.</li><li>Daily reading of local Hindi newspapers like **Dainik Bhaskar** and **Patrika**.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Many online and offline platforms focus on MPESB exams.', 'sec11-pvt-list': '<li>Choose coaching centers (Bhopal, Indore) specializing in Patwari and Group 4 exams.</li><li>Join specialized mock test series for the MPESB/Vyapam pattern.</li><li>Focus specifically on Hindi Typing (Inscript or Remington Gail) and CPCT preparation.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'A government job in MP offers excellent stability and a structured career path based on seniority, performance, and departmental exams.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. MPESB Exam Syllabus Focus 📚',
+                    'sec13-p1': 'The MPESB syllabus includes General Knowledge (with deep focus on MP), Aptitude, Hindi/English, and Computer/Rural Knowledge.',
+                    'syllabus-oir-title': 'General Knowledge & Core Subjects',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🐅</span><div class="flex-grow">Madhya Pradesh General Knowledge (History, Geography, Culture)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">General Hindi and General English (Grammar & Vocabulary)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Technical & Numerical Aptitude',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">General Maths & Reasoning (Simple Arithmetic & Logical Ability)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer Knowledge and Information Technology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">Rural Economy and Panchayati Raj (For Patwari)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Serving the people of Madhya Pradesh.',
+                    'interviewChartData': {
+                        labels: ['MP GK & Culture', 'Quant & Reasoning', 'Language & Computer', 'Typing/CPCT'],
+                        data: [95, 88, 90, 85]
+                    },
+                    'career-modal-title': 'Clerical/Revenue Cadre Career Progression',
+                    'prelims-modal-title': 'Stage 1: Written Examination (CBT)',
+                    'prelims-modal-p1': 'The first and often the only written stage is a Computer Based Test (CBT). This objective exam (usually 100-200 marks) covers the multi-topic syllabus outlined by MPESB. High scores are necessary due to intense competition.',
+                    'mains-modal-title': 'Stage 2: Skill Test / Proficiency Exam',
+                    'mains-modal-p1': 'Candidates shortlisted from the CBT for clerical posts (Assistant Gr-3) must often pass mandatory skill tests, such as the Computer Proficiency Certification Test (**CPCT**) or Hindi/English Typing/Shorthand tests, which are qualifying in nature.',
+                    'interview-modal-title': 'Stage 3: Document Verification & Appointment',
+                    'interview-modal-p1': 'The final merit list is prepared based on the written exam scores (and proficiency test results, if applicable). Selected candidates are called by the respective districts/departments for verification of original documents (Domicile, CPCT, Caste/EWS certificates) before receiving the final appointment order.'
+                },
+                'hi': {
+                    'header-title': '🐅 मध्य प्रदेश जिला स्तरीय नौकरियाँ गाइड 🌳',
+                    'header-subtitle': 'मध्य प्रदेश की लोक सेवा में करियर के लिए आपकी मार्गदर्शिका',
+                    'sec1-title': '1. मध्य प्रदेश में जिला स्तरीय नौकरियाँ क्या हैं? 💡',
+                    'sec1-p1': 'मध्य प्रदेश में जिला स्तरीय नौकरियाँ राज्य प्रशासन, ग्रामीण विकास और लोक कल्याण योजनाओं को जमीनी स्तर पर लागू करने के लिए महत्वपूर्ण हैं। इन पदों के लिए भर्ती मुख्य रूप से **कर्मचारी चयन बोर्ड (MPESB/Vyapam)**, जिला कलेक्टर कार्यालय, और अन्य स्थानीय समितियों द्वारा आयोजित की जाती है। **पटवारी** और **ग्रुप 4** (सहायक ग्रेड 3) के पद अत्यधिक मांग में हैं।',
+                    'sec2-title': '2. चयन प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'अधिकांश MPESB (Vyapam) परीक्षाओं में एकल या दो-चरणीय प्रक्रिया होती है, जिसमें लिखित परीक्षा और कौशल परीक्षा शामिल होती है।',
+                    'sec2-step1-title': 'चरण 1:', 'sec2-step1-name': 'लिखित परीक्षा (CBT)', 'sec2-step1-desc': 'कंप्यूटर आधारित वस्तुनिष्ठ परीक्षा',
+                    'sec2-step2-title': 'चरण 2:', 'sec2-step2-name': 'कौशल परीक्षण / दक्षता परीक्षा', 'sec2-step2-desc': 'पात्र उम्मीदवारों के लिए (टाईपिंग/कंप्यूटर)',
+                    'sec2-step3-title': 'चरण 3:', 'sec2-step3-name': 'दस्तावेज़ सत्यापन', 'sec2-step3-desc': 'अंतिम चयन सूची',
+                    'sec3-title': '3. कौन आवेदन कर सकता है? ✅',
+                    'sec3-p1': 'इन मध्य प्रदेश सरकारी नौकरियों के लिए पात्रता MPESB द्वारा परिभाषित विशिष्ट शैक्षणिक योग्यता और आयु सीमा पर आधारित है।',
+                    'sec3-age-title': 'आयु सीमा:', 'sec3-age-desc': 'सामान्य वर्ग के लिए आमतौर पर **18 से 40 वर्ष** के बीच। आरक्षित श्रेणियों (SC/ST/OBC/PWD) और महिला उम्मीदवारों के लिए MP सरकार के नियमों के अनुसार आयु में छूट लागू है।',
+                    'sec3-edu-title': 'शैक्षणिक योग्यता:', 'sec3-edu-desc': '**8वीं/10वीं पास** (प्यून, सफाई कर्मचारी) से लेकर **12वीं पास/स्नातक** (क्लर्क, पटवारी, पंचायत सहायक) और तकनीकी/स्वास्थ्य रोंगों के लिए **डिप्लोमा/डिग्री** तक भिन्न होती है।',
+                    'sec3-attempts-title': 'प्रयासों की संख्या और डोमिसाइल 📊',
+                    'sec3-agerelax-list': '<li>MPESB परीक्षाओं के लिए प्रयासों की संख्या पर कोई सीमा नहीं है, जो आयु मानदंडों के अधीन है।</li><li>आरक्षण लाभ और अधिकतम आयु सीमा छूट के लिए **मध्य प्रदेश का मूल निवासी प्रमाण पत्र** (Domicile Certificate) आवश्यक है।</li>',
+                    'sec4-title': '4. MPESB (Vyapam) पटवारी / ग्रुप 4 परीक्षा पैटर्न 📚',
+                    'sec4-p1': 'MPESB की परीक्षाओं में एक संयुक्त लिखित परीक्षा शामिल होती है, जिसमें सामान्य ज्ञान, हिंदी/अंग्रेजी और कंप्यूटर/गणित पर जोर दिया जाता है।',
+                    'gs1-title': 'सामान्य ज्ञान और MP GK (General Knowledge)', 'gs2-title': 'हिंदी, अंग्रेजी, और कंप्यूटर ज्ञान (Language & Computer)', 'gs3-title': 'गणित, तर्कशक्ति और ग्रामीण अर्थव्यवस्था (Quant & Rural)',
+                    'sec5-title': '5. प्रशिक्षण और परिवीक्षा 🏛️',
+                    'sec5-p1': 'मध्य प्रदेश सरकार में नए नियुक्त अधिकारियों को उनकी सेवा की पुष्टि से पहले एक अनिवार्य परिवीक्षा अवधि और प्रशिक्षण से गुजरना पड़ता है।',
+                    'sec5-hindi-title': '1. परिवीक्षा अवधि (Probation Period)', 'sec5-hindi-p1': 'अधिकांश पदों के लिए दो से तीन साल की परिवीक्षा अवधि लागू होती है।', 'sec5-hindi-list': '<li>इस दौरान, कर्मचारी के प्रदर्शन और आचरण का मूल्यांकन किया जाता है।</li><li>पटवारी जैसे पदों के लिए विशेष राजस्व प्रशिक्षण अनिवार्य है।</li>',
+                    'sec5-essay-title': '2. ऑन-द-जॉब प्रशिक्षण और परीक्षा', 'sec5-essay-p1': 'नई नियुक्तियों को विभागीय नियमों और कर्तव्यों से परिचित कराने के लिए प्रशिक्षण दिया जाता है।', 'sec5-essay-list': '<li>राजस्व/प्रशासनिक नियमावली और सरकारी योजनाओं के कार्यान्वयन पर इंडक्शन ट्रेनिंग।</li><li>स्थायीकरण के लिए अनिवार्य विभागीय परीक्षाएँ (Departmental Exams) पास करना आवश्यक है।</li>',
+                    'sec6-title': '6. मुख्य जिम्मेदारियां 🌟',
+                    'sec6-p1': 'ये पद मध्य प्रदेश में प्रशासन, राजस्व और ग्रामीण विकास कार्यों के लिए रीढ़ की हड्डी हैं।',
+                    'sec6-eng-title': 'प्रशासन, न्याय और राजस्व', 'sec6-eng-list': '<li>**पटवारी:** ग्राम स्तर पर भूमि रिकॉर्ड (खसरा, खतौनी) का रखरखाव और राजस्व संग्रह।</li><li>**सहायक ग्रेड 3 (Clerk):** कलेक्टर, जिला पंचायत, और अन्य कार्यालयों में फाइलिंग, लेखन और प्रशासनिक सहायता।</li><li>**कोर्ट स्टाफ:** न्यायिक कार्यों में सहायता (स्टेनो/क्लर्क) और कोर्ट रिकॉर्ड का प्रबंधन।</li>',
+                    'sec6-elec-title': 'सामाजिक और लोक कल्याण', 'sec6-elec-list': '<li>**ICDS/आंगनवाड़ी:** महिला एवं बाल विकास के कार्यक्रमों (पोषण, टीकाकरण) का पर्यवेक्षण और कार्यान्वयन।</li><li>**स्वास्थ्य विभाग:** संविदा ANM/GNM/तकनीशियन, प्राथमिक स्वास्थ्य केंद्रों पर सामुदायिक स्वास्थ्य सेवाएँ प्रदान करना।</li><li>**शिक्षा विभाग:** स्कूलों में शिक्षण आवश्यकताओं के लिए अतिथि शिक्षक और बीआरसी (BRC) स्टाफ।</li>',
+                    'sec6-naic-title': 'स्थानीय शासन और विकास', 'sec6-naic-list': '<li>**पंचायत सचिव/सहायक:** ग्राम पंचायत स्तर पर योजनाओं का लेखा-जोखा और प्रशासन।</li><li>**रोजगार सहायक:** ग्रामीण विकास योजनाओं, विशेषकर मनरेगा (MGNREGA) का कार्यान्वयन।</li><li>**नगर निगम स्टाफ:** शहरी स्वच्छता, नागरिक रिकॉर्ड और बुनियादी नागरिक सुविधाएं प्रदान करना।</li>',
+                    'sec7-title': '7. एक आदर्श उम्मीदवार के गुण 🎙️',
+                    'sec7-p1': 'MPESB परीक्षाओं में सफलता के लिए MP का गहन ज्ञान, कंप्यूटर प्रवीणता और हिंदी टाइपिंग गति महत्वपूर्ण है।',
+                    'sec7-qualities-title': 'प्रमुख दक्षताएं:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">मध्य प्रदेश सामान्य ज्ञान (GK):</strong> MP का इतिहास, भूगोल, राजनीति, वन और जनजातीय संस्कृति का विस्तृत ज्ञान आवश्यक है।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">हिंदी टाइपिंग और CPCT:</strong> क्लर्क/पटवारी पदों के लिए हिंदी/अंग्रेजी टाइपिंग गति (CPCT प्रमाण पत्र अक्सर अनिवार्य)।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">मजबूत योग्यता:</strong> गणित, सामान्य विज्ञान और तार्किक क्षमता पर अच्छी पकड़ लिखित परीक्षा में उच्च स्कोर के लिए महत्वपूर्ण है।</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">प्रशासनिक समझ:</strong> ग्रामीण अर्थव्यवस्था, पंचायती राज प्रणाली और सरकारी योजनाओं के बारे में बुनियादी ज्ञान।</div></li>',
+                    'sec8-title': '8. आपकी तैयारी की रणनीति 📈',
+                    'sec8-p1': 'MPESB परीक्षाओं के लिए एक सफल रणनीति में MP GK पर गहन ध्यान, हिंदी टाइपिंग का अभ्यास और पिछले प्रश्नों पर महारत शामिल है।',
+                    'sec8-steps-title': '📚 प्रमुख चरण:',
+                    'sec8-step1-title': 'मध्य प्रदेश GK पर महारत', 'sec8-step1-desc': 'किसी भी MPESB परीक्षा में MP GK का वेटेज सबसे अधिक होता है। विशेष रूप से राज्य की जनजातियों, राष्ट्रीय उद्यानों और इतिहास पर ध्यान केंद्रित करें।',
+                    'sec8-step2-title': 'CPCT और टाइपिंग को प्राथमिकता दें', 'sec8-step2-desc': 'क्लर्क/सहायक पदों के लिए, लिखित परीक्षा से पहले या बाद में कंप्यूटर प्रवीणता प्रमाणन परीक्षा (CPCT) उत्तीर्ण करना अनिवार्य है।',
+                    'sec8-step3-title': 'Vyapam पिछले प्रश्नपत्र हल करें', 'sec8-step3-desc': 'MPESB (Vyapam) की पिछली परीक्षाओं के प्रश्नपत्रों को हल करने से परीक्षा पैटर्न और प्रश्नों की प्रकृति को समझने में मदद मिलेगी।',
+                    'sec8-revision-title': '🔄 आदतें और अभ्यास:',
+                    'sec8-revision-list': '<li><strong>दैनिक समसामयिकी (Current Affairs):</strong> राष्ट्रीय और राज्य-स्तरीय समाचारों के लिए **दैनिक भास्कर** या **पत्रिका** जैसे स्थानीय हिंदी समाचार पत्र पढ़ें।</li><li><strong>ग्रामीण अर्थव्यवस्था:</strong> पटवारी और पंचायत पदों के लिए कृषि, पंचायती राज और ग्रामीण विकास की मूल बातें पढ़ें।</li><li><strong>नियमित मॉक टेस्ट:</strong> कंप्यूटर आधारित टेस्ट (CBT) फॉर्मेट में नियमित रूप से मॉक टेस्ट दें।</li>',
+                    'sec9-title': '9. भर्ती चक्र और प्रक्रिया 🗓️',
+                    'sec9-p1': 'भर्ती मुख्य रूप से **MPESB (कर्मचारी चयन बोर्ड)** द्वारा आयोजित की जाती है, जिसके बाद जिले-वार मेरिट और दस्तावेज़ सत्यापन होता है।',
+                    'sec9-step1-title': 'MPESB/Vyapam अधिसूचना', 'sec9-step1-desc': '<strong>समयरेखा:</strong> रिक्तियों का विज्ञापन MPESB की आधिकारिक वेबसाइट पर (peb.mp.gov.in) किया जाता है।',
+                    'sec9-step2-title': 'लिखित परीक्षा (CBT)', 'sec9-step2-desc': '<strong>समयरेखा:</strong> एक संयुक्त या एकल चरण की ऑनलाइन परीक्षा (CBT) आयोजित की जाती है।',
+                    'sec9-step3-title': 'परिणाम और मेरिट सूची', 'sec9-step3-desc': '<strong>समयरेखा:</strong> MPESB परिणाम जारी करता है। जिला-वार/पद-वार मेरिट सूची (चयन सूची) जारी की जाती है।',
+                    'sec9-step4-title': 'दस्तावेज़ सत्यापन और नियुक्ति', 'sec9-step4-desc': '<strong>समयरेखा:</strong> चयनित उम्मीदवारों को जिला/विभाग द्वारा सत्यापन के लिए बुलाया जाता है, जिसके बाद अंतिम नियुक्ति आदेश जारी किया जाता है।',
+                    'sec10-title': '10. बचने के लिए सामान्य गलतियाँ 🚫',
+                    'sec10-p1': 'MP सरकारी नौकरियों के लिए प्रतिस्पर्धा तीव्र है। इन गलतियों से बचें।',
+                    'sec10-mistake1-title': 'MP GK को नजरअंदाज करना:', 'sec10-mistake1-desc': 'मध्य प्रदेश के इतिहास, जनजातियों, नदियों और राष्ट्रीय उद्यानों से संबंधित प्रश्नों के उच्च वेटेज को कम आंकना।',
+                    'sec10-mistake2-title': 'CPCT या टाइपिंग में देरी:', 'sec10-mistake2-desc': 'क्लर्क/सहायक ग्रेड 3 पदों के लिए अनिवार्य कंप्यूटर प्रवीणता प्रमाणन परीक्षा (CPCT) या हिंदी/अंग्रेजी टाइपिंग का अभ्यास शुरू न करना।',
+                    'sec10-mistake3-title': 'ग्रामीण अर्थव्यवस्था/पंचायती राज की उपेक्षा:', 'sec10-mistake3-desc': 'पटवारी जैसे पदों के लिए ग्रामीण विकास और अर्थव्यवस्था से संबंधित वर्गों को हल्के में लेना।',
+                    'sec10-mistake4-title': 'CBT अभ्यास की कमी:', 'sec10-mistake4-desc': 'ऑनलाइन (CBT) परीक्षा प्रारूप में पर्याप्त गति और सटीकता प्राप्त करने के लिए नियमित अभ्यास न करना।',
+                    'sec11-title': '11. कोचिंग कहाँ से प्राप्त करें 🏫',
+                    'sec11-p1': 'भोपाल, इंदौर और ग्वालियर जैसे शहरों में कई संस्थान MPESB/Vyapam परीक्षाओं में विशेषज्ञता रखते हैं।',
+                    'sec11-gov-title': '📚 स्व-अध्ययन', 'sec11-gov-list': '<li>MP बोर्ड की कक्षा 6 से 10 तक की पुस्तकें (विशेषकर सामाजिक विज्ञान के लिए)।</li><li>MP GK पर समर्पित पुस्तकें (जैसे पुणेकर, महावीर) और मानक सामान्य अध्ययन पुस्तकें।</li><li>स्थानीय हिंदी समाचार पत्र **दैनिक भास्कर** और **पत्रिका** का दैनिक पठन।</li>',
+                    'sec11-pvt-title': '💻 कोचिंग संस्थान', 'sec11-pvt-p1': 'ऑनलाइन और ऑफलाइन दोनों तरह के कई प्लेटफॉर्म MPESB परीक्षाओं पर ध्यान केंद्रित करते हैं।', 'sec11-pvt-list': '<li>कोचिंग सेंटर (भोपाल, इंदौर) चुनें जो पटवारी और ग्रुप 4 परीक्षाओं में विशेषज्ञता रखते हों।</li><li>MPESB/Vyapam के पैटर्न के लिए विशेष मॉक टेस्ट श्रृंखला में शामिल हों।</li><li>हिंदी टाइपिंग (Inscript या Remington Gail) और CPCT पर विशेष ध्यान दें।</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'MP सरकार में एक सरकारी नौकरी उत्कृष्ट स्थिरता और वरिष्ठता, प्रदर्शन और विभागीय परीक्षाओं के आधार पर संरचित कैरियर पथ प्रदान करती है।',
+                    'sec12-career-btn': 'कैरियर प्रगति देखें',
+                    'sec13-title': '13. MPESB परीक्षा सिलाबस फोकस 📚',
+                    'sec13-p1': 'MPESB सिलाबस में सामान्य ज्ञान (MP पर गहन ध्यान), योग्यता, हिंदी/अंग्रेजी और कंप्यूटर/ग्रामीण ज्ञान शामिल है।',
+                    'syllabus-oir-title': 'सामान्य ज्ञान और कोर विषय',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🐅</span><div class="flex-grow">मध्य प्रदेश सामान्य ज्ञान (इतिहास, भूगोल, संस्कृति)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📰</span><div class="flex-grow">सामान्य हिंदी और सामान्य अंग्रेजी (व्याकरण और शब्दावली)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'तकनीकी और संख्यात्मक योग्यता',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">सामान्य गणित और तार्किक क्षमता (Simple Arithmetic & Logical Ability)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">कंप्यूटर ज्ञान और सूचना प्रौद्योगिकी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">ग्रामीण अर्थव्यवस्था और पंचायती राज (पटवारी के लिए)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | मध्य प्रदेश की जनता की सेवा में।',
+                    'interviewChartData': {
+                        labels: ['MP GK & संस्कृति', 'गणित और तर्कशक्ति', 'भाषा और कंप्यूटर', 'टाईपिंग/CPCT'],
+                        data: [95, 88, 90, 85]
+                    },
+                    'career-modal-title': 'लिपिकीय/राजस्व संवर्ग कैरियर प्रगति',
+                    'prelims-modal-title': 'चरण 1: लिखित परीक्षा (CBT)',
+                    'prelims-modal-p1': 'पहला और अक्सर एकमात्र लिखित चरण कंप्यूटर आधारित टेस्ट (CBT) होता है। यह वस्तुनिष्ठ परीक्षा (आमतौर पर 100-200 अंक) MPESB द्वारा उल्लिखित बहु-विषय पाठ्यक्रम को कवर करती है। तीव्र प्रतिस्पर्धा के कारण उच्च स्कोर आवश्यक है।',
+                    'mains-modal-title': 'चरण 2: कौशल परीक्षण / दक्षता परीक्षा',
+                    'mains-modal-p1': 'लिपिकीय पदों (सहायक ग्रेड-3) के लिए CBT से शॉर्टलिस्ट किए गए उम्मीदवारों को अक्सर अनिवार्य कौशल परीक्षण, जैसे कंप्यूटर प्रवीणता प्रमाणन परीक्षा (**CPCT**) या हिंदी/अंग्रेजी टाईपिंग/शॉर्टहैंड परीक्षण, जो योग्यता प्रकृति के होते हैं, पास करने होते हैं।',
+                    'interview-modal-title': 'चरण 3: दस्तावेज़ सत्यापन और नियुक्ति',
+                    'interview-modal-p1': 'अंतिम मेरिट सूची लिखित परीक्षा के अंकों (और यदि लागू हो तो दक्षता परीक्षण के परिणामों) के आधार पर तैयार की जाती है। चयनित उम्मीदवारों को अंतिम नियुक्ति आदेश जारी होने से पहले मूल दस्तावेज़ों (डोमिसाइल, CPCT, जाति/ईडब्ल्यूएस प्रमाण पत्र) के सत्यापन के लिए संबंधित जिलों/विभागों द्वारा बुलाया जाता है।'
+                }
+            };
+
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                 if (!container) return;
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.hi.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Importance',
+                            data: translations.hi.interviewChartData.data,
+                            backgroundColor: 'rgba(249, 115, 22, 0.7)', /* Orange */
+                            borderColor: '#f97316',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const lang = currentLang; 
+                    const data = translations[lang].interviewChartData;
+                    
+                    if (data && data.labels && data.data) { 
+                        interviewChartInstance.data.labels = data.labels;
+                        interviewChartInstance.data.datasets[0].data = data.data;
+                        interviewChartInstance.update();
+                    } else {
+                        console.error('Chart data missing or incomplete for language:', lang);
+                    }
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const titleKey = `${modalId.replace('Modal', '')}-modal-title`;
+                    const p1Key = `${modalId.replace('Modal', '')}-modal-p1`;
+                    const titleEl = modal.querySelector('h3');
+                    const p1El = modal.querySelector('p');
+
+                    const modalLang = currentLang;
+
+                    if (titleEl && translations[modalLang][titleKey]) {
+                        titleEl.innerHTML = translations[modalLang][titleKey];
+                    }
+                    if (p1El && translations[modalLang][p1Key]) {
+                        p1El.innerHTML = translations[modalLang][p1Key];
+                    }
+                    
+                    if (modalId === 'careerGrowthModal') {
+                        const careerTitleEl = modal.querySelector('#career-modal-title');
+                        if (careerTitleEl) {
+                           careerTitleEl.innerHTML = (modalLang === 'hi') ? translations.hi['career-modal-title'] : translations.en['career-modal-title'];
+                        }
+                        renderCareerPath(modalLang);
+                    }
+
+
+                    modal.classList.add('active');
+                }
+            };
+            
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('hi'); // Default to Hindi for MP
+        });
+    </script>
+</body>
+</html>
