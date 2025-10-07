@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>महाराष्ट्र जिल्हा स्तरीय नोकरी मार्गदर्शन (सर्व विभाग)</title>
+    <script src="redirect_if_needed.js"></script>  
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visual data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="A complete guide to District Level Jobs in Maharashtra across various departments like Collectorate, Courts, Health, and Talathi (Land Records).">
+    <meta name="keywords" content="Maharashtra Government Jobs, MPSC, Talathi, ZP Bharti, Group C, District Level Jobs, Clerk Jobs, Marathi GK, Anganwadi">
+    <meta name="author" content="Maharashtra Jobs Guide">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefce8; /* Light Yellow Cream */
+            color: #4338d1; /* Indigo/Blue for text */
+        }
+        /* Maharashtra Colors: Saffron/Orange & Blue/Black */
+        .section-heading {
+            border-image: linear-gradient(to right, #f97316, #1d4ed8) 1; /* Orange & Blue */
+            border-bottom: 4px solid;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #0c4a6e; /* Darker Blue */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 30px rgba(29, 78, 216, 0.1);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #dbeafe; /* Pale Blue Border */
+        }
+        .card:hover {
+            box-shadow: 0 20px 45px rgba(249, 115, 22, 0.15); /* Orangeish hover shadow */
+            transform: translateY(-12px) scale(1.02);
+            border-color: #f97316; /* Orange border */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            margin: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flowchart-step {
+            border: 3px solid #f97316; /* Orange */
+            color: #9a3412; /* Dark Orange */
+            background: #fff7ed; /* Light Orange Cream */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+        }
+        .flowchart-step:hover {
+            background-color: #f97316;
+            color: #ffffff;
+            transform: scale(1.08);
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.4);
+        }
+        .flowchart-arrow {
+            color: #1d4ed8; /* Blue Arrow */
+            text-shadow: 0 0 10px rgba(29, 78, 216, 0.2);
+        }
+        .subject-category-heading {
+            color: #0c4a6e;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #1d4ed8; /* Blue border */
+        }
+        .subject-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s;
+            background-color: #eff6ff; /* Pale Blue */
+        }
+        .subject-item:hover {
+            background-color: #dbeafe; /* Lighter Blue */
+        }
+        .subject-item .icon {
+            color: #1d4ed8; /* Blue Icon */
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-left: 4px solid #1d4ed8; /* Blue Timeline */
+        }
+        .timeline-step:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.9375rem;
+            top: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 4px solid #f97316; /* Orange Dot */
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+        }
+        /* Modal and Button styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(67, 56, 209, 0.85); /* Indigo */
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center; justify-content: center;
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem;
+        }
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            color: #0c4a6e;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            transform: translateY(20px) scale(0.98);
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #dbeafe;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        .modal-close-button {
+            position: absolute; top: 1rem; right: 1rem;
+            background: none; border: none; font-size: 2.5rem;
+            cursor: pointer; color: #9ca3af; line-height: 1;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-button:hover { color: #dc2626; transform: rotate(90deg); }
+        .modal-action-button {
+            background: linear-gradient(45deg, #1d4ed8, #2563eb); /* Blue Gradient */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(29, 78, 216, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .modal-action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(29, 78, 216, 0.4);
+        }
+        .lang-btn {
+            padding: 0.6rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #f97316; /* Orange Border */
+            color: #f97316;
+            background-color: transparent;
+        }
+        .lang-btn:first-child { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .lang-btn:last-child { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: #f97316; /* Active Orange */
+            color: #ffffff;
+            box-shadow: 0 0 15px #f97316;
+        }
+        .notes-btn, .lectures-btn {
+            padding: 0.35rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+        }
+        .notes-btn {
+            background-color: #1d4ed8; /* Darker Blue */
+            color: #ffffff;
+        }
+        .notes-btn:hover {
+            background-color: #1e40af;
+        }
+        .lectures-btn {
+            background-color: #eff6ff; 
+            color: #1e40af; 
+            border-color: #bfdbfe; 
+        }
+        .lectures-btn:hover {
+            background-color: #dbeafe;
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body class="leading-relaxed">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-12">
+
+        <header class="text-center mb-10">
+            <h1 id="header-title" class="text-4xl md:text-5xl font-extrabold text-[#0c4a6e] mb-4 tracking-tight">🚩 महाराष्ट्र जिल्हा स्तरीय नोकरी मार्गदर्शन 🏰</h1>
+            <p id="header-subtitle" class="text-xl md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-blue-700">महाराष्ट्राच्या लोकसेवेत करिअरसाठी तुमचे मार्गदर्शन</p>
+        </header>
+
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn" data-lang="en">English</button>
+                <button type="button" class="lang-btn active" data-lang="mr">मराठी</button>
+            </div>
+        </div>
+
+        <main class="grid grid-cols-1 gap-12">
+
+            <!-- Section 1: What are District Level Jobs? -->
+            <section class="card !p-0 overflow-hidden bg-gradient-to-br from-white via-yellow-50 to-white">
+                <div class="p-8">
+                    <h2 id="sec1-title" class="text-3xl font-bold section-heading">1. महाराष्ट्रात जिल्हा स्तरीय नोकऱ्या कोणत्या आहेत? 💡</h2>
+                    <p id="sec1-p1" class="text-lg mb-6">महाराष्ट्रामध्ये जिल्हा स्तरीय नोकऱ्या (उदा. वर्ग 'क' आणि 'ड' पद) स्थानिक पातळीवर प्रशासन, महसूल संकलन आणि सरकारी योजनांची अंमलबजावणी करण्यासाठी महत्त्वाच्या आहेत. या पदांसाठी भरती प्रामुख्याने **महाराष्ट्र लोकसेवा आयोग (MPSC)**, **जिल्हा परिषद (ZP)**, आणि जिल्हाधिकारी कार्यालयामार्फत केली जाते. **तलाठी** आणि **लिपिक-टंकलेखक** ही प्रमुख स्पर्धा परीक्षा पदे आहेत.</p>
+                </div>
+                <div id="postCardsContainer" class="px-8 pb-8 pt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 bg-transparent">
+                    <!-- Cards will be dynamically inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Section 2: Selection Process -->
+            <section class="card">
+                <h2 id="sec2-title" class="text-3xl font-bold section-heading text-center w-full">2. निवड प्रक्रिया: मार्ग 🎯</h2>
+                <p id="sec2-p1" class="text-lg text-center mb-10 max-w-3xl mx-auto">MPSC आणि जिल्हा परिषद भरतीमध्ये सामान्यतः वस्तुनिष्ठ लेखी परीक्षा आणि त्यानंतर कौशल्य चाचणी (Skill Test) किंवा कागदपत्र पडताळणीचा समावेश असतो.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8 lg:space-x-16">
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="prelimsMainModal"><span id="sec2-step1-title">टप्पा 1:</span><br><span id="sec2-step1-name">लेखी परीक्षा (Objective Exam)</span></div>
+                        <p id="sec2-step1-desc" class="mt-4 font-semibold text-slate-500">MCQ आधारित ऑनलाइन/ऑफलाइन चाचणी</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="mainsMainModal"><span id="sec2-step2-title">टप्पा 2:</span><br><span id="sec2-step2-name">कौशल्य चाचणी / मुलाखत</span></div>
+                        <p id="sec2-step2-desc" class="mt-4 font-semibold text-slate-500">पात्र उमेदवारांसाठी (टायपिंग/शॉर्टहँड)</p>
+                    </div>
+                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-center flex flex-col items-center">
+                        <div class="w-40 h-40 flex items-center justify-center rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span id="sec2-step3-title">टप्पा 3:</span><br><span id="sec2-step3-name">कागदपत्र पडताळणी</span></div>
+                        <p id="sec2-step3-desc" class="mt-4 font-semibold text-slate-500">अंतिम निवड सूची</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Eligibility -->
+            <section class="card">
+                <h2 id="sec3-title" class="text-3xl font-bold section-heading">3. कोण अर्ज करू शकतो? ✅</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <p id="sec3-p1" class="text-lg mb-6">महाराष्ट्रातील सरकारी नोकऱ्यांसाठी पात्रता MPSC किंवा संबंधित भरती मंडळाच्या नियमांनुसार शैक्षणिक पात्रता आणि वयोमर्यादेवर आधारित आहे.</p>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎂</span><div><strong id="sec3-age-title" class="text-slate-900 text-lg">वयोमर्यादा:</strong> <span id="sec3-age-desc">सामान्यतः **18 ते 38 वर्षे** (खुला वर्ग) किंवा **43 वर्षांपर्यंत** (मागासवर्गीय) असते. आरक्षित आणि विशेष प्रवर्गांना नियमांनुसार वयात सूट मिळते.</span></div></li>
+                            <li class="flex items-start"><span class="text-3xl text-[#f97316] mr-4">🎓</span><div><strong id="sec3-edu-title" class="text-white text-lg">शैक्षणिक पात्रता:</strong> <span id="sec3-edu-desc">**7वी/10वी पास** (शिपाई, मदतनीस) पासून **पदवी** (तलाठी, लिपिक, ग्रामसेवक) आणि आरोग्य/तंत्रज्ञान पदांसाठी **डिप्लोमा/पदवी** पर्यंत बदलते.</span></div></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec3-attempts-title" class="text-2xl font-bold text-slate-900 mb-4 border-b border-[#1d4ed8] pb-2">प्रयत्नांची संख्या आणि अधिवास 📊</h3>
+                         <ul id="sec3-agerelax-list" class="list-disc list-inside space-y-3 text-base">
+                             <li>MPSC साठी खुल्या प्रवर्गाला **6** आणि OBC ला **9** प्रयत्नांची मर्यादा आहे (MPSC अराजपत्रित गट 'ब' आणि 'क' साठी). जिल्हा परिषद भरतीला वयोमर्यादेपर्यंत कोणतीही मर्यादा नाही.</li>
+                             <li>आरक्षण लाभ घेण्यासाठी **महाराष्ट्राचा अधिवास (Domicile)** आणि **मराठी भाषेचे ज्ञान** आवश्यक आहे.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Exam Pattern -->
+            <section class="card bg-blue-50">
+                <h2 id="sec4-title" class="text-3xl font-bold section-heading text-center w-full">4. तलाठी/लिपिक परीक्षा पॅटर्न (गट क) 📚</h2>
+                <p id="sec4-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">तलाठी, लिपिक (गट क) आणि इतर जिल्हास्तरीय पदांसाठीच्या परीक्षांमध्ये मराठी भाषेचे ज्ञान, सामान्य ज्ञान, गणित आणि बुद्धिमत्ता यावर भर दिला जातो.</p>
+                 <div id="syllabus-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs1-title" class="subject-category-heading">मराठी भाषा आणि सामान्य ज्ञान</h3>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs2-title" class="subject-category-heading">इंग्रजी भाषा आणि अंकगणित</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col transition duration-300 hover:shadow-lg hover:border-orange-500 hover:-translate-y-1">
+                        <h3 id="gs3-title" class="subject-category-heading">बुद्धिमत्ता चाचणी आणि चालू घडामोडी</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Probation -->
+            <section class="card">
+                <h2 id="sec5-title" class="text-3xl font-bold section-heading">5. प्रशिक्षण आणि परिवीक्षा (Probation) 🏛️</h2>
+                <p id="sec5-p1" class="text-lg text-center mb-8 max-w-3xl mx-auto">महाराष्ट्रातील नवीन नियुक्त सरकारी कर्मचाऱ्यांसाठी सेवा निश्चित करण्यापूर्वी प्रशिक्षण आणि अनिवार्य परिवीक्षा कालावधी असतो.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="p-6 bg-yellow-100 rounded-xl border-2 border-[#f97316]">
+                        <h3 id="sec5-hindi-title" class="font-bold text-xl text-slate-900 mb-2">1. परिवीक्षा कालावधी</h3>
+                        <p id="sec5-hindi-p1" class="text-sm mb-2">पदांनुसार दोन वर्षांचा परिवीक्षा कालावधी लागू असतो.</p>
+                        <ul id="sec5-hindi-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                            <li>या दरम्यान कर्मचाऱ्याचे कार्यप्रदर्शन आणि आचार मूल्यांकन केले जाते.</li>
+                            <li>तलाठी, लिपिक यांसारख्या पदांसाठी विभागीय परीक्षा (Departmental Exams) उत्तीर्ण करणे बंधनकारक आहे.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-yellow-100 rounded-xl border-2 border-[#1d4ed8]">
+                        <h3 id="sec5-essay-title" class="font-bold text-xl text-slate-900 mb-2">2. सेवा-मधील प्रशिक्षण (On-the-Job Training)</h3>
+                        <p id="sec5-essay-p1" class="text-sm mb-2">नवीन कर्मचाऱ्याला सेवा नियम आणि जबाबदाऱ्यांची ओळख करून देण्यासाठी प्रशिक्षण दिले जाते.</p>
+                        <ul id="sec5-essay-list" class="list-disc list-inside space-y-1 mt-2 text-sm">
+                           <li>महसूल नियम, शासकीय कार्यपद्धती आणि सार्वजनिक सेवा हमी कायद्यावर (Right to Service Act) प्रशिक्षण.</li>
+                           <li>लिपिकीय पदांसाठी M.S.-CIT किंवा तत्सम संगणक प्रमाणपत्र आवश्यक असते.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 6: Key Responsibilities -->
+            <section class="card">
+                <h2 id="sec6-title" class="text-3xl font-bold section-heading">6. मुख्य जबाबदाऱ्या 🌟</h2>
+                <p id="sec6-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">ही विविध पदे महाराष्ट्र राज्य आणि जिल्हा स्तरावर प्रशासकीय, महसूल आणि लोककल्याणकारी कार्यांसाठी अत्यंत महत्त्वाची आहेत.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
+                    <div>
+                        <h3 id="sec6-eng-title" class="subject-category-heading">प्रशासन, न्याय आणि महसूल</h3>
+                        <ul id="sec6-eng-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**तलाठी/भूलेख लिपिक:** गाव पातळीवर 7/12 (सातबारा) आणि 8अ (आठ-अ) उतारा, महसूल संकलन आणि नोंदीची देखभाल.</li>
+                           <li>**लिपिक-टंकलेखक (Clerk-Typist):** जिल्हाधिकारी/न्यायालयीन कार्यालयांमध्ये टायपिंग, पत्रव्यवहार आणि फाइलिंग.</li>
+                            <li>**न्यायालयीन कर्मचारी:** जिल्हा न्यायालयात स्टेनो, लिपिक आणि शिपाई पदांवर न्यायिक प्रक्रियेस मदत करणे.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec6-elec-title" class="subject-category-heading">सार्वजनिक कल्याण आणि आरोग्य</h3>
+                        <ul id="sec6-elec-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**आरोग्य विभाग:** जिल्हा परिषद आणि सरकारी रुग्णालयांमध्ये ANM/GNM/प्रयोगशाळा तंत्रज्ञ (Lab Tech) पदांद्वारे आरोग्य सेवा.</li>
+                           <li>**ICDS/अंगणवाडी:** अंगणवाडी सेविका/पर्यवेक्षक पदांद्वारे बाल विकास, पोषण आणि आरोग्य कार्यक्रमांची अंमलबजावणी.</li>
+                           <li>**शिक्षण विभाग:** जिल्हा परिषद (ZP) शाळांमध्ये शिक्षण उपक्रमांसाठी मदत आणि शिक्षक भरती.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h3 id="sec6-naic-title" class="subject-category-heading">स्थानिक स्वराज्य संस्था आणि विकास</h3>
+                        <ul id="sec6-naic-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>**ग्रामसेवक:** ग्रामपंचायतीचा सचिव, विकास योजनांची अंमलबजावणी आणि ग्रामसभेची व्यवस्थापन.</li>
+                           <li>**रोजगार सेवक:** मनरेगा (MGNREGA) आणि इतर ग्रामीण रोजगार योजनांचे अंमलबजावणी.</li>
+                           <li>**महानगरपालिका/नगरपालिका कर्मचारी:** नागरी स्वच्छता, कर संकलन आणि नागरी सुविधांची व्यवस्थापन.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: Skills for Success -->
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                     <h2 id="sec7-title" class="text-3xl font-bold section-heading">7. एका आदर्श उमेदवाराचे गुण 🎙️</h2>
+                    <p id="sec7-p1" class="text-lg mb-6">MPSC आणि जिल्हा परिषद भरती परीक्षांमध्ये यश मिळवण्यासाठी महाराष्ट्राचे सखोल ज्ञान आणि टायपिंग कौशल्ये निर्णायक ठरतात.</p>
+                    <div class="chart-container h-80">
+                        <canvas id="interviewQualitiesChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="sec7-qualities-title" class="text-2xl font-bold text-slate-900 mb-6 border-b border-[#f97316] pb-2">प्रमुख क्षमता:</h3>
+                    <ul id="sec7-qualities-list" class="space-y-4 text-base">
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">महाराष्ट्र सामान्य ज्ञान (GK):</strong> महाराष्ट्राचा इतिहास, भूगोल, संस्कृती आणि राजकारण (विशेषतः पंचायत/ZP व्यवस्था) यावर मजबूत पकड आवश्यक.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">मराठी/इंग्रजी टायपिंग:</strong> लिपिक-टंकलेखक (Clerk-Typist) पदांसाठी मराठी (30 WPM) आणि इंग्रजी (40 WPM) टायपिंग प्रमाणपत्र अनिवार्य आहे.</li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">गणित आणि बुद्धिमत्ता:</strong> लेखी परीक्षेत चांगले गुण मिळविण्यासाठी अंकगणित आणि तार्किक क्षमतेवर प्रभुत्व असणे आवश्यक.</div></li>
+                        <li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">प्रशासनिक आणि तांत्रिक ज्ञान:</strong> महसूल, ग्रामीण विकास, आणि संगणक (MS-CIT/CCC) याबद्दल मूलभूत ज्ञान.</div></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Section 8: Preparation -->
+            <section class="card">
+                <h2 id="sec8-title" class="text-3xl font-bold section-heading">8. तुमची तयारीची रणनीती 📈</h2>
+                <p id="sec8-p1" class="text-lg mb-8 max-w-4xl mx-auto">MPSC/ZP भरती परीक्षांमध्ये यशस्वी होण्यासाठी महाराष्ट्र GK, मराठी भाषेचे सखोल ज्ञान आणि नियमित टायपिंगचा अभ्यास आवश्यक आहे.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec8-steps-title" class="text-2xl font-bold text-slate-900 mb-4">📚 प्रमुख टप्पे:</h3>
+                        <ol class="relative border-l-4 border-[#1d4ed8] pl-6 space-y-8">
+                            <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#1d4ed8] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step1-title" class="font-semibold text-xl text-slate-900 mb-1">महाराष्ट्र GK आणि मराठी भाषा</h4>
+                                <p id="sec8-step1-desc" class="text-base">MPSC/ZP भरतीमध्ये महाराष्ट्राचा इतिहास, भूगोल आणि मराठी भाषेचे व्याकरण (शब्दसंग्रह आणि वाक्यरचना) हे सर्वात महत्त्वाचे विभाग आहेत. यावर जास्त लक्ष केंद्रित करा.</p>
+                            </li>
+                             <li class="ml-4">
+                               <div class="absolute w-4 h-4 bg-[#1d4ed8] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step2-title" class="font-semibold text-xl text-slate-900 mb-1">टायपिंग/संगणक प्रमाणपत्र पूर्ण करा</h4>
+                                <p id="sec8-step2-desc" class="text-base">लिपिक आणि इतर तांत्रिक पदांसाठी MS-CIT आणि आवश्यक सरकारी टायपिंग प्रमाणपत्र (उदा. 30/40 WPM) वेळेत मिळवा.</p>
+                            </li>
+                             <li class="ml-4">
+                                <div class="absolute w-4 h-4 bg-[#1d4ed8] rounded-full -left-2.5 border-4 border-white"></div>
+                                <h4 id="sec8-step3-title" class="font-semibold text-xl text-slate-900 mb-1">मागील प्रश्नपत्रिकांचा अभ्यास</h4>
+                                <p id="sec8-step3-desc" class="text-base">मागील MPSC आणि ZP भरती परीक्षांच्या प्रश्नपत्रिका नियमितपणे सोडवा, ज्यामुळे परीक्षेचा नमुना आणि प्रश्नांची पुनरावृत्ती समजेल.</p>
+                            </li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h3 id="sec8-revision-title" class="text-2xl font-bold text-slate-900 mb-4">🔄 सवयी आणि सराव:</h3>
+                         <ul id="sec8-revision-list" class="list-disc list-inside space-y-3 text-base">
+                            <li><strong>दैनिक चालू घडामोडी:</strong> **सकाळ**, **लोकसत्ता** किंवा **महाराष्ट्र टाइम्स** यांसारखी मराठी वृत्तपत्रे नियमितपणे वाचा.</li>
+                            <li><strong>ग्रामसेवक/तलाठी तांत्रिक ज्ञान:</strong> ग्रामीण विकास आणि महसूल कायद्यांवर विशेष लक्ष द्या.</li>
+                            <li><strong>नियमित मॉक टेस्ट:</strong> वेळेत परीक्षा पूर्ण करण्यासाठी नियमितपणे मॉक टेस्टचा सराव करा.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: Recruitment Cycle -->
+            <section class="card">
+                <h2 id="sec9-title" class="text-3xl font-bold section-heading">9. भरती चक्र आणि प्रक्रिया 🗓️</h2>
+                <p id="sec9-p1" class="text-lg mb-8">भरती महाराष्ट्र लोकसेवा आयोग (MPSC), जिल्हा परिषद (ZP) किंवा जिल्हाधिकारी कार्यालयाद्वारे (Talathi) रिक्त जागांवर आधारित होते.</p>
+                <div class="career-path-timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step1-title" class="font-semibold text-xl text-slate-900 mb-1">भरती सूचना (Notification)</h4>
+                        <p id="sec9-step1-desc" class="text-base"><strong class="text-gray-600">वेळेची रूपरेषा:</strong> MPSC किंवा ZP (जिल्हा परिषद) च्या अधिकृत वेबसाइटवर रिक्त जागांची जाहिरात केली जाते.</p>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step2-title" class="font-semibold text-xl text-slate-900 mb-1">लेखी परीक्षा (Written Exam)</h4>
+                        <p id="sec9-step2-desc" class="text-base"><strong class="text-gray-600">वेळेची रूपरेषा:</strong> वस्तुनिष्ठ बहुपर्यायी परीक्षा (Objective MCQ Test) ऑनलाइन किंवा ऑफलाइन पद्धतीने घेतली जाते.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step3-title" class="font-semibold text-xl text-slate-900 mb-1">मेरिट लिस्ट आणि कौशल्य चाचणी</h4>
+                        <p id="sec9-step3-desc" class="text-base"><strong class="text-gray-600">वेळेची रूपरेषा:</strong> लेखी परीक्षेतील गुणांवर आधारित निवड सूची (Merit List) आणि आवश्यक असल्यास टायपिंग/शॉर्टहँड चाचणी.</p>
+                    </div>
+                     <div class="timeline-step">
+                        <div class="timeline-dot"></div>
+                        <h4 id="sec9-step4-title" class="font-semibold text-xl text-slate-900 mb-1">कागदपत्र पडताळणी आणि नियुक्ती</h4>
+                        <p id="sec9-step4-desc" class="text-base"><strong class="text-gray-600">वेळेची रूपरेषा:</strong> सर्व कागदपत्रे तपासून (जात प्रमाणपत्र, डोमिसाइल, नॉन-क्रिमी लेयर) अंतिम नियुक्ती आदेश जारी केला जातो.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Mistakes -->
+            <section class="card">
+                <h2 id="sec10-title" class="text-3xl font-bold section-heading text-center w-full">10. टाळण्यासाठी सामान्य चुका 🚫</h2>
+                <p id="sec10-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">महाराष्ट्रातील सरकारी नोकऱ्यांसाठी प्रचंड स्पर्धा आहे. या महत्त्वाच्या चुका टाळा.</p>
+                <div id="sec10-donts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base">
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                        <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake1-title" class="text-lg text-red-700">मराठी व्याकरणाकडे दुर्लक्ष:</strong>
+                            <p id="sec10-mistake1-desc" class="text-red-800 mt-1">मराठी भाषेच्या व्याकरणाचे आणि शब्दसंग्रहाचे (Vocabulary) उच्च महत्त्व कमी लेखणे.</p>
+                        </div>
+                    </div>
+                    <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake2-title" class="text-lg text-red-700">टायपिंग/संगणक प्रमाणपत्रात विलंब:</strong>
+                            <p id="sec10-mistake2-desc" class="text-red-800 mt-1">लिपिक/टंकलेखक (Clerk/Typist) पदांसाठी आवश्यक सरकारी टायपिंग परीक्षा उत्तीर्ण न करणे किंवा MS-CIT प्रमाणपत्र नसणे.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake3-title" class="text-lg text-red-700">महसूल/पंचायत कायद्यांकडे दुर्लक्ष:</strong>
+                            <p id="sec10-mistake3-desc" class="text-red-800 mt-1">तलाठी/ग्रामसेवक पदांसाठी आवश्यक महसूल नियम, पंचायत राज आणि ग्रामीण प्रशासनाचे तांत्रिक ज्ञान दुर्लक्ष करणे.</p>
+                        </div>
+                    </div>
+                     <div class="group relative p-6 bg-red-100 rounded-lg border-2 border-red-500 shadow-md transition-all duration-300 hover:shadow-xl hover:border-red-600 hover:-translate-y-1">
+                         <div class="absolute -top-4 -left-4 bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">❌</div>
+                        <div class="ml-10">
+                            <strong id="sec10-mistake4-title" class="text-lg text-red-700">प्रयत्नांच्या मर्यादेकडे लक्ष न देणे:</strong>
+                            <p id="sec10-mistake4-desc" class="text-red-800 mt-1">MPSC परीक्षांच्या बाबतीत खुल्या आणि OBC प्रवर्गांसाठी असलेल्या प्रयत्नांच्या (Attempts) संख्येच्या मर्यादेकडे दुर्लक्ष करणे.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 11: Coaching -->
+            <section class="card">
+                <h2 id="sec11-title" class="text-3xl font-bold section-heading">11. कोचिंग कोठून मिळवावी? 🏫</h2>
+                <p id="sec11-p1" class="text-lg text-center mb-8 max-w-4xl mx-auto">पुणे, मुंबई आणि नागपूर येथे MPSC आणि जिल्हा परिषद भरती परीक्षांसाठी उत्कृष्ट कोचिंग संस्था उपलब्ध आहेत.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 id="sec11-gov-title" class="subject-category-heading">📚 स्व-अध्ययन</h3>
+                        <ul id="sec11-gov-list" class="list-disc list-inside space-y-2 text-base">
+                           <li>महाराष्ट्र राज्य पाठ्यपुस्तक मंडळाची (State Board) 6वी ते 12वीची पुस्तके (विशेषतः इतिहास, भूगोल).</li>
+                           <li>मराठी GK, अंकगणित आणि बुद्धिमत्ता चाचणीसाठी मानक पुस्तके.</li>
+                           <li>**लोकसत्ता** किंवा **सकाळ** सारखी मराठी वृत्तपत्रे आणि मासिके वाचणे.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 id="sec11-pvt-title" class="subject-category-heading">💻 कोचिंग संस्था</h3>
+                        <p id="sec11-pvt-p1" class="text-base mb-2">अनेक ऑनलाइन आणि ऑफलाइन प्लॅटफॉर्म MPSC/ZP परीक्षांवर लक्ष केंद्रित करतात.</p>
+                        <ul id="sec11-pvt-list" class="list-disc list-inside space-y-2 text-base">
+                            <li>MPSC अराजपत्रित गट 'ब' आणि 'क' परीक्षांची तयारी करणारे चांगले कोचिंग निवडा.</li>
+                            <li>जिल्हा परिषद, तलाठी, ग्रामसेवक भरतीसाठी विशेष मॉक टेस्ट सिरीज जॉईन करा.</li>
+                            <li>मराठी आणि इंग्रजी टायपिंगचा नियमित सराव अनिवार्य आहे.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Career Growth -->
+            <section class="card">
+                <h2 id="sec12-title" class="text-3xl font-bold section-heading">12. करिअरची वाढ आणि पदोन्नती 🚀</h2>
+                <p id="sec12-p1" class="text-lg mb-6">महाराष्ट्रातील सरकारी नोकरी उत्कृष्ट स्थिरता आणि सेवाजेष्ठता तसेच विभागीय परीक्षांच्या आधारावर संरचित पदोन्नतीचा मार्ग प्रदान करते.</p>
+                <button id="sec12-career-btn" class="modal-action-button mt-4 inline-block" data-modal-target="careerGrowthModal">करिअर प्रगती पहा</button>
+            </section>
+
+            <!-- Section 13: Syllabus & Resources -->
+            <section class="card bg-blue-50">
+                <h2 id="sec13-title" class="text-3xl font-bold section-heading">13. तलाठी/लिपिक परीक्षा सिलाबस फोकस 📚</h2>
+                <p id="sec13-p1" class="text-lg text-center mb-10 max-w-4xl mx-auto">सामान्यतः जिल्हास्तरीय परीक्षांच्या सिलाबसमध्ये मराठी/इंग्रजी भाषा, सामान्य ज्ञान (महाराष्ट्र केंद्रित), आणि गणित/बुद्धिमत्ता यांचा समावेश असतो.</p>
+                <div id="syllabus-material-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-oir-title" class="subject-category-heading">भाषा आणि सामान्य ज्ञान (GK)</h3>
+                        <div id="syllabus-oir-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">मराठी भाषा (व्याकरण, शब्दसंग्रह)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">महाराष्ट्र सामान्य ज्ञान आणि चालू घडामोडी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 id="syllabus-ppdt-title" class="subject-category-heading">संख्यात्मक योग्यता आणि तांत्रिक ज्ञान</h3>
+                        <div id="syllabus-ppdt-list" class="space-y-4">
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">अंकगणित आणि बुद्धिमत्ता चाचणी (Quant & Reasoning)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">संगणक आणि माहिती तंत्रज्ञान (Computer & IT)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                            <div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">महसूल आणि पंचायत राज कायदे (Talathi/Gram Sevak)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 border-t-2 pt-8 border-orange-500/10">
+            <p id="footer-text" class="text-slate-500 text-lg font-medium">&copy; 2025 | महाराष्ट्राच्या जनतेची सेवा.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="prelimsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="prelims-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="prelims-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="mainsMainModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="mains-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="mains-modal-p1"></p>
+        </div>
+    </div>
+
+    <div id="interviewModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="interview-modal-title" class="text-2xl font-bold text-slate-900 mb-4"></h3>
+            <p id="interview-modal-p1"></p>
+        </div>
+    </div>
+
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <div class="flex items-center mb-4">
+                <div id="postDetailIcon" class="text-5xl mr-4"></div>
+                <h3 id="postDetailTitle" class="text-3xl font-bold text-slate-900"></h3>
+            </div>
+            <p id="postDetailDescription" class="text-lg text-slate-600 leading-relaxed"></p>
+        </div>
+    </div>
+    
+    <div id="careerGrowthModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 id="career-modal-title" class="text-2xl font-bold text-slate-900 mb-6"></h3>
+            <div id="careerPathContainer" class="career-path-timeline"></div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let interviewChartInstance;
+            let currentLang = 'mr';
+
+            const serviceDetailsData = {
+                'en': {
+                    'collector': { 
+                        name: '1. Collector Office (Clerk, DEO, Peon)', 
+                        icon: '🏛️',
+                        description: 'Clerical and support roles at the District Collectorate and Revenue Offices, handling administrative tasks, records, and data entry for state schemes.',
+                        cta: 'Learn More'
+                    },
+                    'court': { 
+                        name: '2. District Court (Steno, Clerk, Peon)', 
+                        icon: '⚖️',
+                        description: 'Posts supporting the judicial processes, including Stenographers, Clerks, and support staff within the District and Sessions Courts.',
+                        cta: 'Learn More'
+                    },
+                    'health': { 
+                        name: '3. Health Dept. (ANM, GNM, Lab Tech - Contract)', 
+                        icon: '⚕️',
+                        description: 'Contractual paramedical and technical roles under Zilla Parishad (ZP) and National Health Mission (NHM), crucial for community health service delivery.',
+                        cta: 'Learn More'
+                    },
+                    'icds': {
+                        name: '4. ICDS/Anganwadi (Supervisor, Worker, Helper)',
+                        icon: '👧',
+                        description: 'Key roles for implementing the Integrated Child Development Services scheme, focused on monitoring, nutrition programs, and child welfare at the Anganwadi centres.',
+                        cta: 'Learn More'
+                    },
+                    'panchayat': {
+                        name: '5. Panchayati Raj (Gram Sevak, Panchayat Sahayak)',
+                        icon: '🏘️',
+                        description: 'Village-level staff responsible for Gram Panchayat administration, development scheme implementation, and record-keeping (often filled via ZP Bharti).',
+                        cta: 'Learn More'
+                    },
+                    'education': {
+                        name: '6. Education Dept. (Guest Teacher, Block Resource Person)',
+                        icon: '🏫',
+                        description: 'Temporary roles like Guest Teachers in Zilla Parishad schools or Block Resource Persons (BRP) supporting teacher training and education quality initiatives.',
+                        cta: 'Learn More'
+                    },
+                     'land': {
+                        name: '7. Land Records (Talathi, Amin)',
+                        icon: '🗺️',
+                        description: 'Highly competitive and crucial roles (**Talathi/Revenue Officer**) responsible for maintaining village land records (7/12 & 8A extracts), property surveys, and land revenue collection.',
+                        cta: 'Learn More'
+                    },
+                     'municipal': {
+                        name: '8. Municipal Corp. (Sanitation Staff, Clerk)',
+                        icon: '🏢',
+                        description: 'Jobs essential for urban local bodies (Mahanagar Palika/Nagar Parishad), managing public works, sanitation (Safai Karamchari), civic records, and general clerical duties.',
+                        cta: 'Learn More'
+                    },
+                     'drda': {
+                        name: '9. DRDA/Zila Parishad Posts',
+                        icon: '🏞️',
+                        description: 'Staff hired by the District Rural Development Agency (DRDA) or Zilla Parishad to implement and monitor flagship rural development and poverty alleviation programs across the district.',
+                        cta: 'Learn More'
+                    }
+                },
+                'mr': {
+                    'collector': { 
+                        name: '1. जिल्हाधिकारी कार्यालय (लिपिक, DEO, शिपाई)', 
+                        icon: '🏛️',
+                        description: 'जिल्हाधिकारी कार्यालय (महसूल विभाग) मध्ये लिपिकीय आणि सहाय्यक भूमिका, जे प्रशासकीय कार्य, रेकॉर्ड आणि सरकारी योजनांसाठी डेटा एंट्री हाताळतात.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                    'court': { 
+                        name: '2. जिल्हा न्यायालय (स्टेनो, लिपिक, शिपाई)', 
+                        icon: '⚖️',
+                        description: 'जिल्हा आणि सत्र न्यायालयांमध्ये न्यायिक प्रक्रियेस मदत करणारे पद, ज्यात स्टेनोग्राफर, लिपिक आणि सहायक कर्मचारी यांचा समावेश आहे.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                    'health': { 
+                        name: '3. आरोग्य विभाग (ANM, GNM, लॅब टेक - संविदा)', 
+                        icon: '⚕️',
+                        description: 'जिल्हा परिषद (ZP) आणि राष्ट्रीय आरोग्य अभियान (NHM) अंतर्गत कंत्राटी पॅरामेडिकल आणि तांत्रिक भूमिका, समुदाय आरोग्य सेवा वितरणासाठी महत्त्वपूर्ण.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                    'icds': {
+                        name: '4. ICDS/अंगणवाडी (पर्यवेक्षक, कार्यकर्ता, मदतनीस)',
+                        icon: '👧',
+                        description: 'एकात्मिक बाल विकास सेवा योजना (ICDS) लागू करण्यासाठी प्रमुख भूमिका, ज्यामध्ये अंगणवाडी केंद्रांवर पोषण कार्यक्रम आणि बाल कल्याणाचे निरीक्षण केले जाते.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                    'panchayat': {
+                        name: '5. पंचायत राज (ग्रामसेवक, पंचायत सहायक)',
+                        icon: '🏘️',
+                        description: 'ग्रामपंचायत प्रशासन, विकास योजनांची अंमलबजावणी आणि रेकॉर्ड ठेवण्यासाठी जबाबदार असलेले ग्रामस्तरीय कर्मचारी (अनेकदा ZP भरतीद्वारे भरले जातात).',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                    'education': {
+                        name: '6. शिक्षण विभाग (अतिथी शिक्षक, गट संसाधन व्यक्ती)',
+                        icon: '🏫',
+                        description: 'जिल्हा परिषद शाळांमध्ये अतिथी शिक्षकांसारख्या तात्पुरत्या भूमिका किंवा शिक्षण गुणवत्तेच्या उपक्रमांना समर्थन देणारे गट संसाधन व्यक्ती (BRP).',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                     'land': {
+                        name: '7. भूलेख (तलाठी, अमीन)',
+                        icon: '🗺️',
+                        description: 'अत्यंत स्पर्धात्मक आणि महत्त्वपूर्ण भूमिका (**तलाठी/महसूल अधिकारी**) जे गाव पातळीवरील जमीन नोंदी (7/12 आणि 8अ उतारे), मालमत्ता सर्वेक्षण आणि महसूल संकलनासाठी जबाबदार आहेत.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                     'municipal': {
+                        name: '8. महानगरपालिका (स्वच्छता कर्मचारी, लिपिक)',
+                        icon: '🏢',
+                        description: 'शहरी स्थानिक संस्थांसाठी (महानगरपालिका/नगरपरिषद) आवश्यक नोकऱ्या, सार्वजनिक कार्ये, स्वच्छता (सफाई कर्मचारी), नागरी नोंदी आणि सामान्य लिपिकीय कर्तव्ये व्यवस्थापित करणे.',
+                        cta: 'अधिक जाणून घ्या'
+                    },
+                     'drda': {
+                        name: '9. डीआरडीए/जिल्हा परिषद पदे',
+                        icon: '🏞️',
+                        description: 'जिल्हा ग्रामीण विकास संस्था (DRDA) किंवा जिल्हा परिषदेद्वारे ग्रामीण विकास आणि दारिद्र्य निर्मूलन कार्यक्रम अंमलात आणण्यासाठी आणि त्यांचे निरीक्षण करण्यासाठी नियुक्त केलेले कर्मचारी.',
+                        cta: 'अधिक जाणून घ्या'
+                    }
+                }
+            };
+            
+            const careerPathData = {
+                'en': {
+                    path: [
+                        { rank: "Entry-level (Clerk-Typist / Gram Sevak / Talathi)", desc: "Starts at the base level, often requiring specific typing certificates (Marathi/English) and MS-CIT for clerical roles." },
+                        { rank: "Senior Clerk / Revenue Assistant / Extension Officer (ZP)", desc: "The first promotion, which comes with an increase in pay and supervisory responsibilities, typically based on departmental exams and seniority." },
+                        { rank: "Office Superintendent / Circle Officer / Tahsildar (Promotional)", desc: "Further progression leading to middle management and independent charge of circles or sections." },
+                        { rank: "Higher Administrative Posts (Class I/II Promotional)", desc: "With long and dedicated service, avenues exist to progress to higher gazetted posts in the Secretariat or Directorate via promotion quotas." }
+                    ]
+                },
+                'mr': {
+                    path: [
+                        { rank: "प्रवेश-स्तर (लिपिक-टंकलेखक / ग्रामसेवक / तलाठी)", desc: "बेस स्तरावर सरकारी सेवेत प्रवेश करतात, लिपिकीय भूमिकेसाठी विशिष्ट टायपिंग प्रमाणपत्र (मराठी/इंग्रजी) आणि MS-CIT आवश्यक असते." },
+                        { rank: "वरिष्ठ लिपिक / महसूल सहायक / विस्तार अधिकारी (ZP)", desc: "पहिली पदोन्नती, जी विभागीय परीक्षा आणि सेवाजेष्ठतेवर आधारित असते, ज्यामुळे पगार आणि पर्यवेक्षी जबाबदाऱ्या वाढतात." },
+                        { rank: "कार्यालय अधीक्षक / मंडळ अधिकारी / तहसीलदार (पदोन्नती)", desc: "पुढील प्रगतीमुळे मध्यम व्यवस्थापनाकडे आणि मंडळे किंवा विभागांच्या स्वतंत्र प्रभारकडे नेतृत्व मिळते." },
+                        { rank: "उच्च प्रशासकीय पदे (वर्ग I/II पदोन्नती)", desc: "दीर्घ आणि समर्पित सेवेमुळे पदोन्नती कोट्याद्वारे सचिवालय किंवा संचालनालयात उच्च राजपत्रित पदांवर (Gazetted Posts) प्रगती करण्याचे मार्ग आहेत." }
+                    ]
+                }
+            };
+
+            const translations = {
+                'en': {
+                    'header-title': '🚩 Maharashtra District Level Jobs Guide 🏰',
+                    'header-subtitle': 'Your Guide to a Career in Maharashtra\'s Public Service',
+                    'sec1-title': '1. What are District Level Jobs in Maharashtra? 💡',
+                    'sec1-p1': 'District Level Jobs in Maharashtra (e.g., Group \'C\' and \'D\' posts) are crucial for local administration, revenue collection, and implementing government schemes. Recruitment is primarily conducted through the **Maharashtra Public Service Commission (MPSC)**, **Zilla Parishad (ZP)**, and the Collectorate. **Talathi** (Land Records) and **Clerk-Typist** are key competitive posts.',
+                    'sec2-title': '2. Selection Process: The Pathway 🎯',
+                    'sec2-p1': 'MPSC and Zilla Parishad recruitment typically involves an objective written exam followed by a Skill Test or document verification.',
+                    'sec2-step1-title': 'Stage 1:', 'sec2-step1-name': 'Written Exam (Objective Exam)', 'sec2-step1-desc': 'MCQ Based Online/Offline Test',
+                    'sec2-step2-title': 'Stage 2:', 'sec2-step2-name': 'Skill Test / Interview', 'sec2-step2-desc': 'For qualified candidates (Typing/Shorthand)',
+                    'sec2-step3-title': 'Stage 3:', 'sec2-step3-name': 'Document Verification', 'sec2-step3-desc': 'Final Select List',
+                    'sec3-title': '3. Who Can Apply? ✅',
+                    'sec3-p1': 'Eligibility for these Maharashtra Government jobs is based on specific educational qualifications and age limits as per MPSC or respective recruitment board rules.',
+                    'sec3-age-title': 'Age Limit:', 'sec3-age-desc': 'Typically between **18 and 38 years** (Open Category) or **up to 43 years** (Reserved Category). Age relaxation is applicable for reserved and special categories as per rules.',
+                    'sec3-edu-title': 'Educational Qualification:', 'sec3-edu-desc': 'Varies from **7th/10th Pass** (Peon, Helper) to **Graduation** (Talathi, Clerk, Gram Sevak) and **Diploma/Degree** for health/technical roles.',
+                    'sec3-attempts-title': 'Number of Attempts & Domicile 📊',
+                    'sec3-agerelax-list': '<li>MPSC Group C and B exams have an attempt limit of **6** for Open and **9** for OBC categories. Zilla Parishad posts usually have no limit until the maximum age is reached.</li><li>**Maharashtra Domicile** and **Marathi language proficiency** are essential to avail reservation benefits.</li>',
+                    'sec4-title': '4. Talathi/Clerk Exam Pattern (Group C) 📚',
+                    'sec4-p1': 'Exams for Talathi, Clerk (Group C), and other district posts focus on Marathi Language, General Knowledge, Quantitative Aptitude, and Reasoning.',
+                    'gs1-title': 'Marathi Language and General Knowledge', 'gs2-title': 'English Language and Arithmetic', 'gs3-title': 'Intelligence Test and Current Affairs',
+                    'sec5-title': '5. Training & Probation 🏛️',
+                    'sec5-p1': 'New Maharashtra Government appointees undergo a mandatory probation period and training before their service is confirmed.',
+                    'sec5-hindi-title': '1. Probation Period', 'sec5-hindi-p1': 'A standard two-year probation period is applicable depending on the post.', 'sec5-hindi-list': '<li>Employee performance and conduct are assessed during this period.</li><li>Passing mandatory departmental exams is compulsory for posts like Talathi and Clerk.</li>',
+                    'sec5-essay-title': '2. On-the-Job Training & Certification', 'sec5-essay-p1': 'Training is provided to familiarize recruits with service rules and duties.', 'sec5-essay-list': '<li>Induction training covers Revenue Rules, Government Procedures, and Right to Service Act.</li><li>MS-CIT or similar computer certificate is often required for clerical posts.</li>',
+                    'sec6-title': '6. Key Responsibilities 🌟',
+                    'sec6-p1': 'These diverse roles are fundamental to administrative, revenue, and public welfare functions at the State and District levels in Maharashtra.',
+                    'sec6-eng-title': 'Admin, Judicial & Revenue', 'sec6-eng-list': '<li>**Talathi/Land Clerk:** Maintaining village land records (7/12 & 8A extracts), revenue collection, and record keeping.</li><li>**Clerk-Typist:** Typing, correspondence, and filing in Collectorate/Judicial offices.</li><li>**Court Staff:** Assisting judicial processes at District Court (Steno, Clerk, Peon).</li>',
+                    'sec6-elec-title': 'Public Welfare & Health', 'sec6-elec-list': '<li>**Health Dept:** Providing health services through ANM/GNM/Lab Tech posts in ZP and government hospitals.</li><li>**ICDS/Anganwadi:** Supervising and implementing child development, nutrition, and health programs.</li><li>**Education Dept:** Support for education initiatives in Zilla Parishad schools and teacher recruitment.</li>',
+                    'sec6-naic-title': 'Local Governance & Development', 'sec6-naic-list': '<li>**Gram Sevak:** Secretary of the Gram Panchayat, scheme implementation, and Gram Sabha management.</li><li>**Rojgar Sevak:** Implementation of MGNREGA and other rural employment schemes.</li><li>**Municipal Corp. Staff:** Managing urban sanitation, tax collection, and civic amenities.</li>',
+                    'sec7-title': '7. Qualities of an Ideal Candidate 🎙️',
+                    'sec7-p1': 'Success in MPSC/ZP exams requires deep knowledge of Maharashtra GK, strong aptitude, and essential typing skills.',
+                    'sec7-qualities-title': 'Key Competencies:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">Knowledge of Maharashtra (GK):</strong> Strong grasp of Maharashtra\'s history, geography, culture, and political system (especially ZP/Panchayat Raj).</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">Marathi/English Typing:</strong> Mandatory typing certificates (30 WPM Marathi, 40 WPM English) are required for Clerk-Typist roles.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">Quant & Reasoning Aptitude:</strong> Crucial for scoring high in the written objective exams.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">Revenue/Panchayat Technical Knowledge:</strong> Basic knowledge of Land Revenue Rules and Panchayat Raj laws (essential for Talathi/Gram Sevak).</div></li>',
+                    'sec8-title': '8. Your Preparation Strategy 📈',
+                    'sec8-p1': 'A successful strategy for MPSC/ZP exams requires deep focus on Maharashtra GK, proficiency in Marathi language, and consistent typing practice.',
+                    'sec8-steps-title': '📚 Key Steps:',
+                    'sec8-step1-title': 'Master Maharashtra GK & Marathi Language', 'sec8-step1-desc': 'The highest weightage is given to Maharashtra\'s history, geography, and Marathi Grammar. Focus intensively on State Board books and standard reference texts.',
+                    'sec8-step2-title': 'Complete Typing/Computer Certificates', 'sec8-step2-desc': 'Ensure you possess MS-CIT and the mandatory Government Typing Certificates (e.g., 30/40 WPM) before applying for Clerk/Typist posts.',
+                    'sec8-step3-title': 'Practice Previous Year Papers', 'sec8-step3-desc': 'Regularly solve previous years\' MPSC/ZP Bharti exam papers to understand the pattern, complexity, and frequently asked questions.',
+                    'sec8-revision-title': '🔄 Habits & Practice:',
+                    'sec8-revision-list': '<li><strong>Daily Current Affairs:</strong> Read Marathi newspapers like **Sakal**, **Loksatta**, or **Maharashtra Times** daily.</li><li><strong>Technical Knowledge:</strong> Pay special attention to Revenue Rules and Panchayat Raj Acts for specialized posts like Talathi/Gram Sevak.</li><li><strong>Regular Mock Tests:</strong> Practice timed mock tests to enhance speed and accuracy in the competitive environment.</li>',
+                    'sec9-title': '9. Recruitment Cycle & Process 🗓️',
+                    'sec9-p1': 'Recruitment is conducted by MPSC, ZP (Zilla Parishad), or the Collectorate, based on vacancies.',
+                    'sec9-step1-title': 'Recruitment Notification', 'sec9-step1-desc': '<strong>Timeline:</strong> Vacancies are advertised on MPSC or ZP official websites.',
+                    'sec9-step2-title': 'Written Exam (Objective)', 'sec9-step2-desc': '<strong>Timeline:</strong> An Objective MCQ test is conducted, either online or offline.',
+                    'sec9-step3-title': 'Merit List & Skill Test', 'sec9-step3-desc': '<strong>Timeline:</strong> Merit list based on written scores is released, followed by typing/shorthand tests if required.',
+                    'sec9-step4-title': 'Document Verification & Appointment', 'sec9-step4-desc': '<strong>Timeline:</strong> Verification of all original documents (Domicile, Caste, Non-Creamy Layer) is done before the final appointment order is issued.',
+                    'sec10-title': '10. Common Mistakes to Avoid 🚫',
+                    'sec10-p1': 'Competition for Maharashtra Government jobs is intense. Avoid these critical errors.',
+                    'sec10-mistake1-title': 'Ignoring Marathi Grammar:', 'sec10-mistake1-desc': 'Underestimating the high weightage and complexity of Marathi language grammar and vocabulary sections.',
+                    'sec10-mistake2-title': 'Delaying Typing/Computer Certificates:', 'sec10-mistake2-desc': 'Failing to acquire the mandatory government typing certificate or MS-CIT before the required deadlines for clerical/typist roles.',
+                    'sec10-mistake3-title': 'Neglecting Technical/Revenue Laws:', 'sec10-mistake3-desc': 'Taking the specialized technical knowledge required for Talathi/Gram Sevak (Revenue Rules, Panchayat Raj Acts) lightly.',
+                    'sec10-mistake4-title': 'Ignoring Attempt Limits (MPSC):', 'sec10-mistake4-desc': 'For MPSC Group B/C exams, exceeding the attempt limit for open or OBC categories is a major mistake.',
+                    'sec11-title': '11. Where to Get Coaching 🏫',
+                    'sec11-p1': 'Cities like Pune, Mumbai, and Nagpur have numerous specialized coaching institutes for MPSC/ZP exams.',
+                    'sec11-gov-title': '📚 Self-Study', 'sec11-gov-list': '<li>Maharashtra State Board books (6th to 12th) especially for History and Geography.</li><li>Standard reference books for Marathi GK, Quant, and Reasoning.</li><li>Daily reading of Marathi newspapers like **Loksatta** or **Sakal**.</li>',
+                    'sec11-pvt-title': '💻 Coaching Institutes', 'sec11-pvt-p1': 'Many online and offline platforms focus on MPSC/ZP exams.', 'sec11-pvt-list': '<li>Choose institutes specializing in MPSC Non-Gazetted Group B and C exams.</li><li>Join dedicated mock test series for Talathi, Gram Sevak, and Clerk exams.</li><li>Regularly practice Marathi and English typing.</li>',
+                    'sec12-title': '12. Career Growth & Promotions 🚀',
+                    'sec12-p1': 'A government job in Maharashtra offers excellent stability and a structured career path based on seniority, performance, and departmental exams.',
+                    'sec12-career-btn': 'View Career Progression',
+                    'sec13-title': '13. Talathi/Clerk Exam Syllabus Focus 📚',
+                    'sec13-p1': 'The typical syllabus concentrates on Marathi/English language proficiency, General Knowledge (Maharashtra focused), and Arithmetic/Reasoning.',
+                    'syllabus-oir-title': 'Language & General Knowledge (GK)',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">Marathi Language (Grammar, Vocabulary)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">Maharashtra GK and Current Affairs</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'syllabus-ppdt-title': 'Numerical Aptitude & Technical Knowledge',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">Arithmetic and Intelligence Test (Quant & Reasoning)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">Computer and Information Technology</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">Revenue and Panchayat Raj Laws (Talathi/Gram Sevak)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | Serving the people of Maharashtra.',
+                    'interviewChartData': {
+                        labels: ['Maharashtra GK', 'Quant & Reasoning', 'Marathi Language', 'Typing/Technical'],
+                        data: [92, 85, 95, 88]
+                    },
+                    'career-modal-title': 'Clerical/Revenue Cadre Career Progression',
+                    'prelims-modal-title': 'Stage 1: Written Examination (Objective)',
+                    'prelims-modal-p1': 'The primary stage is an objective MCQ test (usually 100-200 marks). This exam covers Marathi/English, General Knowledge (with a focus on Maharashtra), and Aptitude. The written score determines the merit list for the next stage.',
+                    'mains-modal-title': 'Stage 2: Skill Test / Proficiency Exam',
+                    'mains-modal-p1': 'Candidates shortlisted must appear for the mandatory Skill Test for Clerk-Typist and Steno roles, which checks typing speed in Marathi (30 WPM) and English (40 WPM). For technical posts like Talathi/Gram Sevak, deep knowledge tests on Revenue/Panchayat Raj laws are often conducted.',
+                    'interview-modal-title': 'Stage 3: Document Verification & Appointment',
+                    'interview-modal-p1': 'The final selection is based on merit from the written score. Candidates undergo strict verification of all original documents, including Domicile, Caste/NCL, Educational Certificates, and mandatory Typing/MS-CIT certificates, before receiving the final appointment order.',
+                },
+                'mr': {
+                    'header-title': '🚩 महाराष्ट्र जिल्हा स्तरीय नोकरी मार्गदर्शन 🏰',
+                    'header-subtitle': 'महाराष्ट्राच्या लोकसेवेत करिअरसाठी तुमचे मार्गदर्शन',
+                    'sec1-title': '1. महाराष्ट्रात जिल्हा स्तरीय नोकऱ्या कोणत्या आहेत? 💡',
+                    'sec1-p1': 'महाराष्ट्रामध्ये जिल्हा स्तरीय नोकऱ्या (उदा. वर्ग \'क\' आणि \'ड\' पद) स्थानिक पातळीवर प्रशासन, महसूल संकलन आणि सरकारी योजनांची अंमलबजावणी करण्यासाठी महत्त्वाच्या आहेत. या पदांसाठी भरती प्रामुख्याने **महाराष्ट्र लोकसेवा आयोग (MPSC)**, **जिल्हा परिषद (ZP)**, आणि जिल्हाधिकारी कार्यालयामार्फत केली जाते. **तलाठी** आणि **लिपिक-टंकलेखक** ही प्रमुख स्पर्धा परीक्षा पदे आहेत.',
+                    'sec2-title': '2. निवड प्रक्रिया: मार्ग 🎯',
+                    'sec2-p1': 'MPSC आणि जिल्हा परिषद भरतीमध्ये सामान्यतः वस्तुनिष्ठ लेखी परीक्षा आणि त्यानंतर कौशल्य चाचणी (Skill Test) किंवा कागदपत्र पडताळणीचा समावेश असतो.',
+                    'sec2-step1-title': 'टप्पा 1:', 'sec2-step1-name': 'लेखी परीक्षा (Objective Exam)', 'sec2-step1-desc': 'MCQ आधारित ऑनलाइन/ऑफलाइन चाचणी',
+                    'sec2-step2-title': 'टप्पा 2:', 'sec2-step2-name': 'कौशल्य चाचणी / मुलाखत', 'sec2-step2-desc': 'पात्र उमेदवारांसाठी (टायपिंग/शॉर्टहँड)',
+                    'sec2-step3-title': 'टप्पा 3:', 'sec2-step3-name': 'कागदपत्र पडताळणी', 'sec2-step3-desc': 'अंतिम निवड सूची',
+                    'sec3-title': '3. कोण अर्ज करू शकतो? ✅',
+                    'sec3-p1': 'महाराष्ट्रातील सरकारी नोकऱ्यांसाठी पात्रता MPSC किंवा संबंधित भरती मंडळाच्या नियमांनुसार शैक्षणिक पात्रता आणि वयोमर्यादेवर आधारित आहे.',
+                    'sec3-age-title': 'वयोमर्यादा:', 'sec3-age-desc': 'सामान्यतः **18 ते 38 वर्षे** (खुला वर्ग) किंवा **43 वर्षांपर्यंत** (मागासवर्गीय) असते. आरक्षित आणि विशेष प्रवर्गांना नियमांनुसार वयात सूट मिळते.',
+                    'sec3-edu-title': 'शैक्षणिक पात्रता:', 'sec3-edu-desc': '**7वी/10वी पास** (शिपाई, मदतनीस) पासून **पदवी** (तलाठी, लिपिक, ग्रामसेवक) आणि आरोग्य/तंत्रज्ञान पदांसाठी **डिप्लोमा/पदवी** पर्यंत बदलते.',
+                    'sec3-attempts-title': 'प्रयत्नांची संख्या आणि अधिवास 📊',
+                    'sec3-agerelax-list': '<li>MPSC साठी खुल्या प्रवर्गाला **6** आणि OBC ला **9** प्रयत्नांची मर्यादा आहे (MPSC अराजपत्रित गट \'ब\' आणि \'क\' साठी). जिल्हा परिषद भरतीला वयोमर्यादेपर्यंत कोणतीही मर्यादा नाही.',
+                    'sec4-title': '4. तलाठी/लिपिक परीक्षा पॅटर्न (गट क) 📚',
+                    'sec4-p1': 'तलाठी, लिपिक (गट क) आणि इतर जिल्हास्तरीय पदांसाठीच्या परीक्षांमध्ये मराठी भाषेचे ज्ञान, सामान्य ज्ञान, गणित आणि बुद्धिमत्ता यावर भर दिला जातो.',
+                    'gs1-title': 'मराठी भाषा आणि सामान्य ज्ञान', 'gs2-title': 'इंग्रजी भाषा आणि अंकगणित', 'gs3-title': 'बुद्धिमत्ता चाचणी आणि चालू घडामोडी',
+                    'sec5-title': '5. प्रशिक्षण आणि परिवीक्षा (Probation) 🏛️',
+                    'sec5-p1': 'महाराष्ट्रातील नवीन नियुक्त सरकारी कर्मचाऱ्यांसाठी सेवा निश्चित करण्यापूर्वी प्रशिक्षण आणि अनिवार्य परिवीक्षा कालावधी असतो.',
+                    'sec5-hindi-title': '1. परिवीक्षा कालावधी', 'sec5-hindi-p1': 'पदांनुसार दोन वर्षांचा परिवीक्षा कालावधी लागू असतो.', 'sec5-hindi-list': '<li>या दरम्यान कर्मचाऱ्याचे कार्यप्रदर्शन आणि आचार मूल्यांकन केले जाते.</li><li>तलाठी, लिपिक यांसारख्या पदांसाठी विभागीय परीक्षा (Departmental Exams) उत्तीर्ण करणे बंधनकारक आहे.</li>',
+                    'sec5-essay-title': '2. सेवा-मधील प्रशिक्षण (On-the-Job Training)', 'sec5-essay-p1': 'नवीन कर्मचाऱ्याला सेवा नियम आणि जबाबदाऱ्यांची ओळख करून देण्यासाठी प्रशिक्षण दिले जाते.', 'sec5-essay-list': '<li>महसूल नियम, शासकीय कार्यपद्धती आणि सार्वजनिक सेवा हमी कायद्यावर (Right to Service Act) प्रशिक्षण.</li><li>लिपिकीय पदांसाठी M.S.-CIT किंवा तत्सम संगणक प्रमाणपत्र आवश्यक असते.',
+                    'sec6-title': '6. मुख्य जबाबदाऱ्या 🌟',
+                    'sec6-p1': 'ही विविध पदे महाराष्ट्र राज्य आणि जिल्हा स्तरावर प्रशासकीय, महसूल आणि लोककल्याणकारी कार्यांसाठी अत्यंत महत्त्वाची आहेत.',
+                    'sec6-eng-title': 'प्रशासन, न्याय आणि महसूल', 'sec6-eng-list': '<li>**तलाठी/भूलेख लिपिक:** गाव पातळीवर 7/12 (सातबारा) आणि 8अ (आठ-अ) उतारा, महसूल संकलन आणि नोंदीची देखभाल.</li><li>**लिपिक-टंकलेखक (Clerk-Typist):** जिल्हाधिकारी/न्यायालयीन कार्यालयांमध्ये टायपिंग, पत्रव्यवहार आणि फाइलिंग.</li><li>**न्यायालयीन कर्मचारी:** जिल्हा न्यायालयात स्टेनो, लिपिक आणि शिपाई पदांवर न्यायिक प्रक्रियेस मदत करणे.',
+                    'sec6-elec-title': 'सार्वजनिक कल्याण आणि आरोग्य', 'sec6-elec-list': '<li>**आरोग्य विभाग:** जिल्हा परिषद आणि सरकारी रुग्णालयांमध्ये ANM/GNM/प्रयोगशाळा तंत्रज्ञ (Lab Tech) पदांद्वारे आरोग्य सेवा.</li><li>**ICDS/अंगणवाडी:** अंगणवाडी सेविका/पर्यवेक्षक पदांद्वारे बाल विकास, पोषण आणि आरोग्य कार्यक्रमांची अंमलबजावणी.</li><li>**शिक्षण विभाग:** जिल्हा परिषद (ZP) शाळांमध्ये शिक्षण उपक्रमांसाठी मदत आणि शिक्षक भरती.',
+                    'sec6-naic-title': 'स्थानिक स्वराज्य संस्था आणि विकास', 'sec6-naic-list': '<li>**ग्रामसेवक:** ग्रामपंचायतीचा सचिव, विकास योजनांची अंमलबजावणी आणि ग्रामसभेची व्यवस्थापन.</li><li>**रोजगार सेवक:** मनरेगा (MGNREGA) आणि इतर ग्रामीण रोजगार योजनांचे अंमलबजावणी.</li><li>**महानगरपालिका/नगरपालिका कर्मचारी:** नागरी स्वच्छता, कर संकलन आणि नागरी सुविधांची व्यवस्थापन.',
+                    'sec7-title': '7. एका आदर्श उमेदवाराचे गुण 🎙️',
+                    'sec7-p1': 'MPSC आणि जिल्हा परिषद भरती परीक्षांमध्ये यश मिळवण्यासाठी महाराष्ट्राचे सखोल ज्ञान आणि टायपिंग कौशल्ये निर्णायक ठरतात.',
+                    'sec7-qualities-title': 'प्रमुख क्षमता:',
+                    'sec7-qualities-list': '<li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🌍</span><div><strong class="text-slate-900">महाराष्ट्र सामान्य ज्ञान (GK):</strong> महाराष्ट्राचा इतिहास, भूगोल, संस्कृती आणि राजकारण (विशेषतः पंचायत/ZP व्यवस्था) यावर मजबूत पकड आवश्यक.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">💻</span><div><strong class="text-slate-900">मराठी/इंग्रजी टायपिंग:</strong> लिपिक-टंकलेखक (Clerk-Typist) पदांसाठी मराठी (30 WPM) आणि इंग्रजी (40 WPM) टायपिंग प्रमाणपत्र अनिवार्य आहे.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🧠</span><div><strong class="text-slate-900">गणित आणि बुद्धिमत्ता:</strong> लेखी परीक्षेत चांगले गुण मिळविण्यासाठी अंकगणित आणि तार्किक क्षमतेवर प्रभुत्व असणे आवश्यक.</div></li><li class="flex items-start"><span class="text-2xl text-[#f97316] mr-3">🤝</span><div><strong class="text-slate-900">प्रशासनिक आणि तांत्रिक ज्ञान:</strong> महसूल, ग्रामीण विकास, आणि संगणक (MS-CIT/CCC) याबद्दल मूलभूत ज्ञान.</div></li>',
+                    'sec8-title': '8. तुमची तयारीची रणनीती 📈',
+                    'sec8-p1': 'MPSC/ZP भरती परीक्षांमध्ये यशस्वी होण्यासाठी महाराष्ट्र GK, मराठी भाषेचे सखोल ज्ञान आणि नियमित टायपिंगचा अभ्यास आवश्यक आहे.',
+                    'sec8-steps-title': '📚 प्रमुख टप्पे:',
+                    'sec8-step1-title': 'महाराष्ट्र GK आणि मराठी भाषा', 'sec8-step1-desc': 'MPSC/ZP भरतीमध्ये महाराष्ट्राचा इतिहास, भूगोल आणि मराठी भाषेचे व्याकरण (शब्दसंग्रह आणि वाक्यरचना) हे सर्वात महत्त्वाचे विभाग आहेत. यावर जास्त लक्ष केंद्रित करा.',
+                    'sec8-step2-title': 'टायपिंग/संगणक प्रमाणपत्र पूर्ण करा', 'sec8-step2-desc': 'लिपिक आणि इतर तांत्रिक पदांसाठी MS-CIT आणि आवश्यक सरकारी टायपिंग प्रमाणपत्र (उदा. 30/40 WPM) वेळेत मिळवा.',
+                    'sec8-step3-title': 'मागील प्रश्नपत्रिकांचा अभ्यास', 'sec8-step3-desc': 'मागील MPSC आणि ZP भरती परीक्षांच्या प्रश्नपत्रिका नियमितपणे सोडवा, ज्यामुळे परीक्षेचा नमुना आणि प्रश्नांची पुनरावृत्ती समजेल.',
+                    'sec8-revision-title': '🔄 सवयी आणि सराव:',
+                    'sec8-revision-list': '<li>**दैनिक चालू घडामोडी:** **सकाळ**, **लोकसत्ता** किंवा **महाराष्ट्र टाइम्स** यांसारखी मराठी वृत्तपत्रे नियमितपणे वाचा.</li><li>**ग्रामसेवक/तलाठी तांत्रिक ज्ञान:** ग्रामीण विकास आणि महसूल कायद्यांवर विशेष लक्ष द्या.</li><li>**नियमित मॉक टेस्ट:** वेळेत परीक्षा पूर्ण करण्यासाठी नियमितपणे मॉक टेस्टचा सराव करा.</li>',
+                    'sec9-title': '9. भरती चक्र आणि प्रक्रिया 🗓️',
+                    'sec9-p1': 'भरती महाराष्ट्र लोकसेवा आयोग (MPSC), जिल्हा परिषद (ZP) किंवा जिल्हाधिकारी कार्यालयाद्वारे (Talathi) रिक्त जागांवर आधारित होते.',
+                    'sec9-step1-title': 'भरती सूचना (Notification)', 'sec9-step1-desc': '<strong>वेळेची रूपरेषा:</strong> MPSC किंवा ZP (जिल्हा परिषद) च्या अधिकृत वेबसाइटवर रिक्त जागांची जाहिरात केली जाते.',
+                    'sec9-step2-title': 'लेखी परीक्षा (Written Exam)', 'sec9-step2-desc': '<strong>वेळेची रूपरेषा:</strong> वस्तुनिष्ठ बहुपर्यायी परीक्षा (Objective MCQ Test) ऑनलाइन किंवा ऑफलाइन पद्धतीने घेतली जाते.',
+                    'sec9-step3-title': 'मेरिट लिस्ट आणि कौशल्य चाचणी', 'sec9-step3-desc': '<strong>वेळेची रूपरेषा:</strong> लेखी परीक्षेतील गुणांवर आधारित निवड सूची (Merit List) आणि आवश्यक असल्यास टायपिंग/शॉर्टहँड चाचणी.',
+                    'sec9-step4-title': 'कागदपत्र पडताळणी आणि नियुक्ती', 'sec9-step4-desc': '<strong>वेळेची रूपरेषा:</strong> सर्व कागदपत्रे तपासून (जात प्रमाणपत्र, डोमिसाइल, नॉन-क्रिमी लेयर) अंतिम नियुक्ती आदेश जारी केला जातो.',
+                    'sec10-title': '10. टाळण्यासाठी सामान्य चुका 🚫',
+                    'sec10-p1': 'महाराष्ट्रातील सरकारी नोकऱ्यांसाठी प्रचंड स्पर्धा आहे. या महत्त्वाच्या चुका टाळा.',
+                    'sec10-mistake1-title': 'मराठी व्याकरणाकडे दुर्लक्ष:', 'sec10-mistake1-desc': 'मराठी भाषेच्या व्याकरणाचे आणि शब्दसंग्रहाचे (Vocabulary) उच्च महत्त्व कमी लेखणे.',
+                    'sec10-mistake2-title': 'टायपिंग/संगणक प्रमाणपत्रात विलंब:', 'sec10-mistake2-desc': 'लिपिक/टंकलेखक (Clerk/Typist) पदांसाठी आवश्यक सरकारी टायपिंग परीक्षा उत्तीर्ण न करणे किंवा MS-CIT प्रमाणपत्र नसणे.',
+                    'sec10-mistake3-title': 'महसूल/पंचायत कायद्यांकडे दुर्लक्ष:', 'sec10-mistake3-desc': 'तलाठी/ग्रामसेवक पदांसाठी आवश्यक महसूल नियम, पंचायत राज आणि ग्रामीण प्रशासनाचे तांत्रिक ज्ञान दुर्लक्ष करणे.',
+                    'sec10-mistake4-title': 'प्रयत्नांच्या मर्यादेकडे लक्ष न देणे:', 'sec10-mistake4-desc': 'MPSC परीक्षांच्या बाबतीत खुल्या आणि OBC प्रवर्गांसाठी असलेल्या प्रयत्नांच्या (Attempts) संख्येच्या मर्यादेकडे दुर्लक्ष करणे.',
+                    'sec11-title': '11. कोचिंग कोठून मिळवावी? 🏫',
+                    'sec11-p1': 'पुणे, मुंबई आणि नागपूर येथे MPSC आणि जिल्हा परिषद भरती परीक्षांसाठी उत्कृष्ट कोचिंग संस्था उपलब्ध आहेत.',
+                    'sec11-gov-title': '📚 स्व-अध्ययन', 'sec11-gov-list': '<li>महाराष्ट्र राज्य पाठ्यपुस्तक मंडळाची (State Board) 6वी ते 12वीची पुस्तके (विशेषतः इतिहास, भूगोल).</li><li>मराठी GK, अंकगणित आणि बुद्धिमत्ता चाचणीसाठी मानक पुस्तके.</li><li>**लोकसत्ता** किंवा **सकाळ** सारखी मराठी वृत्तपत्रे आणि मासिके वाचणे.</li>',
+                    'sec11-pvt-title': '💻 कोचिंग संस्था', 'sec11-pvt-p1': 'अनेक ऑनलाइन आणि ऑफलाइन प्लॅटफॉर्म MPSC/ZP परीक्षांवर लक्ष केंद्रित करतात.', 'sec11-pvt-list': '<li>MPSC अराजपत्रित गट \'ब\' आणि \'क\' परीक्षांची तयारी करणारे चांगले कोचिंग निवडा.</li><li>जिल्हा परिषद, तलाठी, ग्रामसेवक भरतीसाठी विशेष मॉक टेस्ट सिरीज जॉईन करा.</li><li>मराठी आणि इंग्रजी टायपिंगचा नियमित सराव अनिवार्य आहे.',
+                    'sec12-title': '12. करिअरची वाढ आणि पदोन्नती 🚀',
+                    'sec12-p1': 'महाराष्ट्रातील सरकारी नोकरी उत्कृष्ट स्थिरता आणि सेवाजेष्ठता तसेच विभागीय परीक्षांच्या आधारावर संरचित पदोन्नतीचा मार्ग प्रदान करते.',
+                    'sec12-career-btn': 'करिअर प्रगती पहा',
+                    'sec13-title': '13. तलाठी/लिपिक परीक्षा सिलाबस फोकस 📚',
+                    'sec13-p1': 'सामान्यतः जिल्हास्तरीय परीक्षांच्या सिलाबसमध्ये मराठी/इंग्रजी भाषा, सामान्य ज्ञान (महाराष्ट्र केंद्रित), आणि गणित/बुद्धिमत्ता यांचा समावेश असतो.',
+                    'syllabus-oir-title': 'भाषा आणि सामान्य ज्ञान (GK)',
+                    'syllabus-oir-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">📜</span><div class="flex-grow">मराठी भाषा (व्याकरण, शब्दसंग्रह)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌍</span><div class="flex-grow">महाराष्ट्र सामान्य ज्ञान आणि चालू घडामोडी</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">नोट्स</button><button class="lectures-btn">व्याख्यान</button></div></div>',
+                    'syllabus-ppdt-title': 'संख्यात्मक योग्यता आणि तांत्रिक ज्ञान',
+                    'syllabus-ppdt-list': '<div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🧠</span><div class="flex-grow">अंकगणित आणि बुद्धिमत्ता चाचणी (Quant & Reasoning)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">💻</span><div class="flex-grow">संगणक आणि माहिती तंत्रज्ञान (Computer & IT)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div><div class="subject-item flex-col sm:flex-row"><div class="flex items-center w-full"><span class="icon">🌾</span><div class="flex-grow">महसूल आणि पंचायत राज कायदे (Talathi/Gram Sevak)</div></div><div class="w-full sm:w-auto mt-2 sm:mt-0 flex justify-end flex-shrink-0 space-x-2"><button class="notes-btn">Notes</button><button class="lectures-btn">Lectures</button></div></div>',
+                    'footer-text': '&copy; 2025 | महाराष्ट्राच्या जनतेची सेवा.',
+                    'interviewChartData': {
+                        labels: ['महाराष्ट्र GK', 'गणित आणि बुद्धिमत्ता', 'मराठी भाषा', 'टायपिंग/तांत्रिक ज्ञान'],
+                        data: [92, 85, 95, 88]
+                    },
+                    'career-modal-title': 'लिपिकीय/महसूल संवर्ग करिअर प्रगती',
+                    'prelims-modal-title': 'टप्पा 1: लेखी परीक्षा (वस्तुनिष्ठ)',
+                    'prelims-modal-p1': 'पहिली पायरी एक वस्तुनिष्ठ MCQ चाचणी (साधारणपणे 100-200 गुण) असते. या परीक्षेत मराठी/इंग्रजी, सामान्य ज्ञान (महाराष्ट्रावर विशेष लक्ष), आणि योग्यता चाचणी (Aptitude) चा समावेश असतो. लेखी गुणांवर पुढील टप्प्यासाठी गुणवत्ता यादी निश्चित होते.',
+                    'mains-modal-title': 'टप्पा 2: कौशल्य चाचणी / दक्षता परीक्षा',
+                    'mains-modal-p1': 'शॉर्टलिस्ट केलेल्या उमेदवारांना लिपिक-टंकलेखक (Clerk-Typist) आणि स्टेनो पदांसाठी अनिवार्य कौशल्य चाचणी (मराठी 30 WPM आणि इंग्रजी 40 WPM टायपिंग गती) द्यावी लागते. तलाठी/ग्रामसेवक यांसारख्या तांत्रिक पदांसाठी महसूल/पंचायत राज कायद्यांवर सखोल ज्ञान चाचणी घेतली जाते.',
+                    'interview-modal-title': 'टप्पा 3: कागदपत्र पडताळणी आणि नियुक्ती',
+                    'interview-modal-p1': 'अंतिम निवड लेखी गुणांवर आधारित गुणवत्ता यादीनुसार केली जाते. अंतिम नियुक्ती आदेश जारी होण्यापूर्वी, उमेदवारांच्या सर्व मूळ कागदपत्रांची (अधिवास, जात/NCL, शैक्षणिक प्रमाणपत्रे, आणि अनिवार्य टायपिंग/MS-CIT प्रमाणपत्रे) कठोर पडताळणी केली जाते.',
+                }
+            };
+            
+            function renderPostCards(lang) {
+                const container = document.getElementById('postCardsContainer');
+                if (!container) return;
+                container.innerHTML = '';
+                const posts = serviceDetailsData[lang];
+                for (const id in posts) {
+                    const post = posts[id];
+                    const card = document.createElement('div');
+                    card.className = 'group relative p-6 bg-white rounded-xl text-center border-2 border-slate-200 hover:border-orange-500 transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:-translate-y-2';
+                    card.dataset.postId = id;
+                    card.innerHTML = `
+                        <div class="text-6xl mb-4 transition-transform duration-300 group-hover:scale-110">${post.icon}</div>
+                        <h4 class="font-bold text-xl text-slate-900">${post.name}</h4>
+                        <p class="text-sm text-slate-500 mt-2">${post.cta}</p>
+                        <div class="absolute top-3 right-3 text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showPostDetails(id));
+                    container.appendChild(card);
+                }
+            }
+
+            function showPostDetails(postId) {
+                const post = serviceDetailsData[currentLang][postId];
+                if (post) {
+                    document.getElementById('postDetailIcon').innerText = post.icon;
+                    document.getElementById('postDetailTitle').innerText = post.name;
+                    document.getElementById('postDetailDescription').innerText = post.description;
+                    showModal('postDetailModal');
+                }
+            }
+
+            function renderCareerPath(lang) {
+                const container = document.getElementById('careerPathContainer');
+                 if (!container) return;
+                container.innerHTML = '';
+                const path = careerPathData[lang].path;
+                path.forEach((step) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'timeline-step';
+                    stepElement.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-xl text-slate-900 mb-1">${step.rank}</h4>
+                        <p class="text-base text-slate-600">${step.desc}</p>
+                    `;
+                    container.appendChild(stepElement);
+                });
+            }
+
+            function initInterviewChart() {
+                const ctx = document.getElementById('interviewQualitiesChart').getContext('2d');
+                interviewChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations.mr.interviewChartData.labels,
+                        datasets: [{
+                            label: 'Importance',
+                            data: translations.mr.interviewChartData.data,
+                            backgroundColor: 'rgba(29, 78, 216, 0.7)', /* Blue */
+                            borderColor: '#1d4ed8',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { 
+                                beginAtZero: true, 
+                                max: 100,
+                                ticks: { color: '#4b5563' },
+                                grid: { color: 'rgba(107, 114, 128, 0.1)' }
+                            },
+                            x: { 
+                                ticks: { color: '#4b5563', font: { size: 14 } },
+                                grid: { color: 'rgba(107, 114, 128, 0.0)' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function translateChart() {
+                if (interviewChartInstance) {
+                    const lang = currentLang; 
+                    const data = translations[lang].interviewChartData;
+                    
+                    if (data && data.labels && data.data) { 
+                        interviewChartInstance.data.labels = data.labels;
+                        interviewChartInstance.data.datasets[0].data = data.data;
+                        interviewChartInstance.update();
+                    } else {
+                        console.error('Chart data missing or incomplete for language:', lang);
+                    }
+                }
+            }
+            
+            function translatePage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                for (const id in translations[lang]) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.innerHTML = translations[lang][id];
+                    }
+                }
+                renderPostCards(lang);
+                translateChart();
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    translatePage(e.currentTarget.dataset.lang);
+                });
+            });
+
+            const showModal = (modalId) => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    const titleKey = `${modalId.replace('Modal', '')}-modal-title`;
+                    const p1Key = `${modalId.replace('Modal', '')}-modal-p1`;
+                    const titleEl = modal.querySelector('h3');
+                    const p1El = modal.querySelector('p');
+
+                    const modalLang = currentLang;
+
+                    if (titleEl && translations[modalLang][titleKey]) {
+                        titleEl.innerHTML = translations[modalLang][titleKey];
+                    }
+                    if (p1El && translations[modalLang][p1Key]) {
+                        p1El.innerHTML = translations[modalLang][p1Key];
+                    }
+                    
+                    if (modalId === 'careerGrowthModal') {
+                        const careerTitleEl = modal.querySelector('#career-modal-title');
+                        if (careerTitleEl) {
+                           careerTitleEl.innerHTML = (modalLang === 'mr') ? translations.mr['career-modal-title'] : translations.en['career-modal-title'];
+                        }
+                        renderCareerPath(modalLang);
+                    }
+
+
+                    modal.classList.add('active');
+                }
+            };
+            
+            const closeModal = (modal) => modal?.classList.remove('active');
+
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', () => showModal(trigger.dataset.modalTarget));
+            });
+
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal(modal);
+                });
+                modal.querySelector('.modal-close-button')?.addEventListener('click', () => closeModal(modal));
+            });
+            
+            // Initial render
+            initInterviewChart();
+            translatePage('mr'); // Default to Marathi for Maharashtra
+        });
+    </script>
+</body>
+</html>
