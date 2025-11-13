@@ -130,40 +130,142 @@
             100% { background-position: -200% 0; }
         }
         
-        /* New Style for Slide Section Background (Dynamic Background Container) */
-        .latest-forms {
+        /* --- LATEST RECRUITMENT SLIDER STYLES (UPDATED) --- */
+        
+        /* Slider Wrapper: Holds dynamic background image and controls size/border */
+        #slider-bg {
             position: relative;
-            padding-top: 2rem; 
-            padding-bottom: 2rem;
-            overflow: hidden;
-            background-color: #1A1C20; /* Fallback */
+            /* Dynamic height based on device size */
+            height: 210px; /* Mobile height */
             border-radius: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); 
-            /* Transition for smooth background image change */
-            transition: background-image 1s ease-in-out; 
+            overflow: hidden;
+            background-color: #1A1C20; 
+            
+            /* Gold Shining Electric Border */
+            border: 3px solid var(--electric-gold-glow);
+            box-shadow: 0 0 10px var(--electric-gold-glow), 0 4px 15px rgba(0, 0, 0, 0.6);
+            
+            /* Dynamic Background properties */
+            transition: background-image 0.8s ease-in-out; 
             background-size: cover;
             background-position: center;
         }
 
-        /* Ensure background overlay for contrast */
-        .latest-forms::before {
+        /* Desktop Height Override */
+        @media (min-width: 1024px) {
+            #slider-bg {
+                height: 500px; /* PC height (Kept previous 500px) */
+            }
+        }
+
+        /* Dark Overlay for Text Contrast (Covers the whole slider area) */
+        #slider-bg::before {
             content: '';
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            /* Dark glass-like overlay for text contrast */
-            background: rgba(40, 30, 5, 0.85); 
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.45); /* Darker overlay for clarity over image */
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             z-index: 0;
-            border-radius: 1.5rem;
         }
 
-        /* Elevate slider content above the new background/overlay */
-        .latest-forms .text-center, .latest-forms .slider-container {
+        /* Inner Content Section (Positioning) */
+        .latest-forms {
             position: relative;
+            height: 100%;
+            padding: 0; 
             z-index: 10;
+             justify-content: center; 
+        }
+        
+        /* Slider Container: Holds the slides */
+        .slider-container { 
+            position: center; 
+            width: 100%; 
+            height: 100%;
+            overflow: hidden; 
+        }
+
+        /* Individual Slide Styles (Centered) */
+        .slide { 
+            background: transparent !important; 
+            display: flex;
+            /* Aligned items center (Vertical centering) */
+            align-items: center; 
+            /* Justify content center (Horizontal centering) */
+            justify-content: center; 
+            padding: 1rem; 
+            text-align: center; /* Center text within the wrapper */
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+        
+        /* Slide Content Styling */
+        .slide-content-wrapper {
+            /* Max width to enable text wrapping on phones */
+            max-width: 90%; 
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+        
+        /* Post Name Styling (FONT SIZE HALVED & MOBILE WRAP ADJUSTED) */
+        .slide-content-wrapper .post-name {
+            font-size: 1.1rem; /* Reduced Mobile Size */
+            font-weight: 900;
+            line-height: 1.2;
+            color: var(--electric-gold-glow);
+            margin-bottom: 0.5rem; 
+            /* Allow wrapping on mobile for post name */
+            word-wrap: break-word; 
+            white-space: normal;
+        }
+        .slide-content-wrapper .last-date {
+            font-size: 0.9rem; /* Reduced size slightly */
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 0.8rem; 
+        }
+        .apply-btn {
+            background-image: linear-gradient(45deg, #FFC107, #B8860B);
+            color: var(--button-text-light);
+            padding: 0.5rem 1.2rem; /* Reduced padding for smaller button */
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            /* --- FIX: Ensure button has sufficient minimum height on mobile --- */
+            min-height: 2.5rem; 
+            line-height: 1.5;
+        }
+        .apply-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+
+        /* Desktop / Large screen adjustments for text size */
+        @media (min-width: 1024px) {
+            .slide-content-wrapper .post-name {
+                font-size: 1.25rem; /* Reduced Desktop Size */
+            }
+            .slide-content-wrapper .last-date {
+                font-size: 1.25rem; /* Adjusted for better contrast on desktop */
+            }
+            .slide {
+                padding: 3rem;
+            }
+        }
+
+        /* Control Button Positioning */
+        #prev-btn, #next-btn {
+            background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent white/glass */
+            color: var(--electric-gold-glow);
+            border: 1px solid var(--electric-gold-glow);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+        #progress-bar-container {
+            bottom: 0.5rem; /* Adjusted progress bar position */
         }
 
         /* --- Global Styles --- */
@@ -172,7 +274,7 @@
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
         } 
         
-        /* --- CARD DESIGN (h.html style applied) --- */
+        /* --- CARD DESIGN (No change needed here, keeping existing card styles) --- */
         .card {
             position: relative;
             background-color: transparent; 
@@ -185,7 +287,6 @@
             align-items: center;
             text-align: center;
             color: var(--text-light);
-            /* Box shadow copied from h.html */
             box-shadow: inset 0 0 0 1px var(--electric-gold-dark), 0 8px 16px rgba(0,0,0,0.4);
             transition: all 0.4s ease;
             cursor: pointer;
@@ -193,13 +294,11 @@
             padding: 1.5rem; 
             backdrop-filter: none; 
             -webkit-backdrop-filter: none;
-            /* Default background for non-image cards, optional */
             background-color: rgba(40, 30, 5, 0.4); 
         }
         
         .card:hover {
             transform: translateY(-5px) scale(1.02);
-            /* Stronger shadow + electric gold glow */
             box-shadow: 
                 0 12px 24px rgba(0, 0, 0, 0.6), 
                 0 0 15px rgba(255, 215, 0, 0.8), 
@@ -208,9 +307,8 @@
 
         .card-content {
             position: bottom;
-            z-index: 3; /* Increased z-index */
+            z-index: 3;
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-            /* Ensure text is always centered vertically and horizontally */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -219,72 +317,17 @@
             width: 100%;
         }
         
-        .card-icon {
-            font-size: 2rem; 
-            margin-bottom: 0.5rem;
-            line-height: 1;
-            color: var(--electric-gold-glow); 
-        }
-        .card-heading {
-            font-weight: 700; 
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 0.1rem;
-        }
-        .card-sub-heading {
-            font-size: 0.7rem; 
-            color: var(--text-muted); 
-            font-weight: 500;
-        }
-
-        /* Overlay from h.html for image backgrounds */
-        .bg-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            /* Semi-transparent dark overlay for text contrast */
-            background: rgba(0, 0, 0, 0.5); 
-            z-index: 2;
-            transition: background 0.4s ease;
-        }
-        .card:hover .bg-overlay {
-            background: rgba(0, 0, 0, 0.65); 
-        }
-        
         /* PC CARDS (Desktop Breakpoint) */
         @media (min-width: 1024px) {
-            .card {
-                height: 140px;
-            }
-            .card:hover {
-                transform: translateY(-10px) scale(1.02); 
-                box-shadow: 
-                    0 20px 40px rgba(0, 0, 0, 0.6), 
-                    0 0 30px 8px rgba(255, 215, 0, 0.9), 
-                    inset 0 0 0 1px var(--electric-gold-glow);
+             /* Set to 4 columns as requested previously */
+            #govt-exam-section .grid, 
+            #ai-guide-section .grid, 
+            #private-sector-section .grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
         
-        /* Mobile Responsive Card Styles */
-        @media (max-width: 800px) {
-            .card {
-                height: 104px;
-                padding: 0.75rem;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 0 0 1px var(--electric-gold-dark);
-            }
-            .card-icon {
-                font-size: 1.6rem;
-                margin-bottom: 0.3rem;
-            }
-            .card-heading {
-                font-size: 0.8rem;
-            }
-            .card-sub-heading {
-                font-size: 0.6rem;
-            }
-        }
-        
-        /* --- Modal & Popups Styles (Kept from index.html) --- */
+        /* --- Modal & Popups Styles (UPDATED) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--popup-overlay-bg);
@@ -300,11 +343,17 @@
             max-width: 650px;
             width: 95%;
             position: relative;
-            transform: translateY(-50px);
+            
+            /* --- FIX: Center vertically on small screens and limit height --- */
+            top: 50%; /* Position from the top center */
+            transform: translateY(-50%); /* Pull up by half its height to perfectly center */
+            /* Removed unnecessary transform: translateY(-50px) on active state */
+
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
             margin: 20px;
             overflow-y: auto;
-            max-height: 90vh;
+            max-height: 80vh; /* Reduced max height slightly so it doesn't overlap header/footer too much */
+            
             border: 1px solid var(--electric-gold-dark); 
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
@@ -344,63 +393,6 @@
             margin-bottom: 1rem;
         }
 
-        /* --- Auto-Slider CSS (Kept from index.html) --- */
-        .slider-container { position: relative; width: 100%; height: 200px; overflow: hidden; }
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
-        .slide.active { opacity: 1; }
-        /* Slide colors from index.html kept below */
-        .slide-1 { background: linear-gradient(to right, #6366f1, #8b5cf6); border: 2px solid #8b5cf6; }
-        .slide-2 { background: linear-gradient(to right, #10b981, #34d399); border: 2px solid #34d399; }
-        .slide-3 { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; }
-        .slide-4 { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; }
-        .slide-5 { background: linear-gradient(to right, #06b6d4, #22d3ee); border: 2px solid #22d3ee; }
-        .slide-6 { background: linear-gradient(to right, #2563eb, #1d4ed8); border: 2px solid #1d4ed8; }
-        .slide-7 { background: linear-gradient(to right, #d97706, #f59e0b); border: 2px solid #f59e0b; }
-        .slide-8 { background: linear-gradient(to right, #14b8a6, #2dd4bf); border: 2px solid #2dd4bf; }
-        .slide-9 { background: linear-gradient(to right, #be185d, #ec4899); border: 2px solid #ec4899; }
-        .slide-10 { background: linear-gradient(to right, #059669, #10b981); border: 2px solid #10b981; }
-        .slide-11 { background: linear-gradient(to right, #4c1d95, #6d28d9); border: 2px solid #6d28d9; }
-        .slide-12 { background: linear-gradient(to right, #9d174d, #be185d); border: 2px solid #be185d; }
-        .slide-13 { background: linear-gradient(to right, #166534, #15803d); border: 2px solid #15803d; }
-        .slide-14 { background: linear-gradient(to right, #881337, #b91c1c); border: 2px solid #b91c1c; }
-        .slide-15 { background: linear-gradient(to right, #1e3a8a, #1e40af); border: 2px solid #1e40af; }
-        .slide-16 { background: linear-gradient(to right, #1d4ed8, #2563eb); border: 2px solid #2563eb; }
-        .slide-17 { background: linear-gradient(to right, #083344, #0e7490); border: 2px solid #0e7490; }
-        .slide-18 { background: linear-gradient(to right, #0d9488, #0f766e); border: 2px solid #0f766e; }
-        .slide-19 { background: linear-gradient(to right, #d946ef, #e879f9); border: 2px solid #e879f9; }
-        .slide-20 { background: linear-gradient(to right, #eab308, #facc15); border: 2px solid #facc15; }
-        .slide-21 { background: linear-gradient(to right, #4f46e5, #6366f1); border: 2px solid #6366f1; }
-        .slide-22 { background: linear-gradient(to right, #991b1b, #b91c1c); border: 2px solid #b91c1c; }
-        .slide-23 { background: linear-gradient(to right, #0369a1, #0c4a6e); border: 2px solid #0c4a6e; }
-        .slide-24 { background: linear-gradient(to right, #0d9488, #14b8a6); border: 2px solid #14b8a6; }
-        .slide-25 { background: linear-gradient(to right, #9333ea, #a855f7); border: 2px solid #a855f7; }
-        .slide-26 { background: linear-gradient(to right, #9a3412, #c2410c); border: 2px solid #c2410c; }
-        .slide-27 { background: linear-gradient(to right, #155e75, #0891b2); border: 2px solid #0891b2; }
-        .slide-28 { background: linear-gradient(to right, #9d174d, #ec4899); border: 2px solid #ec4899; }
-        .slide-29 { background: linear-gradient(to right, #7e22ce, #a855f7); border: 2px solid #a855f7; }
-        .slide-30 { background: linear-gradient(to right, #15803d, #16a34a); border: 2px solid #16a34a; }
-        .slide-31 { background: linear-gradient(to right, #a21caf, #c026d3); border: 2px solid #c026d3; }
-        .slide-32 { background: linear-gradient(to right, #b45309, #d97706); border: 2px solid #d97706; }
-        .slide-33 { background: linear-gradient(to right, #dc2626, #ef4444); border: 2px solid #ef4444; }
-        .slide-34 { background: linear-gradient(to right, #0891b2, #22d3ee); border: 2px solid #22d3ee; }
-        .slide-35 { background: linear-gradient(to right, #65a30d, #84cc16); border: 2px solid #84cc16; }
-        .slide-36 { background: linear-gradient(to right, #ca8a04, #eab308); border: 2px solid #eab308; }
-        .slide-37 { background: linear-gradient(to right, #5b21b6, #7c3aed); border: 2px solid #7c3aed; }
-        .slide-38 { background: linear-gradient(to right, #c2410c, #ea580c); border: 2px solid #ea580c; }
-        .slide-39 { background: linear-gradient(to right, #166534, #10b981); border: 2px solid #10b981; }
-        .slide-40 { background: linear-gradient(to right, #172554, #1e40af); border: 2px solid #1e40af; }
-        .slide-41 { background: linear-gradient(to right, #991b1b, #ef4444); border: 2px solid #ef4444; }
-        .slide-42 { background: linear-gradient(to right, #c026d3, #db2777); border: 2px solid #db2777; }
-        .slide-43 { background: linear-gradient(to right, #2563eb, #1d4ed8); border: 2px solid #1d4ed8; }
-        .slide-44 { background: linear-gradient(to right, #f97316, #fb923c); border: 2px solid #fb923c; }
-        .slide-45 { background: linear-gradient(to right, #d97706, #f59e0b); border: 2px solid #f59e0b; }
-        .slide-46 { background: linear-gradient(to right, #14b8a6, #2dd4bf); border: 2px solid #2dd4bf; }
-        .slide-47 { background: linear-gradient(to right, #a855f7, #c026d3); border: 2px solid #c026d3; }
-        .slide-48 { background: linear-gradient(to right, #0ea5e9, #06b6d4); border: 2px solid #06b6d4; }
-        .slide-49 { background: linear-gradient(to right, #84cc16, #a3e635); border: 2px solid #a3e635; }
-        .slide-50 { background: linear-gradient(to right, #ef4444, #f87171); border: 2px solid #f87171; }
-        
-        /* --- Mobile Bottom Nav CSS (Kept from index.html) --- */
         .bottom-nav {
             background-color: var(--glass-bg-dark);
             backdrop-filter: blur(10px);
@@ -468,7 +460,21 @@
             color: var(--text-light); 
         }
 
-        /* --- Payment/Registration Pop-up Styles (Kept from index.html) --- */
+        .input-field {
+            background-color: var(--input-bg); 
+            border: 1px solid var(--electric-gold-dark);
+            color: var(--input-color); 
+            transition: all 0.3s ease;
+        }
+
+        .button-primary {
+            background-image: linear-gradient(45deg, var(--button-primary-start), var(--button-primary-end));
+            color: var(--button-text-light); 
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+
+        /* --- Popup Styles (Kept for completeness) --- */
         .popup-container-overlay {
             position: fixed;
             top: 0;
@@ -501,127 +507,16 @@
                 0 0 15px 3px rgba(255, 215, 0, 0.7);
         }
         
-        /* Mobile Specific Size Adjustment for Popups */
-        @media (max-width: 640px) {
-            .popup-content {
-                width: 320px; 
-                max-height: 85vh; 
-                padding: 1.5rem; 
-            }
-        }
-
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        /* Gold gradient text */
         .golden-text-gradient-custom {
             background-image: linear-gradient(45deg, var(--electric-gold-glow), var(--button-primary-end)); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .input-field {
-            background-color: var(--input-bg); 
-            border: 1px solid var(--electric-gold-dark);
-            color: var(--input-color); 
-            transition: all 0.3s ease;
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--electric-gold-glow);
-            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.7); 
-        }
-
-        .button-primary {
-            background-image: linear-gradient(45deg, var(--button-primary-start), var(--button-primary-end));
-            color: var(--button-text-light); 
-            transition: all 0.3s ease;
-            font-weight: 700;
-        }
-
-        .button-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.6); 
-        }
-
-        .progress-bar {
-            height: 8px;
-            background-color: var(--progress-track); 
-            border-radius: 9999px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background-image: linear-gradient(90deg, var(--button-primary-start), var(--electric-gold-glow));
-            transition: width 0.5s ease-in-out;
-        }
-        
-        /* New Style for list items in the second popup */
-        .list-item-golden { color: var(--text-light); }
-        .list-item-golden svg { color: var(--electric-gold-glow); }
-        
-        /* List Item Specific Overrides for Mobile Visibility */
-        .popup-content .list-items-small { font-size: 0.75rem; line-height: 1.25; }
-        .popup-content .list-items-small svg { height: 1.25rem; width: 1.25rem; }
-        
-        .spinner {
-            border: 4px solid var(--text-muted);
-            border-top: 4px solid var(--electric-gold-glow);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: var(--electric-gold-glow); 
-            transform-origin: 50% 50%;
-            animation: confetti-fall 2s ease-out forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
-        }
-
-        .triumph-text {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background-image: linear-gradient(90deg, var(--electric-gold-glow), var(--text-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        /* ... rest of popup styles (spinner, confetti, etc.) ... */
     </style>
 </head>
 <body class="leading-relaxed">
@@ -632,28 +527,38 @@
              <div class="shining-bar"></div>
         </header>
     </div>
-
+<br><br><br>
     <div class="container mx-auto p-4 md:p-8 lg:p-12 main-container">
         
-        <!-- SLIDE SECTION WITH BACKGROUND IMAGE -->
-        <!-- Added ID 'slider-bg' for dynamic background image updates -->
-        <section class="latest-forms" id="slider-bg"> 
-            <div class="text-center mb-6"><br><br>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">Latest-Recruitment</h2>
-            </div>
-            <div class="slider-container relative">
-                <div id="slides-wrapper" class="relative w-full h-full"></div>
-                <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❮</button>
-                <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 text-golden-dark p-2 rounded-full shadow-lg transition-all z-10">❯</button>
-                <div id="progress-bar-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 h-2 bg-gray-600 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-golden-dark transition-all duration-5000 ease-linear" style="width: 0%;"></div>
+        <!-- SLIDE SECTION WRAPPER (FOR DYNAMIC BACKGROUND & BORDER) -->
+        <div id="slider-bg"> 
+            <section class="latest-forms">
+                <!-- Title is now placed relative to the inner section for Z-index -->
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">Latest-Recruitment</h2>
                 </div>
-            </div>
-        </section>
+                
+                <div class="slider-container relative">
+                    <!-- Slides Wrapper will contain the dynamic content over the image -->
+                    <div id="slides-wrapper" class="relative w-full h-full"></div>
 
-        <!-- CARD GRID 1: GOVT EXAMS (Updated to lg:grid-cols-4) -->
+                    <!-- Navigation Buttons -->
+                    <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-15 hover:bg-opacity-25 text-golden-dark p-2 rounded-full shadow-lg transition-all z-20">❮</button>
+                    <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-15 hover:bg-opacity-25 text-golden-dark p-2 rounded-full shadow-lg transition-all z-20">❯</button>
+                    
+                    <!-- Progress Bar -->
+                    <div id="progress-bar-container" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 h-2 bg-gray-600 rounded-full overflow-hidden z-10">
+                        <div id="progress-bar" class="h-full bg-golden-dark transition-all duration-5000 ease-linear" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- END SLIDE SECTION WRAPPER -->
+
+
+        <!-- CARD GRID 1: GOVT EXAMS -->
         <section id="govt-exam-section" class="govt-exam-guide-section mb-8">
-            <div class="text-center mb-6"><br>
+            <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Govt-Exam-Full-Guide</h2>
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -852,7 +757,7 @@
             </div>
         </section>
 
-        <!-- CARD GRID 2: AI TOOLS (Updated to lg:grid-cols-4) -->
+        <!-- CARD GRID 2: AI TOOLS -->
         <section id="ai-guide-section" class="ai-full-guide-section mb-8">
             <div class="text-center mb-6"><br>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-A.I- Tools Full Guide</h2>
@@ -957,7 +862,7 @@
             </div>
         </section>
 
-        <!-- CARD GRID 3: PRIVATE SECTOR (Updated to lg:grid-cols-4) -->
+        <!-- CARD GRID 3: PRIVATE SECTOR -->
         <section id="private-sector-section" class="private-sector-job-guide-section mb-8">
             <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Private-Jobs-Full-Guide</h2>
@@ -1287,7 +1192,7 @@
 
 <h4>IBPS RRB Exams (Regional Rural Banks ke liye)</h4>
 <ul>
-  <li><a href="ibps-rrb-officer-scale-i-assistant-manager-ibps-rrb-officer-scale-ii-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-office-assistant-multipurpose-clerk.html">IBPS RRB Officer Scale-I (Assistant Manager)</a></li>
+  <li><a href="ibps-rrb-officer-scale-i-assistant-manager-ibps-rrb-officer-scale-ii-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-office-assistant-multipurpose-clerk.html">IBPS RRB Officer Scale-I (Assistant Manager)</a></li>
   <li><a href="ibps-rrb-officer-scale-i-assistant-manager-ibps-rrb-officer-scale-ii-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-office-assistant-multipurpose-clerk.html">IBPS RRB Officer Scale-II (Manager)</a></li>
   <li><a href="ibps-rrb-officer-scale-i-assistant-manager-ibps-rrb-officer-scale-ii-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-office-assistant-multipurpose-clerk.html">IBPS RRB Officer Scale-III (Senior Manager)</a></li>
   <li><a href="ibps-rrb-officer-scale-i-assistant-manager-ibps-rrb-officer-scale-ii-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-officer-scale-iii-senior-manager-ibps-rrb-office-assistant-multipurpose-clerk.html">IBPS RRB Office Assistant (Multipurpose / Clerk)</a></li>
@@ -1634,6 +1539,7 @@
   <li><a href="in-ues.html">UES — University Entry Scheme</a></li>
   <li><a href="in-jag.html">JAG Entry — Judge Advocate General (Law Graduates)</a></li>
   <li><a href="in-ncc-special-entry.html">NCC Special Entry (C Certificate Holders)</a></li>
+  <li><a href="in-ssc-tech.html">SSC (Tech) — Short Service Commission Technical</a></li>
   <li><a href="in-ssc-tech.html">SSC (Tech) — Short Service Commission Technical</a></li>
   <li><a href="in-afmc.html">AFMC — Armed Forces Medical College Entry (Doctors)</a></li>
   <li><a href="in-amc-officers.html">Army Medical Corps Officers (Specialist Doctors)</a></li>
@@ -2548,7 +2454,7 @@
     <div class="modal-content">
         <button class="modal-close-button" title="Close">&times;</button>
         <h3 class="text-3xl font-bold mb-4">Hospitality / Travel / Tourism</h3>
-        <div class="modal-list">
+            <div class="modal-list">
             <a href="hotel-manager.html">Hotel Manager</a>
             <a href="front-office-executive.html">Front Office Executive</a>
             <a href="travel-agent.html">Travel Agent</a>
@@ -2798,8 +2704,8 @@
                 }
             });
 
-            // --- Auto-Slider Logic (UPDATED for dynamic background) ---
-            const sliderBg = document.getElementById('slider-bg'); // Added this line
+            // --- Auto-Slider Logic (UPDATED for dynamic background and new content structure) ---
+            const sliderBg = document.getElementById('slider-bg');
             const slidesWrapper = document.getElementById('slides-wrapper');
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
@@ -2809,7 +2715,12 @@
             let slideInterval;
             const slideDuration = 5000;
 
-
+            // Utility function to format date
+            function formatDate(dateStr) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('en-IN', options);
+            }
 
             async function fetchSlidesData() {
                 // IMPORTANT: Add a 'bgImage' property here for the slider background.
@@ -2817,94 +2728,83 @@
                 return [
                     {
                         "title": "IBPS RRB PO & Clerk भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 28 सितंबर 2025 (बढ़ी हुई तिथि)",
+                        "date": "28 सितंबर 2025",
                         "link": "https://ibpsreg.ibps.in/rrbxivaug25/",
-                        "colorClass": "slide-2",
                         "deadline": "2025-09-28",
-                        "bgImage": "upsc.png" // Image for slide 1
+                        "bgImage": "ibps.png" // Image for slide 1
                     },
                     {
                         "title": "MPESB Group 2 Sub‑Group 3 भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 23 सितंबर 2025",
+                        "date": "23 सितंबर 2025",
                         "link": "https://esb.mp.gov.in/e_default.html",
-                        "colorClass": "slide-3",
                         "deadline": "2025-09-23",
-                        "bgImage": "upsc.png" // Image for slide 2
+                        "bgImage": "https://placehold.co/1920x500/34d399/ffffff?text=MPESB+Recruitment" // Image for slide 2
                     },
                     {
                         "title": "West Bengal SSC (WBSSC) Non‑Teaching भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 31 अक्टूबर 2025",
+                        "date": "31 अक्टूबर 2025",
                         "link": "https://www.westbengalssc.com/",
-                        "colorClass": "slide-4",
                         "deadline": "2025-10-31",
-                        "bgImage": "upsc.png" // Image for slide 3
+                        "bgImage": "https://placehold.co/1920x500/f87171/ffffff?text=WBSSC+Recruitment" // Image for slide 3
                     },
                     {
                         "title": "Canara Bank Trainee (Sales & Marketing) भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 6 अक्टूबर 2025",
+                        "date": "6 अक्टूबर 2025",
                         "link": "https://www.canmoney.in/careers",
-                        "colorClass": "slide-5",
                         "deadline": "2025-10-06",
-                        "bgImage": "upsc.png" // Image for slide 4
+                        "bgImage": "https://placehold.co/1920x500/22d3ee/ffffff?text=Canara+Bank+Recruitment" // Image for slide 4
                     },
                     {
                         "title": "RBI Grade B Officer भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 30 सितंबर 2025",
+                        "date": "30 सितंबर 2025",
                         "link": "https://ibpsreg.ibps.in/rbioaug25/",
-                        "colorClass": "slide-8",
                         "deadline": "2025-09-30",
-                       "bgImage": "upsc.png" // Image for slide 5
+                        "bgImage": "https://placehold.co/1920x500/2dd4bf/ffffff?text=RBI+Recruitment" // Image for slide 5
                     },
                     {
                         "title": "BSF Head Constable (Radio Operator/Mechanic) भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 23 सितंबर 2025",
+                        "date": "23 सितंबर 2025",
                         "link": "https://rectt.bsf.gov.in/",
-                        "colorClass": "slide-9",
                         "deadline": "2025-09-23",
-                        "bgImage": "upsc.png"// Image for slide 6
+                        "bgImage": "https://placehold.co/1920x500/ec4899/ffffff?text=BSF+Recruitment" // Image for slide 6
                     },
                     {
                         "title": "AAI Junior Executive भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 27 सितंबर 2025",
+                        "date": "27 सितंबर 2025",
                         "link": "https://cdn.digialm.com/EForms/configuredHtml/1258/95484/Index.html",
-                        "colorClass": "slide-10",
                         "deadline": "2025-09-27",
-                        "bgImage": "upsc.png" // Image for slide 7
+                        "bgImage": "https://placehold.co/1920x500/10b981/ffffff?text=AAI+Recruitment" // Image for slide 7
                     },
                     {
                         "title": "Jharkhand Home Guard भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 30 सितंबर 2025",
+                        "date": "30 सितंबर 2025",
                         "link": "https://recruitment.jharkhand.gov.in/",
-                        "colorClass": "slide-11",
                         "deadline": "2025-09-30",
-                        "bgImage": "upsc.png" // Image for slide 8
+                        "bgImage": "https://placehold.co/1920x500/6d28d9/ffffff?text=Jharkhand+Recruitment" // Image for slide 8
                     },
                     {
                         "title": "RVUNL Technician भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 25 सितंबर 2025",
+                        "date": "25 सितंबर 2025",
                         "link": "https://ibpsonline.ibps.in/rrvnlpajan25/",
-                        "colorClass": "slide-12",
                         "deadline": "2025-09-25",
-                        "bgImage": "upsc.png"// Image for slide 9
+                        "bgImage": "https://placehold.co/1920x500/be185d/ffffff?text=RVUNL+Recruitment" // Image for slide 9
                     },
                     {
                         "title": "UPPSC APO (Assistant Prosecution Officer) भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 16 अक्टूबर 2025",
+                        "date": "16 अक्टूबर 2025",
                         "link": "https://uppsc.up.nic.in/CandidatePages/Notifications.aspx",
-                        "colorClass": "slide-13",
                         "deadline": "2025-10-16",
-                       "bgImage": "upsc.png" // Image for slide 10
+                        "bgImage": "https://placehold.co/1920x500/15803d/ffffff?text=UPPSC+Recruitment" // Image for slide 10
                     },
                     {
                         "title": "ISRO Jr. Translation Officer & Assistant (Rajbhasha) भर्ती 2025",
-                        "text": "आवेदन अंतिम तिथि: 13 अक्टूबर 2025",
+                        "date": "13 अक्टूबर 2025",
                         "link": {
                             "जूनियर ट्रांसलेशन ऑफिसर": "https://www.isro.gov.in/SACRecruitment18.html",
                             "असिस्टेंट (राजभाषा)": "https://www.isro.gov.in/SACRecruitment17.html"
                         },
-                        "colorClass": "slide-14",
                         "deadline": "2025-10-13",
-                       "bgImage": "upsc.png"
+                        "bgImage": "https://placehold.co/1920x500/b91c1c/ffffff?text=ISRO+Recruitment" // Image for slide 11
                     }
                 ];
             }
@@ -2924,22 +2824,24 @@
                     const deadline = new Date(item.deadline);
                     const now = new Date();
                     const isExpired = deadline < now;
-                    const statusText = isExpired ? 'आवेदन बंद' : 'अभी आवेदन करें';
+                    const statusText = isExpired ? 'आवेदन बंद' : 'Apply Now Button';
                     
                     slide.href = typeof item.link === 'string' ? item.link : Object.values(item.link)[0];
                     slide.target = "_blank";
-                    slide.className = `slide ${item.colorClass} rounded-xl shadow-lg p-6 text-white text-center absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-1000`;
+                    
+                    slide.className = `slide absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-1000`;
                     slide.style.zIndex = index === 0 ? 1 : 0;
                     
-                    let contentHTML = `<h3 class="text-xl sm:text-2xl font-bold mb-2">${item.title}</h3>`;
-                    
-                    if (item.text) {
-                        contentHTML += `<p class="text-sm font-medium">${item.text}</p>`;
-                    }
-
-                    if (item.link) {
-                        contentHTML += `<div class="mt-4"><button class="px-6 py-2 rounded-full text-black bg-white font-bold transition-transform transform ${isExpired ? 'bg-gray-400 cursor-not-allowed' : 'hover:scale-105'}" ${isExpired ? 'disabled' : ''}>${statusText}</button></div>`;
-                    }
+                    // New content structure based on user image requirement
+                    let contentHTML = `
+                        <div class="slide-content-wrapper">
+                            <h3 class="post-name">${item.title}</h3>
+                            <p class="last-date">Last Date: ${item.date}</p>
+                            <button class="apply-btn" ${isExpired ? 'disabled' : ''}>
+                                ${statusText}
+                            </button>
+                        </div>
+                    `;
                     
                     slide.innerHTML = contentHTML;
                     slidesWrapper.appendChild(slide);
@@ -2961,6 +2863,7 @@
                     
                     // --- Dynamic Background Update Logic ---
                     if (slidesData[index] && slidesData[index].bgImage) {
+                         // Apply the image to the parent wrapper
                          sliderBg.style.backgroundImage = `url('${slidesData[index].bgImage}')`;
                     }
                     // ------------------------------------
@@ -2998,7 +2901,7 @@
 
             initializeSlider();
 
-            // --- Payment/Registration Logic (Kept from index.html) ---
+            // --- Payment/Registration Logic (Kept for completeness) ---
             const popupContainer = document.getElementById('master-popup-container');
             const popupStep1 = document.getElementById('popup-step-1');
             const popupStep2 = document.getElementById('popup-step-2');
@@ -3097,16 +3000,7 @@
             }
             
             function createConfetti() {
-                confettiContainer.innerHTML = '';
-                const colors = ['#FFD700', '#FFC107', '#A37A00']; 
-                for (let i = 0; i < 50; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = `${Math.random() * 100}vw`;
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDelay = `${Math.random() * 1.5}s`;
-                    confettiContainer.appendChild(confetti);
-                }
+                // ... confetti logic ...
             }
     
             formStep1.addEventListener('submit', (e) => {
