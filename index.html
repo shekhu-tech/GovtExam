@@ -274,24 +274,27 @@
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
         } 
         
-        /* --- CARD DESIGN (No change needed here, keeping existing card styles) --- */
+        /* --- CARD DESIGN (Updated for border, height and text weight) --- */
         .card {
             position: relative;
             background-color: transparent; 
             border-radius: 1.8rem;
             overflow: hidden;
-            height: 110px; 
+            /* CHANGE 2: Reduced height for card content */
+            height: 100px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: var(--text-light);
-            box-shadow: inset 0 0 0 1px var(--electric-gold-dark), 0 8px 16px rgba(0,0,0,0.4);
+            /* Original inset shadow removed for cleaner look with outer border */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
             transition: all 0.4s ease;
             cursor: pointer;
-            border: none;
-            padding: 2rem; 
+            /* CHANGE 1: Apply same border as slider */
+            border: 1.7px solid var(--electric-gold-glow); 
+            padding: 0.5rem; /* Reduced padding to maximize internal content area */
             backdrop-filter: none; 
             -webkit-backdrop-filter: none;
             background-color: rgba(40, 30, 5, 0.4); 
@@ -302,7 +305,8 @@
             box-shadow: 
                 0 12px 24px rgba(0, 0, 0, 0.6), 
                 0 0 15px rgba(255, 215, 0, 0.8), 
-                inset 0 0 0 1px var(--electric-gold-glow);
+                /* Removed inset border from hover to simplify */
+                0 0 0 0 transparent;
         }
 
         .card-content {
@@ -313,10 +317,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            /* Ensure content respects the reduced card height */
+            height: 100%; 
             width: 100%;
+            padding: 0.5rem; /* Internal padding for content */
         }
         
+        /* CHANGE 4: Increase text weight for cards */
+        .card-heading {
+            font-weight: 900; /* Extra bold */
+            font-size: 1.1rem;
+            line-height: 1.1;
+        }
+        .card-sub-heading {
+            font-weight: 700; /* Bold */
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+
         /* PC CARDS (Desktop Breakpoint) */
         @media (min-width: 1024px) {
              /* Set to 4 columns as requested previously */
@@ -327,14 +346,23 @@
             }
         }
         
-        /* --- Modal & Popups Styles (UPDATED) --- */
+        /* --- Modal & Popups Styles (UPDATED for vertical centering) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--popup-overlay-bg);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-            opacity: 0; transition: opacity 0.4s ease-in-out;
+            /* CHANGE 3: Ensure display is flex and items are centered vertically */
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000;
+            opacity: 0; 
+            transition: opacity 0.4s ease-in-out;
+            overflow-y: auto; /* Allow scrolling if content is too tall */
         }
-        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-overlay.active { 
+            display: flex; 
+            opacity: 1; 
+        }
         .modal-content {
             background-color: var(--glass-bg-dark); 
             border-radius: 1.5rem;
@@ -344,15 +372,14 @@
             width: 95%;
             position: relative;
             
-            /* --- FIX: Center vertically on small screens and limit height --- */
-            top: 50%; /* Position from the top center */
-            transform: translateY(-50%); /* Pull up by half its height to perfectly center */
-            /* Removed unnecessary transform: translateY(-50px) on active state */
+            /* CHANGE 3: Removed positioning/transform to rely on flexbox centering in .modal-overlay */
+            top: auto;
+            transform: none; 
 
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s ease-in-out;
-            margin: 20px;
+            margin: 20px auto; /* Added vertical margin to prevent sticking to edges on scroll */
             overflow-y: auto;
-            max-height: 80vh; /* Reduced max height slightly so it doesn't overlap header/footer too much */
+            max-height: 90vh; /* Increased max height slightly as it is now centered */
             
             border: 1px solid var(--electric-gold-dark); 
             backdrop-filter: blur(30px); 
@@ -483,10 +510,12 @@
             height: 100%;
             background-color: var(--popup-overlay-bg); 
             backdrop-filter: blur(5px);
+            /* CHANGE 3: Set to flexbox for centering */
             display: none; 
             justify-content: center;
             align-items: center;
             z-index: 2000; 
+            overflow-y: auto; /* Allow scrolling if content is too tall */
         }
 
         .popup-content {
@@ -496,7 +525,8 @@
             border-radius: 1.5rem;
             max-width: 95%;
             width: 450px;
-            max-height: 90vh;
+            /* CHANGE 3: Increased max-height, vertical centering handles positioning */
+            max-height: 95vh;
             overflow-y: auto;
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
@@ -505,6 +535,8 @@
             box-shadow: 
                 0 10px 30px rgba(0, 0, 0, 0.6),
                 0 0 15px 3px rgba(255, 215, 0, 0.7);
+            /* Added vertical margin to prevent sticking to edges on scroll */
+            margin: 20px auto; 
         }
         
         @keyframes slideIn {
@@ -2699,6 +2731,15 @@
                 }
             });
 
+            // --- Card Click Logic (Modified to enforce payment check) ---
+            cards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Prevent default navigation if it's not the actual link
+                    e.preventDefault(); 
+                    checkPaymentAndOpen(e); 
+                });
+            });
+
             // --- Auto-Slider Logic (UPDATED for dynamic background and new content structure) ---
             const sliderBg = document.getElementById('slider-bg');
             const slidesWrapper = document.getElementById('slides-wrapper');
@@ -2733,63 +2774,63 @@
                         "date": "23 सितंबर 2025",
                         "link": "https://esb.mp.gov.in/e_default.html",
                         "deadline": "2025-09-23",
-                        "bgImage": "https://placehold.co/1920x500/34d399/ffffff?text=MPESB+Recruitment" // Image for slide 2
+                        "bgImage": "dstrcts.png" // Image for slide 2
                     },
                     {
                         "title": "West Bengal SSC (WBSSC) Non‑Teaching भर्ती 2025",
                         "date": "31 अक्टूबर 2025",
                         "link": "https://www.westbengalssc.com/",
                         "deadline": "2025-10-31",
-                        "bgImage": "https://placehold.co/1920x500/f87171/ffffff?text=WBSSC+Recruitment" // Image for slide 3
+                        "bgImage": "dstrcts.png" // Image for slide 3
                     },
                     {
                         "title": "Canara Bank Trainee (Sales & Marketing) भर्ती 2025",
                         "date": "6 अक्टूबर 2025",
                         "link": "https://www.canmoney.in/careers",
                         "deadline": "2025-10-06",
-                        "bgImage": "https://placehold.co/1920x500/22d3ee/ffffff?text=Canara+Bank+Recruitment" // Image for slide 4
+                        "bgImage": "ibps.png" // Image for slide 4
                     },
                     {
                         "title": "RBI Grade B Officer भर्ती 2025",
                         "date": "30 सितंबर 2025",
                         "link": "https://ibpsreg.ibps.in/rbioaug25/",
                         "deadline": "2025-09-30",
-                        "bgImage": "https://placehold.co/1920x500/2dd4bf/ffffff?text=RBI+Recruitment" // Image for slide 5
+                        "bgImage": "rbi.png" // Image for slide 5
                     },
                     {
                         "title": "BSF Head Constable (Radio Operator/Mechanic) भर्ती 2025",
                         "date": "23 सितंबर 2025",
                         "link": "https://rectt.bsf.gov.in/",
                         "deadline": "2025-09-23",
-                        "bgImage": "https://placehold.co/1920x500/ec4899/ffffff?text=BSF+Recruitment" // Image for slide 6
+                        "bgImage": "ia.png" // Image for slide 6
                     },
                     {
                         "title": "AAI Junior Executive भर्ती 2025",
                         "date": "27 सितंबर 2025",
                         "link": "https://cdn.digialm.com/EForms/configuredHtml/1258/95484/Index.html",
                         "deadline": "2025-09-27",
-                        "bgImage": "https://placehold.co/1920x500/10b981/ffffff?text=AAI+Recruitment" // Image for slide 7
+                        "bgImage": "upsc.png" // Image for slide 7
                     },
                     {
                         "title": "Jharkhand Home Guard भर्ती 2025",
                         "date": "30 सितंबर 2025",
                         "link": "https://recruitment.jharkhand.gov.in/",
                         "deadline": "2025-09-30",
-                        "bgImage": "https://placehold.co/1920x500/6d28d9/ffffff?text=Jharkhand+Recruitment" // Image for slide 8
+                        "bgImage": "dstrcts.png" // Image for slide 8
                     },
                     {
                         "title": "RVUNL Technician भर्ती 2025",
                         "date": "25 सितंबर 2025",
                         "link": "https://ibpsonline.ibps.in/rrvnlpajan25/",
                         "deadline": "2025-09-25",
-                        "bgImage": "https://placehold.co/1920x500/be185d/ffffff?text=RVUNL+Recruitment" // Image for slide 9
+                        "bgImage": "dstrcts.png" // Image for slide 9
                     },
                     {
                         "title": "UPPSC APO (Assistant Prosecution Officer) भर्ती 2025",
                         "date": "16 अक्टूबर 2025",
                         "link": "https://uppsc.up.nic.in/CandidatePages/Notifications.aspx",
                         "deadline": "2025-10-16",
-                        "bgImage": "https://placehold.co/1920x500/15803d/ffffff?text=UPPSC+Recruitment" // Image for slide 10
+                        "bgImage": "upsc.png" // Image for slide 10
                     },
                     {
                         "title": "ISRO Jr. Translation Officer & Assistant (Rajbhasha) भर्ती 2025",
@@ -2799,7 +2840,7 @@
                             "असिस्टेंट (राजभाषा)": "https://www.isro.gov.in/SACRecruitment17.html"
                         },
                         "deadline": "2025-10-13",
-                        "bgImage": "https://placehold.co/1920x500/b91c1c/ffffff?text=ISRO+Recruitment" // Image for slide 11
+                        "bgImage": "isro.png" // Image for slide 11
                     }
                 ];
             }
@@ -2867,18 +2908,12 @@
 
             function startAutoSlide() {
                 clearInterval(slideInterval);
-                progressBar.style.transition = 'none';
-                progressBar.style.width = '0%';
+                // Removed progress bar logic as it's not defined in HTML structure and caused issues
                 
-                setTimeout(() => {
-                    progressBar.style.transition = `width ${slideDuration / 1000}s linear`;
-                    progressBar.style.width = '100%';
-                }, 50);
-
                 slideInterval = setInterval(() => {
                     currentSlide = (currentSlide + 1) % slidesData.length;
                     showSlide(currentSlide);
-                    startAutoSlide();
+                    // No need to call startAutoSlide recursively inside interval
                 }, slideDuration);
             }
 
@@ -2974,9 +3009,8 @@
                 }
             };
 
-            cards.forEach(card => {
-                card.addEventListener('click', checkPaymentAndOpen);
-            });
+            // Card click listener already set above, just ensuring the logic is right:
+            // cards.forEach(card => { card.addEventListener('click', checkPaymentAndOpen); });
 
             function showPopup(popupElement) {
                 document.querySelectorAll('.popup-content').forEach(p => p.classList.add('hidden'));
