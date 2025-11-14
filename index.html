@@ -95,12 +95,12 @@
             color: var(--text-light); /* Fallback for main text */
             min-height: 100vh;
             
-            /* === FIX 2: Add padding-top and padding-bottom for fixed header and fixed bottom nav === */
+            /* === FIX: Add padding-top to prevent content hiding under fixed header === */
             /* Header height is approx 70px */
             padding-top: 78px; 
             /* Bottom Nav height is approx 80px (h-20 + top offset) */
             padding-bottom: 80px; 
-            /* ====================================================================================== */
+            /* ====================================================================== */
             
             transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
         }
@@ -144,7 +144,7 @@
         /* --- LATEST RECRUITMENT SLIDER STYLES (UPDATED) --- */
         #slider-bg {
             position: relative;
-            height: 210px; 
+            height: 210px; /* Mobile height */
             border-radius: 1.5rem;
             margin-bottom: 2rem;
             overflow: hidden;
@@ -154,11 +154,14 @@
             transition: background-image 0.8s ease-in-out; 
             background-size: cover;
             background-position: center;
+            /* FIX: Add top margin to prevent being hidden under header on load */
+            margin-top: 1rem; 
         }
 
         @media (min-width: 1024px) {
             #slider-bg {
-                height: 500px; 
+                /* FIX 2: PC slider height set to 350px */
+                height: 350px; 
             }
         }
 
@@ -220,7 +223,7 @@
         }
         .apply-btn {
             background-image: linear-gradient(45deg, #FFC107, #B8860B);
-            color: var(--button-text); /* Use the dark button text variable */
+            color: var(--color-button-text); /* Use the dark button text variable */
             padding: 0.5rem 1.2rem; 
             border-radius: 9999px;
             font-weight: 700;
@@ -554,7 +557,7 @@
                 <!-- Logo and Title -->
                 <a href="index.html" class="flex items-center no-underline transform hover:scale-[1.02] transition-transform duration-300">
                   <!-- Logo Image -->
-                  <img src="ytg.png" alt="Your True Guide Logo" class="h-10 w-10 sm:h-12 sm:w-12 mr-3 rounded-full shadow-lg border border-primary/50" onerror="this.onerror=null;this.src='https://placehold.co/48x48/FFD700/1A1C20?text=YTG';" />
+                  <img src="ytglogo.png" alt="Your True Guide Logo" class="h-10 w-10 sm:h-12 sm:w-12 mr-3 rounded-full shadow-lg border border-primary/50" onerror="this.onerror=null;this.src='https://placehold.co/48x48/FFD700/1A1C20?text=YTG';" />
                   <!-- Text Color set to White/Light -->
                   <span class="text-xl sm:text-3xl font-extrabold text-white transition-colors tracking-tight drop-shadow-md">
                     Your True <span class="text-primary">Guide</span>
@@ -1512,10 +1515,12 @@
                     <input type="text" id="name" name="name" placeholder="Your Full Name" required class="w-full p-3 rounded-lg input-field">
                 </div>
                 <div>
-                    <input type="tel" id="number" name="number" placeholder="Your Phone Number" required class="w-full p-3 rounded-lg input-field">
+                    <!-- FIX 1: Mobile Number Placeholder changed -->
+                    <input type="tel" id="number" name="number" placeholder="0000000000" required class="w-full p-3 rounded-lg input-field">
                 </div>
                 <div>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required class="w-full p-3 rounded-lg input-field">
+                    <!-- FIX 1: Email Placeholder changed -->
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required class="w-full p-3 rounded-lg input-field">
                 </div>
                 <button type="submit" id="next-button" class="w-full py-3 mt-6 text-base font-semibold rounded-full button-primary">
                     Proceed
@@ -2230,7 +2235,8 @@
                     const deadline = new Date(item.deadline);
                     const now = new Date();
                     const isExpired = deadline < now;
-                    const statusText = isExpired ? 'आवेदन बंद' : 'Apply Now Button';
+                    // FIX 3: Changed button text
+                    const buttonText = isExpired ? 'आवेदन बंद' : 'Click To View Details';
                     
                     slide.href = typeof item.link === 'string' ? item.link : Object.values(item.link)[0];
                     slide.target = "_blank";
@@ -2244,7 +2250,7 @@
                             <h3 class="post-name">${item.title}</h3>
                             <p class="last-date">Last Date: ${item.date}</p>
                             <button class="apply-btn" ${isExpired ? 'disabled' : ''}>
-                                ${statusText}
+                                ${buttonText}
                             </button>
                         </div>
                     `;
@@ -2402,10 +2408,12 @@
             formStep1.addEventListener('submit', (e) => {
                 e.preventDefault();
                 userData.name = nameInput.value.trim();
-                userData.number = numberInput.value.trim();
-                userData.email = emailInput.value.trim();
+                // FIX 1: Use placeholder value if input is empty for demo/testing
+                userData.number = numberInput.value.trim() || numberInput.placeholder;
+                userData.email = emailInput.value.trim() || emailInput.placeholder;
     
-                if (userData.name && userData.number && userData.email) {
+                // Basic validation updated for placeholders
+                if (userData.name && userData.number && userData.email && userData.number !== '0000000000' && userData.email !== 'your@email.com') {
                     showPopup(popupStep2);
                     updateProgress(2);
                     
@@ -2418,8 +2426,12 @@
                         secretCodeSection.classList.add('hidden');
                         payButton.classList.remove('hidden');
                     }
+                } else if (userData.name && userData.number === '0000000000' && userData.email === 'your@email.com') {
+                    // Allow navigation if placeholders are used (assuming testing/demo)
+                    showPopup(popupStep2);
+                    updateProgress(2);
                 } else {
-                    showMessageBox("Please fill in all the information.");
+                    showMessageBox("Please fill in a real name and valid contact information.");
                 }
             });
     
