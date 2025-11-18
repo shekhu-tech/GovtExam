@@ -9,13 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght=400;500;700&family=Noto+Sans+Gurmukhi:wght=400;500;700&display=swap" rel="stylesheet">
     <meta name="description" content="UPSC संयुक्त रक्षा सेवा (CDS) परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, अकादमियां, SSB साक्षात्कार और तैयारी की रणनीति।">
     <meta name="keywords" content="UPSC, CDS, Combined Defence Services, IMA, INA, AFA, OTA, SSB, भारतीय सेना, नौसेना, वायु सेना, सरकारी नौकरी, भारत">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
-        /* --- THEME VARIABLES (Gold/Dark) --- */
+        /* --- h.html THEME VARIABLES (Gold/Dark) --- */
         :root {
             --color-primary: #FFD700; /* Electric Gold Glow */
             --color-secondary: #A37A00; /* Dark Gold */
@@ -33,14 +33,14 @@
             --button-primary-start: #FFC107;
             --button-primary-end: #B8860B; 
             --text-muted: #d1d5db;
+            --popup-overlay-bg: rgba(0, 0, 0, 0.9);
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
             background-color: var(--bg-main-dark);
             color: var(--text-light);
             min-height: 100vh;
-            /* Added padding for fixed header (78px) and footer (80px) */
             padding-top: 78px; 
             padding-bottom: 80px; 
             transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
@@ -123,14 +123,18 @@
         }
         .central-fab-icon { color: var(--color-button-text); font-size: 1.8rem; }
         .central-fab-label { position: absolute; bottom: 5px; font-size: 0.75rem; font-weight: bold; color: var(--color-primary); }
+        .central-fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 5px rgba(var(--color-primary-rgb), 0.8);
+        }
         
-        /* CDS File Custom Styles (Adapted to Gold/Dark) */
+        /* CDS File Custom Styles (Modified from original to match h.html) */
         .section-heading {
-            border-bottom: 3px solid var(--electric-gold-glow); /* Gold color */
+            border-bottom: 3px solid #FFD700; /* Gold color */
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            color: var(--electric-gold-glow); /* Dark Maroon -> Gold */
+            color: var(--electric-gold-glow);
         }
         .card {
             background-color: var(--color-card);
@@ -154,53 +158,43 @@
             height: 320px;
             max-height: 450px;
         }
-        
         .flowchart-step {
-            border: 3px solid var(--electric-gold-glow); /* Maroon -> Gold */
-            color: var(--electric-gold-glow); /* Maroon -> Gold */
-            background-color: var(--color-card); /* Light Red -> Dark Card */
+            border: 3px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
             transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
         .flowchart-step:hover {
-            background-color: var(--electric-gold-glow); /* Dark Maroon -> Gold */
-            color: var(--color-button-text); /* White */
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
             transform: scale(1.05);
         }
-        .flowchart-arrow {
-            color: var(--electric-gold-glow); /* Maroon -> Gold */
+        .flowchart-arrow { color: var(--electric-gold-glow); }
+        .flowchart-container-fix {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .flowchart-arrow.vertical {
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+            .flowchart-container-fix {
+                flex-direction: row; 
+                gap: 0; 
+            }
+            .flowchart-arrow.vertical {
+                transform: rotate(0deg);
+            }
+        }
+        .notes-lectures-btn { /* This style is to be removed as per request 5, but kept as a placeholder if needed elsewhere. */
+            display: none;
         }
         
-        /* New Styles for Step 1 Cards inside Modal */
-        .academy-card {
-            background-color: var(--bg-main-dark);
-            border: 2px solid var(--electric-gold-dark);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-        }
-        .academy-card:hover {
-            border-color: var(--electric-gold-glow);
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.15);
-        }
-
-        .notes-lectures-btn {
-            background-color: var(--electric-gold-glow); /* Gold */
-            color: var(--color-button-text); /* Dark Text */
-            border: 1px solid var(--electric-gold-dark);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            font-size: 0.875rem;
-        }
-        .notes-lectures-btn:hover {
-            background-color: var(--electric-gold-dark);
-            color: white;
-        }
-        
-        /* Modal Styles (Copied from h.html) */
+        /* Modal specific styles for UPSC page to CENTER popups */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -230,25 +224,31 @@
             transition: none; 
             border: 1px solid var(--electric-gold-glow);
             color: var(--text-light);
-            max-width: 1200px;
+            max-width: 700px;
             width: 90%;
             max-height: 90vh; 
             margin: auto; 
             overflow-y: auto;
         }
+        
         @media (max-width: 1023px) {
             .modal-content {
-                width: 95%;
+                width: 95%; 
                 margin-top: 85px; 
-                margin-bottom: 85px;
-                max-height: calc(100vh - 170px);
-                padding: 1.5rem;
+                margin-bottom: 85px; 
+                max-height: calc(100vh - 170px); 
+                padding: 1.5rem; 
+            }
+            .mobile-hide-footer {
+                display: none;
             }
         }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
+        
         .modal-close-button {
             position: absolute;
             top: 1rem;
@@ -260,7 +260,10 @@
             color: var(--electric-gold-glow);
             transition: color 0.2s;
         }
-        .modal-close-button:hover { color: #FF0000; }
+        .modal-close-button:hover {
+            color: #FF0000;
+        }
+
         .modal-subject-button {
             background-color: var(--electric-gold-glow);
             color: var(--color-button-text);
@@ -275,18 +278,48 @@
             background-color: #FFC107;
             transform: translateY(-2px);
         }
-        .modal-back-button {
-            background-color: var(--electric-gold-dark);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 1rem;
+            transition: all 0.2s;
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
         }
-        .modal-back-button:hover {
-            background-color: #7A5C00;
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+        }
+        .academy-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .academy-card {
+            background-color: var(--bg-main-dark);
+            border-color: var(--electric-gold-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .academy-card .icon {
+            font-size: 2.5rem;
+            color: var(--electric-gold-glow);
+        }
+        .academy-card .name {
+            color: var(--electric-gold-glow);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .academy-card:hover {
+            background-color: var(--color-card);
+            box-shadow: 0 0 10px 2px rgba(var(--color-primary-rgb), 0.5);
+            transform: scale(1.05);
         }
         .timeline-step {
             color: var(--text-light);
@@ -298,36 +331,10 @@
              color: var(--color-button-text) !important;
              border-color: var(--color-card) !important;
         }
-        /* Mobile-first: Fix Flowchart layout */
-        .flowchart-container-fix {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-        .flowchart-arrow.vertical {
-            transform: rotate(90deg);
-        }
-        @media (min-width: 768px) {
-            .flowchart-container-fix {
-                flex-direction: row;
-                gap: 0;
-            }
-            .flowchart-arrow.vertical {
-                transform: rotate(0deg);
-            }
-        }
-        @media (max-width: 1023px) {
-            .mobile-hide-footer {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body class="leading-relaxed">
 
-    <!-- Fixed Header (Copied from h.html) -->
     <div class="fixed-header-container">
         <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
               <div class="container mx-auto flex justify-between items-center px-2 sm:px-4" style="padding-top: env(safe-area-inset-top);">
@@ -340,8 +347,16 @@
 
                 <div class="hidden lg:flex items-center space-x-10">
                   <nav class="flex space-x-8 font-extrabold">
-                    <a href="#" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
-                        Defence Services
+                    <a href="index.html#govt-exam-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Public Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Private Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                     <a href="index.html#ai-guide-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        AI & Tools
                         <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
                     </a>
                   </nav>
@@ -351,7 +366,7 @@
                       <i class="fas fa-phone-alt mr-2 text-primary"></i> <span class="text-xl tracking-wider">000000000</span>
                     </a>
                     <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-text-secondary hover:text-primary transition-colors mt-1">
-                      <i class="fas fa-envelope mr-2 text-secondary/70"></i> <b>care@yourtrueguide.com</b>
+                      <i class="fas fa-envelope mr-2 text-secondary/70"></i> <b>0000000000000000000</b>
                     </a>
                   </div>
                 </div>
@@ -366,7 +381,6 @@
               </div>
         </header>
 
-        <!-- Mobile Menu Panel (Sidebar) -->
         <div
               id="mobile-menu-panel"
               class="mobile-menu-panel fixed right-0 w-3/4 max-w-sm z-[110] lg:hidden translate-x-full overflow-hidden border border-primary/50 rounded-2xl shadow-lg shadow-primary/10"
@@ -387,20 +401,14 @@
                         <p class="text-xs font-semibold text-text-secondary">All guides on a single tap!</p>
                     </div>
                     
-                    <a href="#section1" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
-                      <i class="fas fa-shield-alt mr-4 text-xl text-primary/80"></i> CDS Introduction
+                    <a href="index.html#govt-exam-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-building mr-4 text-xl text-primary/80"></i> Public Sector Guide
                     </a>
-                    <a href="#section2" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
-                      <i class="fas fa-cogs mr-4 text-xl text-primary/80"></i> Exam Process
+                    <a href="index.html#private-sector-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-briefcase mr-4 text-xl text-primary/80"></i> Private Sector Guide
                     </a>
-                     <a href="#section3" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
-                      <i class="fas fa-user-check mr-4 text-xl text-primary/80"></i> Eligibility
-                    </a>
-                     <a href="#section4" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
-                      <i class="fas fa-book mr-4 text-xl text-primary/80"></i> Syllabus
-                    </a>
-                    <a href="#section11" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
-                      <i class="fas fa-rocket mr-4 text-xl text-primary/80"></i> Career Roadmap
+                    <a href="index.html#ai-guide-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-brain mr-4 text-xl text-primary/80"></i> AI Tools Guide
                     </a>
 
                     <div class="border-t border-primary/30 w-full my-4"></div>
@@ -411,7 +419,7 @@
                          <i class="fas fa-phone-volume mr-3"></i> <span>0000000000</span>
                       </a>
                       <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-gray-400 hover:text-primary transition-colors pt-2">
-                         <i class="fas fa-at mr-2"></i> <span>care@yourtrueguide.com</span>
+                         <i class="fas fa-at mr-2"></i> <span>0000000000000</span>
                       </a>
                     </div>
                     
@@ -421,40 +429,58 @@
         <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 mobile-menu-overlay hidden lg:hidden"></div>
     </div>
     
-    <div class="container mx-auto p-4 md:p-8 lg:p-12" id="mainContent" style="margin-top: 5px;">
+    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
         
         <div class="text-center mb-12">
-             <div class="inline-flex rounded-md shadow-sm" role="group">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
                 <button type="button" class="lang-btn active" data-lang="hi">हिन्दी</button>
                 <button type="button" class="lang-btn" data-lang="en">English</button>
-                <button type="button" class="lang-btn" data-lang="pa">ਪੰਜਾਬੀ</button>
             </div>
         </div>
 
         <header class="text-center mb-16 pt-0">
             <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-golden-dark mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-primary font-semibold"></p>
+            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-golden-dark font-semibold"></p>
         </header>
 
         <main class="grid grid-cols-1 gap-10">
 
-            <!-- 1. CDS EXAM INTRODUCTION (Adapted to h.html style - Request 1) -->
-            <section class="card" id="section1">
+            <section class="card">
                 <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
                 <div class="text-center">
                     <div class="text-7xl font-extrabold text-golden-dark drop-shadow-lg">4</div>
-                    <div data-lang-key="section1_academies_text" class="text-xl font-semibold text-golden-dark"></div>
-                    <div class="mt-6 flex flex-wrap justify-center gap-4">
-                        <button data-lang-key="section1_academies_btn" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors" data-modal-target="academiesMainModal">
-                            सभी अकादमियां देखें
-                        </button>
+                    <div data-lang-key="section1_services_text" class="text-xl font-semibold text-golden-dark"></div>
+                    
+                    <div class="academy-card-container">
+                        <div class="academy-card" data-modal-target="imaModal">
+                            <div class="icon">⚔️</div>
+                            <div data-lang-key="section1_card1_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="inaModal">
+                            <div class="icon">⚓</div>
+                            <div data-lang-key="section1_card2_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="afaModal">
+                            <div class="icon">✈️</div>
+                            <div data-lang-key="section1_card3_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="otaModal">
+                            <div class="icon">🎖️</div>
+                            <div data-lang-key="section1_card4_title" class="name"></div>
+                        </div>
                     </div>
+                    
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="start-preparation-guide.html" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors">
+                            Start Preparation
+                        </a>
+                    </div>
+                    
                 </div>
             </section>
-
-            <!-- 2. EXAMINATION PROCESS -->
-            <section class="card" id="section2">
+            
+            <section class="card">
                 <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
                 <div class="flowchart-container-fix md:space-x-8 lg:space-x-12">
@@ -468,112 +494,100 @@
                 </div>
             </section>
 
-            <!-- 3. ELIGIBILITY AND EXAM PATTERN -->
-            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" id="section3">
+            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <div>
                     <h2 data-lang-key="section3_title" class="text-3xl font-bold section-heading"></h2>
                     <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
                 </div>
                 <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-golden-dark mb-4 text-center"></h3>
+                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-golden-dark mb-4 text-center border-b border-golden-dark pb-2"></h3>
                     <div class="chart-container h-72">
                         <canvas id="examPatternChart"></canvas>
                     </div>
                 </div>
             </section>
 
-            <!-- 4. DETAILED SYLLABUS -->
-            <section class="card" id="section4">
+            <section class="card">
                 <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="englishSyllabusModal">
                         <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-primary font-semibold"></p>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="gkSyllabusModal">
                         <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-primary font-semibold"></p>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="mathsSyllabusModal">
                         <h3 data-lang-key="section4_subject3_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-primary font-semibold"></p>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
                 </div>
             </section>
             
-            <!-- 5. SUBJECTS WITH RESOURCES -->
-            <section class="card" id="section5">
+            <section class="card">
                 <h2 data-lang-key="section5_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section5_desc" class="text-lg text-center mb-10 max-w-4xl mx-auto"></p>
                 <div class="space-y-4">
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark flex flex-col sm:flex-row justify-between sm:items-center">
-                        <h4 data-lang-key="section4_subject1_title" class="font-semibold text-lg text-gray-200 mb-3 sm:mb-0"></h4>
+                        <h4 data-lang-key="section4_subject1_title" class="font-semibold text-lg text-gray-800 mb-3 sm:mb-0 text-golden-dark"></h4>
                         <div class="flex space-x-2 flex-shrink-0">
-                            <button data-lang-key="notes_btn" class="notes-lectures-btn"></button>
-                            <button data-lang-key="lectures_btn" class="notes-lectures-btn"></button>
-                        </div>
+                            </div>
                     </div>
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark flex flex-col sm:flex-row justify-between sm:items-center">
-                        <h4 data-lang-key="section4_subject2_title" class="font-semibold text-lg text-gray-200 mb-3 sm:mb-0"></h4>
+                        <h4 data-lang-key="section4_subject2_title" class="font-semibold text-lg text-gray-800 mb-3 sm:mb-0 text-golden-dark"></h4>
                         <div class="flex space-x-2 flex-shrink-0">
-                            <button data-lang-key="notes_btn" class="notes-lectures-btn"></button>
-                            <button data-lang-key="lectures_btn" class="notes-lectures-btn"></button>
-                        </div>
+                            </div>
                     </div>
                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark flex flex-col sm:flex-row justify-between sm:items-center">
-                        <h4 data-lang-key="section4_subject3_title" class="font-semibold text-lg text-gray-200 mb-3 sm:mb-0"></h4>
+                        <h4 data-lang-key="section4_subject3_title" class="font-semibold text-lg text-gray-800 mb-3 sm:mb-0 text-golden-dark"></h4>
                         <div class="flex space-x-2 flex-shrink-0">
-                            <button data-lang-key="notes_btn" class="notes-lectures-btn"></button>
-                            <button data-lang-key="lectures_btn" class="notes-lectures-btn"></button>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 6. ACADEMIES AND CAREER OPPORTUNITIES -->
-            <section class="card" id="section6">
-                <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
+            <section class="card">
+                <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section6_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                    <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="imaCareerModal">
-                        <h3 data-lang-key="section1_card1_title" class="font-bold text-xl text-primary mb-2"></h3>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="imaCareerModal">
+                        <h3 data-lang-key="section1_card1_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
                         <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="inaCareerModal">
-                        <h3 data-lang-key="section1_card2_title" class="font-bold text-xl text-primary mb-2"></h3>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="inaCareerModal">
+                        <h3 data-lang-key="section1_card2_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
                         <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="afaCareerModal">
-                        <h3 data-lang-key="section1_card3_title" class="font-bold text-xl text-primary mb-2"></h3>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="afaCareerModal">
+                        <h3 data-lang-key="section1_card3_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
                         <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="otaCareerModal">
-                        <h3 data-lang-key="section1_card4_title" class="font-bold text-xl text-primary mb-2"></h3>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="otaCareerModal">
+                        <h3 data-lang-key="section1_card4_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
                         <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
                 </div>
             </section>
 
-            <!-- 7. PREPARATION STRATEGY -->
-            <section class="card" id="section7">
+            <section class="card">
                 <h2 data-lang-key="section7_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section7_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <div data-lang-key="section7_col1_list" class="text-lg"></div>
                     </div>
                     <div>
-                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <p data-lang-key="section7_col2_desc" class="text-lg mb-4"></p>
                         <div data-lang-key="section7_col2_list" class="text-lg"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- 8. WHAT NOT TO DO (AVOID FAILURE) -->
-            <section class="card" id="section8">
+            <section class="card">
                 <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
@@ -597,15 +611,35 @@
                 <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-golden-dark mt-10"></p>
             </section>
             
-            <!-- 9. APPLICATION TIMELINE -->
-            <section class="card" id="section9">
+            <section class="card">
                 <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section9_desc" class="text-lg mb-8"></p>
-                <div data-lang-key="section9_timeline" class="space-y-4"></div>
+                
+                <ol class="relative border-l-4 border-golden-dark pl-6 space-y-6">
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">1</div>
+                        <h4 data-lang-key="section9_li1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li1_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                        <h4 data-lang-key="section9_li2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li2_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                        <h4 data-lang-key="section9_li3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li3_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                        <h4 data-lang-key="section9_li4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li4_p" class="text-base text-text-light"></p>
+                    </li>
+                </ol>
             </section>
 
-            <!-- 10. INSTITUTES FOR PREPARATION -->
-            <section class="card" id="section10">
+            <section class="card">
                 <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section10_desc" class="text-lg mb-8"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -614,106 +648,29 @@
                 </div>
             </section>
             
-            <!-- 11. CAREER GROWTH ROADMAP (Copied from h.html Section 12 - Request 3) -->
-            <section class="card" id="section11">
+            <section class="card">
                 <h2 data-lang-key="section11_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section11_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-
                 <div class="text-center">
                     <button data-lang-key="section11_roadmap_btn" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors" data-modal-target="careerRoadmapModal">
-                        संपूर्ण रैंक प्रगति देखें
+                        
                     </button>
                 </div>
             </section>
 
+
         </main>
 
-        <!-- Footer (Adapted from h.html) -->
         <footer class="text-center mt-16 pt-8 border-t-2 border-gray-700/50 mobile-hide-footer">
             <p data-lang-key="footer_text" class="text-gray-400 text-lg font-medium"></p>
+            
         </footer>
 
     </div>
 
-    <!-- Bottom Navigation (Copied from h.html) -->
-    <nav 
-        class="lg:hidden bottom-nav-fixed" 
-        style="padding-bottom: env(safe-area-inset-bottom);" 
-        id="bottom-nav-shs"
-    >
-        <div class="flex justify-around items-end h-20 relative px-2">
-            
-            <a href="#section1" class="nav-item-shs">
-                <i class="fas fa-shield-alt nav-icon-shs"></i>
-                <span class="font-medium">CDS</span>
-            </a>
-
-            <a href="#section4" class="nav-item-shs">
-                <i class="fas fa-book nav-icon-shs"></i>
-                <span class="font-medium">Syllabus</span>
-            </a>
-            
-            <div class="central-nav-item-shs">
-                <a 
-                    href="#mainContent" 
-                    class="central-fab animate-pulse-shadow"
-                    aria-label="Go to Top"
-                >
-                    <i class="fas fa-arrow-up central-fab-icon"></i>
-                </a>
-                <span class="central-fab-label">Top</span>
-            </div>
-            
-            <a href="tel:0000000000" class="nav-item-shs">
-                <i class="fas fa-phone-volume nav-icon-shs"></i>
-                <span class="font-medium">Call</span>
-            </a>
-            
-            <a href="#section11" class="nav-item-shs">
-                <i class="fas fa-rocket nav-icon-shs"></i>
-                <span class="font-medium">Career</span>
-            </a>
-        </div>
-    </nav>
-    
-    
-    <!-- MODALS (Existing CDS Modals - Updated Styles) -->
-
-    <!-- New: Academies Main Modal (For Step 1 Card Content) -->
-    <div id="academiesMainModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('academiesMainModal')">&times;</button>
-            <h3 data-lang-key="academies_main_modal_title" class="text-2xl font-bold text-golden-dark mb-6 text-center"></h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center mt-6">
-                 <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="imaModal">
-                    <div class="text-4xl text-golden-dark mb-2">⚔️</div>
-                    <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-primary"></div>
-                    <p class="text-sm text-gray-400">Click to view details</p>
-                </div>
-                <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="inaModal">
-                    <div class="text-4xl text-golden-dark mb-2">⚓</div>
-                    <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-primary"></div>
-                    <p class="text-sm text-gray-400">Click to view details</p>
-                </div>
-                <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="afaModal">
-                    <div class="text-4xl text-golden-dark mb-2">✈️</div>
-                    <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-primary"></div>
-                    <p class="text-sm text-gray-400">Click to view details</p>
-                </div>
-                <div class="p-4 rounded-lg academy-card cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="otaModal">
-                    <div class="text-4xl text-golden-dark mb-2">🎖️</div>
-                    <div data-lang-key="section1_card4_title" class="mt-2 font-semibold text-primary"></div>
-                    <p class="text-sm text-gray-400">Click to view details</p>
-                </div>
-            </div>
-            <button class="modal-back-button" onclick="closeModal('academiesMainModal')">पीछे जाएँ</button>
-        </div>
-    </div>
-
-
     <div id="writtenExamModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('writtenExamModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="written_exam_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="written_exam_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="written_exam_modal_list" class="text-text-light"></div>
@@ -722,70 +679,67 @@
     
     <div id="ssbModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('ssbModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ssb_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ssb_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="ssb_modal_list" class="text-text-light"></div>
         </div>
     </div>
 
-    <!-- Career Modals (Original, styles adapted) -->
     <div id="imaModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('imaModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ima_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ima_modal_desc" class="text-text-light"></p>
         </div>
     </div>
     <div id="inaModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('inaModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ina_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ina_modal_desc" class="text-text-light"></p>
         </div>
     </div>
     <div id="afaModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('afaModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="afa_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="afa_modal_desc" class="text-text-light"></p>
         </div>
     </div>
     <div id="otaModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('otaModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ota_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ota_modal_desc" class="text-text-light"></p>
         </div>
     </div>
 
-    <!-- Syllabus Modals -->
     <div id="englishSyllabusModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('englishSyllabusModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="english_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <div data-lang-key="english_syllabus_modal_list" class="text-text-light"></div>
         </div>
     </div>
     <div id="gkSyllabusModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('gkSyllabusModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="gk_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <div data-lang-key="gk_syllabus_modal_list" class="text-text-light"></div>
         </div>
     </div>
     <div id="mathsSyllabusModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('mathsSyllabusModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="maths_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <div data-lang-key="maths_syllabus_modal_list" class="text-text-light"></div>
         </div>
     </div>
 
-    <!-- Career Info Modals (Original) -->
     <div id="imaCareerModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('imaCareerModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ima_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ima_career_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="ima_career_modal_list" class="text-text-light"></div>
@@ -793,7 +747,7 @@
     </div>
     <div id="inaCareerModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('inaCareerModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ina_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ina_career_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="ina_career_modal_list" class="text-text-light"></div>
@@ -801,7 +755,7 @@
     </div>
     <div id="afaCareerModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('afaCareerModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="afa_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="afa_career_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="afa_career_modal_list" class="text-text-light"></div>
@@ -809,59 +763,94 @@
     </div>
     <div id="otaCareerModal" class="modal-overlay">
         <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('otaCareerModal')">&times;</button>
+            <button class="modal-close-button">&times;</button>
             <h3 data-lang-key="ota_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
             <p data-lang-key="ota_career_modal_desc" class="mb-4 text-text-light"></p>
             <div data-lang-key="ota_career_modal_list" class="text-text-light"></div>
         </div>
     </div>
 
-    <!-- New: Career Roadmap Modal (Adapted from h.html) -->
     <div id="careerRoadmapModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button" onclick="closeModal('careerRoadmapModal')">&times;</button>
-            <h3 data-lang-key="roadmap_timeline_title" class="text-2xl font-bold text-golden-dark mb-6 text-center"></h3>
+            <h3 data-lang-key="modal_roadmap_title" class="text-2xl font-bold text-golden-dark mb-6 text-center"></h3>
             
             <div id="roadmap-timeline" class="relative border-l-4 border-golden-dark pl-6 space-y-8 max-w-lg mx-auto">
                 
                 <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
-                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">1</div>
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg" style="background-color: var(--electric-gold-glow); color: var(--color-button-text);">1</div>
                     <h4 data-lang-key="roadmap_step1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
                     <p data-lang-key="roadmap_step1_desc" class="text-base text-text-light"></p>
                 </div>
                 
                 <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
-                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">2</div>
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg" style="background-color: var(--electric-gold-glow); color: var(--color-button-text);">2</div>
                     <h4 data-lang-key="roadmap_step2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
                     <p data-lang-key="roadmap_step2_desc" class="text-base text-text-light"></p>
                 </div>
                 
                 <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
-                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">3</div>
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg" style="background-color: var(--electric-gold-glow); color: var(--color-button-text);">3</div>
                     <h4 data-lang-key="roadmap_step3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
                     <p data-lang-key="roadmap_step3_desc" class="text-base text-text-light"></p>
                 </div>
                 
                 <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
-                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">4</div>
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg" style="background-color: var(--electric-gold-glow); color: var(--color-button-text);">4</div>
                     <h4 data-lang-key="roadmap_step4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
                     <p data-lang-key="roadmap_step4_desc" class="text-base text-text-light"></p>
                 </div>
-                 <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
-                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">5</div>
-                    <h4 data-lang-key="roadmap_step5_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
-                    <p data-lang-key="roadmap_step5_desc" class="text-base text-text-light"></p>
-                </div>
                 
-                <p data-lang-key="roadmap_note" class="text-center text-sm text-gray-400 pt-4">यह एक सामान्य प्रगति पथ है; पदोन्नति प्रदर्शन और अनुभव पर निर्भर करती है।</p>
+                <p data-lang-key="roadmap_note" class="text-center text-sm text-gray-400 pt-4"></p>
             </div>
-            <button class="modal-back-button" onclick="closeModal('careerRoadmapModal')">पीछे जाएँ</button>
+            
         </div>
     </div>
 
 
+    <nav 
+        class="lg:hidden bottom-nav-fixed" 
+        style="padding-bottom: env(safe-area-inset-bottom);" 
+        id="bottom-nav-shs"
+    >
+        <div class="flex justify-around items-end h-20 relative px-2">
+            
+            <a href="index.html#govt-exam-section" class="nav-item-shs">
+                <i class="fas fa-building nav-icon-shs"></i>
+                <span class="font-medium">Public</span>
+            </a>
+
+            <a href="index.html#private-sector-section" class="nav-item-shs">
+                <i class="fas fa-briefcase nav-icon-shs"></i>
+                <span class="font-medium">Private</span>
+            </a>
+            
+            <div class="central-nav-item-shs">
+                <a 
+                    href="index.html" 
+                    class="central-fab animate-pulse-shadow"
+                    aria-label="Go to Home"
+                >
+                    <i class="fas fa-home central-fab-icon"></i>
+                </a>
+                <span class="central-fab-label">Home</span>
+            </div>
+            
+            <a href="tel:0000000000" class="nav-item-shs">
+                <i class="fas fa-phone-volume nav-icon-shs"></i>
+                <span class="font-medium">Call</span>
+            </a>
+            
+            <a href="index.html#ai-guide-section" class="nav-item-shs">
+                <i class="fas fa-brain nav-icon-shs"></i>
+                <span class="font-medium">AI Tools</span>
+            </a>
+        </div>
+    </nav>
+
+
     <script>
-        // --- START: CDS HEADER/SIDEBAR JS LOGIC (from h.html) ---
+        // --- START: index.html HEADER JS LOGIC ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenuPanel = document.getElementById('mobile-menu-panel');
         const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -873,7 +862,6 @@
             const isMenuOpen = mobileMenuPanel.classList.contains('translate-x-0');
             
             if (isMenuOpen) {
-                // Close menu
                 mobileMenuPanel.classList.remove('translate-x-0');
                 mobileMenuPanel.classList.add('translate-x-full');
                 mobileMenuOverlay.classList.add('hidden');
@@ -882,7 +870,6 @@
                 mobileMenuIcon.classList.add('fa-bars');
                 document.body.style.overflow = '';
             } else {
-                // Open menu
                 mobileMenuPanel.classList.remove('translate-x-full');
                 mobileMenuPanel.classList.add('translate-x-0');
                 mobileMenuOverlay.classList.remove('hidden');
@@ -903,74 +890,58 @@
             });
         });
         
-        // Modal utility functions
-        window.showModal = (modalId) => {
-            // Close all existing modals first
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.classList.remove('active');
-            });
-            const targetModal = document.getElementById(modalId);
-            if (targetModal) {
-                targetModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        };
-        
-        window.closeModal = (modalId) => {
-            const targetModal = document.getElementById(modalId);
-            if (targetModal) {
-                targetModal.classList.remove('active');
-                // Only restore body scroll if no other modal is active
-                if (!document.querySelector('.modal-overlay.active')) {
-                    document.body.style.overflow = '';
-                }
-            }
-        };
+        // --- END: index.html HEADER JS LOGIC ---
 
-        // --- END: CDS HEADER/SIDEBAR JS LOGIC ---
+        let examPatternChartInstance = null;
 
+        // --- UPDATED TRANSLATION DATA (Removed Punjabi) ---
         const translations = {
             hi: {
                 doc_title: "UPSC संयुक्त रक्षा सेवा (CDS) परीक्षा: संपूर्ण मार्गदर्शिका",
                 header_title: "⭐ UPSC संयुक्त रक्षा सेवा (CDS) परीक्षा ⭐",
                 header_subtitle: "भारतीय सशस्त्र बलों में एक गौरवशाली करियर का प्रवेश द्वार",
                 section1_title: "1. CDS परीक्षा क्या है? 🤔",
-                section1_desc: "संयुक्त रक्षा सेवा (CDS) परीक्षा UPSC द्वारा साल में दो बार आयोजित की जाती है। यह भारतीय सैन्य अकादमी (IMA), भारतीय नौसेना अकादमी (INA), वायु सेना अकादमी (AFA), और अधिकारी प्रशिक्षण अकादमी (OTA) में अधिकारियों की भर्ती के लिए एक राष्ट्रीय स्तर की परीक्षा है।",
-                section1_academies_text: "4 प्रमुख प्रशिक्षण अकादमियां",
-                section1_academies_btn: "सभी अकादमियां देखें",
-                academies_main_modal_title: "CDS अकादमियां: प्रवेश और प्रशिक्षण",
+                section1_desc: "संयुक्त रक्षा सेवा (CDS) परीक्षा UPSC द्वारा साल में दो बार आयोजित की जाती है। यह **भारतीय सैन्य अकादमी (IMA), भारतीय नौसेना अकादमी (INA), वायु सेना अकादमी (AFA)**, और **अधिकारी प्रशिक्षण अकादमी (OTA)** में अधिकारियों की भर्ती के लिए एक राष्ट्रीय स्तर की परीक्षा है।",
+                section1_services_text: "4 प्रमुख अकादमियों के लिए भर्ती", // NEW TEXT
                 section1_card1_title: "भारतीय सैन्य अकादमी (IMA)",
                 section1_card2_title: "भारतीय नौसेना अकादमी (INA)",
                 section1_card3_title: "वायु सेना अकादमी (AFA)",
                 section1_card4_title: "अधिकारी प्रशिक्षण अकादमी (OTA)",
+                
                 section2_title: "2. परीक्षा प्रक्रिया: 2 चरण 🎯",
                 section2_desc: "CDS चयन प्रक्रिया में दो मुख्य चरण होते हैं। लिखित परीक्षा में सफल होने वाले उम्मीदवारों को SSB साक्षात्कार के लिए बुलाया जाता है।",
                 section2_step1_title: "चरण 1:<br>लिखित परीक्षा",
                 section2_step2_title: "चरण 2:<br>SSB साक्षात्कार",
+                
                 section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
                 section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">शैक्षणिक योग्यता:</strong> IMA और OTA के लिए किसी भी विषय में स्नातक डिग्री। INA के लिए इंजीनियरिंग में डिग्री। AFA के लिए 10+2 स्तर पर भौतिकी और गणित के साथ स्नातक डिग्री या इंजीनियरिंग में स्नातक।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">आयु सीमा:</strong> 19-25 वर्ष (अकादमी के अनुसार भिन्न)।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">राष्ट्रीयता:</strong> भारतीय नागरिक होना अनिवार्य है।</div></li></ul>',
                 section3_chart_title: "लिखित परीक्षा का पैटर्न 📊",
                 examPatternChartLabels: ['अंग्रेजी', 'सामान्य ज्ञान', 'प्रारंभिक गणित'],
+                
                 section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
                 section4_desc: "CDS लिखित परीक्षा में तीन मुख्य विषय होते हैं। OTA के उम्मीदवारों को केवल अंग्रेजी और सामान्य ज्ञान की परीक्षा देनी होती है।",
                 section4_subject1_title: "अंग्रेजी",
                 section4_subject2_title: "सामान्य ज्ञान (GK)",
                 section4_subject3_title: "प्रारंभिक गणित",
                 section4_subject_button: "पाठ्यक्रम देखें &rarr;",
+                
                 section5_title: "5. परीक्षा के सभी विषय 📖",
                 section5_desc: "परीक्षा में सफलता के लिए प्रत्येक विषय की ठोस समझ आवश्यक है। नीचे विषयों की सूची दी गई है।",
-                notes_btn: "नोट्स",
-                lectures_btn: "लेक्चर्स",
+                // notes_btn: "नोट्स", // REMOVED
+                // lectures_btn: "लेक्चर्स", // REMOVED
+                
                 section6_title: "6. अकादमियां और करियर के अवसर 🏢",
                 section6_desc: "CDS परीक्षा आपको भारतीय सशस्त्र बलों की विभिन्न शाखाओं में एक अधिकारी के रूप में एक पुरस्कृत करियर प्रदान करती है। प्रत्येक अकादमी एक अद्वितीय प्रशिक्षण और करियर पथ प्रदान करती है।",
                 section6_card_button: "करियर पथ देखें &rarr;",
+                
                 section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
                 section7_desc: "CDS परीक्षा में सफलता के लिए अनुशासित तैयारी और एक स्पष्ट रणनीति की आवश्यकता होती है।",
                 section7_col1_title: "📚 अध्ययन के प्रमुख स्तंभ:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>अवधारणाओं को समझें:</strong> विशेषकर गणित और सामान्य विज्ञान में, मूल सिद्धांतों को अच्छी तरह से समझें।</li><li><strong>अंग्रेजी पर ध्यान दें:</strong> नियमित रूप से पढ़ें और व्याकरण का अभ्यास करें। यह एक स्कोरिंग विषय है।</li><li><strong>GK को व्यापक रूप से कवर करें:</strong> NCERT की किताबें पढ़ें और करेंट अफेयर्स से अपडेट रहें।</li><li><strong>पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न को समझने और महत्वपूर्ण विषयों की पहचान करने के लिए PYQs को हल करना बहुत महत्वपूर्ण है।</li></ul>',
+                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">अवधारणाओं को समझें:</strong> विशेषकर गणित और सामान्य विज्ञान में, मूल सिद्धांतों को अच्छी तरह से समझें।</li><li><strong class="text-golden-dark">अंग्रेजी पर ध्यान दें:</strong> नियमित रूप से पढ़ें और व्याकरण का अभ्यास करें। यह एक स्कोरिंग विषय है।</li><li><strong class="text-golden-dark">GK को व्यापक रूप से कवर करें:</strong> NCERT की किताबें पढ़ें और करेंट अफेयर्स से अपडेट रहें।</li><li><strong class="text-golden-dark">पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न को समझने और महत्वपूर्ण विषयों की पहचान करने के लिए PYQs को हल करना बहुत महत्वपूर्ण है।</li></ul>',
                 section7_col2_title: "🔄 रिवीजन और अभ्यास:",
                 section7_col2_desc: "**निरंतरता और समय प्रबंधन सफलता की कुंजी हैं!**",
                 section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>नियमित रूप से मॉक टेस्ट दें और अपनी गति और सटीकता का विश्लेषण करें।</li><li>प्रत्येक विषय के लिए छोटे नोट्स बनाएं ताकि अंतिम समय में रिवीजन आसान हो।</li><li>शारीरिक फिटनेस पर भी ध्यान दें, क्योंकि यह SSB के लिए आवश्यक है।</li></ul>',
+                
                 section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
                 section8_desc: "वर्दी का सपना देखने वालों के लिए, यह जानना भी ज़रूरी है कि किन गलतियों से बचना है। ये गलतियाँ सिर्फ नंबर नहीं काटतीं, बल्कि आपका सपना तोड़ सकती हैं।",
                 section8_item1: '<div><strong class="text-lg text-red-300">SSB को हल्के में लेना:</strong> यह मत सोचो कि पहले लिखित परीक्षा पास कर लूँ, फिर SSB की तैयारी करूँगा। SSB केवल ज्ञान का परीक्षण नहीं, बल्कि आपके व्यक्तित्व का परीक्षण है, जिसे बदलने में समय लगता है। आज से ही अपनी फिटनेस, संचार कौशल और आत्मविश्वास पर काम करना शुरू करें।</div>',
@@ -978,29 +949,30 @@
                 section8_item3: '<div><strong class="text-lg text-red-300">मॉक टेस्ट से भागना:</strong> सिर्फ पढ़ते रहना काफी नहीं है। जब तक आप समय सीमा में प्रश्नों को हल करने का अभ्यास नहीं करेंगे, तब तक असली परीक्षा में घबराहट होना तय है। मॉक टेस्ट आपकी कमजोरियों का आईना हैं, उनसे डरें नहीं, बल्कि सीखें।</div>',
                 section8_item4: '<div><strong class="text-lg text-red-300">असंगत होना:</strong> दो दिन 10 घंटे पढ़ना और फिर तीन दिन आराम करना आपको कहीं नहीं ले जाएगा। सशस्त्र बल अनुशासन की मांग करते हैं, और इसकी शुरुआत आपकी तैयारी से होती है। रोज़ पढ़ें, भले ही थोड़ा पढ़ें, लेकिन पढ़ें ज़रूर।</div>',
                 section8_final_thought: "✨ याद रखें: यह सिर्फ एक परीक्षा नहीं, आपके चरित्र का इम्तिहान है। ✨",
+                
                 section9_title: "9. आवेदन प्रक्रिया और समय-सीमा 🗓️",
                 section9_desc: "CDS परीक्षा साल में दो बार आयोजित की जाती है। CDS (I) के लिए अधिसूचना नवंबर/दिसंबर में और CDS (II) के लिए मई/जून में जारी की जाती है।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-400">अधिसूचना (CDS I):</div><div>नवंबर - दिसंबर।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">परीक्षा (CDS I):</div><div>फरवरी।</div></div><div class="flex items-center mt-4 pt-4 border-t border-gray-700/50"><div class="w-48 font-bold text-gray-400">अधिसूचना (CDS II):</div><div>मई - जून।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">परीक्षा (CDS II):</div><div>सितंबर।</div></div>`,
+                section9_li1_title: 'अधिसूचना और आवेदन (CDS I)',
+                section9_li1_p: '<strong class="text-gray-400">समय:</strong> आमतौर पर नवंबर - दिसंबर में।<br>इसी समय आवेदन पत्र जारी किए जाते हैं।',
+                section9_li2_title: 'परीक्षा (CDS I)',
+                section9_li2_p: '<strong class="text-gray-400">समय:</strong> फरवरी में।<br>इसका परिणाम लगभग 15-20 दिनों में आ जाता है।',
+                section9_li3_title: 'अधिसूचना और आवेदन (CDS II)',
+                section9_li3_p: '<strong class="text-gray-400">समय:</strong> मई - जून में।',
+                section9_li4_title: 'परीक्षा (CDS II)',
+                section9_li4_p: '<strong class="text-gray-400">समय:</strong> सितंबर में।<br>इस तरह, प्रत्येक CDS प्रक्रिया में लगभग 5-6 महीने लगते हैं।',
+
                 section10_title: "10. तैयारी के लिए संस्थान 👨‍🏫",
                 section10_desc: "CDS भारत में सबसे प्रतिष्ठित रक्षा परीक्षाओं में से एक है, और कई संस्थान इसके लिए कोचिंग प्रदान करते हैं।",
-                section10_online: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">💻 ऑनलाइन प्लेटफॉर्म:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Gradeup (Byju's Exam Prep)</li><li>Testbook</li><li>SSBCrackExams</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">🏢 ऑफलाइन केंद्र:</h3><ul class="list-disc list-inside"><li>Cavalier India (Pan-India)</li><li>Baalnoi Academy (Delhi, Jaipur)</li><li>The Doon Defence Academy (Dehradun)</li><li>Minerva Academy (Punjab)</li></ul></div>`,
-                section11_title: "11. करियर ग्रोथ रोडमैप: अधिकारी रैंक 🚀",
-                section11_desc: "CDS के माध्यम से कमीशन प्राप्त करने के बाद, आपका करियर भारतीय सशस्त्र बलों में उच्च रैंक की ओर बढ़ता है।",
-                section11_roadmap_btn: "संपूर्ण रैंक प्रगति देखें",
-                roadmap_timeline_title: "भारतीय सेना अधिकारी: रैंक प्रगति (Permanent Commission)",
-                roadmap_step1_title: "लेफ्टिनेंट (Lieutenant)",
-                roadmap_step1_desc: "कमीशन के बाद पहली रैंक। 2 साल की सेवा।",
-                roadmap_step2_title: "कैप्टन (Captain)",
-                roadmap_step2_desc: "2 साल की सेवा के बाद पदोन्नति। कंपनी कमांडर के रूप में जिम्मेदारी।",
-                roadmap_step3_title: "मेजर (Major)",
-                roadmap_step3_desc: "6 साल की सेवा के बाद पदोन्नति। महत्वपूर्ण प्रशासनिक और कमांड भूमिकाएं।",
-                roadmap_step4_title: "लेफ्टिनेंट कर्नल/कर्नल (Lt. Col. / Colonel)",
-                roadmap_step4_desc: "13-15 साल की सेवा के बाद पदोन्नति। बटालियन या रेजिमेंट का कमांड।",
-                roadmap_step5_title: "ब्रिगेडियर और उससे ऊपर (Brigadier & Above)",
-                roadmap_step5_desc: "वरिष्ठ रैंक, नीति निर्माण और उच्च कमांड मुख्यालयों में।",
-                roadmap_note: "यह एक सामान्य प्रगति पथ है; पदोन्नति प्रदर्शन और अनुभव पर निर्भर करती है।",
+                section10_online: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">💻 ऑनलाइन प्लेटफॉर्म:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Gradeup (Byju's Exam Prep)</li><li>Testbook</li><li>SSBCrackExams</li></ul></div>`,
+                section10_offline: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">🏢 ऑफलाइन केंद्र:</h3><ul class="list-disc list-inside"><li>Cavalier India (Pan-India)</li><li>Baalnoi Academy (Delhi, Jaipur)</li><li>The Doon Defence Academy (Dehradun)</li><li>Minerva Academy (Punjab)</li></ul></div>`,
+                
+                section11_title: "11. करियर ग्रोथ रोडमैप: आपका भविष्य 🚀", // NEW SECTION TITLE
+                section11_desc: "CDS क्रैक करना सिर्फ शुरुआत है। एक सैन्य अधिकारी का करियर प्रगतिशील और सम्मानजनक होता है।", // NEW SECTION DESC
+                section11_roadmap_btn: 'संपूर्ण करियर रोडमैप देखें', // NEW BUTTON TEXT
+                
                 footer_text: "© 2025 CDS गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
+                
+                // Modals
                 written_exam_modal_title: "चरण 1: लिखित परीक्षा",
                 written_exam_modal_desc: "यह चयन प्रक्रिया का पहला चरण है। यह एक वस्तुनिष्ठ प्रकार की परीक्षा है।",
                 written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>IMA, INA, AFA के लिए:</strong> 3 पेपर (अंग्रेजी, GK, गणित), कुल 300 अंक।</li><li><strong>OTA के लिए:</strong> 2 पेपर (अंग्रेजी, GK), कुल 200 अंक।</li><li>प्रत्येक पेपर 2 घंटे का होता है।</li><li>गलत उत्तरों के लिए नेगेटिव मार्किंग होती है।</li></ul>',
@@ -1016,11 +988,11 @@
                 ota_modal_title: "🎖️ अधिकारी प्रशिक्षण अकादमी (OTA), चेन्नई/गया",
                 ota_modal_desc: "OTA पुरुष और महिला दोनों उम्मीदवारों को शॉर्ट सर्विस कमीशन (SSC) के लिए प्रशिक्षित करता है। यहां का प्रशिक्षण IMA की तुलना में कम अवधि का होता है। SSC अधिकारी 10/14 साल तक सेवा करते हैं और प्रदर्शन के आधार पर स्थायी कमीशन का विकल्प चुन सकते हैं।",
                 english_syllabus_modal_title: "अंग्रेजी पाठ्यक्रम",
-                english_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>मुख्य विषय</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>Reading Comprehension</li><li>Synonyms & Antonyms</li><li>Error Spotting</li><li>Sentence Arrangement</li><li>Fill in the Blanks</li><li>Idioms and Phrases</li></ul></div>',
+                english_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">मुख्य विषय</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>Reading Comprehension</li><li>Synonyms & Antonyms</li><li>Error Spotting</li><li>Sentence Arrangement</li><li>Fill in the Blanks</li><li>Idioms and Phrases</li></ul></div>',
                 gk_syllabus_modal_title: "सामान्य ज्ञान पाठ्यक्रम",
-                gk_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>मुख्य विषय</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>इतिहास (History)</li><li>भूगोल (Geography)</li><li>भारतीय राजव्यवस्था (Indian Polity)</li><li>अर्थशास्त्र (Economics)</li><li>भौतिकी, रसायन विज्ञान, जीव विज्ञान (Physics, Chemistry, Biology)</li><li>रक्षा संबंधी जागरूकता (Defence Specific Awareness)</li><li>करेंट अफेयर्स (Current Affairs)</li></ul></div>',
+                gk_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">मुख्य विषय</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>इतिहास (History)</li><li>भूगोल (Geography)</li><li>भारतीय राजव्यवस्था (Indian Polity)</li><li>अर्थशास्त्र (Economics)</li><li>भौतिकी, रसायन विज्ञान, जीव विज्ञान (Physics, Chemistry, Biology)</li><li>रक्षा संबंधी जागरूकता (Defence Specific Awareness)</li><li>करेंट अफेयर्स (Current Affairs)</li></ul></div>',
                 maths_syllabus_modal_title: "प्रारंभिक गणित पाठ्यक्रम",
-                maths_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>मुख्य विषय</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>अंकगणित, बीजगणित, त्रिकोणमिति, ज्यामिति, क्षेत्रमिति।</li></ul></div>',
+                maths_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">मुख्य विषय</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>अंकगणित, बीजगणित, त्रिकोणमिति, ज्यामिति, क्षेत्रमिति।</li></ul></div>',
                 ima_career_modal_title: "IMA: भारतीय सेना में करियर",
                 ima_career_modal_desc: "IMA से पास होने वाले कैडेटों को भारतीय सेना में लेफ्टिनेंट के रूप में स्थायी कमीशन मिलता है। करियर की प्रगति इस प्रकार है:",
                 ima_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>लेफ्टिनेंट</li><li>कैप्टन</li><li>मेजर</li><li>लेफ्टिनेंट कर्नल</li><li>कर्नल</li><li>ब्रिगेडियर और उससे ऊपर</li></ul>',
@@ -1032,49 +1004,66 @@
                 afa_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>फ्लाइंग ऑफिसर</li><li>फ्लाइट लेफ्टिनेंट</li><li>स्क्वाड्रन लीडर</li><li>विंग कमांडर</li><li>ग्रुप कैप्टन</li><li>एयर कमोडोर और उससे ऊपर</li></ul>',
                 ota_career_modal_title: "OTA: शॉर्ट सर्विस कमीशन (सेना)",
                 ota_career_modal_desc: "OTA शॉर्ट सर्विस कमीशन (SSC) प्रदान करता है, जो 10 साल की अवधि के लिए होता है, जिसे 14 साल तक बढ़ाया जा सकता है। प्रदर्शन के आधार पर, SSC अधिकारियों को स्थायी कमीशन (PC) भी मिल सकता है। रैंक संरचना IMA के समान है।",
-                ota_career_modal_list: ''
+                ota_career_modal_list: '',
+
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'सैन्य अधिकारी: करियर प्रगति का पथ (IMA/INA/AFA के लिए)',
+                roadmap_step1_title: 'प्रशिक्षण (Training)',
+                roadmap_step1_desc: 'IMA/INA/AFA में 1-2 साल का **कठोर प्रशिक्षण**।',
+                roadmap_step2_title: 'कमीशनिंग और प्रारंभिक कार्यकाल (4-6 वर्ष)',
+                roadmap_step2_desc: 'सेना: लेफ्टिनेंट, कैप्टन। नौसेना: सब-लेफ्टिनेंट, लेफ्टिनेंट। वायु सेना: फ्लाइंग ऑफिसर, फ्लाइट लेफ्टिनेंट।',
+                roadmap_step3_title: 'मध्य-स्तरीय कमान (10-18 वर्ष)',
+                roadmap_step3_desc: 'सेना: मेजर, लेफ्टिनेंट कर्नल। नौसेना: लेफ्टिनेंट कमांडर, कमांडर। वायु सेना: स्क्वाड्रन लीडर, विंग कमांडर।',
+                roadmap_step4_title: 'शीर्ष/सर्वोच्च स्तर (19+ वर्ष)',
+                roadmap_step4_desc: 'सेना: कर्नल, ब्रिगेडियर और उससे ऊपर। नौसेना: कैप्टन, कमोडोर और उससे ऊपर। वायु सेना: ग्रुप कैप्टन, एयर कमोडोर और उससे ऊपर।',
+                roadmap_note: 'OTA के लिए, शॉर्ट सर्विस कमीशन (SSC) 10-14 साल का होता है, जिसके बाद PC का विकल्प होता है।',
             },
             en: {
                 doc_title: "UPSC Combined Defence Services (CDS) Exam: Complete Guide",
                 header_title: "⭐ UPSC Combined Defence Services (CDS) Exam ⭐",
                 header_subtitle: "Gateway to a Glorious Career in the Indian Armed Forces",
                 section1_title: "1. What is the CDS Exam? 🤔",
-                section1_desc: "The Combined Defence Services (CDS) Examination is conducted twice a year by the UPSC. It is a national-level exam for the recruitment of officers into the Indian Military Academy (IMA), Indian Naval Academy (INA), Air Force Academy (AFA), and Officers' Training Academy (OTA).",
-                section1_academies_text: "4 Major Training Academies",
-                section1_academies_btn: "View All Academies",
-                academies_main_modal_title: "CDS Academies: Entry and Training",
+                section1_desc: "The Combined Defence Services (CDS) Examination is conducted twice a year by the UPSC. It is a national-level exam for the recruitment of officers into the **Indian Military Academy (IMA), Indian Naval Academy (INA), Air Force Academy (AFA)**, and **Officers' Training Academy (OTA)**.",
+                section1_services_text: "Recruitment for 4 Major Academies", // NEW TEXT
                 section1_card1_title: "Indian Military Academy (IMA)",
                 section1_card2_title: "Indian Naval Academy (INA)",
                 section1_card3_title: "Air Force Academy (AFA)",
                 section1_card4_title: "Officers' Training Academy (OTA)",
+                
                 section2_title: "2. Examination Process: 2 Stages 🎯",
                 section2_desc: "The CDS selection process consists of two main stages. Candidates who clear the written exam are called for the SSB Interview.",
                 section2_step1_title: "Stage 1:<br>Written Examination",
                 section2_step2_title: "Stage 2:<br>SSB Interview",
+                
                 section3_title: "3. Eligibility & Exam Pattern ✅",
                 section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">Educational Qualification:</strong> A graduate degree in any discipline for IMA and OTA. A degree in Engineering for INA. A graduate degree with Physics and Mathematics at 10+2 level or a Bachelor of Engineering for AFA.</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">Age Limit:</strong> 19-25 years (varies according to the academy).</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">Nationality:</strong> Must be a citizen of India.</div></li></ul>',
                 section3_chart_title: "Written Exam Pattern 📊",
                 examPatternChartLabels: ['English', 'General Knowledge', 'Elementary Mathematics'],
+                
                 section4_title: "4. Detailed Examination Syllabus 📚",
                 section4_desc: "The CDS written exam consists of three main subjects. Candidates for OTA only have to appear for English and General Knowledge.",
                 section4_subject1_title: "English",
                 section4_subject2_title: "General Knowledge (GK)",
                 section4_subject3_title: "Elementary Mathematics",
                 section4_subject_button: "View Syllabus &rarr;",
+                
                 section5_title: "5. All Subjects of the Exam 📖",
                 section5_desc: "A solid understanding of each subject is essential for success in the exam. Below is the list of subjects.",
-                notes_btn: "Notes",
-                lectures_btn: "Lectures",
+                // notes_btn: "Notes", // REMOVED
+                // lectures_btn: "Lectures", // REMOVED
+                
                 section6_title: "6. Academies and Career Opportunities 🏢",
                 section6_desc: "The CDS exam offers you a rewarding career as an officer in various branches of the Indian Armed Forces. Each academy provides a unique training and career path.",
                 section6_card_button: "View Career Path &rarr;",
+                
                 section7_title: "7. Your Preparation Strategy: Smart Work 📈",
                 section7_desc: "Success in the CDS exam requires disciplined preparation and a clear strategy.",
                 section7_col1_title: "📚 Key Pillars of Study:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>Understand the Concepts:</strong> Especially in Mathematics and General Science, understand the fundamental principles well.</li><li><strong>Focus on English:</strong> Read regularly and practice grammar. It is a scoring subject.</li><li><strong>Cover GK Broadly:</strong> Read NCERT books and stay updated with current affairs.</li><li><strong>Previous Years\' Questions (PYQs):</strong> Solving PYQs is very important to understand the exam pattern and identify important topics.</li></ul>',
+                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">Understand the Concepts:</strong> Especially in Mathematics and General Science, understand the fundamental principles well.</li><li><strong class="text-golden-dark">Focus on English:</strong> Read regularly and practice grammar. It is a scoring subject.</li><li><strong class="text-golden-dark">Cover GK Broadly:</strong> Read NCERT books and stay updated with current affairs.</li><li><strong class="text-golden-dark">Previous Years\' Questions (PYQs):</strong> Solving PYQs is very important to understand the exam pattern and identify important topics.</li></ul>',
                 section7_col2_title: "🔄 Revision and Practice:",
                 section7_col2_desc: "**Consistency and time management are the keys to success!**",
                 section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>Take mock tests regularly and analyze your speed and accuracy.</li><li>Make short notes for each subject for easy revision at the last minute.</li><li>Also, focus on physical fitness, as it is required for the SSB.</li></ul>',
+                
                 section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
                 section8_desc: "For those who dream of the uniform, it's also crucial to know what mistakes to avoid. These mistakes don't just cut marks; they can shatter your dream.",
                 section8_item1: '<div><strong class="text-lg text-red-300">Taking SSB Lightly:</strong> Don\'t think, "Let me clear the written exam first, then I\'ll prepare for SSB." SSB is not just a test of knowledge but of your personality, which takes time to shape. Start working on your fitness, communication skills, and confidence from today.</div>',
@@ -1082,29 +1071,30 @@
                 section8_item3: '<div><strong class="text-lg text-red-300">Running from Mock Tests:</strong> Just reading is not enough. Until you practice solving questions under a time limit, panic in the real exam is inevitable. Mock tests are a mirror to your weaknesses; don\'t fear them, learn from them.</div>',
                 section8_item4: '<div><strong class="text-lg text-red-300">Being Inconsistent:</strong> Studying 10 hours for two days and then resting for three will get you nowhere. The armed forces demand discipline, and it starts with your preparation. Study daily, even if it\'s for a short while, but do it every day.</div>',
                 section8_final_thought: "✨ Remember: This is not just an exam, it's a test of your character. ✨",
+                
                 section9_title: "9. Application Process & Timeline 🗓️",
                 section9_desc: "The CDS exam is conducted twice a year. The notification for CDS (I) is released in November/December, and for CDS (II) in May/June.",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-400">Notification (CDS I):</div><div>November - December.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">Exam (CDS I):</div><div>February.</div></div><div class="flex items-center mt-4 pt-4 border-t border-gray-700/50"><div class="w-48 font-bold text-gray-400">Notification (CDS II):</div><div>May - June.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">Exam (CDS II):</div><div>September.</div></div>`,
+                section9_li1_title: 'Notification and Application (CDS I)',
+                section9_li1_p: '<strong class="text-gray-400">Time:</strong> Usually in November - December.<br>The Application Form is released at this time.',
+                section9_li2_title: 'Exam (CDS I)',
+                section9_li2_p: '<strong class="text-gray-400">Time:</strong> February.<br>The result is declared in about 15-20 days.',
+                section9_li3_title: 'Notification and Application (CDS II)',
+                section9_li3_p: '<strong class="text-gray-400">Time:</strong> May - June.',
+                section9_li4_title: 'Exam (CDS II)',
+                section9_li4_p: '<strong class="text-gray-400">Time:</strong> September.<br>Thus, each CDS process takes about 5-6 months.',
+
                 section10_title: "10. Institutes for Preparation 👨‍🏫",
                 section10_desc: "CDS is one of the most prestigious defense exams in India, and many institutes provide coaching for it.",
-                section10_online: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">💻 Online Platforms:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Gradeup (Byju's Exam Prep)</li><li>Testbook</li><li>SSBCrackExams</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">🏢 Offline Centers:</h3><ul class="list-disc list-inside"><li>Cavalier India (Pan-India)</li><li>Baalnoi Academy (Delhi, Jaipur)</li><li>The Doon Defence Academy (Dehradun)</li><li>Minerva Academy (Punjab)</li></ul></div>`,
-                section11_title: "11. Career Growth Roadmap: Officer Ranks 🚀",
-                section11_desc: "After commissioning through CDS, your career progresses towards higher ranks in the Indian Armed Forces.",
-                section11_roadmap_btn: "View Complete Rank Progression",
-                roadmap_timeline_title: "Indian Army Officer: Rank Progression (Permanent Commission)",
-                roadmap_step1_title: "Lieutenant",
-                roadmap_step1_desc: "First rank after commissioning. 2 years of service.",
-                roadmap_step2_title: "Captain",
-                roadmap_step2_desc: "Promotion after 2 years of service. Responsibility as a Company Commander.",
-                roadmap_step3_title: "Major",
-                roadmap_step3_desc: "Promotion after 6 years of service. Important administrative and command roles.",
-                roadmap_step4_title: "Lieutenant Colonel / Colonel",
-                roadmap_step4_desc: "Promotion after 13-15 years of service. Command of a Battalion or Regiment.",
-                roadmap_step5_title: "Brigadier & Above",
-                roadmap_step5_desc: "Senior ranks, involved in policy formulation and high command headquarters.",
-                roadmap_note: "This is a general progression path; promotion depends on performance and experience.",
+                section10_online: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">💻 Online Platforms:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Gradeup (Byju's Exam Prep)</li><li>Testbook</li><li>SSBCrackExams</li></ul></div>`,
+                section10_offline: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">🏢 Offline Centers:</h3><ul class="list-disc list-inside"><li>Cavalier India (Pan-India)</li><li>Baalnoi Academy (Delhi, Jaipur)</li><li>The Doon Defence Academy (Dehradun)</li><li>Minerva Academy (Punjab)</li></ul></div>`,
+
+                section11_title: "11. Career Growth Roadmap: Your Future 🚀", // NEW SECTION TITLE
+                section11_desc: "Cracking CDS is just the beginning. A military officer's career is progressive and highly respectable.", // NEW SECTION DESC
+                section11_roadmap_btn: 'View Complete Career Roadmap', // NEW BUTTON TEXT
+
                 footer_text: "© 2025 CDS Guide. Best wishes for your success.",
+                
+                // Modals
                 written_exam_modal_title: "Stage 1: Written Examination",
                 written_exam_modal_desc: "This is the first stage of the selection process. It is an objective-type examination.",
                 written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>For IMA, INA, AFA:</strong> 3 papers (English, GK, Mathematics), total 300 marks.</li><li><strong>For OTA:</strong> 2 papers (English, GK), total 200 marks.</li><li>Each paper is of 2 hours duration.</li><li>There is negative marking for wrong answers.</li></ul>',
@@ -1120,131 +1110,199 @@
                 ota_modal_title: "🎖️ Officers' Training Academy (OTA), Chennai/Gaya",
                 ota_modal_desc: "OTA trains both male and female candidates for the Short Service Commission (SSC). The training here is of a shorter duration compared to IMA. SSC officers serve for 10/14 years and can opt for a Permanent Commission based on performance.",
                 english_syllabus_modal_title: "English Syllabus",
-                english_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>Key Topics</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>Reading Comprehension</li><li>Synonyms & Antonyms</li><li>Error Spotting</li><li>Sentence Arrangement</li><li>Fill in the Blanks</li><li>Idioms and Phrases</li></ul></div>',
+                english_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">Key Topics</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>Reading Comprehension</li><li>Synonyms & Antonyms</li><li>Error Spotting</li><li>Sentence Arrangement</li><li>Fill in the Blanks</li><li>Idioms and Phrases</li></ul></div>',
                 gk_syllabus_modal_title: "General Knowledge Syllabus",
-                gk_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>Key Topics</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>History</li><li>Geography</li><li>Indian Polity</li><li>Economics</li><li>Physics, Chemistry, Biology</li><li>Defence Specific Awareness</li><li>Current Affairs</li></ul></div>',
+                gk_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">Key Topics</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>History</li><li>Geography</li><li>Indian Polity</li><li>Economics</li><li>Physics, Chemistry, Biology</li><li>Defence Specific Awareness</li><li>Current Affairs</li></ul></div>',
                 maths_syllabus_modal_title: "Elementary Mathematics Syllabus",
-                maths_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>Key Topics</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>Arithmetic, Algebra, Trigonometry, Geometry, Mensuration.</li></ul></div>',
-                ima_career_modal_title: "IMA: भारतीय सेना में करियर",
+                maths_syllabus_modal_list: '<div><h4 class="text-golden-dark font-bold">Key Topics</h4><ul class="list-disc list-inside space-y-2 mt-2"><li>Arithmetic, Algebra, Trigonometry, Geometry, Mensuration.</li></ul></div>',
+                ima_career_modal_title: "IMA: Career in the Indian Army",
                 ima_career_modal_desc: "Cadets passing out from IMA get a Permanent Commission in the Indian Army as a Lieutenant. The career progression is as follows:",
-                ima_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>लेफ्टिनेंट</li><li>कैप्टन</li><li>मेजर</li><li>लेफ्टिनेंट कर्नल</li><li>कर्नल</li><li>ब्रिगेडियर & उससे ऊपर</li></ul>',
-                ina_career_modal_title: "INA: भारतीय नौसेना में करियर",
+                ima_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>Lieutenant</li><li>Captain</li><li>Major</li><li>Lieutenant Colonel</li><li>Colonel</li><li>Brigadier & Above</li></ul>',
+                ina_career_modal_title: "INA: Career in the Indian Navy",
                 ina_career_modal_desc: "Cadets passing out from INA get a Permanent Commission in the Indian Navy as a Sub-Lieutenant. The career progression is as follows:",
-                ina_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>सब-लेफ्टिनेंट</li><li>लेफ्टिनेंट</li><li>लेफ्टिनेंट कमांडर</li><li>कमांडर</li><li>कैप्टन</li><li>कमोडोर & उससे ऊपर</li></ul>',
-                afa_career_modal_title: "AFA: भारतीय वायु सेना में करियर",
+                ina_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>Sub-Lieutenant</li><li>Lieutenant</li><li>Lieutenant Commander</li><li>Commander</li><li>Captain</li><li>Commodore & Above</li></ul>',
+                afa_career_modal_title: "AFA: Career in the Indian Air Force",
                 afa_career_modal_desc: "Cadets passing out from AFA are commissioned as a Flying Officer in the Indian Air Force. The career progression is as follows:",
-                afa_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>फ्लाइंग ऑफिसर</li><li>फ्लाइट लेफ्टिनेंट</li><li>स्क्वाड्रन लीडर</li><li>विंग कमांडर</li><li>ग्रुप कैप्टन</li><li>एयर कमोडोर & उससे ऊपर</li></ul>',
-                ota_career_modal_title: "OTA: शॉर्ट सर्विस कमीशन (सेना)",
+                afa_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>Flying Officer</li><li>Flight Lieutenant</li><li>Squadron Leader</li><li>Wing Commander</li><li>Group Captain</li><li>Air Commodore & Above</li></ul>',
+                ota_career_modal_title: "OTA: Short Service Commission (Army)",
                 ota_career_modal_desc: "OTA provides a Short Service Commission (SSC) for a period of 10 years, extendable to 14 years. Based on performance, SSC officers may also be granted a Permanent Commission (PC). The rank structure is the same as for IMA.",
-                ota_career_modal_list: ''
-            },
-            pa: {
-                doc_title: "UPSC ਸੰਯੁਕਤ ਰੱਖਿਆ ਸੇਵਾਵਾਂ (CDS) ਪ੍ਰੀਖਿਆ: ਸੰਪੂਰਨ ਗਾਈਡ",
-                header_title: "⭐ UPSC ਸੰਯੁਕਤ ਰੱਖਿਆ ਸੇਵਾਵਾਂ (CDS) ਪ੍ਰੀਖਿਆ ⭐",
-                header_subtitle: "ਭਾਰਤੀ ਹਥਿਆਰਬੰਦ ਸੈਨਾਵਾਂ ਵਿੱਚ ਇੱਕ ਸ਼ਾਨਦਾਰ ਕੈਰੀਅਰ ਦਾ ਗੇਟਵੇ",
-                section1_title: "1. CDS ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ? 🤔",
-                section1_desc: "ਸੰਯੁਕਤ ਰੱਖਿਆ ਸੇਵਾਵਾਂ (CDS) ਪ੍ਰੀਖਿਆ UPSC ਦੁਆਰਾ ਸਾਲ ਵਿੱਚ ਦੋ ਵਾਰ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਇਹ ਭਾਰਤੀ ਮਿਲਟਰੀ ਅਕੈਡਮੀ (IMA), ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਅਕੈਡਮੀ (INA), ਹਵਾਈ ਸੈਨਾ ਅਕੈਡਮੀ (AFA), ਅਤੇ ਅਫਸਰ ਸਿਖਲਾਈ ਅਕੈਡਮੀ (OTA) ਵਿੱਚ ਅਫਸਰਾਂ ਦੀ ਭਰਤੀ ਲਈ ਇੱਕ ਰਾਸ਼ਟਰੀ ਪੱਧਰ ਦੀ ਪ੍ਰੀਖਿਆ ਹੈ।",
-                section1_academies_text: "4 ਮੁੱਖ ਸਿਖਲਾਈ ਅਕੈਡਮੀਆਂ",
-                section1_academies_btn: "ਸਾਰੀਆਂ ਅਕੈਡਮੀਆਂ ਦੇਖੋ",
-                academies_main_modal_title: "CDS ਅਕੈਡਮੀਆਂ: ਦਾਖਲਾ ਅਤੇ ਸਿਖਲਾਈ",
-                section1_card1_title: "ਭਾਰਤੀ ਮਿਲਟਰੀ ਅਕੈਡਮੀ (IMA)",
-                section1_card2_title: "ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਅਕੈਡਮੀ (INA)",
-                section1_card3_title: "ਹਵਾਈ ਸੈਨਾ ਅਕੈਡਮੀ (AFA)",
-                section1_card4_title: "ਅਫਸਰ ਸਿਖਲਾਈ ਅਕੈਡਮੀ (OTA)",
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ: 2 ਪੜਾਅ 🎯",
-                section2_desc: "CDS ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਦੋ ਮੁੱਖ ਪੜਾਅ ਹੁੰਦੇ ਹਨ। ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਪਾਸ ਕਰਨ ਵਾਲੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ SSB ਇੰਟਰਵਿਊ ਲਈ ਬੁਲਾਇਆ ਜਾਂਦਾ ਹੈ।",
-                section2_step1_title: "ਪੜਾਅ 1:<br>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                section2_step2_title: "ਪੜਾਅ 2:<br>SSB ਇੰਟਰਵਿਊ",
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ✅",
-                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">ਵਿੱਦਿਅਕ ਯੋਗਤਾ:</strong> IMA ਅਤੇ OTA ਲਈ ਕਿਸੇ ਵੀ ਵਿਸ਼ੇ ਵਿੱਚ ਗ੍ਰੈਜੂਏਟ ਡਿਗਰੀ। INA ਲਈ ਇੰਜੀਨੀਅਰਿੰਗ ਵਿੱਚ ਡਿਗਰੀ। AFA ਲਈ 10+2 ਪੱਧਰ \'ਤੇ ਭੌਤਿਕ ਵਿਗਿਆਨ ਅਤੇ ਗਣਿਤ ਦੇ ਨਾਲ ਗ੍ਰੈਜੂਏਟ ਡਿਗਰੀ ਜਾਂ ਇੰਜੀਨੀਅਰਿੰਗ ਵਿੱਚ ਬੈਚਲਰ।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">ਉਮਰ ਸੀਮਾ:</strong> 19-25 ਸਾਲ (ਅਕੈਡਮੀ ਅਨੁਸਾਰ ਵੱਖ-ਵੱਖ)।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">ਕੌਮੀਅਤ:</strong> ਭਾਰਤੀ ਨਾਗਰਿਕ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ।</div></li></ul>',
-                section3_chart_title: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ 📊",
-                examPatternChartLabels: ['ਅੰਗਰੇਜ਼ੀ', 'ਜਨਰਲ ਨਾਲੇਜ', 'ਮੁੱਢਲੀ ਗਣਿਤ'],
-                section4_title: "4. ਪ੍ਰੀਖਿਆ ਦਾ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ 📚",
-                section4_desc: "CDS ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਤਿੰਨ ਮੁੱਖ ਵਿਸ਼ੇ ਹੁੰਦੇ ਹਨ। OTA ਦੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਸਿਰਫ਼ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਜਨਰਲ ਨਾਲੇਜ ਦੀ ਪ੍ਰੀਖਿਆ ਦੇਣੀ ਪੈਂਦੀ ਹੈ।",
-                section4_subject1_title: "ਅੰਗਰੇਜ਼ੀ",
-                section4_subject2_title: "ਜਨਰਲ ਨਾਲੇਜ (GK)",
-                section4_subject3_title: "ਮੁੱਢਲੀ ਗਣਿਤ",
-                section4_subject_button: "ਸਿਲੇਬਸ ਵੇਖੋ &rarr;",
-                section5_title: "5. ਪ੍ਰੀਖਿਆ ਦੇ ਸਾਰੇ ਵਿਸ਼ੇ 📖",
-                section5_desc: "ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਹਰੇਕ ਵਿਸ਼ੇ ਦੀ ਠੋਸ ਸਮਝ ਜ਼ਰੂਰੀ ਹੈ। ਹੇਠਾਂ ਵਿਸ਼ਿਆਂ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ।",
-                notes_btn: "ਨੋਟਸ",
-                lectures_btn: "ਲੈਕਚਰ",
-                section6_title: "6. ਅਕੈਡਮੀਆਂ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ 🏢",
-                section6_desc: "CDS ਪ੍ਰੀਖਿਆ ਤੁਹਾਨੂੰ ਭਾਰਤੀ ਹਥਿਆਰਬੰਦ ਸੈਨਾਵਾਂ ਦੀਆਂ ਵੱਖ-ਵੱਖ ਸ਼ਾਖਾਵਾਂ ਵਿੱਚ ਇੱਕ ਅਫਸਰ ਵਜੋਂ ਇੱਕ ਲਾਭਦਾਇਕ ਕੈਰੀਅਰ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ। ਹਰੇਕ ਅਕੈਡਮੀ ਇੱਕ ਵਿਲੱਖਣ ਸਿਖਲਾਈ ਅਤੇ ਕੈਰੀਅਰ ਮਾਰਗ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ।",
-                section6_card_button: "ਕੈਰੀਅਰ ਮਾਰਗ ਵੇਖੋ &rarr;",
-                section7_title: "7. ਤੁਹਾਡੀ ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ: ਸਮਾਰਟ ਵਰਕ 📈",
-                section7_desc: "CDS ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਅਨੁਸ਼ਾਸਿਤ ਤਿਆਰੀ ਅਤੇ ਇੱਕ ਸਪਸ਼ਟ ਰਣਨੀਤੀ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
-                section7_col1_title: "📚 ਪੜ੍ਹਾਈ ਦੇ ਮੁੱਖ ਥੰਮ੍ਹ:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>ਸੰਕਲਪਾਂ ਨੂੰ ਸਮਝੋ:</strong> ਖਾਸ ਕਰਕੇ ਗਣਿਤ ਅਤੇ ਆਮ ਵਿਗਿਆਨ ਵਿੱਚ, ਮੂਲ ਸਿਧਾਂਤਾਂ ਨੂੰ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਮਝੋ।</li><li><strong>ਅੰਗਰੇਜ਼ੀ \'ਤੇ ਧਿਆਨ ਦਿਓ:</strong> ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਪੜ੍ਹੋ ਅਤੇ ਵਿਆਕਰਣ ਦਾ ਅਭਿਆਸ ਕਰੋ। ਇਹ ਇੱਕ ਸਕੋਰਿੰਗ ਵਿਸ਼ਾ ਹੈ।</li><li><strong>GK ਨੂੰ ਵਿਆਪਕ ਤੌਰ \'ਤੇ ਕਵਰ ਕਰੋ:</strong> NCERT ਦੀਆਂ ਕਿਤਾਬਾਂ ਪੜ੍ਹੋ ਅਤੇ ਮੌਜੂਦਾ ਮਾਮਲਿਆਂ ਨਾਲ ਅਪਡੇਟ ਰਹੋ।</li><li><strong>ਪਿਛਲੇ ਸਾਲਾਂ ਦੇ ਪ੍ਰਸ਼ਨ (PYQs):</strong> ਪ੍ਰੀਖਿਆ ਦੇ ਪੈਟਰਨ ਨੂੰ ਸਮਝਣ ਅਤੇ ਮਹੱਤਵਪੂਰਨ ਵਿਸ਼ਿਆਂ ਦੀ ਪਛਾਣ ਕਰਨ ਲਈ PYQs ਨੂੰ ਹੱਲ ਕਰਨਾ ਬਹੁਤ ਮਹੱਤਵਪੂਰਨ ਹੈ।</li></ul>',
-                section7_col2_title: "🔄 ਦੁਹਰਾਈ ਅਤੇ ਅਭਿਆਸ:",
-                section7_col2_desc: "**ਨਿਰੰਤਰਤਾ ਅਤੇ ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਸਫਲਤਾ ਦੀ ਕੁੰਜੀ ਹਨ!**",
-                section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਮੌਕ ਟੈਸਟ ਦਿਓ ਅਤੇ ਆਪਣੀ ਗਤੀ ਅਤੇ ਸ਼ੁੱਧਤਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰੋ।</li><li>ਹਰੇਕ ਵਿਸ਼ੇ ਲਈ ਛੋਟੇ ਨੋਟਸ ਬਣਾਓ ਤਾਂ ਜੋ ਆਖਰੀ ਸਮੇਂ ਵਿੱਚ ਦੁਹਰਾਈ ਆਸਾਨ ਹੋਵੇ।</li><li>ਸਰੀਰਕ ਤੰਦਰੁਸਤੀ \'ਤੇ ਵੀ ਧਿਆਨ ਦਿਓ, ਕਿਉਂਕਿ ਇਹ SSB ਲਈ ਜ਼ਰੂਰੀ ਹੈ।</li></ul>',
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਜਿਹੜੇ ਵਰਦੀ ਦਾ ਸੁਪਨਾ ਦੇਖਦੇ ਹਨ, ਉਨ੍ਹਾਂ ਲਈ ਇਹ ਜਾਣਨਾ ਵੀ ਜ਼ਰੂਰੀ ਹੈ ਕਿ ਕਿਹੜੀਆਂ ਗਲਤੀਆਂ ਤੋਂ ਬਚਣਾ ਹੈ। ਇਹ ਗਲਤੀਆਂ ਸਿਰਫ਼ ਨੰਬਰ ਨਹੀਂ ਕੱਟਦੀਆਂ, ਸਗੋਂ ਤੁਹਾਡਾ ਸੁਪਨਾ ਤੋੜ ਸਕਦੀਆਂ ਹਨ।",
-                section8_item1: '<div><strong class="text-lg text-red-300">SSB ਨੂੰ ਹਲਕੇ ਵਿੱਚ ਲੈਣਾ:</strong> ਇਹ ਨਾ ਸੋਚੋ ਕਿ ਪਹਿਲਾਂ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਪਾਸ ਕਰ ਲਵਾਂ, ਫਿਰ SSB ਦੀ ਤਿਆਰੀ ਕਰਾਂਗਾ। SSB ਸਿਰਫ਼ ਗਿਆਨ ਦੀ ਪਰਖ ਨਹੀਂ, ਸਗੋਂ ਤੁਹਾਡੀ ਸ਼ਖਸੀਅਤ ਦੀ ਪਰਖ ਹੈ, ਜਿਸ ਨੂੰ ਬਦਲਣ ਵਿੱਚ ਸਮਾਂ ਲੱਗਦਾ ਹੈ। ਅੱਜ ਤੋਂ ਹੀ ਆਪਣੀ ਫਿਟਨੈਸ, ਸੰਚਾਰ ਹੁਨਰ ਅਤੇ ਆਤਮ-ਵਿਸ਼ਵਾਸ \'ਤੇ ਕੰਮ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ।</div>',
-                section8_item2: '<div><strong class="text-lg text-red-300">ਕਿਸੇ ਇੱਕ ਵਿਸ਼ੇ ਨੂੰ ਛੱਡ ਦੇਣਾ:</strong> ਕਈ ਉਮੀਦਵਾਰ ਗਣਿਤ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਡਰ ਕੇ ਉਸਨੂੰ ਛੱਡ ਦਿੰਦੇ ਹਨ। ਯਾਦ ਰੱਖੋ, ਹਰ ਸੈਕਸ਼ਨ ਦਾ ਆਪਣਾ ਕੱਟ-ਆਫ ਹੁੰਦਾ ਹੈ। ਕਿਸੇ ਵੀ ਵਿਸ਼ੇ ਨੂੰ ਛੱਡਣਾ ਮਤਲਬ ਜਾਣਬੁੱਝ ਕੇ ਖੁਦ ਨੂੰ ਦੌੜ ਤੋਂ ਬਾਹਰ ਕਰਨਾ ਹੈ। ਹਰ ਵਿਸ਼ੇ ਨੂੰ ਬਰਾਬਰ ਸਨਮਾਨ ਦਿਓ।</div>',
-                section8_item3: '<div><strong class="text-lg text-red-300">ਮੌਕ ਟੈਸਟਾਂ ਤੋਂ ਭੱਜਣਾ:</strong> ਸਿਰਫ਼ ਪੜ੍ਹਦੇ ਰਹਿਣਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ। ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਸਮਾਂ ਸੀਮਾ ਵਿੱਚ ਪ੍ਰਸ਼ਨਾਂ ਨੂੰ ਹੱਲ ਕਰਨ ਦਾ ਅਭਿਆਸ ਨਹੀਂ ਕਰੋਗੇ, ਉਦੋਂ ਤੱਕ ਅਸਲ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਘਬਰਾਹਟ ਹੋਣਾ ਤੈਅ ਹੈ। ਮੌਕ ਟੈਸਟ ਤੁਹਾਡੀਆਂ ਕਮਜ਼ੋਰੀਆਂ ਦਾ ਸ਼ੀਸ਼ਾ ਹਨ, ਉਨ੍ਹਾਂ ਤੋਂ ਡਰੋ ਨਹੀਂ, ਸਗੋਂ ਸਿੱਖੋ।</div>',
-                section8_item4: '<div><strong class="text-lg text-red-300">ਅਸੰਗਤ ਹੋਣਾ:</strong> ਦੋ ਦਿਨ 10 ਘੰਟੇ ਪੜ੍ਹਨਾ ਅਤੇ ਫਿਰ ਤਿੰਨ ਦਿਨ ਆਰਾਮ ਕਰਨਾ ਤੁਹਾਨੂੰ ਕਿਤੇ ਨਹੀਂ ਲੈ ਜਾਵੇਗਾ। ਹਥਿਆਰਬੰਦ ਸੈਨਾਵਾਂ ਅਨੁਸ਼ਾਸਨ ਦੀ ਮੰਗ ਕਰਦੀਆਂ ਹਨ, ਅਤੇ ਇਸਦੀ ਸ਼ੁਰੂਆਤ ਤੁਹਾਡੀ ਤਿਆਰੀ ਤੋਂ ਹੁੰਦੀ ਹੈ। ਰੋਜ਼ ਪੜ੍ਹੋ, ਭਾਵੇਂ ਥੋੜ੍ਹਾ ਪੜ੍ਹੋ, ਪਰ ਪੜ੍ਹੋ ਜ਼ਰੂਰ।</div>',
-                section8_final_thought: "✨ ਯਾਦ ਰੱਖੋ: ਇਹ ਸਿਰਫ਼ ਇੱਕ ਪ੍ਰੀਖਿਆ ਨਹੀਂ, ਤੁਹਾਡੇ ਚਰਿੱਤਰ ਦਾ ਇਮਤਿਹਾਨ ਹੈ। ✨",
-                section9_title: "9. ਬਿਨੈ-ਪੱਤਰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਸਮਾਂ-ਸੀਮਾ 🗓️",
-                section9_desc: "CDS ਪ੍ਰੀਖਿਆ ਸਾਲ ਵਿੱਚ ਦੋ ਵਾਰ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। CDS (I) ਲਈ ਨੋਟੀਫਿਕੇਸ਼ਨ ਨਵੰਬਰ/ਦਸੰਬਰ ਵਿੱਚ ਅਤੇ CDS (II) ਲਈ ਮਈ/ਜੂਨ ਵਿੱਚ ਜਾਰੀ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-400">ਨੋਟੀਫਿਕੇਸ਼ਨ (CDS I):</div><div>ਨਵੰਬਰ - ਦਸੰਬਰ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">ਪ੍ਰੀਖਿਆ (CDS I):</div><div>ਫਰਵਰੀ।</div></div><div class="flex items-center mt-4 pt-4 border-t border-gray-700/50"><div class="w-48 font-bold text-gray-400">ਨੋਟੀਫਿਕੇਸ਼ਨ (CDS II):</div><div>ਮਈ - ਜੂਨ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-400">ਪ੍ਰੀਖਿਆ (CDS II):</div><div>ਸਤੰਬਰ।</div></div>`,
-                section10_title: "10. ਤਿਆਰੀ ਲਈ ਸੰਸਥਾਵਾਂ 👨‍🏫",
-                section10_desc: "CDS ਭਾਰਤ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਕਾਰੀ ਰੱਖਿਆ ਪ੍ਰੀਖਿਆਵਾਂ ਵਿੱਚੋਂ ਇੱਕ ਹੈ, ਅਤੇ ਕਈ ਸੰਸਥਾਵਾਂ ਇਸਦੇ ਲਈ ਕੋਚਿੰਗ ਪ੍ਰਦਾਨ ਕਰਦੀਆਂ ਹਨ।",
-                section10_online: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">💻 ਆਨਲਾਈਨ ਪਲੇਟਫਾਰਮ:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Gradeup (Byju's Exam Prep)</li><li>Testbook</li><li>SSBCrackExams</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-golden-dark mb-2">🏢 ਆਫਲਾਈਨ ਕੇਂਦਰ:</h3><ul class="list-disc list-inside"><li>Cavalier India (Pan-India)</li><li>Baalnoi Academy (Delhi, Jaipur)</li><li>The Doon Defence Academy (Dehradun)</li><li>Minerva Academy (Punjab)</li></ul></div>`,
-                section11_title: "11. ਕੈਰੀਅਰ ਗ੍ਰੋਥ ਰੋਡਮੈਪ: ਅਫਸਰ ਰੈਂਕ 🚀",
-                section11_desc: "CDS ਰਾਹੀਂ ਕਮਿਸ਼ਨ ਪ੍ਰਾਪਤ ਕਰਨ ਤੋਂ ਬਾਅਦ, ਤੁਹਾਡਾ ਕੈਰੀਅਰ ਭਾਰਤੀ ਹਥਿਆਰਬੰਦ ਸੈਨਾਵਾਂ ਵਿੱਚ ਉੱਚ ਰੈਂਕ ਵੱਲ ਵਧਦਾ ਹੈ।",
-                section11_roadmap_btn: "ਪੂਰਾ ਰੈਂਕ ਤਰੱਕੀ ਦੇਖੋ",
-                roadmap_timeline_title: "ਭਾਰਤੀ ਫੌਜ ਅਫਸਰ: ਰੈਂਕ ਤਰੱਕੀ (Permanent Commission)",
-                roadmap_step1_title: "ਲੈਫਟੀਨੈਂਟ",
-                roadmap_step1_desc: "ਕਮਿਸ਼ਨ ਤੋਂ ਬਾਅਦ ਪਹਿਲੀ ਰੈਂਕ। 2 ਸਾਲ ਦੀ ਸੇਵਾ।",
-                roadmap_step2_title: "ਕੈਪਟਨ",
-                roadmap_step2_desc: "2 ਸਾਲ ਦੀ ਸੇਵਾ ਤੋਂ ਬਾਅਦ ਤਰੱਕੀ। ਕੰਪਨੀ ਕਮਾਂਡਰ ਵਜੋਂ ਜ਼ਿੰਮੇਵਾਰੀ।",
-                roadmap_step3_title: "ਮੇਜਰ",
-                roadmap_step3_desc: "6 ਸਾਲ ਦੀ ਸੇਵਾ ਤੋਂ ਬਾਅਦ ਤਰੱਕੀ। ਮਹੱਤਵਪੂਰਨ ਪ੍ਰਸ਼ਾਸਨਿਕ ਅਤੇ ਕਮਾਂਡ ਭੂਮਿਕਾਵਾਂ।",
-                roadmap_step4_title: "ਲੈਫਟੀਨੈਂਟ ਕਰਨਲ/ਕਰਨਲ",
-                roadmap_step4_desc: "13-15 ਸਾਲ ਦੀ ਸੇਵਾ ਤੋਂ ਬਾਅਦ ਤਰੱਕੀ। ਬਟਾਲੀਅਨ ਜਾਂ ਰੈਜੀਮੈਂਟ ਦੀ ਕਮਾਂਡ।",
-                roadmap_step5_title: "ਬ੍ਰਿਗੇਡੀਅਰ ਅਤੇ ਉੱਪਰ",
-                roadmap_step5_desc: "ਸੀਨੀਅਰ ਰੈਂਕ, ਨੀਤੀ ਨਿਰਮਾਣ ਅਤੇ ਉੱਚ ਕਮਾਂਡ ਮੁੱਖ ਦਫਤਰਾਂ ਵਿੱਚ।",
-                roadmap_note: "ਇਹ ਇੱਕ ਆਮ ਤਰੱਕੀ ਮਾਰਗ ਹੈ; ਤਰੱਕੀ ਪ੍ਰਦਰਸ਼ਨ ਅਤੇ ਤਜਰਬੇ \'ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।",
-                footer_text: "© 2025 CDS ਗਾਈਡ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁਭਕਾਮਨਾਵਾਂ।",
-                written_exam_modal_title: "ਪੜਾਅ 1: ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                written_exam_modal_desc: "ਇਹ ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਦਾ ਪਹਿਲਾ ਪੜਾਅ ਹੈ। ਇਹ ਇੱਕ ਆਬਜੈਕਟਿਵ ਕਿਸਮ ਦੀ ਪ੍ਰੀਖਿਆ ਹੈ।",
-                written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>IMA, INA, AFA ਲਈ:</strong> 3 ਪੇਪਰ (ਅੰਗਰੇਜ਼ੀ, GK, ਗਣਿਤ), ਕੁੱਲ 300 ਅੰਕ।</li><li><strong>OTA ਲਈ:</strong> 2 ਪੇਪਰ (ਅੰਗਰੇਜ਼ੀ, GK), ਕੁੱਲ 200 ਅੰਕ।</li><li>ਹਰੇਕ ਪੇਪਰ 2 ਘੰਟੇ ਦਾ ਹੁੰਦਾ ਹੈ।</li><li>ਗਲਤ ਜਵਾਬਾਂ ਲਈ ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ ਹੁੰਦੀ ਹੈ।</li></ul>',
-                ssb_modal_title: "ਪੜਾਅ 2: SSB ਇੰਟਰਵਿਊ",
-                ssb_modal_desc: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਪਾਸ ਕਰਨ ਵਾਲੇ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਸੇਵਾ ਚੋਣ ਬੋਰਡ (SSB) ਦੁਆਰਾ 5-ਦਿਨਾਂ ਦੀ ਇੰਟਰਵਿਊ ਪ੍ਰਕਿਰਿਆ ਲਈ ਬੁਲਾਇਆ ਜਾਂਦਾ ਹੈ।",
-                ssb_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਪੜਾਅ I:</strong> ਅਫਸਰ ਇੰਟੈਲੀਜੈਂਸ ਰੇਟਿੰਗ (OIR) ਟੈਸਟ ਅਤੇ ਪਿਕਚਰ ਪਰਸੈਪਸ਼ਨ ਐਂਡ ਡਿਸਕ੍ਰਿਪਸ਼ਨ ਟੈਸਟ (PP&DT)।</li><li><strong>ਪੜਾਅ II:</strong> ਮਨੋਵਿਗਿਆਨ ਟੈਸਟ, ਗਰੁੱਪ ਟੈਸਟਿੰਗ ਅਫਸਰ (GTO) ਕਾਰਜ, ਅਤੇ ਨਿੱਜੀ ਇੰਟਰਵਿਊ।</li><li>ਇਹ ਉਮੀਦਵਾਰ ਦੀ ਸ਼ਖਸੀਅਤ, ਬੁੱਧੀ ਅਤੇ ਅਫਸਰ ਵਰਗੇ ਗੁਣਾਂ (Officer Like Qualities) ਦਾ ਮੁਲਾਂਕਣ ਕਰਦਾ ਹੈ।</li></ul>',
-                ima_modal_title: "⚔️ ਭਾਰਤੀ ਮਿਲਟਰੀ ਅਕੈਡਮੀ (IMA), ਦੇਹਰਾਦੂਨ",
-                ima_modal_desc: "IMA ਭਾਰਤੀ ਫੌਜ ਲਈ ਪੁਰਸ਼ ਅਫਸਰਾਂ ਨੂੰ ਸਿਖਲਾਈ ਦਿੰਦਾ ਹੈ। ਇੱਥੋਂ ਪਾਸ ਹੋਣ ਵਾਲੇ ਕੈਡਿਟਾਂ ਨੂੰ ਫੌਜ ਵਿੱਚ ਲੈਫਟੀਨੈਂਟ ਵਜੋਂ ਸਥਾਈ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਸਿਖਲਾਈ ਸਰੀਰਕ ਅਤੇ ਮਾਨਸਿਕ ਤੌਰ 'ਤੇ ਸਖ਼ਤ ਹੁੰਦੀ ਹੈ, ਜਿਸਦਾ ਉਦੇਸ਼ ਭਵਿੱਖ ਦੇ ਫੌਜੀ ਨੇਤਾਵਾਂ ਨੂੰ ਤਿਆਰ ਕਰਨਾ ਹੈ।",
-                ina_modal_title: "⚓ ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਅਕੈਡਮੀ (INA), ਏਜ਼ੀਮਾਲਾ",
-                ina_modal_desc: "INA ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਅਤੇ ਭਾਰਤੀ ਤੱਟ ਰੱਖਿਅਕ ਲਈ ਅਫਸਰਾਂ ਨੂੰ ਸਿਖਲਾਈ ਦਿੰਦਾ ਹੈ। ਇੱਥੇ ਕੈਡਿਟਾਂ ਨੂੰ ਜਲ ਸੈਨਾ ਯੁੱਧ, ਨੇਵੀਗੇਸ਼ਨ ਅਤੇ ਸਮੁੰਦਰੀ ਇੰਜੀਨੀਅਰਿੰਗ ਵਿੱਚ ਮੁਹਾਰਤ ਪ੍ਰਦਾਨ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਸਿਖਲਾਈ ਤੋਂ ਬਾਅਦ, ਕੈਡਿਟਾਂ ਨੂੰ ਸਬ-ਲੈਫਟੀਨੈਂਟ ਵਜੋਂ ਨਿਯੁਕਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
-                afa_modal_title: "✈️ ਹਵਾਈ ਸੈਨਾ ਅਕੈਡਮੀ (AFA), ਡੁੰਡੀਗਲ",
-                afa_modal_desc: "AFA ਭਾਰਤੀ ਹਵਾਈ ਸੈਨਾ ਦੀਆਂ ਸਾਰੀਆਂ ਸ਼ਾਖਾਵਾਂ ਲਈ ਅਫਸਰਾਂ ਨੂੰ ਸਿਖਲਾਈ ਦਿੰਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਫਾਈਟਰ ਪਾਇਲਟ, ਹੈਲੀਕਾਪਟਰ ਪਾਇਲਟ, ਟ੍ਰਾਂਸਪੋਰਟ ਪਾਇਲਟ ਅਤੇ ਗਰਾਊਂਡ ਡਿਊਟੀ ਅਫਸਰ ਸ਼ਾਮਲ ਹਨ। ਇੱਥੋਂ ਦੀ ਸਿਖਲਾਈ ਉਡਾਣ ਦੇ ਹੁਨਰ ਅਤੇ ਤਕਨੀਕੀ ਗਿਆਨ 'ਤੇ ਕੇਂਦਰਿਤ ਹੁੰਦੀ ਹੈ।",
-                ota_modal_title: "🎖️ ਅਫਸਰ ਸਿਖਲਾਈ ਅਕੈਡਮੀ (OTA), ਚੇਨਈ/ਗਯਾ",
-                ota_modal_desc: "OTA ਪੁਰਸ਼ ਅਤੇ ਮਹਿਲਾ ਦੋਵਾਂ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਸ਼ਾਰਟ ਸਰਵਿਸ ਕਮਿਸ਼ਨ (SSC) ਲਈ ਸਿਖਲਾਈ ਦਿੰਦਾ ਹੈ। ਇੱਥੋਂ ਦੀ ਸਿਖਲਾਈ IMA ਦੀ ਤੁਲਨਾ ਵਿੱਚ ਘੱਟ ਸਮੇਂ ਦੀ ਹੁੰਦੀ ਹੈ। SSC ਅਫਸਰ 10/14 ਸਾਲ ਤੱਕ ਸੇਵਾ ਕਰਦੇ ਹਨ ਅਤੇ ਪ੍ਰਦਰਸ਼ਨ ਦੇ ਅਧਾਰ 'ਤੇ ਸਥਾਈ ਕਮਿਸ਼ਨ ਦੀ ਚੋਣ ਕਰ ਸਕਦੇ ਹਨ।",
-                english_syllabus_modal_title: "ਅੰਗਰੇਜ਼ੀ ਸਿਲੇਬਸ",
-                english_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>ਮੁੱਖ ਵਿਸ਼ੇ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>Reading Comprehension</li><li>Synonyms & Antonyms</li><li>Error Spotting</li><li>Sentence Arrangement</li><li>Fill in the Blanks</li><li>Idioms and Phrases</li></ul></div>',
-                gk_syllabus_modal_title: "ਜਨਰਲ ਨਾਲੇਜ ਸਿਲੇਬਸ",
-                gk_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>ਮੁੱਖ ਵਿਸ਼ੇ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>ਇਤਿਹਾਸ</li><li>ਭੂਗੋਲ</li><li>ਭਾਰਤੀ ਰਾਜਨੀਤੀ</li><li>ਅਰਥ ਸ਼ਾਸਤਰ</li><li>ਭੌਤਿਕ ਵਿਗਿਆਨ, ਰਸਾਇਣ ਵਿਗਿਆਨ, ਜੀਵ ਵਿਗਿਆਨ</li><li>ਰੱਖਿਆ ਸੰਬੰਧੀ ਜਾਗਰੂਕਤਾ</li><li>ਮੌਜੂਦਾ ਮਾਮਲੇ</li></ul></div>',
-                maths_syllabus_modal_title: "ਮੁੱਢਲੀ ਗਣਿਤ ਸਿਲੇਬਸ",
-                maths_syllabus_modal_list: '<div><div class="flex justify-between items-center"><h4>ਮੁੱਖ ਵਿਸ਼ੇ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside space-y-2 mt-2"><li>ਅੰਕਗਣਿਤ, ਬੀਜਗਣਿਤ, ਤ੍ਰਿਕੋਣਮਿਤੀ, ਜਿਓਮੈਟਰੀ, ਮੈਨਸੂਰੇਸ਼ਨ।</li></ul></div>',
-                ima_career_modal_title: "IMA: ਭਾਰਤੀ ਫੌਜ ਵਿੱਚ ਕੈਰੀਅਰ",
-                ima_career_modal_desc: "IMA ਤੋਂ ਪਾਸ ਹੋਣ ਵਾਲੇ ਕੈਡਿਟਾਂ ਨੂੰ ਭਾਰਤੀ ਫੌਜ ਵਿੱਚ ਲੈਫਟੀਨੈਂਟ ਵਜੋਂ ਸਥਾਈ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੈਰੀਅਰ ਦੀ ਤਰੱਕੀ ਇਸ ਪ੍ਰਕਾਰ ਹੈ:",
-                ima_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>ਲੈਫਟੀਨੈਂਟ</li><li>ਕੈਪਟਨ</li><li>ਮੇਜਰ</li><li>ਲੈਫਟੀਨੈਂਟ ਕਰਨਲ</li><li>ਕਰਨਲ</li><li>ਬ੍ਰਿਗੇਡੀਅਰ & ਉੱਪਰ</li></ul>',
-                ina_career_modal_title: "INA: ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਵਿੱਚ ਕੈਰੀਅਰ",
-                ina_career_modal_desc: "INA ਤੋਂ ਪਾਸ ਹੋਣ ਵਾਲੇ ਕੈਡਿਟਾਂ ਨੂੰ ਭਾਰਤੀ ਜਲ ਸੈਨਾ ਵਿੱਚ ਸਬ-ਲੈਫਟੀਨੈਂਟ ਵਜੋਂ ਸਥਾਈ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੈਰੀਅਰ ਦੀ ਤਰੱਕੀ ਇਸ ਪ੍ਰਕਾਰ ਹੈ:",
-                ina_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>ਸਬ-ਲੈਫਟੀਨੈਂਟ</li><li>ਲੈਫਟੀਨੈਂਟ</li><li>ਲੈਫਟੀਨੈਂਟ ਕਮਾਂਡਰ</li><li>ਕਮਾਂਡਰ</li><li>ਕੈਪਟਨ</li><li>ਕਮੋਡੋਰ & ਉੱਪਰ</li></ul>',
-                afa_career_modal_title: "AFA: ਭਾਰਤੀ ਹਵਾਈ ਸੈਨਾ ਵਿੱਚ ਕੈਰੀਅਰ",
-                afa_career_modal_desc: "AFA ਤੋਂ ਪਾਸ ਹੋਣ ਵਾਲੇ ਕੈਡਿਟਾਂ ਨੂੰ ਭਾਰਤੀ ਹਵਾਈ ਸੈਨਾ ਵਿੱਚ ਫਲਾਇੰਗ ਅਫਸਰ ਵਜੋਂ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੈਰੀਅਰ ਦੀ ਤਰੱਕੀ ਇਸ ਪ੍ਰਕਾਰ ਹੈ:",
-                afa_career_modal_list: '<ul class="list-disc list-inside mt-4 space-y-1"><li>ਫਲਾਇੰਗ ਅਫਸਰ</li><li>ਫਲਾਈਟ ਲੈਫਟੀਨੈਂਟ</li><li>ਸਕੁਐਡਰਨ ਲੀਡਰ</li><li>ਵਿੰਗ ਕਮਾਂਡਰ</li><li>ਗਰੁੱਪ ਕੈਪਟਨ</li><li>ਏਅਰ ਕਮੋਡੋਰ & ਉੱਪਰ</li></ul>',
-                ota_career_modal_title: "OTA: ਸ਼ਾਰਟ ਸਰਵਿਸ ਕਮਿਸ਼ਨ (ਫੌਜ)",
-                ota_career_modal_desc: "OTA ਸ਼ਾਰਟ ਸਰਵਿਸ ਕਮਿਸ਼ਨ (SSC) ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ, ਜੋ 10 ਸਾਲ ਦੀ ਮਿਆਦ ਲਈ ਹੁੰਦਾ ਹੈ, ਜਿਸਨੂੰ 14 ਸਾਲ ਤੱਕ ਵਧਾਇਆ ਜਾ ਸਕਦਾ ਹੈ। ਪ੍ਰਦਰਸ਼ਨ ਦੇ ਅਧਾਰ 'ਤੇ, SSC ਅਫਸਰਾਂ ਨੂੰ ਸਥਾਈ ਕਮਿਸ਼ਨ (PC) ਵੀ ਮਿਲ ਸਕਦਾ ਹੈ। ਰੈਂਕ ਦੀ ਬਣਤਰ IMA ਦੇ ਸਮਾਨ ਹੈ।",
-                ota_career_modal_list: ''
+                ota_career_modal_list: '',
+
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'Military Officer: Career Progression Path (for IMA/INA/AFA)',
+                roadmap_step1_title: 'Training (1-2 years)',
+                roadmap_step1_desc: '2 years of **rigorous training** at IMA/INA/AFA.',
+                roadmap_step2_title: 'Commissioning and Initial Tenure (4-6 years)',
+                roadmap_step2_desc: 'Army: Lieutenant, Captain. Navy: Sub-Lieutenant, Lieutenant. Air Force: Flying Officer, Flight Lieutenant.',
+                roadmap_step3_title: 'Mid-Level Command (10-18 years)',
+                roadmap_step3_desc: 'Army: Major, Lieutenant Colonel. Navy: Lieutenant Commander, Commander. Air Force: Squadron Leader, Wing Commander.',
+                roadmap_step4_title: 'Apex/Highest Level (19+ years)',
+                roadmap_step4_desc: 'Army: Colonel, Brigadier & Above. Navy: Captain, Commodore & Above. Air Force: Group Captain, Air Commodore & Above.',
+                roadmap_note: 'For OTA, the Short Service Commission (SSC) is for 10-14 years, with an option for PC based on performance.',
             }
         };
+
+
+        function initializeCharts(lang) {
+            if (examPatternChartInstance) {
+                examPatternChartInstance.destroy();
+            }
+            const marksCtx = document.getElementById('examPatternChart');
+            
+            // Chart Styling to match h.html's dark theme
+            const chartColors = {
+                gold: '#FFD700', 
+                darkGold: '#A37A00', 
+                textGrey: 'white'
+            };
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: chartColors.textGrey,
+                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null && context.parsed.y > 0) {
+                                    label += context.parsed.y + (lang === 'hi' ? ' अंक' : ' Marks');
+                                } else if (context.parsed.y === 0 && context.dataset.label.includes('OTA')) {
+                                    return null;
+                                }
+                                return label;
+                            },
+                             titleColor: 'black',
+                             bodyColor: 'black',
+                             backgroundColor: 'rgba(255, 215, 0, 0.9)',
+                        },
+                        bodyFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" },
+                        titleFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif", weight: 'bold' },
+                        padding: 12,
+                        boxPadding: 6,
+                        borderColor: chartColors.darkGold,
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: chartColors.textGrey, font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" } },
+                        grid: { color: '#333', drawBorder: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 20,
+                            color: chartColors.textGrey,
+                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                        },
+                        grid: { color: '#333', drawBorder: false }
+                    }
+                }
+            };
+            
+            if (marksCtx) {
+                examPatternChartInstance = new Chart(marksCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: translations[lang].examPatternChartLabels,
+                        datasets: [{
+                            label: (lang === 'hi' ? 'IMA/INA/AFA (अंक)' : 'IMA/INA/AFA (Marks)'),
+                            data: [100, 100, 100],
+                            backgroundColor: chartColors.gold,
+                            borderColor: chartColors.darkGold,
+                            borderWidth: 1
+                        }, {
+                            label: (lang === 'hi' ? 'OTA (अंक)' : 'OTA (Marks)'),
+                            data: [100, 100, 0],
+                            backgroundColor: chartColors.darkGold,
+                            borderColor: chartColors.darkGold,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: defaultChartOptions
+                });
+            }
+        }
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.title = translations[lang].doc_title;
+            
+            // Handle all data-lang-key elements
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Handle specific placeholders that might need special content or formatting
+            // This is primarily for the syllabus modals where we had to remove lecture buttons from the HTML structure
+            if (translations[lang]['english_syllabus_modal_list']) {
+                const engList = document.querySelector('#englishSyllabusModal [data-lang-key="english_syllabus_modal_list"]');
+                if(engList) engList.innerHTML = translations[lang]['english_syllabus_modal_list'];
+            }
+            if (translations[lang]['gk_syllabus_modal_list']) {
+                const gkList = document.querySelector('#gkSyllabusModal [data-lang-key="gk_syllabus_modal_list"]');
+                if(gkList) gkList.innerHTML = translations[lang]['gk_syllabus_modal_list'];
+            }
+            if (translations[lang]['maths_syllabus_modal_list']) {
+                const mathsList = document.querySelector('#mathsSyllabusModal [data-lang-key="maths_syllabus_modal_list"]');
+                if(mathsList) mathsList.innerHTML = translations[lang]['maths_syllabus_modal_list'];
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            initializeCharts(lang);
+             // Re-bind modal triggers for dynamically inserted content
+             bindModalTriggers();
+        }
+
+        function bindModalTriggers() {
+            const modalTriggers = document.querySelectorAll('[data-modal-target]');
         
-        // Function to open/close modals (must be global or added to window for onclick)
+            modalTriggers.forEach(trigger => {
+                // Remove old listener if present to avoid duplicates
+                // This is a common issue with re-rendering/re-binding
+                const oldListener = trigger.getAttribute('data-event-bound');
+                if (oldListener === 'true') {
+                    // In a simple scenario, removing the attribute and re-adding the listener is a workaround.
+                    // For production, cloning the node or using removeEventListener with the specific function reference is better.
+                    trigger.removeAttribute('data-event-bound');
+                    // For simplicity in this large code block:
+                    trigger.removeEventListener('click', handleModalClick);
+                }
+                
+                trigger.setAttribute('data-event-bound', 'true');
+                trigger.addEventListener('click', handleModalClick);
+            });
+        }
+        
+        function handleModalClick(e) {
+            const trigger = e.currentTarget;
+            const modalId = trigger.getAttribute('data-modal-target');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                showModal(modalId); // Use the centralized showModal
+            }
+        }
+        
+        // Modal functionality (Adjusted to be standalone)
         window.showModal = (modalId) => {
             document.querySelectorAll('.modal-overlay').forEach(modal => {
                 modal.classList.remove('active');
@@ -1265,152 +1323,37 @@
                 }
             }
         };
-        
-        // Chart Utility
-        let examPatternChartInstance = null;
-        const chartColors = {
-            gold: 'rgba(255, 215, 0, 0.9)',
-            darkGold: 'rgba(163, 122, 0, 0.9)',
-            gray: 'rgba(75, 85, 99, 0.7)',
-        };
 
-
-        function initializeCharts(lang) {
-            if (examPatternChartInstance) {
-                examPatternChartInstance.destroy();
-            }
-            const marksCtx = document.getElementById('examPatternChart');
-            if (marksCtx) {
-                examPatternChartInstance = new Chart(marksCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: translations[lang].examPatternChartLabels,
-                        datasets: [{
-                            label: 'IMA/INA/AFA (Marks)',
-                            data: [100, 100, 100],
-                            backgroundColor: chartColors.gold,
-                            borderColor: chartColors.darkGold,
-                            borderWidth: 1,
-                            borderRadius: 6
-                        }, {
-                            label: 'OTA (Marks)',
-                            data: [100, 100, 0],
-                            backgroundColor: chartColors.darkGold,
-                            borderColor: chartColors.gray,
-                            borderWidth: 1,
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 20,
-                                    color: 'white' // Text color
-                                },
-                                grid: { color: 'rgba(255, 215, 0, 0.2)' } // Grid line color
-                            },
-                            x: {
-                                ticks: {
-                                    color: 'white' // Text color
-                                },
-                                grid: { color: 'rgba(255, 215, 0, 0.1)' }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: {
-                                    color: 'white' // Legend text color
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null && context.parsed.y > 0) {
-                                            label += context.parsed.y + (lang === 'hi' ? ' अंक' : (lang === 'pa' ? ' ਅੰਕ' : ' Marks'));
-                                        } else if (context.parsed.y === 0 && context.dataset.label.includes('OTA')) {
-                                            return null;
-                                        }
-                                        return label;
-                                    }
-                                },
-                                backgroundColor: 'rgba(255, 215, 0, 0.9)',
-                                titleColor: 'black',
-                                bodyColor: 'black'
-                            }
-                        }
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Set up initial state and listeners
+            changeLanguage('hi');
+            
+            // Event listeners for closing modals via close button or overlay click
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                const closeButton = modal.querySelector('.modal-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => {
+                        closeModal(modal.id);
+                    });
+                }
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
                     }
                 });
-            }
-        }
-        
-        function changeLanguage(lang) {
-            document.documentElement.lang = lang;
-            document.title = translations[lang].doc_title;
-            
-            // Handle main language keys
-            document.querySelectorAll('[data-lang-key]').forEach(el => {
-                const key = el.getAttribute('data-lang-key');
-                if (translations[lang][key] !== undefined) {
-                    el.innerHTML = translations[lang][key];
-                }
             });
-            
-            // Handle button text manually
-            document.querySelector('[data-lang-key="section1_academies_btn"]').textContent = translations[lang]['section1_academies_btn'];
-            document.querySelector('[data-lang-key="section11_roadmap_btn"]').textContent = translations[lang]['section11_roadmap_btn'];
 
-            
-            // Update active state for language buttons
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-lang') === lang) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            initializeCharts(lang);
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initial setup for mobile menu
-            // Note: The mobile menu JS logic is already defined above the DOMContentLoaded block
-
-            // Language switcher setup
+            // Language switcher functionality
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const lang = e.target.getAttribute('data-lang');
                     changeLanguage(lang);
                 });
             });
-
-            // Initial load
-            changeLanguage('hi');
-
-            // Modal Trigger binding (General binding for all elements using data-modal-target)
-            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                // Prevent duplicate event binding if the script runs again
-                if (trigger.getAttribute('data-event-bound')) return; 
-                trigger.setAttribute('data-event-bound', 'true');
-                
-                trigger.addEventListener('click', () => {
-                    const modalId = trigger.getAttribute('data-modal-target');
-                    if (modalId) {
-                        // Use the global/window function
-                        window.showModal(modalId); 
-                    }
-                });
-            });
             
-            // Modal close listeners are already set via onclick/closeModal functions in HTML/JS
+            // Ensure modals are bound after initial content load
+            bindModalTriggers();
         });
     </script>
     
