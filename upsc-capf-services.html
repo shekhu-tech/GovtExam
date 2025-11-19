@@ -2,40 +2,151 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>UPSC CAPF (AC) परीक्षा: संपूर्ण मार्गदर्शिका</title>
      <script src="redirect_if_needed.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght=400;500;700&family=Noto+Sans:wght=400;500;700&display=swap" rel="stylesheet">
     <meta name="description" content="UPSC CAPF (AC) परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, बल, करियर और तैयारी की रणनीति।">
     <meta name="keywords" content="UPSC, CAPF, Assistant Commandant, BSF, CRPF, CISF, ITBP, SSB, सरकारी नौकरी, भारत">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
-        body {
-            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Gurmukhi', sans-serif;
-            background-color: #f5f5f5; /* Light Khaki/Gray background */
-            color: #1f2937;
+        /* --- h.html THEME VARIABLES (Gold/Dark) --- */
+        :root {
+            --color-primary: #FFD700; /* Electric Gold Glow */
+            --color-secondary: #A37A00; /* Dark Gold */
+            --color-background: #1A1C20; /* Dark Background */
+            --color-card: #26292E; /* Dark Card background */
+            --color-text-primary: #f3f4f6; /* White/Light Text */
+            --color-text-secondary: #d1d5db; /* Muted Text */
+            --color-button-text: #1A1C20; /* Dark Text for Buttons */
+            --color-primary-rgb: 255, 215, 0; 
+            --bg-main-dark: #1A1C20; 
+            --text-light: #f3f4f6; 
+            --electric-gold-glow: #FFD700; 
+            --electric-gold-dark: #A37A00;
+            --glass-bg-dark: rgba(40, 30, 5, 0.7); 
+            --button-primary-start: #FFC107;
+            --button-primary-end: #B8860B; 
+            --text-muted: #d1d5db;
+            --popup-overlay-bg: rgba(0, 0, 0, 0.9);
         }
+
+        body {
+            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-main-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding-top: 78px; 
+            padding-bottom: 80px; 
+            transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
+        }
+
+        /* Fixed Header Styles */
+        .fixed-header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        /* Mobile Menu Panel Styles (Sidebar) */
+        .mobile-menu-panel {
+            top: 85px; 
+            height: calc(100vh - 165px);
+            transition: transform 0.5s ease-in-out;
+            border-radius: 1.5rem;
+            background-color: rgba(40, 30, 5, 0.9);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid var(--electric-gold-glow);
+        }
+        .mobile-menu-overlay { z-index: 105; }
+        .text-golden-dark { 
+            color: var(--electric-gold-glow); 
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
+        } 
+        
+        /* Keyframes for SHS style Pulsing FAB button */
+        @keyframes pulseShadow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0); }
+        }
+        .animate-pulse-shadow {
+            animation: pulseShadow 2s infinite;
+        }
+
+        /* --- BOTTOM NAV STYLES --- */
+        .bottom-nav-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--glass-bg-dark);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 60;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7); 
+        }
+        .nav-item-shs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            width: 20%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .nav-item-shs:hover, .nav-item-shs.active {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        .nav-icon-shs { font-size: 1.5rem; margin-bottom: 2px; }
+        .central-nav-item-shs { position: relative; width: 20%; height: 80px; display: flex; justify-content: center; }
+        .central-fab {
+            position: absolute; top: -28px; width: 64px; height: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background-color: var(--color-primary); 
+            border: 4px solid var(--bg-main-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transform: scale(1.0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .central-fab-icon { color: var(--color-button-text); font-size: 1.8rem; }
+        .central-fab-label { position: absolute; bottom: 5px; font-size: 0.75rem; font-weight: bold; color: var(--color-primary); }
+        .central-fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 5px rgba(var(--color-primary-rgb), 0.8);
+        }
+        
+        /* CAPF File Custom Styles (Modified from original to match h.html) */
         .section-heading {
-            border-bottom: 3px solid #4d7c0f; /* Olive Green */
+            border-bottom: 3px solid #FFD700; /* Gold color */
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            color: #365314; /* Dark Olive Green */
+            color: var(--electric-gold-glow);
         }
         .card {
-            background-color: #FFFFFF;
+            background-color: var(--color-card);
             border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             padding: 1.75rem;
             transition: all 0.3s ease-in-out;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--electric-gold-dark);
+            color: var(--text-light);
         }
         .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
         .chart-container {
@@ -44,66 +155,101 @@
             max-width: 550px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            height: 320px;
+            max-height: 450px;
         }
         .flowchart-step {
-            border: 3px solid #365314;
-            color: #365314;
-            background-color: #eef2e6;
+            border: 3px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
             transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
         .flowchart-step:hover {
-            background-color: #365314;
-            color: #FFFFFF;
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
             transform: scale(1.05);
         }
-        .flowchart-arrow {
-            color: #4d7c0f;
+        .flowchart-arrow { color: var(--electric-gold-glow); }
+        .flowchart-container-fix {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
+        .flowchart-arrow.vertical {
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+            .flowchart-container-fix {
+                flex-direction: row; 
+                gap: 0; 
+            }
+            .flowchart-arrow.vertical {
+                transform: rotate(0deg);
+            }
+        }
+        /* Hidden Notes/Lectures buttons */
+        .notes-lectures-btn {
+            display: none !important;
+        }
+        
+        /* Modal specific styles for UPSC page to CENTER popups */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
-            align-items: center;
+            align-items: center; 
             justify-content: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            padding: 1rem;
+            padding: 0;
+            overflow-y: auto; 
         }
+        
+        .modal-content {
+            background-color: var(--glass-bg-dark);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 15px 25px -5px rgba(255, 215, 0, 0.2), 0 10px 10px -5px rgba(255, 215, 0, 0.1);
+            position: relative;
+            transform: none; 
+            opacity: 1; 
+            transition: none; 
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--text-light);
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh; 
+            margin: auto; 
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 1023px) {
+            .modal-content {
+                width: 95%; 
+                margin-top: 85px; 
+                margin-bottom: 85px; 
+                max-height: calc(100vh - 170px); 
+                padding: 1.5rem; 
+            }
+            .mobile-hide-footer {
+                display: none;
+            }
+        }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        
         .modal-close-button {
             position: absolute;
             top: 1rem;
@@ -112,99 +258,245 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #365314;
+            color: var(--electric-gold-glow);
+            transition: color 0.2s;
         }
-        .lang-btn.active {
-            background-color: #4d7c0f;
-            color: white;
-            font-weight: bold;
+        .modal-close-button:hover {
+            color: #FF0000;
         }
-        .rank-btn {
-            background-color: #eef2e6;
-            color: #365314;
-            border: 1px solid #4d7c0f;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+
+        .modal-subject-button {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: center;
+        }
+        .modal-subject-button:hover {
+            background-color: #FFC107;
+            transform: translateY(-2px);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
         }
-        .rank-btn:hover {
-            background-color: #4d7c0f;
-            color: white;
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
         }
-        .notes-lectures-btn {
-            background-color: #dcfce7; /* Light Green */
-            color: #166534; /* Dark Green */
-            border: 1px solid #15803d; /* Green */
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+
+        .academy-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .academy-card {
+            background-color: var(--bg-main-dark);
+            border-color: var(--electric-gold-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            font-size: 0.875rem;
+            transition: all 0.3s ease;
         }
-        .notes-lectures-btn:hover {
-            background-color: #15803d;
-            color: white;
+        .academy-card .icon {
+            font-size: 2.5rem;
+            color: var(--electric-gold-glow);
+        }
+        .academy-card .name {
+            color: var(--electric-gold-glow);
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-size: 0.875rem; /* Smaller font for 5 cards */
+        }
+        .academy-card:hover {
+            background-color: var(--color-card);
+            box-shadow: 0 0 10px 2px rgba(var(--color-primary-rgb), 0.5);
+            transform: scale(1.05);
+        }
+        .timeline-step {
+            color: var(--text-light);
+            background-color: var(--color-card);
+            border-color: var(--electric-gold-glow);
+        }
+        .timeline-step > div {
+             background-color: var(--electric-gold-glow) !important;
+             color: var(--color-button-text) !important;
+             border-color: var(--color-card) !important;
         }
     </style>
 </head>
 <body class="leading-relaxed">
 
+    <div class="fixed-header-container">
+        <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
+              <div class="container mx-auto flex justify-between items-center px-2 sm:px-4" style="padding-top: env(safe-area-inset-top);">
+                <a href="index.html" class="flex items-center no-underline transform hover:scale-[1.02] transition-transform duration-300">
+                  <img src="ytglogo.png" alt="Your True Guide Logo" class="h-10 w-10 sm:h-12 sm:w-12 mr-3 rounded-full shadow-lg border border-primary/50" onerror="this.onerror=null;this.src='https://placehold.co/48x48/FFD700/1A1C20?text=YTG';" />
+                  <span class="text-xl sm:text-3xl font-extrabold text-white transition-colors tracking-tight drop-shadow-md">
+                    UPSC <span class="text-primary">CAPF</span>
+                  </span>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-10">
+                  <nav class="flex space-x-8 font-extrabold">
+                    <a href="index.html#govt-exam-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Public Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Private Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                     <a href="index.html#ai-guide-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        AI & Tools
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                  </nav>
+                  
+                  <div class="border-l-4 border-primary/50 pl-6 text-sm flex flex-col items-start bg-primary/5 p-2 rounded-xl shadow-inner">
+                    <a href="tel:0000000000" class="flex items-center font-extrabold text-white hover:text-primary transition-colors transform hover:scale-[1.05] duration-200">
+                      <i class="fas fa-phone-alt mr-2 text-primary"></i> <span class="text-xl tracking-wider">000000000</span>
+                    </a>
+                    <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-text-secondary hover:text-primary transition-colors mt-1">
+                      <i class="fas fa-envelope mr-2 text-secondary/70"></i> <b>0000000000000000000</b>
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  id="mobile-menu-button"
+                  class="lg:hidden text-text-primary p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors shadow-md"
+                  aria-label="Toggle menu"
+                >
+                  <i class="fas fa-bars text-2xl text-primary" id="mobile-menu-icon"></i>
+                </button>
+              </div>
+        </header>
+
+        <div
+              id="mobile-menu-panel"
+              class="mobile-menu-panel fixed right-0 w-3/4 max-w-sm z-[110] lg:hidden translate-x-full overflow-hidden border border-primary/50 rounded-2xl shadow-lg shadow-primary/10"
+        >
+                <button 
+                    id="mobile-menu-close-button"
+                    class="absolute top-4 right-4 text-white hover:text-primary transition-colors p-2 rounded-full bg-secondary/50 shadow-lg"
+                    aria-label="Close menu"
+                >
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <div class="flex flex-col h-full space-y-6 font-extrabold text-left mt-8 p-6 overflow-y-auto">
+                    
+                    <div class="mb-4 pb-4 border-b border-primary/50">
+                        <p class="text-sm font-light text-text-secondary">Welcome to</p>
+                        <h2 class="text-3xl font-black text-primary drop-shadow-md">Your True Guide</h2>
+                        <p class="text-xs font-semibold text-text-secondary">All guides on a single tap!</p>
+                    </div>
+                    
+                    <a href="index.html#govt-exam-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-building mr-4 text-xl text-primary/80"></i> Public Sector Guide
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-briefcase mr-4 text-xl text-primary/80"></i> Private Sector Guide
+                    </a>
+                    <a href="index.html#ai-guide-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-brain mr-4 text-xl text-primary/80"></i> AI Tools Guide
+                    </a>
+
+                    <div class="border-t border-primary/30 w-full my-4"></div>
+
+                    <div class="flex flex-col items-start space-y-3 pt-4 bg-black/30 p-4 rounded-xl shadow-2xl border border-primary/50">
+                      <h4 class="text-base font-bold text-primary mb-1">Need Help? (24x7)</h4>
+                      <a href="tel:0000000000" class="flex items-center font-extrabold text-white hover:text-secondary transition-colors text-xl p-3 rounded-full bg-primary/90 w-full justify-center transform hover:scale-[1.02] shadow-xl shadow-primary/70 border-2 border-white/20">
+                         <i class="fas fa-phone-volume mr-3"></i> <span>0000000000</span>
+                      </a>
+                      <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-gray-400 hover:text-primary transition-colors pt-2">
+                         <i class="fas fa-at mr-2"></i> <span>0000000000000</span>
+                      </a>
+                    </div>
+                    
+                    <p class="text-xs text-center text-gray-500 mt-auto">© 2025 Your True Guide</p>
+                </div>
+        </div>
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 mobile-menu-overlay hidden lg:hidden"></div>
+    </div>
+    
     <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
-        
-        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
-            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
-            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
-            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
+        <br>
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="hi">हिन्दी</button>
+                <button type="button" class="lang-btn" data-lang="en">English</button>
+            </div>
         </div>
 
-        <header class="text-center mb-16 pt-12">
-            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#365314] mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#4d7c0f] font-semibold"></p>
-        </header>
+    
 
         <main class="grid grid-cols-1 gap-10">
 
             <section class="card">
                 <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center mt-6">
-                    <div class="p-4 bg-orange-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="bsfInfoModal">
-                        <div class="text-4xl"> Border </div>
-                        <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-orange-800"></div>
+                <div class="text-center">
+                    <div class="text-7xl font-extrabold text-golden-dark drop-shadow-lg">5</div>
+                    <div data-lang-key="section1_services_text" class="text-xl font-semibold text-golden-dark"></div>
+                    
+                    <div class="academy-card-container">
+                        <div class="academy-card" data-modal-target="bsfInfoModal">
+                            <div class="icon">🚧</div>
+                            <div data-lang-key="section1_card1_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="crpfInfoModal">
+                            <div class="icon">🛡️</div>
+                            <div data-lang-key="section1_card2_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="cisfInfoModal">
+                            <div class="icon">🏭</div>
+                            <div data-lang-key="section1_card3_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="itbpInfoModal">
+                            <div class="icon">🏔️</div>
+                            <div data-lang-key="section1_card4_title" class="name"></div>
+                        </div>
+                         <div class="academy-card" data-modal-target="ssbInfoModal">
+                            <div class="icon">🤝</div>
+                            <div data-lang-key="section1_card5_title" class="name"></div>
+                        </div>
                     </div>
-                    <div class="p-4 bg-blue-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="crpfInfoModal">
-                        <div class="text-4xl">🛡️</div>
-                        <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-blue-800"></div>
+                    
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="start-preparation-guide.html" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors">
+                            Start Preparation
+                        </a>
                     </div>
-                    <div class="p-4 bg-gray-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="cisfInfoModal">
-                        <div class="text-4xl">🏭</div>
-                        <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-gray-800"></div>
-                    </div>
-                    <div class="p-4 bg-red-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="itbpInfoModal">
-                        <div class="text-4xl">🏔️</div>
-                        <div data-lang-key="section1_card4_title" class="mt-2 font-semibold text-red-800"></div>
-                    </div>
-                     <div class="p-4 bg-green-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="ssbInfoModal">
-                        <div class="text-4xl">🤝</div>
-                        <div data-lang-key="section1_card5_title" class="mt-2 font-semibold text-green-800"></div>
-                    </div>
+                    
                 </div>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+                <div class="flowchart-container-fix md:space-x-8 lg:space-x-12">
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="writtenExamModal"><span data-lang-key="section2_step1_title"></span></div>
                     </div>
-                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-5xl font-light flowchart-arrow vertical">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="petModal"><span data-lang-key="section2_step2_title"></span></div>
                     </div>
-                     <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                     <div class="text-5xl font-light flowchart-arrow vertical">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span data-lang-key="section2_step3_title"></span></div>
                     </div>
@@ -217,7 +509,7 @@
                     <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
                 </div>
                 <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#365314] mb-4 text-center"></h3>
+                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-golden-dark mb-4 text-center border-b border-golden-dark pb-2"></h3>
                     <div class="chart-container h-72">
                         <canvas id="examPatternChart"></canvas>
                     </div>
@@ -228,13 +520,13 @@
                 <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="paper1SyllabusModal">
-                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-[#365314] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="paper1SyllabusModal">
+                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="paper2SyllabusModal">
-                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-[#365314] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="paper2SyllabusModal">
+                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
                 </div>
             </section>
@@ -243,19 +535,15 @@
                 <h2 data-lang-key="section5_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section5_desc" class="text-lg text-center mb-10 max-w-4xl mx-auto"></p>
                 <div class="space-y-4">
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 flex flex-col sm:flex-row justify-between sm:items-center">
-                        <h4 data-lang-key="subject_paper1" class="font-semibold text-lg text-gray-800 mb-3 sm:mb-0"></h4>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark flex flex-col sm:flex-row justify-between sm:items-center">
+                        <h4 data-lang-key="subject_paper1" class="font-semibold text-lg text-golden-dark mb-3 sm:mb-0"></h4>
                         <div class="flex space-x-2 flex-shrink-0">
-                            <button data-lang-key="notes_btn" class="notes-lectures-btn"></button>
-                            <button data-lang-key="lectures_btn" class="notes-lectures-btn"></button>
-                        </div>
+                            </div>
                     </div>
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 flex flex-col sm:flex-row justify-between sm:items-center">
-                        <h4 data-lang-key="subject_paper2" class="font-semibold text-lg text-gray-800 mb-3 sm:mb-0"></h4>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark flex flex-col sm:flex-row justify-between sm:items-center">
+                        <h4 data-lang-key="subject_paper2" class="font-semibold text-lg text-golden-dark mb-3 sm:mb-0"></h4>
                         <div class="flex space-x-2 flex-shrink-0">
-                            <button data-lang-key="notes_btn" class="notes-lectures-btn"></button>
-                            <button data-lang-key="lectures_btn" class="notes-lectures-btn"></button>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </section>
@@ -263,9 +551,11 @@
             <section class="card">
                 <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section6_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-                <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="capfCareerModal">
-                    <h3 data-lang-key="section6_card_title" class="font-bold text-xl text-[#365314] mb-2"></h3>
-                    <p data-lang-key="section6_card_button" class="text-gray-600 font-semibold"></p>
+                
+                <div class="text-center">
+                    <button data-modal-target="capfCareerModal" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors">
+                        <span data-lang-key="section6_card_title"></span>
+                    </button>
                 </div>
             </section>
 
@@ -274,11 +564,11 @@
                 <p data-lang-key="section7_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-[#365314] mb-4"></h3>
+                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <div data-lang-key="section7_col1_list" class="text-lg"></div>
                     </div>
                     <div>
-                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-[#365314] mb-4"></h3>
+                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <p data-lang-key="section7_col2_desc" class="text-lg mb-4"></p>
                         <div data-lang-key="section7_col2_list" class="text-lg"></div>
                     </div>
@@ -289,184 +579,372 @@
                 <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item1"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item2"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item3"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item4"></div>
                     </div>
                 </div>
-                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-[#365314] mt-10"></p>
+                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-golden-dark mt-10"></p>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section9_desc" class="text-lg mb-8"></p>
-                <div data-lang-key="section9_timeline" class="space-y-4"></div>
+                 <ol class="relative border-l-4 border-golden-dark pl-6 space-y-6">
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">1</div>
+                        <h4 data-lang-key="section9_li1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li1_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                        <h4 data-lang-key="section9_li2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li2_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                        <h4 data-lang-key="section9_li3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li3_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                        <h4 data-lang-key="section9_li4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li4_p" class="text-base text-text-light"></p>
+                    </li>
+                     <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">5</div>
+                        <h4 data-lang-key="section9_li5_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li5_p" class="text-base text-text-light"></p>
+                    </li>
+                </ol>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section10_desc" class="text-lg mb-8"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div data-lang-key="section10_online"></div>
-                    <div data-lang-key="section10_offline"></div>
+                    <div data-lang-key="section10_online_clean"></div>
+                    <div data-lang-key="section10_offline_clean"></div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2 data-lang-key="section11_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section11_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
+                <div class="text-center">
+                    <button data-lang-key="section11_roadmap_btn" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors" data-modal-target="careerRoadmapModal">
+                        संपूर्ण करियर रोडमैप देखें
+                    </button>
                 </div>
             </section>
 
-        </main>
+        </main>   
 
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
-            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
-        </footer>
-
-    </div>
+    </div><br>
 
     <div id="writtenExamModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button">&times;</button>
-            <h3 data-lang-key="written_exam_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3>
-            <p data-lang-key="written_exam_modal_desc" class="mb-4"></p>
-            <div data-lang-key="written_exam_modal_list"></div>
+            <h3 data-lang-key="written_exam_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+            <p data-lang-key="written_exam_modal_desc" class="mb-4 text-text-light"></p>
+            <div data-lang-key="written_exam_modal_list" class="text-text-light"></div>
         </div>
     </div>
     
     <div id="petModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button">&times;</button>
-            <h3 data-lang-key="pet_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3>
-            <p data-lang-key="pet_modal_desc" class="mb-4"></p>
-            <div data-lang-key="pet_modal_list"></div>
+            <h3 data-lang-key="pet_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+            <p data-lang-key="pet_modal_desc" class="mb-4 text-text-light"></p>
+            <div data-lang-key="pet_modal_list" class="text-text-light"></div>
         </div>
     </div>
 
     <div id="interviewModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-button">&times;</button>
-            <h3 data-lang-key="interview_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3>
-            <p data-lang-key="interview_modal_desc" class="mb-4"></p>
-            <div data-lang-key="interview_modal_list"></div>
+            <h3 data-lang-key="interview_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+            <p data-lang-key="interview_modal_desc" class="mb-4 text-text-light"></p>
+            <div data-lang-key="interview_modal_list" class="text-text-light"></div>
         </div>
     </div>
 
-    <div id="bsfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="bsf_info_modal_title" class="text-2xl font-bold text-orange-800 mb-4"></h3><p data-lang-key="bsf_info_modal_desc"></p></div></div>
-    <div id="crpfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="crpf_info_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><p data-lang-key="crpf_info_modal_desc"></p></div></div>
-    <div id="cisfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="cisf_info_modal_title" class="text-2xl font-bold text-gray-800 mb-4"></h3><p data-lang-key="cisf_info_modal_desc"></p></div></div>
-    <div id="itbpInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="itbp_info_modal_title" class="text-2xl font-bold text-red-800 mb-4"></h3><p data-lang-key="itbp_info_modal_desc"></p></div></div>
-    <div id="ssbInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ssb_info_modal_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="ssb_info_modal_desc"></p></div></div>
+    <div id="bsfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="bsf_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="bsf_info_modal_desc" class="text-text-light"></p></div></div>
+    <div id="crpfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="crpf_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="crpf_info_modal_desc" class="text-text-light"></p></div></div>
+    <div id="cisfInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="cisf_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="cisf_info_modal_desc" class="text-text-light"></p></div></div>
+    <div id="itbpInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="itbp_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="itbp_info_modal_desc" class="text-text-light"></p></div></div>
+    <div id="ssbInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ssb_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="ssb_info_modal_desc" class="text-text-light"></p></div></div>
 
-    <div id="paper1SyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper1_syllabus_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3><div data-lang-key="paper1_syllabus_modal_list"></div></div></div>
-    <div id="paper2SyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper2_syllabus_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3><div data-lang-key="paper2_syllabus_modal_list"></div></div></div>
+    <div id="paper1SyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper1_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><div data-lang-key="paper1_syllabus_modal_list_clean" class="text-text-light"></div></div></div>
+    <div id="paper2SyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper2_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><div data-lang-key="paper2_syllabus_modal_list_clean" class="text-text-light"></div></div></div>
 
-    <div id="capfCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="capf_career_modal_title" class="text-2xl font-bold text-[#365314] mb-4"></h3><p data-lang-key="capf_career_modal_desc" class="mb-4"></p><div data-lang-key="capf_career_modal_list" class="flex flex-wrap gap-2"></div></div></div>
+    <div id="capfCareerModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button">&times;</button>
+            <h3 data-lang-key="capf_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3>
+            <p data-lang-key="capf_career_modal_desc" class="mb-4 text-text-light"></p>
+            <div data-lang-key="capf_career_modal_list_clean" class="flex flex-wrap gap-2 text-text-light"></div>
+        </div>
+    </div>
     
-    <div id="rankACModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_ac_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_ac_desc"></p></div></div>
-    <div id="rankDCModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dc_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_dc_desc"></p></div></div>
-    <div id="rankCmdtModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_cmdt_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_cmdt_desc"></p></div></div>
-    <div id="rankDIGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dig_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_dig_desc"></p></div></div>
-    <div id="rankIGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_ig_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_ig_desc"></p></div></div>
-    <div id="rankADGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_adg_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_adg_desc"></p></div></div>
-    <div id="rankDGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dg_title" class="text-2xl font-bold text-green-800 mb-4"></h3><p data-lang-key="rank_dg_desc"></p></div></div>
+    <div id="rankACModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_ac_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_ac_desc" class="text-text-light"></p></div></div>
+    <div id="rankDCModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dc_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_dc_desc" class="text-text-light"></p></div></div>
+    <div id="rankCmdtModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_cmdt_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_cmdt_desc" class="text-text-light"></p></div></div>
+    <div id="rankDIGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dig_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_dig_desc" class="text-text-light"></p></div></div>
+    <div id="rankIGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_ig_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_ig_desc" class="text-text-light"></p></div></div>
+    <div id="rankADGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_adg_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_adg_desc" class="text-text-light"></p></div></div>
+    <div id="rankDGModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="rank_dg_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="rank_dg_desc" class="text-text-light"></p></div></div>
+
+    <div id="careerRoadmapModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="closeModal('careerRoadmapModal')">&times;</button>
+            <h3 data-lang-key="modal_roadmap_title" class="text-2xl font-bold text-golden-dark mb-6 text-center"></h3>
+            
+            <div id="roadmap-timeline" class="relative border-l-4 border-golden-dark pl-6 space-y-8 max-w-lg mx-auto">
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">1</div>
+                    <h4 data-lang-key="roadmap_step1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step1_p" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                    <h4 data-lang-key="roadmap_step2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step2_p" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                    <h4 data-lang-key="roadmap_step3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step3_p" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                    <h4 data-lang-key="roadmap_step4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step4_p" class="text-base text-text-light"></p>
+                </div>
+                
+                <p data-lang-key="roadmap_note" class="text-center text-sm text-gray-400 pt-4"></p>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <nav 
+        class="lg:hidden bottom-nav-fixed" 
+        style="padding-bottom: env(safe-area-inset-bottom);" 
+        id="bottom-nav-shs"
+    >
+        <div class="flex justify-around items-end h-20 relative px-2">
+            
+            <a href="index.html#govt-exam-section" class="nav-item-shs">
+                <i class="fas fa-building nav-icon-shs"></i>
+                <span class="font-medium">Public</span>
+            </a>
+
+            <a href="index.html#private-sector-section" class="nav-item-shs">
+                <i class="fas fa-briefcase nav-icon-shs"></i>
+                <span class="font-medium">Private</span>
+            </a>
+            
+            <div class="central-nav-item-shs">
+                <a 
+                    href="index.html" 
+                    class="central-fab animate-pulse-shadow"
+                    aria-label="Go to Home"
+                >
+                    <i class="fas fa-home central-fab-icon"></i>
+                </a>
+                <span class="central-fab-label">Home</span>
+            </div>
+            
+            <a href="tel:0000000000" class="nav-item-shs">
+                <i class="fas fa-phone-volume nav-icon-shs"></i>
+                <span class="font-medium">Call</span>
+            </a>
+            
+            <a href="index.html#ai-guide-section" class="nav-item-shs">
+                <i class="fas fa-brain nav-icon-shs"></i>
+                <span class="font-medium">AI Tools</span>
+            </a>
+        </div>
+    </nav>
+
 
     <script>
+        // --- START: index.html HEADER JS LOGIC ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        function toggleMobileMenu() {
+            const isMenuOpen = mobileMenuPanel.classList.contains('translate-x-0');
+            
+            if (isMenuOpen) {
+                // Close menu
+                mobileMenuPanel.classList.remove('translate-x-0');
+                mobileMenuPanel.classList.add('translate-x-full');
+                mobileMenuOverlay.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                mobileMenuPanel.classList.remove('translate-x-full');
+                mobileMenuPanel.classList.add('translate-x-0');
+                mobileMenuOverlay.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuCloseButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(toggleMobileMenu, 200); 
+            });
+        });
+        
+        // --- END: index.html HEADER JS LOGIC ---
+
+        let examPatternChartInstance = null;
+
+        // --- UPDATED TRANSLATION DATA (Removed Punjabi) ---
         const translations = {
             hi: {
-                doc_title: "UPSC CAPF (AC) परीक्षा: संपूर्ण मार्गदर्शिका",
-                header_title: "🇮🇳 UPSC CAPF (सहायक कमांडेंट) परीक्षा 🇮🇳",
-                header_subtitle: "देश की आंतरिक सुरक्षा में नेतृत्व का एक साहसिक मार्ग",
+                
                 section1_title: "1. CAPF (AC) परीक्षा क्या है? 🤔",
-                section1_desc: "केंद्रीय सशस्त्र पुलिस बल (CAPF) सहायक कमांडेंट (AC) परीक्षा UPSC द्वारा BSF, CRPF, CISF, ITBP और SSB जैसे बलों में ग्रुप 'A' अधिकारियों की भर्ती के लिए आयोजित की जाती है। ये अधिकारी इन बलों में कंपनी कमांडर के रूप में एक महत्वपूर्ण नेतृत्व भूमिका निभाते हैं।",
+                section1_desc: "केंद्रीय सशस्त्र पुलिस बल (CAPF) सहायक कमांडेंट (AC) परीक्षा UPSC द्वारा BSF, CRPF, CISF, ITBP और SSB जैसे बलों में **ग्रुप 'A' अधिकारियों** की भर्ती के लिए आयोजित की जाती है। ये अधिकारी इन बलों में कंपनी कमांडर के रूप में एक महत्वपूर्ण नेतृत्व भूमिका निभाते हैं।",
+                section1_services_text: "5 प्रमुख केंद्रीय बलों के लिए भर्ती", // NEW TEXT
                 section1_card1_title: "BSF",
                 section1_card2_title: "CRPF",
                 section1_card3_title: "CISF",
                 section1_card4_title: "ITBP",
                 section1_card5_title: "SSB",
+                
                 section2_title: "2. परीक्षा प्रक्रिया: 3 चरण 🎯",
                 section2_desc: "CAPF (AC) चयन प्रक्रिया में तीन चरण होते हैं, जिनमें से प्रत्येक में उत्तीर्ण होना अनिवार्य है।",
                 section2_step1_title: "चरण 1:<br>लिखित परीक्षा",
-                section2_step2_title: "चरण 2:<br>शारीरिक परीक्षण (PET/PST)",
-                section2_step3_title: "चरण 3:<br>साक्षात्कार/व्यक्तित्व परीक्षण",
+                section2_step2_title: "चरण 2:<br>शारीरिक परीक्षण",
+                section2_step3_title: "चरण 3:<br>साक्षात्कार",
+                
                 section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎓</span><div><strong class="text-[#365314]">शैक्षणिक योग्यता:</strong> किसी भी विषय में स्नातक की डिग्री।</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎂</span><div><strong class="text-[#365314]">आयु सीमा:</strong> 20 से 25 वर्ष। (आरक्षित श्रेणियों के लिए आयु में छूट लागू है)।</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🇮🇳</span><div><strong class="text-[#365314]">राष्ट्रीयता:</strong> भारतीय नागरिक होना अनिवार्य है।</div></li></ul>`,
+                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">शैक्षणिक योग्यता:</strong> किसी भी विषय में **स्नातक** की डिग्री।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">आयु सीमा:</strong> 20 से 25 वर्ष। (आरक्षित श्रेणियों के लिए आयु में छूट लागू है)।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">राष्ट्रीयता:</strong> भारतीय नागरिक होना अनिवार्य है।</div></li></ul>`,
                 section3_chart_title: "लिखित परीक्षा का पैटर्न 📊",
                 examPatternChartLabels: ['पेपर I (250 अंक)', 'पेपर II (200 अंक)'],
+                
                 section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
                 section4_desc: "लिखित परीक्षा में दो पेपर होते हैं: पेपर I वस्तुनिष्ठ (Objective) होता है और पेपर II वर्णनात्मक (Descriptive) होता है।",
                 section4_subject1_title: "पेपर I: सामान्य योग्यता और बुद्धिमत्ता",
                 section4_subject2_title: "पेपर II: सामान्य अध्ययन, निबंध और कॉम्प्रिहेंशन",
                 section4_subject_button: "पाठ्यक्रम देखें &rarr;",
+                
                 section5_title: "5. परीक्षा के सभी विषय 📖",
                 section5_desc: "परीक्षा में सफलता के लिए प्रत्येक विषय की ठोस समझ आवश्यक है। नीचे पेपर-वार विषयों की सूची दी गई है।",
                 subject_paper1: "पेपर I: सामान्य योग्यता और बुद्धिमत्ता",
                 subject_paper2: "पेपर II: सामान्य अध्ययन, निबंध और कॉम्प्रिहेंशन",
-                notes_btn: "नोट्स",
-                lectures_btn: "लेक्चर्स",
+                // notes_btn: "नोट्स", // REMOVED
+                // lectures_btn: "लेक्चर्स", // REMOVED
+                
                 section6_title: "6. बल और करियर के अवसर 🏢",
                 section6_desc: "CAPF (AC) के रूप में, आप भारत के पाँच प्रमुख केंद्रीय सशस्त्र पुलिस बलों में से किसी एक में शामिल होते हैं। प्रत्येक बल की एक अनूठी भूमिका और एक संरचित करियर पथ होता है।",
                 section6_card_title: "CAPF में करियर प्रगति",
-                section6_card_button: "रैंक संरचना देखें &rarr;",
+                // section6_card_button: "रैंक संरचना देखें &rarr;", // REMOVED
+                
                 section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
                 section7_desc: "CAPF परीक्षा में सफलता के लिए अकादमिक ज्ञान, शारीरिक सहनशक्ति और एक मजबूत व्यक्तित्व का संतुलन आवश्यक है।",
                 section7_col1_title: "📚 लिखित परीक्षा के लिए स्तंभ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>GS पर मजबूत पकड़:</strong> इतिहास, भूगोल, राजनीति और विज्ञान जैसे विषयों के लिए NCERT पढ़ें।</li><li><strong>करेंट अफेयर्स:</strong> राष्ट्रीय और अंतर्राष्ट्रीय महत्व की घटनाओं से अपडेट रहें।</li><li><strong>पेपर II का अभ्यास:</strong> निबंध, रिपोर्ट और सार लेखन का नियमित अभ्यास करें।</li><li><strong>पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न और कठिनाई स्तर को समझने के लिए यह महत्वपूर्ण है।</li></ul>`,
+                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">GS पर मजबूत पकड़:</strong> इतिहास, भूगोल, राजनीति और विज्ञान जैसे विषयों के लिए NCERT पढ़ें।</li><li><strong class="text-golden-dark">करेंट अफेयर्स:</strong> राष्ट्रीय और अंतर्राष्ट्रीय महत्व की घटनाओं से अपडेट रहें।</li><li><strong class="text-golden-dark">पेपर II का अभ्यास:</strong> निबंध, रिपोर्ट और सार लेखन का नियमित अभ्यास करें।</li><li><strong class="text-golden-dark">पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न और कठिनाई स्तर को समझने के लिए यह महत्वपूर्ण है।</li></ul>`,
                 section7_col2_title: "🔄 शारीरिक और मानसिक तैयारी:",
                 section7_col2_desc: "**यह सिर्फ एक परीक्षा नहीं, बल्कि एक अधिकारी बनने की पूरी प्रक्रिया है!**",
                 section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li><strong>शारीरिक सहनशक्ति:</strong> दौड़, लंबी कूद और ऊंची कूद का नियमित अभ्यास करें।</li><li><strong>आत्मविश्वास बढ़ाएं:</strong> साक्षात्कार के लिए अपने संचार कौशल और सामान्य जागरूकता पर काम करें।</li><li><strong>समय प्रबंधन:</strong> दोनों पेपरों के लिए समय प्रबंधन का अभ्यास करें।</li></ul>`,
+                
                 section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
                 section8_desc: "यह वर्दी साहस, समर्पण और अनुशासन की मांग करती है। इन सामान्य गलतियों से बचकर अपने लक्ष्य को प्राप्त करें।",
-                section8_item1: `<div><strong class="text-lg text-red-800">शारीरिक परीक्षण को नज़रअंदाज़ करना:</strong> कई उम्मीदवार लिखित परीक्षा पर इतना ध्यान केंद्रित करते हैं कि वे शारीरिक मानकों को भूल जाते हैं। याद रखें, यदि आप PET/PST में असफल हो जाते हैं, तो आपकी लिखित परीक्षा का स्कोर व्यर्थ हो जाएगा।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">पेपर II को हल्के में लेना:</strong> पेपर II आपकी रैंक तय करने में महत्वपूर्ण भूमिका निभाता है। केवल MCQ हल करने पर ध्यान न दें; निबंध और रिपोर्ट लिखने की कला में महारत हासिल करें।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">करेंट अफेयर्स को अंतिम समय के लिए छोड़ना:</strong> करेंट अफेयर्स एक विशाल विषय है। इसे नियमित रूप से कवर करें, न कि परीक्षा से ठीक पहले।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">मानसिक दृढ़ता की कमी:</strong> एक अधिकारी का जीवन चुनौतियों से भरा होता है। साक्षात्कार में आपके दबाव झेलने की क्षमता का परीक्षण किया जाता है। अपनी तैयारी के दौरान सकारात्मक और दृढ़ रहें।</div>`,
+                section8_item1: `<div><strong class="text-lg text-red-300">शारीरिक परीक्षण को नज़रअंदाज़ करना:</strong> कई उम्मीदवार लिखित परीक्षा पर इतना ध्यान केंद्रित करते हैं कि वे शारीरिक मानकों को भूल जाते हैं। याद रखें, यदि आप PET/PST में असफल हो जाते हैं, तो आपकी लिखित परीक्षा का स्कोर व्यर्थ हो जाएगा।</div>`,
+                section8_item2: `<div><strong class="text-lg text-red-300">पेपर II को हल्के में लेना:</strong> पेपर II आपकी रैंक तय करने में महत्वपूर्ण भूमिका निभाता है। केवल MCQ हल करने पर ध्यान न दें; निबंध और रिपोर्ट लिखने की कला में महारत हासिल करें।</div>`,
+                section8_item3: `<div><strong class="text-lg text-red-300">करेंट अफेयर्स को अंतिम समय के लिए छोड़ना:</strong> करेंट अफेयर्स एक विशाल विषय है। इसे नियमित रूप से कवर करें, न कि परीक्षा से ठीक पहले।</div>`,
+                section8_item4: `<div><strong class="text-lg text-red-300">मानसिक दृढ़ता की कमी:</strong> एक अधिकारी का जीवन चुनौतियों से भरा होता है। साक्षात्कार में आपके दबाव झेलने की क्षमता का परीक्षण किया जाता है। अपनी तैयारी के दौरान सकारात्मक और दृढ़ रहें।</div>`,
                 section8_final_thought: "✨ वर्दी सिर्फ एक नौकरी नहीं, बल्कि देश की सेवा करने का एक संकल्प है। ✨",
+                
                 section9_title: "9. आवेदन प्रक्रिया और समय-सीमा 🗓️",
-                section9_desc: "UPSC आमतौर पर हर साल अप्रैल में इस परीक्षा के लिए अधिसूचना जारी करता है, और परीक्षा अगस्त में आयोजित की जाती है।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">अधिसूचना:</div><div>अप्रैल।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">आवेदन की अंतिम तिथि:</div><div>मई।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">लिखित परीक्षा:</div><div>अगस्त।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">शारीरिक और मेडिकल टेस्ट:</div><div>अक्टूबर - दिसंबर।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">साक्षात्कार:</div><div>दिसंबर - जनवरी (अगले वर्ष)।</div></div>`,
+                section9_desc: "UPSC आमतौर पर हर साल अप्रैल में इस परीक्षा के लिए अधिसूचना जारी करता है।",
+                section9_li1_title: 'अधिसूचना (Notification)',
+                section9_li1_p: '<strong class="text-gray-400">समय:</strong> आमतौर पर अप्रैल में।',
+                section9_li2_title: 'आवेदन की अंतिम तिथि',
+                section9_li2_p: '<strong class="text-gray-400">समय:</strong> मई में।',
+                section9_li3_title: 'लिखित परीक्षा',
+                section9_li3_p: '<strong class="text-gray-400">समय:</strong> अगस्त में।',
+                section9_li4_title: 'शारीरिक और मेडिकल टेस्ट',
+                section9_li4_p: '<strong class="text-gray-400">समय:</strong> अक्टूबर - दिसंबर।',
+                section9_li5_title: 'साक्षात्कार (Interview)',
+                section9_li5_p: '<strong class="text-gray-400">समय:</strong> दिसंबर - जनवरी (अगले वर्ष)।<br>पूरी प्रक्रिया में लगभग 10-11 महीने लगते हैं।',
+
                 section10_title: "10. तैयारी के लिए संस्थान 👨‍🏫",
                 section10_desc: "CAPF (AC) एक लोकप्रिय परीक्षा है, और कई संस्थान इसके लिए कोचिंग प्रदान करते हैं।",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 ऑनलाइन प्लेटफॉर्म:</h3><ul class="list-disc list-inside"><li>Testbook</li><li>Gradeup (Byju's Exam Prep)</li><li>Adda247</li><li>Unacademy</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 ऑफलाइन केंद्र:</h3><ul class="list-disc list-inside"><li>Paramount Coaching (Delhi)</li><li>Career Launcher (Pan-India)</li><li>Cavalier India (Pan-India)</li><li>कई शहरों में स्थानीय रक्षा अकादमियां।</li></ul></div>`,
-                footer_text: "© 2025 crapd.in - CAPF (AC) गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
-                written_exam_modal_title: "चरण 1: लिखित परीक्षा",
-                written_exam_modal_desc: "यह चयन प्रक्रिया का पहला चरण है।",
-                written_exam_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>पेपर I:</strong> सामान्य योग्यता और बुद्धिमत्ता (250 अंक, 2 घंटे, वस्तुनिष्ठ)</li><li><strong>पेपर II:</strong> सामान्य अध्ययन, निबंध और कॉम्प्रिहेंशन (200 अंक, 3 घंटे, वर्णनात्मक)</li><li><strong>कुल अंक:</strong> 450</li><li>पेपर I में गलत उत्तरों के लिए नेगेटिव मार्किंग होती है।</li></ul>`,
-                pet_modal_title: "चरण 2: शारीरिक मानक/दक्षता परीक्षण (PST/PET)",
+                section10_online_clean: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">💻 ऑनलाइन प्लेटफॉर्म:</h3><ul class="list-disc list-inside"><li>Testbook</li><li>Gradeup (Byju's Exam Prep)</li><li>Adda247</li><li>Unacademy</li></ul></div>`,
+                section10_offline_clean: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">🏢 ऑफलाइन केंद्र:</h3><ul class="list-disc list-inside"><li>Paramount Coaching (Delhi)</li><li>Career Launcher (Pan-India)</li><li>Cavalier India (Pan-India)</li><li>कई शहरों में स्थानीय रक्षा अकादमियां।</li></ul></div>`,
+                
+                section11_title: "11. करियर ग्रोथ रोडमैप: आपका भविष्य 🚀", // NEW SECTION TITLE
+                section11_desc: "CAPF में सहायक कमांडेंट (AC) के रूप में शामिल होने के बाद, एक अधिकारी **ग्रुप 'A' राजपत्रित अधिकारी** के रूप में महानिदेशक (DG) के सर्वोच्च पद तक पहुँच सकता है।", // NEW SECTION DESC
+                section11_roadmap_btn: 'संपूर्ण करियर रोडमैप देखें', // NEW BUTTON TEXT
+                
+                footer_text: "© 2025 CAPF (AC) गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
+                
+                // Modals
+                written_exam_modal_title: "चरण 1: लिखित परीक्षा (450 अंक)",
+                written_exam_modal_desc: "यह चयन प्रक्रिया का पहला चरण है। पेपर I वस्तुनिष्ठ है (नेगेटिव मार्किंग के साथ) और पेपर II वर्णनात्मक है।",
+                written_exam_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>पेपर I:</strong> सामान्य योग्यता और बुद्धिमत्ता (250 अंक, 2 घंटे)</li><li><strong>पेपर II:</strong> सामान्य अध्ययन, निबंध और कॉम्प्रिहेंशन (200 अंक, 3 घंटे)</li></ul>`,
+                pet_modal_title: "चरण 2: शारीरिक परीक्षण (PET/PST)",
                 pet_modal_desc: "लिखित परीक्षा में सफल उम्मीदवारों को इस चरण के लिए बुलाया जाता है। यह क्वालिफाइंग प्रकृति का होता है।",
                 pet_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>PST:</strong> ऊंचाई, छाती और वजन का माप।</li><li><strong>PET:</strong> 100 मीटर दौड़, 800 मीटर दौड़, लंबी कूद और शॉट पुट।</li></ul>`,
-                interview_modal_title: "चरण 3: साक्षात्कार/व्यक्तित्व परीक्षण",
-                interview_modal_desc: "PET/PST में सफल उम्मीदवारों को अंतिम चरण के लिए बुलाया जाता है।",
+                interview_modal_title: "चरण 3: साक्षात्कार/व्यक्तित्व परीक्षण (150 अंक)",
+                interview_modal_desc: "PET/PST और मेडिकल परीक्षणों में सफल उम्मीदवारों को अंतिम चरण के लिए बुलाया जाता है।",
                 interview_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>कुल अंक:</strong> 150</li><li>यह उम्मीदवार के समग्र व्यक्तित्व, संचार कौशल और नेतृत्व गुणों का आकलन करता है।</li><li>अंतिम मेरिट लिस्ट लिखित परीक्षा और साक्षात्कार (450 + 150 = 600 अंक) के आधार पर तैयार की जाती है।</li></ul>`,
                 bsf_info_modal_title: " Border सीमा सुरक्षा बल (BSF)",
-                bsf_info_modal_desc: "BSF भारत की प्राथमिक सीमा सुरक्षा बल है, जो पाकिस्तान और बांग्लादेश के साथ लगती सीमाओं की रक्षा करती है। यह दुनिया का सबसे बड़ा सीमा सुरक्षा बल है।<br><br><strong>उदाहरण:</strong> एक BSF सहायक कमांडेंट राजस्थान में भारत-पाक सीमा पर एक कंपनी का नेतृत्व कर सकता है, जो घुसपैठ और तस्करी को रोकने के लिए जिम्मेदार है।",
+                bsf_info_modal_desc: "BSF भारत की प्राथमिक सीमा सुरक्षा बल है, जो पाकिस्तान और बांग्लादेश के साथ लगती सीमाओं की रक्षा करती है। यह घुसपैठ और तस्करी को रोकने के लिए जिम्मेदार है।<br><br><strong>उदाहरण:</strong> एक BSF AC राजस्थान में भारत-पाक सीमा पर एक कंपनी का नेतृत्व कर सकता है।",
                 crpf_info_modal_title: "🛡️ केंद्रीय रिजर्व पुलिस बल (CRPF)",
-                crpf_info_modal_desc: "CRPF भारत का सबसे बड़ा केंद्रीय सशस्त्र पुलिस बल है, जो आंतरिक सुरक्षा और आतंकवाद विरोधी अभियानों के लिए जिम्मेदार है। वे चुनावों के दौरान भी महत्वपूर्ण भूमिका निभाते हैं।<br><br><strong>उदाहरण:</strong> एक CRPF सहायक कमांडेंट छत्तीसगढ़ के नक्सल प्रभावित क्षेत्रों में एक कंपनी का नेतृत्व कर सकता है या कश्मीर घाटी में आतंकवाद विरोधी अभियानों में शामिल हो सकता है।",
+                crpf_info_modal_desc: "CRPF भारत का सबसे बड़ा केंद्रीय सशस्त्र पुलिस बल है, जो आंतरिक सुरक्षा, आतंकवाद विरोधी अभियानों और चुनावों के दौरान कानून व्यवस्था के लिए जिम्मेदार है।<br><br><strong>उदाहरण:</strong> एक CRPF AC नक्सल प्रभावित क्षेत्रों में एक कंपनी का नेतृत्व कर सकता है।",
                 cisf_info_modal_title: "🏭 केंद्रीय औद्योगिक सुरक्षा बल (CISF)",
-                cisf_info_modal_desc: "CISF हवाई अड्डों, बंदरगाहों, परमाणु ऊर्जा संयंत्रों और अन्य महत्वपूर्ण औद्योगिक प्रतिष्ठानों को सुरक्षा प्रदान करता है।<br><br><strong>उदाहरण:</strong> एक CISF सहायक कमांडेंट दिल्ली अंतर्राष्ट्रीय हवाई अड्डे पर सुरक्षा का प्रबंधन कर सकता है या किसी बड़े सार्वजनिक उपक्रम जैसे कि स्टील प्लांट की सुरक्षा का प्रमुख हो सकता है।",
+                cisf_info_modal_desc: "CISF हवाई अड्डों, बंदरगाहों, परमाणु ऊर्जा संयंत्रों और अन्य महत्वपूर्ण औद्योगिक प्रतिष्ठानों को सुरक्षा प्रदान करता है।<br><br><strong>उदाहरण:</strong> एक CISF AC दिल्ली अंतर्राष्ट्रीय हवाई अड्डे पर सुरक्षा का प्रबंधन कर सकता है।",
                 itbp_info_modal_title: "🏔️ भारत-तिब्बत सीमा पुलिस (ITBP)",
-                itbp_info_modal_desc: "ITBP भारत-चीन सीमा पर हिमालय के ऊंचे इलाकों में तैनात है। वे पर्वतीय युद्ध में विशेषज्ञ होते हैं।<br><br><strong>उदाहरण:</strong> एक ITBP सहायक कमांडेंट लद्दाख में एक सीमा चौकी की कमान संभाल सकता है, जो अत्यधिक ठंडे मौसम की स्थिति में काम करता है।",
+                itbp_info_modal_desc: "ITBP भारत-चीन सीमा पर हिमालय के ऊंचे इलाकों में तैनात है और पर्वतीय युद्ध में विशेषज्ञ होता है।<br><br><strong>उदाहरण:</strong> एक ITBP AC लद्दाख में अत्यधिक ठंडे मौसम की स्थिति में एक सीमा चौकी की कमान संभाल सकता है।",
                 ssb_info_modal_title: "🤝 सशस्त्र सीमा बल (SSB)",
-                ssb_info_modal_desc: "SSB नेपाल और भूटान के साथ लगती भारत की सीमाओं की रक्षा करता है। वे सीमावर्ती क्षेत्रों में रहने वाले लोगों के बीच सुरक्षा और भाईचारे की भावना को बढ़ावा देने के लिए भी काम करते हैं।<br><br><strong>उदाहरण:</strong> एक SSB सहायक कमांडेंट भारत-नेपाल सीमा पर एक कंपनी का नेतृत्व कर सकता है, जो सीमा पार अपराधों को रोकने और स्थानीय आबादी के साथ अच्छे संबंध बनाए रखने पर ध्यान केंद्रित करता है।",
+                ssb_info_modal_desc: "SSB नेपाल और भूटान के साथ लगती भारत की सीमाओं की रक्षा करता है, साथ ही सीमावर्ती क्षेत्रों में सुरक्षा और भाईचारे की भावना को बढ़ावा देता है।<br><br><strong>उदाहरण:</strong> एक SSB AC भारत-नेपाल सीमा पर एक कंपनी का नेतृत्व कर सकता है।",
                 paper1_syllabus_modal_title: "पेपर I पाठ्यक्रम",
-                paper1_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">A. सामान्य मानसिक योग्यता</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>तार्किक तर्क, मात्रात्मक योग्यता, डेटा इंटरप्रिटेशन।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">B. सामान्य विज्ञान</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>भौतिकी, रसायन विज्ञान, जीव विज्ञान और पर्यावरण विज्ञान।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">C. राष्ट्रीय और अंतर्राष्ट्रीय महत्व की समसामयिक घटनाएं</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div></div>`,
+                paper1_syllabus_modal_list_clean: `<div><h4 class="font-bold text-lg text-golden-dark">A. सामान्य मानसिक योग्यता</h4><ul class="list-disc list-inside ml-4"><li>तार्किक तर्क, मात्रात्मक योग्यता, डेटा इंटरप्रिटेशन।</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">B. सामान्य विज्ञान</h4><ul class="list-disc list-inside ml-4"><li>भौतिकी, रसायन विज्ञान, जीव विज्ञान और पर्यावरण विज्ञान।</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">C. राष्ट्रीय और अंतर्राष्ट्रीय महत्व की समसामयिक घटनाएं</h4></div>`,
                 paper2_syllabus_modal_title: "पेपर II पाठ्यक्रम",
-                paper2_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">भाग A - निबंध</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>इतिहास, भूगोल, राजनीति, अर्थव्यवस्था, सुरक्षा और मानवाधिकार जैसे विषयों पर निबंध।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">भाग B - कॉम्प्रिहेंशन, सार लेखन, आदि</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>कॉम्प्रिहेंशन पैसेज, सार लेखन, रिपोर्ट लेखन, तर्क लेखन।</li></ul></div>`,
-                capf_career_modal_title: "CAPF में करियर प्रगति",
-                capf_career_modal_desc: "एक सहायक कमांडेंट (AC) के रूप में शामिल होने के बाद, एक अधिकारी प्रदर्शन और वरिष्ठता के आधार पर महानिदेशक (DG) के पद तक पहुँच सकता है, जो बल का प्रमुख होता है।",
-                capf_career_modal_list: `<button class="rank-btn" data-modal-target="rankACModal">सहायक कमांडेंट (AC)</button><button class="rank-btn" data-modal-target="rankDCModal">डिप्टी कमांडेंट (DC)</button><button class="rank-btn" data-modal-target="rankCmdtModal">कमांडेंट</button><button class="rank-btn" data-modal-target="rankDIGModal">DIG</button><button class="rank-btn" data-modal-target="rankIGModal">IG</button><button class="rank-btn" data-modal-target="rankADGModal">ADG</button><button class="rank-btn" data-modal-target="rankDGModal">DG</button>`,
+                paper2_syllabus_modal_list_clean: `<div><h4 class="font-bold text-lg text-golden-dark">भाग A - निबंध (80 अंक)</h4><ul class="list-disc list-inside ml-4"><li>इतिहास, भूगोल, राजनीति, अर्थव्यवस्था, सुरक्षा और मानवाधिकार जैसे विषयों पर निबंध।</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">भाग B - कॉम्प्रिहेंशन, सार लेखन, आदि (120 अंक)</h4><ul class="list-disc list-inside ml-4"><li>कॉम्प्रिहेंशन पैसेज, सार लेखन, रिपोर्ट लेखन, तर्क लेखन।</li></ul></div>`,
+                capf_career_modal_title: "CAPF में करियर प्रगति (ग्रुप 'A' अधिकारी)",
+                capf_career_modal_list_clean: `<ul class="list-disc list-inside space-y-1"><li>सहायक कमांडेंट (AC)</li><li>डिप्टी कमांडेंट (DC)</li><li>कमांडेंट (Commandant)</li><li>डिप्टी इंस्पेक्टर जनरल (DIG)</li><li>इंस्पेक्टर जनरल (IG)</li><li>अतिरिक्त महानिदेशक (ADG)</li><li>महानिदेशक (DG) - बल का सर्वोच्च पद।</li></ul>`,
                 rank_ac_title: "सहायक कमांडेंट (AC)",
                 rank_ac_desc: "यह CAPF में एक ग्रुप 'A' अधिकारी के लिए प्रवेश स्तर का पद है। एक AC एक कंपनी की कमान संभालता है, जिसमें लगभग 135-150 जवान होते हैं।",
                 rank_dc_title: "डिप्टी कमांडेंट (DC)",
-                rank_dc_desc: "यह AC के बाद अगली रैंक है, जो आमतौर पर 5-6 साल की सेवा के बाद मिलती है। एक DC बटालियन में 2iC (सेकंड-इन-कमांड) के रूप में कार्य करता है या एक छोटी इकाई की कमान संभालता है।",
+                rank_dc_desc: "यह AC के बाद अगली रैंक है, जो आमतौर पर 5-6 साल की सेवा के बाद मिलती है। एक DC बटालियन में 2iC (सेकंड-इन-कमांड) के रूप में कार्य करता है।",
                 rank_cmdt_title: "कमांडेंट",
                 rank_cmdt_desc: "एक कमांडेंट एक बटालियन का कमांडिंग ऑफिसर होता है, जिसमें लगभग 1000 कर्मी होते हैं। यह एक बहुत ही प्रतिष्ठित और जिम्मेदार पद है।",
                 rank_dig_title: "डिप्टी इंस्पेक्टर जनरल (DIG)",
@@ -476,95 +954,132 @@
                 rank_adg_title: "अतिरिक्त महानिदेशक (ADG)",
                 rank_adg_desc: "एक ADG बल के मुख्यालय में एक विशेष निदेशालय या एक बड़े क्षेत्र का प्रमुख होता है। वे नीति-निर्माण में महत्वपूर्ण भूमिका निभाते हैं।",
                 rank_dg_title: "महानिदेशक (DG)",
-                rank_dg_desc: "DG किसी भी CAPF का सर्वोच्च पद है। वह पूरे बल के समग्र कामकाज और कमान के लिए जिम्मेदार होता है।"
+                rank_dg_desc: "DG किसी भी CAPF का सर्वोच्च पद है। वह पूरे बल के समग्र कामकाज और कमान के लिए जिम्मेदार होता है।",
+                
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'CAPF अधिकारी: करियर प्रगति का पथ',
+                roadmap_step1_title: 'प्रारंभिक नियुक्ति (Assistant Commandant)',
+                roadmap_step1_p: 'UPSC CAPF (AC) परीक्षा के माध्यम से ग्रुप ‘A’ राजपत्रित अधिकारी के रूप में सीधी भर्ती। AC एक कंपनी (लगभग 150 कर्मी) का कमांडर होता है।',
+                roadmap_step2_title: 'मध्य-स्तरीय नेतृत्व (5-15 वर्ष)',
+                roadmap_step2_p: 'डिप्टी कमांडेंट (DC), कमांडेंट। ये बटालियन और मुख्यालय स्तर पर महत्वपूर्ण परिचालन और प्रशासनिक निर्णय लेते हैं।',
+                roadmap_step3_title: 'वरिष्ठ नेतृत्व (15-25 वर्ष)',
+                roadmap_step3_p: 'डिप्टी इंस्पेक्टर जनरल (DIG), इंस्पेक्टर जनरल (IG)। ये फ्रंटियर या सेक्टर के प्रमुख होते हैं और बड़े पैमाने पर संचालन की निगरानी करते हैं।',
+                roadmap_step4_title: 'शीर्ष नेतृत्व (25+ वर्ष)',
+                roadmap_step4_p: 'अतिरिक्त महानिदेशक (ADG), महानिदेशक (DG)। DG बल का सर्वोच्च पद है, जो बल की कमान और देश की आंतरिक सुरक्षा नीति में महत्वपूर्ण योगदान देता है।',
+                roadmap_note: 'पदोन्नति की समय सीमा वरिष्ठता, प्रदर्शन और UPSC द्वारा आयोजित सीमित विभागीय प्रतियोगी परीक्षा (LDCE) पर निर्भर करती है।',
             },
             en: {
                 doc_title: "UPSC CAPF (AC) Exam: Complete Guide",
                 header_title: "🇮🇳 UPSC CAPF (Assistant Commandant) Exam 🇮🇳",
                 header_subtitle: "A Valiant Path to Leadership in the Nation's Internal Security",
                 section1_title: "1. What is the CAPF (AC) Exam? 🤔",
-                section1_desc: "The Central Armed Police Forces (CAPF) Assistant Commandant (AC) Examination is conducted by UPSC for the recruitment of Group 'A' officers in forces like BSF, CRPF, CISF, ITBP, and SSB. These officers play a crucial leadership role as company commanders in these forces.",
+                section1_desc: "The Central Armed Police Forces (CAPF) Assistant Commandant (AC) Examination is conducted by UPSC for the recruitment of **Group 'A' officers** in forces like BSF, CRPF, CISF, ITBP, and SSB. These officers play a crucial leadership role as company commanders in these forces.",
+                section1_services_text: "Recruitment for 5 Major Central Forces", // NEW TEXT
                 section1_card1_title: "BSF",
                 section1_card2_title: "CRPF",
                 section1_card3_title: "CISF",
                 section1_card4_title: "ITBP",
                 section1_card5_title: "SSB",
+                
                 section2_title: "2. Examination Process: 3 Stages 🎯",
                 section2_desc: "The CAPF (AC) selection process consists of three stages, each of which is mandatory to clear.",
-                section2_step1_title: "Stage 1:<br>Written Examination",
-                section2_step2_title: "Stage 2:<br>Physical Test (PET/PST)",
-                section2_step3_title: "Stage 3:<br>Interview/Personality Test",
+                section2_step1_title: "Stage 1:<br>Written Exam",
+                section2_step2_title: "Stage 2:<br>Physical Test",
+                section2_step3_title: "Stage 3:<br>Interview",
+                
                 section3_title: "3. Eligibility & Exam Pattern ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎓</span><div><strong class="text-[#365314]">Educational Qualification:</strong> A Bachelor's degree in any discipline.</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎂</span><div><strong class="text-[#365314]">Age Limit:</strong> 20 to 25 years. (Age relaxation is applicable for reserved categories).</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🇮🇳</span><div><strong class="text-[#365314]">Nationality:</strong> Must be a citizen of India.</div></li></ul>`,
+                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">Educational Qualification:</strong> A **Bachelor's degree** in any discipline.</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">Age Limit:</strong> 20 to 25 years. (Age relaxation is applicable for reserved categories).</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">Nationality:</strong> Must be a citizen of India.</div></li></ul>`,
                 section3_chart_title: "Written Exam Pattern 📊",
                 examPatternChartLabels: ['Paper I (250 Marks)', 'Paper II (200 Marks)'],
+                
                 section4_title: "4. Detailed Examination Syllabus 📚",
                 section4_desc: "The written examination consists of two papers: Paper I is objective, and Paper II is descriptive.",
                 section4_subject1_title: "Paper I: General Ability and Intelligence",
                 section4_subject2_title: "Paper II: General Studies, Essay & Comprehension",
                 section4_subject_button: "View Syllabus &rarr;",
+                
                 section5_title: "5. All Subjects of the Exam 📖",
                 section5_desc: "A solid understanding of each subject is essential for success in the exam. Below is the list of paper-wise subjects.",
                 subject_paper1: "Paper I: General Ability and Intelligence",
                 subject_paper2: "Paper II: General Studies, Essay & Comprehension",
-                notes_btn: "Notes",
-                lectures_btn: "Lectures",
+                // notes_btn: "Notes", // REMOVED
+                // lectures_btn: "Lectures", // REMOVED
+                
                 section6_title: "6. Forces and Career Opportunities 🏢",
                 section6_desc: "As a CAPF (AC), you join one of India's five major Central Armed Police Forces. Each force has a unique role and a structured career path.",
                 section6_card_title: "Career Progression in CAPF",
-                section6_card_button: "View Rank Structure &rarr;",
+                // section6_card_button: "View Rank Structure &rarr;", // REMOVED
+                
                 section7_title: "7. Your Preparation Strategy: Smart Work 📈",
                 section7_desc: "Success in the CAPF exam requires a balance of academic knowledge, physical endurance, and a strong personality.",
                 section7_col1_title: "📚 Pillars for Written Exam:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>Strong Hold on GS:</strong> Read NCERTs for subjects like History, Geography, Polity, and Science.</li><li><strong>Current Affairs:</strong> Stay updated with events of national and international importance.</li><li><strong>Practice Paper II:</strong> Regularly practice essay, report, and precis writing.</li><li><strong>Previous Years' Questions (PYQs):</strong> This is crucial to understand the pattern and difficulty level of the exam.</li></ul>`,
+                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">Strong Hold on GS:</strong> Read NCERTs for subjects like History, Geography, Polity, and Science.</li><li><strong class="text-golden-dark">Current Affairs:</strong> Stay updated with events of national and international importance.</li><li><strong class="text-golden-dark">Practice Paper II:</strong> Regularly practice essay, report, and precis writing.</li><li><strong class="text-golden-dark">Previous Years' Questions (PYQs):</strong> This is crucial to understand the pattern and difficulty level of the exam.</li></ul>`,
                 section7_col2_title: "🔄 Physical and Mental Preparation:",
                 section7_col2_desc: "**This is not just an exam, but a whole process of becoming an officer!**",
                 section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li><strong>Physical Endurance:</strong> Practice running, long jump, and high jump regularly.</li><li><strong>Build Confidence:</strong> Work on your communication skills and general awareness for the interview.</li><li><strong>Time Management:</strong> Practice time management for both papers.</li></ul>`,
+                
                 section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
                 section8_desc: "This uniform demands courage, dedication, and discipline. Avoid these common mistakes to achieve your goal.",
-                section8_item1: `<div><strong class="text-lg text-red-800">Ignoring the Physical Test:</strong> Many candidates focus so much on the written exam that they forget the physical standards. Remember, if you fail the PET/PST, your written exam score will be useless.</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">Taking Paper II Lightly:</strong> Paper II plays a crucial role in deciding your rank. Don't just focus on solving MCQs; master the art of writing essays and reports.</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">Leaving Current Affairs for the Last Minute:</strong> Current affairs is a vast topic. Cover it regularly, not just before the exam.</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">Lacking Mental Toughness:</strong> An officer's life is full of challenges. The interview tests your ability to handle pressure. Stay positive and resilient during your preparation.</div>`,
+                section8_item1: `<div><strong class="text-lg text-red-300">Ignoring the Physical Test:</strong> Many candidates focus so much on the written exam that they forget the physical standards. Remember, if you fail the PET/PST, your written exam score will be useless.</div>`,
+                section8_item2: `<div><strong class="text-lg text-red-300">Taking Paper II Lightly:</strong> Paper II plays a crucial role in deciding your rank. Don't just focus on solving MCQs; master the art of writing essays and reports.</div>`,
+                section8_item3: `<div><strong class="text-lg text-red-300">Leaving Current Affairs for the Last Minute:</strong> Current affairs is a vast topic. Cover it regularly, not just before the exam.</div>`,
+                section8_item4: `<div><strong class="text-lg text-red-300">Lacking Mental Toughness:</strong> An officer's life is full of challenges. The interview tests your ability to handle pressure. Stay positive and resilient during your preparation.</div>`,
                 section8_final_thought: "✨ The uniform is not just a job, it's a commitment to serve the nation. ✨",
+                
                 section9_title: "9. Application Process & Timeline 🗓️",
-                section9_desc: "UPSC usually releases the notification for this exam in April every year, and the exam is conducted in August.",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">Notification:</div><div>April.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Application Deadline:</div><div>May.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Written Exam:</div><div>August.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Physical & Medical Tests:</div><div>October - December.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Interview:</div><div>December - January (Next Year).</div></div>`,
+                section9_desc: "UPSC usually releases the notification for this exam in April every year.",
+                section9_li1_title: 'Notification',
+                section9_li1_p: '<strong class="text-gray-400">Time:</strong> Usually in April.',
+                section9_li2_title: 'Application Deadline',
+                section9_li2_p: '<strong class="text-gray-400">Time:</strong> In May.',
+                section9_li3_title: 'Written Exam',
+                section9_li3_p: '<strong class="text-gray-400">Time:</strong> In August.',
+                section9_li4_title: 'Physical & Medical Tests',
+                section9_li4_p: '<strong class="text-gray-400">Time:</strong> October - December.',
+                section9_li5_title: 'Interview',
+                section9_li5_p: '<strong class="text-gray-400">Time:</strong> December - January (Next Year).<br>The entire process takes about 10-11 months.',
+
                 section10_title: "10. Institutes for Preparation 👨‍🏫",
                 section10_desc: "CAPF (AC) is a popular exam, and many institutes provide coaching for it.",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 Online Platforms:</h3><ul class="list-disc list-inside"><li>Testbook</li><li>Gradeup (Byju's Exam Prep)</li><li>Adda247</li><li>Unacademy</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 Offline Centers:</h3><ul class="list-disc list-inside"><li>Paramount Coaching (Delhi)</li><li>Career Launcher (Pan-India)</li><li>Cavalier India (Pan-India)</li><li>Local defense academies in many cities.</li></ul></div>`,
-                footer_text: "© 2025 crapd.in - CAPF (AC) Guide. Best wishes for your success.",
-                written_exam_modal_title: "Stage 1: Written Examination",
-                written_exam_modal_desc: "This is the first stage of the selection process.",
-                written_exam_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Paper I:</strong> General Ability and Intelligence (250 Marks, 2 Hours, Objective)</li><li><strong>Paper II:</strong> General Studies, Essay and Comprehension (200 Marks, 3 Hours, Descriptive)</li><li><strong>Total Marks:</strong> 450</li><li>There is negative marking for wrong answers in Paper I.</li></ul>`,
-                pet_modal_title: "Stage 2: Physical Standards/Efficiency Test (PST/PET)",
+                section10_online_clean: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">💻 Online Platforms:</h3><ul class="list-disc list-inside"><li>Testbook</li><li>Gradeup (Byju's Exam Prep)</li><li>Adda247</li><li>Unacademy</li></ul></div>`,
+                section10_offline_clean: `<div><h3 class="text-xl font-bold text-golden-dark mb-2 border-b border-golden-dark pb-2">🏢 Offline Centers:</h3><ul class="list-disc list-inside"><li>Paramount Coaching (Delhi)</li><li>Career Launcher (Pan-India)</li><li>Cavalier India (Pan-India)</li><li>Local defense academies in many cities.</li></ul></div>`,
+                
+                section11_title: "11. Career Growth Roadmap: Your Future 🚀", // NEW SECTION TITLE
+                section11_desc: "After joining as an Assistant Commandant (AC) in CAPF, an officer can reach the apex post of Director General (DG) as a **Group 'A' Gazetted Officer**.", // NEW SECTION DESC
+                section11_roadmap_btn: 'View Complete Career Roadmap', // NEW BUTTON TEXT
+                
+                footer_text: "© 2025 CAPF (AC) Guide. Best wishes for your success.",
+                
+                // Modals
+                written_exam_modal_title: "Stage 1: Written Examination (450 Marks)",
+                written_exam_modal_desc: "This is the first stage of the selection process. Paper I is objective (with negative marking) and Paper II is descriptive.",
+                written_exam_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Paper I:</strong> General Ability and Intelligence (250 Marks, 2 Hours)</li><li><strong>Paper II:</strong> General Studies, Essay and Comprehension (200 Marks, 3 Hours)</li></ul>`,
+                pet_modal_title: "Stage 2: Physical Testing (PET/PST)",
                 pet_modal_desc: "Candidates who clear the written exam are called for this stage. It is qualifying in nature.",
                 pet_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>PST:</strong> Measurement of height, chest, and weight.</li><li><strong>PET:</strong> 100m race, 800m race, Long Jump, and Shot Put.</li></ul>`,
-                interview_modal_title: "Stage 3: Interview/Personality Test",
-                interview_modal_desc: "Candidates who clear the PET/PST are called for the final stage.",
+                interview_modal_title: "Stage 3: Interview (150 Marks)",
+                interview_modal_desc: "Candidates who clear the PET/PST and medical tests are called for the final stage.",
                 interview_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Total Marks:</strong> 150</li><li>It assesses the candidate's overall personality, communication skills, and leadership qualities.</li><li>The final merit list is prepared based on the written exam and interview (450 + 150 = 600 marks).</li></ul>`,
                 bsf_info_modal_title: " Border Security Force (BSF)",
-                bsf_info_modal_desc: "The BSF is India's primary border guarding force, defending the borders with Pakistan and Bangladesh. It is the world's largest border guarding force.<br><br><strong>Example:</strong> A BSF Assistant Commandant might lead a company on the Indo-Pak border in Rajasthan, responsible for preventing infiltration and smuggling.",
+                bsf_info_modal_desc: "The BSF is India's primary border guarding force, defending the borders with Pakistan and Bangladesh. It is responsible for preventing infiltration and smuggling.<br><br><strong>Example:</strong> A BSF AC might lead a company on the Indo-Pak border in Rajasthan.",
                 crpf_info_modal_title: "🛡️ Central Reserve Police Force (CRPF)",
-                crpf_info_modal_desc: "The CRPF is India's largest Central Armed Police Force, responsible for internal security and counter-insurgency operations. They also play a vital role during elections.<br><br><strong>Example:</strong> A CRPF Assistant Commandant could lead a company in the Naxal-affected areas of Chhattisgarh or be involved in counter-terrorism operations in the Kashmir Valley.",
+                crpf_info_modal_desc: "The CRPF is India's largest Central Armed Police Force, responsible for internal security, counter-insurgency operations, and law and order during elections.<br><br><strong>Example:</strong> A CRPF AC could lead a company in Naxal-affected areas.",
                 cisf_info_modal_title: "🏭 Central Industrial Security Force (CISF)",
-                cisf_info_modal_desc: "The CISF provides security to airports, seaports, nuclear power plants, and other critical industrial installations.<br><br><strong>Example:</strong> A CISF Assistant Commandant might manage the security at Delhi International Airport or head the security of a major PSU like a steel plant.",
+                cisf_info_modal_desc: "The CISF provides security to airports, seaports, nuclear power plants, and other critical industrial installations.<br><br><strong>Example:</strong> A CISF AC might manage the security at Delhi International Airport.",
                 itbp_info_modal_title: "🏔️ Indo-Tibetan Border Police (ITBP)",
-                itbp_info_modal_desc: "The ITBP is deployed in the high altitudes of the Himalayas on the Indo-China border. They are specialists in mountain warfare.<br><br><strong>Example:</strong> An ITBP Assistant Commandant could command a border outpost in Ladakh, operating in extreme cold weather conditions.",
+                itbp_info_modal_desc: "The ITBP is deployed in the high altitudes of the Himalayas on the Indo-China border and specializes in mountain warfare.<br><br><strong>Example:</strong> An ITBP AC could command a border outpost in Ladakh.",
                 ssb_info_modal_title: "🤝 Sashastra Seema Bal (SSB)",
-                ssb_info_modal_desc: "The SSB guards India's borders with Nepal and Bhutan. They also work to promote a sense of security and brotherhood among the people living in the border areas.<br><br><strong>Example:</strong> An SSB Assistant Commandant might lead a company on the Indo-Nepal border, focusing on preventing trans-border crimes and maintaining good relations with the local population.",
+                ssb_info_modal_desc: "The SSB guards India's borders with Nepal and Bhutan, along with promoting a sense of security and brotherhood in the border areas.<br><br><strong>Example:</strong> An SSB AC might lead a company on the Indo-Nepal border.",
                 paper1_syllabus_modal_title: "Paper I Syllabus",
-                paper1_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">A. General Mental Ability</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>Logical Reasoning, Quantitative Aptitude, Data Interpretation.</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">B. General Science</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>Physics, Chemistry, Biology, and Environmental Science.</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">C. Current Events</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div></div>`,
+                paper1_syllabus_modal_list_clean: `<div><h4 class="font-bold text-lg text-golden-dark">A. General Mental Ability</h4><ul class="list-disc list-inside ml-4"><li>Logical Reasoning, Quantitative Aptitude, Data Interpretation.</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">B. General Science</h4><ul class="list-disc list-inside ml-4"><li>Physics, Chemistry, Biology, and Environmental Science.</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">C. Current Events</h4></div>`,
                 paper2_syllabus_modal_title: "Paper II Syllabus",
-                paper2_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">Part A - Essay</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>Essays on topics like history, geography, polity, economy, security, and human rights.</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">Part B - Comprehension, Precis Writing, etc.</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>Comprehension passages, Precis Writing, Report Writing, Counter-Argument.</li></ul></div>`,
-                capf_career_modal_title: "Career Progression in CAPF",
-                capf_career_modal_desc: "After joining as an Assistant Commandant (AC), an officer can reach the post of Director General (DG), who is the head of the force, based on performance and seniority.",
-                capf_career_modal_list: `<button class="rank-btn" data-modal-target="rankACModal">Assistant Commandant (AC)</button><button class="rank-btn" data-modal-target="rankDCModal">Deputy Commandant (DC)</button><button class="rank-btn" data-modal-target="rankCmdtModal">Commandant</button><button class="rank-btn" data-modal-target="rankDIGModal">DIG</button><button class="rank-btn" data-modal-target="rankIGModal">IG</button><button class="rank-btn" data-modal-target="rankADGModal">ADG</button><button class="rank-btn" data-modal-target="rankDGModal">DG</button>`,
+                paper2_syllabus_modal_list_clean: `<div><h4 class="font-bold text-lg text-golden-dark">Part A - Essay (80 Marks)</h4><ul class="list-disc list-inside ml-4"><li>Essays on topics like history, geography, polity, economy, security, and human rights.</li></ul></div><div class="mt-4"><h4 class="font-bold text-lg text-golden-dark">Part B - Comprehension, Precis Writing, etc. (120 Marks)</h4><ul class="list-disc list-inside ml-4"><li>Comprehension passages, Precis Writing, Report Writing, Counter-Argument.</li></ul></div>`,
+                capf_career_modal_title: "CAPF में करियर प्रगति (ग्रुप 'A' अधिकारी)",
+                capf_career_modal_list_clean: `<ul class="list-disc list-inside space-y-1"><li>सहायक कमांडेंट (AC)</li><li>डिप्टी कमांडेंट (DC)</li><li>कमांडेंट (Commandant)</li><li>डिप्टी इंस्पेक्टर जनरल (DIG)</li><li>इंस्पेक्टर जनरल (IG)</li><li>अतिरिक्त महानिदेशक (ADG)</li><li>महानिदेशक (DG) - बल का सर्वोच्च पद।</li></ul>`,
                 rank_ac_title: "Assistant Commandant (AC)",
                 rank_ac_desc: "This is the entry-level post for a Group 'A' officer in CAPF. An AC commands a company, which consists of about 135-150 personnel.",
                 rank_dc_title: "Deputy Commandant (DC)",
-                rank_dc_desc: "This is the next rank after AC, usually attained after 5-6 years of service. A DC acts as a 2iC (Second-in-Command) in a battalion or commands a smaller unit.",
+                rank_dc_desc: "This is the next rank after AC, usually attained after 5-6 years of service. A DC acts as a 2iC (Second-in-Command) in a battalion.",
                 rank_cmdt_title: "Commandant",
                 rank_cmdt_desc: "A Commandant is the commanding officer of a battalion, which comprises about 1000 personnel. It is a very prestigious and responsible post.",
                 rank_dig_title: "Deputy Inspector General (DIG)",
@@ -574,229 +1089,251 @@
                 rank_adg_title: "Additional Director General (ADG)",
                 rank_adg_desc: "An ADG heads a special directorate at the force headquarters or a large zone. They play a crucial role in policy-making.",
                 rank_dg_title: "Director General (DG)",
-                rank_dg_desc: "The DG is the highest post in any CAPF. He is responsible for the overall functioning and command of the entire force."
-            },
-            pa: {
-                doc_title: "UPSC CAPF (AC) ਪ੍ਰੀਖਿਆ: ਸੰਪੂਰਨ ਗਾਈਡ",
-                header_title: "🇮🇳 UPSC CAPF (ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ) ਪ੍ਰੀਖਿਆ 🇮🇳",
-                header_subtitle: "ਦੇਸ਼ ਦੀ ਅੰਦਰੂਨੀ ਸੁਰੱਖਿਆ ਵਿੱਚ ਅਗਵਾਈ ਦਾ ਇੱਕ ਬਹਾਦਰੀ ਭਰਿਆ ਮਾਰਗ",
-                section1_title: "1. CAPF (AC) ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ? 🤔",
-                section1_desc: "ਕੇਂਦਰੀ ਹਥਿਆਰਬੰਦ ਪੁਲਿਸ ਬਲ (CAPF) ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ (AC) ਪ੍ਰੀਖਿਆ UPSC ਦੁਆਰਾ BSF, CRPF, CISF, ITBP ਅਤੇ SSB ਵਰਗੇ ਬਲਾਂ ਵਿੱਚ ਗਰੁੱਪ 'A' ਅਫਸਰਾਂ ਦੀ ਭਰਤੀ ਲਈ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਇਹ ਅਧਿਕਾਰੀ ਇਹਨਾਂ ਬਲਾਂ ਵਿੱਚ ਕੰਪਨੀ ਕਮਾਂਡਰ ਵਜੋਂ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਅਗਵਾਈ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ।",
-                section1_card1_title: "BSF",
-                section1_card2_title: "CRPF",
-                section1_card3_title: "CISF",
-                section1_card4_title: "ITBP",
-                section1_card5_title: "SSB",
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ: 3 ਪੜਾਅ 🎯",
-                section2_desc: "CAPF (AC) ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਤਿੰਨ ਪੜਾਅ ਹੁੰਦੇ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ ਹਰੇਕ ਨੂੰ ਪਾਸ ਕਰਨਾ ਲਾਜ਼ਮੀ ਹੈ।",
-                section2_step1_title: "ਪੜਾਅ 1:<br>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                section2_step2_title: "ਪੜਾਅ 2:<br>ਸਰੀਰਕ ਪ੍ਰੀਖਿਆ (PET/PST)",
-                section2_step3_title: "ਪੜਾਅ 3:<br>ਇੰਟਰਵਿਊ/ਸ਼ਖਸੀਅਤ ਟੈਸਟ",
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎓</span><div><strong class="text-[#365314]">ਵਿੱਦਿਅਕ ਯੋਗਤਾ:</strong> ਕਿਸੇ ਵੀ ਵਿਸ਼ੇ ਵਿੱਚ ਬੈਚਲਰ ਦੀ ਡਿਗਰੀ।</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🎂</span><div><strong class="text-[#365314]">ਉਮਰ ਸੀਮਾ:</strong> 20 ਤੋਂ 25 ਸਾਲ। (ਰਾਖਵੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਲਈ ਉਮਰ ਵਿੱਚ ਛੋਟ ਲਾਗੂ ਹੈ)।</div></li><li class="flex items-start"><span class="text-2xl text-green-500 mr-4">🇮🇳</span><div><strong class="text-[#365314]">ਕੌਮੀਅਤ:</strong> ਭਾਰਤੀ ਨਾਗਰਿਕ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ।</div></li></ul>`,
-                section3_chart_title: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ 📊",
-                examPatternChartLabels: ['ਪੇਪਰ I (250 ਅੰਕ)', 'ਪੇਪਰ II (200 ਅੰਕ)'],
-                section4_title: "4. ਪ੍ਰੀਖਿਆ ਦਾ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ 📚",
-                section4_desc: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਦੋ ਪੇਪਰ ਹੁੰਦੇ ਹਨ: ਪੇਪਰ I ਆਬਜੈਕਟਿਵ ਹੁੰਦਾ ਹੈ ਅਤੇ ਪੇਪਰ II ਵਰਣਨਯੋਗ ਹੁੰਦਾ ਹੈ।",
-                section4_subject1_title: "ਪੇਪਰ I: ਜਨਰਲ ਯੋਗਤਾ ਅਤੇ ਬੁੱਧੀਮਤਾ",
-                section4_subject2_title: "ਪੇਪਰ II: ਜਨਰਲ ਸਟੱਡੀਜ਼, ਲੇਖ ਅਤੇ ਸਮਝ",
-                section4_subject_button: "ਸਿਲੇਬਸ ਵੇਖੋ &rarr;",
-                section5_title: "5. ਪ੍ਰੀਖਿਆ ਦੇ ਸਾਰੇ ਵਿਸ਼ੇ 📖",
-                section5_desc: "ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਹਰੇਕ ਵਿਸ਼ੇ ਦੀ ਠੋਸ ਸਮਝ ਜ਼ਰੂਰੀ ਹੈ। ਹੇਠਾਂ ਪੇਪਰ-ਵਾਰ ਵਿਸ਼ਿਆਂ ਦੀ ਸੂਚੀ ਦਿੱਤੀ ਗਈ ਹੈ।",
-                subject_paper1: "ਪੇਪਰ I: ਜਨਰਲ ਯੋਗਤਾ ਅਤੇ ਬੁੱਧੀਮਤਾ",
-                subject_paper2: "ਪੇਪਰ II: ਜਨਰਲ ਸਟੱਡੀਜ਼, ਲੇਖ ਅਤੇ ਸਮਝ",
-                notes_btn: "ਨੋਟਸ",
-                lectures_btn: "ਲੈਕਚਰ",
-                section6_title: "6. ਬਲ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ 🏢",
-                section6_desc: "CAPF (AC) ਵਜੋਂ, ਤੁਸੀਂ ਭਾਰਤ ਦੇ ਪੰਜ ਪ੍ਰਮੁੱਖ ਕੇਂਦਰੀ ਹਥਿਆਰਬੰਦ ਪੁਲਿਸ ਬਲਾਂ ਵਿੱਚੋਂ ਕਿਸੇ ਇੱਕ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹੋ। ਹਰੇਕ ਬਲ ਦੀ ਇੱਕ ਵਿਲੱਖਣ ਭੂਮਿਕਾ ਅਤੇ ਇੱਕ ਸੰਗਠਿਤ ਕੈਰੀਅਰ ਮਾਰਗ ਹੁੰਦਾ ਹੈ।",
-                section6_card_title: "CAPF ਵਿੱਚ ਕੈਰੀਅਰ ਦੀ ਤਰੱਕੀ",
-                section6_card_button: "ਰੈਂਕ ਢਾਂਚਾ ਵੇਖੋ &rarr;",
-                section7_title: "7. ਤੁਹਾਡੀ ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ: ਸਮਾਰਟ ਵਰਕ 📈",
-                section7_desc: "CAPF ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਅਕਾਦਮਿਕ ਗਿਆਨ, ਸਰੀਰਕ ਸਹਿਣਸ਼ੀਲਤਾ ਅਤੇ ਇੱਕ ਮਜ਼ਬੂਤ ​​ਸ਼ਖਸੀਅਤ ਦਾ ਸੰਤੁਲਨ ਜ਼ਰੂਰੀ ਹੈ।",
-                section7_col1_title: "📚 ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਲਈ ਥੰਮ੍ਹ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>GS 'ਤੇ ਮਜ਼ਬੂਤ ​​ਪਕੜ:</strong> ਇਤਿਹਾਸ, ਭੂਗੋਲ, ਰਾਜਨੀਤੀ ਅਤੇ ਵਿਗਿਆਨ ਵਰਗੇ ਵਿਸ਼ਿਆਂ ਲਈ NCERT ਪੜ੍ਹੋ।</li><li><strong>ਮੌਜੂਦਾ ਮਾਮਲੇ:</strong> ਰਾਸ਼ਟਰੀ ਅਤੇ ਅੰਤਰਰਾਸ਼ਟਰੀ ਮਹੱਤਤਾ ਦੀਆਂ ਘਟਨਾਵਾਂ ਨਾਲ ਅਪਡੇਟ ਰਹੋ।</li><li><strong>ਪੇਪਰ II ਦਾ ਅਭਿਆਸ:</strong> ਲੇਖ, ਰਿਪੋਰਟ ਅਤੇ ਸਾਰ ਲਿਖਣ ਦਾ ਨਿਯਮਤ ਅਭਿਆਸ ਕਰੋ।</li><li><strong>ਪਿਛਲੇ ਸਾਲਾਂ ਦੇ ਪ੍ਰਸ਼ਨ (PYQs):</strong> ਪ੍ਰੀਖਿਆ ਦੇ ਪੈਟਰਨ ਅਤੇ ਮੁਸ਼ਕਲ ਪੱਧਰ ਨੂੰ ਸਮਝਣ ਲਈ ਇਹ ਮਹੱਤਵਪੂਰਨ ਹੈ।</li></ul>`,
-                section7_col2_title: "🔄 ਸਰੀਰਕ ਅਤੇ ਮਾਨਸਿਕ ਤਿਆਰੀ:",
-                section7_col2_desc: "**ਇਹ ਸਿਰਫ਼ ਇੱਕ ਪ੍ਰੀਖਿਆ ਨਹੀਂ, ਸਗੋਂ ਇੱਕ ਅਫਸਰ ਬਣਨ ਦੀ ਪੂਰੀ ਪ੍ਰਕਿਰਿਆ ਹੈ!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li><strong>ਸਰੀਰਕ ਸਹਿਣਸ਼ੀਲਤਾ:</strong> ਦੌੜ, ਲੰਬੀ ਛਾਲ ਅਤੇ ਉੱਚੀ ਛਾਲ ਦਾ ਨਿਯਮਤ ਅਭਿਆਸ ਕਰੋ।</li><li><strong>ਆਤਮ-ਵਿਸ਼ਵਾਸ ਵਧਾਓ:</strong> ਇੰਟਰਵਿਊ ਲਈ ਆਪਣੇ ਸੰਚਾਰ ਹੁਨਰ ਅਤੇ ਆਮ ਜਾਗਰੂਕਤਾ 'ਤੇ ਕੰਮ ਕਰੋ।</li><li><strong>ਸਮਾਂ ਪ੍ਰਬੰਧਨ:</strong> ਦੋਵਾਂ ਪੇਪਰਾਂ ਲਈ ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li></ul>`,
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਇਹ ਵਰਦੀ ਹਿੰਮਤ, ਸਮਰਪਣ ਅਤੇ ਅਨੁਸ਼ਾਸਨ ਦੀ ਮੰਗ ਕਰਦੀ ਹੈ। ਇਹਨਾਂ ਆਮ ਗਲਤੀਆਂ ਤੋਂ ਬਚ ਕੇ ਆਪਣੇ ਟੀਚੇ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰੋ।",
-                section8_item1: `<div><strong class="text-lg text-red-800">ਸਰੀਰਕ ਪ੍ਰੀਖਿਆ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰਨਾ:</strong> ਕਈ ਉਮੀਦਵਾਰ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ 'ਤੇ ਇੰਨਾ ਧਿਆਨ ਕੇਂਦਰਿਤ ਕਰਦੇ ਹਨ ਕਿ ਉਹ ਸਰੀਰਕ ਮਾਪਦੰਡਾਂ ਨੂੰ ਭੁੱਲ ਜਾਂਦੇ ਹਨ। ਯਾਦ ਰੱਖੋ, ਜੇ ਤੁਸੀਂ PET/PST ਵਿੱਚ ਫੇਲ ਹੋ ਜਾਂਦੇ ਹੋ, ਤਾਂ ਤੁਹਾਡਾ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦਾ ਸਕੋਰ ਵਿਅਰਥ ਹੋ ਜਾਵੇਗਾ।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">ਪੇਪਰ II ਨੂੰ ਹਲਕੇ ਵਿੱਚ ਲੈਣਾ:</strong> ਪੇਪਰ II ਤੁਹਾਡੀ ਰੈਂਕ ਤੈਅ ਕਰਨ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ। ਸਿਰਫ਼ MCQ ਹੱਲ ਕਰਨ 'ਤੇ ਧਿਆਨ ਨਾ ਦਿਓ; ਲੇਖ ਅਤੇ ਰਿਪੋਰਟਾਂ ਲਿਖਣ ਦੀ ਕਲਾ ਵਿੱਚ ਮੁਹਾਰਤ ਹਾਸਲ ਕਰੋ।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">ਮੌਜੂਦਾ ਮਾਮਲਿਆਂ ਨੂੰ ਆਖਰੀ ਸਮੇਂ ਲਈ ਛੱਡਣਾ:</strong> ਮੌਜੂਦਾ ਮਾਮਲੇ ਇੱਕ ਵਿਸ਼ਾਲ ਵਿਸ਼ਾ ਹੈ। ਇਸਨੂੰ ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ ਕਵਰ ਕਰੋ, ਨਾ ਕਿ ਪ੍ਰੀਖਿਆ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">ਮਾਨਸਿਕ ਦ੍ਰਿੜਤਾ ਦੀ ਕਮੀ:</strong> ਇੱਕ ਅਫਸਰ ਦਾ ਜੀਵਨ ਚੁਣੌਤੀਆਂ ਨਾਲ ਭਰਿਆ ਹੁੰਦਾ ਹੈ। ਇੰਟਰਵਿਊ ਵਿੱਚ ਤੁਹਾਡੇ ਦਬਾਅ ਝੱਲਣ ਦੀ ਯੋਗਤਾ ਦੀ ਪਰਖ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਆਪਣੀ ਤਿਆਰੀ ਦੌਰਾਨ ਸਕਾਰਾਤਮਕ ਅਤੇ ਦ੍ਰਿੜ ਰਹੋ।</div>`,
-                section8_final_thought: "✨ ਵਰਦੀ ਸਿਰਫ਼ ਇੱਕ ਨੌਕਰੀ ਨਹੀਂ, ਸਗੋਂ ਦੇਸ਼ ਦੀ ਸੇਵਾ ਕਰਨ ਦਾ ਇੱਕ ਸੰਕਲਪ ਹੈ। ✨",
-                section9_title: "9. ਬਿਨੈ-ਪੱਤਰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਸਮਾਂ-ਸੀਮਾ 🗓️",
-                section9_desc: "UPSC ਆਮ ਤੌਰ 'ਤੇ ਹਰ ਸਾਲ ਅਪ੍ਰੈਲ ਵਿੱਚ ਇਸ ਪ੍ਰੀਖਿਆ ਲਈ ਨੋਟੀਫਿਕੇਸ਼ਨ ਜਾਰੀ ਕਰਦਾ ਹੈ, ਅਤੇ ਪ੍ਰੀਖਿਆ ਅਗਸਤ ਵਿੱਚ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">ਨੋਟੀਫਿਕੇਸ਼ਨ:</div><div>ਅਪ੍ਰੈਲ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਅਰਜ਼ੀ ਦੀ ਆਖਰੀ ਮਿਤੀ:</div><div>ਮਈ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ:</div><div>ਅਗਸਤ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਸਰੀਰਕ ਅਤੇ ਮੈਡੀਕਲ ਟੈਸਟ:</div><div>ਅਕਤੂਬਰ - ਦਸੰਬਰ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਇੰਟਰਵਿਊ:</div><div>ਦਸੰਬਰ - ਜਨਵਰੀ (ਅਗਲੇ ਸਾਲ)।</div></div>`,
-                section10_title: "10. ਤਿਆਰੀ ਲਈ ਸੰਸਥਾਵਾਂ 👨‍🏫",
-                section10_desc: "CAPF (AC) ਇੱਕ ਪ੍ਰਸਿੱਧ ਪ੍ਰੀਖਿਆ ਹੈ, ਅਤੇ ਕਈ ਸੰਸਥਾਵਾਂ ਇਸਦੇ ਲਈ ਕੋਚਿੰਗ ਪ੍ਰਦਾਨ ਕਰਦੀਆਂ ਹਨ।",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 ਆਨਲਾਈਨ ਪਲੇਟਫਾਰਮ:</h3><ul class="list-disc list-inside"><li>Testbook</li><li>Gradeup (Byju's Exam Prep)</li><li>Adda247</li><li>Unacademy</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 ਆਫਲਾਈਨ ਕੇਂਦਰ:</h3><ul class="list-disc list-inside"><li>Paramount Coaching (Delhi)</li><li>Career Launcher (Pan-India)</li><li>Cavalier India (Pan-India)</li><li>ਕਈ ਸ਼ਹਿਰਾਂ ਵਿੱਚ ਸਥਾਨਕ ਰੱਖਿਆ ਅਕੈਡਮੀਆਂ।</li></ul></div>`,
-                footer_text: "© 2025 crapd.in - CAPF (AC) ਗਾਈਡ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁੱਭਕਾਮਨਾਵਾਂ।",
-                written_exam_modal_title: "ਪੜਾਅ 1: ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                written_exam_modal_desc: "ਇਹ ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਦਾ ਪਹਿਲਾ ਪੜਾਅ ਹੈ।",
-                written_exam_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਪੇਪਰ I:</strong> ਜਨਰਲ ਯੋਗਤਾ ਅਤੇ ਬੁੱਧੀਮਤਾ (250 ਅੰਕ, 2 ਘੰਟੇ, ਆਬਜੈਕਟਿਵ)</li><li><strong>ਪੇਪਰ II:</strong> ਜਨਰਲ ਸਟੱਡੀਜ਼, ਲੇਖ ਅਤੇ ਸਮਝ (200 ਅੰਕ, 3 ਘੰਟੇ, ਵਰਣਨਯੋਗ)</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 450</li><li>ਪੇਪਰ I ਵਿੱਚ ਗਲਤ ਜਵਾਬਾਂ ਲਈ ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ ਹੁੰਦੀ ਹੈ।</li></ul>`,
-                pet_modal_title: "ਪੜਾਅ 2: ਸਰੀਰਕ ਮਿਆਰ/ਕੁਸ਼ਲਤਾ ਟੈਸਟ (PST/PET)",
-                pet_modal_desc: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਇਸ ਪੜਾਅ ਲਈ ਬੁਲਾਇਆ ਜਾਂਦਾ ਹੈ। ਇਹ ਕੁਆਲੀਫਾਇੰਗ ਪ੍ਰਕਿਰਤੀ ਦਾ ਹੁੰਦਾ ਹੈ।",
-                pet_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>PST:</strong> ਕੱਦ, ਛਾਤੀ ਅਤੇ ਭਾਰ ਦਾ ਮਾਪ।</li><li><strong>PET:</strong> 100 ਮੀਟਰ ਦੌੜ, 800 ਮੀਟਰ ਦੌੜ, ਲੰਬੀ ਛਾਲ ਅਤੇ ਸ਼ਾਟ ਪੁੱਟ।</li></ul>`,
-                interview_modal_title: "ਪੜਾਅ 3: ਇੰਟਰਵਿਊ/ਸ਼ਖਸੀਅਤ ਟੈਸਟ",
-                interview_modal_desc: "PET/PST ਵਿੱਚ ਸਫਲ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਅੰਤਿਮ ਪੜਾਅ ਲਈ ਬੁਲਾਇਆ ਜਾਂਦਾ ਹੈ।",
-                interview_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 150</li><li>ਇਹ ਉਮੀਦਵਾਰ ਦੀ ਸਮੁੱਚੀ ਸ਼ਖਸੀਅਤ, ਸੰਚਾਰ ਹੁਨਰ ਅਤੇ ਅਗਵਾਈ ਦੇ ਗੁਣਾਂ ਦਾ ਮੁਲਾਂਕਣ ਕਰਦਾ ਹੈ।</li><li>ਅੰਤਿਮ ਮੈਰਿਟ ਸੂਚੀ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਅਤੇ ਇੰਟਰਵਿਊ (450 + 150 = 600 ਅੰਕ) ਦੇ ਆਧਾਰ 'ਤੇ ਤਿਆਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</li></ul>`,
-                bsf_info_modal_title: " ਸਰਹੱਦੀ ਸੁਰੱਖਿਆ ਬਲ (BSF)",
-                bsf_info_modal_desc: "BSF ਭਾਰਤ ਦੀ ਮੁੱਖ ਸਰਹੱਦੀ ਸੁਰੱਖਿਆ ਬਲ ਹੈ, ਜੋ ਪਾਕਿਸਤਾਨ ਅਤੇ ਬੰਗਲਾਦੇਸ਼ ਨਾਲ ਲੱਗਦੀਆਂ ਸਰਹੱਦਾਂ ਦੀ ਰੱਖਿਆ ਕਰਦੀ ਹੈ। ਇਹ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਸਰਹੱਦੀ ਸੁਰੱਖਿਆ ਬਲ ਹੈ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ BSF ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ ਰਾਜਸਥਾਨ ਵਿੱਚ ਭਾਰਤ-ਪਾਕਿ ਸਰਹੱਦ 'ਤੇ ਇੱਕ ਕੰਪਨੀ ਦੀ ਅਗਵਾਈ ਕਰ ਸਕਦਾ ਹੈ, ਜੋ ਘੁਸਪੈਠ ਅਤੇ ਤਸਕਰੀ ਨੂੰ ਰੋਕਣ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੈ।",
-                crpf_info_modal_title: "🛡️ ਕੇਂਦਰੀ ਰਿਜ਼ਰਵ ਪੁਲਿਸ ਬਲ (CRPF)",
-                crpf_info_modal_desc: "CRPF ਭਾਰਤ ਦਾ ਸਭ ਤੋਂ ਵੱਡਾ ਕੇਂਦਰੀ ਹਥਿਆਰਬੰਦ ਪੁਲਿਸ ਬਲ ਹੈ, ਜੋ ਅੰਦਰੂਨੀ ਸੁਰੱਖਿਆ ਅਤੇ ਅੱਤਵਾਦ ਵਿਰੋਧੀ ਕਾਰਵਾਈਆਂ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੈ। ਉਹ ਚੋਣਾਂ ਦੌਰਾਨ ਵੀ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ CRPF ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ ਛੱਤੀਸਗੜ੍ਹ ਦੇ ਨਕਸਲ ਪ੍ਰਭਾਵਿਤ ਖੇਤਰਾਂ ਵਿੱਚ ਇੱਕ ਕੰਪਨੀ ਦੀ ਅਗਵਾਈ ਕਰ ਸਕਦਾ ਹੈ ਜਾਂ ਕਸ਼ਮੀਰ ਘਾਟੀ ਵਿੱਚ ਅੱਤਵਾਦ ਵਿਰੋਧੀ ਕਾਰਵਾਈਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਸਕਦਾ ਹੈ।",
-                cisf_info_modal_title: "🏭 ਕੇਂਦਰੀ ਉਦਯੋਗਿਕ ਸੁਰੱਖਿਆ ਬਲ (CISF)",
-                cisf_info_modal_desc: "CISF ਹਵਾਈ ਅੱਡਿਆਂ, ਬੰਦਰਗਾਹਾਂ, ਪਰਮਾਣੂ ਊਰਜਾ ਪਲਾਂਟਾਂ ਅਤੇ ਹੋਰ ਮਹੱਤਵਪੂਰਨ ਉਦਯੋਗਿਕ ਸਥਾਪਨਾਵਾਂ ਨੂੰ ਸੁਰੱਖਿਆ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ CISF ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ ਦਿੱਲੀ ਅੰਤਰਰਾਸ਼ਟਰੀ ਹਵਾਈ ਅੱਡੇ 'ਤੇ ਸੁਰੱਖਿਆ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰ ਸਕਦਾ ਹੈ ਜਾਂ ਕਿਸੇ ਵੱਡੇ ਜਨਤਕ ਖੇਤਰ ਦੇ ਉਪਕਰਮ ਜਿਵੇਂ ਕਿ ਸਟੀਲ ਪਲਾਂਟ ਦੀ ਸੁਰੱਖਿਆ ਦਾ ਮੁਖੀ ਹੋ ਸਕਦਾ ਹੈ।",
-                itbp_info_modal_title: "🏔️ ਭਾਰਤ-ਤਿੱਬਤ ਸਰਹੱਦੀ ਪੁਲਿਸ (ITBP)",
-                itbp_info_modal_desc: "ITBP ਭਾਰਤ-ਚੀਨ ਸਰਹੱਦ 'ਤੇ ਹਿਮਾਲਿਆ ਦੇ ਉੱਚੇ ਇਲਾਕਿਆਂ ਵਿੱਚ ਤਾਇਨਾਤ ਹੈ। ਉਹ ਪਹਾੜੀ ਯੁੱਧ ਵਿੱਚ ਮਾਹਰ ਹੁੰਦੇ ਹਨ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ ITBP ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ ਲੱਦਾਖ ਵਿੱਚ ਇੱਕ ਸਰਹੱਦੀ ਚੌਕੀ ਦੀ ਕਮਾਨ ਸੰਭਾਲ ਸਕਦਾ ਹੈ, ਜੋ ਬਹੁਤ ਜ਼ਿਆਦਾ ਠੰਡੇ ਮੌਸਮ ਦੀਆਂ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕੰਮ ਕਰਦਾ ਹੈ।",
-                ssb_info_modal_title: "🤝 ਸਸ਼ਸਤਰ ਸੀਮਾ ਬਲ (SSB)",
-                ssb_info_modal_desc: "SSB ਨੇਪਾਲ ਅਤੇ ਭੂਟਾਨ ਨਾਲ ਲੱਗਦੀਆਂ ਭਾਰਤ ਦੀਆਂ ਸਰਹੱਦਾਂ ਦੀ ਰੱਖਿਆ ਕਰਦਾ ਹੈ। ਉਹ ਸਰਹੱਦੀ ਖੇਤਰਾਂ ਵਿੱਚ ਰਹਿਣ ਵਾਲੇ ਲੋਕਾਂ ਵਿੱਚ ਸੁਰੱਖਿਆ ਅਤੇ ਭਾਈਚਾਰੇ ਦੀ ਭਾਵਨਾ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨ ਲਈ ਵੀ ਕੰਮ ਕਰਦੇ ਹਨ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ SSB ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ ਭਾਰਤ-ਨੇਪਾਲ ਸਰਹੱਦ 'ਤੇ ਇੱਕ ਕੰਪਨੀ ਦੀ ਅਗਵਾਈ ਕਰ ਸਕਦਾ ਹੈ, ਜੋ ਸਰਹੱਦ ਪਾਰ ਅਪਰਾਧਾਂ ਨੂੰ ਰੋਕਣ ਅਤੇ ਸਥਾਨਕ ਆਬਾਦੀ ਨਾਲ ਚੰਗੇ ਸਬੰਧ ਬਣਾਏ ਰੱਖਣ 'ਤੇ ਧਿਆਨ ਕੇਂਦਰਿਤ ਕਰਦਾ ਹੈ।",
-                paper1_syllabus_modal_title: "ਪੇਪਰ I ਸਿਲੇਬਸ",
-                paper1_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">A. ਜਨਰਲ ਮਾਨਸਿਕ ਯੋਗਤਾ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>ਲਾਜ਼ੀਕਲ ਤਰਕ, ਮਾਤਰਾਤਮਕ ਯੋਗਤਾ, ਡਾਟਾ ਵਿਆਖਿਆ।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">B. ਜਨਰਲ ਸਾਇੰਸ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>ਭੌਤਿਕ ਵਿਗਿਆਨ, ਰਸਾਇਣ ਵਿਗਿਆਨ, ਜੀਵ ਵਿਗਿਆਨ ਅਤੇ ਵਾਤਾਵਰਣ ਵਿਗਿਆਨ।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">C. ਮੌਜੂਦਾ ਘਟਨਾਵਾਂ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div></div>`,
-                paper2_syllabus_modal_title: "ਪੇਪਰ II ਸਿਲੇਬਸ",
-                paper2_syllabus_modal_list: `<div><div class="flex justify-between items-center"><h4 class="font-bold text-lg">ਭਾਗ A - ਲੇਖ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>ਇਤਿਹਾਸ, ਭੂਗੋਲ, ਰਾਜਨੀਤੀ, ਆਰਥਿਕਤਾ, ਸੁਰੱਖਿਆ ਅਤੇ ਮਨੁੱਖੀ ਅਧਿਕਾਰਾਂ ਵਰਗੇ ਵਿਸ਼ਿਆਂ 'ਤੇ ਲੇਖ।</li></ul></div><div class="mt-4"><div class="flex justify-between items-center"><h4 class="font-bold text-lg">ਭਾਗ B - ਸਮਝ, ਸਾਰ ਲਿਖਣਾ, ਆਦਿ</h4><div class="flex space-x-2"><button data-lang-key="notes_btn" class="notes-lectures-btn"></button><button data-lang-key="lectures_btn" class="notes-lectures-btn"></button></div></div><ul class="list-disc list-inside ml-4"><li>ਸਮਝ ਪੈਰਾਗ੍ਰਾਫ, ਸਾਰ ਲਿਖਣਾ, ਰਿਪੋਰਟ ਲਿਖਣਾ, ਵਿਰੋਧੀ-ਦਲੀਲ ਲਿਖਣਾ।</li></ul></div>`,
-                capf_career_modal_title: "CAPF ਵਿੱਚ ਕੈਰੀਅਰ ਦੀ ਤਰੱਕੀ",
-                capf_career_modal_desc: "ਇੱਕ ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ (AC) ਵਜੋਂ ਸ਼ਾਮਲ ਹੋਣ ਤੋਂ ਬਾਅਦ, ਇੱਕ ਅਧਿਕਾਰੀ ਪ੍ਰਦਰਸ਼ਨ ਅਤੇ ਸੀਨੀਆਰਤਾ ਦੇ ਆਧਾਰ 'ਤੇ ਡਾਇਰੈਕਟਰ ਜਨਰਲ (DG) ਦੇ ਅਹੁਦੇ ਤੱਕ ਪਹੁੰਚ ਸਕਦਾ ਹੈ, ਜੋ ਬਲ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ।",
-                capf_career_modal_list: `<button class="rank-btn" data-modal-target="rankACModal">ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ (AC)</button><button class="rank-btn" data-modal-target="rankDCModal">ਡਿਪਟੀ ਕਮਾਂਡੈਂਟ (DC)</button><button class="rank-btn" data-modal-target="rankCmdtModal">ਕਮਾਂਡੈਂਟ</button><button class="rank-btn" data-modal-target="rankDIGModal">DIG</button><button class="rank-btn" data-modal-target="rankIGModal">IG</button><button class="rank-btn" data-modal-target="rankADGModal">ADG</button><button class="rank-btn" data-modal-target="rankDGModal">DG</button>`,
-                rank_ac_title: "ਸਹਾਇਕ ਕਮਾਂਡੈਂਟ (AC)",
-                rank_ac_desc: "ਇਹ CAPF ਵਿੱਚ ਇੱਕ ਗਰੁੱਪ 'A' ਅਫਸਰ ਲਈ ਦਾਖਲਾ ਪੱਧਰ ਦਾ ਅਹੁਦਾ ਹੈ। ਇੱਕ AC ਇੱਕ ਕੰਪਨੀ ਦੀ ਕਮਾਨ ਸੰਭਾਲਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਲਗਭਗ 135-150 ਕਰਮਚਾਰੀ ਹੁੰਦੇ ਹਨ।",
-                rank_dc_title: "ਡਿਪਟੀ ਕਮਾਂਡੈਂਟ (DC)",
-                rank_dc_desc: "ਇਹ AC ਤੋਂ ਬਾਅਦ ਅਗਲਾ ਰੈਂਕ ਹੈ, ਜੋ ਆਮ ਤੌਰ 'ਤੇ 5-6 ਸਾਲ ਦੀ ਸੇਵਾ ਤੋਂ ਬਾਅਦ ਮਿਲਦਾ ਹੈ। ਇੱਕ DC ਬਟਾਲੀਅਨ ਵਿੱਚ 2iC (ਸੈਕਿੰਡ-ਇਨ-ਕਮਾਂਡ) ਵਜੋਂ ਕੰਮ ਕਰਦਾ ਹੈ ਜਾਂ ਇੱਕ ਛੋਟੀ ਇਕਾਈ ਦੀ ਕਮਾਨ ਸੰਭਾਲਦਾ ਹੈ।",
-                rank_cmdt_title: "ਕਮਾਂਡੈਂਟ",
-                rank_cmdt_desc: "ਇੱਕ ਕਮਾਂਡੈਂਟ ਇੱਕ ਬਟਾਲੀਅਨ ਦਾ ਕਮਾਂਡਿੰਗ ਅਫਸਰ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਲਗਭਗ 1000 ਕਰਮਚਾਰੀ ਹੁੰਦੇ ਹਨ। ਇਹ ਇੱਕ ਬਹੁਤ ਹੀ ਵੱਕਾਰੀ ਅਤੇ ਜ਼ਿੰਮੇਵਾਰ ਅਹੁਦਾ ਹੈ।",
-                rank_dig_title: "ਡਿਪਟੀ ਇੰਸਪੈਕਟਰ ਜਨਰਲ (DIG)",
-                rank_dig_desc: "ਇੱਕ DIG ਇੱਕ ਸੈਕਟਰ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਕਈ ਬਟਾਲੀਅਨ ਸ਼ਾਮਲ ਹੁੰਦੀਆਂ ਹਨ। ਉਹ ਆਪਣੇ ਖੇਤਰ ਵਿੱਚ ਸੰਚਾਲਨ ਅਤੇ ਪ੍ਰਸ਼ਾਸਨ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦੇ ਹਨ।",
-                rank_ig_title: "ਇੰਸਪੈਕਟਰ ਜਨਰਲ (IG)",
-                rank_ig_desc: "ਇੱਕ IG ਇੱਕ ਫਰੰਟੀਅਰ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਵਿੱਚ ਕਈ ਸੈਕਟਰ ਹੁੰਦੇ ਹਨ। ਇਹ ਇੱਕ ਬਹੁਤ ਹੀ ਸੀਨੀਅਰ ਅਹੁਦਾ ਹੈ ਜੋ ਵੱਡੇ ਪੱਧਰ 'ਤੇ ਸੰਚਾਲਨ ਦੀ ਯੋਜਨਾਬੰਦੀ ਅਤੇ ਲਾਗੂ ਕਰਨ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੁੰਦਾ ਹੈ।",
-                rank_adg_title: "ਵਧੀਕ ਡਾਇਰੈਕਟਰ ਜਨਰਲ (ADG)",
-                rank_adg_desc: "ਇੱਕ ADG ਬਲ ਦੇ ਮੁੱਖ ਦਫਤਰ ਵਿੱਚ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਡਾਇਰੈਕਟੋਰੇਟ ਜਾਂ ਇੱਕ ਵੱਡੇ ਖੇਤਰ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ। ਉਹ ਨੀਤੀ-ਨਿਰਮਾਣ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ।",
-                rank_dg_title: "ਡਾਇਰੈਕਟਰ ਜਨਰਲ (DG)",
-                rank_dg_desc: "DG ਕਿਸੇ ਵੀ CAPF ਦਾ ਸਭ ਤੋਂ ਉੱਚਾ ਅਹੁਦਾ ਹੈ। ਉਹ ਪੂਰੇ ਬਲ ਦੇ ਸਮੁੱਚੇ ਕੰਮਕਾਜ ਅਤੇ ਕਮਾਨ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੁੰਦਾ ਹੈ।"
+                rank_dg_desc: "The DG is the highest post in any CAPF. He is responsible for the overall functioning and command of the entire force.",
+                
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'CAPF अधिकारी: करियर प्रगति का पथ',
+                roadmap_step1_title: 'प्रारंभिक नियुक्ति (Assistant Commandant)',
+                roadmap_step1_p: 'UPSC CAPF (AC) परीक्षा के माध्यम से ग्रुप ‘A’ राजपत्रित अधिकारी के रूप में सीधी भर्ती। AC एक कंपनी (लगभग 150 कर्मी) का कमांडर होता है।',
+                roadmap_step2_title: 'मध्य-स्तरीय नेतृत्व (5-15 वर्ष)',
+                roadmap_step2_p: 'डिप्टी कमांडेंट (DC), कमांडेंट। ये बटालियन और मुख्यालय स्तर पर महत्वपूर्ण परिचालन और प्रशासनिक निर्णय लेते हैं।',
+                roadmap_step3_title: 'वरिष्ठ नेतृत्व (15-25 वर्ष)',
+                roadmap_step3_p: 'डिप्टी इंस्पेक्टर जनरल (DIG), इंस्पेक्टर जनरल (IG)। ये फ्रंटियर या सेक्टर के प्रमुख होते हैं और बड़े पैमाने पर संचालन की निगरानी करते हैं।',
+                roadmap_step4_title: 'शीर्ष नेतृत्व (25+ वर्ष)',
+                roadmap_step4_p: 'अतिरिक्त महानिदेशक (ADG), महानिदेशक (DG)। DG बल का सर्वोच्च पद है, जो बल की कमान और देश की आंतरिक सुरक्षा नीति में महत्वपूर्ण योगदान देता है।',
+                roadmap_note: 'पदोन्नति की समय सीमा वरिष्ठता, प्रदर्शन और UPSC द्वारा आयोजित सीमित विभागीय प्रतियोगी परीक्षा (LDCE) पर निर्भर करती है।',
+            }
+        };
+
+
+        function initializeCharts(lang) {
+            if (examPatternChartInstance) {
+                examPatternChartInstance.destroy();
+            }
+            const marksCtx = document.getElementById('examPatternChart');
+            
+            // Chart Styling to match h.html's dark theme
+            const chartColors = {
+                gold: '#FFD700', 
+                darkGold: '#A37A00', 
+                textGrey: 'white',
+                darkBackground: '#26292E'
+            };
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: chartColors.textGrey,
+                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + (lang === 'hi' ? ' अंक' : ' Marks');
+                                }
+                                return label;
+                            },
+                             titleColor: 'black',
+                             bodyColor: 'black',
+                             backgroundColor: 'rgba(255, 215, 0, 0.9)',
+                        },
+                        bodyFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" },
+                        titleFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif", weight: 'bold' },
+                        padding: 12,
+                        boxPadding: 6,
+                        borderColor: chartColors.darkGold,
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                    }
+                }
+            };
+            
+            if (marksCtx) {
+                examPatternChartInstance = new Chart(marksCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: translations[lang].examPatternChartLabels,
+                        datasets: [{
+                            label: (lang === 'hi' ? 'अंक' : 'Marks'),
+                            data: [250, 200],
+                            backgroundColor: [
+                                chartColors.gold,
+                                chartColors.darkGold
+                            ],
+                            borderColor: chartColors.darkBackground,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: defaultChartOptions
+                });
+            }
+        }
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.title = translations[lang].doc_title;
+            
+            // Handle all data-lang-key elements
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Re-render clean list sections (removing notes/lecture buttons)
+            const onlineList = document.querySelector('[data-lang-key="section10_online_clean"]');
+            if(onlineList) onlineList.innerHTML = translations[lang]['section10_online_clean'];
+            
+            const offlineList = document.querySelector('[data-lang-key="section10_offline_clean"]');
+            if(offlineList) offlineList.innerHTML = translations[lang]['section10_offline_clean'];
+
+            // Re-render Syllabus modal lists (need to use innerHTML due to lists)
+            const paper1SyllabusModalList = document.querySelector('#paper1SyllabusModal [data-lang-key="paper1_syllabus_modal_list_clean"]');
+            if(paper1SyllabusModalList) paper1SyllabusModalList.innerHTML = translations[lang]['paper1_syllabus_modal_list_clean'];
+
+            const paper2SyllabusModalList = document.querySelector('#paper2SyllabusModal [data-lang-key="paper2_syllabus_modal_list_clean"]');
+            if(paper2SyllabusModalList) paper2SyllabusModalList.innerHTML = translations[lang]['paper2_syllabus_modal_list_clean'];
+
+            // Re-render Career modal list
+            const careerListClean = document.querySelector('#capfCareerModal [data-lang-key="capf_career_modal_list_clean"]');
+            if(careerListClean) careerListClean.innerHTML = translations[lang]['capf_career_modal_list_clean'];
+            
+            // Handle timeline data which was previously split into divs
+            if (lang === 'hi') {
+                document.querySelector('[data-lang-key="section9_li1_title"]').textContent = 'अधिसूचना (Notification)';
+                document.querySelector('[data-lang-key="section9_li1_p"]').innerHTML = translations['hi']['section9_li1_p'];
+                document.querySelector('[data-lang-key="section9_li2_title"]').textContent = 'आवेदन की अंतिम तिथि';
+                document.querySelector('[data-lang-key="section9_li2_p"]').innerHTML = translations['hi']['section9_li2_p'];
+                document.querySelector('[data-lang-key="section9_li3_title"]').textContent = 'लिखित परीक्षा';
+                document.querySelector('[data-lang-key="section9_li3_p"]').innerHTML = translations['hi']['section9_li3_p'];
+                document.querySelector('[data-lang-key="section9_li4_title"]').textContent = 'शारीरिक और मेडिकल टेस्ट';
+                document.querySelector('[data-lang-key="section9_li4_p"]').innerHTML = translations['hi']['section9_li4_p'];
+                document.querySelector('[data-lang-key="section9_li5_title"]').textContent = 'साक्षात्कार (Interview)';
+                document.querySelector('[data-lang-key="section9_li5_p"]').innerHTML = translations['hi']['section9_li5_p'];
+                 
+                document.querySelector('[data-lang-key="roadmap_step1_title"]').textContent = 'प्रारंभिक नियुक्ति (Assistant Commandant)';
+                document.querySelector('[data-lang-key="roadmap_step1_p"]').innerHTML = translations['hi']['roadmap_step1_p'];
+                document.querySelector('[data-lang-key="roadmap_step2_title"]').textContent = 'मध्य-स्तरीय नेतृत्व (5-15 वर्ष)';
+                document.querySelector('[data-lang-key="roadmap_step2_p"]').innerHTML = translations['hi']['roadmap_step2_p'];
+                document.querySelector('[data-lang-key="roadmap_step3_title"]').textContent = 'वरिष्ठ नेतृत्व (15-25 वर्ष)';
+                document.querySelector('[data-lang-key="roadmap_step3_p"]').innerHTML = translations['hi']['roadmap_step3_p'];
+                document.querySelector('[data-lang-key="roadmap_step4_title"]').textContent = 'शीर्ष नेतृत्व (25+ वर्ष)';
+                document.querySelector('[data-lang-key="roadmap_step4_p"]').innerHTML = translations['hi']['roadmap_step4_p'];
+
+            } else {
+                 document.querySelector('[data-lang-key="section9_li1_title"]').textContent = 'Notification';
+                document.querySelector('[data-lang-key="section9_li1_p"]').innerHTML = translations['en']['section9_li1_p'];
+                document.querySelector('[data-lang-key="section9_li2_title"]').textContent = 'Application Deadline';
+                document.querySelector('[data-lang-key="section9_li2_p"]').innerHTML = translations['en']['section9_li2_p'];
+                document.querySelector('[data-lang-key="section9_li3_title"]').textContent = 'Written Exam';
+                document.querySelector('[data-lang-key="section9_li3_p"]').innerHTML = translations['en']['section9_li3_p'];
+                document.querySelector('[data-lang-key="section9_li4_title"]').textContent = 'Physical & Medical Tests';
+                document.querySelector('[data-lang-key="section9_li4_p"]').innerHTML = translations['en']['section9_li4_p'];
+                document.querySelector('[data-lang-key="section9_li5_title"]').textContent = 'Interview';
+                document.querySelector('[data-lang-key="section9_li5_p"]').innerHTML = translations['en']['section9_li5_p'];
+
+                document.querySelector('[data-lang-key="roadmap_step1_title"]').textContent = 'Initial Appointment (Assistant Commandant)';
+                document.querySelector('[data-lang-key="roadmap_step1_p"]').innerHTML = translations['en']['roadmap_step1_p'];
+                document.querySelector('[data-lang-key="roadmap_step2_title"]').textContent = 'Mid-Level Leadership (5-15 Years)';
+                document.querySelector('[data-lang-key="roadmap_step2_p"]').innerHTML = translations['en']['roadmap_step2_p'];
+                document.querySelector('[data-lang-key="roadmap_step3_title"]').textContent = 'Senior Leadership (15-25 Years)';
+                document.querySelector('[data-lang-key="roadmap_step3_p"]').innerHTML = translations['en']['roadmap_step3_p'];
+                document.querySelector('[data-lang-key="roadmap_step4_title"]').textContent = 'Apex Leadership (25+ Years)';
+                document.querySelector('[data-lang-key="roadmap_step4_p"]').innerHTML = translations['en']['roadmap_step4_p'];
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            initializeCharts(lang);
+            bindModalTriggers();
+        }
+
+        function bindModalTriggers() {
+            // Remove all previous listeners on the data-modal-target elements to prevent re-binding
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                const newTrigger = trigger.cloneNode(true);
+                trigger.parentNode.replaceChild(newTrigger, trigger);
+            });
+
+            // Add new listeners to the newly cloned (and clean) elements
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    const targetElement = e.target.closest('[data-modal-target]');
+                    if (targetElement) {
+                        const modalId = targetElement.getAttribute('data-modal-target');
+                        if(modalId) {
+                            showModal(modalId);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Modal functionality (Replicated from CDS/h.html)
+        window.showModal = (modalId) => {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            const targetModal = document.getElementById(modalId);
+            if (targetModal) {
+                targetModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        
+        window.closeModal = (modalId) => {
+            const targetModal = document.getElementById(modalId);
+            if (targetModal) {
+                targetModal.classList.remove('active');
+                if (!document.querySelector('.modal-overlay.active')) {
+                    document.body.style.overflow = '';
+                }
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            let examPatternChartInstance = null;
-
-            function initializeCharts(lang) {
-                if (examPatternChartInstance) {
-                    examPatternChartInstance.destroy();
-                }
-                const marksCtx = document.getElementById('examPatternChart');
-                if (marksCtx) {
-                    examPatternChartInstance = new Chart(marksCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: translations[lang].examPatternChartLabels,
-                            datasets: [{
-                                label: 'Marks',
-                                data: [250, 200],
-                                backgroundColor: [
-                                    'rgba(54, 83, 20, 0.8)',
-                                    'rgba(77, 124, 15, 0.8)'
-                                ],
-                                borderColor: [
-                                    '#FFFFFF'
-                                ],
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.label || '';
-                                            if (label) {
-                                                label += ': ';
-                                            }
-                                            if (context.parsed !== null) {
-                                                label += context.parsed + (lang === 'hi' ? ' अंक' : (lang === 'pa' ? ' ਅੰਕ' : ' Marks'));
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-
-            function changeLanguage(lang) {
-                document.documentElement.lang = lang;
-                document.title = translations[lang].doc_title;
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (translations[lang][key] !== undefined) {
-                        el.innerHTML = translations[lang][key];
-                    }
-                });
-                
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-lang') === lang) {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                initializeCharts(lang);
-                 // Re-bind modal triggers for dynamically inserted content
-                 bindModalTriggers();
-            }
-
-            function bindModalTriggers() {
-                const modalTriggers = document.querySelectorAll('[data-modal-target]');
             
-                modalTriggers.forEach(trigger => {
-                    // To prevent duplicate event listeners, you can add a check.
-                    if (trigger.getAttribute('data-event-bound')) return;
-
-                    trigger.setAttribute('data-event-bound', 'true');
-                    trigger.addEventListener('click', (e) => {
-                         const targetElement = e.target.closest('[data-modal-target]');
-                        if (targetElement) {
-                            const modalId = targetElement.getAttribute('data-modal-target');
-                            const modal = document.getElementById(modalId);
-                            if (modal) {
-                                modal.classList.add('active');
-                            }
-                        }
+            changeLanguage('hi');
+            
+            // Event listeners for closing modals via close button or overlay click
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                const closeButton = modal.querySelector('.modal-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => {
+                        closeModal(modal.id);
                     });
+                }
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
+                    }
                 });
-            }
+            });
 
+            // Language switcher functionality
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const lang = e.target.getAttribute('data-lang');
                     changeLanguage(lang);
                 });
             });
-
-            // Initial load
-            changeLanguage('hi');
-
-            // Modal functionality
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => {
-                const closeButton = modal.querySelector('.modal-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => {
-                        modal.classList.remove('active');
-                    });
-                }
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
-                    }
-                });
-            });
+            
+            bindModalTriggers();
         });
     </script>
     
