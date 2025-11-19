@@ -2,40 +2,151 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>UPSC IES/ISS परीक्षा: संपूर्ण मार्गदर्शिका</title>
      <script src="redirect_if_needed.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght=400;500;700&family=Noto+Sans:wght=400;500;700&display=swap" rel="stylesheet">
     <meta name="description" content="UPSC IES/ISS परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, सेवाएं, साक्षात्कार और तैयारी की रणनीति।">
     <meta name="keywords" content="UPSC, IES, ISS, Indian Economic Service, Indian Statistical Service, Economics, Statistics, सरकारी नौकरी, भारत">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
-        body {
-            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Gurmukhi', sans-serif;
-            background-color: #fdf8f0; /* Light Gold/Cream background */
-            color: #1f2937;
+        /* --- h.html THEME VARIABLES (Gold/Dark) --- */
+        :root {
+            --color-primary: #FFD700; /* Electric Gold Glow */
+            --color-secondary: #A37A00; /* Dark Gold */
+            --color-background: #1A1C20; /* Dark Background */
+            --color-card: #26292E; /* Dark Card background */
+            --color-text-primary: #f3f4f6; /* White/Light Text */
+            --color-text-secondary: #d1d5db; /* Muted Text */
+            --color-button-text: #1A1C20; /* Dark Text for Buttons */
+            --color-primary-rgb: 255, 215, 0; 
+            --bg-main-dark: #1A1C20; 
+            --text-light: #f3f4f6; 
+            --electric-gold-glow: #FFD700; 
+            --electric-gold-dark: #A37A00;
+            --glass-bg-dark: rgba(40, 30, 5, 0.7); 
+            --button-primary-start: #FFC107;
+            --button-primary-end: #B8860B; 
+            --text-muted: #d1d5db;
+            --popup-overlay-bg: rgba(0, 0, 0, 0.9);
         }
+
+        body {
+            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-main-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding-top: 78px; 
+            padding-bottom: 80px; 
+            transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
+        }
+
+        /* Fixed Header Styles */
+        .fixed-header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        /* Mobile Menu Panel Styles (Sidebar) */
+        .mobile-menu-panel {
+            top: 85px; 
+            height: calc(100vh - 165px);
+            transition: transform 0.5s ease-in-out;
+            border-radius: 1.5rem;
+            background-color: rgba(40, 30, 5, 0.9);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid var(--electric-gold-glow);
+        }
+        .mobile-menu-overlay { z-index: 105; }
+        .text-golden-dark { 
+            color: var(--electric-gold-glow); 
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
+        } 
+        
+        /* Keyframes for SHS style Pulsing FAB button */
+        @keyframes pulseShadow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0); }
+        }
+        .animate-pulse-shadow {
+            animation: pulseShadow 2s infinite;
+        }
+
+        /* --- BOTTOM NAV STYLES --- */
+        .bottom-nav-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--glass-bg-dark);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 60;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7); 
+        }
+        .nav-item-shs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            width: 20%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .nav-item-shs:hover, .nav-item-shs.active {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        .nav-icon-shs { font-size: 1.5rem; margin-bottom: 2px; }
+        .central-nav-item-shs { position: relative; width: 20%; height: 80px; display: flex; justify-content: center; }
+        .central-fab {
+            position: absolute; top: -28px; width: 64px; height: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background-color: var(--color-primary); 
+            border: 4px solid var(--bg-main-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transform: scale(1.0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .central-fab-icon { color: var(--color-button-text); font-size: 1.8rem; }
+        .central-fab-label { position: absolute; bottom: 5px; font-size: 0.75rem; font-weight: bold; color: var(--color-primary); }
+        .central-fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 5px rgba(var(--color-primary-rgb), 0.8);
+        }
+        
+        /* IES/ISS File Custom Styles (Modified from original to match h.html) */
         .section-heading {
-            border-bottom: 3px solid #b48c5a; /* Gold color */
+            border-bottom: 3px solid #FFD700; /* Gold color */
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            color: #6c4f2d; /* Dark Gold/Brown */
+            color: var(--electric-gold-glow);
         }
         .card {
-            background-color: #FFFFFF;
+            background-color: var(--color-card);
             border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             padding: 1.75rem;
             transition: all 0.3s ease-in-out;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--electric-gold-dark);
+            color: var(--text-light);
         }
         .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
         .chart-container {
@@ -44,66 +155,101 @@
             max-width: 550px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            height: 320px;
+            max-height: 450px;
         }
         .flowchart-step {
-            border: 3px solid #6c4f2d;
-            color: #6c4f2d;
-            background-color: #faf3e8;
+            border: 3px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
             transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
         .flowchart-step:hover {
-            background-color: #6c4f2d;
-            color: #FFFFFF;
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
             transform: scale(1.05);
         }
-        .flowchart-arrow {
-            color: #b48c5a;
+        .flowchart-arrow { color: var(--electric-gold-glow); }
+        .flowchart-container-fix {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
+        .flowchart-arrow.vertical {
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+            .flowchart-container-fix {
+                flex-direction: row; 
+                gap: 0; 
+            }
+            .flowchart-arrow.vertical {
+                transform: rotate(0deg);
+            }
+        }
+        /* Hidden Notes/Lectures buttons */
+        .subject-buttons .rank-btn {
+            display: none !important;
+        }
+        
+        /* Modal specific styles for UPSC page to CENTER popups */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
-            align-items: center;
+            align-items: center; 
             justify-content: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            padding: 1rem;
+            padding: 0;
+            overflow-y: auto; 
         }
+        
+        .modal-content {
+            background-color: var(--glass-bg-dark);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 15px 25px -5px rgba(255, 215, 0, 0.2), 0 10px 10px -5px rgba(255, 215, 0, 0.1);
+            position: relative;
+            transform: none; 
+            opacity: 1; 
+            transition: none; 
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--text-light);
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh; 
+            margin: auto; 
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 1023px) {
+            .modal-content {
+                width: 95%; 
+                margin-top: 85px; 
+                margin-bottom: 85px; 
+                max-height: calc(100vh - 170px); 
+                padding: 1.5rem; 
+            }
+            .mobile-hide-footer {
+                display: none;
+            }
+        }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        
         .modal-close-button {
             position: absolute;
             top: 1rem;
@@ -112,90 +258,250 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #6c4f2d;
+            color: var(--electric-gold-glow);
+            transition: color 0.2s;
         }
-        .lang-btn.active {
-            background-color: #b48c5a;
-            color: white;
-            font-weight: bold;
+        .modal-close-button:hover {
+            color: #FF0000;
         }
-        .rank-btn {
-            background-color: #faf3e8;
-            color: #6c4f2d;
-            border: 1px solid #b48c5a;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+
+        .modal-subject-button {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: center;
+        }
+        .modal-subject-button:hover {
+            background-color: #FFC107;
+            transform: translateY(-2px);
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
         }
-        .rank-btn:hover {
-            background-color: #b48c5a;
-            color: white;
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+        }
+
+        .academy-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .academy-card {
+            background-color: var(--bg-main-dark);
+            border-color: var(--electric-gold-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .academy-card .icon {
+            font-size: 2.5rem;
+            color: var(--electric-gold-glow);
+        }
+        .academy-card .name {
+            color: var(--electric-gold-glow);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .academy-card:hover {
+            background-color: var(--color-card);
+            box-shadow: 0 0 10px 2px rgba(var(--color-primary-rgb), 0.5);
+            transform: scale(1.05);
+        }
+        .timeline-step {
+            color: var(--text-light);
+            background-color: var(--color-card);
+            border-color: var(--electric-gold-glow);
+        }
+        .timeline-step > div {
+             background-color: var(--electric-gold-glow) !important;
+             color: var(--color-button-text) !important;
+             border-color: var(--color-card) !important;
         }
         .subject-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 0.5rem;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid var(--electric-gold-dark);
         }
         .subject-item:last-child {
             border-bottom: none;
         }
-        .subject-buttons {
-            display: flex;
-            gap: 0.5rem;
+        .service-list-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--electric-gold-dark);
+            background-color: var(--color-card);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-        .subject-buttons .rank-btn {
-            font-size: 0.875rem;
-            padding: 0.25rem 0.75rem;
+        .service-list-item h4 {
+            color: var(--electric-gold-glow);
         }
     </style>
 </head>
 <body class="leading-relaxed">
 
-    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
-        
-        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
-            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
-            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
-            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
-        </div>
+    <div class="fixed-header-container">
+        <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
+              <div class="container mx-auto flex justify-between items-center px-2 sm:px-4" style="padding-top: env(safe-area-inset-top);">
+                <a href="index.html" class="flex items-center no-underline transform hover:scale-[1.02] transition-transform duration-300">
+                  <img src="ytglogo.png" alt="Your True Guide Logo" class="h-10 w-10 sm:h-12 sm:w-12 mr-3 rounded-full shadow-lg border border-primary/50" onerror="this.onerror=null;this.src='https://placehold.co/48x48/FFD700/1A1C20?text=YTG';" />
+                  <span class="text-xl sm:text-3xl font-extrabold text-white transition-colors tracking-tight drop-shadow-md">
+                    UPSC <span class="text-primary">IES/ISS</span>
+                  </span>
+                </a>
 
-        <header class="text-center mb-16 pt-12">
-            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#6c4f2d] mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#b48c5a] font-semibold"></p>
+                <div class="hidden lg:flex items-center space-x-10">
+                  <nav class="flex space-x-8 font-extrabold">
+                    <a href="index.html#govt-exam-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Public Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Private Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                     <a href="index.html#ai-guide-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        AI & Tools
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                  </nav>
+                  
+                  <div class="border-l-4 border-primary/50 pl-6 text-sm flex flex-col items-start bg-primary/5 p-2 rounded-xl shadow-inner">
+                    <a href="tel:0000000000" class="flex items-center font-extrabold text-white hover:text-primary transition-colors transform hover:scale-[1.05] duration-200">
+                      <i class="fas fa-phone-alt mr-2 text-primary"></i> <span class="text-xl tracking-wider">000000000</span>
+                    </a>
+                    <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-text-secondary hover:text-primary transition-colors mt-1">
+                      <i class="fas fa-envelope mr-2 text-secondary/70"></i> <b>0000000000000000000</b>
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  id="mobile-menu-button"
+                  class="lg:hidden text-text-primary p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors shadow-md"
+                  aria-label="Toggle menu"
+                >
+                  <i class="fas fa-bars text-2xl text-primary" id="mobile-menu-icon"></i>
+                </button>
+              </div>
         </header>
+
+        <div
+              id="mobile-menu-panel"
+              class="mobile-menu-panel fixed right-0 w-3/4 max-w-sm z-[110] lg:hidden translate-x-full overflow-hidden border border-primary/50 rounded-2xl shadow-lg shadow-primary/10"
+        >
+                <button 
+                    id="mobile-menu-close-button"
+                    class="absolute top-4 right-4 text-white hover:text-primary transition-colors p-2 rounded-full bg-secondary/50 shadow-lg"
+                    aria-label="Close menu"
+                >
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <div class="flex flex-col h-full space-y-6 font-extrabold text-left mt-8 p-6 overflow-y-auto">
+                    
+                    <div class="mb-4 pb-4 border-b border-primary/50">
+                        <p class="text-sm font-light text-text-secondary">Welcome to</p>
+                        <h2 class="text-3xl font-black text-primary drop-shadow-md">Your True Guide</h2>
+                        <p class="text-xs font-semibold text-text-secondary">All guides on a single tap!</p>
+                    </div>
+                    
+                    <a href="index.html#govt-exam-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-building mr-4 text-xl text-primary/80"></i> Public Sector Guide
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-briefcase mr-4 text-xl text-primary/80"></i> Private Sector Guide
+                    </a>
+                    <a href="index.html#ai-guide-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-brain mr-4 text-xl text-primary/80"></i> AI Tools Guide
+                    </a>
+
+                    <div class="border-t border-primary/30 w-full my-4"></div>
+
+                    <div class="flex flex-col items-start space-y-3 pt-4 bg-black/30 p-4 rounded-xl shadow-2xl border border-primary/50">
+                      <h4 class="text-base font-bold text-primary mb-1">Need Help? (24x7)</h4>
+                      <a href="tel:0000000000" class="flex items-center font-extrabold text-white hover:text-secondary transition-colors text-xl p-3 rounded-full bg-primary/90 w-full justify-center transform hover:scale-[1.02] shadow-xl shadow-primary/70 border-2 border-white/20">
+                         <i class="fas fa-phone-volume mr-3"></i> <span>0000000000</span>
+                      </a>
+                      <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-gray-400 hover:text-primary transition-colors pt-2">
+                         <i class="fas fa-at mr-2"></i> <span>0000000000000</span>
+                      </a>
+                    </div>
+                    
+                    <p class="text-xs text-center text-gray-500 mt-auto">© 2025 Your True Guide</p>
+                </div>
+        </div>
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 mobile-menu-overlay hidden lg:hidden"></div>
+    </div>
+    
+    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
+        <br>
+        <div class="text-center mb-12">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" class="lang-btn active" data-lang="hi">हिन्दी</button>
+                <button type="button" class="lang-btn" data-lang="en">English</button>
+            </div>
+        </div>
 
         <main class="grid grid-cols-1 gap-10">
 
             <section class="card">
                 <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center mt-6">
-                    <div class="p-4 bg-yellow-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="iesInfoModal">
-                        <div class="text-4xl">📈</div>
-                        <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-yellow-800"></div>
+                <div class="text-center">
+                    <div class="text-7xl font-extrabold text-golden-dark drop-shadow-lg">2</div>
+                    <div data-lang-key="section1_services_text" class="text-xl font-semibold text-golden-dark"></div>
+                    
+                    <div class="academy-card-container">
+                        <div class="academy-card" data-modal-target="iesInfoModal">
+                            <div class="icon">📈</div>
+                            <div data-lang-key="section1_card1_title" class="name"></div>
+                        </div>
+                        <div class="academy-card" data-modal-target="issInfoModal">
+                            <div class="icon">📊</div>
+                            <div data-lang-key="section1_card2_title" class="name"></div>
+                        </div>
                     </div>
-                    <div class="p-4 bg-blue-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="issInfoModal">
-                        <div class="text-4xl">📊</div>
-                        <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-blue-800"></div>
+                    
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="start-preparation-guide.html" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors">
+                            Start Preparation
+                        </a>
                     </div>
+                    
                 </div>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+                <div class="flowchart-container-fix md:space-x-8 lg:space-x-12">
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="writtenExamModal"><span data-lang-key="section2_step1_title"></span></div>
-                        <p data-lang-key="section2_step1_desc" class="mt-3 font-semibold"></p>
+                        <p data-lang-key="section2_step1_desc" class="mt-3 font-semibold text-text-light"></p>
                     </div>
-                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-5xl font-light flowchart-arrow vertical">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="interviewModal"><span data-lang-key="section2_step2_title"></span></div>
-                         <p data-lang-key="section2_step2_desc" class="mt-3 font-semibold"></p>
+                         <p data-lang-key="section2_step2_desc" class="mt-3 font-semibold text-text-light"></p>
                     </div>
                 </div>
             </section>
@@ -206,7 +512,7 @@
                     <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
                 </div>
                 <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#6c4f2d] mb-4 text-center"></h3>
+                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-golden-dark mb-4 text-center border-b border-golden-dark pb-2"></h3>
                     <div class="chart-container h-72">
                         <canvas id="examPatternChart"></canvas>
                     </div>
@@ -217,27 +523,28 @@
                 <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="iesSyllabusModal">
-                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-[#6c4f2d] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="iesSyllabusModal">
+                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="issSyllabusModal">
-                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-[#6c4f2d] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="issSyllabusModal">
+                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="font-semibold text-golden-dark"></p>
                     </div>
                 </div>
             </section>
             
             <section class="card">
                 <h2 data-lang-key="section5_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section5_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mt-6">
                     <div>
-                        <h3 data-lang-key="section5_ies_title" class="text-xl font-bold text-[#6c4f2d] mb-3"></h3>
-                        <div data-lang-key="section5_ies_list"></div>
+                        <h3 data-lang-key="section5_ies_title" class="text-xl font-bold text-golden-dark mb-3"></h3>
+                        <div data-lang-key="section5_ies_list_clean" class="text-text-light"></div>
                     </div>
                     <div>
-                        <h3 data-lang-key="section5_iss_title" class="text-xl font-bold text-[#6c4f2d] mb-3"></h3>
-                        <div data-lang-key="section5_iss_list"></div>
+                        <h3 data-lang-key="section5_iss_title" class="text-xl font-bold text-golden-dark mb-3"></h3>
+                        <div data-lang-key="section5_iss_list_clean" class="text-text-light"></div>
                     </div>
                 </div>
             </section>
@@ -246,13 +553,13 @@
                 <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section6_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-                     <div class="p-4 rounded-lg bg-yellow-50 border border-yellow-200 cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="iesCareerModal">
-                        <h3 data-lang-key="section1_card1_title" class="font-bold text-xl text-yellow-800 mb-2"></h3>
-                        <p data-lang-key="section6_card_button" class="text-yellow-600 font-semibold"></p>
+                     <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="iesCareerModal">
+                        <h3 data-lang-key="section1_card1_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg bg-blue-50 border border-blue-200 cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="issCareerModal">
-                        <h3 data-lang-key="section1_card2_title" class="font-bold text-xl text-blue-800 mb-2"></h3>
-                        <p data-lang-key="section6_card_button" class="text-blue-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg bg-color-card/50 border border-golden-dark cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="issCareerModal">
+                        <h3 data-lang-key="section1_card2_title" class="font-bold text-xl text-golden-dark mb-2"></h3>
+                        <p data-lang-key="section6_card_button" class="text-golden-dark font-semibold"></p>
                     </div>
                 </div>
             </section>
@@ -262,11 +569,11 @@
                 <p data-lang-key="section7_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3>
+                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <div data-lang-key="section7_col1_list" class="text-lg"></div>
                     </div>
                     <div>
-                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3>
+                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-golden-dark mb-4 border-b border-golden-dark pb-2"></h3>
                         <p data-lang-key="section7_col2_desc" class="text-lg mb-4"></p>
                         <div data-lang-key="section7_col2_list" class="text-lg"></div>
                     </div>
@@ -277,56 +584,212 @@
                 <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item1"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item2"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item3"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item4"></div>
                     </div>
                 </div>
-                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-[#6c4f2d] mt-10"></p>
+                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-golden-dark mt-10"></p>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section9_desc" class="text-lg mb-8"></p>
-                <div data-lang-key="section9_timeline" class="space-y-4"></div>
+                
+                 <ol class="relative border-l-4 border-golden-dark pl-6 space-y-6">
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">1</div>
+                        <h4 data-lang-key="section9_li1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li1_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                        <h4 data-lang-key="section9_li2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li2_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                        <h4 data-lang-key="section9_li3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li3_p" class="text-base text-text-light"></p>
+                    </li>
+                    <li class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                        <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                        <h4 data-lang-key="section9_li4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                        <p data-lang-key="section9_li4_p" class="text-base text-text-light"></p>
+                    </li>
+                </ol>
             </section>
 
             <section class="card">
                 <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section10_desc" class="text-lg mb-8"></p>
-                <div data-lang-key="section10_list" class="space-y-2"></div>
+                <div data-lang-key="section10_list_clean" class="space-y-2"></div>
+            </section>
+            
+            <section class="card">
+                <h2 data-lang-key="section11_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section11_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
+                <div class="text-center">
+                    <button data-lang-key="section11_roadmap_btn" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors" data-modal-target="careerRoadmapModal">
+                        संपूर्ण करियर रोडमैप देखें
+                    </button>
+                </div>
             </section>
 
         </main>
+    </div>
+    <br>
 
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
-            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
-        </footer>
+    <div id="writtenExamModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="written_exam_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="written_exam_modal_desc" class="mb-4 text-text-light"></p><div data-lang-key="written_exam_modal_list" class="text-text-light"></div></div></div>
+    
+    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="interview_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="interview_modal_desc" class="mb-4 text-text-light"></p><div data-lang-key="interview_modal_list" class="text-text-light"></div></div></div>
 
+    <div id="iesInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="ies_info_modal_desc" class="text-text-light"></p></div></div>
+    <div id="issInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_info_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="iss_info_modal_desc" class="text-text-light"></p></div></div>
+
+    <div id="iesSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><div data-lang-key="ies_syllabus_modal_list_clean" class="text-text-light"></div></div></div>
+    <div id="issSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_syllabus_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><div data-lang-key="iss_syllabus_modal_list_clean" class="text-text-light"></div></div></div>
+    
+    <div id="iesCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="ies_career_modal_desc" class="mb-4 text-text-light"></p><div data-lang-key="ies_career_modal_list_clean" class="text-text-light"></div></div></div>
+    <div id="issCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_career_modal_title" class="text-2xl font-bold text-golden-dark mb-4"></h3><p data-lang-key="iss_career_modal_desc" class="mb-4 text-text-light"></p><div data-lang-key="iss_career_modal_list_clean" class="text-text-light"></div></div></div>
+
+    <div id="careerRoadmapModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="closeModal('careerRoadmapModal')">&times;</button>
+            <h3 data-lang-key="modal_roadmap_title" class="text-2xl font-bold text-golden-dark mb-6 text-center"></h3>
+            
+            <div id="roadmap-timeline" class="relative border-l-4 border-golden-dark pl-6 space-y-8 max-w-lg mx-auto">
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg" style="background-color: var(--electric-gold-glow); color: var(--color-button-text);">1</div>
+                    <h4 data-lang-key="roadmap_step1_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step1_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">2</div>
+                    <h4 data-lang-key="roadmap_step2_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step2_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">3</div>
+                    <h4 data-lang-key="roadmap_step3_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step3_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-sm">
+                    <div class="absolute flex items-center justify-center w-8 h-8 bg-golden-dark rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg text-white">4</div>
+                    <h4 data-lang-key="roadmap_step4_title" class="font-semibold text-xl text-golden-dark mb-1"></h4>
+                    <p data-lang-key="roadmap_step4_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <p data-lang-key="roadmap_note" class="text-center text-sm text-gray-400 pt-4"></p>
+            </div>
+            
+        </div>
     </div>
 
-    <div id="writtenExamModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="written_exam_modal_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3><p data-lang-key="written_exam_modal_desc" class="mb-4"></p><div data-lang-key="written_exam_modal_list"></div></div></div>
-    <div id="interviewModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="interview_modal_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3><p data-lang-key="interview_modal_desc" class="mb-4"></p><div data-lang-key="interview_modal_list"></div></div></div>
-    <div id="iesInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_info_modal_title" class="text-2xl font-bold text-yellow-800 mb-4"></h3><p data-lang-key="ies_info_modal_desc"></p></div></div>
-    <div id="issInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_info_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><p data-lang-key="iss_info_modal_desc"></p></div></div>
-    <div id="iesSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_syllabus_modal_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3><div data-lang-key="ies_syllabus_modal_list"></div></div></div>
-    <div id="issSyllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_syllabus_modal_title" class="text-2xl font-bold text-[#6c4f2d] mb-4"></h3><div data-lang-key="iss_syllabus_modal_list"></div></div></div>
-    <div id="iesCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ies_career_modal_title" class="text-2xl font-bold text-yellow-800 mb-4"></h3><p data-lang-key="ies_career_modal_desc" class="mb-4"></p><div data-lang-key="ies_career_modal_list" class="flex flex-wrap gap-2"></div></div></div>
-    <div id="issCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="iss_career_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><p data-lang-key="iss_career_modal_desc" class="mb-4"></p><div data-lang-key="iss_career_modal_list" class="flex flex-wrap gap-2"></div></div></div>
-    
+
+    <nav 
+        class="lg:hidden bottom-nav-fixed" 
+        style="padding-bottom: env(safe-area-inset-bottom);" 
+        id="bottom-nav-shs"
+    >
+        <div class="flex justify-around items-end h-20 relative px-2">
+            
+            <a href="index.html#govt-exam-section" class="nav-item-shs">
+                <i class="fas fa-building nav-icon-shs"></i>
+                <span class="font-medium">Public</span>
+            </a>
+
+            <a href="index.html#private-sector-section" class="nav-item-shs">
+                <i class="fas fa-briefcase nav-icon-shs"></i>
+                <span class="font-medium">Private</span>
+            </a>
+            
+            <div class="central-nav-item-shs">
+                <a 
+                    href="index.html" 
+                    class="central-fab animate-pulse-shadow"
+                    aria-label="Go to Home"
+                >
+                    <i class="fas fa-home central-fab-icon"></i>
+                </a>
+                <span class="central-fab-label">Home</span>
+            </div>
+            
+            <a href="tel:0000000000" class="nav-item-shs">
+                <i class="fas fa-phone-volume nav-icon-shs"></i>
+                <span class="font-medium">Call</span>
+            </a>
+            
+            <a href="index.html#ai-guide-section" class="nav-item-shs">
+                <i class="fas fa-brain nav-icon-shs"></i>
+                <span class="font-medium">AI Tools</span>
+            </a>
+        </div>
+    </nav>
+
+
     <script>
+        // --- START: index.html HEADER JS LOGIC ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        function toggleMobileMenu() {
+            const isMenuOpen = mobileMenuPanel.classList.contains('translate-x-0');
+            
+            if (isMenuOpen) {
+                mobileMenuPanel.classList.remove('translate-x-0');
+                mobileMenuPanel.classList.add('translate-x-full');
+                mobileMenuOverlay.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            } else {
+                mobileMenuPanel.classList.remove('translate-x-full');
+                mobileMenuPanel.classList.add('translate-x-0');
+                mobileMenuOverlay.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuCloseButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(toggleMobileMenu, 200); 
+            });
+        });
+        
+        // --- END: index.html HEADER JS LOGIC ---
+
+        let examPatternChartInstance = null;
+
+        // --- UPDATED TRANSLATION DATA (Removed Punjabi) ---
         const translations = {
             hi: {
                 doc_title: "UPSC IES/ISS परीक्षा: संपूर्ण मार्गदर्शिका",
@@ -334,29 +797,34 @@
                 header_subtitle: "आर्थिक और सांख्यिकीय नीति निर्माण में एक विशेषज्ञ करियर",
                 section1_title: "1. IES/ISS परीक्षा क्या है? 🤔",
                 section1_desc: "भारतीय आर्थिक सेवा (IES) और भारतीय सांख्यिकी सेवा (ISS) भारत सरकार के लिए आर्थिक और सांख्यिकीय पदों पर विशेषज्ञों की भर्ती के लिए UPSC द्वारा आयोजित विशिष्ट परीक्षाएं हैं। ये अधिकारी देश की आर्थिक योजना और नीति निर्माण में महत्वपूर्ण भूमिका निभाते हैं।",
+                section1_services_text: "2 विशेषज्ञ सेवाओं के लिए भर्ती", // NEW TEXT
                 section1_card1_title: "भारतीय आर्थिक सेवा (IES)",
                 section1_card2_title: "भारतीय सांख्यिकी सेवा (ISS)",
+                
                 section2_title: "2. परीक्षा प्रक्रिया: 2 चरण 🎯",
                 section2_desc: "IES/ISS चयन प्रक्रिया में दो चरण होते हैं: एक विस्तृत लिखित परीक्षा और उसके बाद एक साक्षात्कार।",
                 section2_step1_title: "चरण 1:<br>लिखित परीक्षा",
                 section2_step1_desc: "1000 अंक",
-                section2_step2_title: "चरण 2:<br>साक्षात्कार (Viva Voce)",
+                section2_step2_title: "चरण 2:<br>साक्षात्कार",
                 section2_step2_desc: "200 अंक",
+                
                 section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
-                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎓</span><div><strong class="text-[#6c4f2d]">शैक्षणिक योग्यता:</strong> IES के लिए अर्थशास्त्र/एप्लाइड इकोनॉमिक्स/बिजनेस इकोनॉमिक्स/इकोनोमेट्रिक्स में स्नातकोत्तर डिग्री। ISS के लिए सांख्यिकी/गणितीय सांख्यिकी/एप्लाइड सांख्यिकी में स्नातक या स्नातकोत्तर डिग्री।</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎂</span><div><strong class="text-[#6c4f2d]">आयु सीमा:</strong> 21 से 30 वर्ष। (आरक्षित श्रेणियों के लिए छूट लागू है)।</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🇮🇳</span><div><strong class="text-[#6c4f2d]">राष्ट्रीयता:</strong> भारतीय नागरिक होना अनिवार्य है।</div></li></ul>',
+                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">शैक्षणिक योग्यता:</strong> IES के लिए अर्थशास्त्र/एप्लाइड इकोनॉमिक्स/इकोनोमेट्रिक्स में **स्नातकोत्तर**। ISS के लिए सांख्यिकी/गणितीय सांख्यिकी में **स्नातक या स्नातकोत्तर**।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">आयु सीमा:</strong> 21 से 30 वर्ष। (आरक्षित श्रेणियों के लिए छूट लागू है)।</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">राष्ट्रीयता:</strong> भारतीय नागरिक होना अनिवार्य है।</div></li></ul>',
                 section3_chart_title: "लिखित परीक्षा का पैटर्न 📊",
-                examPatternChartLabels: ['सामान्य', 'विषय-विशिष्ट'],
+                examPatternChartLabels: ['सामान्य (200 अंक)', 'विषय-विशिष्ट (800 अंक)'],
+                
                 section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
                 section4_desc: "दोनों सेवाओं के लिए लिखित परीक्षा में 6 पेपर होते हैं। पहले दो पेपर (सामान्य अंग्रेजी और सामान्य अध्ययन) दोनों के लिए समान हैं, जबकि बाकी चार पेपर विषय-विशिष्ट हैं।",
                 section4_subject1_title: "IES पाठ्यक्रम",
                 section4_subject2_title: "ISS पाठ्यक्रम",
                 section4_subject_button: "पेपर देखें &rarr;",
                 
-                section5_title: "5. परीक्षा के सभी विषय",
+                section5_title: "5. परीक्षा के सभी विषय 📖",
+                section5_desc: "लिखित परीक्षा में कुल 6 पेपर होते हैं:",
                 section5_ies_title: "IES के विषय:",
-                section5_ies_list: `<div><div class="subject-item"><span>सामान्य अंग्रेजी</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य अध्ययन</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - I</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - II</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - III</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>भारतीय अर्थशास्त्र</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div></div>`,
+                section5_ies_list_clean: `<div><div class="subject-item"><span>सामान्य अंग्रेजी (100 अंक)</span></div><div class="subject-item"><span>सामान्य अध्ययन (100 अंक)</span></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - I (200 अंक)</span></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - II (200 अंक)</span></div><div class="subject-item"><span>सामान्य अर्थशास्त्र - III (200 अंक)</span></div><div class="subject-item"><span>भारतीय अर्थशास्त्र (200 अंक)</span></div></div>`,
                 section5_iss_title: "ISS के विषय:",
-                section5_iss_list: `<div><div class="subject-item"><span>सामान्य अंग्रेजी</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य अध्ययन</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सांख्यिकी - I (Objective)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सांख्यिकी - II (Objective)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सांख्यिकी - III (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सांख्यिकी - IV (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div></div>`,
+                section5_iss_list_clean: `<div><div class="subject-item"><span>सामान्य अंग्रेजी (100 अंक)</span></div><div class="subject-item"><span>सामान्य अध्ययन (100 अंक)</span></div><div class="subject-item"><span>सांख्यिकी - I (Objective) (200 अंक)</span></div><div class="subject-item"><span>सांख्यिकी - II (Objective) (200 अंक)</span></div><div class="subject-item"><span>सांख्यिकी - III (Descriptive) (200 अंक)</span></div><div class="subject-item"><span>सांख्यिकी - IV (Descriptive) (200 अंक)</span></div></div>`,
 
                 section6_title: "6. करियर के अवसर और सेवाएं 🏢",
                 section6_desc: "IES और ISS अधिकारी भारत सरकार के विभिन्न मंत्रालयों और विभागों में सेवा करते हैं, जो देश के लिए डेटा-संचालित नीतियां बनाने में मदद करते हैं।",
@@ -365,30 +833,43 @@
                 section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
                 section7_desc: "इस विशेषज्ञ परीक्षा में सफलता के लिए आपके स्नातकोत्तर स्तर के ज्ञान की गहराई और विश्लेषणात्मक कौशल की आवश्यकता होती है।",
                 section7_col1_title: "📚 अध्ययन के प्रमुख स्तंभ:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>स्नातकोत्तर स्तर की समझ:</strong> अपने मुख्य विषयों (अर्थशास्त्र/सांख्यिकी) की गहरी और स्पष्ट समझ विकसित करें।</li><li><strong>GS और अंग्रेजी पर ध्यान दें:</strong> ये पेपर स्कोरिंग हैं और आपकी अंतिम रैंक पर महत्वपूर्ण प्रभाव डाल सकते हैं।</li><li><strong>उत्तर लेखन का अभ्यास:</strong> यह एक वर्णनात्मक परीक्षा है। स्पष्ट, संक्षिप्त और सुसंगत उत्तर लिखने का नियमित अभ्यास करें।</li><li><strong>पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न और प्रश्नों की प्रकृति को समझने के लिए यह सबसे महत्वपूर्ण उपकरण है।</li></ul>',
+                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">स्नातकोत्तर स्तर की समझ:</strong> अपने मुख्य विषयों (अर्थशास्त्र/सांख्यिकी) की गहरी और स्पष्ट समझ विकसित करें।</li><li><strong class="text-golden-dark">GS और अंग्रेजी पर ध्यान दें:</strong> ये पेपर स्कोरिंग हैं और आपकी अंतिम रैंक पर महत्वपूर्ण प्रभाव डाल सकते हैं।</li><li><strong class="text-golden-dark">उत्तर लेखन का अभ्यास:</strong> यह एक वर्णनात्मक परीक्षा है। स्पष्ट, संक्षिप्त और सुसंगत उत्तर लिखने का नियमित अभ्यास करें।</li><li><strong class="text-golden-dark">पिछले वर्षों के प्रश्न (PYQs):</strong> परीक्षा के पैटर्न और प्रश्नों की प्रकृति को समझने के लिए यह सबसे महत्वपूर्ण उपकरण है।</li></ul>',
                 section7_col2_title: "🔄 रिवीजन और समसामयिक मामले:",
                 section7_col2_desc: "**अवधारणात्मक स्पष्टता और वर्तमान से जुड़ाव महत्वपूर्ण है!**",
                 section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>अपने नोट्स को नियमित रूप से दोहराएं।</li><li>आर्थिक सर्वेक्षण और केंद्रीय बजट जैसे महत्वपूर्ण सरकारी दस्तावेजों का अध्ययन करें।</li><li>द हिंदू, इंडियन एक्सप्रेस, और योजना/कुरुक्षेत्र जैसी पत्रिकाओं से आर्थिक और सामाजिक मुद्दों पर अपडेट रहें।</li><li>अपने वैकल्पिक विषयों से संबंधित शोध पत्रों और लेखों को पढ़ें।</li></ul>',
                 
                 section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
                 section8_desc: "यह एक विशेषज्ञ परीक्षा है जहाँ सतही ज्ञान काम नहीं आता। इन गलतियों से बचकर अपनी सफलता सुनिश्चित करें।",
-                section8_item1: '<div><strong class="text-lg text-red-800">GS और अंग्रेजी को हल्के में लेना:</strong> कई उम्मीदवार केवल अपने मुख्य विषय पर ध्यान केंद्रित करते हैं। याद रखें, GS और अंग्रेजी के 200 अंक आपकी रैंक तय कर सकते हैं। इन्हें नज़रअंदाज़ न करें।</div>',
-                section8_item2: '<div><strong class="text-lg text-red-800">उत्तर लेखन का अभ्यास न करना:</strong> ज्ञान होना एक बात है, और उसे 3 घंटे में प्रभावी ढंग से लिखना दूसरी। बिना अभ्यास के, आप परीक्षा में समय प्रबंधन नहीं कर पाएंगे और अपने विचार स्पष्ट रूप से व्यक्त नहीं कर पाएंगे।</div>',
-                section8_item3: '<div><strong class="text-lg text-red-800">बुनियादी अवधारणाओं को छोड़ना:</strong> उन्नत विषयों के चक्कर में, उम्मीदवार अक्सर माइक्रोइकोनॉमिक्स, मैक्रोइकोनॉमिक्स या बुनियादी सांख्यिकीय सिद्धांतों जैसी मूलभूत बातों को भूल जाते हैं। आपकी नींव मजबूत होनी चाहिए।</div>',
-                section8_item4: '<div><strong class="text-lg text-red-800">करेंट अफेयर्स से अपडेट न रहना:</strong> अर्थशास्त्र और सांख्यिकी गतिशील विषय हैं। यदि आप नवीनतम आर्थिक रुझानों, सरकारी योजनाओं और डेटा से अवगत नहीं हैं, तो आपके उत्तर अधूरे लगेंगे।</div>',
+                section8_item1: '<div><strong class="text-lg text-red-300">GS और अंग्रेजी को हल्के में लेना:</strong> कई उम्मीदवार केवल अपने मुख्य विषय पर ध्यान केंद्रित करते हैं। याद रखें, GS और अंग्रेजी के 200 अंक आपकी रैंक तय कर सकते हैं। इन्हें नज़रअंदाज़ न करें।</div>',
+                section8_item2: '<div><strong class="text-lg text-red-300">उत्तर लेखन का अभ्यास न करना:</strong> ज्ञान होना एक बात है, और उसे 3 घंटे में प्रभावी ढंग से लिखना दूसरी। बिना अभ्यास के, आप परीक्षा में समय प्रबंधन नहीं कर पाएंगे और अपने विचार स्पष्ट रूप से व्यक्त नहीं कर पाएंगे।</div>',
+                section8_item3: '<div><strong class="text-lg text-red-300">बुनियादी अवधारणाओं को छोड़ना:</strong> उन्नत विषयों के चक्कर में, उम्मीदवार अक्सर माइक्रोइकोनॉमिक्स, मैक्रोइकोनॉमिक्स या बुनियादी सांख्यिकीय सिद्धांतों जैसी मूलभूत बातों को भूल जाते हैं। आपकी नींव मजबूत होनी चाहिए।</div>',
+                section8_item4: '<div><strong class="text-lg text-red-300">करेंट अफेयर्स से अपडेट न रहना:</strong> अर्थशास्त्र और सांख्यिकी गतिशील विषय हैं। यदि आप नवीनतम आर्थिक रुझानों, सरकारी योजनाओं और डेटा से अवगत नहीं हैं, तो आपके उत्तर अधूरे लगेंगे।</div>',
                 section8_final_thought: "✨ आपकी विशेषज्ञता देश की नीतियों को आकार दे सकती है। ✨",
 
                 section9_title: "9. आवेदन प्रक्रिया और समय-सीमा 🗓️",
-                section9_desc: "UPSC IES/ISS परीक्षा का एक निश्चित वार्षिक कैलेंडर होता है, जिससे उम्मीदवारों को अपनी तैयारी की योजना बनाने में मदद मिलती है।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">अधिसूचना:</div><div>आमतौर पर अप्रैल में।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">आवेदन की अंतिम तिथि:</div><div>मई तक।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">लिखित परीक्षा:</div><div>जून/जुलाई में।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">साक्षात्कार:</div><div>लिखित परीक्षा परिणाम के 2-3 महीने बाद।</div></div>`,
+                section9_desc: "UPSC IES/ISS परीक्षा का एक निश्चित वार्षिक कैलेंडर होता है।",
+                section9_li1_title: 'अधिसूचना (Notification)',
+                section9_li1_p: '<strong class="text-gray-400">समय:</strong> आमतौर पर अप्रैल में।',
+                section9_li2_title: 'आवेदन की अंतिम तिथि',
+                section9_li2_p: '<strong class="text-gray-400">समय:</strong> मई तक।',
+                section9_li3_title: 'लिखित परीक्षा',
+                section9_li3_p: '<strong class="text-gray-400">समय:</strong> जून/जुलाई में।',
+                section9_li4_title: 'साक्षात्कार (Interview)',
+                section9_li4_p: '<strong class="text-gray-400">समय:</strong> लिखित परीक्षा परिणाम के 2-3 महीने बाद।',
 
                 section10_title: "10. तैयारी के लिए संस्थान 👨‍🏫",
                 section10_desc: "यह एक विशिष्ट परीक्षा है, इसलिए इसके लिए कोचिंग भी विशिष्ट होती है।",
-                section10_list: `<ul class="list-disc list-inside space-y-2"><li><strong>Ecoholics:</strong> IES की तैयारी के लिए एक बहुत प्रसिद्ध संस्थान।</li><li><strong>Next IAS / Vision IAS:</strong> सामान्य अध्ययन (GS) पेपर के लिए।</li><li><strong> स्थानीय विश्वविद्यालय के प्रोफेसर:</strong> विषय-विशिष्ट मार्गदर्शन के लिए।</li></ul>`,
-
-                footer_text: "© 2025 crapd.in - IES/ISS गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
+                section10_list_clean: `<ul class="list-disc list-inside space-y-2"><li><strong>Ecoholics:</strong> IES की तैयारी के लिए एक बहुत प्रसिद्ध संस्थान।</li><li><strong>Next IAS / Vision IAS:</strong> सामान्य अध्ययन (GS) पेपर के लिए।</li><li><strong>स्थानीय विश्वविद्यालय के प्रोफेसर:</strong> विषय-विशिष्ट मार्गदर्शन के लिए।</li></ul>`,
+                
+                section11_title: "11. करियर ग्रोथ रोडमैप: आपका भविष्य 🚀", // NEW SECTION TITLE
+                section11_desc: "IES/ISS अधिकारी **ग्रुप 'A' राजपत्रित अधिकारी** के रूप में अपना करियर शुरू करते हैं। प्रगति एक निश्चित समय सीमा और पदोन्नति के आधार पर होती है।", // NEW SECTION DESC
+                section11_roadmap_btn: 'संपूर्ण करियर रोडमैप देखें', // NEW BUTTON TEXT
+                
+                footer_text: "© 2025 IES/ISS गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
+                
+                // Modals
                 written_exam_modal_title: "चरण 1: लिखित परीक्षा",
-                written_exam_modal_desc: "यह एक वर्णनात्मक (Descriptive) प्रकार की ऑफ़लाइन परीक्षा है।",
+                written_exam_modal_desc: "यह एक **वर्णनात्मक (Descriptive) प्रकार** की ऑफ़लाइन परीक्षा है।",
                 written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>कुल पेपर:</strong> 6</li><li><strong>कुल अंक:</strong> 1000</li><li>प्रत्येक पेपर 3 घंटे का होता है।</li></ul>',
                 interview_modal_title: "चरण 2: साक्षात्कार (Viva Voce)",
                 interview_modal_desc: "लिखित परीक्षा में सफल उम्मीदवारों को साक्षात्कार के लिए बुलाया जाता है।",
@@ -398,15 +879,27 @@
                 iss_info_modal_title: "📊 भारतीय सांख्यिकी सेवा (ISS)",
                 iss_info_modal_desc: "ISS अधिकारी देश की आधिकारिक सांख्यिकी प्रणाली के लिए जिम्मेदार होते हैं। वे बड़े पैमाने पर सर्वेक्षणों के डिजाइन, डेटा संग्रह, विश्लेषण और प्रसार का काम करते हैं। वे मुख्य रूप से राष्ट्रीय सांख्यिकी कार्यालय (NSO) और अन्य मंत्रालयों में काम करते हैं।<br><br><strong>उदाहरण:</strong> एक ISS अधिकारी राष्ट्रीय नमूना सर्वेक्षण (NSS) के लिए एक सर्वेक्षण डिजाइन कर सकता है ताकि बेरोजगारी दर का अनुमान लगाया जा सके, या सकल घरेलू उत्पाद (GDP) के आंकड़ों की गणना और विश्लेषण कर सकता है।",
                 ies_syllabus_modal_title: "IES पाठ्यक्रम",
-                ies_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>सामान्य अंग्रेजी</li><li>सामान्य अध्ययन</li><li>सामान्य अर्थशास्त्र - I (माइक्रोइकोनॉमिक्स)</li><li>सामान्य अर्थशास्त्र - II (मैक्रोइकोनॉमिक्स)</li><li>सामान्य अर्थशास्त्र - III (विकास और पर्यावरण अर्थशास्त्र)</li><li>भारतीय अर्थशास्त्र</li></ul>',
+                ies_syllabus_modal_list_clean: '<ul class="list-disc list-inside space-y-2"><li>सामान्य अंग्रेजी</li><li>सामान्य अध्ययन</li><li>सामान्य अर्थशास्त्र - I (माइक्रोइकोनॉमिक्स)</li><li>सामान्य अर्थशास्त्र - II (मैक्रोइकोनॉमिक्स)</li><li>सामान्य अर्थशास्त्र - III (विकास और पर्यावरण अर्थशास्त्र)</li><li>भारतीय अर्थशास्त्र</li></ul>',
                 iss_syllabus_modal_title: "ISS पाठ्यक्रम",
-                iss_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>सामान्य अंग्रेजी</li><li>सामान्य अध्ययन</li><li>सांख्यिकी - I (प्रायिकता और सांख्यिकीय विधियाँ)</li><li>सांख्यिकी - II (सांख्यिकीय अनुमान और नमूना सर्वेक्षण)</li><li>सांख्यिकी - III (अर्थमिति और एप्लाइड सांख्यिकी)</li><li>सांख्यिकी - IV (आधिकारिक सांख्यिकी और डेटा विश्लेषण)</li></ul>',
+                iss_syllabus_modal_list_clean: '<ul class="list-disc list-inside space-y-2"><li>सामान्य अंग्रेजी</li><li>सामान्य अध्ययन</li><li>सांख्यिकी - I (प्रायिकता और सांख्यिकीय विधियाँ)</li><li>सांख्यिकी - II (सांख्यिकीय अनुमान और नमूना सर्वेक्षण)</li><li>सांख्यिकी - III (अर्थमिति और एप्लाइड सांख्यिकी)</li><li>सांख्यिकी - IV (आधिकारिक सांख्यिकी और डेटा विश्लेषण)</li></ul>',
                 ies_career_modal_title: "IES में करियर",
                 ies_career_modal_desc: "IES अधिकारी सहायक निदेशक के रूप में शुरू करते हैं और नीति-निर्माण के उच्चतम स्तर तक पहुँच सकते हैं।",
-                ies_career_modal_list: '<button class="rank-btn">सहायक निदेशक</button><button class="rank-btn">उप निदेशक</button><button class="rank-btn">निदेशक</button><button class="rank-btn">आर्थिक सलाहकार</button>',
+                ies_career_modal_list_clean: '<ul class="list-disc list-inside space-y-1"><li>सहायक निदेशक (Assistant Director - 4 वर्ष)</li><li>उप निदेशक (Deputy Director - 5 वर्ष)</li><li>निदेशक (Director - 5 वर्ष)</li><li>आर्थिक सलाहकार/महानिदेशक (Economic Adviser/Director General)</li></ul>',
                 iss_career_modal_title: "ISS में करियर",
                 iss_career_modal_desc: "ISS अधिकारी सहायक निदेशक के रूप में शुरू करते हैं और भारत के मुख्य सांख्यिकीविद् के पद तक पहुँच सकते हैं।",
-                iss_career_modal_list: '<button class="rank-btn">सहायक निदेशक</button><button class="rank-btn">उप निदेशक</button><button class="rank-btn">निदेशक</button><button class="rank-btn">महानिदेशक</button>'
+                iss_career_modal_list_clean: '<ul class="list-disc list-inside space-y-1"><li>सहायक निदेशक (Assistant Director - 4 वर्ष)</li><li>उप निदेशक (Deputy Director - 5 वर्ष)</li><li>निदेशक (Director - 5 वर्ष)</li><li>महानिदेशक/भारत के मुख्य सांख्यिकीविद् (Director General/Chief Statistician of India)</li></ul>',
+                
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'विशेषज्ञ अधिकारी: करियर प्रगति का पथ (IES/ISS)',
+                roadmap_step1_title: 'प्रारंभिक नियुक्ति (Entry Level)',
+                roadmap_step1_desc: 'सहायक निदेशक (Assistant Director)। यह एक **ग्रुप A राजपत्रित पद** है।',
+                roadmap_step2_title: 'मध्य स्तर (4-9 वर्ष)',
+                roadmap_step2_desc: 'उप निदेशक (Deputy Director)। इस स्तर पर विशेषज्ञता और प्रशासनिक जिम्मेदारियां बढ़ती हैं।',
+                roadmap_step3_title: 'वरिष्ठ स्तर (10-14 वर्ष)',
+                roadmap_step3_desc: 'निदेशक (Director)। मंत्रालयों/विभागों में महत्वपूर्ण योजना और विश्लेषणात्मक भूमिकाएं।',
+                roadmap_step4_title: 'शीर्ष नेतृत्व (15+ वर्ष)',
+                roadmap_step4_desc: 'आर्थिक सलाहकार/महानिदेशक/भारत के मुख्य सांख्यिकीविद्। सेवा का सर्वोच्च नीति-निर्माण और नेतृत्व पद।',
+                roadmap_note: 'पदोन्नति पदोन्नति बोर्डों की सिफारिशों, प्रदर्शन और रिक्ति पर निर्भर करती है।',
             },
             en: {
                 doc_title: "UPSC IES/ISS Exam: Complete Guide",
@@ -414,29 +907,34 @@
                 header_subtitle: "A Specialist Career in Economic and Statistical Policy Making",
                 section1_title: "1. What is the IES/ISS Exam? 🤔",
                 section1_desc: "The Indian Economic Service (IES) and Indian Statistical Service (ISS) are specialized examinations conducted by UPSC to recruit specialists for economic and statistical positions for the Government of India. These officers play a crucial role in the country's economic planning and policy formulation.",
+                section1_services_text: "Recruitment for 2 Specialist Services", // NEW TEXT
                 section1_card1_title: "Indian Economic Service (IES)",
                 section1_card2_title: "Indian Statistical Service (ISS)",
+                
                 section2_title: "2. Examination Process: 2 Stages 🎯",
                 section2_desc: "The IES/ISS selection process consists of two stages: a detailed written examination followed by an interview.",
-                section2_step1_title: "Stage 1:<br>Written Examination",
+                section2_step1_title: "Stage 1:<br>Written Exam",
                 section2_step1_desc: "1000 Marks",
-                section2_step2_title: "Stage 2:<br>Interview (Viva Voce)",
+                section2_step2_title: "Stage 2:<br>Interview",
                 section2_step2_desc: "200 Marks",
+                
                 section3_title: "3. Eligibility & Exam Pattern ✅",
-                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎓</span><div><strong class="text-[#6c4f2d]">Educational Qualification:</strong> Post-Graduate Degree in Economics/Applied Economics/Business Economics/Econometrics for IES. Bachelor\'s or Master\'s degree with Statistics/Mathematical Statistics/Applied Statistics for ISS.</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎂</span><div><strong class="text-[#6c4f2d]">Age Limit:</strong> 21 to 30 years. (Age relaxation is applicable for reserved categories).</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🇮🇳</span><div><strong class="text-[#6c4f2d]">Nationality:</strong> Must be a citizen of India.</div></li></ul>',
+                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎓</span><div><strong class="text-golden-dark">Educational Qualification:</strong> **Post-Graduate** Degree in Economics/Applied Economics/Econometrics for IES. Bachelor\'s or **Master\'s** degree with Statistics/Mathematical Statistics for ISS.</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🎂</span><div><strong class="text-golden-dark">Age Limit:</strong> 21 to 30 years. (Age relaxation is applicable for reserved categories).</div></li><li class="flex items-start"><span class="text-2xl text-golden-dark mr-4">🇮🇳</span><div><strong class="text-golden-dark">Nationality:</strong> Must be a citizen of India.</div></li></ul>',
                 section3_chart_title: "Written Exam Pattern 📊",
-                examPatternChartLabels: ['Common', 'Subject-Specific'],
+                examPatternChartLabels: ['Common (200 Marks)', 'Subject-Specific (800 Marks)'],
+                
                 section4_title: "4. Detailed Examination Syllabus 📚",
                 section4_desc: "The written exam for both services consists of 6 papers. The first two papers (General English and General Studies) are common for both, while the remaining four are subject-specific.",
                 section4_subject1_title: "IES Syllabus",
                 section4_subject2_title: "ISS Syllabus",
                 section4_subject_button: "View Papers &rarr;",
 
-                section5_title: "5. All Subjects of the Exam",
+                section5_title: "5. All Subjects of the Exam 📖",
+                section5_desc: "The written exam consists of 6 papers:",
                 section5_ies_title: "Subjects for IES:",
-                section5_ies_list: `<div><div class="subject-item"><span>General English</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Studies</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Economics - I</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Economics - II</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Economics - III</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Indian Economics</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div></div>`,
+                section5_ies_list_clean: `<div><div class="subject-item"><span>General English (100 Marks)</span></div><div class="subject-item"><span>General Studies (100 Marks)</span></div><div class="subject-item"><span>General Economics - I (200 Marks)</span></div><div class="subject-item"><span>General Economics - II (200 Marks)</span></div><div class="subject-item"><span>General Economics - III (200 Marks)</span></div><div class="subject-item"><span>Indian Economics (200 Marks)</span></div></div>`,
                 section5_iss_title: "Subjects for ISS:",
-                section5_iss_list: `<div><div class="subject-item"><span>General English</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Studies</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Statistics - I (Objective)</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Statistics - II (Objective)</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Statistics - III (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Statistics - IV (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div></div>`,
+                section5_iss_list_clean: `<div><div class="subject-item"><span>General English (100 Marks)</span></div><div class="subject-item"><span>General Studies (100 Marks)</span></div><div class="subject-item"><span>Statistics - I (Objective) (200 Marks)</span></div><div class="subject-item"><span>Statistics - II (Objective) (200 Marks)</span></div><div class="subject-item"><span>Statistics - III (Descriptive) (200 Marks)</span></div><div class="subject-item"><span>Statistics - IV (Descriptive) (200 Marks)</span></div></div>`,
                 
                 section6_title: "6. Career Opportunities and Services 🏢",
                 section6_desc: "IES and ISS officers serve in various ministries and departments of the Government of India, helping to create data-driven policies for the country.",
@@ -445,30 +943,43 @@
                 section7_title: "7. Your Preparation Strategy: Smart Work 📈",
                 section7_desc: "Success in this specialist exam requires depth in your post-graduate level knowledge and analytical skills.",
                 section7_col1_title: "📚 Key Pillars of Study:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>Post-Graduate Level Understanding:</strong> Develop a deep and clear understanding of your core subjects (Economics/Statistics).</li><li><strong>Focus on GS and English:</strong> These papers are scoring and can have a significant impact on your final rank.</li><li><strong>Answer Writing Practice:</strong> This is a descriptive exam. Practice writing clear, concise, and coherent answers regularly.</li><li><strong>Previous Years\' Questions (PYQs):</strong> This is the most important tool to understand the pattern and nature of questions.</li></ul>',
+                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong class="text-golden-dark">Post-Graduate Level Understanding:</strong> Develop a deep and clear understanding of your core subjects (Economics/Statistics).</li><li><strong class="text-golden-dark">Focus on GS and English:</strong> These papers are scoring and can have a significant impact on your final rank.</li><li><strong class="text-golden-dark">Answer Writing Practice:</strong> This is a descriptive exam. Practice writing clear, concise, and coherent answers regularly.</li><li><strong class="text-golden-dark">Previous Years\' Questions (PYQs):</strong> This is the most important tool to understand the pattern and nature of questions.</li></ul>',
                 section7_col2_title: "🔄 Revision and Current Affairs:",
                 section7_col2_desc: "**Conceptual clarity and linkage with current events are crucial!**",
                 section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>Revise your notes regularly.</li><li>Study important government documents like the Economic Survey and Union Budget.</li><li>Stay updated on economic and social issues from newspapers like The Hindu, Indian Express, and magazines like Yojana/Kurukshetra.</li><li>Read research papers and articles related to your optional subjects.</li></ul>',
                 
                 section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
                 section8_desc: "This is a specialist exam where superficial knowledge will not work. Ensure your success by avoiding these mistakes.",
-                section8_item1: '<div><strong class="text-lg text-red-800">Taking GS and English Lightly:</strong> Many candidates focus only on their core subject. Remember, the 200 marks from GS and English can decide your rank. Do not ignore them.</div>',
-                section8_item2: '<div><strong class="text-lg text-red-800">Not Practicing Answer Writing:</strong> Having knowledge is one thing, and writing it effectively in 3 hours is another. Without practice, you will fail to manage time and express your thoughts clearly in the exam.</div>',
-                section8_item3: '<div><strong class="text-lg text-red-800">Skipping Basic Concepts:</strong> In the pursuit of advanced topics, candidates often forget the fundamentals like microeconomics, macroeconomics, or basic statistical principles. Your foundation must be strong.</div>',
-                section8_item4: '<div><strong class="text-lg text-red-800">Not Staying Updated with Current Affairs:</strong> Economics and Statistics are dynamic subjects. If you are not aware of the latest economic trends, government schemes, and data, your answers will seem incomplete.</div>',
+                section8_item1: '<div><strong class="text-lg text-red-300">Taking GS and English Lightly:</strong> Many candidates focus only on their core subject. Remember, the 200 marks from GS and English can decide your rank. Do not ignore them.</div>',
+                section8_item2: '<div><strong class="text-lg text-red-300">Not Practicing Answer Writing:</strong> Having knowledge is one thing, and writing it effectively in 3 hours is another. Without practice, you will fail to manage time and express your thoughts clearly in the exam.</div>',
+                section8_item3: '<div><strong class="text-lg text-red-300">Skipping Basic Concepts:</strong> In the pursuit of advanced topics, candidates often forget the fundamentals like microeconomics, macroeconomics, or basic statistical principles. Your foundation must be strong.</div>',
+                section8_item4: '<div><strong class="text-lg text-red-300">Not Staying Updated with Current Affairs:</strong> Economics and Statistics are dynamic subjects. If you are not aware of the latest economic trends, government schemes, and data, your answers will seem incomplete.</div>',
                 section8_final_thought: "✨ Your expertise can shape the nation's policies. ✨",
 
                 section9_title: "9. Application Process & Timeline 🗓️",
                 section9_desc: "The UPSC IES/ISS exam follows a fixed annual calendar, which helps candidates plan their preparation.",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">Notification:</div><div>Usually in April.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Application Deadline:</div><div>By May.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Written Exam:</div><div>In June/July.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Interview:</div><div>2-3 months after written exam result.</div></div>`,
+                section9_li1_title: 'Notification',
+                section9_li1_p: '<strong class="text-gray-400">Time:</strong> Usually in April.',
+                section9_li2_title: 'Application Deadline',
+                section9_li2_p: '<strong class="text-gray-400">Time:</strong> By May.',
+                section9_li3_title: 'Written Exam',
+                section9_li3_p: '<strong class="text-gray-400">Time:</strong> In June/July.',
+                section9_li4_title: 'Interview',
+                section9_li4_p: '<strong class="text-gray-400">Time:</strong> 2-3 months after written exam result.',
 
                 section10_title: "10. Institutes for Preparation 👨‍🏫",
                 section10_desc: "This is a niche exam, and the coaching for it is also specialized.",
-                section10_list: `<ul class="list-disc list-inside space-y-2"><li><strong>Ecoholics:</strong> A very well-known institute for IES preparation.</li><li><strong>Next IAS / Vision IAS:</strong> For the General Studies (GS) paper.</li><li><strong>Local University Professors:</strong> For subject-specific guidance.</li></ul>`,
+                section10_list_clean: `<ul class="list-disc list-inside space-y-2"><li><strong>Ecoholics:</strong> A very well-known institute for IES preparation.</li><li><strong>Next IAS / Vision IAS:</strong> For the General Studies (GS) paper.</li><li><strong>Local University Professors:</strong> For subject-specific guidance.</li></ul>`,
 
-                footer_text: "© 2025 crapd.in - IES/ISS Guide. Best wishes for your success.",
+                section11_title: "11. Career Growth Roadmap: Your Future 🚀", // NEW SECTION TITLE
+                section11_desc: "An IES/ISS officer starts their career as a **Group 'A' Gazetted Officer**. Progression is based on fixed timeframes and selection.", // NEW SECTION DESC
+                section11_roadmap_btn: 'View Complete Career Roadmap', // NEW BUTTON TEXT
+
+                footer_text: "© 2025 IES/ISS Guide. Best wishes for your success.",
+                
+                // Modals
                 written_exam_modal_title: "Stage 1: Written Examination",
-                written_exam_modal_desc: "This is a descriptive (subjective) type offline examination.",
+                written_exam_modal_desc: "This is a **Descriptive (Subjective) type** offline examination.",
                 written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Total Papers:</strong> 6</li><li><strong>Total Marks:</strong> 1000</li><li>Each paper is of 3 hours duration.</li></ul>',
                 interview_modal_title: "Stage 2: Interview (Viva Voce)",
                 interview_modal_desc: "Candidates who clear the written exam are called for an interview.",
@@ -478,217 +989,244 @@
                 iss_info_modal_title: "📊 Indian Statistical Service (ISS)",
                 iss_info_modal_desc: "ISS officers are responsible for the country's official statistical system. They work on the design of large-scale surveys, data collection, analysis, and dissemination. They primarily work in the National Statistical Office (NSO) and other ministries.<br><br><strong>Example:</strong> An ISS officer might design a survey for the National Sample Survey (NSS) to estimate the unemployment rate, or calculate and analyze the Gross Domestic Product (GDP) figures.",
                 ies_syllabus_modal_title: "IES Syllabus",
-                ies_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>General English</li><li>General Studies</li><li>General Economics - I (Microeconomics)</li><li>General Economics - II (Macroeconomics)</li><li>General Economics - III (Development & Environmental Economics)</li><li>Indian Economics</li></ul>',
+                ies_syllabus_modal_list_clean: '<ul class="list-disc list-inside space-y-2"><li>General English</li><li>General Studies</li><li>General Economics - I (Microeconomics)</li><li>General Economics - II (Macroeconomics)</li><li>General Economics - III (Development & Environmental Economics)</li><li>Indian Economics</li></ul>',
                 iss_syllabus_modal_title: "ISS Syllabus",
-                iss_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>General English</li><li>General Studies</li><li>Statistics - I (Probability & Statistical Methods)</li><li>Statistics - II (Statistical Inference & Sampling Survey)</li><li>Statistics - III (Econometrics & Applied Statistics)</li><li>Statistics - IV (Official Statistics & Data Analysis)</li></ul>',
+                iss_syllabus_modal_list_clean: '<ul class="list-disc list-inside space-y-2"><li>General English</li><li>General Studies</li><li>Statistics - I (Probability & Statistical Methods)</li><li>Statistics - II (Statistical Inference & Sampling Survey)</li><li>Statistics - III (Econometrics & Applied Statistics)</li><li>Statistics - IV (Official Statistics & Data Analysis)</li></ul>',
                 ies_career_modal_title: "Career in IES",
                 ies_career_modal_desc: "IES officers start as Assistant Directors and can reach the highest levels of policy-making.",
-                ies_career_modal_list: '<button class="rank-btn">Assistant Director</button><button class="rank-btn">Deputy Director</button><button class="rank-btn">Director</button><button class="rank-btn">Economic Adviser</button>',
+                ies_career_modal_list_clean: '<ul class="list-disc list-inside space-y-1"><li>Assistant Director (4 years)</li><li>Deputy Director (5 years)</li><li>Director (5 years)</li><li>Economic Adviser/Director General</li></ul>',
                 iss_career_modal_title: "Career in ISS",
                 iss_career_modal_desc: "ISS officers start as Assistant Directors and can reach the post of Chief Statistician of India.",
-                iss_career_modal_list: '<button class="rank-btn">Assistant Director</button><button class="rank-btn">Deputy Director</button><button class="rank-btn">Director</button><button class="rank-btn">Director General</button>'
-            },
-            pa: {
-                doc_title: "UPSC IES/ISS ਪ੍ਰੀਖਿਆ: ਸੰਪੂਰਨ ਗਾਈਡ",
-                header_title: "📊 UPSC IES/ISS ਪ੍ਰੀਖਿਆ 📈",
-                header_subtitle: "ਆਰਥਿਕ ਅਤੇ ਅੰਕੜਾ ਨੀਤੀ ਨਿਰਮਾਣ ਵਿੱਚ ਇੱਕ ਮਾਹਰ ਕੈਰੀਅਰ",
-                section1_title: "1. IES/ISS ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ? 🤔",
-                section1_desc: "ਭਾਰਤੀ ਆਰਥਿਕ ਸੇਵਾ (IES) ਅਤੇ ਭਾਰਤੀ ਅੰਕੜਾ ਸੇਵਾ (ISS) ਭਾਰਤ ਸਰਕਾਰ ਲਈ ਆਰਥਿਕ ਅਤੇ ਅੰਕੜਾ ਅਹੁਦਿਆਂ 'ਤੇ ਮਾਹਰਾਂ ਦੀ ਭਰਤੀ ਲਈ UPSC ਦੁਆਰਾ ਆਯੋਜਿਤ ਵਿਸ਼ੇਸ਼ ਪ੍ਰੀਖਿਆਵਾਂ ਹਨ। ਇਹ ਅਧਿਕਾਰੀ ਦੇਸ਼ ਦੀ ਆਰਥਿਕ ਯੋਜਨਾਬੰਦੀ ਅਤੇ ਨੀਤੀ ਨਿਰਮਾਣ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ।",
-                section1_card1_title: "ਭਾਰਤੀ ਆਰਥਿਕ ਸੇਵਾ (IES)",
-                section1_card2_title: "ਭਾਰਤੀ ਅੰਕੜਾ ਸੇਵਾ (ISS)",
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ: 2 ਪੜਾਅ 🎯",
-                section2_desc: "IES/ISS ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਦੋ ਪੜਾਅ ਹੁੰਦੇ ਹਨ: ਇੱਕ ਵਿਸਤ੍ਰਿਤ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਅਤੇ ਉਸ ਤੋਂ ਬਾਅਦ ਇੱਕ ਇੰਟਰਵਿਊ।",
-                section2_step1_title: "ਪੜਾਅ 1:<br>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                section2_step1_desc: "1000 ਅੰਕ",
-                section2_step2_title: "ਪੜਾਅ 2:<br>ਇੰਟਰਵਿਊ (Viva Voce)",
-                section2_step2_desc: "200 ਅੰਕ",
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ✅",
-                section3_list: '<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎓</span><div><strong class="text-[#6c4f2d]">ਵਿੱਦਿਅਕ ਯੋਗਤਾ:</strong> IES ਲਈ ਅਰਥ ਸ਼ਾਸਤਰ/ਅਪਲਾਈਡ ਇਕਨਾਮਿਕਸ/ਬਿਜ਼ਨਸ ਇਕਨਾਮਿਕਸ/ਇਕੋਨੋਮੈਟ੍ਰਿਕਸ ਵਿੱਚ ਪੋਸਟ-ਗ੍ਰੈਜੂਏਟ ਡਿਗਰੀ। ISS ਲਈ ਅੰਕੜਾ/ਗਣਿਤਿਕ ਅੰਕੜਾ/ਅਪਲਾਈਡ ਅੰਕੜਾ ਵਿੱਚ ਬੈਚਲਰ ਜਾਂ ਮਾਸਟਰ ਡਿਗਰੀ।</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🎂</span><div><strong class="text-[#6c4f2d]">ਉਮਰ ਸੀਮਾ:</strong> 21 ਤੋਂ 30 ਸਾਲ। (ਰਾਖਵੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਲਈ ਉਮਰ ਵਿੱਚ ਛੋਟ ਲਾਗੂ ਹੈ)।</div></li><li class="flex items-start"><span class="text-2xl text-yellow-500 mr-4">🇮🇳</span><div><strong class="text-[#6c4f2d]">ਕੌਮੀਅਤ:</strong> ਭਾਰਤੀ ਨਾਗਰਿਕ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ।</div></li></ul>',
-                section3_chart_title: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ 📊",
-                examPatternChartLabels: ['ਆਮ', 'ਵਿਸ਼ਾ-ਵਿਸ਼ੇਸ਼'],
-                section4_title: "4. ਪ੍ਰੀਖਿਆ ਦਾ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ 📚",
-                section4_desc: "ਦੋਵਾਂ ਸੇਵਾਵਾਂ ਲਈ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ 6 ਪੇਪਰ ਹੁੰਦੇ ਹਨ। ਪਹਿਲੇ ਦੋ ਪੇਪਰ (ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਜਨਰਲ ਸਟੱਡੀਜ਼) ਦੋਵਾਂ ਲਈ ਸਾਂਝੇ ਹਨ, ਜਦੋਂ ਕਿ ਬਾਕੀ ਚਾਰ ਪੇਪਰ ਵਿਸ਼ਾ-ਵਿਸ਼ੇਸ਼ ਹਨ।",
-                section4_subject1_title: "IES ਸਿਲੇਬਸ",
-                section4_subject2_title: "ISS ਸਿਲੇਬਸ",
-                section4_subject_button: "ਪੇਪਰ ਵੇਖੋ &rarr;",
+                iss_career_modal_list_clean: '<ul class="list-disc list-inside space-y-1"><li>Assistant Director (4 years)</li><li>Deputy Director (5 years)</li><li>Director (5 years)</li><li>Director General/Chief Statistician of India</li></ul>',
                 
-                section5_title: "5. ਪ੍ਰੀਖਿਆ ਦੇ ਸਾਰੇ ਵਿਸ਼ੇ",
-                section5_ies_title: "IES ਦੇ ਵਿਸ਼ੇ:",
-                section5_ies_list: `<div><div class="subject-item"><span>ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਸਟੱਡੀਜ਼</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - I</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - II</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - III</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਭਾਰਤੀ ਅਰਥ ਸ਼ਾਸਤਰ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div></div>`,
-                section5_iss_title: "ISS ਦੇ ਵਿਸ਼ੇ:",
-                section5_iss_list: `<div><div class="subject-item"><span>ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਸਟੱਡੀਜ਼</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਅੰਕੜਾ - I (Objective)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਅੰਕੜਾ - II (Objective)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਅੰਕੜਾ - III (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਅੰਕੜਾ - IV (Descriptive)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div></div>`,
-                
-                section6_title: "6. ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ ਅਤੇ ਸੇਵਾਵਾਂ 🏢",
-                section6_desc: "IES ਅਤੇ ISS ਅਧਿਕਾਰੀ ਭਾਰਤ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਮੰਤਰਾਲਿਆਂ ਅਤੇ ਵਿਭਾਗਾਂ ਵਿੱਚ ਸੇਵਾ ਕਰਦੇ ਹਨ, ਜੋ ਦੇਸ਼ ਲਈ ਡਾਟਾ-ਅਧਾਰਤ ਨੀਤੀਆਂ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।",
-                section6_card_button: "ਕੈਰੀਅਰ ਮਾਰਗ ਵੇਖੋ &rarr;",
-                
-                section7_title: "7. ਤੁਹਾਡੀ ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ: ਸਮਾਰਟ ਵਰਕ 📈",
-                section7_desc: "ਇਸ ਮਾਹਰ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਤੁਹਾਡੇ ਪੋਸਟ-ਗ੍ਰੈਜੂਏਟ ਪੱਧਰ ਦੇ ਗਿਆਨ ਦੀ ਡੂੰਘਾਈ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣਾਤਮਕ ਹੁਨਰ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
-                section7_col1_title: "📚 ਪੜ੍ਹਾਈ ਦੇ ਮੁੱਖ ਥੰਮ੍ਹ:",
-                section7_col1_list: '<ul class="list-disc list-inside space-y-3"><li><strong>ਪੋਸਟ-ਗ੍ਰੈਜੂਏਟ ਪੱਧਰ ਦੀ ਸਮਝ:</strong> ਆਪਣੇ ਮੁੱਖ ਵਿਸ਼ਿਆਂ (ਅਰਥ ਸ਼ਾਸਤਰ/ਅੰਕੜਾ) ਦੀ ਡੂੰਘੀ ਅਤੇ ਸਪਸ਼ਟ ਸਮਝ ਵਿਕਸਿਤ ਕਰੋ।</li><li><strong>GS ਅਤੇ ਅੰਗਰੇਜ਼ੀ \'ਤੇ ਧਿਆਨ ਦਿਓ:</strong> ਇਹ ਪੇਪਰ ਸਕੋਰਿੰਗ ਹਨ ਅਤੇ ਤੁਹਾਡੀ ਅੰਤਿਮ ਰੈਂਕ \'ਤੇ ਮਹੱਤਵਪੂਰਨ ਪ੍ਰਭਾਵ ਪਾ ਸਕਦੇ ਹਨ।</li><li><strong>ਉੱਤਰ ਲਿਖਣ ਦਾ ਅਭਿਆਸ:</strong> ਇਹ ਇੱਕ ਵਰਣਨਯੋਗ ਪ੍ਰੀਖਿਆ ਹੈ। ਸਪਸ਼ਟ, ਸੰਖੇਪ ਅਤੇ ਸੁਸੰਗਤ ਉੱਤਰ ਲਿਖਣ ਦਾ ਨਿਯਮਤ ਅਭਿਆਸ ਕਰੋ।</li><li><strong>ਪਿਛਲੇ ਸਾਲਾਂ ਦੇ ਪ੍ਰਸ਼ਨ (PYQs):</strong> ਪ੍ਰੀਖਿਆ ਦੇ ਪੈਟਰਨ ਅਤੇ ਪ੍ਰਸ਼ਨਾਂ ਦੀ ਪ੍ਰਕਿਰਤੀ ਨੂੰ ਸਮਝਣ ਲਈ ਇਹ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਸਾਧਨ ਹੈ।</li></ul>',
-                section7_col2_title: "🔄 ਦੁਹਰਾਈ ਅਤੇ ਮੌਜੂਦਾ ਮਾਮਲੇ:",
-                section7_col2_desc: "**ਸੰਕਲਪਿਕ ਸਪਸ਼ਟਤਾ ਅਤੇ ਮੌਜੂਦਾ ਨਾਲ ਸਬੰਧ ਮਹੱਤਵਪੂਰਨ ਹੈ!**",
-                section7_col2_list: '<ul class="list-disc list-inside space-y-2"><li>ਆਪਣੇ ਨੋਟਸ ਨੂੰ ਨਿਯਮਿਤ ਤੌਰ \'ਤੇ ਦੁਹਰਾਓ।</li><li>ਆਰਥਿਕ ਸਰਵੇਖਣ ਅਤੇ ਕੇਂਦਰੀ ਬਜਟ ਵਰਗੇ ਮਹੱਤਵਪੂਰਨ ਸਰਕਾਰੀ ਦਸਤਾਵੇਜ਼ਾਂ ਦਾ ਅਧਿਐਨ ਕਰੋ।</li><li>ਦਿ ਹਿੰਦੂ, ਇੰਡੀਅਨ ਐਕਸਪ੍ਰੈਸ, ਅਤੇ ਯੋਜਨਾ/ਕੁਰੂਕਸ਼ੇਤਰ ਵਰਗੀਆਂ ਮੈਗਜ਼ੀਨਾਂ ਤੋਂ ਆਰਥਿਕ ਅਤੇ ਸਮਾਜਿਕ ਮੁੱਦਿਆਂ \'ਤੇ ਅਪਡੇਟ ਰਹੋ।</li><li>ਆਪਣੇ ਵਿਕਲਪਿਕ ਵਿਸ਼ਿਆਂ ਨਾਲ ਸਬੰਧਤ ਖੋਜ ਪੱਤਰਾਂ ਅਤੇ ਲੇਖਾਂ ਨੂੰ ਪੜ੍ਹੋ।</li></ul>',
-                
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਇਹ ਇੱਕ ਮਾਹਰ ਪ੍ਰੀਖਿਆ ਹੈ ਜਿੱਥੇ ਸਤਹੀ ਗਿਆਨ ਕੰਮ ਨਹੀਂ ਆਉਂਦਾ। ਇਹਨਾਂ ਗਲਤੀਆਂ ਤੋਂ ਬਚ ਕੇ ਆਪਣੀ ਸਫਲਤਾ ਨੂੰ ਯਕੀਨੀ ਬਣਾਓ।",
-                section8_item1: '<div><strong class="text-lg text-red-800">GS ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਨੂੰ ਹਲਕੇ ਵਿੱਚ ਲੈਣਾ:</strong> ਕਈ ਉਮੀਦਵਾਰ ਸਿਰਫ਼ ਆਪਣੇ ਮੁੱਖ ਵਿਸ਼ੇ \'ਤੇ ਧਿਆਨ ਕੇਂਦਰਿਤ ਕਰਦੇ ਹਨ। ਯਾਦ ਰੱਖੋ, GS ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ 200 ਅੰਕ ਤੁਹਾਡੀ ਰੈਂਕ ਤੈਅ ਕਰ ਸਕਦੇ ਹਨ। ਇਨ੍ਹਾਂ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਨਾ ਕਰੋ।</div>',
-                section8_item2: '<div><strong class="text-lg text-red-800">ਉੱਤਰ ਲਿਖਣ ਦਾ ਅਭਿਆਸ ਨਾ ਕਰਨਾ:</strong> ਗਿਆਨ ਹੋਣਾ ਇੱਕ ਗੱਲ ਹੈ, ਅਤੇ ਉਸਨੂੰ 3 ਘੰਟਿਆਂ ਵਿੱਚ ਪ੍ਰਭਾਵਸ਼ਾਲੀ ਢੰਗ ਨਾਲ ਲਿਖਣਾ ਦੂਜੀ। ਬਿਨਾਂ ਅਭਿਆਸ ਦੇ, ਤੁਸੀਂ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਨਹੀਂ ਕਰ ਸਕੋਗੇ ਅਤੇ ਆਪਣੇ ਵਿਚਾਰ ਸਪਸ਼ਟ ਰੂਪ ਵਿੱਚ ਪ੍ਰਗਟ ਨਹੀਂ ਕਰ ਸਕੋਗੇ।</div>',
-                section8_item3: '<div><strong class="text-lg text-red-800">ਬੁਨਿਆਦੀ ਸੰਕਲਪਾਂ ਨੂੰ ਛੱਡਣਾ:</strong> ਉੱਨਤ ਵਿਸ਼ਿਆਂ ਦੇ ਚੱਕਰ ਵਿੱਚ, ਉਮੀਦਵਾਰ ਅਕਸਰ ਮਾਈਕ੍ਰੋਇਕਨਾਮਿਕਸ, ਮੈਕ੍ਰੋਇਕਨਾਮਿਕਸ ਜਾਂ ਬੁਨਿਆਦੀ ਅੰਕੜਾ ਸਿਧਾਂਤਾਂ ਵਰਗੀਆਂ ਬੁਨਿਆਦੀ ਗੱਲਾਂ ਨੂੰ ਭੁੱਲ ਜਾਂਦੇ ਹਨ। ਤੁਹਾਡੀ ਨੀਂਹ ਮਜ਼ਬੂਤ ​​ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</div>',
-                section8_item4: '<div><strong class="text-lg text-red-800">ਮੌਜੂਦਾ ਮਾਮਲਿਆਂ ਨਾਲ ਅਪਡੇਟ ਨਾ ਰਹਿਣਾ:</strong> ਅਰਥ ਸ਼ਾਸਤਰ ਅਤੇ ਅੰਕੜਾ ਗਤੀਸ਼ੀਲ ਵਿਸ਼ੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਨਵੀਨਤਮ ਆਰਥਿਕ ਰੁਝਾਨਾਂ, ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ ਅਤੇ ਡਾਟਾ ਤੋਂ ਜਾਣੂ ਨਹੀਂ ਹੋ, ਤਾਂ ਤੁਹਾਡੇ ਜਵਾਬ ਅਧੂਰੇ ਲੱਗਣਗੇ।</div>',
-                section8_final_thought: "✨ ਤੁਹਾਡੀ ਮੁਹਾਰਤ ਦੇਸ਼ ਦੀਆਂ ਨੀਤੀਆਂ ਨੂੰ ਆਕਾਰ ਦੇ ਸਕਦੀ ਹੈ। ✨",
+                // NEW Career Roadmap Modal Content
+                modal_roadmap_title: 'Specialist Officer: Career Progression Path (IES/ISS)',
+                roadmap_step1_title: 'Initial Appointment (Entry Level)',
+                roadmap_step1_desc: 'Assistant Director. This is a **Group A Gazetted Post**.',
+                roadmap_step2_title: 'Mid Level (4-9 Years)',
+                roadmap_step2_desc: 'Deputy Director. Specialization and administrative responsibilities increase at this level.',
+                roadmap_step3_title: 'Senior Level (10-14 Years)',
+                roadmap_step3_desc: 'Director. Significant planning and analytical roles in Ministries/Departments.',
+                roadmap_step4_title: 'Apex Leadership (15+ Years)',
+                roadmap_step4_desc: 'Economic Adviser/Director General/Chief Statistician of India. The apex policy-making and leadership post of the service.',
+                roadmap_note: 'Promotions depend on the recommendations of promotion boards, performance, and vacancy.',
+            }
+        };
 
-                section9_title: "9. ਬਿਨੈ-ਪੱਤਰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਸਮਾਂ-ਸੀਮਾ 🗓️",
-                section9_desc: "UPSC IES/ISS ਪ੍ਰੀਖਿਆ ਦਾ ਇੱਕ ਨਿਸ਼ਚਿਤ ਸਾਲਾਨਾ ਕੈਲੰਡਰ ਹੁੰਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਆਪਣੀ ਤਿਆਰੀ ਦੀ ਯੋਜਨਾ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਮਿਲਦੀ ਹੈ।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">ਨੋਟੀਫਿਕੇਸ਼ਨ:</div><div>ਆਮ ਤੌਰ 'ਤੇ ਅਪ੍ਰੈਲ ਵਿੱਚ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਆਖਰੀ ਮਿਤੀ:</div><div>ਮਈ ਤੱਕ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ:</div><div>ਜੂਨ/ਜੁਲਾਈ ਵਿੱਚ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਇੰਟਰਵਿਊ:</div><div>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦੇ ਨਤੀਜੇ ਤੋਂ 2-3 ਮਹੀਨੇ ਬਾਅਦ।</div></div>`,
 
-                section10_title: "10. ਤਿਆਰੀ ਲਈ ਸੰਸਥਾਵਾਂ 👨‍🏫",
-                section10_desc: "ਇਹ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਪ੍ਰੀਖਿਆ ਹੈ, ਇਸ ਲਈ ਇਸਦੇ ਲਈ ਕੋਚਿੰਗ ਵੀ ਵਿਸ਼ੇਸ਼ ਹੁੰਦੀ ਹੈ।",
-                section10_list: `<ul class="list-disc list-inside space-y-2"><li><strong>Ecoholics:</strong> IES ਦੀ ਤਿਆਰੀ ਲਈ ਇੱਕ ਬਹੁਤ ਪ੍ਰਸਿੱਧ ਸੰਸਥਾ।</li><li><strong>Next IAS / Vision IAS:</strong> ਜਨਰਲ ਸਟੱਡੀਜ਼ (GS) ਪੇਪਰ ਲਈ।</li><li><strong>ਸਥਾਨਕ ਯੂਨੀਵਰਸਿਟੀ ਦੇ ਪ੍ਰੋਫੈਸਰ:</strong> ਵਿਸ਼ਾ-ਵਿਸ਼ੇਸ਼ ਮਾਰਗਦਰਸ਼ਨ ਲਈ।</li></ul>`,
-                
-                footer_text: "© 2025 crapd.in - IES/ISS ਗਾਈਡ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁੱਭਕਾਮਨਾਵਾਂ।",
-                written_exam_modal_title: "ਪੜਾਅ 1: ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ",
-                written_exam_modal_desc: "ਇਹ ਇੱਕ ਵਰਣਨਯੋਗ (Descriptive) ਕਿਸਮ ਦੀ ਔਫਲਾਈਨ ਪ੍ਰੀਖਿਆ ਹੈ।",
-                written_exam_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕੁੱਲ ਪੇਪਰ:</strong> 6</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 1000</li><li>ਹਰੇਕ ਪੇਪਰ 3 ਘੰਟੇ ਦਾ ਹੁੰਦਾ ਹੈ।</li></ul>',
-                interview_modal_title: "ਪੜਾਅ 2: ਇੰਟਰਵਿਊ (Viva Voce)",
-                interview_modal_desc: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਫਲ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਇੰਟਰਵਿਊ ਲਈ ਬੁਲਾਇਆ ਜਾਂਦਾ ਹੈ।",
-                interview_modal_list: '<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 200</li><li>ਇਹ ਉਮੀਦਵਾਰ ਦੇ ਵਿਸ਼ੇ ਦੇ ਗਿਆਨ, ਮਾਨਸਿਕ ਚੁਸਤੀ ਅਤੇ ਸ਼ਖਸੀਅਤ ਦੀ ਪਰਖ ਕਰਦਾ ਹੈ।</li><li>ਅੰਤਿਮ ਮੈਰਿਟ ਸੂਚੀ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਅਤੇ ਇੰਟਰਵਿਊ (1000 + 200 = 1200 ਅੰਕ) ਦੇ ਆਧਾਰ \'ਤੇ ਤਿਆਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</li></ul>',
-                ies_info_modal_title: "📈 ਭਾਰਤੀ ਆਰਥਿਕ ਸੇਵਾ (IES)",
-                ies_info_modal_desc: "IES ਇੱਕ ਵਿਸ਼ੇਸ਼ ਸੇਵਾ ਹੈ ਜੋ ਆਰਥਿਕ ਵਿਸ਼ਲੇਸ਼ਣ, ਨੀਤੀ ਨਿਰਮਾਣ ਅਤੇ ਲਾਗੂ ਕਰਨ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ। IES ਅਧਿਕਾਰੀ ਵਿੱਤ ਮੰਤਰਾਲੇ, NITI ਆਯੋਗ, ਵਣਜ ਮੰਤਰਾਲੇ ਅਤੇ ਹੋਰ ਆਰਥਿਕ ਵਿਭਾਗਾਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਹਨ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ IES ਅਧਿਕਾਰੀ ਕੇਂਦਰੀ ਬਜਟ ਤਿਆਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦਾ ਹੈ, ਮਹਿੰਗਾਈ ਦੇ ਰੁਝਾਨਾਂ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰ ਸਕਦਾ ਹੈ, ਜਾਂ ਅੰਤਰਰਾਸ਼ਟਰੀ ਵਪਾਰ ਸਮਝੌਤਿਆਂ 'ਤੇ ਗੱਲਬਾਤ ਕਰ ਸਕਦਾ ਹੈ।",
-                iss_info_modal_title: "📊 ਭਾਰਤੀ ਅੰਕੜਾ ਸੇਵਾ (ISS)",
-                iss_info_modal_desc: "ISS ਅਧਿਕਾਰੀ ਦੇਸ਼ ਦੀ ਅਧਿਕਾਰਤ ਅੰਕੜਾ ਪ੍ਰਣਾਲੀ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੁੰਦੇ ਹਨ। ਉਹ ਵੱਡੇ ਪੱਧਰ 'ਤੇ ਸਰਵੇਖਣਾਂ ਦੇ ਡਿਜ਼ਾਈਨ, ਡਾਟਾ ਇਕੱਠਾ ਕਰਨ, ਵਿਸ਼ਲੇਸ਼ਣ ਅਤੇ ਪ੍ਰਸਾਰ ਦਾ ਕੰਮ ਕਰਦੇ ਹਨ। ਉਹ ਮੁੱਖ ਤੌਰ 'ਤੇ ਰਾਸ਼ਟਰੀ ਅੰਕੜਾ ਦਫ਼ਤਰ (NSO) ਅਤੇ ਹੋਰ ਮੰਤਰਾਲਿਆਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਹਨ।<br><br><strong>ਉਦਾਹਰਨ:</strong> ਇੱਕ ISS ਅਧਿਕਾਰੀ ਰਾਸ਼ਟਰੀ ਨਮੂਨਾ ਸਰਵੇਖਣ (NSS) ਲਈ ਇੱਕ ਸਰਵੇਖਣ ਡਿਜ਼ਾਈਨ ਕਰ ਸਕਦਾ ਹੈ ਤਾਂ ਜੋ ਬੇਰੁਜ਼ਗਾਰੀ ਦਰ ਦਾ ਅਨੁਮਾਨ ਲਗਾਇਆ ਜਾ ਸਕੇ, ਜਾਂ ਕੁੱਲ ਘਰੇਲੂ ਉਤਪਾਦ (GDP) ਦੇ ਅੰਕੜਿਆਂ ਦੀ ਗਣਨਾ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰ ਸਕਦਾ ਹੈ।",
-                ies_syllabus_modal_title: "IES ਸਿਲੇਬਸ",
-                ies_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ</li><li>ਜਨਰਲ ਸਟੱਡੀਜ਼</li><li>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - I (ਮਾਈਕ੍ਰੋਇਕਨਾਮਿਕਸ)</li><li>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - II (ਮੈਕ੍ਰੋਇਕਨਾਮਿਕਸ)</li><li>ਜਨਰਲ ਅਰਥ ਸ਼ਾਸਤਰ - III (ਵਿਕਾਸ ਅਤੇ ਵਾਤਾਵਰਣ ਅਰਥ ਸ਼ਾਸਤਰ)</li><li>ਭਾਰਤੀ ਅਰਥ ਸ਼ਾਸਤਰ</li></ul>',
-                iss_syllabus_modal_title: "ISS ਸਿਲੇਬਸ",
-                iss_syllabus_modal_list: '<ul class="list-disc list-inside space-y-2"><li>ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ</li><li>ਜਨਰਲ ਸਟੱਡੀਜ਼</li><li>ਅੰਕੜਾ - I (ਸੰਭਾਵਨਾ ਅਤੇ ਅੰਕੜਾ ਵਿਧੀਆਂ)</li><li>ਅੰਕੜਾ - II (ਅੰਕੜਾ ਅਨੁਮਾਨ ਅਤੇ ਨਮੂਨਾ ਸਰਵੇਖਣ)</li><li>ਅੰਕੜਾ - III (ਅਰਥਮਿਤੀ ਅਤੇ ਅਪਲਾਈਡ ਅੰਕੜਾ)</li><li>ਅੰਕੜਾ - IV (ਅਧਿਕਾਰਤ ਅੰਕੜਾ ਅਤੇ ਡਾਟਾ ਵਿਸ਼ਲੇਸ਼ਣ)</li></ul>',
-                ies_career_modal_title: "IES ਵਿੱਚ ਕੈਰੀਅਰ",
-                ies_career_modal_desc: "IES ਅਧਿਕਾਰੀ ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ ਵਜੋਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ ਅਤੇ ਨੀਤੀ-ਨਿਰਮਾਣ ਦੇ ਉੱਚ ਪੱਧਰਾਂ ਤੱਕ ਪਹੁੰਚ ਸਕਦੇ ਹਨ।",
-                ies_career_modal_list: '<button class="rank-btn">ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਉਪ ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਆਰਥਿਕ ਸਲਾਹਕਾਰ</button>',
-                iss_career_modal_title: "ISS ਵਿੱਚ ਕੈਰੀਅਰ",
-                iss_career_modal_desc: "ISS ਅਧਿਕਾਰੀ ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ ਵਜੋਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ ਅਤੇ ਭਾਰਤ ਦੇ ਮੁੱਖ ਅੰਕੜਾ ਵਿਗਿਆਨੀ ਦੇ ਅਹੁਦੇ ਤੱਕ ਪਹੁੰਚ ਸਕਦੇ ਹਨ।",
-                iss_career_modal_list: '<button class="rank-btn">ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਉਪ ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਨਿਰਦੇਸ਼ਕ</button><button class="rank-btn">ਡਾਇਰੈਕਟਰ ਜਨਰਲ</button>'
+        function initializeCharts(lang) {
+            if (examPatternChartInstance) {
+                examPatternChartInstance.destroy();
+            }
+            const marksCtx = document.getElementById('examPatternChart');
+            
+            // Chart Styling to match h.html's dark theme
+            const chartColors = {
+                gold: '#FFD700', 
+                darkGold: '#A37A00', 
+                textGrey: 'white',
+                darkBackground: '#26292E'
+            };
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: chartColors.textGrey,
+                            font: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + (lang === 'hi' ? ' अंक' : ' Marks');
+                                }
+                                return label;
+                            },
+                             titleColor: 'black',
+                             bodyColor: 'black',
+                             backgroundColor: 'rgba(255, 215, 0, 0.9)',
+                        },
+                        bodyFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif" },
+                        titleFont: { family: "'Inter', 'Noto Sans Devanagari', sans-serif", weight: 'bold' },
+                        padding: 12,
+                        boxPadding: 6,
+                        borderColor: chartColors.darkGold,
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                    }
+                }
+            };
+            
+            if (marksCtx) {
+                examPatternChartInstance = new Chart(marksCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: translations[lang].examPatternChartLabels,
+                        datasets: [{
+                            label: (lang === 'hi' ? 'अंक' : 'Marks'),
+                            data: [200, 800],
+                            backgroundColor: [
+                                chartColors.gold,
+                                chartColors.darkGold
+                            ],
+                            borderColor: chartColors.darkBackground,
+                            borderWidth: 2
+                        }]
+                    },
+                    options: defaultChartOptions
+                });
+            }
+        }
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.title = translations[lang].doc_title;
+            
+            // Handle all data-lang-key elements
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang][key] !== undefined) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Re-render clean subject list
+            const iesListClean = document.querySelector('[data-lang-key="section5_ies_list_clean"]');
+            if(iesListClean) iesListClean.innerHTML = translations[lang]['section5_ies_list_clean'];
+            
+            const issListClean = document.querySelector('[data-lang-key="section5_iss_list_clean"]');
+            if(issListClean) issListClean.innerHTML = translations[lang]['section5_iss_list_clean'];
+
+            // Re-render career modal lists
+            const iesCareerListClean = document.querySelector('#iesCareerModal [data-lang-key="ies_career_modal_list_clean"]');
+            if(iesCareerListClean) iesCareerListClean.innerHTML = translations[lang]['ies_career_modal_list_clean'];
+            
+            const issCareerListClean = document.querySelector('#issCareerModal [data-lang-key="iss_career_modal_list_clean"]');
+            if(issCareerListClean) issCareerListClean.innerHTML = translations[lang]['iss_career_modal_list_clean'];
+
+            // Re-render Syllabus modal lists (need to use innerHTML due to lists)
+            const iesSyllabusModalList = document.querySelector('#iesSyllabusModal [data-lang-key="ies_syllabus_modal_list_clean"]');
+            if(iesSyllabusModalList) iesSyllabusModalList.innerHTML = translations[lang]['ies_syllabus_modal_list_clean'];
+
+            const issSyllabusModalList = document.querySelector('#issSyllabusModal [data-lang-key="iss_syllabus_modal_list_clean"]');
+            if(issSyllabusModalList) issSyllabusModalList.innerHTML = translations[lang]['iss_syllabus_modal_list_clean'];
+
+            // Handle timeline data which was previously split into divs
+            if (lang === 'hi') {
+                document.querySelector('[data-lang-key="section9_li1_title"]').textContent = 'अधिसूचना (Notification)';
+                document.querySelector('[data-lang-key="section9_li1_p"]').innerHTML = translations['hi']['section9_li1_p'];
+                document.querySelector('[data-lang-key="section9_li2_title"]').textContent = 'आवेदन की अंतिम तिथि';
+                document.querySelector('[data-lang-key="section9_li2_p"]').innerHTML = translations['hi']['section9_li2_p'];
+                document.querySelector('[data-lang-key="section9_li3_title"]').textContent = 'लिखित परीक्षा';
+                document.querySelector('[data-lang-key="section9_li3_p"]').innerHTML = translations['hi']['section9_li3_p'];
+                document.querySelector('[data-lang-key="section9_li4_title"]').textContent = 'साक्षात्कार (Interview)';
+                document.querySelector('[data-lang-key="section9_li4_p"]').innerHTML = translations['hi']['section9_li4_p'];
+            } else {
+                 document.querySelector('[data-lang-key="section9_li1_title"]').textContent = 'Notification';
+                document.querySelector('[data-lang-key="section9_li1_p"]').innerHTML = translations['en']['section9_li1_p'];
+                document.querySelector('[data-lang-key="section9_li2_title"]').textContent = 'Application Deadline';
+                document.querySelector('[data-lang-key="section9_li2_p"]').innerHTML = translations['en']['section9_li2_p'];
+                document.querySelector('[data-lang-key="section9_li3_title"]').textContent = 'Written Exam';
+                document.querySelector('[data-lang-key="section9_li3_p"]').innerHTML = translations['en']['section9_li3_p'];
+                document.querySelector('[data-lang-key="section9_li4_title"]').textContent = 'Interview';
+                document.querySelector('[data-lang-key="section9_li4_p"]').innerHTML = translations['en']['section9_li4_p'];
+            }
+            
+            // Re-render institutes list
+            const instList = document.querySelector('[data-lang-key="section10_list_clean"]');
+            if(instList) instList.innerHTML = translations[lang]['section10_list_clean'];
+
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            initializeCharts(lang);
+            attachModalListeners();
+        }
+
+        function attachModalListeners() {
+            // Remove all previous listeners on the data-modal-target elements to prevent re-binding
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                const newTrigger = trigger.cloneNode(true);
+                trigger.parentNode.replaceChild(newTrigger, trigger);
+            });
+
+            // Add new listeners to the newly cloned (and clean) elements
+            document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    const targetElement = e.target.closest('[data-modal-target]');
+                    if (targetElement) {
+                        const modalId = targetElement.getAttribute('data-modal-target');
+                        if(modalId) {
+                            showModal(modalId);
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Modal functionality (Replicated from CDS/h.html)
+        window.showModal = (modalId) => {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            const targetModal = document.getElementById(modalId);
+            if (targetModal) {
+                targetModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+        
+        window.closeModal = (modalId) => {
+            const targetModal = document.getElementById(modalId);
+            if (targetModal) {
+                targetModal.classList.remove('active');
+                if (!document.querySelector('.modal-overlay.active')) {
+                    document.body.style.overflow = '';
+                }
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            let examPatternChartInstance = null;
-
-            function initializeCharts(lang) {
-                if (examPatternChartInstance) {
-                    examPatternChartInstance.destroy();
-                }
-                const marksCtx = document.getElementById('examPatternChart');
-                if (marksCtx) {
-                    examPatternChartInstance = new Chart(marksCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: translations[lang].examPatternChartLabels,
-                            datasets: [{
-                                label: 'Marks',
-                                data: [200, 800],
-                                backgroundColor: [
-                                    'rgba(108, 79, 45, 0.8)',
-                                    'rgba(180, 140, 90, 0.8)'
-                                ],
-                                borderColor: [
-                                    'rgba(108, 79, 45, 1)',
-                                    'rgba(180, 140, 90, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.label || '';
-                                            if (label) {
-                                                label += ': ';
-                                            }
-                                            if (context.parsed !== null) {
-                                                label += context.parsed + (lang === 'hi' ? ' अंक' : (lang === 'pa' ? ' ਅੰਕ' : ' Marks'));
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
+            
+            changeLanguage('hi');
+            
+            // Event listeners for closing modals via close button or overlay click
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                const closeButton = modal.querySelector('.modal-close-button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', () => {
+                        closeModal(modal.id);
                     });
                 }
-            }
-
-            function changeLanguage(lang) {
-                document.documentElement.lang = lang;
-                document.title = translations[lang].doc_title;
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (translations[lang][key] !== undefined) {
-                        el.innerHTML = translations[lang][key];
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        closeModal(modal.id);
                     }
                 });
-                
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-lang') === lang) {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                initializeCharts(lang);
-                attachModalListeners();
-            }
+            });
 
-            function attachModalListeners() {
-                const modalTriggers = document.querySelectorAll('[data-modal-target]');
-                modalTriggers.forEach(trigger => {
-                    trigger.replaceWith(trigger.cloneNode(true));
-                });
-
-                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', (e) => {
-                        const targetElement = e.target.closest('[data-modal-target]');
-                        if (targetElement) {
-                            const modalId = targetElement.getAttribute('data-modal-target');
-                            const modal = document.getElementById(modalId);
-                            if (modal) {
-                                modal.classList.add('active');
-                            }
-                        }
-                    });
-                });
-            }
-
+            // Language switcher functionality
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const lang = e.target.getAttribute('data-lang');
                     changeLanguage(lang);
                 });
             });
-
-            // Initial load
-            changeLanguage('hi');
-
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => {
-                const closeButton = modal.querySelector('.modal-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => {
-                        modal.classList.remove('active');
-                    });
-                }
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
-                    }
-                });
-            });
+            
+            attachModalListeners();
         });
     </script>
    
