@@ -2,40 +2,152 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SO / Steno (Group D/B-I) LDCE परीक्षा (GD-B / GD-I)</title>
      <script src="redirect_if_needed.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <meta name="description" content="SO / Steno (Group D/B-I) LDCE परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, और तैयारी की रणनीति।">
-    <meta name="keywords" content="SO, Steno, LDCE, Group D, Group B, सरकारी नौकरी, भारत, विभागीय परीक्षा">
+    <meta name="keywords" content="SO, Steno, LDCE, Group D, Group B, सरकारी नौकरी, भारत, विभागीय परीक्षा, UPSC Departmental Exam">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        body {
-            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Gurmukhi', sans-serif;
-            background-color: #f3f4f6; /* Light Gray background */
-            color: #1f2937;
+        /* --- index.html THEME VARIABLES (Gold/Dark) --- */
+        :root {
+            --color-primary: #FFD700; /* Electric Gold Glow */
+            --color-secondary: #A37A00; /* Dark Gold */
+            --color-background: #1A1C20; /* Dark Background */
+            --color-card: #26292E; /* Dark Card background */
+            --color-text-primary: #f3f4f6; /* White/Light Text */
+            --color-text-secondary: #d1d5db; /* Muted Text */
+            --color-button-text: #1A1C20; /* Dark Text for Buttons */
+            --color-primary-rgb: 255, 215, 0; 
+            --bg-main-dark: #1A1C20; 
+            --text-light: #f3f4f6; 
+            --electric-gold-glow: #FFD700; 
+            --electric-gold-dark: #A37A00;
+            --glass-bg-dark: rgba(40, 30, 5, 0.7); 
+            --button-primary-start: #FFC107;
+            --button-primary-end: #B8860B; 
+            --text-muted: #d1d5db;
+            --popup-overlay-bg: rgba(0, 0, 0, 0.9);
         }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Devanagari', 'Noto Sans', sans-serif;
+            background-color: var(--bg-main-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            /* Added padding for fixed header (78px) and footer (80px) */
+            padding-top: 78px; 
+            padding-bottom: 80px; 
+            transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
+        }
+
+        /* Fixed Header Styles */
+        .fixed-header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        /* Mobile Menu Panel Styles (Sidebar) */
+        .mobile-menu-panel {
+            top: 85px; 
+            height: calc(100vh - 165px);
+            transition: transform 0.5s ease-in-out;
+            border-radius: 1.5rem;
+            background-color: rgba(40, 30, 5, 0.9);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid var(--electric-gold-glow);
+        }
+        .mobile-menu-overlay { z-index: 105; }
+        .text-golden-dark { 
+            color: var(--electric-gold-glow); 
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
+        } 
+        
+        /* Keyframes for SHS style Pulsing FAB button */
+        @keyframes pulseShadow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0); }
+        }
+        .animate-pulse-shadow {
+            animation: pulseShadow 2s infinite;
+        }
+
+        /* --- BOTTOM NAV STYLES (from h.html) --- */
+        .bottom-nav-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--glass-bg-dark);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 60;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.7); 
+        }
+        .nav-item-shs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            width: 20%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .nav-item-shs:hover, .nav-item-shs.active {
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+        .nav-icon-shs { font-size: 1.5rem; margin-bottom: 2px; }
+        .central-nav-item-shs { position: relative; width: 20%; height: 80px; display: flex; justify-content: center; }
+        .central-fab {
+            position: absolute; top: -28px; width: 64px; height: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background-color: var(--color-primary); 
+            border: 4px solid var(--bg-main-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transform: scale(1.0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .central-fab-icon { color: var(--color-button-text); font-size: 1.8rem; }
+        .central-fab-label { position: absolute; bottom: 5px; font-size: 0.75rem; font-weight: bold; color: var(--color-primary); }
+        .central-fab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px 5px rgba(var(--color-primary-rgb), 0.8);
+        }
+        
+        /* UPSC File Custom Styles (from h.html) */
         .section-heading {
-            border-bottom: 3px solid #004AAD; /* Blue color */
+            border-bottom: 3px solid #FFD700; /* Gold color */
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            color: #002D62; /* Dark Blue */
+            color: var(--electric-gold-glow);
         }
         .card {
-            background-color: #FFFFFF;
+            background-color: var(--color-card);
             border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
             padding: 1.75rem;
             transition: all 0.3s ease-in-out;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--electric-gold-dark);
+            color: var(--text-light);
         }
         .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
         .chart-container {
@@ -44,66 +156,123 @@
             max-width: 450px;
             margin-left: auto;
             margin-right: auto;
-            height: 300px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            height: 320px;
+            max-height: 450px;
         }
         .flowchart-step {
-            border: 3px solid #002D62;
-            color: #002D62;
-            background-color: #e6f0ff;
+            border: 3px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
             transition: all 0.3s ease-in-out;
             cursor: pointer;
         }
         .flowchart-step:hover {
-            background-color: #002D62;
-            color: #FFFFFF;
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
             transform: scale(1.05);
         }
-        .flowchart-arrow {
-            color: #004AAD;
+        .flowchart-arrow { color: var(--electric-gold-glow); }
+        
+        /* Additional element styles for the dark theme */
+        .text-golden-dark-glow {
+            color: var(--electric-gold-glow); 
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
         }
+        .modal-subject-button {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            text-align: center;
+        }
+        .modal-subject-button:hover {
+            background-color: #FFC107;
+            transform: translateY(-2px);
+        }
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--electric-gold-glow);
+            background-color: var(--color-card);
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background-color: var(--electric-gold-glow);
+            color: var(--color-button-text);
+        }
+        /* Removed all .rank-btn related styles */
+        .subject-item {
+            color: var(--text-light); /* Ensure text is visible in dark mode */
+            border-bottom: 1px solid var(--electric-gold-dark); /* Dark line on dark background */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0.5rem;
+        }
+        .subject-item:last-child {
+            border-bottom: none;
+        }
+        .subject-buttons {
+            display: none !important; /* Force hide all buttons in section 5 */
+        }
+
+        /* Modal specific styles for UPSC page to CENTER popups (from h.html) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
-            align-items: center;
+            align-items: center; 
             justify-content: center;
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            padding: 1rem;
+            padding: 0;
+            overflow-y: auto; 
         }
+        
+        .modal-content {
+            background-color: var(--glass-bg-dark);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            box-shadow: 0 15px 25px -5px rgba(255, 215, 0, 0.2), 0 10px 10px -5px rgba(255, 215, 0, 0.1);
+            position: relative;
+            transform: none; 
+            opacity: 1; 
+            transition: none; 
+            border: 1px solid var(--electric-gold-glow);
+            color: var(--text-light);
+            max-width: 1200px;
+            width: 90%;
+            max-height: 90vh; 
+            margin: auto; 
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1023px) {
+            .modal-content {
+                width: 95%; 
+                margin-top: 85px; 
+                margin-bottom: 85px; 
+                max-height: calc(100vh - 170px); 
+                padding: 1.5rem; 
+            }
+        }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        
         .modal-close-button {
             position: absolute;
             top: 1rem;
@@ -112,60 +281,188 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #002D62;
+            color: var(--electric-gold-glow);
+            transition: color 0.2s;
         }
-        .lang-btn.active {
-            background-color: #004AAD;
+        .modal-close-button:hover {
+            color: #FF0000;
+        }
+        .modal-back-button {
+            background-color: var(--electric-gold-dark);
             color: white;
-            font-weight: bold;
-        }
-        .rank-btn {
-            background-color: #e6f0ff;
-            color: #002D62;
-            border: 1px solid #004AAD;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
         }
-        .rank-btn:hover {
-            background-color: #004AAD;
-            color: white;
+        .modal-back-button:hover {
+            background-color: #7A5C00;
         }
-        .subject-item {
+        .timeline-step {
+            color: var(--text-light);
+            background-color: var(--color-card);
+            border-color: var(--electric-gold-glow);
+        }
+        .timeline-step > div {
+             background-color: var(--electric-gold-glow) !important;
+             color: var(--color-button-text) !important;
+             border-color: var(--color-card) !important;
+        }
+        /* Mobile-first: Fix Flowchart layout (from h.html) */
+        .flowchart-container-fix {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 0.75rem 0.5rem;
-            border-bottom: 1px solid #e5e7eb;
+            justify-content: center;
+            gap: 20px;
         }
-        .subject-item:last-child {
-            border-bottom: none;
+        .flowchart-arrow.vertical {
+            transform: rotate(90deg);
         }
-        .subject-buttons {
-            display: flex;
-            gap: 0.5rem;
+        @media (min-width: 768px) {
+            .flowchart-container-fix {
+                flex-direction: row;
+                gap: 0;
+            }
+            .flowchart-arrow.vertical {
+                transform: rotate(0deg);
+            }
         }
-        .subject-buttons .rank-btn {
-            font-size: 0.875rem;
-            padding: 0.25rem 0.75rem;
+        /* Style adjustments for card in dark theme */
+        .card-info-box {
+            background-color: var(--glass-bg-dark);
+            border: 1px solid var(--electric-gold-dark);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            color: var(--text-light);
+        }
+        .card-info-box .text-4xl {
+             color: var(--electric-gold-glow);
+             text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
+        }
+        /* Text color adjustment for visibility on dark theme */
+        .card-info-box .text-blue-800, .card-info-box .text-sky-800, .card-info-box .text-green-800, .card-info-box .text-red-800 {
+            color: var(--text-light); 
+        }
+        .text-blue-800 { color: #5BBAFF; }
+        .text-green-800 { color: #87FF87; }
+        .text-sky-800 { color: #5BE7FF; }
+        .text-red-800 { color: #FF7F7F; }
+        
+        /* Hide footer line on phones (from h.html) */
+        @media (max-width: 1023px) {
+            .mobile-hide-footer {
+                display: none;
+            }
         }
     </style>
 </head>
 <body class="leading-relaxed">
 
-    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
-        
-        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
-            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
-            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
-            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
-        </div>
+    <div class="fixed-header-container">
+        <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
+              <div class="container mx-auto flex justify-between items-center px-2 sm:px-4" style="padding-top: env(safe-area-inset-top);">
+                <a href="index.html" class="flex items-center no-underline transform hover:scale-[1.02] transition-transform duration-300">
+                  <img src="ytglogo.png" alt="Your True Guide Logo" class="h-10 w-10 sm:h-12 sm:w-12 mr-3 rounded-full shadow-lg border border-primary/50" onerror="this.onerror=null;this.src='https://placehold.co/48x48/FFD700/1A1C20?text=YTG';" />
+                  <span class="text-xl sm:text-3xl font-extrabold text-white transition-colors tracking-tight drop-shadow-md">
+                    SO / Steno <span class="text-primary">LDCE</span>
+                  </span>
+                </a>
 
-        <header class="text-center mb-16 pt-12">
-            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#002D62] mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#004AAD] font-semibold"></p>
+                <div class="hidden lg:flex items-center space-x-10">
+                  <nav class="flex space-x-8 font-extrabold">
+                    <a href="index.html#govt-exam-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Public Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        Private Sector
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                     <a href="index.html#ai-guide-section" class="text-white text-lg relative group transition-all duration-300 py-1 hover:text-primary">
+                        AI & Tools
+                        <span class="absolute left-0 bottom-0 h-1 w-0 bg-primary/70 group-hover:w-full transition-all duration-300 rounded-full"></span>
+                    </a>
+                  </nav>
+                  
+                  <div class="border-l-4 border-primary/50 pl-6 text-sm flex flex-col items-start bg-primary/5 p-2 rounded-xl shadow-inner">
+                    <a href="tel:8816014071" class="flex items-center font-extrabold text-white hover:text-primary transition-colors transform hover:scale-[1.05] duration-200">
+                      <i class="fas fa-phone-alt mr-2 text-primary"></i> <span class="text-xl tracking-wider">000000000</span>
+                    </a>
+                    <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-text-secondary hover:text-primary transition-colors mt-1">
+                      <i class="fas fa-envelope mr-2 text-secondary/70"></i> <b>0000000000000000000</b>
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  id="mobile-menu-button"
+                  class="lg:hidden text-text-primary p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors shadow-md"
+                  aria-label="Toggle menu"
+                >
+                  <i class="fas fa-bars text-2xl text-primary" id="mobile-menu-icon"></i>
+                </button>
+              </div>
         </header>
+
+        <div
+              id="mobile-menu-panel"
+              class="mobile-menu-panel fixed right-0 w-3/4 max-w-sm z-[110] lg:hidden translate-x-full overflow-hidden border border-primary/50 rounded-2xl shadow-lg shadow-primary/10" >
+                <button 
+                    id="mobile-menu-close-button"
+                    class="absolute top-4 right-4 text-white hover:text-primary transition-colors p-2 rounded-full bg-secondary/50 shadow-lg"
+                    aria-label="Close menu"
+                >
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <div class="flex flex-col h-full space-y-6 font-extrabold text-left mt-8 p-6 overflow-y-auto">
+                    
+                    <div class="mb-4 pb-4 border-b border-primary/50">
+                        <p class="text-sm font-light text-text-secondary">Welcome to</p>
+                        <h2 class="text-3xl font-black text-primary drop-shadow-md">Your True Guide</h2>
+                        <p class="text-xs font-semibold text-text-secondary">All guides on a single tap!</p>
+                    </div>
+                    
+                    <a href="index.html#govt-exam-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-building mr-4 text-xl text-primary/80"></i> Public Sector Guide
+                    </a>
+                    <a href="index.html#private-sector-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-briefcase mr-4 text-xl text-primary/80"></i> Private Sector Guide
+                    </a>
+                    <a href="index.html#ai-guide-section" class="text-lg text-white hover:text-primary transition-all duration-300 transform hover:translate-x-1 flex items-center p-2 rounded-lg hover:bg-white/10 menu-link">
+                      <i class="fas fa-brain mr-4 text-xl text-primary/80"></i> AI Tools Guide
+                    </a>
+
+                    <div class="border-t border-primary/30 w-full my-4"></div>
+
+                    <div class="flex flex-col items-start space-y-3 pt-4 bg-black/30 p-4 rounded-xl shadow-2xl border border-primary/50">
+                      <h4 class="text-base font-bold text-primary mb-1">Need Help? (24x7)</h4>
+                      <a href="tel:8816014071" class="flex items-center font-extrabold text-white hover:text-secondary transition-colors text-xl p-3 rounded-full bg-primary/90 w-full justify-center transform hover:scale-[1.02] shadow-xl shadow-primary/70 border-2 border-white/20">
+                         <i class="fas fa-phone-volume mr-3"></i> <span>0000000000</span>
+                      </a>
+                      <a href="mailto:care@yourtrueguide.com" class="flex items-center text-xs text-gray-400 hover:text-primary transition-colors pt-2">
+                         <i class="fas fa-at mr-2"></i> <span>0000000000000</span>
+                      </a>
+                    </div>
+                    
+                    <p class="text-xs text-center text-gray-500 mt-auto">© 2025 Your True Guide</p>
+                </div>
+        </div>
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/70 mobile-menu-overlay hidden lg:hidden"></div>
+    </div>
+    
+    <div class="container mx-auto p-4 md:p-8 lg:p-12" id="mainContent" style="margin-top: 5px;">
+        
+        <div class="text-center mb-12">
+            <div id="language-switcher" class="inline-flex rounded-md shadow-sm" role="group">
+                <button data-lang="hi" class="lang-btn active">हिन्दी</button>
+                <button data-lang="en" class="lang-btn">English</button>
+            </div>
+        </div >
+
+        <br>
 
         <main class="grid grid-cols-1 gap-10">
 
@@ -174,20 +471,30 @@
                 <p data-lang-key="section1_desc1" class="text-lg mb-6"></p>
                 <p data-lang-key="section1_desc2" class="text-lg mb-6"></p>
                 <p data-lang-key="section1_desc3" class="text-lg mb-6"></p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mt-6">
-                    <div class="p-4 bg-green-100 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="examInfoModal">
+                <div class="text-center">
+                    
+                    
+                    <div class="mt-6 flex flex-wrap justify-center gap-4">
+                        <a href="start-preparation-guide.html" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors">
+                            Start Preparation
+                        </a>
+                        
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mt-8">
+                    <div class="p-4 rounded-lg cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="examInfoModal">
                         <div class="text-4xl">📚</div>
                         <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-green-800"></div>
                     </div>
-                    <div class="p-4 bg-blue-100 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="examProcessModal">
+                    <div class="p-4 rounded-lg cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="examProcessModal">
                         <div class="text-4xl">➡️</div>
                         <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-blue-800"></div>
                     </div>
-                    <div class="p-4 bg-sky-100 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="eligibilityModal">
+                    <div class="p-4 rounded-lg cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="eligibilityModal">
                         <div class="text-4xl">✅</div>
                         <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-sky-800"></div>
                     </div>
-                    <div class="p-4 bg-red-100 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="careerModal">
+                    <div class="p-4 rounded-lg cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="careerModal">
                         <div class="text-4xl">🚀</div>
                         <div data-lang-key="section1_card4_title" class="mt-2 font-semibold text-red-800"></div>
                     </div>
@@ -197,11 +504,11 @@
             <section class="card">
                 <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
+                <div class="flowchart-container-fix md:space-x-8 lg:space-x-12">
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="step1Modal"><span data-lang-key="section2_step1_title"></span></div>
                     </div>
-                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
+                    <div class="text-5xl font-light flowchart-arrow vertical">→</div>
                     <div class="text-center flex flex-col items-center">
                         <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="step2Modal"><span data-lang-key="section2_step2_title"></span></div>
                     </div>
@@ -214,7 +521,7 @@
                     <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
                 </div>
                 <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#002D62] mb-4 text-center"></h3>
+                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-golden-dark-glow mb-4 text-center"></h3>
                     <div class="chart-container h-72">
                         <canvas id="examPatternChart"></canvas>
                     </div>
@@ -225,13 +532,13 @@
                 <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
                 <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="syllabusModal1">
-                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-[#002D62] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg border cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="syllabusModal1">
+                        <h3 data-lang-key="section4_subject1_title" class="font-bold text-xl text-golden-dark-glow mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="text-golden-dark-glow font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 cursor-pointer hover:shadow-lg transition-shadow text-center" data-modal-target="syllabusModal2">
-                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-[#002D62] mb-2"></h3>
-                        <p data-lang-key="section4_subject_button" class="text-gray-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg border cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="syllabusModal2">
+                        <h3 data-lang-key="section4_subject2_title" class="font-bold text-xl text-golden-dark-glow mb-2"></h3>
+                        <p data-lang-key="section4_subject_button" class="text-golden-dark-glow font-semibold"></p>
                     </div>
                 </div>
             </section>
@@ -245,13 +552,13 @@
                 <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section6_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
-                    <div class="p-4 rounded-lg bg-green-100 border border-green-200 cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="careerPathModal1">
-                        <h3 data-lang-key="section6_card1_title" class="font-bold text-xl text-green-800 mb-2"></h3>
-                        <p data-lang-key="section6_card_button" class="text-green-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg border cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="careerPathModal1">
+                        <h3 data-lang-key="section6_card1_title" class="font-bold text-xl text-golden-dark-glow mb-2"></h3>
+                        <p data-lang-key="section6_card_button" class="text-golden-dark-glow font-semibold"></p>
                     </div>
-                    <div class="p-4 rounded-lg bg-blue-100 border border-blue-200 cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="careerPathModal2">
-                        <h3 data-lang-key="section6_card2_title" class="font-bold text-xl text-blue-800 mb-2"></h3>
-                        <p data-lang-key="section6_card_button" class="text-blue-600 font-semibold"></p>
+                    <div class="p-4 rounded-lg border cursor-pointer hover:shadow-lg transition-shadow card-info-box" data-modal-target="careerPathModal2">
+                        <h3 data-lang-key="section6_card2_title" class="font-bold text-xl text-golden-dark-glow mb-2"></h3>
+                        <p data-lang-key="section6_card_button" class="text-golden-dark-glow font-semibold"></p>
                     </div>
                 </div>
             </section>
@@ -265,24 +572,24 @@
                 <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
                 <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item1"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item2"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item3"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item4"></div>
                     </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
+                    <div class="flex items-start p-4 bg-red-900/20 border border-red-700/50 rounded-lg shadow-sm">
+                        <span class="text-3xl text-red-400 mr-4">❌</span>
                         <div data-lang-key="section8_item5"></div>
                     </div>
                 </div>
@@ -297,50 +604,181 @@
                 <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
                 <div data-lang-key="section10_list" class="space-y-4 text-lg"></div>
             </section>
+            
+            <section class="card">
+                <h2 data-lang-key="section11_title" class="text-3xl font-bold section-heading"></h2>
+                <p data-lang-key="section11_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
+                <div class="text-center">
+                    <button id="sec11-roadmap-btn" data-lang-key="section11_career_btn" class="modal-subject-button inline-block bg-primary text-color-button-text hover:bg-yellow-600 transition-colors" data-modal-target="careerGrowthRoadmapModal">
+                        </button>
+                </div>
+            </section>
 
         </main>
 
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
-            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
-        </footer>
+        <br>
 
     </div>
 
-    <div id="examInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="exam_info_modal_title" class="text-2xl font-bold text-green-800 mb-4"></h3><div data-lang-key="exam_info_modal_content"></div></div></div>
-    <div id="examProcessModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="exam_process_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><div data-lang-key="exam_process_modal_content"></div></div></div>
-    <div id="eligibilityModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="eligibility_modal_title" class="text-2xl font-bold text-sky-800 mb-4"></h3><div data-lang-key="eligibility_modal_content"></div></div></div>
-    <div id="careerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="career_modal_title" class="text-2xl font-bold text-red-800 mb-4"></h3><div data-lang-key="career_modal_content"></div></div></div>
+    <div id="examInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('examInfoModal')">&times;</button><h3 data-lang-key="exam_info_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="exam_info_modal_content"></div></div></div>
+    <div id="examProcessModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('examProcessModal')">&times;</button><h3 data-lang-key="exam_process_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="exam_process_modal_content"></div></div></div>
+    <div id="eligibilityModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('eligibilityModal')">&times;</button><h3 data-lang-key="eligibility_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="eligibility_modal_content"></div></div></div>
+    <div id="careerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('careerModal')">&times;</button><h3 data-lang-key="career_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="career_modal_content"></div></div></div>
     
-    <div id="step1Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="step1_modal_title" class="text-2xl font-bold text-[#002D62] mb-4"></h3><div data-lang-key="step1_modal_content"></div></div></div>
-    <div id="step2Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="step2_modal_title" class="text-2xl font-bold text-[#002D62] mb-4"></h3><div data-lang-key="step2_modal_content"></div></div></div>
+    <div id="step1Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('step1Modal')">&times;</button><h3 data-lang-key="step1_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="step1_modal_content"></div></div></div>
+    <div id="step2Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('step2Modal')">&times;</button><h3 data-lang-key="step2_modal_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="step2_modal_content"></div></div></div>
     
-    <div id="syllabusModal1" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="syllabus_modal1_title" class="text-2xl font-bold text-[#002D62] mb-4"></h3><div data-lang-key="syllabus_modal1_list"></div></div></div>
-    <div id="syllabusModal2" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="syllabus_modal2_title" class="text-2xl font-bold text-[#002D62] mb-4"></h3><div data-lang-key="syllabus_modal2_list"></div></div></div>
+    <div id="syllabusModal1" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('syllabusModal1')">&times;</button><h3 data-lang-key="syllabus_modal1_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="syllabus_modal1_list"></div></div></div>
+    <div id="syllabusModal2" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('syllabusModal2')">&times;</button><h3 data-lang-key="syllabus_modal2_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="syllabus_modal2_list"></div></div></div>
 
-    <div id="careerPathModal1" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="career_path_modal1_title" class="text-2xl font-bold text-green-800 mb-4"></h3><div data-lang-key="career_path_modal1_content"></div></div></div>
-    <div id="careerPathModal2" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="career_path_modal2_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><div data-lang-key="career_path_modal2_content"></div></div></div>
+    <div id="careerPathModal1" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('careerPathModal1')">&times;</button><h3 data-lang-key="career_path_modal1_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="career_path_modal1_content"></div></div></div>
+    <div id="careerPathModal2" class="modal-overlay"><div class="modal-content"><button class="modal-close-button" onclick="closeModal('careerPathModal2')">&times;</button><h3 data-lang-key="career_path_modal2_title" class="text-2xl font-bold text-golden-dark-glow mb-4"></h3><div data-lang-key="career_path_modal2_content"></div></div></div>
+
+    <div id="careerGrowthRoadmapModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="closeModal('careerGrowthRoadmapModal')">&times;</button>
+            <h3 id="modal-roadmap-title" data-lang-key="modal_roadmap_title" class="text-2xl font-bold text-golden-dark-glow mb-6 text-center"></h3>
+            
+            <div id="roadmap-timeline" class="relative border-l-4 border-golden-dark pl-6 space-y-8 max-w-lg mx-auto">
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">1</div>
+                    <h4 data-lang-key="roadmap_step1_title" class="font-semibold text-xl text-golden-dark-glow mb-1"></h4>
+                    <p data-lang-key="roadmap_step1_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">2</div>
+                    <h4 data-lang-key="roadmap_step2_title" class="font-semibold text-xl text-golden-dark-glow mb-1"></h4>
+                    <p data-lang-key="roadmap_step2_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">3</div>
+                    <h4 data-lang-key="roadmap_step3_title" class="font-semibold text-xl text-golden-dark-glow mb-1"></h4>
+                    <p data-lang-key="roadmap_step3_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <div class="timeline-step py-2 -ml-9 pl-4 rounded-lg shadow-md transition-all duration-300">
+                    <div class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-8 ring-white timeline-step font-bold text-lg">4</div>
+                    <h4 data-lang-key="roadmap_step4_title" class="font-semibold text-xl text-golden-dark-glow mb-1"></h4>
+                    <p data-lang-key="roadmap_step4_desc" class="text-base text-text-light"></p>
+                </div>
+                
+                <p data-lang-key="roadmap_note" class="text-center text-sm text-gray-400 pt-4"></p>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <nav 
+        class="lg:hidden bottom-nav-fixed" 
+        style="padding-bottom: env(safe-area-inset-bottom);" 
+        id="bottom-nav-shs"
+    >
+        <div class="flex justify-around items-end h-20 relative px-2">
+            
+            <a href="index.html#govt-exam-section" class="nav-item-shs">
+                <i class="fas fa-building nav-icon-shs"></i>
+                <span class="font-medium">Public</span>
+            </a>
+
+            <a href="index.html#private-sector-section" class="nav-item-shs">
+                <i class="fas fa-briefcase nav-icon-shs"></i>
+                <span class="font-medium">Private</span>
+            </a>
+            
+            <div class="central-nav-item-shs">
+                <a 
+                    href="index.html" 
+                    class="central-fab animate-pulse-shadow"
+                    aria-label="Go to Home"
+                >
+                    <i class="fas fa-home central-fab-icon"></i>
+                </a>
+                <span class="central-fab-label">Home</span>
+            </div>
+            
+            <a href="tel:8816014071" class="nav-item-shs">
+                <i class="fas fa-phone-volume nav-icon-shs"></i>
+                <span class="font-medium">Call</span>
+            </a>
+            
+            <a href="index.html#ai-guide-section" class="nav-item-shs">
+                <i class="fas fa-brain nav-icon-shs"></i>
+                <span class="font-medium">AI Tools</span>
+            </a>
+        </div>
+    </nav>
     
     <script>
+        // --- START: index.html HEADER JS LOGIC (Copied from h.html) ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        
+        function toggleMobileMenu() {
+            const isMenuOpen = mobileMenuPanel.classList.contains('translate-x-0');
+            
+            if (isMenuOpen) {
+                // Close menu
+                mobileMenuPanel.classList.remove('translate-x-0');
+                mobileMenuPanel.classList.add('translate-x-full');
+                mobileMenuOverlay.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                mobileMenuPanel.classList.remove('translate-x-full');
+                mobileMenuPanel.classList.add('translate-x-0');
+                mobileMenuOverlay.classList.remove('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuCloseButton.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(toggleMobileMenu, 200); 
+            });
+        });
+        
+        // --- END: index.html HEADER JS LOGIC ---
+        
         const translations = {
             hi: {
                 doc_title: "SO / Steno (Group D/B-I) LDCE परीक्षा (GD-B / GD-I)",
                 header_title: "SO / Steno LDCE परीक्षा",
                 header_subtitle: "पदोन्नति के लिए संपूर्ण मार्गदर्शिका",
-                section1_title: "1. परीक्षा क्या है?",
+                section1_title: "1. परीक्षा क्या है? 🤔",
                 section1_desc1: "👉 यह परीक्षा संघ लोक सेवा आयोग (UPSC) आयोजित करता है।",
                 section1_desc2: "👉 इसका उद्देश्य केंद्र सरकार के विभिन्न मंत्रालयों और विभागों के Group C और Group B कर्मचारियों को प्रमोशन (Promotion) देकर Section Officer (SO) और Stenographer (Steno, GD-B/GD-I) के पदों पर नियुक्त करना है।",
                 section1_desc3: "👉 यह आंतरिक विभागीय परीक्षा है यानी केवल सरकारी कर्मचारी ही इसमें शामिल हो सकते हैं, सामान्य नागरिक नहीं।",
+                section1_services_text: "पदोन्नति के लिए विभागीय परीक्षा", 
+                section1_career_btn: "करियर प्रगति देखें", // Button Text
                 section1_card1_title: "परीक्षा की जानकारी",
                 section1_card2_title: "परीक्षा प्रक्रिया",
                 section1_card3_title: "योग्यता",
                 section1_card4_title: "करियर",
                 
-                section2_title: "2. परीक्षा प्रक्रिया",
+                section2_title: "2. परीक्षा प्रक्रिया 🎯",
                 section2_desc: "चयन प्रक्रिया के मुख्य चरण:",
                 section2_step1_title: "लिखित परीक्षा + सेवा अभिलेख",
                 section2_step2_title: "अंतिम चयन",
                 
-                section3_title: "3. योग्यता और परीक्षा पैटर्न",
+                section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
                 section3_list: `
                     <div class="mb-4"><strong>योग्यता:</strong>
                         <ul class="list-disc list-inside space-y-2 text-lg">
@@ -358,31 +796,31 @@
                         </ul>
                     </div>
                 `,
-                section3_chart_title: "लिखित परीक्षा का पैटर्न",
+                section3_chart_title: "लिखित परीक्षा का पैटर्न 📊",
                 examPatternChartLabels: ['पेपर I', 'पेपर II', 'पेपर III'],
                 
-                section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम",
+                section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
                 section4_desc: "लिखित परीक्षा में शामिल मुख्य विषय और उनका विवरण:",
                 section4_subject1_title: "सामान्य अध्ययन",
                 section4_subject2_title: "नोटिंग-ड्राफ्टिंग",
-                section4_subject_button: "सिलेबस देखें &rarr;",
+                section4_subject_button: "सिलेबस देखें →",
 
                 section5_title: "5. परीक्षा के सभी विषय",
                 section5_list: `<div>
-                    <div class="subject-item"><span>सामान्य अध्ययन एवं संविधान</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>
-                    <div class="subject-item"><span>सरकारी नियम/ऑफिस प्रोसीजर</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>
-                    <div class="subject-item"><span>नोटिंग-ड्राफ्टिंग और प्रिसाइ राइटिंग</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>
-                    <div class="subject-item"><span>सेवा विषय (Departmental Rules)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>
-                    <div class="subject-item"><span>स्टेनोग्राफी (केवल Steno Cadre के लिए)</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>
+                    <div class="subject-item"><span>सामान्य अध्ययन एवं संविधान</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>सरकारी नियम/ऑफिस प्रोसीजर</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>नोटिंग-ड्राफ्टिंग और प्रिसाइ राइटिंग</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>सेवा विषय (Departmental Rules)</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>स्टेनोग्राफी (केवल Steno Cadre के लिए)</span><div class="subject-buttons"></div></div>
                 </div>`,
 
-                section6_title: "6. विभाग, पोस्ट कैडर और करियर के अवसर",
+                section6_title: "6. विभाग, पोस्ट कैडर और करियर के अवसर 🌟",
                 section6_desc: "चयनित उम्मीदवारों को Section Officer (SO) या Stenographer Grade D/B-I बनाया जाता है और उनका करियर पथ इस प्रकार होता है:",
                 section6_card1_title: "Section Officer (SO)",
                 section6_card2_title: "Stenographer (Steno)",
-                section6_card_button: "करियर पथ देखें &rarr;",
+                section6_card_button: "करियर पथ देखें →",
                 
-                section7_title: "7. तैयारी की रणनीति (Smart Work)",
+                section7_title: "7. तैयारी की रणनीति (Smart Work) 📈",
                 section7_list: `
                     <ul class="list-disc list-inside space-y-3 text-lg">
                         <li>✅ ऑफिस ऑर्डर और मैन्युअल्स को अच्छी तरह पढ़ें।</li>
@@ -395,13 +833,13 @@
                 
                 section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
                 section8_desc: "इन गलतियों से बचना सफलता के लिए बहुत ज़रूरी है:",
-                section8_item1: `<div><strong>केवल रट्टा मारना:</strong> ऑफिस के नियम समझकर पढ़ें।</div>`,
-                section8_item2: `<div><strong>नोटिंग-ड्राफ्टिंग में अस्पष्ट भाषा का प्रयोग:</strong> स्पष्ट और संक्षिप्त लिखें।</div>`,
-                section8_item3: `<div><strong>स्टेनो परीक्षा में गति पर अधिक, Accuracy पर कम ध्यान:</strong> दोनों पर बराबर ध्यान दें।</div>`,
-                section8_item4: `<div><strong>समय प्रबंधन की अनदेखी:</strong> परीक्षा में समय का सही उपयोग सीखें।</div>`,
-                section8_item5: `<div><strong>पिछली परीक्षा पैटर्न को इग्नोर करना:</strong> पैटर्न को समझना बहुत ज़रूरी है।</div>`,
+                section8_item1: `<div class="text-text-light"><strong class="text-lg text-red-300">केवल रट्टा मारना:</strong> ऑफिस के नियम समझकर पढ़ें।</div>`,
+                section8_item2: `<div class="text-text-light"><strong class="text-lg text-red-300">नोटिंग-ड्राफ्टिंग में अस्पष्ट भाषा का प्रयोग:</strong> स्पष्ट और संक्षिप्त लिखें।</div>`,
+                section8_item3: `<div class="text-text-light"><strong class="text-lg text-red-300">स्टेनो परीक्षा में गति पर अधिक, Accuracy पर कम ध्यान:</strong> दोनों पर बराबर ध्यान दें।</div>`,
+                section8_item4: `<div class="text-text-light"><strong class="text-lg text-red-300">समय प्रबंधन की अनदेखी:</strong> परीक्षा में समय का सही उपयोग सीखें।</div>`,
+                section8_item5: `<div class="text-text-light"><strong class="text-lg text-red-300">पिछली परीक्षा पैटर्न को इग्नोर करना:</strong> पैटर्न को समझना बहुत ज़रूरी है।</div>`,
                 
-                section9_title: "9. कब निकलती है और प्रक्रिया कितने दिन तक चलती है?",
+                section9_title: "9. कब निकलती है और प्रक्रिया कितने दिन तक चलती है? 🗓️",
                 section9_list: `
                     <ul class="list-disc list-inside space-y-2 text-lg">
                         <li><strong>अधिसूचना:</strong> UPSC हर साल इसका नोटिफिकेशन जारी करता है (आमतौर पर जुलाई–अगस्त में)।</li>
@@ -412,7 +850,7 @@
                     </ul>
                 `,
 
-                section10_title: "10. कौन-कौन से संस्थान तैयारी करवाते हैं?",
+                section10_title: "10. कौन-कौन से संस्थान तैयारी करवाते हैं? 🏫",
                 section10_list: `
                     <div class="mb-4"><strong>सरकारी संस्थान:</strong>
                         <ul class="list-disc list-inside space-y-2 text-lg">
@@ -427,53 +865,70 @@
                         </ul>
                     </div>
                 `,
+                
+                section11_title: "11. करियर ग्रोथ रोडमैप: आपका भविष्य 🚀", // NEW SECTION
+                section11_desc: "LDCE पास करने के बाद SO और Stenographer का करियर प्रगतिशील और प्रभावशाली होता है।", // NEW SECTION DESC
+                section11_career_btn: "संपूर्ण करियर रोडमैप देखें", // Button Text
 
                 footer_text: "© 2025 all-gov-services.com - आपकी सफलता के लिए शुभकामनाएँ।",
 
                 // Modals
                 exam_info_modal_title: "1. परीक्षा क्या है?",
-                exam_info_modal_content: `<p class="mb-4">यह परीक्षा संघ लोक सेवा आयोग (UPSC) आयोजित करता है।</p><p class="mb-4">इसका उद्देश्य केंद्र सरकार के विभिन्न मंत्रालयों और विभागों के Group C और Group B कर्मचारियों को प्रमोशन देकर Section Officer (SO) और Stenographer (Steno, GD-B/GD-I) के पदों पर नियुक्त करना है।</p><p>यह आंतरिक विभागीय परीक्षा है यानी केवल सरकारी कर्मचारी ही इसमें शामिल हो सकते हैं, सामान्य नागरिक नहीं।</p>`,
+                exam_info_modal_content: `<p class="mb-4 text-text-light">यह परीक्षा संघ लोक सेवा आयोग (UPSC) आयोजित करता है।</p><p class="mb-4 text-text-light">इसका उद्देश्य केंद्र सरकार के विभिन्न मंत्रालयों और विभागों के Group C और Group B कर्मचारियों को प्रमोशन देकर Section Officer (SO) और Stenographer (Steno, GD-B/GD-I) के पदों पर नियुक्त करना है।</p><p class="text-text-light">यह आंतरिक विभागीय परीक्षा है यानी केवल सरकारी कर्मचारी ही इसमें शामिल हो सकते हैं, सामान्य नागरिक नहीं।</p>`,
                 exam_process_modal_title: "2. परीक्षा प्रक्रिया",
-                exam_process_modal_content: `<ul class="list-disc list-inside space-y-2"><li>नोटिफिकेशन जारी – UPSC की वेबसाइट और गजट में।</li><li>ऑनलाइन आवेदन – केवल पात्र कर्मचारी ही कर सकते हैं।</li><li>लिखित परीक्षा – वस्तुनिष्ठ (Objective) + वर्णनात्मक (Descriptive)।</li><li>सेवा अभिलेख (Service Record) मूल्यांकन।</li><li>अंतिम चयन – लिखित परीक्षा + सर्विस रिकॉर्ड के आधार पर।</li></ul>`,
+                exam_process_modal_content: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>नोटिफिकेशन जारी – UPSC की वेबसाइट और गजट में।</li><li>ऑनलाइन आवेदन – केवल पात्र कर्मचारी ही कर सकते हैं।</li><li>लिखित परीक्षा – वस्तुनिष्ठ (Objective) + वर्णनात्मक (Descriptive)。</li><li>सेवा अभिलेख (Service Record) मूल्यांकन।</li><li>अंतिम चयन – लिखित परीक्षा + सर्विस रिकॉर्ड के आधार पर।</li></ul>`,
                 eligibility_modal_title: "3. योग्यता और परीक्षा पैटर्न",
-                eligibility_modal_content: `<p class="mb-2"><strong>योग्यता:</strong></p><ul class="list-disc list-inside mb-4 space-y-2"><li>उम्मीदवार केंद्र सरकार के कर्मचारी होने चाहिए।</li><li>सेवा अवधि (Service Years) विभाग के अनुसार अलग-अलग होती है (आमतौर पर 3–5 वर्ष)।</li><li>ACR/APAR रिपोर्ट अच्छी होनी चाहिए।</li></ul><p class="mb-2"><strong>पैटर्न:</strong></p><ul class="list-disc list-inside space-y-2"><li>पेपर I – सामान्य अध्ययन (GS) और नियम/प्रक्रिया (Rules & Procedures)।</li><li>पेपर II – नोटिंग, ड्राफ्टिंग और प्रिसाइ राइटिंग।</li><li>पेपर III – सेवा से संबंधित विषय।</li><li>पेपर IV (यदि लागू हो) – हिंदी/अंग्रेज़ी में स्टेनोग्राफी कौशल परीक्षण।</li></ul>`,
-                career_modal_title: "6. विभाग, पोस्ट कैडर और करियर के अवसर",
-                career_modal_content: `<p class="mb-4">चयनित उम्मीदवारों को Section Officer (SO) या Stenographer Grade D/B-I बनाया जाता है।</p><p class="mb-2"><strong>करियर ग्रोथ:</strong></p><ul class="list-disc list-inside space-y-2"><li><strong>Section Officer</strong> → Under Secretary → Deputy Secretary → Director → Joint Secretary तक।</li><li><strong>Steno</strong> → Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary।</li></ul>`,
-                
+                eligibility_modal_content: `<p class="mb-2 text-text-light"><strong>योग्यता:</strong></p><ul class="list-disc list-inside mb-4 space-y-2 text-text-light"><li>उम्मीदवार केंद्र सरकार के कर्मचारी होने चाहिए।</li><li>सेवा अवधि (Service Years) विभाग के अनुसार अलग-अलग होती है (आमतौर पर 3–5 वर्ष)।</li><li>ACR/APAR रिपोर्ट अच्छी होनी चाहिए।</li></ul><p class="mb-2 text-text-light"><strong>पैटर्न:</strong></p><ul class="list-disc list-inside space-y-2 text-text-light"><li>पेपर I – सामान्य अध्ययन (GS) और नियम/प्रक्रिया (Rules & Procedures)।</li><li>पेपर II – नोटिंग, ड्राफ्टिंग और प्रिसाइ राइटिंग।</li><li>पेपर III – सेवा से संबंधित विषय।</li><li>पेपर IV (यदि लागू हो) – हिंदी/अंग्रेज़ी में स्टेनोग्राफी कौशल परीक्षण।</li></ul>`,
+                career_modal_title: "करियर के अवसर", // Simplified career modal title
+                career_modal_content: `<p class="mb-4 text-text-light">चयनित उम्मीदवारों को Section Officer (SO) या Stenographer Grade D/B-I बनाया जाता है।</p><p class="mb-2 text-text-light"><strong>करियर ग्रोथ:</strong></p><ul class="list-disc list-inside space-y-2 text-text-light"><li><strong>Section Officer</strong> → Under Secretary → Deputy Secretary → Director → Joint Secretary तक।</li><li><strong>Steno</strong> → Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary।</li></ul>`,
+
                 step1_modal_title: "चरण 1: लिखित परीक्षा + सेवा अभिलेख",
-                step1_modal_content: `<p>इस चरण में, उम्मीदवारों को लिखित परीक्षा देनी होती है और उनके सेवा अभिलेख (service record) का मूल्यांकन किया जाता है, जो अंतिम चयन में महत्वपूर्ण भूमिका निभाता है।</p>`,
+                step1_modal_content: `<p class="text-text-light">इस चरण में, उम्मीदवारों को लिखित परीक्षा देनी होती है और उनके सेवा अभिलेख (service record) का मूल्यांकन किया जाता है, जो अंतिम चयन में महत्वपूर्ण भूमिका निभाता है।</p>`,
                 step2_modal_title: "चरण 2: अंतिम चयन",
-                step2_modal_content: `<p>अंतिम चयन लिखित परीक्षा में प्राप्त अंकों और सेवा अभिलेख के मूल्यांकन के आधार पर होता है।</p>`,
+                step2_modal_content: `<p class="text-text-light">अंतिम चयन लिखित परीक्षा में प्राप्त अंकों और सेवा अभिलेख के मूल्यांकन के आधार पर होता है।</p>`,
 
                 syllabus_modal1_title: "सामान्य अध्ययन (GS) और नियम/प्रक्रिया",
-                syllabus_modal1_list: `<ul class="list-disc list-inside space-y-2"><li>भारतीय संविधान</li><li>संसद, न्यायपालिका और प्रशासनिक संरचना</li><li>वर्तमान घटनाएँ (National + International)</li><li>जनकल्याणकारी योजनाएँ</li><li>सरकारी कार्यालय प्रणाली और नियम</li></ul>`,
+                syllabus_modal1_list: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>भारतीय संविधान</li><li>संसद, न्यायपालिका और प्रशासनिक संरचना</li><li>वर्तमान घटनाएँ (National + International)</li><li>जनकल्याणकारी योजनाएँ</li><li>सरकारी कार्यालय प्रणाली और नियम</li></ul>`,
                 syllabus_modal2_title: "नोटिंग-ड्राफ्टिंग",
-                syllabus_modal2_list: `<ul class="list-disc list-inside space-y-2"><li>फाइल नोटिंग</li><li>आधिकारिक पत्र लेखन</li><li>संक्षेपण (Precis Writing)</li><li>रिपोर्ट लेखन</li></ul>`,
+                syllabus_modal2_list: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>फाइल नोटिंग</li><li>आधिकारिक पत्र लेखन</li><li>संक्षेपण (Precis Writing)</li><li>रिपोर्ट लेखन</li></ul>`,
 
                 career_path_modal1_title: "Section Officer (SO) करियर पथ",
-                career_path_modal1_content: `<p class="mb-4"><strong>Section Officer</strong> से शुरू होने वाला करियर पथ: Under Secretary → Deputy Secretary → Director → Joint Secretary तक जाता है।</p>`,
+                career_path_modal1_content: `<p class="mb-4 text-text-light"><strong>Section Officer</strong> से शुरू होने वाला करियर पथ: Under Secretary → Deputy Secretary → Director → Joint Secretary तक जाता है।</p>`,
                 career_path_modal2_title: "Stenographer (Steno) करियर पथ",
-                career_path_modal2_content: `<p class="mb-4"><strong>Stenographer</strong> से शुरू होने वाला करियर पथ: Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary तक जाता है।</p>`,
+                career_path_modal2_content: `<p class="mb-4 text-text-light"><strong>Stenographer</strong> से शुरू होने वाला करियर पथ: Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary तक जाता है।</p>`,
+                
+                modal_roadmap_title: "SO/Steno: करियर प्रगति का पथ",
+                roadmap_step1_title: "प्रारंभिक पोस्ट (Entry Post)",
+                roadmap_step1_desc: "SO: सेक्शन ऑफिसर। Steno: ग्रेड B/I",
+                roadmap_step2_title: "मध्य-स्तरीय पोस्ट (Mid-Level)",
+                roadmap_step2_desc: "SO: अंडर सेक्रेटरी (Under Secretary)। Steno: प्राइवेट सेक्रेटरी (PS)।",
+                roadmap_step3_title: "वरिष्ठ पोस्ट (Senior Level)",
+                roadmap_step3_desc: "SO: डायरेक्टर/डिप्टी सेक्रेटरी। Steno: प्रिंसिपल प्राइवेट सेक्रेटरी (PPS)。",
+                roadmap_step4_title: "शीर्ष/उच्चतम पोस्ट (Apex/Highest)",
+                roadmap_step4_desc: "SO: जॉइंट सेक्रेटरी (Joint Secretary) तक पहुँचने की संभावना।",
+                roadmap_note: "यह एक सामान्य प्रगति पथ है; पदोन्नति प्रदर्शन, अनुभव और पद की उपलब्धता पर निर्भर करती है।",
             },
             en: {
                 doc_title: "SO / Steno (Group D/B-I) LDCE Exam (GD-B / GD-I)",
                 header_title: "SO / Steno LDCE Exam",
                 header_subtitle: "Complete Guide for Promotion",
-                section1_title: "1. What is the Exam?",
+                section1_title: "1. What is the Exam? 🤔",
                 section1_desc1: "👉 This exam is conducted by the Union Public Service Commission (UPSC).",
                 section1_desc2: "👉 Its purpose is to appoint Group C and Group B employees of various ministries and departments of the Central Government to the posts of Section Officer (SO) and Stenographer (Steno, GD-B/GD-I) by giving them promotion.",
                 section1_desc3: "👉 It is an internal departmental exam, meaning only government employees can participate, not general citizens.",
+                section1_services_text: "Departmental Exam for Promotion", 
+                section1_career_btn: "View Career Progression", // Button Text
                 section1_card1_title: "Exam Information",
                 section1_card2_title: "Exam Process",
                 section1_card3_title: "Eligibility",
                 section1_card4_title: "Career",
                 
-                section2_title: "2. Examination Process",
+                section2_title: "2. Examination Process 🎯",
                 section2_desc: "Key stages of the selection process:",
                 section2_step1_title: "Written Exam + Service Record",
                 section2_step2_title: "Final Selection",
                 
-                section3_title: "3. Eligibility & Exam Pattern",
+                section3_title: "3. Eligibility & Exam Pattern ✅",
                 section3_list: `
                     <div class="mb-4"><strong>Eligibility:</strong>
                         <ul class="list-disc list-inside space-y-2 text-lg">
@@ -491,31 +946,31 @@
                         </ul>
                     </div>
                 `,
-                section3_chart_title: "Written Exam Pattern",
+                section3_chart_title: "Written Exam Pattern 📊",
                 examPatternChartLabels: ['Paper I', 'Paper II', 'Paper III'],
                 
-                section4_title: "4. Detailed Examination Syllabus",
+                section4_title: "4. Detailed Examination Syllabus 📚",
                 section4_desc: "Key subjects included in the written exam and their details:",
                 section4_subject1_title: "General Studies",
                 section4_subject2_title: "Noting-Drafting",
-                section4_subject_button: "View Syllabus &rarr;",
+                section4_subject_button: "View Syllabus →",
 
                 section5_title: "5. All Subjects of the Exam",
                 section5_list: `<div>
-                    <div class="subject-item"><span>General Studies & Constitution</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>
-                    <div class="subject-item"><span>Govt. Rules/Office Procedure</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>
-                    <div class="subject-item"><span>Noting-Drafting & Precis Writing</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>
-                    <div class="subject-item"><span>Departmental Rules & Orders</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>
-                    <div class="subject-item"><span>Stenography (for Steno Cadre only)</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>
+                    <div class="subject-item"><span>General Studies & Constitution</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>Govt. Rules/Office Procedure</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>Noting-Drafting & Precis Writing</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>Departmental Rules & Orders</span><div class="subject-buttons"></div></div>
+                    <div class="subject-item"><span>Stenography (for Steno Cadre only)</span><div class="subject-buttons"></div></div>
                 </div>`,
                 
-                section6_title: "6. Department, Post Cadre and Career Opportunities",
+                section6_title: "6. Department, Post Cadre and Career Opportunities 🌟",
                 section6_desc: "Selected candidates are made Section Officer (SO) or Stenographer Grade D/B-I, and their career path is as follows:",
                 section6_card1_title: "Section Officer (SO)",
                 section6_card2_title: "Stenographer (Steno)",
-                section6_card_button: "View Career Path &rarr;",
+                section6_card_button: "View Career Path →",
                 
-                section7_title: "7. Preparation Strategy (Smart Work)",
+                section7_title: "7. Preparation Strategy (Smart Work) 📈",
                 section7_list: `
                     <ul class="list-disc list-inside space-y-3 text-lg">
                         <li>✅ Read office orders and manuals thoroughly.</li>
@@ -528,13 +983,13 @@
                 
                 section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
                 section8_desc: "Avoiding these mistakes is very important for success:",
-                section8_item1: `<div><strong>Rote learning only:</strong> Read and understand office rules.</div>`,
-                section8_item2: `<div><strong>Using vague language in noting-drafting:</strong> Write clearly and concisely.</div>`,
-                section8_item3: `<div><strong>Focusing more on speed, less on accuracy in the steno exam:</strong> Pay equal attention to both.</div>`,
-                section8_item4: `<div><strong>Ignoring time management:</strong> Learn to use time correctly in the exam.</div>`,
-                section8_item5: `<div><strong>Ignoring the previous exam pattern:</strong> It's very important to understand the pattern.</div>`,
+                section8_item1: `<div class="text-text-light"><strong class="text-lg text-red-300">Rote learning only:</strong> Read and understand office rules.</div>`,
+                section8_item2: `<div class="text-text-light"><strong class="text-lg text-red-300">Using vague language in noting-drafting:</strong> Write clearly and concisely.</div>`,
+                section8_item3: `<div class="text-text-light"><strong class="text-lg text-red-300">Focusing more on speed, less on accuracy in the steno exam:</strong> Pay equal attention to both.</div>`,
+                section8_item4: `<div class="text-text-light"><strong class="text-lg text-red-300">Ignoring time management:</strong> Learn to use time correctly in the exam.</div>`,
+                section8_item5: `<div class="text-text-light"><strong class="text-lg text-red-300">Ignoring the previous exam pattern:</strong> It's very important to understand the pattern.</div>`,
                 
-                section9_title: "9. When is the notification released and how long does the process take?",
+                section9_title: "9. When is the notification released and how long does the process take? 🗓️",
                 section9_list: `
                     <ul class="list-disc list-inside space-y-2 text-lg">
                         <li><strong>Notification:</strong> UPSC releases the notification every year (usually in July–August).</li>
@@ -545,7 +1000,7 @@
                     </ul>
                 `,
 
-                section10_title: "10. Which institutions provide coaching?",
+                section10_title: "10. Which institutions provide coaching? 🏫",
                 section10_list: `
                     <div class="mb-4"><strong>Government Institutions:</strong>
                         <ul class="list-disc list-inside space-y-2 text-lg">
@@ -561,169 +1016,60 @@
                     </div>
                 `,
 
+                section11_title: "11. Career Growth Roadmap: Your Future 🚀", // NEW SECTION
+                section11_desc: "The career of an SO and Stenographer after passing the LDCE is progressive and influential.", // NEW SECTION DESC
+                section11_career_btn: "View Complete Career Roadmap", // Button Text
+
                 footer_text: "© 2025 all-gov-services.com - Best wishes for your success.",
 
                 // Modals
                 exam_info_modal_title: "1. What is the Exam?",
-                exam_info_modal_content: `<p class="mb-4">This exam is conducted by the Union Public Service Commission (UPSC).</p><p class="mb-4">Its purpose is to appoint Group C and Group B employees of various ministries and departments of the Central Government to the posts of Section Officer (SO) and Stenographer (Steno, GD-B/GD-I) by giving them promotion.</p><p>It is an internal departmental exam, meaning only government employees can participate, not general citizens.</p>`,
+                exam_info_modal_content: `<p class="mb-4 text-text-light">This exam is conducted by the Union Public Service Commission (UPSC).</p><p class="mb-4 text-text-light">Its purpose is to appoint Group C and Group B employees of various ministries and departments of the Central Government to the posts of Section Officer (SO) and Stenographer (Steno, GD-B/GD-I) by giving them promotion.</p><p class="text-text-light">It is an internal departmental exam, meaning only government employees can participate, not general citizens.</p>`,
                 exam_process_modal_title: "2. Examination Process",
-                exam_process_modal_content: `<ul class="list-disc list-inside space-y-2"><li>Notification issued – on UPSC's website and Gazette.</li><li>Online application – only eligible employees can apply.</li><li>Written exam – Objective + Descriptive.</li><li>Service Record evaluation.</li><li>Final Selection – based on written exam + service record.</li></ul>`,
+                exam_process_modal_content: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>Notification issued – on UPSC's website and Gazette.</li><li>Online application – only eligible employees can apply.</li><li>Written exam – Objective + Descriptive.</li><li>Service Record evaluation.</li><li>Final Selection – based on written exam + service record.</li></ul>`,
                 eligibility_modal_title: "3. Eligibility and Exam Pattern",
-                eligibility_modal_content: `<p class="mb-2"><strong>Eligibility:</strong></p><ul class="list-disc list-inside mb-4 space-y-2"><li>Candidates must be Central Government employees.</li><li>Service Years vary by department (usually 3–5 years).</li><li>ACR/APAR reports should be good.</li></ul><p class="mb-2"><strong>Pattern:</strong></p><ul class="list-disc list-inside space-y-2"><li>Paper I – General Studies (GS) and Rules/Procedures.</li><li>Paper II – Noting, Drafting and Precis Writing.</li><li>Paper III – Service-related subjects.</li><li>Paper IV (if applicable) – Stenography skill test in Hindi/English.</li></ul>`,
-                career_modal_title: "6. Department, Post Cadre and Career Opportunities",
-                career_modal_content: `<p class="mb-4">Selected candidates are made Section Officer (SO) or Stenographer Grade D/B-I.</p><p class="mb-2"><strong>Career Growth:</strong></p><ul class="list-disc list-inside space-y-2"><li><strong>Section Officer</strong> → Under Secretary → Deputy Secretary → Director → Joint Secretary.</li><li><strong>Steno</strong> → Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary.</li></ul>`,
+                eligibility_modal_content: `<p class="mb-2 text-text-light"><strong>Eligibility:</strong></p><ul class="list-disc list-inside mb-4 space-y-2 text-text-light"><li>Candidates must be Central Government employees.</li><li>Service Years vary by department (usually 3–5 years).</li><li>ACR/APAR reports should be good.</li></ul><p class="mb-2 text-text-light"><strong>Pattern:</strong></p><ul class="list-disc list-inside space-y-2 text-text-light"><li>Paper I – General Studies (GS) and Rules/Procedures.</li><li>Paper II – Noting, Drafting and Precis Writing.</li><li>Paper III – Service-related subjects.</li><li>Paper IV (if applicable) – Stenography skill test in Hindi/English.</li></ul>`,
+                career_modal_title: "Career Opportunities", // Simplified career modal title
+                career_modal_content: `<p class="mb-4 text-text-light">Selected candidates are made Section Officer (SO) or Stenographer Grade D/B-I.</p><p class="mb-2 text-text-light"><strong>Career Growth:</strong></p><ul class="list-disc list-inside space-y-2 text-text-light"><li><strong>Section Officer</strong> → Under Secretary → Deputy Secretary → Director → Joint Secretary.</li><li><strong>Steno</strong> → Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary.</li></ul>`,
 
                 step1_modal_title: "Stage 1: Written Exam + Service Record",
-                step1_modal_content: `<p>In this stage, candidates have to take a written exam and their service record is evaluated, which plays an important role in the final selection.</p>`,
+                step1_modal_content: `<p class="text-text-light">In this stage, candidates have to take a written exam and their service record is evaluated, which plays an important role in the final selection.</p>`,
                 step2_modal_title: "Stage 2: Final Selection",
-                step2_modal_content: `<p>Final selection is based on the marks obtained in the written exam and the evaluation of the service record.</p>`,
+                step2_modal_content: `<p class="text-text-light">Final selection is based on the marks obtained in the written exam and the evaluation of the service record.</p>`,
 
                 syllabus_modal1_title: "General Studies (GS) and Rules/Procedures",
-                syllabus_modal1_list: `<ul class="list-disc list-inside space-y-2"><li>Indian Constitution</li><li>Parliament, Judiciary, and Administrative Structure</li><li>Current Events (National + International)</li><li>Public Welfare Schemes</li><li>Government Office System and Rules</li></ul>`,
+                syllabus_modal1_list: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>Indian Constitution</li><li>Parliament, Judiciary, and Administrative Structure</li><li>Current Events (National + International)</li><li>Public Welfare Schemes</li><li>Government Office System and Rules</li></ul>`,
                 syllabus_modal2_title: "Noting-Drafting",
-                syllabus_modal2_list: `<ul class="list-disc list-inside space-y-2"><li>File Noting</li><li>Official Letter Writing</li><li>Precis Writing</li><li>Report Writing</li></ul>`,
+                syllabus_modal2_list: `<ul class="list-disc list-inside space-y-2 text-text-light"><li>File Noting</li><li>Official Letter Writing</li><li>Precis Writing</li><li>Report Writing</li></ul>`,
 
                 career_path_modal1_title: "Section Officer (SO) Career Path",
-                career_path_modal1_content: `<p class="mb-4">The career path starting from <strong>Section Officer</strong> goes to: Under Secretary → Deputy Secretary → Director → Joint Secretary.</p>`,
+                career_path_modal1_content: `<p class="mb-4 text-text-light">The career path starting from <strong>Section Officer</strong> goes to: Under Secretary → Deputy Secretary → Director → Joint Secretary.</p>`,
                 career_path_modal2_title: "Stenographer (Steno) Career Path",
-                career_path_modal2_content: `<p class="mb-4">The career path starting from <strong>Stenographer</strong> goes to: Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary.</p>`,
-            },
-            pa: {
-                doc_title: "SO / Steno (Group D/B-I) LDCE ਪ੍ਰੀਖਿਆ (GD-B / GD-I)",
-                header_title: "SO / Steno LDCE ਪ੍ਰੀਖਿਆ",
-                header_subtitle: "ਤਰੱਕੀ ਲਈ ਸੰਪੂਰਨ ਗਾਈਡ",
-                section1_title: "1. ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ?",
-                section1_desc1: "👉 ਇਹ ਪ੍ਰੀਖਿਆ ਸੰਘ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ (UPSC) ਦੁਆਰਾ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
-                section1_desc2: "👉 ਇਸਦਾ ਉਦੇਸ਼ ਕੇਂਦਰ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਮੰਤਰਾਲਿਆਂ ਅਤੇ ਵਿਭਾਗਾਂ ਦੇ ਗਰੁੱਪ ਸੀ ਅਤੇ ਗਰੁੱਪ ਬੀ ਕਰਮਚਾਰੀਆਂ ਨੂੰ ਤਰੱਕੀ ਦੇ ਕੇ ਸੈਕਸ਼ਨ ਅਫਸਰ (SO) ਅਤੇ ਸਟੈਨੋਗ੍ਰਾਫਰ (Steno, GD-B/GD-I) ਦੇ ਅਹੁਦਿਆਂ 'ਤੇ ਨਿਯੁਕਤ ਕਰਨਾ ਹੈ।",
-                section1_desc3: "👉 ਇਹ ਇੱਕ ਅੰਦਰੂਨੀ ਵਿਭਾਗੀ ਪ੍ਰੀਖਿਆ ਹੈ, ਮਤਲਬ ਕਿ ਸਿਰਫ਼ ਸਰਕਾਰੀ ਕਰਮਚਾਰੀ ਹੀ ਇਸ ਵਿੱਚ ਹਿੱਸਾ ਲੈ ਸਕਦੇ ਹਨ, ਆਮ ਨਾਗਰਿਕ ਨਹੀਂ।",
-                section1_card1_title: "ਪ੍ਰੀਖਿਆ ਦੀ ਜਾਣਕਾਰੀ",
-                section1_card2_title: "ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ",
-                section1_card3_title: "ਯੋਗਤਾ",
-                section1_card4_title: "ਕੈਰੀਅਰ",
+                career_path_modal2_content: `<p class="mb-4 text-text-light">The career path starting from <strong>Stenographer</strong> goes to: Personal Assistant (PA) → Private Secretary (PS) → Senior PS → Principal Private Secretary.</p>`,
                 
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ",
-                section2_desc: "ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਦੇ ਮੁੱਖ ਪੜਾਅ:",
-                section2_step1_title: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ + ਸੇਵਾ ਰਿਕਾਰਡ",
-                section2_step2_title: "ਅੰਤਿਮ ਚੋਣ",
-                
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ",
-                section3_list: `
-                    <div class="mb-4"><strong>ਯੋਗਤਾ:</strong>
-                        <ul class="list-disc list-inside space-y-2 text-lg">
-                            <li>ਉਮੀਦਵਾਰ ਕੇਂਦਰ ਸਰਕਾਰ ਦੇ ਕਰਮਚਾਰੀ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।</li>
-                            <li>ਸੇਵਾ ਦੀ ਮਿਆਦ (Service Years) ਵਿਭਾਗ ਅਨੁਸਾਰ ਵੱਖ-ਵੱਖ ਹੁੰਦੀ ਹੈ (ਆਮ ਤੌਰ 'ਤੇ 3–5 ਸਾਲ)।</li>
-                            <li>ACR/APAR ਰਿਪੋਰਟ ਚੰਗੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</li>
-                        </ul>
-                    </div>
-                    <div><strong>ਪੈਟਰਨ:</strong>
-                        <ul class="list-disc list-inside space-y-2 text-lg">
-                            <li>ਪੇਪਰ I – ਆਮ ਅਧਿਐਨ (GS) ਅਤੇ ਨਿਯਮ/ਪ੍ਰਕਿਰਿਆ।</li>
-                            <li>ਪੇਪਰ II – ਨੋਟਿੰਗ, ਡਰਾਫਟਿੰਗ ਅਤੇ ਪ੍ਰੀਸਾਈ ਰਾਈਟਿੰਗ।</li>
-                            <li>ਪੇਪਰ III – ਸੇਵਾ ਨਾਲ ਸਬੰਧਤ ਵਿਸ਼ੇ।</li>
-                            <li>ਪੇਪਰ IV (ਜੇ ਲਾਗੂ ਹੋਵੇ) – ਹਿੰਦੀ/ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸਟੈਨੋਗ੍ਰਾਫੀ ਹੁਨਰ ਟੈਸਟ।</li>
-                        </ul>
-                    </div>
-                `,
-                section3_chart_title: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ",
-                examPatternChartLabels: ['ਪੇਪਰ I', 'ਪੇਪਰ II', 'ਪੇਪਰ III'],
-                
-                section4_title: "4. ਪ੍ਰੀਖਿਆ ਦਾ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ",
-                section4_desc: "ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸ਼ਾਮਲ ਮੁੱਖ ਵਿਸ਼ੇ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਵੇਰਵਾ:",
-                section4_subject1_title: "ਆਮ ਅਧਿਐਨ",
-                section4_subject2_title: "ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ",
-                section4_subject_button: "ਸਿਲੇਬਸ ਵੇਖੋ &rarr;",
-
-                section5_title: "5. ਪ੍ਰੀਖਿਆ ਦੇ ਸਾਰੇ ਵਿਸ਼ੇ",
-                section5_list: `<div>
-                    <div class="subject-item"><span>ਆਮ ਅਧਿਐਨ ਅਤੇ ਸੰਵਿਧਾਨ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>
-                    <div class="subject-item"><span>ਸਰਕਾਰੀ ਨਿਯਮ/ਦਫ਼ਤਰ ਪ੍ਰਕਿਰਿਆ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>
-                    <div class="subject-item"><span>ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ ਅਤੇ ਪ੍ਰੀਸਾਈ ਰਾਈਟਿੰਗ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>
-                    <div class="subject-item"><span>ਸੇਵਾ ਵਿਸ਼ਾ (Departmental Rules)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>
-                    <div class="subject-item"><span>ਸਟੈਨੋਗ੍ਰਾਫੀ (ਸਿਰਫ ਸਟੈਨੋ ਕੈਡਰ ਲਈ)</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>
-                </div>`,
-                
-                section6_title: "6. ਵਿਭਾਗ, ਪੋਸਟ ਕੈਡਰ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ",
-                section6_desc: "ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਸੈਕਸ਼ਨ ਅਫਸਰ (SO) ਜਾਂ ਸਟੈਨੋਗ੍ਰਾਫਰ ਗ੍ਰੇਡ ਡੀ/ਬੀ-I ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਕੈਰੀਅਰ ਮਾਰਗ ਇਸ ਪ੍ਰਕਾਰ ਹੈ:",
-                section6_card1_title: "Section Officer (SO)",
-                section6_card2_title: "Stenographer (Steno)",
-                section6_card_button: "ਕੈਰੀਅਰ ਮਾਰਗ ਵੇਖੋ &rarr;",
-                
-                section7_title: "7. ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ (Smart Work)",
-                section7_list: `
-                    <ul class="list-disc list-inside space-y-3 text-lg">
-                        <li>✅ ਦਫ਼ਤਰੀ ਹੁਕਮਾਂ ਅਤੇ ਮੈਨੂਅਲਾਂ ਨੂੰ ਚੰਗੀ ਤਰ੍ਹਾਂ ਪੜ੍ਹੋ।</li>
-                        <li>✅ ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li>
-                        <li>✅ ਸੰਵਿਧਾਨ ਅਤੇ ਸੰਸਦ ਦੀ ਕਾਰਵਾਈ 'ਤੇ ਪਕੜ ਬਣਾਓ।</li>
-                        <li>✅ ਪਿਛਲੇ ਸਾਲ ਦੇ ਪ੍ਰਸ਼ਨ ਪੱਤਰ ਹੱਲ ਕਰੋ।</li>
-                        <li>✅ ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਅਤੇ ਪ੍ਰੀਸਾਈ ਰਾਈਟਿੰਗ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li>
-                    </ul>
-                `,
-                
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਇਹਨਾਂ ਗਲਤੀਆਂ ਤੋਂ ਬਚਣਾ ਸਫਲਤਾ ਲਈ ਬਹੁਤ ਜ਼ਰੂਰੀ ਹੈ:",
-                section8_item1: `<div><strong>ਸਿਰਫ਼ ਰੱਟਾ ਲਗਾਉਣਾ:</strong> ਦਫ਼ਤਰੀ ਨਿਯਮਾਂ ਨੂੰ ਸਮਝ ਕੇ ਪੜ੍ਹੋ।</div>`,
-                section8_item2: `<div><strong>ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ ਵਿੱਚ ਅਸਪਸ਼ਟ ਭਾਸ਼ਾ ਦੀ ਵਰਤੋਂ:</strong> ਸਪਸ਼ਟ ਅਤੇ ਸੰਖੇਪ ਲਿਖੋ।</div>`,
-                section8_item3: `<div><strong>ਸਟੈਨੋ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਗਤੀ 'ਤੇ ਵਧੇਰੇ, ਸ਼ੁੱਧਤਾ 'ਤੇ ਘੱਟ ਧਿਆਨ:</strong> ਦੋਵਾਂ 'ਤੇ ਬਰਾਬਰ ਧਿਆਨ ਦਿਓ।</div>`,
-                section8_item4: `<div><strong>ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਦੀ ਅਣਦੇਖੀ:</strong> ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸਮੇਂ ਦੀ ਸਹੀ ਵਰਤੋਂ ਸਿੱਖੋ।</div>`,
-                section8_item5: `<div><strong>ਪਿਛਲੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰਨਾ:</strong> ਪੈਟਰਨ ਨੂੰ ਸਮਝਣਾ ਬਹੁਤ ਜ਼ਰੂਰੀ ਹੈ।</div>`,
-                
-                section9_title: "9. ਕਦੋਂ ਨਿਕਲਦੀ ਹੈ ਅਤੇ ਪ੍ਰਕਿਰਿਆ ਕਿੰਨੇ ਦਿਨ ਤੱਕ ਚਲਦੀ ਹੈ?",
-                section9_list: `
-                    <ul class="list-disc list-inside space-y-2 text-lg">
-                        <li><strong>ਸੂਚਨਾ:</strong> UPSC ਹਰ ਸਾਲ ਇਸਦੀ ਸੂਚਨਾ ਜਾਰੀ ਕਰਦਾ ਹੈ (ਆਮ ਤੌਰ 'ਤੇ ਜੁਲਾਈ–ਅਗਸਤ ਵਿੱਚ)।</li>
-                        <li><strong>ਅਰਜ਼ੀ ਦੀ ਪ੍ਰਕਿਰਿਆ:</strong> ਲਗਭਗ 3-4 ਹਫ਼ਤੇ।</li>
-                        <li><strong>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ:</strong> ਸੂਚਨਾ ਤੋਂ 3–4 ਮਹੀਨੇ ਬਾਅਦ।</li>
-                        <li><strong>ਨਤੀਜਾ ਅਤੇ ਸੇਵਾ ਰਿਕਾਰਡ ਮੁਲਾਂਕਣ:</strong> ਲਗਭਗ 6 ਮਹੀਨੇ।</li>
-                        <li><strong>ਕੁੱਲ ਪ੍ਰਕਿਰਿਆ:</strong> ਲਗਭਗ 8–10 ਮਹੀਨੇ ਚਲਦੀ ਹੈ।</li>
-                    </ul>
-                `,
-
-                section10_title: "10. ਕਿਹੜੀਆਂ ਸੰਸਥਾਵਾਂ ਤਿਆਰੀ ਕਰਵਾਉਂਦੀਆਂ ਹਨ?",
-                section10_list: `
-                    <div class="mb-4"><strong>ਸਰਕਾਰੀ ਸੰਸਥਾਵਾਂ:</strong>
-                        <ul class="list-disc list-inside space-y-2 text-lg">
-                            <li>ਕੁਝ ਵਿਭਾਗ ਆਪਣੇ ਕਰਮਚਾਰੀਆਂ ਲਈ ਇਨ-ਹਾਊਸ ਸਿਖਲਾਈ / ਰਿਫਰੈਸ਼ਰ ਕੋਰਸ ਕਰਵਾਉਂਦੇ ਹਨ।</li>
-                        </ul>
-                    </div>
-                    <div><strong>ਗੈਰ-ਸਰਕਾਰੀ ਸੰਸਥਾਵਾਂ (Private Coaching):</strong>
-                        <ul class="list-disc list-inside space-y-2 text-lg">
-                            <li>ਦਿੱਲੀ, ਹੈਦਰਾਬਾਦ, ਪਟਨਾ ਵਰਗੇ ਸ਼ਹਿਰਾਂ ਵਿੱਚ UPSC ਵਿਭਾਗੀ ਪ੍ਰੀਖਿਆ ਕੋਚਿੰਗ ਚਲਦੀ ਹੈ।</li>
-                            <li>ਇਹਨਾਂ ਵਿੱਚ ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ, ਸੰਵਿਧਾਨ, ਦਫ਼ਤਰੀ ਪ੍ਰਕਿਰਿਆਵਾਂ ਅਤੇ ਸਟੈਨੋ ਸਿਖਲਾਈ ਕਰਵਾਈ ਜਾਂਦੀ ਹੈ।</li>
-                            <li>ਇਹ ਕੋਚਿੰਗ ਪਿਛਲੇ 10-15 ਸਾਲਾਂ ਤੋਂ ਉਪਲਬਧ ਹੈ, ਪਰ ਬਹੁਤ ਹੀ ਸੀਮਤ ਸ਼ਹਿਰਾਂ ਵਿੱਚ।</li>
-                        </ul>
-                    </div>
-                `,
-                footer_text: "© 2025 all-gov-services.com - ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁਭਕਾਮਨਾਵਾਂ।",
-
-                // Modals
-                exam_info_modal_title: "1. ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ?",
-                exam_info_modal_content: `<p class="mb-4">ਇਹ ਪ੍ਰੀਖਿਆ ਸੰਘ ਲੋਕ ਸੇਵਾ ਕਮਿਸ਼ਨ (UPSC) ਦੁਆਰਾ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</p><p class="mb-4">ਇਸਦਾ ਉਦੇਸ਼ ਕੇਂਦਰ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਮੰਤਰਾਲਿਆਂ ਅਤੇ ਵਿਭਾਗਾਂ ਦੇ ਗਰੁੱਪ ਸੀ ਅਤੇ ਗਰੁੱਪ ਬੀ ਕਰਮਚਾਰੀਆਂ ਨੂੰ ਤਰੱਕੀ ਦੇ ਕੇ ਸੈਕਸ਼ਨ ਅਫਸਰ (SO) ਅਤੇ ਸਟੈਨੋਗ੍ਰਾਫਰ (Steno, GD-B/GD-I) ਦੇ ਅਹੁਦਿਆਂ 'ਤੇ ਨਿਯੁਕਤ ਕਰਨਾ ਹੈ।</p><p>ਇਹ ਇੱਕ ਅੰਦਰੂਨੀ ਵਿਭਾਗੀ ਪ੍ਰੀਖਿਆ ਹੈ, ਮਤਲਬ ਕਿ ਸਿਰਫ਼ ਸਰਕਾਰੀ ਕਰਮਚਾਰੀ ਹੀ ਇਸ ਵਿੱਚ ਹਿੱਸਾ ਲੈ ਸਕਦੇ ਹਨ, ਆਮ ਨਾਗਰਿਕ ਨਹੀਂ।</p>`,
-                exam_process_modal_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ",
-                exam_process_modal_content: `<ul class="list-disc list-inside space-y-2"><li>ਸੂਚਨਾ ਜਾਰੀ – UPSC ਦੀ ਵੈੱਬਸਾਈਟ ਅਤੇ ਗਜ਼ਟ ਵਿੱਚ।</li><li>ਆਨਲਾਈਨ ਅਰਜ਼ੀ – ਸਿਰਫ਼ ਯੋਗ ਕਰਮਚਾਰੀ ਹੀ ਅਪਲਾਈ ਕਰ ਸਕਦੇ ਹਨ।</li><li>ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ – ਵਸਤੂਨਿਸ਼ਠ + ਵਿਸਤ੍ਰਿਤ।</li><li>ਸੇਵਾ ਰਿਕਾਰਡ ਮੁਲਾਂਕਣ।</li><li>ਅੰਤਿਮ ਚੋਣ – ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ + ਸੇਵਾ ਰਿਕਾਰਡ ਦੇ ਆਧਾਰ 'ਤੇ।</li></ul>`,
-                eligibility_modal_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ",
-                eligibility_modal_content: `<p class="mb-2"><strong>ਯੋਗਤਾ:</strong></p><ul class="list-disc list-inside mb-4 space-y-2"><li>ਉਮੀਦਵਾਰ ਕੇਂਦਰ ਸਰਕਾਰ ਦੇ ਕਰਮਚਾਰੀ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।</li><li>ਸੇਵਾ ਦੀ ਮਿਆਦ (Service Years) ਵਿਭਾਗ ਅਨੁਸਾਰ ਵੱਖ-ਵੱਖ ਹੁੰਦੀ ਹੈ (ਆਮ ਤੌਰ 'ਤੇ 3–5 ਸਾਲ)।</li><li>ACR/APAR ਰਿਪੋਰਟ ਚੰਗੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।</li></ul><p class="mb-2"><strong>ਪੈਟਰਨ:</strong></p><ul class="list-disc list-inside space-y-2"><li>ਪੇਪਰ I – ਆਮ ਅਧਿਐਨ (GS) ਅਤੇ ਨਿਯਮ/ਪ੍ਰਕਿਰਿਆ।</li><li>ਪੇਪਰ II – ਨੋਟਿੰਗ, ਡਰਾਫਟਿੰਗ ਅਤੇ ਪ੍ਰੀਸਾਈ ਰਾਈਟਿੰਗ।</li><li>ਪੇਪਰ III – ਸੇਵਾ ਨਾਲ ਸਬੰਧਤ ਵਿਸ਼ੇ।</li><li>ਪੇਪਰ IV (ਜੇ ਲਾਗੂ ਹੋਵੇ) – ਹਿੰਦੀ/ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸਟੈਨੋਗ੍ਰਾਫੀ ਹੁਨਰ ਟੈਸਟ।</li></ul>`,
-                career_modal_title: "6. ਵਿਭਾਗ, ਪੋਸਟ ਕੈਡਰ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ",
-                career_modal_content: `<p class="mb-4">ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਸੈਕਸ਼ਨ ਅਫਸਰ (SO) ਜਾਂ ਸਟੈਨੋਗ੍ਰਾਫਰ ਗ੍ਰੇਡ ਡੀ/ਬੀ-I ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ।</p><p class="mb-2"><strong>ਕੈਰੀਅਰ ਵਾਧਾ:</strong></p><ul class="list-disc list-inside space-y-2"><li><strong>ਸੈਕਸ਼ਨ ਅਫਸਰ</strong> → ਅੰਡਰ ਸਕੱਤਰ → ਡਿਪਟੀ ਸਕੱਤਰ → ਡਾਇਰੈਕਟਰ → ਜੁਆਇੰਟ ਸਕੱਤਰ ਤੱਕ।</li><li><strong>ਸਟੈਨੋ</strong> → ਨਿੱਜੀ ਸਹਾਇਕ (PA) → ਪ੍ਰਾਈਵੇਟ ਸਕੱਤਰ (PS) → ਸੀਨੀਅਰ PS → ਪ੍ਰਿੰਸੀਪਲ ਪ੍ਰਾਈਵੇਟ ਸਕੱਤਰ।</li></ul>`,
-
-                step1_modal_title: "ਪੜਾਅ 1: ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ + ਸੇਵਾ ਰਿਕਾਰਡ",
-                step1_modal_content: `<p>ਇਸ ਪੜਾਅ ਵਿੱਚ, ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਦੇਣੀ ਪੈਂਦੀ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਸੇਵਾ ਰਿਕਾਰਡ ਦਾ ਮੁਲਾਂਕਣ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਜੋ ਅੰਤਿਮ ਚੋਣ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ।</p>`,
-                step2_modal_title: "ਪੜਾਅ 2: ਅੰਤਿਮ ਚੋਣ",
-                step2_modal_content: `<p>ਅੰਤਿਮ ਚੋਣ ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਪ੍ਰਾਪਤ ਅੰਕਾਂ ਅਤੇ ਸੇਵਾ ਰਿਕਾਰਡ ਦੇ ਮੁਲਾਂਕਣ ਦੇ ਆਧਾਰ 'ਤੇ ਹੁੰਦੀ ਹੈ।</p>`,
-                
-                syllabus_modal1_title: "ਆਮ ਅਧਿਐਨ (GS) ਅਤੇ ਨਿਯਮ/ਪ੍ਰਕਿਰਿਆ",
-                syllabus_modal1_list: `<ul class="list-disc list-inside space-y-2"><li>ਭਾਰਤੀ ਸੰਵਿਧਾਨ</li><li>ਸੰਸਦ, ਨਿਆਂਪਾਲਿਕਾ ਅਤੇ ਪ੍ਰਬੰਧਕੀ ਢਾਂਚਾ</li><li>ਮੌਜੂਦਾ ਘਟਨਾਵਾਂ (ਰਾਸ਼ਟਰੀ + ਅੰਤਰਰਾਸ਼ਟਰੀ)</li><li>ਲੋਕ ਭਲਾਈ ਯੋਜਨਾਵਾਂ</li><li>ਸਰਕਾਰੀ ਦਫ਼ਤਰ ਪ੍ਰਣਾਲੀ ਅਤੇ ਨਿਯਮ</li></ul>`,
-                syllabus_modal2_title: "ਨੋਟਿੰਗ-ਡਰਾਫਟਿੰਗ",
-                syllabus_modal2_list: `<ul class="list-disc list-inside space-y-2"><li>ਫਾਈਲ ਨੋਟਿੰਗ</li><li>ਅਧਿਕਾਰਤ ਪੱਤਰ ਲਿਖਣ</li><li>ਸੰਖੇਪ (Precis Writing)</li><li>ਰਿਪੋਰਟ ਲਿਖਣ</li></ul>`,
-
-                career_path_modal1_title: "ਸੈਕਸ਼ਨ ਅਫਸਰ (SO) ਕੈਰੀਅਰ ਮਾਰਗ",
-                career_path_modal1_content: `<p class="mb-4"><strong>ਸੈਕਸ਼ਨ ਅਫਸਰ</strong> ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲਾ ਕੈਰੀਅਰ ਮਾਰਗ: ਅੰਡਰ ਸਕੱਤਰ → ਡਿਪਟੀ ਸਕੱਤਰ → ਡਾਇਰੈਕਟਰ → ਜੁਆਇੰਟ ਸਕੱਤਰ ਤੱਕ ਜਾਂਦਾ ਹੈ।</p>`,
-                career_path_modal2_title: "ਸਟੈਨੋਗ੍ਰਾਫਰ (Steno) ਕੈਰੀਅਰ ਮਾਰਗ",
-                career_path_modal2_content: `<p class="mb-4"><strong>ਸਟੈਨੋਗ੍ਰਾਫਰ</strong> ਤੋਂ ਸ਼ੁਰੂ ਹੋਣ ਵਾਲਾ ਕੈਰੀਅਰ ਮਾਰਗ: ਨਿੱਜੀ ਸਹਾਇਕ (PA) → ਪ੍ਰਾਈਵੇਟ ਸਕੱਤਰ (PS) → ਸੀਨੀਅਰ PS → ਪ੍ਰਿੰਸੀਪਲ ਪ੍ਰਾਈਵੇਟ ਸਕੱਤਰ ਤੱਕ ਜਾਂਦਾ ਹੈ।</p>`,
+                modal_roadmap_title: "SO/Steno: Career Progression Path",
+                roadmap_step1_title: "Entry Post",
+                roadmap_step1_desc: "SO: Section Officer. Steno: Grade B/I",
+                roadmap_step2_title: "Mid-Level Post",
+                roadmap_step2_desc: "SO: Under Secretary. Steno: Private Secretary (PS).",
+                roadmap_step3_title: "Senior Level Post",
+                roadmap_step3_desc: "SO: Director/Deputy Secretary. Steno: Principal Private Secretary (PPS).",
+                roadmap_step4_title: "Apex/Highest Post",
+                roadmap_step4_desc: "SO: Potential to reach Joint Secretary.",
+                roadmap_note: "This is a general progression path; promotion depends on performance, experience, and availability of post.",
             }
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             let examPatternChartInstance = null;
+
+            // Common Chart.js options for Dark Theme
+            const chartColors = {
+                gold1: '#FFD700',
+                gold2: '#B8860B',
+                gold3: '#A37A00',
+                textLight: '#f3f4f6'
+            };
 
             function initializeCharts(lang) {
                 if (examPatternChartInstance) {
@@ -739,16 +1085,16 @@
                                 label: 'Papers',
                                 data: [33, 33, 34], // Example data for SO/Steno exam pattern papers' weightage
                                 backgroundColor: [
-                                    'rgba(0, 45, 98, 0.8)',
-                                    'rgba(75, 85, 99, 0.8)',
-                                    'rgba(255, 165, 0, 0.8)'
+                                    chartColors.gold1,
+                                    chartColors.gold2,
+                                    chartColors.gold3
                                 ],
                                 borderColor: [
-                                    'rgba(0, 45, 98, 1)',
-                                    'rgba(75, 85, 99, 1)',
-                                    'rgba(255, 165, 0, 1)'
+                                    chartColors.textLight,
+                                    chartColors.textLight,
+                                    chartColors.textLight
                                 ],
-                                borderWidth: 1
+                                borderWidth: 2
                             }]
                         },
                         options: {
@@ -757,6 +1103,12 @@
                             plugins: {
                                 legend: {
                                     position: 'top',
+                                    labels: {
+                                        color: chartColors.textLight,
+                                        font: {
+                                            family: "'Inter', 'Noto Sans Devanagari', 'Noto Sans', sans-serif"
+                                        }
+                                    }
                                 },
                                 tooltip: {
                                     callbacks: {
@@ -770,13 +1122,38 @@
                                             }
                                             return label;
                                         }
-                                    }
+                                    },
+                                    backgroundColor: 'rgba(255, 215, 0, 0.9)',
+                                    titleColor: 'black',
+                                    bodyColor: 'black',
                                 }
                             }
                         }
                     });
                 }
             }
+
+            // Centralized Modal Logic (Copied from h.html)
+            window.showModal = (modalId) => {
+                document.querySelectorAll('.modal-overlay').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                const targetModal = document.getElementById(modalId);
+                if (targetModal) {
+                    targetModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            
+            window.closeModal = (modalId) => {
+                const targetModal = document.getElementById(modalId);
+                if (targetModal) {
+                    targetModal.classList.remove('active');
+                    if (!document.querySelector('.modal-overlay.active')) {
+                        document.body.style.overflow = '';
+                    }
+                }
+            };
 
             function changeLanguage(lang) {
                 document.documentElement.lang = lang;
@@ -787,7 +1164,17 @@
                         el.innerHTML = translations[lang][key];
                     }
                 });
-                
+
+                // Manually update text of dynamic buttons/elements (FIX for button text issue)
+                const roadmapBtn = document.getElementById('sec11-roadmap-btn');
+                if (roadmapBtn) {
+                   roadmapBtn.textContent = translations[lang]['section11_career_btn'];
+                }
+                const mainCareerBtn = document.getElementById('sec1-career-btn-main');
+                if (mainCareerBtn) {
+                   mainCareerBtn.textContent = translations[lang]['section1_career_btn'];
+                }
+
                 document.querySelectorAll('.lang-btn').forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.getAttribute('data-lang') === lang) {
@@ -800,21 +1187,16 @@
             }
 
             function attachModalListeners() {
-                const modalTriggers = document.querySelectorAll('[data-modal-target]');
-                modalTriggers.forEach(trigger => {
-                    // Remove existing listeners by cloning and replacing the element
-                    trigger.replaceWith(trigger.cloneNode(true));
-                });
-
+                // Clear existing listeners by cloning and replacing the element
                 document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', (e) => {
-                        const targetElement = e.target.closest('[data-modal-target]');
-                        if (targetElement) {
-                            const modalId = targetElement.getAttribute('data-modal-target');
-                            const modal = document.getElementById(modalId);
-                            if (modal) {
-                                modal.classList.add('active');
-                            }
+                    const newTrigger = trigger.cloneNode(true);
+                    trigger.replaceWith(newTrigger);
+                    
+                    newTrigger.addEventListener('click', (e) => {
+                        const targetButton = e.target.closest('[data-modal-target]');
+                        if (targetButton) {
+                            const modalId = targetButton.getAttribute('data-modal-target');
+                            showModal(modalId);
                         }
                     });
                 });
@@ -830,23 +1212,28 @@
             // Initial load
             changeLanguage('hi');
 
+            // Attach listeners to modal close buttons and overlays once
             const modals = document.querySelectorAll('.modal-overlay');
             modals.forEach(modal => {
+                // Attach close button listener if it exists
                 const closeButton = modal.querySelector('.modal-close-button');
                 if (closeButton) {
-                    closeButton.addEventListener('click', () => {
-                        modal.classList.remove('active');
+                    // Remove existing listeners before adding a new one (safety)
+                    closeButton.replaceWith(closeButton.cloneNode(true));
+                    modal.querySelector('.modal-close-button').addEventListener('click', () => {
+                        closeModal(modal.id);
                     });
                 }
+                // Attach overlay click listener
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
-                        modal.classList.remove('active');
+                        closeModal(modal.id);
                     }
                 });
             });
         });
     </script>
     
-
+    
 </body>
 </html>
