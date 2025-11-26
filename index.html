@@ -16,8 +16,6 @@
             --color-primary: #FFD700; /* Electric Gold Glow */
             --color-secondary: #A37A00; /* Dark Gold */
             --color-background: #1A1C20; /* Dark Background */
-            --color-text-primary: #f3f4f6; /* White/Light Text */
-            --color-text-secondary: #d1d5db; /* Muted Text */
             --color-primary-rgb: 255, 215, 0; 
             --electric-gold-glow: #FFD700; 
         }
@@ -25,7 +23,7 @@
         /* --- Global Styles --- */
         body {
             font-family: 'Inter', 'Noto Sans Devangari', sans-serif;
-            background-color: var(--color-background); 
+            background-color: #0d0d10; /* Slightly darker base for better effect */
             color: var(--color-text-primary);
             min-height: 100vh;
             display: flex;
@@ -35,16 +33,48 @@
             transition: opacity 1.5s ease-out; /* Fade-out transition */
             position: relative; /* For particle effect */
         }
+
+        /* New: Fixed Gradient Overlay for Focus */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Radial gradient to focus attention on the center */
+            background: radial-gradient(circle at center, rgba(30, 30, 35, 0.4) 0%, rgba(13, 13, 16, 0.8) 70%, rgba(13, 13, 16, 1) 100%);
+            z-index: -2; 
+        }
+
+        /* New: Moving Grid/Circuit Effect (Ultra Pro Max Background) */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 30s linear infinite;
+            opacity: 0.1;
+            z-index: -3;
+        }
+        @keyframes moveGrid {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
         
-        /* Keyframes for the Ultra Pro Max Logo Pulse and Shadow */
+        /* Keyframes for the Ultra Pro Max Logo Pulse and Shadow (Refined) */
         @keyframes ultraPulseShadow {
             0% { 
                 box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5), 0 0 0 0 rgba(var(--color-primary-rgb), 0.3); 
                 transform: scale(1);
             }
             50% { 
-                box-shadow: 0 0 40px rgba(var(--color-primary-rgb), 1), 0 0 0 20px rgba(var(--color-primary-rgb), 0); 
-                transform: scale(1.08);
+                box-shadow: 0 0 35px rgba(var(--color-primary-rgb), 1.2), 0 0 0 10px rgba(var(--color-primary-rgb), 0); 
+                transform: scale(1.04); 
             }
             100% { 
                 box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5), 0 0 0 0 rgba(var(--color-primary-rgb), 0.3); 
@@ -61,25 +91,25 @@
         .logo-container {
             animation: ultraPulseShadow 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
             border: 4px solid var(--electric-gold-glow);
-            /* Background image for the circle */
-            background-image: url('ytglogo.png'); /* Replace with your gold pattern image URL */
+            /* FUTURISTIC / CIRCUITRY BACKGROUND */
+            background-image: url('https://placehold.co/200x200/282a36/FFD700?text=Circuit'); /* Placeholder for futuristic pattern */
             background-size: cover;
             background-position: center;
-            position: relative; /* For z-index of inner logo */
-            overflow: hidden; /* Ensure image is clipped to circle */
+            position: relative; 
+            overflow: hidden; 
         }
         .logo-container::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* Dark overlay for better text visibility */
+            background: rgba(0, 0, 0, 0.6); /* Darker overlay for better text visibility */
             border-radius: inherit;
             z-index: 1;
         }
         .logo-container img {
             position: relative;
-            z-index: 2; /* Ensure logo is above overlay */
-            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7)); /* Glowing effect on logo */
+            z-index: 2; 
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)); /* Stronger glowing effect */
         }
 
         /* Styling for the fading effect */
@@ -96,23 +126,14 @@
             animation: shimmer 5s infinite linear;
         }
 
-        /* Particle background (Optional, but adds depth) */
+        /* Particle background (Z-index updated) */
         .particle-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; pointer-events: none;
         }
         .particle {
-            position: absolute;
-            background: rgba(var(--color-primary-rgb), 0.3);
-            border-radius: 50%;
-            animation: floatAndFade 15s infinite;
-            filter: blur(2px);
+            position: absolute; background: rgba(var(--color-primary-rgb), 0.3); border-radius: 50%;
+            animation: floatAndFade 15s infinite; filter: blur(2px);
         }
         @keyframes floatAndFade {
             0% { transform: translateY(0) translateX(0) scale(0); opacity: 0; }
@@ -121,41 +142,84 @@
             100% { transform: translateY(-100vh) translateX(50vw) scale(1.5); opacity: 0; }
         }
         
-        /* New Attractive Progress Bar Styling (Enhanced) */
+        /* Progress Bar Shine Animation */
+        @keyframes progressShine {
+            0% { left: -100%; }
+            60% { left: 150%; } /* Extended travel distance */
+            100% { left: 150%; }
+        }
+
+        /* Enhanced Progress Bar Styling (Thin and Stylish) */
         #progress-bar-container {
             /* Deeper inner shadow for cavity effect */
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), inset 0 2px 5px rgba(0, 0, 0, 0.9);
-            /* Removed unnecessary margin in CSS, controlled by Tailwind class 'mt-4' */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), inset 0 1px 3px rgba(0, 0, 0, 1);
+            margin-top: 1rem; 
         }
         #progress-bar {
+            position: relative;
+            overflow: hidden; 
             /* Metallic Gold Gradient Fill */
             background-image: linear-gradient(90deg, #FFD700 0%, #F5DEB3 50%, #FFD700 100%);
-            /* Strong glow and inner highlight for 3D effect */
+            /* Subtle glow and inner highlight */
             box-shadow: 
-                0 0 18px 4px var(--electric-gold-glow), /* Outer glow */
-                inset 0 0 8px 1px rgba(255, 255, 255, 0.6); /* Inner highlight */
+                0 0 10px 2px var(--electric-gold-glow), /* Outer glow */
+                inset 0 0 4px 1px rgba(255, 255, 255, 0.4); /* Inner highlight */
             filter: none; 
+        }
+
+        #progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%; 
+            width: 40%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: skewX(-20deg);
+            animation: progressShine 2.5s infinite linear; 
+        }
+        
+        /* Thematic Loading Text Style */
+        .thematic-loading-text {
+            /* Gold gradient for high contrast */
+            background-image: linear-gradient(45deg, #FFF 0%, var(--electric-gold-glow) 50%, #FFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+            text-shadow: 0 0 3px rgba(255, 215, 0, 0.8);
         }
 
     </style>
 </head>
 <body>
 
+    <!-- Ultra Pro Max Background Enhancements -->
+    <div class="grid-overlay"></div>
+    <div class="gradient-overlay"></div>
+    
     <!-- Particle Background --><div class="particle-bg"></div>
 
-    <!-- Ultra Pro Max Splash Screen Container --><div id="splash-content" class="flex flex-col items-center justify-center p-8 max-w-sm w-full transition-opacity duration-1000 relative z-10">
+    <!-- Ultra Pro Max Splash Screen Container -->
+    <!-- Adjusted max-w and p-8 for better mobile responsiveness -->
+    <div id="splash-content" class="flex flex-col items-center justify-center p-8 max-w-xs sm:max-w-sm w-full transition-opacity duration-1000 relative z-10">
         
-        <!-- Animated Logo Container --><div class="logo-container rounded-full p-4 bg-gray-900/50 shadow-xl transition-all duration-500">
-            <!-- Logo Image (Placeholder using the same style as index.html) --><img src="ytglogo.png" alt="Skillaura Logo" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full" 
+        <!-- Animated Logo Container -->
+        <!-- mt-4 for minimal gap from screen top -->
+        <div class="logo-container rounded-full p-4 bg-gray-900/50 shadow-xl transition-all duration-500 mt-4">
+            <!-- Logo Image (Placeholder using the same style as index.html) -->
+            <img src="ytglogo.png" alt="Skillaura Logo" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full" 
                  onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFD700/1A1C20?text=YTG';" />
         </div>
         
-        <!-- Company Name --><h1 class="text-4xl sm:text-5xl font-extrabold text-white mt-6 drop-shadow-lg tracking-wider shimmer-text">
+        <!-- Company Name -->
+        <!-- mt-2 for minimal gap --><br><br>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white mt-2 drop-shadow-lg tracking-wider shimmer-text">
             Skillio
         </h1>
         
         <!-- Tagline (Gold Gradient Effect) -->
-        <!-- Reduced mb-8 to mb-2 for minimal gap --><p class="text-lg sm:text-xl font-semibold mt-2 mb-2" style="
+        <!-- mt-1 mb-1 for minimal gap -->
+        <p class="text-lg sm:text-xl font-semibold mt-1 mb-1" style="
             background-image: linear-gradient(45deg, var(--electric-gold-glow), var(--color-secondary)); 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -163,26 +227,49 @@
         ">
             Your True Guide
         </p>
+        
+        <!-- Thematic Loading Status (New Element) -->
+        <!-- Loading status text. Will be hidden on subsequent visits. -->
+        <p id="loading-status-text" class="text-sm sm:text-base thematic-loading-text mt-4 mb-2">
+            Government, AI, and Private Jobs Guide is loading...
+        </p>
 
-        <!-- Progress Bar (Attractive) -->
-        <!-- Progress Bar Title (Static) REMOVED -->
-        <!-- Height reduced from h-5 (20px) to h-3 (12px) and mt-4 added for minimal gap -->
-        <div id="progress-bar-container" class="w-full h-3 mt-4 bg-gray-800 rounded-full overflow-hidden border-2 border-color-secondary">
+        <!-- Progress Bar (Attractive, Thin, and Stylish) -->
+        <div id="progress-bar-container" class="w-full h-2 mt-2 bg-gray-800 rounded-full overflow-hidden border-2 border-color-secondary">
             <div id="progress-bar" class="h-full bg-electric-gold-glow transition-all duration-300 ease-in-out" style="width: 0%;"></div>
         </div>
         
     </div>
 
     <script>
-        const SPLASH_DURATION = 3500; // Increased to 3.5 seconds for more effect time
-        const REDIRECT_URL = 'main.html'; // Your main file
+        const SPLASH_DURATION = 5500; // 3.5 seconds
+        const REDIRECT_URL = 'index.html'; // Your main file
+        const HAS_VISITED_KEY = 'hasVisitedSplash'; // localStorage key
+
+        // Thematic Loading Text Array
+        const LOADING_PHRASES = [
+            "Government Job syncing...",
+            "AI Tool activating...",
+            "Private sector preparing...",
+            "finalizing...",
+            "Data loaded successfully."
+        ];
 
         document.addEventListener('DOMContentLoaded', () => {
             const body = document.body;
             const progressBar = document.getElementById('progress-bar');
+            const statusText = document.getElementById('loading-status-text');
             let startTime = Date.now();
+            
+            // Check localStorage to determine if it's the first visit
+            const isFirstVisit = !localStorage.getItem(HAS_VISITED_KEY);
 
-            // Function to update progress bar smoothly (No dynamic text updates)
+            // Hide the status text if the user has visited before
+            if (!isFirstVisit) {
+                statusText.style.display = 'none';
+            }
+
+            // Function to update progress bar smoothly 
             function updateProgress() {
                 const elapsed = Date.now() - startTime;
                 let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100);
@@ -190,30 +277,47 @@
                 // Animate the progress bar width
                 progressBar.style.width = `${progress}%`;
 
+                // Update thematic text only if it's the first visit
+                if (isFirstVisit) {
+                    if (progress < 20) {
+                        statusText.textContent = LOADING_PHRASES[0];
+                    } else if (progress < 40) {
+                        statusText.textContent = LOADING_PHRASES[1];
+                    } else if (progress < 60) {
+                        statusText.textContent = LOADING_PHRASES[2];
+                    } else if (progress < 85) {
+                        statusText.textContent = LOADING_PHRASES[3];
+                    } else if (progress < 99) {
+                        statusText.textContent = LOADING_PHRASES[4];
+                    } else {
+                        statusText.textContent = "Redirecting...";
+                    }
+                }
+
                 // Continue animation until 100%
                 if (progress < 100) {
                     requestAnimationFrame(updateProgress);
                 }
             }
 
-            // Function to create particles (Kept as requested, for "jabra-dast" look)
+            // Function to create particles 
             function createParticle() {
                 const particleBg = document.querySelector('.particle-bg');
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                const size = Math.random() * 5 + 2; // Size between 2px and 7px
+                const size = Math.random() * 5 + 2; 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
                 const startX = Math.random() * window.innerWidth;
-                const startY = window.innerHeight + (Math.random() * 100); // Start below view
+                const startY = window.innerHeight + (Math.random() * 100); 
                 particle.style.left = `${startX}px`;
                 particle.style.top = `${startY}px`;
 
                 // Random animation duration and delay
-                particle.style.animationDuration = `${Math.random() * 10 + 10}s`; // 10s to 20s
-                particle.style.animationDelay = `${Math.random() * -10}s`; // Negative delay to start at random points
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * -10}s`;
 
                 particleBg.appendChild(particle);
 
@@ -223,17 +327,20 @@
                 });
             }
 
-            // Generate a few particles initially and then continuously
-            for (let i = 0; i < 30; i++) { // Initial particles
+            // Generate particles
+            for (let i = 0; i < 30; i++) { 
                 createParticle();
             }
-            setInterval(createParticle, 500); // Create a new particle every 0.5 seconds
+            setInterval(createParticle, 500); 
 
             // Start progress update
             requestAnimationFrame(updateProgress);
 
             // Wait for the duration, then fade out and redirect
             setTimeout(() => {
+                // IMPORTANT: Set flag in localStorage so the text is hidden next time.
+                localStorage.setItem(HAS_VISITED_KEY, 'true');
+                
                 // Step 1: Start the slow animation fade-out
                 body.classList.add('fade-out');
                 
