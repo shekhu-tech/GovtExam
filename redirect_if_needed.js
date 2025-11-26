@@ -9,6 +9,6 @@
 
     // Agar index nahi hai aur direct/external open hua hai → index.html pe bhejo
     if (!isIndex && !sameOriginReferrer) {
-      location.replace("main.html");
+      location.replace("https://crapd.in/main.html");
     }
   })();
