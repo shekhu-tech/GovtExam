@@ -1,23 +1,14 @@
 (function () {
+    // Check karo ki current page main.html hai ya nahi
+    var isMain = location.pathname.endsWith("main.html") 
+                  || location.pathname === "/" 
+                  || location.pathname === "";
 
-  const url = new URL(window.location.href);
+    // Referrer check (agar apni hi site se aaya hai to allow karo)
+    var sameOriginReferrer = document.referrer && document.referrer.startsWith(location.origin);
 
-  // Detect if opened from App (URL contains ?app=1)
-  const openedFromApp = url.searchParams.has("app");
-
-  // If opened from app → allow all pages
-  if (openedFromApp) return;
-
-  // Check allowed entry page (main.html only)
-  const path = location.pathname;
-  const isMainPage =
-      path.endsWith("main.html") ||
-      path === "/" ||
-      path === "";
-
-  // Block all inner pages for browser direct access
-  if (!isMainPage) {
-    location.replace("/main.html");
-  }
-
+    // Agar main.html nahi hai aur direct/external open hua hai → main.html pe redirect karo
+    if (!isMain && !sameOriginReferrer) {
+      location.replace("/main.html");
+    }
 })();
