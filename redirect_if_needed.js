@@ -1,14 +1,14 @@
-  (function () {
-    // Check karo ki current page index.html hai ya nahi
-    var isIndex = location.pathname.endsWith("index.html") 
+(function () {
+    // Check karo ki current page main.html hai ya nahi
+    var isMain = location.pathname.endsWith("main.html") 
                   || location.pathname === "/" 
                   || location.pathname === "";
 
     // Referrer check (agar apni hi site se aaya hai to allow karo)
     var sameOriginReferrer = document.referrer && document.referrer.startsWith(location.origin);
 
-    // Agar index nahi hai aur direct/external open hua hai → index.html pe bhejo
-    if (!isIndex && !sameOriginReferrer) {
-      location.replace("https://crapd.in/main.html");
+    // Agar main.html nahi hai aur direct/external open hua hai → main.html pe redirect karo
+    if (!isMain && !sameOriginReferrer) {
+      location.replace("https://crapd.in/main.html");  // ← niche wala section YAHI hai
     }
-  })();
+})();
