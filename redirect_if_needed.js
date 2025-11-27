@@ -1,39 +1,23 @@
 (function () {
 
-  /*-------------------------------------------------------
-   🔹 PART-1: Detect if request came from your Android App
-  --------------------------------------------------------*/
+  const url = new URL(window.location.href);
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const openedFromApp = urlParams.has("app");   // ← If WebView has ?app=1
+  // Detect if opened from App (URL contains ?app=1)
+  const openedFromApp = url.searchParams.has("app");
 
+  // If opened from app → allow all pages
+  if (openedFromApp) return;
 
-  // ⭐ If opened from Android App → allow everything (NO REDIRECT)
-  if (openedFromApp) {
-    console.log("Opened from APP → No Redirect");
-    return;
-  }
-
-
-  /*-------------------------------------------------------
-   🔹 PART-2: Identify main.html (only allowed entry point)
-  --------------------------------------------------------*/
-
+  // Check allowed entry page (main.html only)
   const path = location.pathname;
-
   const isMainPage =
-    path.endsWith("main.html") ||
-    path === "/" ||
-    path === "";
+      path.endsWith("main.html") ||
+      path === "/" ||
+      path === "";
 
-
-  /*-------------------------------------------------------
-   🔹 PART-3: Redirect all external / direct visitors
-  --------------------------------------------------------*/
-
+  // Block all inner pages for browser direct access
   if (!isMainPage) {
-    console.log("External/User tried to open inner page → Redirecting...");
-    location.replace("https://crapd.in/main.html");
+    location.replace("/main.html");
   }
 
 })();
