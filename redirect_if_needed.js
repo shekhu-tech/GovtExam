@@ -9,6 +9,6 @@
 
     // Agar main.html nahi hai aur direct/external open hua hai → main.html pe redirect karo
     if (!isMain && !sameOriginReferrer) {
-      location.replace("https://crapd.in/main.html");  // ← niche wala section YAHI hai
+      location.replace("main.html");  // ← niche wala section YAHI hai
     }
 })();
