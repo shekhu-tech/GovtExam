@@ -14,7 +14,7 @@
 
   // Agar main.html nahi hai → redirect
   if (!isMain) {
-    location.replace("main.html");
+    location.replace("");
   }
 
 })();
