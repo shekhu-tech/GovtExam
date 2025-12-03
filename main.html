@@ -95,7 +95,8 @@
         body {
             /* Updated to use dark theme but integrate new text colors */
             font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-            background-color: var(--bg-main-dark); 
+            
+            /* ORIGINAL background-color: var(--bg-main-dark); */
             color: var(--text-light); /* Fallback for main text */
             min-height: 100vh;
             
@@ -107,20 +108,24 @@
             /* ====================================================================== */
             
             transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
-        }
 
-        /* --- FIXED BACKGROUND MEDIA CONTAINER (Video Removed, Image retained) --- */
-        #fixed-media-background {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: -10; /* Ensure it's behind everything */
+            /* --- START: CUSTOM BACKGROUND IMAGE STYLES --- */
+            /* Note: 'imap.png' should be available in the environment, or replace with a working URL */
+            background-image: url('imap.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.5; /* Subtle visibility */
-            /* Mobile Image used for all screen sizes now */
-            background-image: url('imap.png');
+            background-attachment: fixed; /* Ensures the background stays fixed while scrolling */
+            /* Background dark layer overlay to keep content readable */
+            background-color: rgba(26, 28, 32, 0.85); /* Fallback dark color */
+            /* Use a dark linear gradient over the image for better readability and a dark theme */
+            background-blend-mode: multiply; 
+            /* --- END: CUSTOM BACKGROUND IMAGE STYLES --- */
+
         }
+
+        /* --- REMOVED: #fixed-media-background is no longer needed as the background is set directly on body --- */
+
 
         /* Fixed Header Styles */
         .fixed-header-container {
@@ -165,7 +170,8 @@
             border-radius: 1.5rem;
             margin-bottom: 2rem;
             overflow: hidden;
-            background-color: #1A1C20; 
+            /* Changed background color to transparent/dark so the body image can show through slightly */
+            background-color: rgba(26, 28, 32, 0.7); 
             border: 3px solid var(--electric-gold-glow);
             box-shadow: 0 0 10px var(--electric-gold-glow), 0 4px 15px rgba(0, 0, 0, 0.6);
             transition: background-image 0.8s ease-in-out; 
@@ -282,7 +288,7 @@
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
         } 
         
-        /* --- CARD DESIGN --- */
+        /* --- CARD DESIGN (Updated for partial transparency so body background shows) --- */
         .card {
             position: relative;
             background-color: transparent; 
@@ -302,7 +308,8 @@
             padding: 0.5rem; 
             backdrop-filter: none; 
             -webkit-backdrop-filter: none;
-            background-color: rgba(40, 30, 5, 0.4); 
+            /* Made card background slightly more opaque but still transparent */
+            background-color: rgba(40, 30, 5, 0.6); 
         }
         
         .card:hover {
@@ -561,6 +568,8 @@
     </style>
 </head>
 <body class="leading-relaxed">
+
+    <!-- Removed the redundant #fixed-media-background div -->
 
     <div class="fixed-header-container">
         <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
