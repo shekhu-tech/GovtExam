@@ -368,22 +368,27 @@
             z-index: 200; 
             display: none; 
             justify-content: center; 
+            /* Added align-items: center; for vertical centering */
+            align-items: center;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
+            padding: 20px; /* Add padding for small screens */
         }
         .modal-overlay.active { 
             display: flex; 
             opacity: 1; 
         }
         .modal-content {
-            /* Position between header (78px) and footer (80px) */
-            position: absolute;
-            top: 78px; 
-            bottom: 80px; 
-            left: 50%;
-            transform: translateX(-50%);
+            /* Changed positioning to relative for content-based height */
+            position: relative;
+            /* Removed fixed positioning attributes like top, bottom, transform: translateX */
+            transform: none;
+            
             width: 95%; 
             max-width: 600px;
+            
+            /* Max height to prevent it from consuming the whole screen on large lists */
+            max-height: calc(100vh - 160px); 
             
             /* Matching Card Styles from index.html (using GOLD colors) */
             background: linear-gradient(145deg, var(--premium-outer-bg), var(--bg-main-dark));
@@ -413,7 +418,7 @@
              text-shadow: none;
         }
 
-        /* Inner scrollable area, matching index.html .location-list-container */
+        /* Inner scrollable area, matching ytgtesting.html's location-list-container */
         .modal-list {
             padding: 15px;
             border-radius: 25px;
@@ -421,8 +426,15 @@
             background: var(--premium-bg-dark);
             border: 1.5px solid rgba(255, 215, 0, 1);
             box-shadow: inset 0 0 35px rgba(255, 215, 0, 0.45), 0 0 25px rgba(255, 215, 0, 0.3);
-            flex-grow: 1;
+            
+            /* 👇 **मुख्य सुधार यहाँ है** (The main fix is here) 👇 */
+            flex-grow: 0; /* Important: prevents the list from stretching to fill all available modal space */
+            flex-shrink: 1; /* Allows it to shrink */
             overflow-y: auto; 
+            max-height: 100%; /* Maximum height it can take (to prevent overflow into title/footer area) */
+            min-height: auto; /* Ensures minimum height is content-driven */
+            /* 👆 **मुख्य सुधार यहाँ है** 👆 */
+
             list-style: none; /* Remove default list style for ul/li */
         }
         
@@ -476,8 +488,8 @@
         /* Mobile adjustment for modal content to take less height */
         @media (max-height: 600px) and (max-width: 768px) {
             .modal-content {
-                top: 40px;
-                bottom: 40px;
+                 /* If screen is short, use a tighter max height */
+                max-height: calc(100vh - 80px); 
             }
         }
         /* --- END: MODAL STYLES --- */
@@ -568,8 +580,6 @@
     </style>
 </head>
 <body class="leading-relaxed">
-
-    <!-- Removed the redundant #fixed-media-background div -->
 
     <div class="fixed-header-container">
         <header id="main-header" class="bg-glass-bg-dark/90 backdrop-blur-xl shadow-2xl p-4 fixed top-0 left-0 right-0 z-[100] transition-colors duration-500 border-b-4 border-primary/50">
@@ -684,7 +694,6 @@
             </section>
         </div>
         
-        <!-- CARD GRID 1: GOVT EXAMS (Updated content) -->
         <section id="govt-exam-section" class="govt-exam-guide-section mb-8">
             <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Govt-Exam-Full-Guide</h2>
@@ -885,7 +894,6 @@
             </div>
         </section>
 
-        <!-- CARD GRID 2: AI TOOLS (Updated content) -->
         <section id="ai-guide-section" class="ai-full-guide-section mb-8">
             <div class="text-center mb-6"><br>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-A.I- Tools Full Guide</h2>
@@ -990,7 +998,6 @@
             </div>
         </section>
 
-        <!-- CARD GRID 3: PRIVATE SECTOR (Updated content) -->
         <section id="private-sector-section" class="private-sector-job-guide-section mb-8">
             <div class="text-center mb-6">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-golden-dark border-b-4 border-golden-dark inline-block px-4 pb-1">All-Private-Jobs-Full-Guide</h2>
@@ -1151,7 +1158,6 @@
         </footer>
     </div>
     
-    <!-- MODALS (All modals remain the same as they were correct) -->
     <div id="upscModal" class="modal-overlay">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4 p-2">
@@ -2607,7 +2613,14 @@
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+                 const headerHeight = 78; 
+                const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+                const offsetPosition = elementPosition - headerHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
             }
         }
         // --- END: HEADER JS LOGIC ---
