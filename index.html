@@ -29,7 +29,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden; /* Hide scrollbar during splash */
-            transition: opacity 1.5s ease-out; /* Fade-out transition */
+            /* Removed: transition: opacity 1.5s ease-out; */
             position: relative; /* For particle effect */
             
             /* New: Image Background Styling directly on the Body */
@@ -123,7 +123,7 @@
             filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)); /* Stronger glowing effect */
         }
 
-        /* Styling for the fading effect */
+        /* Styling for the fading effect - REMOVED */
         .fade-out {
             opacity: 0 !important;
         }
@@ -176,6 +176,8 @@
                 0 0 10px 2px var(--electric-gold-glow), /* Outer glow */
                 inset 0 0 4px 1px rgba(255, 255, 255, 0.4); /* Inner highlight */
             filter: none; 
+            /* Added back for smooth progress filling */
+            transition: width 0.3s ease-in-out;
         }
 
         #progress-bar::after {
@@ -253,7 +255,10 @@
     </div>
 
     <script>
-        const SPLASH_DURATION = 5500; // 3.5 seconds
+        // यह अवधि प्रोग्रेस बार को 0 से 100% तक ले जाएगी। (Original 5500ms से 3000ms किया गया)
+        const SPLASH_DURATION = 3000; 
+        // रीडायरेक्ट में देरी, ताकि 100% भरने का दृश्य सुनिश्चित हो सके।
+        const REDIRECT_DELAY = 100; 
         const REDIRECT_URL = 'https://crapd.in/main.html'; // Your main file
         const HAS_VISITED_KEY = 'hasVisitedSplash'; // localStorage key
 
@@ -267,10 +272,10 @@
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            const body = document.body;
             const progressBar = document.getElementById('progress-bar');
             const statusText = document.getElementById('loading-status-text');
             let startTime = Date.now();
+            let isTransitioning = false; // यह फ्लैग सुनिश्चित करता है कि रीडायरेक्ट सिर्फ एक बार शुरू हो।
             
             // Check localStorage to determine if it's the first visit
             const isFirstVisit = !localStorage.getItem(HAS_VISITED_KEY);
@@ -283,7 +288,8 @@
             // Function to update progress bar smoothly 
             function updateProgress() {
                 const elapsed = Date.now() - startTime;
-                let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100);
+                // Calculate progress up to 100%
+                let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100); 
                 
                 // Animate the progress bar width
                 progressBar.style.width = `${progress}%`;
@@ -296,17 +302,15 @@
                         statusText.textContent = LOADING_PHRASES[1];
                     } else if (progress < 60) {
                         statusText.textContent = LOADING_PHRASES[2];
-                    } else if (progress < 85) {
+                    } else if (progress < 99.9) { 
                         statusText.textContent = LOADING_PHRASES[3];
-                    } else if (progress < 99) {
+                    } else { // जब 100% के करीब हो
                         statusText.textContent = LOADING_PHRASES[4];
-                    } else {
-                        statusText.textContent = "Redirecting...";
                     }
                 }
 
-                // Continue animation until 100%
-                if (progress < 100) {
+                // Continue animation until 100% is reached
+                if (progress < 100 && !isTransitioning) {
                     requestAnimationFrame(updateProgress);
                 }
             }
@@ -347,20 +351,24 @@
             // Start progress update
             requestAnimationFrame(updateProgress);
 
-            // Wait for the duration, then fade out and redirect
+            // --- IMMEDIATE REDIRECT TRIGGER (Guaranteed 100% Visibility) ---
+            // यह सुनिश्चित करता है कि रीडायरेक्ट ठीक SPLASH_DURATION + REDIRECT_DELAY के बाद शुरू हो।
             setTimeout(() => {
-                // IMPORTANT: Set flag in localStorage so the text is hidden next time.
+                if (isTransitioning) return; 
+                isTransitioning = true;
+                
+                // 1. सुनिश्चित करें कि प्रोग्रेस बार 100% है।
+                progressBar.style.width = '100%'; 
+                
+                // IMPORTANT: Set flag in localStorage for next visit
                 localStorage.setItem(HAS_VISITED_KEY, 'true');
+                statusText.textContent = "Redirecting..."; // अंतिम स्टेटस दिखाएं
                 
-                // Step 1: Start the slow animation fade-out
-                body.classList.add('fade-out');
-                
-                // Step 2: After fade-out duration (1.5s in CSS), redirect
-                setTimeout(() => {
-                    window.location.replace(REDIRECT_URL); 
-                }, 1500); 
+                // 2. रीडायरेक्ट करें।
+                window.location.replace(REDIRECT_URL); 
 
-            }, SPLASH_DURATION);
+            }, SPLASH_DURATION + REDIRECT_DELAY); 
+
         });
     </script>
 </body>
