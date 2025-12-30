@@ -3,373 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Skilli Loading...</title>
-    <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <title>Skilli | Loading...</title>
+    <!-- Tailwind for modern utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fonts matching index.html --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- START: Theme Variables (Copied from index.html) --- */
         :root {
-            --color-primary: #FFD700; /* Electric Gold Glow */
-            --color-secondary: #A37A00; /* Dark Gold */
-            --color-background: #1A1C20; /* Dark Background */
-            --color-primary-rgb: 255, 215, 0; 
-            --electric-gold-glow: #FFD700; 
+            /* Skilli Gold Theme mapped to Lully Structure */
+            --brand-primary: #FFD700;    /* Electric Gold */
+            --brand-secondary: #A37A00;  /* Darker Gold */
+            --surface-black: #0a0a0a;    /* Clean Surface */
+            --text-muted: #94a3b8;       /* Standard Muted */
         }
 
-        /* --- Global Styles --- */
-        body {
-            font-family: 'Inter', 'Noto Sans Devangari', sans-serif;
-            color: var(--color-text-primary);
-            min-height: 100vh;
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--surface-black);
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. Soft Ambient Background (Lully Style) --- */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(163, 122, 0, 0.1) 0%, transparent 40%);
+        }
+
+        /* --- 2. Clean Container --- */
+        .container-box {
+            position: relative;
+            z-index: 10;
             display: flex;
-            justify-content: center;
             align-items: center;
-            overflow: hidden; /* Hide scrollbar during splash */
-            /* Removed: transition: opacity 1.5s ease-out; */
-            position: relative; /* For particle effect */
-            
-            /* New: Image Background Styling directly on the Body */
-            /* अपनी इमेज फ़ाइल का URL यहां 'your_image_url.jpg' की जगह डालें */
-            background-image: url('imap.png'); 
-            background-size: cover; /* इमेज पूरे स्क्रीन को कवर करेगी */
-            background-position: center; /* इमेज को सेंटर करें */
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* सुनिश्चित करता है कि यह फिक्स्ड रहे, मोबाइल के लिए महत्वपूर्ण */
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
         }
 
-        /* New: Fixed Gradient Overlay for Focus */
-        .gradient-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .content-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             width: 100%;
-            height: 100%;
-            /* ग्रेडिएंट को थोड़ा पारदर्शी (transparent) बनाया गया है ताकि बैकग्राउंड इमेज ज़्यादा दिखे */
-            /* डार्कनेस और कंट्रास्ट को यहीं मैनेज किया गया है */
-            background-image: 
-                radial-gradient(circle at center, rgba(30, 30, 35, 0.05) 0%, rgba(13, 13, 16, 0.6) 70%, rgba(13, 13, 16, 0.8) 100%),
-                linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)); /* बेस डार्कनेस */
-                
-            z-index: -98; /* कंटेंट के नीचे */
+            max-width: 320px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* New: Moving Grid/Circuit Effect (Ultra Pro Max Background) */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(to right, rgba(255, 215, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: moveGrid 30s linear infinite;
-            opacity: 0.1;
-            z-index: -99; /* इमेज और ग्रेडिएंट के बीच */
-        }
-        @keyframes moveGrid {
-            from { background-position: 0 0; }
-            to { background-position: 50px 50px; }
-        }
-        
-        /* Keyframes for the Ultra Pro Max Logo Pulse and Shadow (Refined) */
-        @keyframes ultraPulseShadow {
-            0% { 
-                box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5), 0 0 0 0 rgba(var(--color-primary-rgb), 0.3); 
-                transform: scale(1);
+        @media (min-width: 1024px) {
+            .content-card {
+                max-width: 900px;
+                flex-direction: row;
+                text-align: left;
+                gap: 5rem;
             }
-            50% { 
-                box-shadow: 0 0 35px rgba(var(--color-primary-rgb), 1.2), 0 0 0 10px rgba(var(--color-primary-rgb), 0); 
-                transform: scale(1.04); 
-            }
-            100% { 
-                box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5), 0 0 0 0 rgba(var(--color-primary-rgb), 0.3); 
-                transform: scale(1);
-            }
-        }
-        
-        /* Keyframes for the shimmer effect on Skillaura text */
-        @keyframes shimmer {
-            0% { background-position: -500% 0; }
-            100% { background-position: 500% 0; }
         }
 
+        /* --- 3. Refined Branding --- */
         .logo-container {
-            animation: ultraPulseShadow 3s infinite cubic-bezier(0.4, 0, 0.6, 1);
-            border: 4px solid var(--electric-gold-glow);
-            /* FUTURISTIC / CIRCUITRY BACKGROUND */
-            background-image: url('imap.png'); /* Placeholder for futuristic pattern */
-            background-size: cover;
-            background-position: center;
-            position: relative; 
-            overflow: hidden; 
-        }
-        .logo-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.6); /* Darker overlay for better text visibility */
-            border-radius: inherit;
-            z-index: 1;
-        }
-        .logo-container img {
             position: relative;
-            z-index: 2; 
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1)); /* Stronger glowing effect */
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            margin-bottom: 2rem;
         }
 
-        /* Styling for the fading effect - REMOVED */
-        .fade-out {
-            opacity: 0 !important;
+        @media (min-width: 1024px) {
+            .logo-container {
+                width: 160px;
+                height: 160px;
+                margin-bottom: 0;
+            }
         }
 
-        /* Skillaura text shimmer */
-        .shimmer-text {
-            background: linear-gradient(90deg, #333 0%, var(--electric-gold-glow) 50%, #333 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 5s infinite linear;
-        }
-
-        /* Particle background (Z-index updated) */
-        .particle-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: -97; overflow: hidden; pointer-events: none;
-        }
-        .particle {
-            position: absolute; background: rgba(var(--color-primary-rgb), 0.3); border-radius: 50%;
-            animation: floatAndFade 15s infinite; filter: blur(2px);
-        }
-        @keyframes floatAndFade {
-            0% { transform: translateY(0) translateX(0) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: scale(1); }
-            80% { opacity: 0; }
-            100% { transform: translateY(-100vh) translateX(50vw) scale(1.5); opacity: 0; }
-        }
-        
-        /* Progress Bar Shine Animation */
-        @keyframes progressShine {
-            0% { left: -100%; }
-            60% { left: 150%; } /* Extended travel distance */
-            100% { left: 150%; }
-        }
-
-        /* Enhanced Progress Bar Styling (Thin and Stylish) */
-        #progress-bar-container {
-            /* Deeper inner shadow for cavity effect */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), inset 0 1px 3px rgba(0, 0, 0, 1);
-            margin-top: 1rem; 
-        }
-        #progress-bar {
-            position: relative;
-            overflow: hidden; 
-            /* Metallic Gold Gradient Fill */
-            background-image: linear-gradient(90deg, #FFD700 0%, #F5DEB3 50%, #FFD700 100%);
-            /* Subtle glow and inner highlight */
-            box-shadow: 
-                0 0 10px 2px var(--electric-gold-glow), /* Outer glow */
-                inset 0 0 4px 1px rgba(255, 255, 255, 0.4); /* Inner highlight */
-            filter: none; 
-            /* Added back for smooth progress filling */
-            transition: width 0.3s ease-in-out;
-        }
-
-        #progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%; 
-            width: 40%;
+        .logo-image {
+            width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.4);
-            transform: skewX(-20deg);
-            animation: progressShine 2.5s infinite linear; 
-        }
-        
-        /* Thematic Loading Text Style */
-        .thematic-loading-text {
-            /* Gold gradient for high contrast */
-            background-image: linear-gradient(45deg, #FFF 0%, var(--electric-gold-glow) 50%, #FFF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            text-shadow: 0 0 3px rgba(255, 215, 0, 0.8);
+            border-radius: 1.5rem; /* Lully Rounded Square */
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.6s ease;
         }
 
+        .logo-container:hover .logo-image {
+            transform: scale(1.02);
+        }
+
+        .brand-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .tagline {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--brand-primary);
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        /* --- 4. Sophisticated Loader --- */
+        .progress-wrapper {
+            width: 100%;
+            max-width: 240px;
+        }
+
+        @media (min-width: 1024px) {
+            .progress-wrapper {
+                max-width: 350px;
+            }
+        }
+
+        .progress-track {
+            height: 2px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            /* Gradient for Skilli Gold */
+            background: linear-gradient(90deg, var(--brand-secondary), var(--brand-primary));
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            transition: width 0.3s ease-out;
+        }
+
+        .status-msg {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            min-height: 1.2em; /* Prevent layout jump */
+        }
+
+        /* Reveal Effect */
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Ultra Pro Max Background Enhancements -->
-    <div class="grid-overlay"></div>
-    <div class="gradient-overlay"></div>
-    
-    <!-- Particle Background --><div class="particle-bg"></div>
+    <div class="ambient-bg"></div>
 
-    <!-- Ultra Pro Max Splash Screen Container -->
-    <!-- Adjusted max-w and p-8 for better mobile responsiveness -->
-    <div id="splash-content" class="flex flex-col items-center justify-center p-8 max-w-xs sm:max-w-sm w-full transition-opacity duration-1000 relative z-10">
-        
-        <!-- Animated Logo Container -->
-        <!-- mt-4 for minimal gap from screen top -->
-        <div class="logo-container rounded-full p-4 bg-gray-900/50 shadow-xl transition-all duration-500 mt-4">
-            <!-- Logo Image (Placeholder using the same style as index.html) -->
-            <img src="sti.png" alt="Skillaura Logo" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full" 
-                 onerror="this.onerror=null;this.src='https://placehold.co/96x96/FFD700/1A1C20?text=YTG';" />
-        </div>
-        
-        <!-- Company Name -->
-        <!-- mt-2 for minimal gap --><br><br>
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-white mt-2 drop-shadow-lg tracking-wider shimmer-text">
-            Skilli
-        </h1>
-        
-        <!-- Tagline (Gold Gradient Effect) -->
-        <!-- mt-1 mb-1 for minimal gap -->
-        <p class="text-lg sm:text-xl font-semibold mt-1 mb-1" style="
-            background-image: linear-gradient(45deg, var(--electric-gold-glow), var(--color-secondary)); 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); 
-        ">
-            Your True Guide
-        </p>
-        
-        <!-- Thematic Loading Status (New Element) -->
-        <!-- Loading status text. Will be hidden on subsequent visits. -->
-        <p id="loading-status-text" class="text-sm sm:text-base thematic-loading-text mt-4 mb-2">
-            Government, AI, and Private Jobs Guide is loading...
-        </p>
+    <main class="container-box">
+        <div id="content" class="content-card">
+            
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="sti.png" alt="Skilli" class="logo-image" 
+                     onerror="this.src='https://placehold.co/400x400/FFD700/000000?text=S';">
+            </div>
 
-        <!-- Progress Bar (Attractive, Thin, and Stylish) -->
-        <div id="progress-bar-container" class="w-full h-2 mt-2 bg-gray-800 rounded-full overflow-hidden border-2 border-color-secondary">
-            <div id="progress-bar" class="h-full bg-electric-gold-glow transition-all duration-300 ease-in-out" style="width: 0%;"></div>
+            <!-- Text Content -->
+            <div class="flex-1">
+                <h1 class="brand-title">Skilli.</h1>
+                <p class="tagline">Your True Guide</p>
+                
+                <div class="progress-wrapper mx-auto lg:mx-0">
+                    <div class="progress-track">
+                        <div id="bar" class="progress-fill"></div>
+                    </div>
+                    <p id="status" class="status-msg">Initializing...</p>
+                </div>
+            </div>
+
         </div>
-        
-    </div>
+    </main>
 
     <script>
-        // यह अवधि प्रोग्रेस बार को 0 से 100% तक ले जाएगी। (Original 5500ms से 3000ms किया गया)
-        const SPLASH_DURATION = 3000; 
-        // रीडायरेक्ट में देरी, ताकि 100% भरने का दृश्य सुनिश्चित हो सके।
-        const REDIRECT_DELAY = 100; 
-        const REDIRECT_URL = 'https://crapd.in/main.html'; // Your main file
-        const HAS_VISITED_KEY = 'hasVisitedSplash'; // localStorage key
+        const REDIRECT_URL = 'https://crapd.in/main.html';
+        const SPLASH_DURATION = 3500; 
+        const HAS_VISITED_KEY = 'hasVisitedSplashSkilli'; // Unique key for Skilli
 
-        // Thematic Loading Text Array
-        const LOADING_PHRASES = [
-            "Government Job syncing...",
-            "AI Tool activating...",
-            "Private sector preparing...",
-            "finalizing...",
-            "Data loaded successfully."
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const progressBar = document.getElementById('progress-bar');
-            const statusText = document.getElementById('loading-status-text');
-            let startTime = Date.now();
-            let isTransitioning = false; // यह फ्लैग सुनिश्चित करता है कि रीडायरेक्ट सिर्फ एक बार शुरू हो।
+        window.onload = () => {
+            const content = document.getElementById('content');
+            const bar = document.getElementById('bar');
+            const statusText = document.getElementById('status');
             
-            // Check localStorage to determine if it's the first visit
-            const isFirstVisit = !localStorage.getItem(HAS_VISITED_KEY);
-
-            // Hide the status text if the user has visited before
-            if (!isFirstVisit) {
-                statusText.style.display = 'none';
-            }
-
-            // Function to update progress bar smoothly 
-            function updateProgress() {
-                const elapsed = Date.now() - startTime;
-                // Calculate progress up to 100%
-                let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100); 
-                
-                // Animate the progress bar width
-                progressBar.style.width = `${progress}%`;
-
-                // Update thematic text only if it's the first visit
-                if (isFirstVisit) {
-                    if (progress < 20) {
-                        statusText.textContent = LOADING_PHRASES[0];
-                    } else if (progress < 40) {
-                        statusText.textContent = LOADING_PHRASES[1];
-                    } else if (progress < 60) {
-                        statusText.textContent = LOADING_PHRASES[2];
-                    } else if (progress < 99.9) { 
-                        statusText.textContent = LOADING_PHRASES[3];
-                    } else { // जब 100% के करीब हो
-                        statusText.textContent = LOADING_PHRASES[4];
-                    }
-                }
-
-                // Continue animation until 100% is reached
-                if (progress < 100 && !isTransitioning) {
-                    requestAnimationFrame(updateProgress);
-                }
-            }
-
-            // Function to create particles 
-            function createParticle() {
-                const particleBg = document.querySelector('.particle-bg');
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const size = Math.random() * 5 + 2; 
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                const startX = Math.random() * window.innerWidth;
-                const startY = window.innerHeight + (Math.random() * 100); 
-                particle.style.left = `${startX}px`;
-                particle.style.top = `${startY}px`;
-
-                // Random animation duration and delay
-                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                particle.style.animationDelay = `${Math.random() * -10}s`;
-
-                particleBg.appendChild(particle);
-
-                // Remove particle after animation to prevent memory leak
-                particle.addEventListener('animationend', () => {
-                    particle.remove();
-                });
-            }
-
-            // Generate particles
-            for (let i = 0; i < 30; i++) { 
-                createParticle();
-            }
-            setInterval(createParticle, 500); 
-
-            // Start progress update
-            requestAnimationFrame(updateProgress);
-
-            // --- IMMEDIATE REDIRECT TRIGGER (Guaranteed 100% Visibility) ---
-            // यह सुनिश्चित करता है कि रीडायरेक्ट ठीक SPLASH_DURATION + REDIRECT_DELAY के बाद शुरू हो।
+            // Show content with a delay
             setTimeout(() => {
-                if (isTransitioning) return; 
-                isTransitioning = true;
-                
-                // 1. सुनिश्चित करें कि प्रोग्रेस बार 100% है।
-                progressBar.style.width = '100%'; 
-                
-                // IMPORTANT: Set flag in localStorage for next visit
-                localStorage.setItem(HAS_VISITED_KEY, 'true');
-                statusText.textContent = "Redirecting..."; // अंतिम स्टेटस दिखाएं
-                
-                // 2. रीडायरेक्ट करें।
-                window.location.replace(REDIRECT_URL); 
+                content.classList.add('is-visible');
+            }, 100);
 
-            }, SPLASH_DURATION + REDIRECT_DELAY); 
+            // Status updates specific to Skilli
+            const steps = [
+                "Syncing Government Jobs...",
+                "Activating AI Tools...",
+                "Preparing Private Sector Data...",
+                "Finalizing Guide..."
+            ];
 
-        });
+            let start = Date.now();
+
+            function update() {
+                let elapsed = Date.now() - start;
+                let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100);
+                
+                bar.style.width = `${progress}%`;
+
+                // Logic to update status text
+                let index = Math.floor((progress / 100) * steps.length);
+                if (steps[index] && statusText.innerText !== steps[index]) {
+                    statusText.style.opacity = '0';
+                    setTimeout(() => {
+                        statusText.innerText = steps[index];
+                        statusText.style.opacity = '1';
+                        statusText.style.transition = 'opacity 0.4s ease';
+                    }, 200);
+                }
+
+                if (progress < 100) {
+                    requestAnimationFrame(update);
+                } else {
+                    localStorage.setItem(HAS_VISITED_KEY, 'true');
+                    setTimeout(exitAndRedirect, 400);
+                }
+            }
+
+            requestAnimationFrame(update);
+        };
+
+        function exitAndRedirect() {
+            const content = document.getElementById('content');
+            content.style.opacity = '0';
+            content.style.filter = 'blur(10px)';
+            content.style.transform = 'translateY(-10px)';
+            
+            setTimeout(() => {
+                window.location.replace(REDIRECT_URL);
+            }, 800);
+        }
     </script>
 </body>
 </html>
