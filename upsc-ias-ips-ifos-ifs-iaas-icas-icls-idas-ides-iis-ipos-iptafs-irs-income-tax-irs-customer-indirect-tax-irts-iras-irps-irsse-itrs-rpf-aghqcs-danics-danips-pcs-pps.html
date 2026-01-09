@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>STISKILLI-UPSC</title>
+    <title>UPSC Guide & Future Rentals</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -79,6 +79,7 @@
         .nav-item { 
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
             color: #666; cursor: pointer; height: 100%; transition: all 0.3s ease;
+            position: relative;
         }
         .nav-item .icon-box {
             width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
@@ -87,8 +88,11 @@
         .nav-item i { font-size: 1.25rem; transition: 0.3s; }
         .nav-item span { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
 
+        /* Locked State Visuals */
+        .nav-item.locked { opacity: 0.3; pointer-events: none; filter: grayscale(100%); }
+        
         /* Active State */
-        .nav-item.active { color: var(--gold); }
+        .nav-item.active { color: var(--gold); opacity: 1; pointer-events: auto; filter: none; }
         .nav-item.active .icon-box {
             background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold); 
             transform: translateY(-5px); 
@@ -199,31 +203,70 @@
         }
         .vacant-msg i { font-size: 3rem; margin-bottom: 10px; color: #333; }
         
-        /* --- PROFILE STYLES --- */
+        /* --- IMPROVED PROFILE STYLES --- */
+        .profile-setup-card {
+            background: linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
         .profile-form-container {
             display: flex; flex-direction: column; gap: 15px;
         }
-        .form-group label { display: block; color: var(--gold); margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group { position: relative; }
+        .form-group label { 
+            display: block; color: var(--gold); margin-bottom: 6px; font-size: 0.85rem; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
         .form-group input, .form-group select {
-            width: 100%; padding: 12px; background: #26292E; border: 1px solid #444; color: #fff;
-            border-radius: 8px; outline: none; transition: 0.3s;
+            width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); 
+            border: 1px solid #444; color: #fff;
+            border-radius: 12px; outline: none; transition: 0.3s; font-size: 1rem;
         }
-        .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
-        .profile-display { text-align: center; margin-top: 20px; }
-        .profile-avatar {
-            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold);
-            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; color: var(--gold); background: #333;
+        .form-group input:focus, .form-group select:focus { 
+            border-color: var(--gold); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); 
+            background: rgba(0,0,0,0.6);
         }
-        .stat-grid {
-            display: grid; grid-cols-2 gap: 10px; margin-top: 20px;
-        }
-        .stat-box {
-            background: #26292E; padding: 15px; border-radius: 10px; border: 1px solid #444;
+        
+        /* Profile View Design */
+        .profile-header-card {
+            background: linear-gradient(135deg, #1a1c20 0%, #000 100%);
+            border: 1px solid var(--gold);
+            border-radius: 24px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .stat-value { font-size: 1.2rem; font-weight: bold; color: var(--gold); display: block; }
-        .stat-label { font-size: 0.75rem; color: #aaa; }
+        .profile-header-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+            background: linear-gradient(90deg, #B8860B, #FFD700);
+            opacity: 0.2;
+        }
+        .profile-avatar-large {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: #000; border: 3px solid var(--gold);
+            margin: 30px auto 15px; position: relative; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .profile-info-grid {
+            display: grid; grid-cols-1 gap: 15px; margin-top: 25px;
+        }
+        .info-row {
+            display: flex; align-items: center; background: rgba(255,255,255,0.03);
+            padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-icon {
+            width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 215, 0, 0.1);
+            color: var(--gold); display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-size: 1.1rem;
+        }
+        .info-text label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .info-text span { display: block; font-size: 0.95rem; color: #fff; font-weight: 600; }
 
         /* --- NEWS CARDS --- */
         .news-card {
@@ -249,6 +292,14 @@
         .service-item strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.95rem; }
         .service-item p { color: #ccc; font-size: 0.85rem; line-height: 1.4; }
 
+        /* Loader */
+        .loader {
+            border: 3px solid #f3f3f3; border-top: 3px solid var(--gold);
+            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-left: 10px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
     </style>
 </head>
 <body>
@@ -263,119 +314,158 @@
 
     <div class="iphone-dock-wrapper">
         <nav class="iphone-dock">
-            <!-- 1. Profile (Was Rooms) -->
-            <div class="nav-item" id="nav-profile" onclick="activateTab(this, 'profile')">
-                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span></span>
+            <div class="nav-item active" id="nav-profile" onclick="activateTab(this, 'profile')">
+                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span>Profile</span>
             </div>
-            <!-- 2. Flats (Connects to Start Prep) -->
-            <div class="nav-item" id="nav-flats" onclick="activateTab(this, 'flats')">
-                <div class="icon-box"><i class="fas fa-book"></i></div><span></span>
+            <div class="nav-item locked" id="nav-flats" onclick="activateTab(this, 'flats')">
+                <div class="icon-box"><i class="fas fa-book"></i></div><span>Prep</span>
             </div>
             
-            <!-- 3. UPSC (Main) -->
-            <div class="nav-item upsc-tab active" id="nav-upsc" onclick="activateTab(this, 'upsc')">
+            <div class="nav-item upsc-tab locked" id="nav-upsc" onclick="activateTab(this, 'upsc')">
                 <div class="icon-box"><i class="fas fa-graduation-cap"></i></div><span>UPSC</span>
             </div>
             
-            <!-- 4. PYQ (Was Hostels) -->
-            <div class="nav-item" id="nav-pyq" onclick="activateTab(this, 'pyq')">
-                <div class="icon-box"><i class="fas fa-file-alt"></i></div><span></span>
+            <div class="nav-item locked" id="nav-pyq" onclick="activateTab(this, 'pyq')">
+                <div class="icon-box"><i class="fas fa-file-alt"></i></div><span>PYQ</span>
             </div>
-            <!-- 5. News (Was More) -->
-            <div class="nav-item" id="nav-news" onclick="activateTab(this, 'news')">
-                <div class="icon-box"><i class="fas fa-newspaper"></i></div><span></span>
+            <div class="nav-item locked" id="nav-news" onclick="activateTab(this, 'news')">
+                <div class="icon-box"><i class="fas fa-newspaper"></i></div><span>News</span>
             </div>
         </nav>
     </div>
 
-    <!-- ================= MODAL CONTENTS ================= -->
-
-    <!-- 1. Profile Modal -->
-    <div id="modal-profile" class="modal-overlay">
+    <div id="modal-profile" class="modal-overlay active">
         <div class="modal-box" style="border-color: var(--gold);">
             <div class="scroll-content upsc-container">
-                <h2 class="upsc-heading">User Profile 👤</h2>
                 
-                <!-- Setup Form (Shown if no data) -->
-                <div id="profile-setup" style="display:none;">
-                    <p class="text-gray-300 mb-4 text-sm">Welcome Aspirant! Please set up your profile to begin your journey.</p>
-                    <div class="profile-form-container">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="user-name" placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <select id="user-gender">
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Exam Preparation</label>
-                            <select id="user-exam">
-                                <option value="UPSC CSE">UPSC CSE</option>
-                                <option value="State PSC">State PSC</option>
-                                <option value="SSC">SSC</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Preparation Start Date</label>
-                            <input type="date" id="user-date">
-                        </div>
-                        <button class="upsc-btn" onclick="saveProfile()">Start Journey 🚀</button>
+                <div id="profile-setup">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-shield-alt text-4xl text-[var(--gold)] mb-3"></i>
+                        <h2 class="text-2xl font-bold text-white">Aspirant Registration</h2>
+                        <p class="text-gray-400 text-sm mt-1">Complete your profile to unlock the application.</p>
+                    </div>
+
+                    <div class="profile-setup-card">
+                        <form id="registration-form" onsubmit="saveProfile(event)" class="profile-form-container">
+                            <input type="hidden" name="sheetName" value="UPSC-CSE"> 
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-user mr-2"></i>Full Name</label>
+                                <input type="text" name="name" id="user-name" placeholder="Ex: Rahul Kumar" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="form-group">
+                                    <label><i class="fas fa-phone mr-2"></i>Mobile</label>
+                                    <input type="tel" name="phone" id="user-phone" placeholder="9876543210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-venus-mars mr-2"></i>Gender</label>
+                                    <select name="gender" id="user-gender" required>
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope mr-2"></i>Email Address</label>
+                                <input type="email" name="email" id="user-email" placeholder="aspirant@gmail.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt mr-2"></i>Current Place (City/State)</label>
+                                <input type="text" name="place" id="user-place" placeholder="Ex: Karol Bagh, Delhi" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt mr-2"></i>Preparation Start Date</label>
+                                <input type="date" name="startDate" id="user-date" required>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="upsc-btn mt-4">
+                                <span>Complete Registration</span>
+                                <div id="loading-spinner" class="loader" style="display:none;"></div>
+                            </button>
+                            <p class="text-xs text-center text-gray-500 mt-2"><i class="fas fa-lock mr-1"></i> Data is secure & required for access.</p>
+                        </form>
                     </div>
                 </div>
 
-                <!-- Display Profile (Shown if data exists) -->
                 <div id="profile-view" style="display:none;">
-                    <div class="profile-display">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
+                    <h2 class="upsc-heading">My Profile 👤</h2>
+                    
+                    <div class="profile-header-card">
+                        <div class="profile-header-bg"></div>
+                        <div class="profile-avatar-large">
+                            <i class="fas fa-user-graduate"></i>
                         </div>
-                        <h3 id="display-name" class="text-2xl font-bold text-white mb-1">User Name</h3>
-                        <p id="display-exam" class="text-[var(--gold)] text-sm uppercase tracking-wide">UPSC CSE ASPIRANT</p>
+                        <h3 id="display-name" class="text-2xl font-bold text-white mb-1 tracking-wide">User Name</h3>
+                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">UPSC Aspirant</p>
                         
-                        <div class="stat-grid">
-                            <div class="stat-box">
-                                <span class="stat-value" id="display-days">0</span>
-                                <span class="stat-label">Days Preparing</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-value" id="display-gender">-</span>
-                                <span class="stat-label">Gender</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-value">Beginner</span>
-                                <span class="stat-label">Level</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="stat-value">0%</span>
-                                <span class="stat-label">Syllabus Covered</span>
-                            </div>
+                        <div class="flex justify-center gap-4 text-center border-t border-gray-800 pt-4">
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-days">0</span>
+                                 <span class="text-xs text-gray-500 uppercase">Days Prep</span>
+                             </div>
+                             <div class="w-px bg-gray-700"></div>
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-gender">-</span>
+                                 <span class="text-xs text-gray-500 uppercase">Gender</span>
+                             </div>
                         </div>
-                        
-                        <button class="upsc-btn upsc-btn-secondary mt-6" onclick="resetProfile()">Reset Profile</button>
                     </div>
+
+                    <div class="profile-info-grid">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-text">
+                                <label>Email Address</label>
+                                <span id="display-email">email@example.com</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-text">
+                                <label>Mobile Number</label>
+                                <span id="display-phone">+91 XXXXX XXXXX</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-text">
+                                <label>Location</label>
+                                <span id="display-place">Delhi, India</span>
+                            </div>
+                        </div>
+                         <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <div class="info-text">
+                                <label>Start Date</label>
+                                <span id="display-date">01-01-2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="upsc-btn upsc-btn-secondary mt-8" onclick="resetProfile()">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
+                    </button>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- 2. Flats Modal (Target for Start Prep) -->
     <div id="modal-flats" class="modal-overlay">
         <div class="modal-box"><div class="vacant-msg"><i class="fas fa-building"></i><h2>Flats / Strategy</h2><p>Coming Soon</p></div></div>
     </div>
     
-    <!-- 4. PYQ Modal (Placeholder) -->
     <div id="modal-pyq" class="modal-overlay">
         <div class="modal-box"><div class="vacant-msg"><i class="fas fa-file-alt"></i><h2>Previous Year Questions</h2><p>Design & Functionality coming later.</p></div></div>
     </div>
 
-    <!-- 5. News Modal -->
     <div id="modal-news" class="modal-overlay">
         <div class="modal-box" style="border-color: var(--gold);">
             <div class="scroll-content upsc-container">
@@ -409,23 +499,19 @@
         </div>
     </div>
 
-    <!-- 3. UPSC Tab (Main) -->
-    <div id="modal-upsc" class="modal-overlay active">
+    <div id="modal-upsc" class="modal-overlay">
         <div class="modal-box" style="border-color: var(--gold);">
             <div class="scroll-content upsc-container">
                 
-                <!-- 1. What is UPSC -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">1. What is UPSC? 🤔</h2>
                     <p class="text-gray-300 text-sm mb-4 leading-relaxed">
                         UPSC (Union Public Service Commission) is India's most prestigious government recruitment body. Its main job is to select the most qualified officers for more than <strong>20 major government jobs</strong> like <strong>IAS, IPS, IFS</strong>.
                     </p>
                     <button class="upsc-btn" onclick="openSubModal('sub-services')">View All 24 Services</button>
-                    <!-- NEW BUTTON ADDED HERE -->
                     <button class="upsc-btn upsc-btn-secondary" onclick="activateTab(document.getElementById('nav-flats'), 'flats')">Start Preparation</button>
                 </section>
 
-                <!-- 2. Process -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">2. Exam Process 🎯</h2>
                     <p class="text-gray-300 text-sm text-center mb-4">The UPSC Civil Services Examination lasts for a year and has 3 main stages.</p>
@@ -444,7 +530,6 @@
                     </div>
                 </section>
 
-                <!-- 3. Eligibility -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">3. Who can apply? ✅</h2>
                     <ul class="styled-list text-sm text-gray-300 space-y-2">
@@ -466,7 +551,6 @@
                     </div>
                 </section>
 
-                <!-- 4. Key Subjects -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">4. Key Subjects 📚</h2>
                     <p class="text-sm text-gray-300 mb-4">The syllabus is vast. Here are the core pillars. Click the button below for full details.</p>
@@ -483,7 +567,6 @@
                     <button class="upsc-btn" onclick="openSubModal('sub-syllabus')">View Detailed Syllabus</button>
                 </section>
 
-                <!-- 5. Languages -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">5. Compulsory Languages 🗣️</h2>
                     <p class="text-sm text-gray-300 mb-2">Mains has 2 compulsory qualifying papers. Marks are <strong>not added</strong> to merit, but passing (33%) is mandatory.</p>
@@ -501,7 +584,6 @@
                     <p class="text-xs text-red-400 mt-2 text-center">🚩 If you fail these, your other papers are NOT evaluated.</p>
                 </section>
 
-                <!-- 6. Optionals -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">6. Optional Subjects 🌟</h2>
                     <p class="text-sm text-gray-300 mb-3">
@@ -510,7 +592,6 @@
                     <button class="upsc-btn" onclick="openSubModal('sub-optionals')">View All 48 Subjects</button>
                 </section>
 
-                <!-- 7. Interview -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">7. Interview Qualities 🧠</h2>
                     <p class="text-sm text-gray-300 mb-4">The Personality Test (275 Marks) assesses your traits, not just knowledge.</p>
@@ -527,7 +608,6 @@
                     </ul>
                 </section>
 
-                <!-- 8. Strategy -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">8. Strategy: Smart Work 📈</h2>
                     <div class="space-y-6 mt-4">
@@ -546,7 +626,6 @@
                     </div>
                 </section>
 
-                <!-- 9. Don'ts -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">9. What NOT to Do 🚫</h2>
                     <div class="space-y-2 text-sm text-gray-300">
@@ -562,7 +641,6 @@
                     </div>
                 </section>
 
-                <!-- 10. Timeline -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">10. Exam Timeline 🗓️</h2>
                     <div class="space-y-3 text-sm">
@@ -589,7 +667,6 @@
                     </div>
                 </section>
 
-                <!-- 11. Institutions -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">11. Institutions 🏫</h2>
                     <div class="mb-4">
@@ -602,7 +679,6 @@
                     </div>
                 </section>
 
-                <!-- 12. Roadmap -->
                 <section class="upsc-card">
                     <h2 class="upsc-heading">12. Career Roadmap 🚀</h2>
                     <p class="text-sm text-gray-300 mb-4">Cracking UPSC is just the beginning. A civil servant's career is progressive and highly influential.</p>
@@ -616,9 +692,6 @@
     </div>
 
 
-    <!-- ================= SUB MODALS (DETAILED CONTENT) ================= -->
-
-    <!-- Services Modal -->
     <div id="sub-services" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-services')">&times;</button>
@@ -734,7 +807,6 @@
         </div>
     </div>
 
-    <!-- Prelims Modal -->
     <div id="sub-prelims" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-prelims')">&times;</button>
@@ -772,7 +844,6 @@
         </div>
     </div>
 
-    <!-- Mains Modal -->
     <div id="sub-mains" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-mains')">&times;</button>
@@ -812,7 +883,6 @@
         </div>
     </div>
 
-    <!-- Interview Modal -->
     <div id="sub-interview" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-interview')">&times;</button>
@@ -839,7 +909,6 @@
         </div>
     </div>
 
-    <!-- Detailed Syllabus Modal (Step 4) -->
     <div id="sub-syllabus" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-syllabus')">&times;</button>
@@ -907,7 +976,6 @@
     </div>
 
 
-    <!-- Optionals Modal (Step 6) -->
     <div id="sub-optionals" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-optionals')">&times;</button>
@@ -982,7 +1050,6 @@
         </div>
     </div>
 
-    <!-- Languages Modal -->
     <div id="sub-languages" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-languages')">&times;</button>
@@ -1015,7 +1082,6 @@
         </div>
     </div>
 
-    <!-- Career Roadmap Modal -->
     <div id="sub-roadmap" class="upsc-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-roadmap')">&times;</button>
@@ -1056,61 +1122,127 @@
     </div>
 
     <script>
+        // --- GOOGLE SHEETS CONNECTION CONFIGURATION ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4iiSGL8AogqYasU1MYOxnG4GT2CqoERQIaPKMplMFWU19wgcbZIE3SINTvRh74dGl/exec';
+
         // --- PROFILE LOGIC ---
         function checkProfile() {
             const profileData = localStorage.getItem('userProfile');
             if (profileData) {
-                // Profile exists: Show UPSC tab (default)
+                // Profile exists: Unlock UI & Show UPSC tab
+                unlockInterface();
                 loadProfile(JSON.parse(profileData));
                 return true;
             } else {
-                // No profile: Force Profile Setup
-                activateTab(document.getElementById('nav-profile'), 'profile');
+                // No profile: Lock UI & Force Profile Tab
+                lockInterface();
                 document.getElementById('profile-setup').style.display = 'block';
                 document.getElementById('profile-view').style.display = 'none';
                 return false;
             }
         }
 
-        function saveProfile() {
-            const name = document.getElementById('user-name').value;
-            const gender = document.getElementById('user-gender').value;
-            const exam = document.getElementById('user-exam').value;
-            const date = document.getElementById('user-date').value;
-
-            if(!name || !gender || !exam || !date) {
-                alert("Please fill all fields!");
-                return;
-            }
-
-            const profile = { name, gender, exam, date };
-            localStorage.setItem('userProfile', JSON.stringify(profile));
+        function lockInterface() {
+            // Add 'locked' class to all except profile
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                if (item.id !== 'nav-profile') {
+                    item.classList.add('locked');
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
+                }
+            });
             
-            // Reload & Redirect to Home
-            loadProfile(profile);
-            document.getElementById('profile-setup').style.display = 'none';
-            document.getElementById('profile-view').style.display = 'block';
-            activateTab(document.getElementById('nav-upsc'), 'upsc');
+            // Force modal to profile
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+            document.getElementById('modal-profile').classList.add('active');
+        }
+
+        function unlockInterface() {
+            // Remove 'locked' class
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('locked'));
+        }
+
+        function saveProfile(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            const btnText = btn.querySelector('span');
+
+            // Collect Data
+            const form = document.getElementById('registration-form');
+            const formData = new FormData(form);
+            const dataObj = Object.fromEntries(formData.entries());
+
+            // UI Loading State
+            btn.disabled = true;
+            btnText.textContent = "Registering...";
+            spinner.style.display = 'inline-block';
+
+            // --- IMPROVED GOOGLE SHEETS FETCH (Fixing the CORS Error) ---
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // <--- CRITICAL FIX: Allows bypass of CORS block
+            })
+            .then(() => {
+                // With 'no-cors', we get an opaque response. We assume success if no network error occurred.
+                // alert("Registration Successful!"); // Optional: Feedback to user
+                console.log('Request sent successfully (no-cors mode)');
+                finalizeProfile(dataObj);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                // Even if it fails (e.g. offline), we save locally to allow app access
+                alert("Network issue. Saving locally so you can continue.");
+                finalizeProfile(dataObj);
+            });
+        }
+
+        function finalizeProfile(data) {
+            // Save Local
+            localStorage.setItem('userProfile', JSON.stringify(data));
+            
+            // UI Reset
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').querySelector('span').textContent = "Complete Registration";
+            document.getElementById('loading-spinner').style.display = 'none';
+
+            // Transition
+            unlockInterface();
+            loadProfile(data);
+            
+            // Switch to Main Tab after short delay
+            setTimeout(() => {
+                activateTab(document.getElementById('nav-upsc'), 'upsc');
+            }, 500);
         }
 
         function loadProfile(data) {
             document.getElementById('profile-setup').style.display = 'none';
             document.getElementById('profile-view').style.display = 'block';
 
+            // Set Fields
             document.getElementById('display-name').textContent = data.name;
-            document.getElementById('display-exam').textContent = data.exam + " ASPIRANT";
+            document.getElementById('display-phone').textContent = data.phone;
+            document.getElementById('display-email').textContent = data.email;
             document.getElementById('display-gender').textContent = data.gender;
+            document.getElementById('display-place').textContent = data.place;
+            document.getElementById('display-date').textContent = data.startDate;
             
             // Calculate Days
-            const start = new Date(data.date);
+            const start = new Date(data.startDate);
             const now = new Date();
             const diffTime = Math.abs(now - start);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            document.getElementById('display-days').textContent = diffDays;
+            document.getElementById('display-days').textContent = isNaN(diffDays) ? 0 : diffDays;
         }
 
         function resetProfile() {
-            if(confirm("Are you sure you want to reset your profile?")) {
+            if(confirm("Are you sure? All data will be cleared and you will be locked out until you register again.")) {
                 localStorage.removeItem('userProfile');
                 location.reload();
             }
@@ -1118,6 +1250,16 @@
 
         // --- TAB NAVIGATION LOGIC ---
         function activateTab(element, tabId) {
+            const hasProfile = localStorage.getItem('userProfile');
+            
+            // Lock Logic
+            if (!hasProfile && tabId !== 'profile') {
+                alert("🔒 Please complete your profile registration to access this section.");
+                // Ensure visual consistency
+                activateTab(document.getElementById('nav-profile'), 'profile');
+                return;
+            }
+
             // UI Updates
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if(element) element.classList.add('active');
@@ -1141,9 +1283,12 @@
         // --- CHARTS INITIALIZATION ---
         document.addEventListener("DOMContentLoaded", function() {
             
-            // Check Profile Status First
-            if(checkProfile()){
-                 // If profile exists, ensure UPSC is active by default (HTML has it active, so just leave it)
+            // Initial Check
+            const hasProfile = checkProfile();
+            if(hasProfile) {
+                // If profile exists, we can default to UPSC tab if needed, 
+                // but HTML defaults to Active Profile. Let's switch to UPSC if profile is ready.
+                activateTab(document.getElementById('nav-upsc'), 'upsc');
             }
 
             Chart.defaults.color = '#fff';
