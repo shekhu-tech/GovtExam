@@ -1,713 +1,947 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC JHT परीक्षा: संपूर्ण मार्गदर्शिका</title>
-     <script src="redirect_if_needed.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SSC JHT Guide & Tracker</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
-    <meta name="description" content="SSC Junior Hindi Translator (JHT) परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, पद, करियर और तैयारी की रणनीति।">
-    <meta name="keywords" content="SSC, JHT, Junior Hindi Translator, Senior Hindi Translator, Official Language, सरकारी नौकरी, भारत, translator job">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- MAIN APP THEME (Green/Neon/Gold) --- */
+        :root {
+            --primary: #39ff14;
+            --primary-dim: rgba(57, 255, 20, 0.4); 
+            --bg-dark: #020202;
+            --gold: #FFD700; 
+            --gold-dim: rgba(255, 215, 0, 0.3);
+            --header-offset: calc(15px + env(safe-area-inset-top));
+            --header-height: 70px; 
+            --footer-offset: calc(30px + env(safe-area-inset-bottom));
+            --footer-height: 75px; 
+            --text-light: #ffffff; 
+            --card-bg: #1A1C20;
+        }
+
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Gurmukhi', sans-serif;
-            background-color: #f0f9ff; /* Light Blue background */
-            color: #1e3a8a;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            overflow: hidden; 
+            height: 100vh;
+            width: 100vw;
         }
-        .section-heading {
-            border-bottom: 3px solid #2563eb; /* Blue color */
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            color: #1e40af; /* Darker Blue */
+
+        /* --- BACKGROUND --- */
+        #fixed-media-background {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -10; background-size: cover; background-position: center;
+            opacity: 0.5; 
+            /* Books/Language/Translation background for JHT context */
+            background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1373&auto=format&fit=crop');
+            filter: brightness(25%) hue-rotate(200deg) contrast(130%) saturate(140%);
         }
-        .card {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 1.75rem;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid #bfdbfe;
+
+        /* --- HEADER --- */
+        .iphone-header {
+            position: fixed; top: var(--header-offset); left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 600px; height: var(--header-height);
+            background: rgba(5, 4, 1, 0.96); backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 3000; box-shadow: 0 5px 25px rgba(0,0,0,0.5);
         }
-        .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transform: translateY(-5px);
+        .header-left img, .header-right img { 
+            width: 38px; height: 38px; border-radius: 10px; 
+            border: 2px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
+            object-fit: cover;
         }
-        .chart-container {
+        .header-center { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: 2px; }
+        .header-center span { color: var(--gold); }
+
+        /* --- DOCK NAVIGATION --- */
+        .iphone-dock-wrapper { 
+            position: fixed; bottom: var(--footer-offset); 
+            left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 15px; 
+        }
+        .iphone-dock { 
+            width: 100%; max-width: 500px; height: var(--footer-height); 
+            background: rgba(5, 4, 1, 0.95); backdrop-filter: blur(40px); 
+            border-radius: 35px; border: 1px solid rgba(255, 215, 0, 0.15); 
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); padding: 0 12px; 
+        }
+        
+        .nav-item { 
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: #666; cursor: pointer; height: 100%; transition: all 0.3s ease;
             position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        .nav-item .icon-box {
+            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+            border-radius: 14px; transition: all 0.3s; margin-bottom: 3px;
         }
-        .flowchart-step {
-            border: 3px solid #1e40af;
-            color: #1e40af;
-            background-color: #dbeafe;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
+        .nav-item i { font-size: 1.25rem; transition: 0.3s; }
+        .nav-item span { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
+
+        /* Locked State Visuals */
+        .nav-item.locked { opacity: 0.3; pointer-events: none; filter: grayscale(100%); }
+        
+        /* Active State */
+        .nav-item.active { color: var(--gold); opacity: 1; pointer-events: auto; filter: none; }
+        .nav-item.active .icon-box {
+            background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold); 
+            transform: translateY(-5px); 
         }
-        .flowchart-step:hover {
-            background-color: #1e40af;
-            color: #FFFFFF;
-            transform: scale(1.05);
+        
+        /* SSC Center Tab Specific Active State */
+        .nav-item.ssc-tab.active { color: var(--gold); }
+        .nav-item.ssc-tab.active .icon-box {
+            background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold);
+            box-shadow: 0 0 15px var(--gold-dim);
         }
-        .flowchart-arrow {
-            color: #2563eb;
+
+        /* --- MAIN CONTENT MODALS --- */
+        .modal-overlay { 
+            position: fixed; 
+            top: calc(var(--header-offset) + var(--header-height) + 12px);
+            bottom: calc(var(--footer-offset) + var(--footer-height) + 12px);
+            left: 0; right: 0; z-index: 2500; 
+            display: none; justify-content: center; padding: 0 12px; pointer-events: none;
         }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            padding: 1rem;
+        .modal-overlay.active { display: flex !important; }
+        .modal-box { 
+            pointer-events: auto; background: rgba(10, 8, 2, 0.95); border: 1px solid rgba(255,215,0,0.3); 
+            border-radius: 32px; width: 100%; max-width: 600px; height: 100%; 
+            padding: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.8); 
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .modal-close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
+
+        /* Scrollable Content Area */
+        .scroll-content { flex-grow: 1; overflow-y: auto; padding-right: 5px; -webkit-overflow-scrolling: touch; }
+        .scroll-content::-webkit-scrollbar { width: 4px; }
+        .scroll-content::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+        /* --- SSC/CARD STYLES (Gold Theme) --- */
+        .ssc-container { color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .ssc-heading { 
+            color: var(--gold); font-family: 'Rajdhani', sans-serif; font-weight: 700; 
+            border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-bottom: 15px; display: inline-block;
             font-size: 1.5rem;
-            cursor: pointer;
-            color: #1e40af;
         }
-        .lang-btn.active {
-            background-color: #2563eb;
-            color: white;
-            font-weight: bold;
+        .ssc-card {
+            background: var(--card-bg); border: 1px solid #A37A00; border-radius: 16px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
-        .rank-btn {
-            background-color: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #2563eb;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
+        .ssc-card:hover { transform: translateY(-2px); }
+        .ssc-btn {
+            background: linear-gradient(135deg, #FFC107, #B8860B); color: #000; padding: 10px 20px; border-radius: 12px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none;
+            transition: all 0.2s; display: inline-block; margin-top: 10px; width: 100%;
+            text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .rank-btn:hover {
-            background-color: #2563eb;
-            color: white;
+        .ssc-btn:active { transform: scale(0.98); }
+        
+        /* Secondary Button Style */
+        .ssc-btn-secondary {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            margin-top: 8px;
         }
-        .notes-lectures-btn {
-            background-color: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #3b82f6;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            font-size: 0.875rem;
+        .ssc-btn-secondary:hover { background: rgba(255, 215, 0, 0.1); }
+        
+        /* Flowchart */
+        .flowchart-flex { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0; }
+        @media(min-width: 600px) { .flowchart-flex { flex-direction: row; justify-content: center; } }
+        .flowchart-step {
+            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: var(--gold); background: #26292E; cursor: pointer;
+            transition: all 0.3s; flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
         }
-        .notes-lectures-btn:hover {
-            background-color: #3b82f6;
-            color: white;
+        .flowchart-step:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); transform: scale(1.05); }
+        .arrow-down { font-size: 2rem; color: var(--gold); }
+        @media(min-width: 600px) { .arrow-down { transform: rotate(-90deg); } }
+
+        /* Timeline */
+        .timeline-item { 
+            border-left: 3px solid var(--gold); padding-left: 20px; margin-left: 10px; 
+            padding-bottom: 20px; position: relative; 
         }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -10px; top: 0; width: 17px; height: 17px;
+            background: var(--gold); border-radius: 50%; border: 3px solid #1A1C20;
+        }
+
+        /* --- NESTED SUB-MODALS --- */
+        .ssc-sub-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 4000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.3s; padding: 20px;
+        }
+        .ssc-sub-modal.active { opacity: 1; visibility: visible; }
+        .sub-modal-content {
+            background: #1A1C20; border: 1px solid var(--gold); width: 100%; max-width: 600px;
+            max-height: 85vh; overflow-y: auto; border-radius: 20px; padding: 25px;
+            position: relative; color: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .close-sub-btn {
+            position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: var(--gold);
+            background: none; border: none; cursor: pointer; z-index: 10;
+        }
+
+        /* --- VACANT/PLACEHOLDER TABS --- */
+        .vacant-msg {
+            height: 100%; display: flex; align-items: center; justify-content: center;
+            flex-direction: column; color: #555; text-align: center;
+        }
+        .vacant-msg i { font-size: 3rem; margin-bottom: 10px; color: #333; }
+        
+        /* --- PROFILE STYLES --- */
+        .profile-setup-card {
+            background: linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        .profile-form-container {
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .form-group { position: relative; }
+        .form-group label { 
+            display: block; color: var(--gold); margin-bottom: 6px; font-size: 0.85rem; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .form-group input, .form-group select {
+            width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); 
+            border: 1px solid #444; color: #fff;
+            border-radius: 12px; outline: none; transition: 0.3s; font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus { 
+            border-color: var(--gold); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); 
+            background: rgba(0,0,0,0.6);
+        }
+        
+        /* Profile View Design */
+        .profile-header-card {
+            background: linear-gradient(135deg, #1a1c20 0%, #000 100%);
+            border: 1px solid var(--gold);
+            border-radius: 24px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .profile-header-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+            background: linear-gradient(90deg, #B8860B, #FFD700);
+            opacity: 0.2;
+        }
+        .profile-avatar-large {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: #000; border: 3px solid var(--gold);
+            margin: 30px auto 15px; position: relative; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .profile-info-grid {
+            display: grid; grid-cols-1 gap: 15px; margin-top: 25px;
+        }
+        .info-row {
+            display: flex; align-items: center; background: rgba(255,255,255,0.03);
+            padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-icon {
+            width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 215, 0, 0.1);
+            color: var(--gold); display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-size: 1.1rem;
+        }
+        .info-text label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .info-text span { display: block; font-size: 0.95rem; color: #fff; font-weight: 600; }
+
+        /* --- NEWS CARDS --- */
+        .news-card {
+            display: block; text-decoration: none;
+            background: #222; border-left: 4px solid var(--gold);
+            padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0;
+            transition: 0.2s;
+        }
+        .news-card:hover { background: #2a2a2a; transform: translateX(5px); }
+        .news-title { color: #fff; font-weight: 700; margin-bottom: 5px; font-size: 1rem; }
+        .news-desc { color: #aaa; font-size: 0.8rem; line-height: 1.4; }
+        .news-date { color: var(--gold); font-size: 0.7rem; margin-top: 8px; display: block; }
+
+        /* List Styling */
+        .styled-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
+        .styled-list li span.icon { margin-right: 10px; color: var(--gold); min-width: 20px; }
+        
+        .service-group { margin-bottom: 20px; }
+        .service-group h4 { color: var(--gold); border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 5px; margin-bottom: 10px; font-weight: 700; font-size: 1.1rem; }
+        
+        .service-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .service-item:last-child { border-bottom: none; }
+        .service-item strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.95rem; }
+        .service-item p { color: #ccc; font-size: 0.85rem; line-height: 1.4; }
+
+        /* Loader */
+        .loader {
+            border: 3px solid #f3f3f3; border-top: 3px solid var(--gold);
+            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-left: 10px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
     </style>
 </head>
-<body class="leading-relaxed">
+<body>
+    
+    <div id="fixed-media-background"></div>
 
-    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
-        
-        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
-            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
-            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
-            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
-        </div>
+    <header class="iphone-header">
+        <div class="header-left"><img src="sti.png" alt="Logo" onerror="this.src='https://placehold.co/40x40/333/FFF?text=S'"></div>
+        <div class="header-center">SSC-JHT<span>(Translator)</span></div>
+        <div class="header-right"><img src="ytglogo.png" alt="User" onerror="this.src='https://placehold.co/40x40/333/FFF?text=U'"></div>
+    </header>
 
-        <header class="text-center mb-16 pt-12">
-            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#1e40af] mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#2563eb] font-semibold"></p>
-        </header>
-
-        <main class="grid grid-cols-1 gap-10">
-
-            <!-- Section 1: What is the exam? -->
-            <section class="card">
-                <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mt-6">
-                    <div class="p-4 bg-blue-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="jhtInfoModal">
-                        <div class="text-4xl">📝</div>
-                        <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-blue-800"></div>
-                    </div>
-                    <div class="p-4 bg-indigo-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="shtInfoModal">
-                        <div class="text-4xl">📚</div>
-                        <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-indigo-800"></div>
-                    </div>
-                    <div class="p-4 bg-sky-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="jtoInfoModal">
-                        <div class="text-4xl">💼</div>
-                        <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-sky-800"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 2: Exam Process -->
-            <section class="card">
-                <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
-                <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
-                    <div class="text-center flex flex-col items-center">
-                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="paper1Modal"><span data-lang-key="section2_step1_title"></span></div>
-                    </div>
-                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
-                    <div class="text-center flex flex-col items-center">
-                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="paper2Modal"><span data-lang-key="section2_step2_title"></span></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Eligibility & Exam Pattern -->
-            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                <div>
-                    <h2 data-lang-key="section3_title" class="text-3xl font-bold section-heading"></h2>
-                    <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
-                </div>
-                <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#1e40af] mb-4 text-center"></h3>
-                    <div class="chart-container h-72">
-                        <canvas id="examPatternChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 4 & 5: Detailed Syllabus & Subjects -->
-            <section class="card">
-                <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
-                <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-                 <div class="text-center">
-                    <button class="rank-btn" data-modal-target="syllabusModal" data-lang-key="section4_button"></button>
-                </div>
-            </section>
+    <div class="iphone-dock-wrapper">
+        <nav class="iphone-dock">
+            <div class="nav-item active" id="nav-profile" onclick="activateTab(this, 'profile')">
+                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span></span>
+            </div>
+            <div class="nav-item locked" id="nav-flats" onclick="activateTab(this, 'flats')">
+                <div class="icon-box"><i class="fas fa-book"></i></div><span></span>
+            </div>
             
-            <!-- Section 6: Career Opportunities -->
-            <section class="card">
-                <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section6_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
-                <div class="text-center">
-                    <div data-lang-key="career_modal_list" class="flex flex-wrap gap-4 justify-center"></div>
-                </div>
-            </section>
-
-            <!-- Section 7: Preparation Strategy -->
-            <section class="card">
-                <h2 data-lang-key="section7_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section7_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3>
-                        <div data-lang-key="section7_col1_list" class="text-lg"></div>
-                    </div>
-                    <div>
-                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3>
-                        <p data-lang-key="section7_col2_desc" class="text-lg mb-4"></p>
-                        <div data-lang-key="section7_col2_list" class="text-lg"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 8: What Not to Do -->
-            <section class="card">
-                <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item1"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item2"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item3"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item4"></div>
-                    </div>
-                </div>
-                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-[#1e40af] mt-10"></p>
-            </section>
-
-            <!-- Section 9: Application Timeline -->
-            <section class="card">
-                <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section9_desc" class="text-lg mb-8"></p>
-                <div data-lang-key="section9_timeline" class="space-y-4"></div>
-            </section>
-
-            <!-- Section 10: Coaching Institutes -->
-            <section class="card">
-                <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section10_desc" class="text-lg mb-8"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div data-lang-key="section10_online"></div>
-                    <div data-lang-key="section10_offline"></div>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
-            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
-        </footer>
-
+            <div class="nav-item ssc-tab locked" id="nav-ssc" onclick="activateTab(this, 'ssc')">
+                <div class="icon-box"><i class="fas fa-language"></i></div><span>JHT</span>
+            </div>
+            
+            <div class="nav-item locked" id="nav-pyq" onclick="activateTab(this, 'pyq')">
+                <div class="icon-box"><i class="fas fa-file-alt"></i></div><span></span>
+            </div>
+            <div class="nav-item locked" id="nav-news" onclick="activateTab(this, 'news')">
+                <div class="icon-box"><i class="fas fa-newspaper"></i></div><span></span>
+            </div>
+        </nav>
     </div>
 
-    <!-- Modals -->
-    <div id="paper1Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper1_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><div data-lang-key="paper1_modal_list"></div></div></div>
-    <div id="paper2Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper2_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><div data-lang-key="paper2_modal_list"></div></div></div>
-    
-    <!-- Syllabus & Subjects Modal -->
-    <div id="syllabusModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close-button">&times;</button>
-            <h3 data-lang-key="syllabus_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3>
-            <div data-lang-key="syllabus_modal_list"></div>
+    <div id="modal-profile" class="modal-overlay active">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                
+                <div id="profile-setup">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-shield-alt text-4xl text-[var(--gold)] mb-3"></i>
+                        <h2 class="text-2xl font-bold text-white">Aspirant Registration</h2>
+                        <p class="text-gray-400 text-sm mt-1">Complete your profile to unlock the application.</p>
+                    </div>
+
+                    <div class="profile-setup-card">
+                        <form id="registration-form" onsubmit="saveProfile(event)" class="profile-form-container">
+                            <input type="hidden" name="sheetName" value="SSC-JHT"> 
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-user mr-2"></i>Full Name</label>
+                                <input type="text" name="name" id="user-name" placeholder="Ex: Anjali Sharma" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="form-group">
+                                    <label><i class="fas fa-phone mr-2"></i>Mobile</label>
+                                    <input type="tel" name="phone" id="user-phone" placeholder="9876543210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-venus-mars mr-2"></i>Gender</label>
+                                    <select name="gender" id="user-gender" required>
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope mr-2"></i>Email Address</label>
+                                <input type="email" name="email" id="user-email" placeholder="aspirant@gmail.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt mr-2"></i>Current Place (City/State)</label>
+                                <input type="text" name="place" id="user-place" placeholder="Ex: Lucknow, UP" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt mr-2"></i>Preparation Start Date</label>
+                                <input type="date" name="startDate" id="user-date" required>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="ssc-btn mt-4">
+                                <span>Complete Registration</span>
+                                <div id="loading-spinner" class="loader" style="display:none;"></div>
+                            </button>
+                            <p class="text-xs text-center text-gray-500 mt-2"><i class="fas fa-lock mr-1"></i> Data is secure & required for access.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="profile-view" style="display:none;">
+                    <h2 class="ssc-heading">My Profile 👤</h2>
+                    
+                    <div class="profile-header-card">
+                        <div class="profile-header-bg"></div>
+                        <div class="profile-avatar-large">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 id="display-name" class="text-2xl font-bold text-white mb-1 tracking-wide">User Name</h3>
+                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">SSC JHT Aspirant</p>
+                        
+                        <div class="flex justify-center gap-4 text-center border-t border-gray-800 pt-4">
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-days">0</span>
+                                 <span class="text-xs text-gray-500 uppercase">Days Prep</span>
+                             </div>
+                             <div class="w-px bg-gray-700"></div>
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-gender">-</span>
+                                 <span class="text-xs text-gray-500 uppercase">Gender</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-grid">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-text">
+                                <label>Email Address</label>
+                                <span id="display-email">email@example.com</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-text">
+                                <label>Mobile Number</label>
+                                <span id="display-phone">+91 XXXXX XXXXX</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-text">
+                                <label>Location</label>
+                                <span id="display-place">Delhi, India</span>
+                            </div>
+                        </div>
+                         <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <div class="info-text">
+                                <label>Start Date</label>
+                                <span id="display-date">01-01-2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="ssc-btn ssc-btn-secondary mt-8" onclick="resetProfile()">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
+                    </button>
+                </div>
+
+            </div>
         </div>
     </div>
-    
-    <!-- Section 1 Info Modals -->
-    <div id="jhtInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card1_modal_title" class="text-2xl font-bold text-blue-800 mb-4"></h3><p data-lang-key="section1_card1_modal_desc"></p></div></div>
-    <div id="shtInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card2_modal_title" class="text-2xl font-bold text-indigo-800 mb-4"></h3><p data-lang-key="section1_card2_modal_desc"></p></div></div>
-    <div id="jtoInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card3_modal_title" class="text-2xl font-bold text-sky-800 mb-4"></h3><p data-lang-key="section1_card3_modal_desc"></p></div></div>
 
-    <!-- Career Progression Modals -->
-    <div id="jhtCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="jht_career_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><p data-lang-key="jht_career_modal_desc"></p></div></div>
-    <div id="shtCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="sht_career_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><p data-lang-key="sht_career_modal_desc"></p></div></div>
-    <div id="adCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ad_career_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><p data-lang-key="ad_career_modal_desc"></p></div></div>
-    <div id="ddCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="dd_career_modal_title" class="text-2xl font-bold text-[#1e40af] mb-4"></h3><p data-lang-key="dd_career_modal_desc"></p></div></div>
+    <div id="modal-flats" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-building"></i><h2>Notes / Study Material</h2><p>Coming Soon</p></div></div>
+    </div>
     
+    <div id="modal-pyq" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-file-alt"></i><h2>Previous Year Questions</h2><p>Design & Functionality coming later.</p></div></div>
+    </div>
+
+    <div id="modal-news" class="modal-overlay">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                <h2 class="ssc-heading">Latest Updates 📰</h2>
+                
+                <a href="#" class="news-card">
+                    <div class="news-title">SSC JHT Notification Release</div>
+                    <div class="news-desc">The official notification is typically released in July-August. Check official website for details.</div>
+                    <span class="news-date">Today • Official Update</span>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-title">Paper-I Exam Dates</div>
+                    <div class="news-desc">Paper-I is usually scheduled for October-November. Start your preparation now.</div>
+                    <span class="news-date">Yesterday • Notification</span>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-title">Translation Practice Tips</div>
+                    <div class="news-desc">Focus on understanding the context rather than literal word-to-word translation.</div>
+                    <span class="news-date">2 days ago • Tips</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ssc" class="modal-overlay">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">1. What is the Exam? 🤔</h2>
+                    <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                        The Junior Hindi Translator (JHT) Examination is a specialized exam for recruitment to the posts of **Junior Hindi Translator, Junior Translator, and Senior Hindi Translator** in various ministries and departments of the Central Government. It aims to promote the implementation of Hindi as the official language.
+                    </p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-posts')">View Posts Details</button>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">2. Examination Process 🎯</h2>
+                    <p class="text-gray-300 text-sm text-center mb-4">The SSC JHT selection process consists of two stages testing language and translation skills.</p>
+                    <div class="flowchart-flex">
+                        <div class="flowchart-step" onclick="openSubModal('sub-process')">
+                            <div>Paper 1<br><span class="text-white text-xs opacity-80">Objective</span></div>
+                        </div>
+                        <div class="arrow-down">➜</div>
+                        <div class="flowchart-step" onclick="openSubModal('sub-process')">
+                            <div>Paper 2<br><span class="text-white text-xs opacity-80">Descriptive</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">3. Eligibility & Pattern ✅</h2>
+                    <ul class="styled-list text-sm text-gray-300 space-y-2">
+                        <li><span class="icon">🎓</span><strong>Education:</strong> Master's in Hindi/English with the other as a compulsory subject or Diploma in Translation.</li>
+                        <li><span class="icon">🎂</span><strong>Age:</strong> 18 to 30 years (Relaxation for reserved categories).</li>
+                    </ul>
+                    <div class="mt-4">
+                         <h3 class="text-[var(--gold)] text-sm font-bold mb-2">Paper-I Marks Distribution</h3>
+                         <div class="h-48 w-full">
+                            <canvas id="examPatternChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">4. Detailed Syllabus 📚</h2>
+                    <p class="text-sm text-gray-300 mb-4">The syllabus tests understanding of grammar, vocabulary, and writing skills in both Hindi and English.</p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-syllabus')">View Detailed Syllabus</button>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">5. All Subjects 📝</h2>
+                    <div class="service-group">
+                        <h4 class="text-sm font-bold">Paper-I (Objective)</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-300 mt-2">
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">General Hindi</div>
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">General English</div>
+                        </div>
+                    </div>
+                    <div class="service-group mt-4">
+                        <h4 class="text-sm font-bold">Paper-II (Descriptive)</h4>
+                        <div class="grid grid-cols-1 gap-2 text-xs text-gray-300 mt-2">
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">Translation & Essay</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">6. Departments & Careers 🏢</h2>
+                    <p class="text-sm text-gray-300 mb-3">
+                        JHTs contribute to the implementation of the Official Language in prestigious departments like:
+                    </p>
+                    <ul class="styled-list text-sm text-gray-400">
+                        <li><span class="icon">•</span> Central Secretariat</li>
+                        <li><span class="icon">•</span> Railways</li>
+                        <li><span class="icon">•</span> Armed Forces Headquarters</li>
+                    </ul>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">7. Preparation Strategy 📈</h2>
+                    <div class="space-y-4 mt-2">
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Grammar Focus</h4>
+                            <p class="text-xs text-gray-400 mt-1">Study grammar rules of both Hindi and English in depth.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Vocabulary Building</h4>
+                            <p class="text-xs text-gray-400 mt-1">Regularly learn new words and their usage from newspapers.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Translation Practice</h4>
+                            <p class="text-xs text-gray-400 mt-1">Regularly practice translation and essay writing for Paper-II.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">8. What Not to Do 🚫</h2>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Ignoring One Language:</strong> Both Hindi and English are equally important.</span>
+                        </div>
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Taking Paper-II Lightly:</strong> It is descriptive and requires consistent practice.</span>
+                        </div>
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Literal Translation:</strong> Translate the meaning/context, not just words.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">9. Application Timeline 🗓️</h2>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">July-Aug</span>
+                            <span class="text-gray-400">Notification Release</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">Oct-Nov</span>
+                            <span class="text-gray-400">Paper-I Exam</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">~2 Months later</span>
+                            <span class="text-gray-400">Paper-II Exam</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-[var(--gold)] font-bold">8-10 Months</span>
+                            <span class="text-gray-400">Total Process Duration</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">10. Institutions 🏫</h2>
+                    <div class="mb-4">
+                        <h4 class="text-[var(--gold)] font-bold text-sm mb-2">Offline Institutes</h4>
+                        <p class="text-xs text-gray-400">KD Campus, Paramount, Specialized Language Institutes.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[var(--gold)] font-bold text-sm mb-2">Online Platforms</h4>
+                        <p class="text-xs text-gray-400">Unacademy, Testbook, Adda247.</p>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">11. Career Roadmap 🚀</h2>
+                    <p class="text-sm text-gray-300 mb-4">Start as a JHT and rise to Deputy Director (Official Language).</p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-roadmap')">View Promotion Path</button>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sub-posts" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-posts')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 sticky top-0 bg-[#1A1C20] pb-2 border-b border-gray-700">Job Profiles</h3>
+            
+            <div class="service-group">
+                <div class="service-item">
+                    <strong>1. Junior Hindi Translator (JHT)</strong>
+                    <p>Translate documents from English to Hindi and vice-versa in departments like Central Secretariat, Railways, etc.</p>
+                </div>
+                <div class="service-item">
+                    <strong>2. Senior Hindi Translator (SHT)</strong>
+                    <p>Higher post requiring more experience. Reviews translation work and guides Junior Translators.</p>
+                </div>
+                <div class="service-item">
+                    <strong>3. Junior Translation Officer (JTO)</strong>
+                    <p>Work is similar to JHT. Exists in subordinate offices and plays a key role in Official Language policy implementation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-process" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-process')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Exam Stages</h3>
+            
+            <div class="service-group">
+                <h4>1. Paper-I (Objective)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Type:</strong> Computer Based (MCQ).</li>
+                    <li><span class="icon">•</span> <strong>Marks:</strong> 200 (100 Hindi, 100 English).</li>
+                    <li><span class="icon">•</span> <strong>Negative Marking:</strong> 0.25 marks.</li>
+                </ul>
+            </div>
+
+            <div class="service-group">
+                <h4>2. Paper-II (Descriptive)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Type:</strong> Written Examination.</li>
+                    <li><span class="icon">•</span> <strong>Content:</strong> Translation & Essay.</li>
+                    <li><span class="icon">•</span> <strong>Marks:</strong> 200.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-syllabus" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-syllabus')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Detailed Syllabus</h3>
+            
+            <div class="service-group">
+                <h4>Paper-I</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>General Hindi:</strong> Grammar, vocabulary, sentence structure, synonyms, antonyms, etc.</li>
+                    <li><span class="icon">•</span> <strong>General English:</strong> Grammar, vocabulary, sentence structure, synonyms, antonyms, etc.</li>
+                </ul>
+            </div>
+            <div class="service-group">
+                <h4>Paper-II</h4>
+                <p class="text-xs text-gray-400">Translation and Essay writing to test translation skills and ability to write and comprehend the two languages.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-roadmap" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-roadmap')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 text-center">Career Progression</h3>
+            
+            <div class="space-y-6 relative border-l-2 border-[var(--gold)] pl-6 ml-4">
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">1. Junior Hindi Translator (JHT)</h4>
+                    <p class="text-sm text-gray-400">Entry Level. Translation of documents and assisting in Official Language implementation.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">2. Senior Hindi Translator (SHT)</h4>
+                    <p class="text-sm text-gray-400">Promoted after experience. Ensures quality of translation and guides JHTs.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">3. Assistant Director (OL)</h4>
+                    <p class="text-sm text-gray-400">Senior Gazetted post. Oversees implementation of official language policy.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">4. Deputy Director (OL)</h4>
+                    <p class="text-sm text-gray-400">High-level management post heading OL implementation for ministry/organization.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const translations = {
-            hi: {
-                doc_title: "SSC JHT परीक्षा: संपूर्ण मार्गदर्शिका",
-                header_title: "🌟 SSC Junior Hindi Translator (JHT) परीक्षा 🌟",
-                header_subtitle: "भाषा विशेषज्ञों के लिए सरकारी विभागों में सेवा का अवसर",
-                section1_title: "1. परीक्षा क्या है? 🤔",
-                section1_desc: "कर्मचारी चयन आयोग (SSC) द्वारा आयोजित जूनियर हिंदी ट्रांसलेटर (JHT) परीक्षा, केंद्र सरकार के विभिन्न मंत्रालयों, विभागों और संगठनों में जूनियर हिंदी ट्रांसलेटर, जूनियर ट्रांसलेटर और सीनियर हिंदी ट्रांसलेटर के पदों पर भर्ती के लिए एक विशिष्ट परीक्षा है। इसका उद्देश्य सरकारी कामकाज में राजभाषा हिंदी के कार्यान्वयन को बढ़ावा देना है।",
-                section1_card1_title: "जूनियर हिंदी ट्रांसलेटर (JHT)",
-                section1_card2_title: "सीनियर हिंदी ट्रांसलेटर (SHT)",
-                section1_card3_title: "जूनियर ट्रांसलेशन ऑफिसर (JTO)",
-                section1_card1_modal_title: "📝 जूनियर हिंदी ट्रांसलेटर (JHT)",
-                section1_card1_modal_desc: "JHT का मुख्य कार्य अंग्रेजी से हिंदी और हिंदी से अंग्रेजी में दस्तावेजों का अनुवाद करना है। वे केंद्रीय सचिवालय, रेलवे, सशस्त्र बलों के मुख्यालय जैसे विभागों में काम करते हैं।",
-                section1_card2_modal_title: "📚 सीनियर हिंदी ट्रांसलेटर (SHT)",
-                section1_card2_modal_desc: "SHT एक उच्च पद है जिसके लिए अनुवाद में अधिक अनुभव की आवश्यकता होती है। वे अनुवाद कार्य की समीक्षा करते हैं और जूनियर ट्रांसलेटरों का मार्गदर्शन करते हैं।",
-                section1_card3_modal_title: "💼 जूनियर ट्रांसलेशन ऑफिसर (JTO)",
-                section1_card3_modal_desc: "JTO का कार्य JHT के समान ही होता है। यह पद विभिन्न अधीनस्थ कार्यालयों में होता है और राजभाषा नीति के कार्यान्वयन में महत्वपूर्ण भूमिका निभाता है।",
+        // --- GOOGLE SHEETS CONNECTION CONFIGURATION ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4iiSGL8AogqYasU1MYOxnG4GT2CqoERQIaPKMplMFWU19wgcbZIE3SINTvRh74dGl/exec';
 
-                section2_title: "2. परीक्षा प्रक्रिया 🎯",
-                section2_desc: "SSC JHT चयन प्रक्रिया में दो चरण होते हैं, जो उम्मीदवारों के भाषा और अनुवाद कौशल का परीक्षण करते हैं।",
-                section2_step1_title: "पेपर- I<br>(वस्तुनिष्ठ)",
-                section2_step2_title: "पेपर- II<br>(वर्णनात्मक)",
-
-                section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎓</span><div><strong class="text-[#1e40af]">शैक्षणिक योग्यता:</strong> हिंदी या अंग्रेजी में मास्टर डिग्री, साथ ही डिग्री स्तर पर एक विषय के रूप में हिंदी/अंग्रेजी। या अनुवाद में डिप्लोमा/सर्टिफिकेट कोर्स।</div></li><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎂</span><div><strong class="text-[#1e40af]">आयु सीमा:</strong> 18 से 30 वर्ष। (आरक्षित श्रेणियों के लिए छूट लागू है)।</div></li></ul>`,
-                section3_chart_title: "पेपर-I परीक्षा का पैटर्न 📊",
-                examPatternChartLabels: ['सामान्य हिन्दी (100)', 'सामान्य अंग्रेजी (100)'],
-
-                section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम और विषय 📚",
-                section4_desc: "JHT का पाठ्यक्रम उम्मीदवारों की हिंदी और अंग्रेजी दोनों भाषाओं में व्याकरण, शब्दावली और लेखन कौशल की समझ का परीक्षण करने के लिए डिज़ाइन किया गया है। नीचे दिए गए बटन पर क्लिक करके सभी विषयों और उनके विस्तृत पाठ्यक्रम को देखें।",
-                section4_button: "पाठ्यक्रम और सभी विषय देखें",
-
-                section6_title: "6. विभाग, पोस्ट और करियर के अवसर 🏢",
-                section6_desc: "JHT के रूप में एक करियर आपको राजभाषा के कार्यान्वयन में योगदान करने का अवसर देता है। यह एक सम्मानजनक पद है जिसमें अच्छी करियर प्रगति होती है।",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jhtCareerModal">जूनियर हिंदी ट्रांसलेटर</button><button class="rank-btn" data-modal-target="shtCareerModal">सीनियर हिंदी ट्रांसलेटर</button><button class="rank-btn" data-modal-target="adCareerModal">सहायक निदेशक (राजभाषा)</button><button class="rank-btn" data-modal-target="ddCareerModal">उप निदेशक (राजभाषा)</button>`,
-
-                section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
-                section7_desc: "JHT में सफलता के लिए दोनों भाषाओं पर मजबूत पकड़ और निरंतर अभ्यास की आवश्यकता होती है।",
-                section7_col1_title: "📚 अध्ययन के प्रमुख स्तंभ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>व्याकरण पर ध्यान दें:</strong> हिंदी और अंग्रेजी दोनों के व्याकरण नियमों का गहराई से अध्ययन करें।</li><li><strong>शब्दावली बढ़ाएं:</strong> नियमित रूप से नए शब्द सीखें और उनका उपयोग करें।</li><li><strong>अखबार पढ़ें:</strong> दोनों भाषाओं के समाचार पत्र और पत्रिकाएं पढ़ें।</li><li><strong>पिछले वर्ष के प्रश्न:</strong> परीक्षा के पैटर्न और कठिनाई स्तर को समझने के लिए इन्हें हल करें।</li></ul>`,
-                section7_col2_title: "✍️ अनुवाद और लेखन अभ्यास:",
-                section7_col2_desc: "**पेपर-II आपकी सफलता की कुंजी है!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>नियमित रूप से अनुवाद का अभ्यास करें।</li><li>विभिन्न विषयों पर निबंध लिखने का अभ्यास करें।</li><li>समय प्रबंधन के साथ लिखने का अभ्यास करें।</li></ul>`,
-
-                section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
-                section8_desc: "इन सामान्य गलतियों से बचकर अपनी सफलता सुनिश्चित करें।",
-                section8_item1: `<div><strong class="text-lg text-red-800">किसी एक भाषा को नज़रअंदाज़ करना:</strong> दोनों भाषाओं का समान महत्व है। किसी भी एक को कमजोर न समझें।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">पेपर-II को हल्के में लेना:</strong> पेपर-II वर्णनात्मक है और इसमें अच्छे अंक प्राप्त करने के लिए निरंतर अभ्यास की आवश्यकता होती है।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">व्याकरण की गलतियाँ:</strong> अनुवाद और निबंध में व्याकरण संबंधी गलतियाँ आपके अंक कम कर सकती हैं।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">शब्दशः अनुवाद करना:</strong> अनुवाद का अर्थ केवल शब्दों का अनुवाद करना नहीं है, बल्कि भाव और संदर्भ को समझना भी है।</div>`,
-                section8_final_thought: "✨ आपकी भाषा कौशल आपको केंद्र सरकार में एक महत्वपूर्ण भूमिका दिला सकती है। ✨",
-                
-                section9_title: "9. आवेदन प्रक्रिया और समय-सीमा 🗓️",
-                section9_desc: "SSC JHT परीक्षा हर साल आयोजित की जाती है। पूरी भर्ती प्रक्रिया में लगभग 8-10 महीने लगते हैं।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">अधिसूचना:</div><div>आमतौर पर जुलाई - अगस्त में।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">पेपर-I:</div><div>अक्टूबर - नवंबर में।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">पेपर-II:</div><div>पेपर-I परिणाम के 2 महीने बाद।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">अंतिम परिणाम:</div><div>पेपर-II के 2-3 महीने बाद।</div></div>`,
-                section10_title: "10. तैयारी के लिए संस्थान 👨‍🏫",
-                section10_desc: "JHT परीक्षा के लिए, सामान्य विषयों के लिए मानक SSC कोचिंग उपयोगी है, लेकिन अनुवाद और निबंध लेखन के लिए विशेष मार्गदर्शन या स्व-अध्ययन पर अधिक ध्यान देने की आवश्यकता होती है।",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 ऑनलाइन प्लेटफॉर्म:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Testbook</li><li>Adda247</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 ऑफलाइन केंद्र:</h3><ul class="list-disc list-inside"><li>KD Campus</li><li>Paramount</li><li>विशिष्ट अनुवाद पाठ्यक्रमों की पेशकश करने वाले भाषा संस्थान</li></ul></div>`,
-
-                footer_text: "© 2025 - SSC JHT गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
-                
-                paper1_modal_title: "पेपर- I (वस्तुनिष्ठ)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>प्रकार:</strong> कंप्यूटर आधारित (MCQ)</li><li><strong>विषय:</strong> सामान्य हिन्दी (100 अंक), सामान्य अंग्रेजी (100 अंक)</li><li><strong>कुल अंक:</strong> 200</li><li><strong>अवधि:</strong> 2 घंटे</li><li><strong>नकारात्मक अंकन:</strong> 0.25 अंक</li></ul>`,
-                paper2_modal_title: "पेपर- II (वर्णनात्मक)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>प्रकार:</strong> लिखित परीक्षा</li><li><strong>विषय:</strong> अनुवाद और निबंध</li><li><strong>कुल अंक:</strong> 200</li><li><strong>अवधि:</strong> 2 घंटे</li></ul>`,
-                syllabus_modal_title: "सभी विषय और विस्तृत पाठ्यक्रम",
-                syllabus_modal_list: `<div>
-                    <h4 class="font-bold text-lg mt-4">पेपर-I</h4>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>सामान्य हिन्दी</span> <div class="flex space-x-2"><button class="notes-lectures-btn">नोट्स</button><button class="notes-lectures-btn">लेक्चर्स</button></div></div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>सामान्य अंग्रेजी</span> <div class="flex space-x-2"><button class="notes-lectures-btn">नोट्स</button><button class="notes-lectures-btn">लेक्चर्स</button></div></div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-6">पेपर-II</h4>
-                     <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>अनुवाद और निबंध</span> <div class="flex space-x-2"><button class="notes-lectures-btn">नोट्स</button><button class="notes-lectures-btn">लेक्चर्स</button></div></div>
-                    </div>
-                </div>`,
-
-                jht_career_modal_title: "स्तर 1: जूनियर हिंदी ट्रांसलेटर (JHT)",
-                jht_career_modal_desc: "यह प्रवेश स्तर का पद है। मुख्य कार्य सरकारी दस्तावेजों का अनुवाद करना और राजभाषा के कार्यान्वयन में सहायता करना है।",
-                sht_career_modal_title: "स्तर 2: सीनियर हिंदी ट्रांसलेटर (SHT)",
-                sht_career_modal_desc: "अनुभव के बाद, JHT को SHT के रूप में पदोन्नत किया जाता है। वे अनुवाद कार्य की गुणवत्ता सुनिश्चित करते हैं और JHT का मार्गदर्शन करते हैं।",
-                ad_career_modal_title: "स्तर 3: सहायक निदेशक (राजभाषा)",
-                ad_career_modal_desc: "यह एक वरिष्ठ पद है जो विभाग में राजभाषा नीति के कार्यान्वयन की देखरेख करता है। यह एक राजपत्रित पद है।",
-                dd_career_modal_title: "स्तर 4: उप निदेशक (राजभाषा)",
-                dd_career_modal_desc: "यह एक उच्च-स्तरीय प्रबंधन पद है, जो पूरे मंत्रालय या संगठन के लिए राजभाषा कार्यान्वयन का नेतृत्व करता है।"
-            },
-            en: {
-                doc_title: "SSC JHT Exam: Complete Guide",
-                header_title: "🌟 SSC Junior Hindi Translator (JHT) Exam 🌟",
-                header_subtitle: "An Opportunity for Language Experts to Serve in Government Departments",
-                section1_title: "1. What is the Exam? 🤔",
-                section1_desc: "The Junior Hindi Translator (JHT) Examination, conducted by the Staff Selection Commission (SSC), is a specialized exam for recruitment to the posts of Junior Hindi Translator, Junior Translator, and Senior Hindi Translator in various ministries, departments, and organizations of the Central Government. Its purpose is to promote the implementation of Hindi as the official language in government work.",
-                section1_card1_title: "Junior Hindi Translator (JHT)",
-                section1_card2_title: "Senior Hindi Translator (SHT)",
-                section1_card3_title: "Junior Translation Officer (JTO)",
-                section1_card1_modal_title: "📝 Junior Hindi Translator (JHT)",
-                section1_card1_modal_desc: "The main task of a JHT is to translate documents from English to Hindi and vice-versa. They work in departments like the Central Secretariat, Railways, Armed Forces Headquarters, etc.",
-                section1_card2_modal_title: "📚 Senior Hindi Translator (SHT)",
-                section1_card2_modal_desc: "SHT is a higher post that requires more experience in translation. They review translation work and guide Junior Translators.",
-                section1_card3_modal_title: "💼 Junior Translation Officer (JTO)",
-                section1_card3_modal_desc: "The work of a JTO is similar to that of a JHT. This post exists in various subordinate offices and plays a crucial role in implementing the official language policy.",
-
-                section2_title: "2. Examination Process 🎯",
-                section2_desc: "The SSC JHT selection process consists of two stages that test the candidates' language and translation skills.",
-                section2_step1_title: "Paper- I<br>(Objective)",
-                section2_step2_title: "Paper- II<br>(Descriptive)",
-
-                section3_title: "3. Eligibility & Exam Pattern ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎓</span><div><strong class="text-[#1e40af]">Educational Qualification:</strong> Master's degree in Hindi or English, with Hindi/English as a subject at the degree level. Or a Diploma/Certificate course in translation.</div></li><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎂</span><div><strong class="text-[#1e40af]">Age Limit:</strong> 18 to 30 years. (Relaxation is applicable for reserved categories).</div></li></ul>`,
-                section3_chart_title: "Paper-I Exam Pattern 📊",
-                examPatternChartLabels: ['General Hindi (100)', 'General English (100)'],
-
-                section4_title: "4. Detailed Syllabus & Subjects 📚",
-                section4_desc: "The JHT syllabus is designed to test the candidates' understanding of grammar, vocabulary, and writing skills in both Hindi and English. Click the button below to see all subjects and their detailed syllabus.",
-                section4_button: "View Syllabus & All Subjects",
-
-                section6_title: "6. Department, Post and Career Opportunities 🏢",
-                section6_desc: "A career as a JHT gives you the opportunity to contribute to the implementation of the Official Language. It is a respectable post with good career progression.",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jhtCareerModal">Junior Hindi Translator</button><button class="rank-btn" data-modal-target="shtCareerModal">Senior Hindi Translator</button><button class="rank-btn" data-modal-target="adCareerModal">Assistant Director (OL)</button><button class="rank-btn" data-modal-target="ddCareerModal">Deputy Director (OL)</button>`,
-
-                section7_title: "7. Your Preparation Strategy: Smart Work 📈",
-                section7_desc: "Success in JHT requires a strong command of both languages and consistent practice.",
-                section7_col1_title: "📚 Key Pillars of Study:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>Focus on Grammar:</strong> Study the grammar rules of both Hindi and English in depth.</li><li><strong>Build Vocabulary:</strong> Regularly learn new words and their usage.</li><li><strong>Read Newspapers:</strong> Read newspapers and magazines in both languages.</li><li><strong>Previous Year Questions:</strong> Solve these to understand the exam pattern and difficulty level.</li></ul>`,
-                section7_col2_title: "✍️ Translation and Writing Practice:",
-                section7_col2_desc: "**Paper-II is the key to your success!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>Practice translation regularly.</li><li>Practice writing essays on various topics.</li><li>Practice writing with time management.</li></ul>`,
-
-                section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
-                section8_desc: "Ensure your success by avoiding these common mistakes.",
-                section8_item1: `<div><strong class="text-lg text-red-800">Ignoring either language:</strong> Both languages are equally important. Do not consider either one to be weak.</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">Taking Paper-II lightly:</strong> Paper-II is descriptive and requires consistent practice to score well.</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">Grammatical mistakes:</strong> Grammatical errors in translation and essays can reduce your marks.</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">Literal translation:</strong> Translation is not just about translating words, but also about understanding the meaning and context.</div>`,
-                section8_final_thought: "✨ Your language skills can land you an important role in the Central Government. ✨",
-                
-                section9_title: "9. Application Process & Timeline 🗓️",
-                section9_desc: "The SSC JHT exam is conducted annually. The entire recruitment process takes about 8-10 months.",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">Notification:</div><div>Usually in July - August.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Paper-I:</div><div>In October - November.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Paper-II:</div><div>2 months after Paper-I result.</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">Final Result:</div><div>2-3 months after Paper-II.</div></div>`,
-                section10_title: "10. Institutes for Preparation 👨‍🏫",
-                section10_desc: "For the JHT exam, standard SSC coaching is useful for the general subjects, but special guidance or self-study is required for translation and essay writing.",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 Online Platforms:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Testbook</li><li>Adda247</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 Offline Centers:</h3><ul class="list-disc list-inside"><li>KD Campus</li><li>Paramount</li><li>Language institutes offering specialized translation courses</li></ul></div>`,
-
-                footer_text: "© 2025 - SSC JHT Guide. Best wishes for your success.",
-                
-                paper1_modal_title: "Paper- I (Objective)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Type:</strong> Computer-Based (MCQ)</li><li><strong>Subjects:</strong> General Hindi (100 marks), General English (100 marks)</li><li><strong>Total Marks:</strong> 200</li><li><strong>Duration:</strong> 2 Hours</li><li><strong>Negative Marking:</strong> 0.25 marks</li></ul>`,
-                paper2_modal_title: "Paper- II (Descriptive)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Type:</strong> Written Examination</li><li><strong>Subject:</strong> Translation & Essay</li><li><strong>Total Marks:</strong> 200</li><li><strong>Duration:</strong> 2 Hours</li></ul>`,
-                syllabus_modal_title: "All Subjects & Detailed Syllabus",
-                syllabus_modal_list: `<div>
-                    <h4 class="font-bold text-lg mt-4">Paper-I</h4>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>General Hindi</span> <div class="flex space-x-2"><button class="notes-lectures-btn">Notes</button><button class="notes-lectures-btn">Lectures</button></div></div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>General English</span> <div class="flex space-x-2"><button class="notes-lectures-btn">Notes</button><button class="notes-lectures-btn">Lectures</button></div></div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-6">Paper-II</h4>
-                     <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>Translation and Essay</span> <div class="flex space-x-2"><button class="notes-lectures-btn">Notes</button><button class="notes-lectures-btn">Lectures</button></div></div>
-                    </div>
-                </div>`,
-
-                jht_career_modal_title: "Level 1: Junior Hindi Translator (JHT)",
-                jht_career_modal_desc: "This is the entry-level post. The main task is to translate government documents and assist in the implementation of the Official Language.",
-                sht_career_modal_title: "Level 2: Senior Hindi Translator (SHT)",
-                sht_career_modal_desc: "After experience, JHTs are promoted as SHTs. They ensure the quality of translation work and guide JHTs.",
-                ad_career_modal_title: "Level 3: Assistant Director (Official Language)",
-                ad_career_modal_desc: "This is a senior post that oversees the implementation of the official language policy in the department. It is a gazetted post.",
-                dd_career_modal_title: "Level 4: Deputy Director (Official Language)",
-                dd_career_modal_desc: "This is a high-level management post, heading the official language implementation for the entire ministry or organization."
-            },
-            pa: {
-                doc_title: "SSC JHT ਪ੍ਰੀਖਿਆ: ਸੰਪੂਰਨ ਗਾਈਡ",
-                header_title: "🌟 SSC Junior Hindi Translator (JHT) ਪ੍ਰੀਖਿਆ 🌟",
-                header_subtitle: "ਭਾਸ਼ਾ ਮਾਹਿਰਾਂ ਲਈ ਸਰਕਾਰੀ ਵਿਭਾਗਾਂ ਵਿੱਚ ਸੇਵਾ ਦਾ ਮੌਕਾ",
-                section1_title: "1. ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ? 🤔",
-                section1_desc: "ਸਟਾਫ ਸਿਲੈਕਸ਼ਨ ਕਮਿਸ਼ਨ (SSC) ਦੁਆਰਾ ਆਯੋਜਿਤ ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (JHT) ਪ੍ਰੀਖਿਆ, ਕੇਂਦਰ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਮੰਤਰਾਲਿਆਂ, ਵਿਭਾਗਾਂ ਅਤੇ ਸੰਗਠਨਾਂ ਵਿੱਚ ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ, ਜੂਨੀਅਰ ਅਨੁਵਾਦਕ ਅਤੇ ਸੀਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ ਦੇ ਅਹੁਦਿਆਂ 'ਤੇ ਭਰਤੀ ਲਈ ਇੱਕ ਵਿਸ਼ੇਸ਼ ਪ੍ਰੀਖਿਆ ਹੈ। ਇਸਦਾ ਉਦੇਸ਼ ਸਰਕਾਰੀ ਕੰਮਕਾਜ ਵਿੱਚ ਰਾਜ ਭਾਸ਼ਾ ਹਿੰਦੀ ਨੂੰ ਲਾਗੂ ਕਰਨ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰਨਾ ਹੈ।",
-                section1_card1_title: "ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (JHT)",
-                section1_card2_title: "ਸੀਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (SHT)",
-                section1_card3_title: "ਜੂਨੀਅਰ ਅਨੁਵਾਦ ਅਫਸਰ (JTO)",
-                section1_card1_modal_title: "📝 ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (JHT)",
-                section1_card1_modal_desc: "JHT ਦਾ ਮੁੱਖ ਕੰਮ ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਹਿੰਦੀ ਅਤੇ ਹਿੰਦੀ ਤੋਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਦਸਤਾਵੇਜ਼ਾਂ ਦਾ ਅਨੁਵਾਦ ਕਰਨਾ ਹੈ। ਉਹ ਕੇਂਦਰੀ ਸਕੱਤਰੇਤ, ਰੇਲਵੇ, ਹਥਿਆਰਬੰਦ ਸੈਨਾਵਾਂ ਦੇ ਹੈੱਡਕੁਆਰਟਰ ਵਰਗੇ ਵਿਭਾਗਾਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਹਨ।",
-                section1_card2_modal_title: "📚 ਸੀਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (SHT)",
-                section1_card2_modal_desc: "SHT ਇੱਕ ਉੱਚ ਅਹੁਦਾ ਹੈ ਜਿਸ ਲਈ ਅਨੁਵਾਦ ਵਿੱਚ ਵਧੇਰੇ ਤਜਰਬੇ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ। ਉਹ ਅਨੁਵਾਦ ਕਾਰਜ ਦੀ ਸਮੀਖਿਆ ਕਰਦੇ ਹਨ ਅਤੇ ਜੂਨੀਅਰ ਅਨੁਵਾਦਕਾਂ ਦਾ ਮਾਰਗਦਰਸ਼ਨ ਕਰਦੇ ਹਨ।",
-                section1_card3_modal_title: "💼 ਜੂਨੀਅਰ ਅਨੁਵਾਦ ਅਫਸਰ (JTO)",
-                section1_card3_modal_desc: "JTO ਦਾ ਕੰਮ JHT ਦੇ ਸਮਾਨ ਹੀ ਹੁੰਦਾ ਹੈ। ਇਹ ਅਹੁਦਾ ਵੱਖ-ਵੱਖ ਅਧੀਨ ਦਫ਼ਤਰਾਂ ਵਿੱਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਰਾਜ ਭਾਸ਼ਾ ਨੀਤੀ ਨੂੰ ਲਾਗੂ ਕਰਨ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ।",
-
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ 🎯",
-                section2_desc: "SSC JHT ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਦੋ ਪੜਾਅ ਹੁੰਦੇ ਹਨ, ਜੋ ਉਮੀਦਵਾਰਾਂ ਦੇ ਭਾਸ਼ਾ ਅਤੇ ਅਨੁਵਾਦ ਦੇ ਹੁਨਰ ਦੀ ਜਾਂਚ ਕਰਦੇ ਹਨ।",
-                section2_step1_title: "ਪੇਪਰ- I<br>(ਆਬਜੈਕਟਿਵ)",
-                section2_step2_title: "ਪੇਪਰ- II<br>(ਵਰਣਨਯੋਗ)",
-
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎓</span><div><strong class="text-[#1e40af]">ਵਿੱਦਿਅਕ ਯੋਗਤਾ:</strong> ਹਿੰਦੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਮਾਸਟਰ ਡਿਗਰੀ, ਨਾਲ ਹੀ ਡਿਗਰੀ ਪੱਧਰ 'ਤੇ ਇੱਕ ਵਿਸ਼ੇ ਵਜੋਂ ਹਿੰਦੀ/ਅੰਗਰੇਜ਼ੀ। ਜਾਂ ਅਨੁਵਾਦ ਵਿੱਚ ਡਿਪਲੋਮਾ/ਸਰਟੀਫਿਕੇਟ ਕੋਰਸ।</div></li><li class="flex items-start"><span class="text-2xl text-blue-500 mr-4">🎂</span><div><strong class="text-[#1e40af]">ਉਮਰ ਸੀਮਾ:</strong> 18 ਤੋਂ 30 ਸਾਲ। (ਰਾਖਵੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਲਈ ਛੋਟ ਲਾਗੂ ਹੈ)।</div></li></ul>`,
-                section3_chart_title: "ਪੇਪਰ-I ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ 📊",
-                examPatternChartLabels: ['ਜਨਰਲ ਹਿੰਦੀ (100)', 'ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ (100)'],
-
-                section4_title: "4. ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ ਅਤੇ ਵਿਸ਼ੇ 📚",
-                section4_desc: "JHT ਦਾ ਸਿਲੇਬਸ ਉਮੀਦਵਾਰਾਂ ਦੀ ਹਿੰਦੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵਾਂ ਭਾਸ਼ਾਵਾਂ ਵਿੱਚ ਵਿਆਕਰਣ, ਸ਼ਬਦਾਵਲੀ ਅਤੇ ਲਿਖਣ ਦੇ ਹੁਨਰ ਦੀ ਸਮਝ ਦੀ ਜਾਂਚ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ। ਸਾਰੇ ਵਿਸ਼ਿਆਂ ਅਤੇ ਉਹਨਾਂ ਦੇ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ ਨੂੰ ਦੇਖਣ ਲਈ ਹੇਠਾਂ ਦਿੱਤੇ ਬਟਨ 'ਤੇ ਕਲਿੱਕ ਕਰੋ।",
-                section4_button: "ਸਿਲੇਬਸ ਅਤੇ ਸਾਰੇ ਵਿਸ਼ੇ ਵੇਖੋ",
-
-                section6_title: "6. ਵਿਭਾਗ, ਪੋਸਟ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ 🏢",
-                section6_desc: "JHT ਵਜੋਂ ਇੱਕ ਕਰੀਅਰ ਤੁਹਾਨੂੰ ਰਾਜ ਭਾਸ਼ਾ ਨੂੰ ਲਾਗੂ ਕਰਨ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਦਾ ਮੌਕਾ ਦਿੰਦਾ ਹੈ। ਇਹ ਇੱਕ ਸਨਮਾਨਜਨਕ ਅਹੁਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਚੰਗੀ ਕਰੀਅਰ ਤਰੱਕੀ ਹੁੰਦੀ ਹੈ।",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jhtCareerModal">ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ</button><button class="rank-btn" data-modal-target="shtCareerModal">ਸੀਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ</button><button class="rank-btn" data-modal-target="adCareerModal">ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ (ਰਾਜ ਭਾਸ਼ਾ)</button><button class="rank-btn" data-modal-target="ddCareerModal">ਉਪ ਨਿਰਦੇਸ਼ਕ (ਰਾਜ ਭਾਸ਼ਾ)</button>`,
-
-                section7_title: "7. ਤੁਹਾਡੀ ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ: ਸਮਾਰਟ ਵਰਕ 📈",
-                section7_desc: "JHT ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਦੋਵਾਂ ਭਾਸ਼ਾਵਾਂ 'ਤੇ ਮਜ਼ਬੂਤ ​​ਪਕੜ ਅਤੇ ਨਿਰੰਤਰ ਅਭਿਆਸ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
-                section7_col1_title: "📚 ਪੜ੍ਹਾਈ ਦੇ ਮੁੱਖ ਥੰਮ੍ਹ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>ਵਿਆਕਰਣ 'ਤੇ ਧਿਆਨ ਦਿਓ:</strong> ਹਿੰਦੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੋਵਾਂ ਦੇ ਵਿਆਕਰਣ ਨਿਯਮਾਂ ਦਾ ਡੂੰਘਾਈ ਨਾਲ ਅਧਿਐਨ ਕਰੋ।</li><li><strong>ਸ਼ਬਦਾਵਲੀ ਵਧਾਓ:</strong> ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ ਨਵੇਂ ਸ਼ਬਦ ਸਿੱਖੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।</li><li><strong>ਅਖਬਾਰ ਪੜ੍ਹੋ:</strong> ਦੋਵਾਂ ਭਾਸ਼ਾਵਾਂ ਦੇ ਅਖਬਾਰ ਅਤੇ ਰਸਾਲੇ ਪੜ੍ਹੋ।</li><li><strong>ਪਿਛਲੇ ਸਾਲ ਦੇ ਪ੍ਰਸ਼ਨ:</strong> ਪ੍ਰੀਖਿਆ ਦੇ ਪੈਟਰਨ ਅਤੇ ਮੁਸ਼ਕਲ ਪੱਧਰ ਨੂੰ ਸਮਝਣ ਲਈ ਇਨ੍ਹਾਂ ਨੂੰ ਹੱਲ ਕਰੋ।</li></ul>`,
-                section7_col2_title: "✍️ ਅਨੁਵਾਦ ਅਤੇ ਲਿਖਣ ਦਾ ਅਭਿਆਸ:",
-                section7_col2_desc: "**ਪੇਪਰ-II ਤੁਹਾਡੀ ਸਫਲਤਾ ਦੀ ਕੁੰਜੀ ਹੈ!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ ਅਨੁਵਾਦ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li><li>ਵੱਖ-ਵੱਖ ਵਿਸ਼ਿਆਂ 'ਤੇ ਲੇਖ ਲਿਖਣ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li><li>ਸਮਾਂ ਪ੍ਰਬੰਧਨ ਨਾਲ ਲਿਖਣ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li></ul>`,
-
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਇਹਨਾਂ ਆਮ ਗਲਤੀਆਂ ਤੋਂ ਬਚ ਕੇ ਆਪਣੀ ਸਫਲਤਾ ਨੂੰ ਯਕੀਨੀ ਬਣਾਓ।",
-                section8_item1: `<div><strong class="text-lg text-red-800">ਕਿਸੇ ਇੱਕ ਭਾਸ਼ਾ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰਨਾ:</strong> ਦੋਵਾਂ ਭਾਸ਼ਾਵਾਂ ਦਾ ਬਰਾਬਰ ਮਹੱਤਵ ਹੈ। ਕਿਸੇ ਵੀ ਇੱਕ ਨੂੰ ਕਮਜ਼ੋਰ ਨਾ ਸਮਝੋ।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">ਪੇਪਰ-II ਨੂੰ ਹਲਕੇ ਵਿੱਚ ਲੈਣਾ:</strong> ਪੇਪਰ-II ਵਰਣਨਯੋਗ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਚੰਗੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਨਿਰੰਤਰ ਅਭਿਆਸ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">ਵਿਆਕਰਣ ਦੀਆਂ ਗਲਤੀਆਂ:</strong> ਅਨੁਵਾਦ ਅਤੇ ਲੇਖ ਵਿੱਚ ਵਿਆਕਰਣ ਸੰਬੰਧੀ ਗਲਤੀਆਂ ਤੁਹਾਡੇ ਅੰਕ ਘਟਾ ਸਕਦੀਆਂ ਹਨ।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">ਸ਼ਾਬਦਿਕ ਅਨੁਵਾਦ ਕਰਨਾ:</strong> ਅਨੁਵਾਦ ਦਾ ਅਰਥ ਸਿਰਫ਼ ਸ਼ਬਦਾਂ ਦਾ ਅਨੁਵਾਦ ਕਰਨਾ ਨਹੀਂ ਹੈ, ਸਗੋਂ ਭਾਵ ਅਤੇ ਸੰਦਰਭ ਨੂੰ ਸਮਝਣਾ ਵੀ ਹੈ।</div>`,
-                section8_final_thought: "✨ ਤੁਹਾਡੇ ਭਾਸ਼ਾਈ ਹੁਨਰ ਤੁਹਾਨੂੰ ਕੇਂਦਰ ਸਰਕਾਰ ਵਿੱਚ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਦਿਵਾ ਸਕਦੇ ਹਨ। ✨",
-                
-                section9_title: "9. ਬਿਨੈ-ਪੱਤਰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਸਮਾਂ-ਸੀਮਾ 🗓️",
-                section9_desc: "SSC JHT ਪ੍ਰੀਖਿਆ ਹਰ ਸਾਲ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਪੂਰੀ ਭਰਤੀ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਲਗਭਗ 8-10 ਮਹੀਨੇ ਲੱਗਦੇ ਹਨ।",
-                section9_timeline: `<div class="flex items-center"><div class="w-48 font-bold text-gray-700">ਨੋਟੀਫਿਕੇਸ਼ਨ:</div><div>ਆਮ ਤੌਰ 'ਤੇ ਜੁਲਾਈ - ਅਗਸਤ ਵਿੱਚ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਪੇਪਰ-I:</div><div>ਅਕਤੂਬਰ - ਨਵੰਬਰ ਵਿੱਚ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਪੇਪਰ-II:</div><div>ਪੇਪਰ-I ਨਤੀਜੇ ਤੋਂ 2 ਮਹੀਨੇ ਬਾਅਦ।</div></div><div class="flex items-center mt-2"><div class="w-48 font-bold text-gray-700">ਅੰਤਿਮ ਨਤੀਜਾ:</div><div>ਪੇਪਰ-II ਤੋਂ 2-3 ਮਹੀਨੇ ਬਾਅਦ।</div></div>`,
-                section10_title: "10. ਤਿਆਰੀ ਲਈ ਸੰਸਥਾਵਾਂ 👨‍🏫",
-                section10_desc: "JHT ਪ੍ਰੀਖਿਆ ਲਈ, ਆਮ ਵਿਸ਼ਿਆਂ ਲਈ ਮਿਆਰੀ SSC ਕੋਚਿੰਗ ਲਾਭਦਾਇਕ ਹੈ, ਪਰ ਅਨੁਵਾਦ ਅਤੇ ਲੇਖ ਲਿਖਣ ਲਈ ਵਿਸ਼ੇਸ਼ ਮਾਰਗਦਰਸ਼ਨ ਜਾਂ ਸਵੈ-ਅਧਿਐਨ 'ਤੇ ਵਧੇਰੇ ਧਿਆਨ ਦੇਣ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
-                section10_online: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">💻 ਆਨਲਾਈਨ ਪਲੇਟਫਾਰਮ:</h3><ul class="list-disc list-inside"><li>Unacademy</li><li>Testbook</li><li>Adda247</li></ul></div>`,
-                section10_offline: `<div><h3 class="text-xl font-bold text-gray-800 mb-2">🏢 ਔਫਲਾਈਨ ਕੇਂਦਰ:</h3><ul class="list-disc list-inside"><li>KD Campus</li><li>Paramount</li><li>ਵਿਸ਼ੇਸ਼ ਅਨੁਵਾਦ ਕੋਰਸਾਂ ਦੀ ਪੇਸ਼ਕਸ਼ ਕਰਨ ਵਾਲੇ ਭਾਸ਼ਾ ਸੰਸਥਾਨ</li></ul></div>`,
-
-                footer_text: "© 2025 - SSC JHT ਗਾਈਡ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁੱਭਕਾਮਨਾਵਾਂ।",
-                
-                paper1_modal_title: "ਪੇਪਰ- I (ਆਬਜੈਕਟਿਵ)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕਿਸਮ:</strong> ਕੰਪਿਊਟਰ-ਅਧਾਰਤ (MCQ)</li><li><strong>ਵਿਸ਼ੇ:</strong> ਜਨਰਲ ਹਿੰਦੀ (100 ਅੰਕ), ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ (100 ਅੰਕ)</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 200</li><li><strong>ਸਮਾਂ:</strong> 2 ਘੰਟੇ</li><li><strong>ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ:</strong> 0.25 ਅੰਕ</li></ul>`,
-                paper2_modal_title: "ਪੇਪਰ- II (ਵਰਣਨਯੋਗ)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕਿਸਮ:</strong> ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ</li><li><strong>ਵਿਸ਼ਾ:</strong> ਅਨੁਵਾਦ ਅਤੇ ਲੇਖ</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 200</li><li><strong>ਸਮਾਂ:</strong> 2 ਘੰਟੇ</li></ul>`,
-                syllabus_modal_title: "ਸਾਰੇ ਵਿਸ਼ੇ ਅਤੇ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ",
-                syllabus_modal_list: `<div>
-                    <h4 class="font-bold text-lg mt-4">ਪੇਪਰ-I</h4>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>ਜਨਰਲ ਹਿੰਦੀ</span> <div class="flex space-x-2"><button class="notes-lectures-btn">ਨੋਟਸ</button><button class="notes-lectures-btn">ਲੈਕਚਰ</button></div></div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>ਜਨਰਲ ਅੰਗਰੇਜ਼ੀ</span> <div class="flex space-x-2"><button class="notes-lectures-btn">ਨੋਟਸ</button><button class="notes-lectures-btn">ਲੈਕਚਰ</button></div></div>
-                    </div>
-                    <h4 class="font-bold text-lg mt-6">ਪੇਪਰ-II</h4>
-                     <div class="mt-2 space-y-2">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded"><span>ਅਨੁਵਾਦ ਅਤੇ ਲੇਖ</span> <div class="flex space-x-2"><button class="notes-lectures-btn">ਨੋਟਸ</button><button class="notes-lectures-btn">ਲੈਕਚਰ</button></div></div>
-                    </div>
-                </div>`,
-
-                jht_career_modal_title: "ਪੱਧਰ 1: ਜੂਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (JHT)",
-                jht_career_modal_desc: "ਇਹ ਦਾਖਲਾ-ਪੱਧਰ ਦਾ ਅਹੁਦਾ ਹੈ। ਮੁੱਖ ਕੰਮ ਸਰਕਾਰੀ ਦਸਤਾਵੇਜ਼ਾਂ ਦਾ ਅਨੁਵਾਦ ਕਰਨਾ ਅਤੇ ਰਾਜ ਭਾਸ਼ਾ ਨੂੰ ਲਾਗੂ ਕਰਨ ਵਿੱਚ ਸਹਾਇਤਾ ਕਰਨਾ ਹੈ।",
-                sht_career_modal_title: "ਪੱਧਰ 2: ਸੀਨੀਅਰ ਹਿੰਦੀ ਅਨੁਵਾਦਕ (SHT)",
-                sht_career_modal_desc: "ਤਜਰਬੇ ਤੋਂ ਬਾਅਦ, JHT ਨੂੰ SHT ਵਜੋਂ ਤਰੱਕੀ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਉਹ ਅਨੁਵਾਦ ਕਾਰਜ ਦੀ ਗੁਣਵੱਤਾ ਨੂੰ ਯਕੀਨੀ ਬਣਾਉਂਦੇ ਹਨ ਅਤੇ JHT ਦਾ ਮਾਰਗਦਰਸ਼ਨ ਕਰਦੇ ਹਨ।",
-                ad_career_modal_title: "ਪੱਧਰ 3: ਸਹਾਇਕ ਨਿਰਦੇਸ਼ਕ (ਰਾਜ ਭਾਸ਼ਾ)",
-                ad_career_modal_desc: "ਇਹ ਇੱਕ ਸੀਨੀਅਰ ਅਹੁਦਾ ਹੈ ਜੋ ਵਿਭਾਗ ਵਿੱਚ ਰਾਜ ਭਾਸ਼ਾ ਨੀਤੀ ਨੂੰ ਲਾਗੂ ਕਰਨ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦਾ ਹੈ। ਇਹ ਇੱਕ ਗਜ਼ਟਿਡ ਅਹੁਦਾ ਹੈ।",
-                dd_career_modal_title: "ਪੱਧਰ 4: ਉਪ ਨਿਰਦੇਸ਼ਕ (ਰਾਜ ਭਾਸ਼ਾ)",
-                dd_career_modal_desc: "ਇਹ ਇੱਕ ਉੱਚ-ਪੱਧਰੀ ਪ੍ਰਬੰਧਨ ਅਹੁਦਾ ਹੈ, ਜੋ ਪੂਰੇ ਮੰਤਰਾਲੇ ਜਾਂ ਸੰਗਠਨ ਲਈ ਰਾਜ ਭਾਸ਼ਾ ਲਾਗੂਕਰਨ ਦੀ ਅਗਵਾਈ ਕਰਦਾ ਹੈ।"
+        // --- PROFILE LOGIC ---
+        function checkProfile() {
+            const profileData = localStorage.getItem('userProfile');
+            if (profileData) {
+                // Profile exists: Unlock UI & Show SSC tab
+                unlockInterface();
+                loadProfile(JSON.parse(profileData));
+                return true;
+            } else {
+                // No profile: Lock UI & Force Profile Tab
+                lockInterface();
+                document.getElementById('profile-setup').style.display = 'block';
+                document.getElementById('profile-view').style.display = 'none';
+                return false;
             }
-        };
+        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            let examPatternChartInstance = null;
-
-            function initializeCharts(lang) {
-                if (examPatternChartInstance) {
-                    examPatternChartInstance.destroy();
+        function lockInterface() {
+            // Add 'locked' class to all except profile
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                if (item.id !== 'nav-profile') {
+                    item.classList.add('locked');
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
                 }
-                const marksCtx = document.getElementById('examPatternChart');
-                if (marksCtx) {
-                    examPatternChartInstance = new Chart(marksCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: translations[lang].examPatternChartLabels,
-                            datasets: [{
-                                label: 'Marks',
-                                data: [100, 100],
-                                backgroundColor: [
-                                    'rgba(37, 99, 235, 0.7)',
-                                    'rgba(29, 78, 216, 0.8)'
-                                ],
-                                borderColor: [
-                                    '#FFFFFF'
-                                ],
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.label || '';
-                                            if (label) {
-                                                label += ': ';
-                                            }
-                                            if (context.parsed !== null) {
-                                                label += context.parsed + (lang === 'hi' ? ' अंक' : (lang === 'pa' ? ' ਅੰਕ' : ' Marks'));
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-
-            function changeLanguage(lang) {
-                document.documentElement.lang = lang;
-                document.title = translations[lang].doc_title;
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (translations[lang][key] !== undefined) {
-                        el.innerHTML = translations[lang][key];
-                    }
-                });
-                
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-lang') === lang) {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                initializeCharts(lang);
-                attachModalListeners();
-            }
-
-            function attachModalListeners() {
-                const modalTriggers = document.querySelectorAll('[data-modal-target]');
-                modalTriggers.forEach(trigger => {
-                    trigger.replaceWith(trigger.cloneNode(true));
-                });
-
-                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', (e) => {
-                        const targetElement = e.target.closest('[data-modal-target]');
-                        if (targetElement) {
-                            const modalId = targetElement.getAttribute('data-modal-target');
-                            const modal = document.getElementById(modalId);
-                            if (modal) {
-                                modal.classList.add('active');
-                            }
-                        }
-                    });
-                });
-            }
-
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const lang = e.target.getAttribute('data-lang');
-                    changeLanguage(lang);
-                });
             });
+            
+            // Force modal to profile
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+            document.getElementById('modal-profile').classList.add('active');
+        }
 
-            // Initial load
-            changeLanguage('hi');
+        function unlockInterface() {
+            // Remove 'locked' class
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('locked'));
+        }
 
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => {
-                const closeButton = modal.querySelector('.modal-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => {
-                        modal.classList.remove('active');
-                    });
-                }
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
+        function saveProfile(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            const btnText = btn.querySelector('span');
+
+            // Collect Data
+            const form = document.getElementById('registration-form');
+            const formData = new FormData(form);
+            const dataObj = Object.fromEntries(formData.entries());
+
+            // UI Loading State
+            btn.disabled = true;
+            btnText.textContent = "Registering...";
+            spinner.style.display = 'inline-block';
+
+            // --- IMPROVED GOOGLE SHEETS FETCH ---
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' 
+            })
+            .then(() => {
+                console.log('Request sent successfully (no-cors mode)');
+                finalizeProfile(dataObj);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Network issue. Saving locally so you can continue.");
+                finalizeProfile(dataObj);
+            });
+        }
+
+        function finalizeProfile(data) {
+            // Save Local
+            localStorage.setItem('userProfile', JSON.stringify(data));
+            
+            // UI Reset
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').querySelector('span').textContent = "Complete Registration";
+            document.getElementById('loading-spinner').style.display = 'none';
+
+            // Transition
+            unlockInterface();
+            loadProfile(data);
+            
+            // Switch to Main Tab after short delay
+            setTimeout(() => {
+                activateTab(document.getElementById('nav-ssc'), 'ssc');
+            }, 500);
+        }
+
+        function loadProfile(data) {
+            document.getElementById('profile-setup').style.display = 'none';
+            document.getElementById('profile-view').style.display = 'block';
+
+            // Set Fields
+            document.getElementById('display-name').textContent = data.name;
+            document.getElementById('display-phone').textContent = data.phone;
+            document.getElementById('display-email').textContent = data.email;
+            document.getElementById('display-gender').textContent = data.gender;
+            document.getElementById('display-place').textContent = data.place;
+            document.getElementById('display-date').textContent = data.startDate;
+            
+            // Calculate Days
+            const start = new Date(data.startDate);
+            const now = new Date();
+            const diffTime = Math.abs(now - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            document.getElementById('display-days').textContent = isNaN(diffDays) ? 0 : diffDays;
+        }
+
+        function resetProfile() {
+            if(confirm("Are you sure? All data will be cleared and you will be locked out until you register again.")) {
+                localStorage.removeItem('userProfile');
+                location.reload();
+            }
+        }
+
+        // --- TAB NAVIGATION LOGIC ---
+        function activateTab(element, tabId) {
+            const hasProfile = localStorage.getItem('userProfile');
+            
+            // Lock Logic
+            if (!hasProfile && tabId !== 'profile') {
+                alert("🔒 Please complete your profile registration to access this section.");
+                activateTab(document.getElementById('nav-profile'), 'profile');
+                return;
+            }
+
+            // UI Updates
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            // Hide all modals
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+
+            // Show target modal
+            const target = document.getElementById(`modal-${tabId}`);
+            if(target) target.classList.add('active');
+        }
+
+        // --- SUB-MODAL LOGIC ---
+        function openSubModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeSubModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // --- CHARTS INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Initial Check
+            const hasProfile = checkProfile();
+            if(hasProfile) {
+                activateTab(document.getElementById('nav-ssc'), 'ssc');
+            }
+
+            Chart.defaults.color = '#fff';
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+            // JHT Paper-I Pattern Chart
+            const ctx1 = document.getElementById('examPatternChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['General Hindi (100)', 'General English (100)'],
+                    datasets: [{
+                        label: 'Marks',
+                        data: [100, 100],
+                        backgroundColor: ['#2563eb', '#1e40af'],
+                        borderColor: '#000',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'bottom', labels: { color: '#fff', font: {size: 11} } } 
                     }
-                });
+                }
             });
         });
+
+        // Close sub-modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('ssc-sub-modal')) {
+                event.target.classList.remove('active');
+            }
+        }
     </script>
-    
 </body>
 </html>
-
