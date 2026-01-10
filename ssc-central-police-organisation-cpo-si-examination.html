@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SSC CPO Guide & Future SI</title>
+    <title>SSC CPO Guide & Tracker</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -11,11 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- MAIN APP THEME (Red/Rose for CPO/Police Theme) --- */
+        /* --- MAIN APP THEME (Red/Gold/Dark - Adapted for CPO) --- */
         :root {
-            /* Changed primary to a Police Red/Rose to differentiate, or keep Neon Green if preferred. 
-               Keeping Neon Green as requested to be "Same to Same J.html" style but adapted. */
-            --primary: #be123c; /* Rose-700 for accents */
+            --primary: #be123c; /* Rose Red for CPO */
             --primary-dim: rgba(190, 18, 60, 0.4); 
             --bg-dark: #020202;
             --gold: #FFD700; 
@@ -45,8 +44,8 @@
             z-index: -10; background-size: cover; background-position: center;
             opacity: 0.4; 
             /* Police/Uniform themed background */
-            background-image: url('https://images.unsplash.com/photo-1551884831-bbf3ddd36b44?q=80&w=1374&auto=format&fit=crop');
-            filter: brightness(20%) hue-rotate(320deg) contrast(130%) saturate(120%);
+            background-image: url('https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?q=80&w=1476&auto=format&fit=crop');
+            filter: brightness(20%) hue-rotate(320deg) contrast(120%) saturate(120%);
         }
 
         /* --- HEADER --- */
@@ -60,7 +59,7 @@
         }
         .header-left img, .header-right img { 
             width: 38px; height: 38px; border-radius: 10px; 
-            border: 2px solid var(--gold); box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
+            border: 2px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
             object-fit: cover;
         }
         .header-center { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: 2px; }
@@ -101,11 +100,12 @@
             transform: translateY(-5px); 
         }
         
-        /* Center Tab Specific Active State */
-        .nav-item.cpo-tab.active { color: var(--gold); }
-        .nav-item.cpo-tab.active .icon-box {
-            background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold);
-            box-shadow: 0 0 15px var(--gold-dim);
+        /* Main Tab Specific Active State */
+        .nav-item.main-tab.active { color: var(--primary); }
+        .nav-item.main-tab.active .icon-box {
+            background: rgba(190, 18, 60, 0.2); border: 1px solid var(--primary);
+            box-shadow: 0 0 15px var(--primary-dim);
+            color: var(--primary);
         }
 
         /* --- MAIN CONTENT MODALS --- */
@@ -129,44 +129,46 @@
         .scroll-content::-webkit-scrollbar { width: 4px; }
         .scroll-content::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
 
-        /* --- UPSC/CPO/CARD STYLES (Gold Theme) --- */
-        .upsc-container { color: #f3f4f6; font-family: 'Inter', sans-serif; }
-        .upsc-heading { 
+        /* --- CARD STYLES (Gold/Red Theme) --- */
+        .app-container { color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .app-heading { 
             color: var(--gold); font-family: 'Rajdhani', sans-serif; font-weight: 700; 
             border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-bottom: 15px; display: inline-block;
             font-size: 1.5rem;
         }
-        .upsc-card {
+        .app-card {
             background: var(--card-bg); border: 1px solid #A37A00; border-radius: 16px;
             padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             transition: transform 0.2s;
         }
-        .upsc-card:hover { transform: translateY(-2px); }
-        .upsc-btn {
-            background: linear-gradient(135deg, #FFC107, #B8860B); color: #000; padding: 10px 20px; border-radius: 12px;
+        .app-card:hover { transform: translateY(-2px); }
+        .app-btn {
+            background: linear-gradient(135deg, #be123c, #881337); color: #fff; padding: 10px 20px; border-radius: 12px;
             font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none;
             transition: all 0.2s; display: inline-block; margin-top: 10px; width: 100%;
             text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid #be123c;
         }
-        .upsc-btn:active { transform: scale(0.98); }
+        .app-btn:active { transform: scale(0.98); }
         
-        .upsc-btn-secondary {
+        /* Secondary Button Style */
+        .app-btn-secondary {
             background: transparent; border: 1px solid var(--gold); color: var(--gold);
             margin-top: 8px;
         }
-        .upsc-btn-secondary:hover { background: rgba(255, 215, 0, 0.1); }
+        .app-btn-secondary:hover { background: rgba(255, 215, 0, 0.1); }
         
         /* Flowchart */
         .flowchart-flex { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0; }
         @media(min-width: 600px) { .flowchart-flex { flex-direction: row; justify-content: center; } }
         .flowchart-step {
-            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold);
+            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary);
             display: flex; align-items: center; justify-content: center; text-align: center;
-            font-weight: 700; color: var(--gold); background: #26292E; cursor: pointer;
+            font-weight: 700; color: #fff; background: #26292E; cursor: pointer;
             transition: all 0.3s; flex-shrink: 0;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 10px rgba(190, 18, 60, 0.4);
         }
-        .flowchart-step:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); transform: scale(1.05); }
+        .flowchart-step:hover { background: var(--primary); color: #fff; box-shadow: 0 0 20px var(--primary); transform: scale(1.05); }
         .arrow-down { font-size: 2rem; color: var(--gold); }
         @media(min-width: 600px) { .arrow-down { transform: rotate(-90deg); } }
 
@@ -180,14 +182,25 @@
             background: var(--gold); border-radius: 50%; border: 3px solid #1A1C20;
         }
 
+        /* Service Grid for Step 1 */
+        .service-grid { display: grid; grid-cols-2 gap: 10px; margin-top: 15px; }
+        .service-box {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--gold);
+            border-radius: 12px; padding: 15px; text-align: center; cursor: pointer;
+            transition: 0.3s;
+        }
+        .service-box:hover { background: rgba(255, 215, 0, 0.1); transform: translateY(-3px); }
+        .service-box i { font-size: 2rem; margin-bottom: 8px; color: var(--gold); }
+        .service-box h4 { margin: 0; font-size: 0.9rem; color: #fff; }
+
         /* --- NESTED SUB-MODALS --- */
-        .upsc-sub-modal {
+        .sub-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 4000;
             display: flex; align-items: center; justify-content: center;
             opacity: 0; visibility: hidden; transition: 0.3s; padding: 20px;
         }
-        .upsc-sub-modal.active { opacity: 1; visibility: visible; }
+        .sub-modal.active { opacity: 1; visibility: visible; }
         .sub-modal-content {
             background: #1A1C20; border: 1px solid var(--gold); width: 100%; max-width: 600px;
             max-height: 85vh; overflow-y: auto; border-radius: 20px; padding: 25px;
@@ -253,9 +266,7 @@
             color: var(--gold); font-size: 2.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        .profile-info-grid {
-            display: grid; grid-cols-1 gap: 15px; margin-top: 25px;
-        }
+        .profile-info-grid { display: grid; grid-cols-1 gap: 15px; margin-top: 25px; }
         .info-row {
             display: flex; align-items: center; background: rgba(255,255,255,0.03);
             padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
@@ -268,18 +279,6 @@
         .info-text label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
         .info-text span { display: block; font-size: 0.95rem; color: #fff; font-weight: 600; }
 
-        /* --- NEWS CARDS --- */
-        .news-card {
-            display: block; text-decoration: none;
-            background: #222; border-left: 4px solid var(--gold);
-            padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0;
-            transition: 0.2s;
-        }
-        .news-card:hover { background: #2a2a2a; transform: translateX(5px); }
-        .news-title { color: #fff; font-weight: 700; margin-bottom: 5px; font-size: 1rem; }
-        .news-desc { color: #aaa; font-size: 0.8rem; line-height: 1.4; }
-        .news-date { color: var(--gold); font-size: 0.7rem; margin-top: 8px; display: block; }
-
         /* List Styling */
         .styled-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
         .styled-list li span.icon { margin-right: 10px; color: var(--gold); min-width: 20px; }
@@ -287,11 +286,6 @@
         .service-group { margin-bottom: 20px; }
         .service-group h4 { color: var(--gold); border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 5px; margin-bottom: 10px; font-weight: 700; font-size: 1.1rem; }
         
-        .service-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .service-item:last-child { border-bottom: none; }
-        .service-item strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.95rem; }
-        .service-item p { color: #ccc; font-size: 0.85rem; line-height: 1.4; }
-
         /* Loader */
         .loader {
             border: 3px solid #f3f3f3; border-top: 3px solid var(--gold);
@@ -307,7 +301,7 @@
     <div id="fixed-media-background"></div>
 
     <header class="iphone-header">
-        <div class="header-left"><img src="sti.png" alt="Logo" onerror="this.src='https://placehold.co/40x40/be123c/FFF?text=CPO'"></div>
+        <div class="header-left"><img src="sti.png" alt="Logo" onerror="this.src='https://placehold.co/40x40/be123c/FFF?text=S'"></div>
         <div class="header-center">SSC-CPO<span></span></div>
         <div class="header-right"><img src="ytglogo.png" alt="User" onerror="this.src='https://placehold.co/40x40/333/FFF?text=U'"></div>
     </header>
@@ -315,28 +309,28 @@
     <div class="iphone-dock-wrapper">
         <nav class="iphone-dock">
             <div class="nav-item active" id="nav-profile" onclick="activateTab(this, 'profile')">
-                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span>Profile</span>
+                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span></span>
             </div>
-            <div class="nav-item locked" id="nav-flats" onclick="activateTab(this, 'physical')">
-                <div class="icon-box"><i class="fas fa-running"></i></div><span>Physical</span>
-            </div>
-            
-            <div class="nav-item cpo-tab locked" id="nav-upsc" onclick="activateTab(this, 'cpo')">
-                <div class="icon-box"><i class="fas fa-shield-alt"></i></div><span>SSC CPO</span>
+            <div class="nav-item locked" id="nav-flats" onclick="activateTab(this, 'flats')">
+                <div class="icon-box"><i class="fas fa-book"></i></div><span></span>
             </div>
             
-            <div class="nav-item locked" id="nav-pyq" onclick="activateTab(this, 'syllabus')">
-                <div class="icon-box"><i class="fas fa-book"></i></div><span>Subjects</span>
+            <div class="nav-item main-tab locked" id="nav-cpo" onclick="activateTab(this, 'cpo')">
+                <div class="icon-box"><i class="fas fa-shield-alt"></i></div><span>CPO</span>
+            </div>
+            
+            <div class="nav-item locked" id="nav-pyq" onclick="activateTab(this, 'pyq')">
+                <div class="icon-box"><i class="fas fa-file-alt"></i></div><span></span>
             </div>
             <div class="nav-item locked" id="nav-news" onclick="activateTab(this, 'news')">
-                <div class="icon-box"><i class="fas fa-calendar-alt"></i></div><span>Timeline</span>
+                <div class="icon-box"><i class="fas fa-newspaper"></i></div><span></span>
             </div>
         </nav>
     </div>
 
     <div id="modal-profile" class="modal-overlay active">
         <div class="modal-box" style="border-color: var(--gold);">
-            <div class="scroll-content upsc-container">
+            <div class="scroll-content app-container">
                 
                 <div id="profile-setup">
                     <div class="text-center mb-6">
@@ -385,7 +379,7 @@
                                 <input type="date" name="startDate" id="user-date" required>
                             </div>
 
-                            <button type="submit" id="submit-btn" class="upsc-btn mt-4">
+                            <button type="submit" id="submit-btn" class="app-btn mt-4">
                                 <span>Complete Registration</span>
                                 <div id="loading-spinner" class="loader" style="display:none;"></div>
                             </button>
@@ -395,7 +389,7 @@
                 </div>
 
                 <div id="profile-view" style="display:none;">
-                    <h2 class="upsc-heading">My Profile 👤</h2>
+                    <h2 class="app-heading">My Profile 👤</h2>
                     
                     <div class="profile-header-card">
                         <div class="profile-header-bg"></div>
@@ -403,7 +397,7 @@
                             <i class="fas fa-user-secret"></i>
                         </div>
                         <h3 id="display-name" class="text-2xl font-bold text-white mb-1 tracking-wide">User Name</h3>
-                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">SSC CPO Aspirant</p>
+                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">CPO Aspirant</p>
                         
                         <div class="flex justify-center gap-4 text-center border-t border-gray-800 pt-4">
                              <div>
@@ -449,7 +443,7 @@
                         </div>
                     </div>
                     
-                    <button class="upsc-btn upsc-btn-secondary mt-8" onclick="resetProfile()">
+                    <button class="app-btn app-btn-secondary mt-8" onclick="resetProfile()">
                         <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
                     </button>
                 </div>
@@ -459,133 +453,151 @@
     </div>
 
     <div id="modal-cpo" class="modal-overlay">
-        <div class="modal-box" style="border-color: var(--gold);">
-            <div class="scroll-content upsc-container">
+        <div class="modal-box" style="border-color: var(--primary);">
+            <div class="scroll-content app-container">
                 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">1. What is the Exam? 🤔</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">1. What is SSC CPO? 🤔</h2>
                     <p class="text-gray-300 text-sm mb-4 leading-relaxed">
-                        The Staff Selection Commission (SSC) CPO exam recruits **Sub-Inspectors (SI)** in Delhi Police and CAPFs, and **Assistant Sub-Inspectors (ASI)** in CISF. It's a prestigious opportunity to join police forces as an officer.
+                        The Staff Selection Commission (SSC) conducts the CPO exam to recruit <strong>Sub-Inspectors (SI)</strong> in Delhi Police & CAPFs, and <strong>ASI</strong> in CISF. It's a prestigious path to become an officer.
                     </p>
-                    <div class="grid grid-cols-2 gap-2 mt-2">
-                        <div class="bg-gray-800 p-2 rounded text-center text-xs" onclick="openSubModal('sub-services')">🚔 Delhi Police</div>
-                        <div class="bg-gray-800 p-2 rounded text-center text-xs" onclick="openSubModal('sub-services')">🛡️ CAPFs (BSF/CRPF)</div>
-                        <div class="bg-gray-800 p-2 rounded text-center text-xs" onclick="openSubModal('sub-services')">✈️ CISF (ASI)</div>
-                        <div class="bg-gray-800 p-2 rounded text-center text-xs" onclick="openSubModal('sub-services')">🏔️ ITBP/SSB</div>
+                    <div class="service-grid">
+                        <div class="service-box" onclick="openSubModal('sub-dp')">
+                            <i class="fas fa-taxi"></i>
+                            <h4>Delhi Police SI</h4>
+                        </div>
+                        <div class="service-box" onclick="openSubModal('sub-capf')">
+                            <i class="fas fa-shield-virus"></i>
+                            <h4>CAPF SI</h4>
+                        </div>
+                        <div class="service-box" onclick="openSubModal('sub-cisf')">
+                            <i class="fas fa-plane-departure"></i>
+                            <h4>CISF ASI</h4>
+                        </div>
+                        <div class="service-box" onclick="openSubModal('sub-itbp')">
+                            <i class="fas fa-mountain"></i>
+                            <h4>ITBP/SSB SI</h4>
+                        </div>
                     </div>
-                    <button class="upsc-btn mt-3" onclick="openSubModal('sub-services')">View Role Details</button>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">2. Exam Process 🎯</h2>
-                    <p class="text-gray-300 text-sm text-center mb-4">A rigorous multi-stage selection process.</p>
+                <section class="app-card">
+                    <h2 class="app-heading">2. Exam Process 🎯</h2>
+                    <p class="text-gray-300 text-sm text-center mb-4">The selection process is rigorous, testing both mental and physical capabilities.</p>
                     <div class="flowchart-flex">
                         <div class="flowchart-step" onclick="openSubModal('sub-process')">
-                            <div>Paper I<br><span class="text-white text-xs opacity-80">(CBE)</span></div>
-                        </div>
-                        <div class="arrow-down">➜</div>
-                        <div class="flowchart-step" onclick="activateTab(document.getElementById('nav-flats'), 'physical')">
-                            <div>PET/PST<br><span class="text-white text-xs opacity-80">Physical</span></div>
+                            <div>Step 1<br><span class="text-gray-400 text-xs opacity-80">Paper I</span></div>
                         </div>
                         <div class="arrow-down">➜</div>
                         <div class="flowchart-step" onclick="openSubModal('sub-process')">
-                            <div>Paper II<br><span class="text-white text-xs opacity-80">(English)</span></div>
+                            <div>Step 2<br><span class="text-gray-400 text-xs opacity-80">PET/PST</span></div>
+                        </div>
+                        <div class="arrow-down">➜</div>
+                        <div class="flowchart-step" onclick="openSubModal('sub-process')">
+                            <div>Step 3<br><span class="text-gray-400 text-xs opacity-80">Paper II</span></div>
                         </div>
                     </div>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">3. Eligibility ✅</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">3. Eligibility & Pattern ✅</h2>
                     <ul class="styled-list text-sm text-gray-300 space-y-2">
-                        <li><span class="icon">🎓</span><strong>Education:</strong> Bachelor's Degree from a recognized university.</li>
-                        <li><span class="icon">🎂</span><strong>Age Limit:</strong> 20 to 25 Years.
-                            <ul class="list-disc ml-8 text-gray-400 text-xs mt-1">
-                                <li>Relaxation applicable for Reserved Categories.</li>
-                            </ul>
-                        </li>
+                        <li><span class="icon">🎓</span><strong>Education:</strong> Bachelor's degree from a recognized university.</li>
+                        <li><span class="icon">🎂</span><strong>Age Limit:</strong> 20 to 25 years. (Relaxation applicable for reserved categories).</li>
                     </ul>
-                </section>
-
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">4. Exam Pattern 📊</h2>
-                    <p class="text-sm text-gray-300 mb-4">Paper-I consists of 4 sections (50 Marks each).</p>
-                     <div class="h-48 w-full">
-                        <canvas id="examPatternChart"></canvas>
+                    <div class="mt-4">
+                         <h3 class="text-[var(--gold)] text-sm font-bold mb-2">Paper-I Exam Pattern</h3>
+                         <div class="h-48 w-full">
+                            <canvas id="examPatternChart"></canvas>
+                        </div>
                     </div>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">5. Detailed Syllabus 📚</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">4. Detailed Syllabus 📚</h2>
+                    <p class="text-sm text-gray-300 mb-4">The syllabus requires comprehensive understanding of general aptitude and deep knowledge of English.</p>
+                    <button class="app-btn" onclick="openSubModal('sub-syllabus')">View Detailed Syllabus</button>
+                </section>
+
+                <section class="app-card">
+                    <h2 class="app-heading">5. All Subjects 📝</h2>
+                    <div class="space-y-3 mt-3">
+                        <div class="p-3 bg-gray-900 rounded border border-gray-700">
+                            <strong class="text-[var(--gold)] block mb-1">Paper-I Subjects</strong>
+                            <p class="text-xs text-gray-400">General Intelligence & Reasoning, GK & Awareness, Quantitative Aptitude, English Comprehension.</p>
+                        </div>
+                        <div class="p-3 bg-gray-900 rounded border border-gray-700">
+                            <strong class="text-[var(--gold)] block mb-1">Paper-II Subjects</strong>
+                            <p class="text-xs text-gray-400">English Language & Comprehension (200 Marks).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="app-card">
+                    <h2 class="app-heading">6. Career Opportunities 🏢</h2>
                     <p class="text-sm text-gray-300 mb-3">
-                        Paper I covers General Ability. Paper II is strictly English Language.
+                        A career as a Sub-Inspector offers respect, authority, and a chance to serve the nation.
                     </p>
-                    <button class="upsc-btn" onclick="openSubModal('sub-syllabus')">View Detailed Syllabus</button>
+                    <button class="app-btn" onclick="openSubModal('sub-career')">View Promotion Hierarchy</button>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">6. Career & Posts 🏢</h2>
-                    <p class="text-sm text-gray-300 mb-4">A career as a Sub-Inspector offers respect, authority, and service.</p>
-                    <button class="upsc-btn" onclick="openSubModal('sub-career')">View Hierarchy (SI to ACP)</button>
-                </section>
-
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">7. Strategy: Smart Work 📈</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">7. Strategy: Smart Work 📈</h2>
                     <div class="space-y-6 mt-4">
                         <div class="timeline-item">
-                            <h4 class="text-[var(--gold)] font-bold text-sm">Academic Prep</h4>
-                            <p class="text-xs text-gray-400 mt-1">Focus equally on all 4 sections of Paper-I. Special focus on English for Paper-II.</p>
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Academic Preparation</h4>
+                            <p class="text-xs text-gray-400 mt-1">Focus equally on all 4 sections. Special focus on English for Paper-II. Solve Previous Year Questions (PYQs).</p>
                         </div>
                         <div class="timeline-item">
-                            <h4 class="text-[var(--gold)] font-bold text-sm">Physical Prep</h4>
-                            <p class="text-xs text-gray-400 mt-1">**Non-negotiable.** Start running daily. Practice High Jump/Long Jump.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h4 class="text-[var(--gold)] font-bold text-sm">Mock Tests</h4>
-                            <p class="text-xs text-gray-400 mt-1">Solve Previous Year Questions (PYQs) to understand the pattern.</p>
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Physical Preparation</h4>
+                            <p class="text-xs text-gray-400 mt-1">Physical endurance is non-negotiable. Daily running and exercise are mandatory. Practice for PET standards.</p>
                         </div>
                     </div>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">8. What NOT to Do 🚫</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">8. What NOT to Do 🚫</h2>
                     <div class="space-y-2 text-sm text-gray-300">
                         <div class="flex items-start bg-red-900/20 p-2 rounded">
-                            <span class="mr-2">❌</span><span>Ignoring Physical Test: It is mandatory!</span>
+                            <span class="mr-2">❌</span><span>Ignoring Physical Test: It is mandatory, not just qualifying.</span>
                         </div>
                         <div class="flex items-start bg-red-900/20 p-2 rounded">
                             <span class="mr-2">❌</span><span>Neglecting Paper-II: It decides your final rank.</span>
                         </div>
                         <div class="flex items-start bg-red-900/20 p-2 rounded">
-                            <span class="mr-2">❌</span><span>Forgetting Negative Marking: 0.25 marks deducted.</span>
+                            <span class="mr-2">❌</span><span>Forgetting Negative Marking: 0.25 marks penalty exists.</span>
+                        </div>
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span>Poor Time Management in Maths/Reasoning.</span>
                         </div>
                     </div>
+                    <p class="text-center text-[var(--primary)] font-bold mt-4 text-sm">✨ Your uniform is waiting. ✨</p>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">9. Timeline 🗓️</h2>
-                    <p class="text-sm text-gray-300 mb-2">Typical Annual Cycle (Approx 10-12 Months).</p>
+                <section class="app-card">
+                    <h2 class="app-heading">9. Timeline 🗓️</h2>
                     <div class="space-y-3 text-sm">
                         <div class="flex justify-between border-b border-gray-700 pb-2">
-                            <span class="text-[var(--gold)] font-bold">Feb-Mar</span>
+                            <span class="text-[var(--gold)] font-bold">Feb-March</span>
                             <span class="text-gray-400">Notification Release</span>
                         </div>
                         <div class="flex justify-between border-b border-gray-700 pb-2">
-                            <span class="text-[var(--gold)] font-bold">May-Jun</span>
+                            <span class="text-[var(--gold)] font-bold">May-June</span>
                             <span class="text-gray-400">Paper-I Exam</span>
                         </div>
                         <div class="flex justify-between border-b border-gray-700 pb-2">
-                            <span class="text-[var(--gold)] font-bold">Sept-Oct</span>
-                            <span class="text-gray-400">PET / PST</span>
+                            <span class="text-[var(--gold)] font-bold">End of Year</span>
+                            <span class="text-gray-400">Paper-II (After PET)</span>
                         </div>
-                        <div class="flex justify-between border-b border-gray-700 pb-2">
-                            <span class="text-[var(--gold)] font-bold">Dec</span>
-                            <span class="text-gray-400">Paper-II Exam</span>
+                        <div class="flex justify-between">
+                            <span class="text-[var(--gold)] font-bold">Total Time</span>
+                            <span class="text-gray-400">10-12 Months</span>
                         </div>
                     </div>
                 </section>
 
-                <section class="upsc-card">
-                    <h2 class="upsc-heading">10. Institutions 🏫</h2>
+                <section class="app-card">
+                    <h2 class="app-heading">10. Institutions 🏫</h2>
                     <div class="mb-4">
                         <h4 class="text-[var(--gold)] font-bold text-sm mb-2">Offline Institutes</h4>
                         <p class="text-xs text-gray-400">KD Campus, Paramount Coaching, Career Power, Mahendra's.</p>
@@ -595,264 +607,134 @@
                         <p class="text-xs text-gray-400">Unacademy, Adda247, Testbook, Careerwill, Exampur.</p>
                     </div>
                 </section>
-
-                <p class="text-center text-xl font-bold text-[#9f1239] mt-6 mb-8">✨ Your uniform is waiting. Prepare with dedication! ✨</p>
                 
             </div>
-        </div>
-    </div>
-
-    <div id="modal-physical" class="modal-overlay">
-        <div class="modal-box" style="border-color: var(--gold);">
-             <div class="scroll-content upsc-container">
-                 <h2 class="upsc-heading">Physical Standards 🏃‍♂️</h2>
-                 <p class="text-sm text-gray-400 mb-6">PET/PST is Qualifying but Mandatory.</p>
-                 
-                 <div class="service-group">
-                    <h4 class="text-white">Male Candidates</h4>
-                    <div class="grid grid-cols-2 gap-3 text-xs text-gray-300 mb-4">
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">Height</strong>
-                            170 cm
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">Chest</strong>
-                            80-85 cm
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">100m Race</strong>
-                            16 Seconds
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">1.6 KM Race</strong>
-                            6.5 Minutes
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">Long Jump</strong>
-                            3.65 Meters
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">High Jump</strong>
-                            1.2 Meters
-                        </div>
-                    </div>
-                 </div>
-
-                 <div class="service-group">
-                    <h4 class="text-white">Female Candidates</h4>
-                    <div class="grid grid-cols-2 gap-3 text-xs text-gray-300">
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">Height</strong>
-                            157 cm
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">100m Race</strong>
-                            18 Seconds
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">800m Race</strong>
-                            4 Minutes
-                        </div>
-                         <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">Long Jump</strong>
-                            2.7 Meters
-                        </div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <strong class="text-[var(--gold)] block">High Jump</strong>
-                            0.9 Meters
-                        </div>
-                    </div>
-                 </div>
-             </div>
         </div>
     </div>
     
-    <div id="modal-syllabus" class="modal-overlay">
-        <div class="modal-box" style="border-color: var(--gold);">
-            <div class="scroll-content upsc-container">
-                <h2 class="upsc-heading">Subjects & Materials 📚</h2>
-                <p class="text-xs text-gray-400 mb-4">Paper I and Paper II detailed breakdown.</p>
-                
-                <div class="service-group">
-                    <h4>Paper-I Subjects</h4>
-                    <div class="service-item">
-                        <div class="flex justify-between items-center">
-                            <span>General Intelligence & Reasoning</span>
-                            <div class="flex gap-2">
-                                <button class="upsc-btn-secondary py-1 px-3 text-xs mt-0">Notes</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="flex justify-between items-center">
-                            <span>General Knowledge & Awareness</span>
-                            <div class="flex gap-2">
-                                <button class="upsc-btn-secondary py-1 px-3 text-xs mt-0">Notes</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="flex justify-between items-center">
-                            <span>Quantitative Aptitude</span>
-                            <div class="flex gap-2">
-                                <button class="upsc-btn-secondary py-1 px-3 text-xs mt-0">Notes</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="flex justify-between items-center">
-                            <span>English Comprehension</span>
-                            <div class="flex gap-2">
-                                <button class="upsc-btn-secondary py-1 px-3 text-xs mt-0">Notes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-group">
-                    <h4>Paper-II Subjects</h4>
-                    <div class="service-item">
-                        <div class="flex justify-between items-center">
-                            <span>English Language & Comprehension</span>
-                            <div class="flex gap-2">
-                                <button class="upsc-btn-secondary py-1 px-3 text-xs mt-0">Notes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+    <div id="modal-flats" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-book"></i><h2>Strategy / Books</h2><p>Coming Soon</p></div></div>
     </div>
-
+    <div id="modal-pyq" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-file-alt"></i><h2>Previous Year Questions</h2><p>Design & Functionality coming later.</p></div></div>
+    </div>
     <div id="modal-news" class="modal-overlay">
-        <div class="modal-box" style="border-color: var(--gold);">
-            <div class="scroll-content upsc-container">
-                <h2 class="upsc-heading">Updates & Timeline 🗓️</h2>
-                
-                <a href="#" class="news-card">
-                    <div class="news-title">Notification Expected</div>
-                    <div class="news-desc">Usually released in Feb-March every year. Keep documents ready.</div>
-                    <span class="news-date">Annual Cycle</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">Application Window</div>
-                    <div class="news-desc">About one month is given to apply online via SSC website.</div>
-                    <span class="news-date">Duration: 1 Month</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">Paper-I Exam</div>
-                    <div class="news-desc">Objective Computer Based Exam. Usually in May-June.</div>
-                    <span class="news-date">Stage 1</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">Total Duration</div>
-                    <div class="news-desc">From Notification to Final Result takes about 10-12 months.</div>
-                    <span class="news-date">Overview</span>
-                </a>
-
-            </div>
-        </div>
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-newspaper"></i><h2>News & Updates</h2><p>Coming Soon</p></div></div>
     </div>
 
-
-    <div id="sub-services" class="upsc-sub-modal">
+    <div id="sub-dp" class="sub-modal">
         <div class="sub-modal-content">
-            <button class="close-sub-btn" onclick="closeSubModal('sub-services')">&times;</button>
-            <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 sticky top-0 bg-[#1A1C20] pb-2 border-b border-gray-700">Roles & Responsibilities</h3>
-            
-            <div class="service-item">
-                <strong>🚔 Sub-Inspector in Delhi Police</strong>
-                <p>Responsible for maintaining law and order, investigating crimes, and ensuring safety in the National Capital.</p>
-            </div>
-            <div class="service-item">
-                <strong>🛡️ Sub-Inspector in CAPFs (BSF, CRPF)</strong>
-                <p>Perform duties like border security, anti-insurgency operations, and internal security. Vital for national defense.</p>
-            </div>
-            <div class="service-item">
-                <strong>✈️ Assistant Sub-Inspector in CISF</strong>
-                <p>Responsible for security of vital installations like airports, seaports, and industrial units.</p>
-            </div>
-            <div class="service-item">
-                <strong>🏔️ Sub-Inspector in ITBP/SSB</strong>
-                <p>Guard India's borders with China (ITBP), Nepal, and Bhutan (SSB).</p>
-            </div>
+            <button class="close-sub-btn" onclick="closeSubModal('sub-dp')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">🚔 SI in Delhi Police</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                As an SI in Delhi Police, you are responsible for maintaining law and order, investigating crimes, and ensuring the safety of citizens in the national capital. This is often the most preferred post due to the urban posting and social status.
+            </p>
         </div>
     </div>
 
-    <div id="sub-process" class="upsc-sub-modal">
+    <div id="sub-capf" class="sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-capf')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">🛡️ SI in CAPFs</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                Sub-Inspectors in Central Armed Police Forces (BSF, CRPF, etc.) perform various duties like border security, anti-insurgency operations, and internal security. They play a vital role in defending the nation against external and internal threats.
+            </p>
+        </div>
+    </div>
+
+    <div id="sub-cisf" class="sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-cisf')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">✈️ ASI in CISF</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                Assistant Sub-Inspectors in CISF are responsible for the security of vital installations like airports, seaports, nuclear power plants, and major industrial units across India.
+            </p>
+        </div>
+    </div>
+
+    <div id="sub-itbp" class="sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-itbp')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">🏔️ SI in ITBP/SSB</h3>
+            <p class="text-gray-300 text-sm leading-relaxed">
+                <strong>ITBP:</strong> Indo-Tibetan Border Police SIs guard the high-altitude borders with China.<br><br>
+                <strong>SSB:</strong> Sashastra Seema Bal SIs guard India's borders with Nepal and Bhutan.
+            </p>
+        </div>
+    </div>
+
+    <div id="sub-process" class="sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-process')">&times;</button>
-            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Detailed Process</h3>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Selection Process</h3>
             
-            <div class="bg-gray-800 rounded-xl p-4 mb-4 border border-gray-600">
-                <h4 class="text-lg font-bold text-white mb-2">Paper-I (CBE)</h4>
-                <ul class="text-sm text-gray-300 list-disc ml-5 space-y-1">
-                    <li>Type: Objective (MCQ)</li>
-                    <li>Total Questions: 200 (50 per section)</li>
-                    <li>Total Marks: 200</li>
-                    <li>Duration: 2 Hours</li>
-                    <li>Negative Marking: 0.25 Marks</li>
+            <div class="service-group">
+                <h4>1. Paper-I (CBE)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> Type: Objective (MCQ)</li>
+                    <li><span class="icon">•</span> Questions: 200 (50/section)</li>
+                    <li><span class="icon">•</span> Marks: 200</li>
+                    <li><span class="icon">•</span> Duration: 2 Hours</li>
+                    <li><span class="icon">•</span> Negative Marking: 0.25 marks</li>
+                </ul>
+            </div>
+            
+            <div class="service-group">
+                <h4>2. PET / PST</h4>
+                <p class="text-sm text-gray-300 mb-2">Qualifying Nature.</p>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Race:</strong> 100m & 1.6km (Males) / 800m (Females)</li>
+                    <li><span class="icon">•</span> <strong>Jumps:</strong> Long Jump & High Jump</li>
+                    <li><span class="icon">•</span> <strong>Shot Put:</strong> (Males only)</li>
+                    <li><span class="icon">•</span> Height/Chest measurement requirements apply.</li>
                 </ul>
             </div>
 
-            <div class="bg-gray-800 rounded-xl p-4 mb-4 border border-gray-600">
-                <h4 class="text-lg font-bold text-white mb-2">PET / PST</h4>
-                <p class="text-xs text-gray-400 mb-2">Qualifying Nature.</p>
-                <ul class="text-sm text-gray-300 list-disc ml-5 space-y-1">
-                    <li>Specific standards for Race, Long Jump, High Jump, Shot Put.</li>
-                    <li>Height and Chest measurement checks.</li>
-                </ul>
-            </div>
-
-            <div class="bg-gray-800 rounded-xl p-4 border border-gray-600">
-                <h4 class="text-lg font-bold text-white mb-2">Paper-II (English)</h4>
-                <ul class="text-sm text-gray-300 list-disc ml-5 space-y-1">
-                    <li>Type: Objective (MCQ)</li>
-                    <li>Subject: English Language & Comprehension</li>
-                    <li>Total Questions: 200</li>
-                    <li>Total Marks: 200</li>
-                    <li>Duration: 2 Hours</li>
-                    <li>Negative Marking: 0.25 Marks</li>
+            <div class="service-group">
+                <h4>3. Paper-II (English)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> Type: Objective (MCQ)</li>
+                    <li><span class="icon">•</span> Subject: English Language & Comprehension</li>
+                    <li><span class="icon">•</span> Questions: 200</li>
+                    <li><span class="icon">•</span> Duration: 2 Hours</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div id="sub-syllabus" class="upsc-sub-modal">
+    <div id="sub-syllabus" class="sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-syllabus')">&times;</button>
-            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Detailed Syllabus Breakdown</h3>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Detailed Syllabus</h3>
             
             <div class="service-group">
                 <h4>Paper-I Syllabus</h4>
-                <p class="text-sm text-gray-300">Includes graduate-level topics of:</p>
-                <ul class="styled-list text-sm text-gray-300 mt-2">
-                    <li><span class="icon">•</span> General Intelligence & Reasoning</li>
-                    <li><span class="icon">•</span> General Knowledge & Awareness</li>
-                    <li><span class="icon">•</span> Quantitative Aptitude</li>
-                    <li><span class="icon">•</span> English Comprehension</li>
+                <p class="text-sm text-gray-300 mb-2">Graduate-level topics covering:</p>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Reasoning:</strong> Analogies, similarities, spatial visualization, visual memory, etc.</li>
+                    <li><span class="icon">•</span> <strong>GK:</strong> History, Culture, Geography, Economic Scene, Polity, Scientific Research.</li>
+                    <li><span class="icon">•</span> <strong>Maths:</strong> Percentages, Ratio, Averages, Interest, Profit & Loss, Geometry, Trigonometry.</li>
+                    <li><span class="icon">•</span> <strong>English:</strong> Grammar, Vocabulary, Spellings.</li>
                 </ul>
             </div>
-
+            
             <div class="service-group">
                 <h4>Paper-II Syllabus</h4>
-                <p class="text-sm text-gray-300">Tests knowledge of English Language:</p>
-                <ul class="styled-list text-sm text-gray-300 mt-2">
-                    <li><span class="icon">•</span> Vocabulary, Spellings</li>
-                    <li><span class="icon">•</span> Grammar, Sentence Structure</li>
-                    <li><span class="icon">•</span> Synonyms, Antonyms</li>
-                    <li><span class="icon">•</span> Phrases & Idioms</li>
-                    <li><span class="icon">•</span> Comprehension</li>
+                <p class="text-sm text-gray-300 mb-2">Tests deep understanding of English:</p>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> Error recognition</li>
+                    <li><span class="icon">•</span> Filling in the blanks (verbs, prepositions)</li>
+                    <li><span class="icon">•</span> Vocabulary & Spellings</li>
+                    <li><span class="icon">•</span> Grammar & Sentence Structure</li>
+                    <li><span class="icon">•</span> Synonyms & Antonyms</li>
+                    <li><span class="icon">•</span> Idioms & Phrases</li>
+                    <li><span class="icon">•</span> Comprehension Passages</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div id="sub-career" class="upsc-sub-modal">
+    <div id="sub-career" class="sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeSubModal('sub-career')">&times;</button>
             <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 text-center">Career Progression</h3>
@@ -860,20 +742,20 @@
             <div class="space-y-6 relative border-l-2 border-[var(--gold)] pl-6 ml-4">
                 <div class="relative">
                     <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
-                    <h4 class="text-lg font-bold text-white">Level 1: Sub-Inspector (SI)</h4>
-                    <p class="text-sm text-gray-400">Entry point. Leading a small team or conducting investigations.</p>
+                    <h4 class="text-lg font-bold text-white">1. Sub-Inspector (SI)</h4>
+                    <p class="text-sm text-gray-400">Entry Level. Leading small teams, investigation duties.</p>
                 </div>
                 
                 <div class="relative">
                     <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
-                    <h4 class="text-lg font-bold text-white">Level 2: Inspector</h4>
-                    <p class="text-sm text-gray-400">After approx 8-10 years. In-charge of a police station (SHO).</p>
+                    <h4 class="text-lg font-bold text-white">2. Inspector</h4>
+                    <p class="text-sm text-gray-400">Promotion after 8-10 years. In-charge of a Police Station (SHO) or major cases.</p>
                 </div>
 
                 <div class="relative">
                     <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
-                    <h4 class="text-lg font-bold text-white">Level 3: ACP / DSP</h4>
-                    <p class="text-sm text-gray-400">Assistant Commissioner (Metro) or Deputy Superintendent (State). High supervisory role.</p>
+                    <h4 class="text-lg font-bold text-white">3. ACP / DSP</h4>
+                    <p class="text-sm text-gray-400">Assistant Commissioner (Metro) or Dy. Superintendent (State). High supervisory role.</p>
                 </div>
             </div>
         </div>
@@ -886,12 +768,14 @@
 
         // --- PROFILE LOGIC ---
         function checkProfile() {
-            const profileData = localStorage.getItem('cpoProfile'); // Key changed to cpoProfile
+            const profileData = localStorage.getItem('userProfileCPO');
             if (profileData) {
+                // Profile exists: Unlock UI & Show CPO tab
                 unlockInterface();
                 loadProfile(JSON.parse(profileData));
                 return true;
             } else {
+                // No profile: Lock UI & Force Profile Tab
                 lockInterface();
                 document.getElementById('profile-setup').style.display = 'block';
                 document.getElementById('profile-view').style.display = 'none';
@@ -900,6 +784,7 @@
         }
 
         function lockInterface() {
+            // Add 'locked' class to all except profile
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
                 if (item.id !== 'nav-profile') {
@@ -909,11 +794,14 @@
                     item.classList.add('active');
                 }
             });
+            
+            // Force modal to profile
             document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
             document.getElementById('modal-profile').classList.add('active');
         }
 
         function unlockInterface() {
+            // Remove 'locked' class
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => item.classList.remove('locked'));
         }
@@ -925,18 +813,21 @@
             const spinner = document.getElementById('loading-spinner');
             const btnText = btn.querySelector('span');
 
+            // Collect Data
             const form = document.getElementById('registration-form');
             const formData = new FormData(form);
             const dataObj = Object.fromEntries(formData.entries());
 
+            // UI Loading State
             btn.disabled = true;
             btnText.textContent = "Registering...";
             spinner.style.display = 'inline-block';
 
+            // Fetch to Google Sheets
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors'
+                mode: 'no-cors' 
             })
             .then(() => {
                 console.log('Request sent successfully (no-cors mode)');
@@ -950,17 +841,21 @@
         }
 
         function finalizeProfile(data) {
-            localStorage.setItem('cpoProfile', JSON.stringify(data));
+            // Save Local (Key changed to userProfileCPO to avoid conflict if hosted on same domain)
+            localStorage.setItem('userProfileCPO', JSON.stringify(data));
             
+            // UI Reset
             document.getElementById('submit-btn').disabled = false;
             document.getElementById('submit-btn').querySelector('span').textContent = "Complete Registration";
             document.getElementById('loading-spinner').style.display = 'none';
 
+            // Transition
             unlockInterface();
             loadProfile(data);
             
+            // Switch to Main Tab after short delay
             setTimeout(() => {
-                activateTab(document.getElementById('nav-upsc'), 'cpo');
+                activateTab(document.getElementById('nav-cpo'), 'cpo');
             }, 500);
         }
 
@@ -968,6 +863,7 @@
             document.getElementById('profile-setup').style.display = 'none';
             document.getElementById('profile-view').style.display = 'block';
 
+            // Set Fields
             document.getElementById('display-name').textContent = data.name;
             document.getElementById('display-phone').textContent = data.phone;
             document.getElementById('display-email').textContent = data.email;
@@ -975,6 +871,7 @@
             document.getElementById('display-place').textContent = data.place;
             document.getElementById('display-date').textContent = data.startDate;
             
+            // Calculate Days
             const start = new Date(data.startDate);
             const now = new Date();
             const diffTime = Math.abs(now - start);
@@ -984,26 +881,30 @@
 
         function resetProfile() {
             if(confirm("Are you sure? All data will be cleared and you will be locked out until you register again.")) {
-                localStorage.removeItem('cpoProfile');
+                localStorage.removeItem('userProfileCPO');
                 location.reload();
             }
         }
 
         // --- TAB NAVIGATION LOGIC ---
         function activateTab(element, tabId) {
-            const hasProfile = localStorage.getItem('cpoProfile');
+            const hasProfile = localStorage.getItem('userProfileCPO');
             
+            // Lock Logic
             if (!hasProfile && tabId !== 'profile') {
                 alert("🔒 Please complete your profile registration to access this section.");
                 activateTab(document.getElementById('nav-profile'), 'profile');
                 return;
             }
 
+            // UI Updates
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if(element) element.classList.add('active');
 
+            // Hide all modals
             document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
 
+            // Show target modal
             const target = document.getElementById(`modal-${tabId}`);
             if(target) target.classList.add('active');
         }
@@ -1019,28 +920,28 @@
         // --- CHARTS INITIALIZATION ---
         document.addEventListener("DOMContentLoaded", function() {
             
+            // Initial Check
             const hasProfile = checkProfile();
             if(hasProfile) {
-                activateTab(document.getElementById('nav-upsc'), 'cpo');
+                activateTab(document.getElementById('nav-cpo'), 'cpo');
             }
 
             Chart.defaults.color = '#fff';
             Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
 
-            // Exam Pattern Chart (50, 50, 50, 50)
+            // Exam Pattern Chart (Pie Chart for CPO)
             const ctx1 = document.getElementById('examPatternChart').getContext('2d');
             new Chart(ctx1, {
                 type: 'pie',
                 data: {
-                    labels: ['Reasoning', 'General Knowledge', 'Quantitative Aptitude', 'English'],
+                    labels: ['Reasoning (50)', 'GK (50)', 'Maths (50)', 'English (50)'],
                     datasets: [{
-                        label: 'Marks',
                         data: [50, 50, 50, 50],
                         backgroundColor: [
-                            'rgba(225, 29, 72, 0.7)',
-                            'rgba(190, 18, 60, 0.8)',
-                            'rgba(37, 99, 235, 0.8)',
-                            'rgba(22, 163, 74, 0.8)'
+                            'rgba(190, 18, 60, 0.8)', // Primary Red
+                            'rgba(255, 215, 0, 0.7)', // Gold
+                            'rgba(59, 130, 246, 0.7)', // Blue
+                            'rgba(16, 185, 129, 0.7)'  // Green
                         ],
                         borderColor: '#000',
                         borderWidth: 2
@@ -1050,7 +951,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: { 
-                        legend: { position: 'right', labels: { color: '#ccc', font: {size: 10} } } 
+                        legend: { position: 'right', labels: { boxWidth: 12, padding: 15 } } 
                     }
                 }
             });
@@ -1058,7 +959,7 @@
 
         // Close sub-modals on outside click
         window.onclick = function(event) {
-            if (event.target.classList.contains('upsc-sub-modal')) {
+            if (event.target.classList.contains('sub-modal')) {
                 event.target.classList.remove('active');
             }
         }
