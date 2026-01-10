@@ -1,715 +1,946 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSC JE परीक्षा: संपूर्ण मार्गदर्शिका</title>
-     <script src="redirect_if_needed.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>SSC JE Guide & Tracker</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans:wght@400;500;700&family=Noto+Sans+Gurmukhi:wght@400;500;700&display=swap" rel="stylesheet">
-    <meta name="description" content="SSC Junior Engineer (JE) परीक्षा की संपूर्ण मार्गदर्शिका। परीक्षा प्रक्रिया, योग्यता, पाठ्यक्रम, पद, करियर और तैयारी की रणनीति।">
-    <meta name="keywords" content="SSC, JE, Junior Engineer, Civil, Mechanical, Electrical, CPWD, MES, BRO, सरकारी नौकरी, भारत, engineering job">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* --- MAIN APP THEME (Green/Neon/Gold) --- */
+        :root {
+            --primary: #39ff14;
+            --primary-dim: rgba(57, 255, 20, 0.4); 
+            --bg-dark: #020202;
+            --gold: #FFD700; 
+            --gold-dim: rgba(255, 215, 0, 0.3);
+            --header-offset: calc(15px + env(safe-area-inset-top));
+            --header-height: 70px; 
+            --footer-offset: calc(30px + env(safe-area-inset-bottom));
+            --footer-height: 75px; 
+            --text-light: #ffffff; 
+            --card-bg: #1A1C20;
+        }
+
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Gurmukhi', sans-serif;
-            background-color: #fffaf0; /* Light Orange/Cream background */
-            color: #4a2c0f;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            overflow: hidden; 
+            height: 100vh;
+            width: 100vw;
         }
-        .section-heading {
-            border-bottom: 3px solid #f97316; /* Orange color */
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            color: #9a3412; /* Darker Orange */
+
+        /* --- BACKGROUND --- */
+        #fixed-media-background {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -10; background-size: cover; background-position: center;
+            opacity: 0.5; 
+            /* Engineering/Blueprint background for JE context */
+            background-image: url('https://images.unsplash.com/photo-1581094794329-cd92160162f1?q=80&w=1470&auto=format&fit=crop');
+            filter: brightness(25%) hue-rotate(35deg) contrast(130%) saturate(140%);
         }
-        .card {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 1.75rem;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid #fed7aa;
+
+        /* --- HEADER --- */
+        .iphone-header {
+            position: fixed; top: var(--header-offset); left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 600px; height: var(--header-height);
+            background: rgba(5, 4, 1, 0.96); backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 215, 0, 0.25); border-radius: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 3000; box-shadow: 0 5px 25px rgba(0,0,0,0.5);
         }
-        .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transform: translateY(-5px);
+        .header-left img, .header-right img { 
+            width: 38px; height: 38px; border-radius: 10px; 
+            border: 2px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.5); 
+            object-fit: cover;
         }
-        .chart-container {
+        .header-center { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: 2px; }
+        .header-center span { color: var(--gold); }
+
+        /* --- DOCK NAVIGATION --- */
+        .iphone-dock-wrapper { 
+            position: fixed; bottom: var(--footer-offset); 
+            left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 15px; 
+        }
+        .iphone-dock { 
+            width: 100%; max-width: 500px; height: var(--footer-height); 
+            background: rgba(5, 4, 1, 0.95); backdrop-filter: blur(40px); 
+            border-radius: 35px; border: 1px solid rgba(255, 215, 0, 0.15); 
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); padding: 0 12px; 
+        }
+        
+        .nav-item { 
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: #666; cursor: pointer; height: 100%; transition: all 0.3s ease;
             position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        .nav-item .icon-box {
+            width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+            border-radius: 14px; transition: all 0.3s; margin-bottom: 3px;
         }
-        .flowchart-step {
-            border: 3px solid #9a3412;
-            color: #9a3412;
-            background-color: #ffedd5;
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
+        .nav-item i { font-size: 1.25rem; transition: 0.3s; }
+        .nav-item span { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
+
+        /* Locked State Visuals */
+        .nav-item.locked { opacity: 0.3; pointer-events: none; filter: grayscale(100%); }
+        
+        /* Active State */
+        .nav-item.active { color: var(--gold); opacity: 1; pointer-events: auto; filter: none; }
+        .nav-item.active .icon-box {
+            background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold); 
+            transform: translateY(-5px); 
         }
-        .flowchart-step:hover {
-            background-color: #9a3412;
-            color: #FFFFFF;
-            transform: scale(1.05);
+        
+        /* SSC Center Tab Specific Active State */
+        .nav-item.ssc-tab.active { color: var(--gold); }
+        .nav-item.ssc-tab.active .icon-box {
+            background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold);
+            box-shadow: 0 0 15px var(--gold-dim);
         }
-        .flowchart-arrow {
-            color: #f97316;
+
+        /* --- MAIN CONTENT MODALS --- */
+        .modal-overlay { 
+            position: fixed; 
+            top: calc(var(--header-offset) + var(--header-height) + 12px);
+            bottom: calc(var(--footer-offset) + var(--footer-height) + 12px);
+            left: 0; right: 0; z-index: 2500; 
+            display: none; justify-content: center; padding: 0 12px; pointer-events: none;
         }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            padding: 1rem;
+        .modal-overlay.active { display: flex !important; }
+        .modal-box { 
+            pointer-events: auto; background: rgba(10, 8, 2, 0.95); border: 1px solid rgba(255,215,0,0.3); 
+            border-radius: 32px; width: 100%; max-width: 600px; height: 100%; 
+            padding: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.8); 
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background-color: #FFFFFF;
-            border-radius: 1.25rem;
-            padding: 2rem;
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            width: 100%;
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .modal-close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
+
+        /* Scrollable Content Area */
+        .scroll-content { flex-grow: 1; overflow-y: auto; padding-right: 5px; -webkit-overflow-scrolling: touch; }
+        .scroll-content::-webkit-scrollbar { width: 4px; }
+        .scroll-content::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+        /* --- SSC/CARD STYLES (Gold Theme) --- */
+        .ssc-container { color: #f3f4f6; font-family: 'Inter', sans-serif; }
+        .ssc-heading { 
+            color: var(--gold); font-family: 'Rajdhani', sans-serif; font-weight: 700; 
+            border-bottom: 2px solid var(--gold); padding-bottom: 5px; margin-bottom: 15px; display: inline-block;
             font-size: 1.5rem;
-            cursor: pointer;
-            color: #9a3412;
         }
-        .lang-btn.active {
-            background-color: #f97316;
-            color: white;
-            font-weight: bold;
+        .ssc-card {
+            background: var(--card-bg); border: 1px solid #A37A00; border-radius: 16px;
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
-        .rank-btn {
-            background-color: #ffedd5;
-            color: #9a3412;
-            border: 1px solid #f97316;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
+        .ssc-card:hover { transform: translateY(-2px); }
+        .ssc-btn {
+            background: linear-gradient(135deg, #FFC107, #B8860B); color: #000; padding: 10px 20px; border-radius: 12px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none;
+            transition: all 0.2s; display: inline-block; margin-top: 10px; width: 100%;
+            text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .rank-btn:hover {
-            background-color: #f97316;
-            color: white;
+        .ssc-btn:active { transform: scale(0.98); }
+        
+        /* Secondary Button Style */
+        .ssc-btn-secondary {
+            background: transparent; border: 1px solid var(--gold); color: var(--gold);
+            margin-top: 8px;
         }
-        .subject-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0.5rem;
-            border-bottom: 1px solid #fed7aa;
+        .ssc-btn-secondary:hover { background: rgba(255, 215, 0, 0.1); }
+        
+        /* Flowchart */
+        .flowchart-flex { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 20px 0; }
+        @media(min-width: 600px) { .flowchart-flex { flex-direction: row; justify-content: center; } }
+        .flowchart-step {
+            width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            font-weight: 700; color: var(--gold); background: #26292E; cursor: pointer;
+            transition: all 0.3s; flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
         }
-        .subject-item:last-child {
-            border-bottom: none;
+        .flowchart-step:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); transform: scale(1.05); }
+        .arrow-down { font-size: 2rem; color: var(--gold); }
+        @media(min-width: 600px) { .arrow-down { transform: rotate(-90deg); } }
+
+        /* Timeline */
+        .timeline-item { 
+            border-left: 3px solid var(--gold); padding-left: 20px; margin-left: 10px; 
+            padding-bottom: 20px; position: relative; 
         }
-        .subject-buttons {
-            display: flex;
-            gap: 0.5rem;
+        .timeline-item::before {
+            content: ''; position: absolute; left: -10px; top: 0; width: 17px; height: 17px;
+            background: var(--gold); border-radius: 50%; border: 3px solid #1A1C20;
         }
-        .subject-buttons .rank-btn {
-            font-size: 0.875rem;
-            padding: 0.25rem 0.75rem;
+
+        /* --- NESTED SUB-MODALS --- */
+        .ssc-sub-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 4000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.3s; padding: 20px;
         }
+        .ssc-sub-modal.active { opacity: 1; visibility: visible; }
+        .sub-modal-content {
+            background: #1A1C20; border: 1px solid var(--gold); width: 100%; max-width: 600px;
+            max-height: 85vh; overflow-y: auto; border-radius: 20px; padding: 25px;
+            position: relative; color: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .close-sub-btn {
+            position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: var(--gold);
+            background: none; border: none; cursor: pointer; z-index: 10;
+        }
+
+        /* --- VACANT/PLACEHOLDER TABS --- */
+        .vacant-msg {
+            height: 100%; display: flex; align-items: center; justify-content: center;
+            flex-direction: column; color: #555; text-align: center;
+        }
+        .vacant-msg i { font-size: 3rem; margin-bottom: 10px; color: #333; }
+        
+        /* --- PROFILE STYLES --- */
+        .profile-setup-card {
+            background: linear-gradient(180deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.95) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        .profile-form-container {
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .form-group { position: relative; }
+        .form-group label { 
+            display: block; color: var(--gold); margin-bottom: 6px; font-size: 0.85rem; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .form-group input, .form-group select {
+            width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); 
+            border: 1px solid #444; color: #fff;
+            border-radius: 12px; outline: none; transition: 0.3s; font-size: 1rem;
+        }
+        .form-group input:focus, .form-group select:focus { 
+            border-color: var(--gold); box-shadow: 0 0 10px rgba(255, 215, 0, 0.1); 
+            background: rgba(0,0,0,0.6);
+        }
+        
+        /* Profile View Design */
+        .profile-header-card {
+            background: linear-gradient(135deg, #1a1c20 0%, #000 100%);
+            border: 1px solid var(--gold);
+            border-radius: 24px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .profile-header-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 80px;
+            background: linear-gradient(90deg, #B8860B, #FFD700);
+            opacity: 0.2;
+        }
+        .profile-avatar-large {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: #000; border: 3px solid var(--gold);
+            margin: 30px auto 15px; position: relative; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .profile-info-grid {
+            display: grid; grid-cols-1 gap: 15px; margin-top: 25px;
+        }
+        .info-row {
+            display: flex; align-items: center; background: rgba(255,255,255,0.03);
+            padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-icon {
+            width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 215, 0, 0.1);
+            color: var(--gold); display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; font-size: 1.1rem;
+        }
+        .info-text label { display: block; font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .info-text span { display: block; font-size: 0.95rem; color: #fff; font-weight: 600; }
+
+        /* --- NEWS CARDS --- */
+        .news-card {
+            display: block; text-decoration: none;
+            background: #222; border-left: 4px solid var(--gold);
+            padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0;
+            transition: 0.2s;
+        }
+        .news-card:hover { background: #2a2a2a; transform: translateX(5px); }
+        .news-title { color: #fff; font-weight: 700; margin-bottom: 5px; font-size: 1rem; }
+        .news-desc { color: #aaa; font-size: 0.8rem; line-height: 1.4; }
+        .news-date { color: var(--gold); font-size: 0.7rem; margin-top: 8px; display: block; }
+
+        /* List Styling */
+        .styled-list li { margin-bottom: 8px; display: flex; align-items: flex-start; }
+        .styled-list li span.icon { margin-right: 10px; color: var(--gold); min-width: 20px; }
+        
+        .service-group { margin-bottom: 20px; }
+        .service-group h4 { color: var(--gold); border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 5px; margin-bottom: 10px; font-weight: 700; font-size: 1.1rem; }
+        
+        .service-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .service-item:last-child { border-bottom: none; }
+        .service-item strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.95rem; }
+        .service-item p { color: #ccc; font-size: 0.85rem; line-height: 1.4; }
+
+        /* Loader */
+        .loader {
+            border: 3px solid #f3f3f3; border-top: 3px solid var(--gold);
+            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
+            display: inline-block; vertical-align: middle; margin-left: 10px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
     </style>
 </head>
-<body class="leading-relaxed">
+<body>
+    
+    <div id="fixed-media-background"></div>
 
-    <div class="container mx-auto p-4 md:p-8 lg:p-12 relative">
-        
-        <div id="language-switcher" class="absolute top-4 right-4 z-10 flex space-x-1 p-1 bg-gray-200 rounded-full">
-            <button data-lang="hi" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">हिन्दी</button>
-            <button data-lang="en" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">English</button>
-            <button data-lang="pa" class="lang-btn px-4 py-1 text-sm font-semibold rounded-full">ਪੰਜਾਬੀ</button>
-        </div>
+    <header class="iphone-header">
+        <div class="header-left"><img src="sti.png" alt="Logo" onerror="this.src='https://placehold.co/40x40/333/FFF?text=S'"></div>
+        <div class="header-center">SSC-JE<span>(Engineer)</span></div>
+        <div class="header-right"><img src="ytglogo.png" alt="User" onerror="this.src='https://placehold.co/40x40/333/FFF?text=U'"></div>
+    </header>
 
-        <header class="text-center mb-16 pt-12">
-            <h1 data-lang-key="header_title" class="text-4xl md:text-5xl font-extrabold text-[#9a3412] mb-4 drop-shadow-md"></h1>
-            <p data-lang-key="header_subtitle" class="text-xl md:text-2xl text-[#f97316] font-semibold"></p>
-        </header>
-
-        <main class="grid grid-cols-1 gap-10">
-
-            <section class="card">
-                <h2 data-lang-key="section1_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section1_desc" class="text-lg mb-6"></p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mt-6">
-                    <div class="p-4 bg-orange-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="civilInfoModal">
-                        <div class="text-4xl">🏗️</div>
-                        <div data-lang-key="section1_card1_title" class="mt-2 font-semibold text-orange-800"></div>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="mechInfoModal">
-                        <div class="text-4xl">⚙️</div>
-                        <div data-lang-key="section1_card2_title" class="mt-2 font-semibold text-gray-800"></div>
-                    </div>
-                    <div class="p-4 bg-yellow-50 rounded-lg cursor-pointer hover:shadow-lg transition-shadow" data-modal-target="elecInfoModal">
-                        <div class="text-4xl">⚡</div>
-                        <div data-lang-key="section1_card3_title" class="mt-2 font-semibold text-yellow-800"></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section2_title" class="text-3xl font-bold section-heading text-center"></h2>
-                <p data-lang-key="section2_desc" class="text-lg text-center mb-10 max-w-3xl mx-auto"></p>
-                <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8 lg:space-x-12">
-                    <div class="text-center flex flex-col items-center">
-                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="paper1Modal"><span data-lang-key="section2_step1_title"></span></div>
-                    </div>
-                    <div class="text-5xl font-light flowchart-arrow transform md:rotate-0 rotate-90">→</div>
-                    <div class="text-center flex flex-col items-center">
-                        <div class="w-40 h-40 flex items-center justify-center border-4 rounded-full flowchart-step font-bold text-lg p-3 text-center leading-tight" data-modal-target="paper2Modal"><span data-lang-key="section2_step2_title"></span></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                <div>
-                    <h2 data-lang-key="section3_title" class="text-3xl font-bold section-heading"></h2>
-                    <div data-lang-key="section3_list" class="space-y-4 text-lg"></div>
-                </div>
-                <div>
-                    <h3 data-lang-key="section3_chart_title" class="text-2xl font-bold text-[#9a3412] mb-4 text-center"></h3>
-                    <div class="chart-container h-72">
-                        <canvas id="examPatternChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section4_title" class="text-3xl font-bold section-heading text-center"></h2>
-                <p data-lang-key="section4_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-                 <div class="text-center">
-                    <button class="rank-btn" data-modal-target="syllabusModal" data-lang-key="section4_button"></button>
-                </div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section5_title" class="text-3xl font-bold section-heading"></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mt-6">
-                    <div>
-                        <h3 data-lang-key="section5_paper1_title" class="text-xl font-bold text-[#9a3412] mb-3"></h3>
-                        <div data-lang-key="section5_paper1_list" class="space-y-2"></div>
-                    </div>
-                    <div>
-                        <h3 data-lang-key="section5_paper2_title" class="text-xl font-bold text-[#9a3412] mb-3"></h3>
-                        <div data-lang-key="section5_paper2_list" class="space-y-2"></div>
-                    </div>
-                </div>
-            </section>
+    <div class="iphone-dock-wrapper">
+        <nav class="iphone-dock">
+            <div class="nav-item active" id="nav-profile" onclick="activateTab(this, 'profile')">
+                <div class="icon-box"><i class="fas fa-user-circle"></i></div><span></span>
+            </div>
+            <div class="nav-item locked" id="nav-flats" onclick="activateTab(this, 'flats')">
+                <div class="icon-box"><i class="fas fa-book"></i></div><span></span>
+            </div>
             
-            <section class="card">
-                <h2 data-lang-key="section6_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section6_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
-                <div class="text-center">
-                    <div data-lang-key="career_modal_list" class="flex flex-wrap gap-4 justify-center"></div>
-                </div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section7_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section7_desc" class="text-lg mb-8 max-w-4xl mx-auto"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 data-lang-key="section7_col1_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3>
-                        <div data-lang-key="section7_col1_list" class="text-lg"></div>
-                    </div>
-                    <div>
-                        <h3 data-lang-key="section7_col2_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3>
-                        <p data-lang-key="section7_col2_desc" class="text-lg mb-4"></p>
-                        <div data-lang-key="section7_col2_list" class="text-lg"></div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section8_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section8_desc" class="text-lg text-center mb-8 max-w-4xl mx-auto"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-base">
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item1"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item2"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item3"></div>
-                    </div>
-                    <div class="flex items-start p-4 bg-red-50 border border-red-200 rounded-lg shadow-sm">
-                        <span class="text-3xl text-red-600 mr-4">❌</span>
-                        <div data-lang-key="section8_item4"></div>
-                    </div>
-                </div>
-                <p data-lang-key="section8_final_thought" class="text-center text-xl font-bold text-[#9a3412] mt-10"></p>
-            </section>
+            <div class="nav-item ssc-tab locked" id="nav-ssc" onclick="activateTab(this, 'ssc')">
+                <div class="icon-box"><i class="fas fa-hard-hat"></i></div><span>SSC</span>
+            </div>
             
-            <section class="card">
-                <h2 data-lang-key="section9_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section9_desc" class="text-lg mb-6"></p>
-                <div data-lang-key="section9_list" class="text-lg"></div>
-            </section>
-
-            <section class="card">
-                <h2 data-lang-key="section10_title" class="text-3xl font-bold section-heading"></h2>
-                <p data-lang-key="section10_desc" class="text-lg mb-8"></p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 data-lang-key="section10_sub1_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3>
-                        <div data-lang-key="section10_sub1_list" class="text-lg"></div>
-                    </div>
-                    <div>
-                        <h3 data-lang-key="section10_sub2_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3>
-                        <div data-lang-key="section10_sub2_list" class="text-lg"></div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="text-center mt-16 border-t-2 pt-8 border-gray-200">
-            <p data-lang-key="footer_text" class="text-gray-700 text-lg font-medium"></p>
-        </footer>
-
+            <div class="nav-item locked" id="nav-pyq" onclick="activateTab(this, 'pyq')">
+                <div class="icon-box"><i class="fas fa-file-alt"></i></div><span></span>
+            </div>
+            <div class="nav-item locked" id="nav-news" onclick="activateTab(this, 'news')">
+                <div class="icon-box"><i class="fas fa-newspaper"></i></div><span></span>
+            </div>
+        </nav>
     </div>
 
-    <div id="paper1Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper1_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><div data-lang-key="paper1_modal_list"></div></div></div>
-    <div id="paper2Modal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="paper2_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><div data-lang-key="paper2_modal_list"></div></div></div>
-    <div id="syllabusModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="syllabus_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><div data-lang-key="syllabus_modal_list"></div></div></div>
-    
-    <div id="civilInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card1_modal_title" class="text-2xl font-bold text-orange-800 mb-4"></h3><p data-lang-key="section1_card1_modal_desc"></p></div></div>
-    <div id="mechInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card2_modal_title" class="text-2xl font-bold text-gray-800 mb-4"></h3><p data-lang-key="section1_card2_modal_desc"></p></div></div>
-    <div id="elecInfoModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="section1_card3_modal_title" class="text-2xl font-bold text-yellow-800 mb-4"></h3><p data-lang-key="section1_card3_modal_desc"></p></div></div>
+    <div id="modal-profile" class="modal-overlay active">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                
+                <div id="profile-setup">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-shield-alt text-4xl text-[var(--gold)] mb-3"></i>
+                        <h2 class="text-2xl font-bold text-white">Aspirant Registration</h2>
+                        <p class="text-gray-400 text-sm mt-1">Complete your profile to unlock the application.</p>
+                    </div>
 
-    <div id="jeCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="je_career_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><p data-lang-key="je_career_modal_desc"></p></div></div>
-    <div id="aeCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ae_career_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><p data-lang-key="ae_career_modal_desc"></p></div></div>
-    <div id="eeCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="ee_career_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><p data-lang-key="ee_career_modal_desc"></p></div></div>
-    <div id="seCareerModal" class="modal-overlay"><div class="modal-content"><button class="modal-close-button">&times;</button><h3 data-lang-key="se_career_modal_title" class="text-2xl font-bold text-[#9a3412] mb-4"></h3><p data-lang-key="se_career_modal_desc"></p></div></div>
+                    <div class="profile-setup-card">
+                        <form id="registration-form" onsubmit="saveProfile(event)" class="profile-form-container">
+                            <input type="hidden" name="sheetName" value="SSC-JE"> 
+                            
+                            <div class="form-group">
+                                <label><i class="fas fa-user mr-2"></i>Full Name</label>
+                                <input type="text" name="name" id="user-name" placeholder="Ex: Amit Sharma" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="form-group">
+                                    <label><i class="fas fa-phone mr-2"></i>Mobile</label>
+                                    <input type="tel" name="phone" id="user-phone" placeholder="9876543210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-venus-mars mr-2"></i>Gender</label>
+                                    <select name="gender" id="user-gender" required>
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope mr-2"></i>Email Address</label>
+                                <input type="email" name="email" id="user-email" placeholder="aspirant@gmail.com" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt mr-2"></i>Current Place (City/State)</label>
+                                <input type="text" name="place" id="user-place" placeholder="Ex: Pune, Maharashtra" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt mr-2"></i>Preparation Start Date</label>
+                                <input type="date" name="startDate" id="user-date" required>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="ssc-btn mt-4">
+                                <span>Complete Registration</span>
+                                <div id="loading-spinner" class="loader" style="display:none;"></div>
+                            </button>
+                            <p class="text-xs text-center text-gray-500 mt-2"><i class="fas fa-lock mr-1"></i> Data is secure & required for access.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="profile-view" style="display:none;">
+                    <h2 class="ssc-heading">My Profile 👤</h2>
+                    
+                    <div class="profile-header-card">
+                        <div class="profile-header-bg"></div>
+                        <div class="profile-avatar-large">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 id="display-name" class="text-2xl font-bold text-white mb-1 tracking-wide">User Name</h3>
+                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">SSC JE Aspirant</p>
+                        
+                        <div class="flex justify-center gap-4 text-center border-t border-gray-800 pt-4">
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-days">0</span>
+                                 <span class="text-xs text-gray-500 uppercase">Days Prep</span>
+                             </div>
+                             <div class="w-px bg-gray-700"></div>
+                             <div>
+                                 <span class="block text-xl font-bold text-white" id="display-gender">-</span>
+                                 <span class="text-xs text-gray-500 uppercase">Gender</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-grid">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-text">
+                                <label>Email Address</label>
+                                <span id="display-email">email@example.com</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-text">
+                                <label>Mobile Number</label>
+                                <span id="display-phone">+91 XXXXX XXXXX</span>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-text">
+                                <label>Location</label>
+                                <span id="display-place">Delhi, India</span>
+                            </div>
+                        </div>
+                         <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-flag-checkered"></i></div>
+                            <div class="info-text">
+                                <label>Start Date</label>
+                                <span id="display-date">01-01-2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="ssc-btn ssc-btn-secondary mt-8" onclick="resetProfile()">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-flats" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-building"></i><h2>Notes / Study Material</h2><p>Coming Soon</p></div></div>
+    </div>
     
+    <div id="modal-pyq" class="modal-overlay">
+        <div class="modal-box"><div class="vacant-msg"><i class="fas fa-file-alt"></i><h2>Previous Year Questions</h2><p>Design & Functionality coming later.</p></div></div>
+    </div>
+
+    <div id="modal-news" class="modal-overlay">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                <h2 class="ssc-heading">Latest Updates 📰</h2>
+                
+                <a href="#" class="news-card">
+                    <div class="news-title">SSC JE Notification Release</div>
+                    <div class="news-desc">The official notification is typically released in June. Check official website for details.</div>
+                    <span class="news-date">Today • Official Update</span>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-title">Paper-II Dates Announced</div>
+                    <div class="news-desc">Paper-II is usually scheduled a few months after Paper-I results, typically Jan-Feb.</div>
+                    <span class="news-date">Yesterday • Notification</span>
+                </a>
+
+                <a href="#" class="news-card">
+                    <div class="news-title">Exam Pattern Reminder</div>
+                    <div class="news-desc">Remember, Paper-I has a negative marking of 0.25 marks.</div>
+                    <span class="news-date">2 days ago • Alert</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ssc" class="modal-overlay">
+        <div class="modal-box" style="border-color: var(--gold);">
+            <div class="scroll-content ssc-container">
+                
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">1. What is the Exam? 🤔</h2>
+                    <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                        The SSC Junior Engineer (JE) exam is a major recruitment for Group 'B' Non-Gazetted posts in the Government of India. It's a prime opportunity for diploma or degree holders in **Civil, Mechanical, and Electrical Engineering**.
+                    </p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-posts')">View Discipline Details</button>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">2. Examination Process 🎯</h2>
+                    <p class="text-gray-300 text-sm text-center mb-4">The selection process consists of two stages: Objective and Descriptive.</p>
+                    <div class="flowchart-flex">
+                        <div class="flowchart-step" onclick="openSubModal('sub-process')">
+                            <div>Paper 1<br><span class="text-white text-xs opacity-80">Objective</span></div>
+                        </div>
+                        <div class="arrow-down">➜</div>
+                        <div class="flowchart-step" onclick="openSubModal('sub-process')">
+                            <div>Paper 2<br><span class="text-white text-xs opacity-80">Descriptive</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">3. Eligibility & Pattern ✅</h2>
+                    <ul class="styled-list text-sm text-gray-300 space-y-2">
+                        <li><span class="icon">🎓</span><strong>Education:</strong> Degree or Diploma in relevant engineering branch.</li>
+                        <li><span class="icon">🎂</span><strong>Age:</strong> Up to 30/32 years (varies by department).</li>
+                    </ul>
+                    <div class="mt-4">
+                         <h3 class="text-[var(--gold)] text-sm font-bold mb-2">Paper-I Marks Distribution</h3>
+                         <div class="h-48 w-full">
+                            <canvas id="examPatternChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">4. Detailed Syllabus 📚</h2>
+                    <p class="text-sm text-gray-300 mb-4">The syllabus focuses on core engineering principles and general aptitude.</p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-syllabus')">View Detailed Syllabus</button>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">5. All Subjects 📝</h2>
+                    <div class="service-group">
+                        <h4 class="text-sm font-bold">Paper-I Subjects</h4>
+                        <div class="grid grid-cols-1 gap-2 text-xs text-gray-300 mt-2">
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">General Intelligence & Reasoning</div>
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">General Awareness</div>
+                            <div class="bg-gray-800 p-2 rounded border border-gray-700">Engineering Discipline (Civil/Mech/Elec)</div>
+                        </div>
+                    </div>
+                    <div class="service-group mt-4">
+                        <h4 class="text-sm font-bold">Paper-II Subjects</h4>
+                        <p class="text-xs text-gray-400">Written exam based on specific engineering branch.</p>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">6. Departments & Careers 🏢</h2>
+                    <p class="text-sm text-gray-300 mb-3">
+                        Selected candidates join prestigious organizations like:
+                    </p>
+                    <ul class="styled-list text-sm text-gray-400">
+                        <li><span class="icon">•</span> Central Public Works Department (CPWD)</li>
+                        <li><span class="icon">•</span> Military Engineer Services (MES)</li>
+                        <li><span class="icon">•</span> Border Roads Organisation (BRO)</li>
+                    </ul>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">7. Preparation Strategy 📈</h2>
+                    <div class="space-y-4 mt-2">
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Focus on Tech</h4>
+                            <p class="text-xs text-gray-400 mt-1">Engineering subjects have highest weightage in both papers.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Don't Ignore Non-Tech</h4>
+                            <p class="text-xs text-gray-400 mt-1">Reasoning and GA can give you an edge.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="text-[var(--gold)] font-bold text-sm">Practice Writing</h4>
+                            <p class="text-xs text-gray-400 mt-1">Practice conventional questions for Paper-II accuracy.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">8. What Not to Do 🚫</h2>
+                    <div class="space-y-2 text-sm text-gray-300">
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Ignoring Non-Tech:</strong> Reasoning/GA is crucial for rank.</span>
+                        </div>
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Neglecting Paper-II:</strong> Start preparation alongside Paper-I.</span>
+                        </div>
+                        <div class="flex items-start bg-red-900/20 p-2 rounded">
+                            <span class="mr-2">❌</span><span><strong>Rote Learning:</strong> Focus on concepts, especially for engineering.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">9. Application Timeline 🗓️</h2>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">June</span>
+                            <span class="text-gray-400">Notification Release</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">October</span>
+                            <span class="text-gray-400">Paper-I Exam</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-[var(--gold)] font-bold">Jan-Feb</span>
+                            <span class="text-gray-400">Paper-II Exam (Next Year)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-[var(--gold)] font-bold">~1 Year</span>
+                            <span class="text-gray-400">Total Process Duration</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">10. Institutions 🏫</h2>
+                    <div class="mb-4">
+                        <h4 class="text-[var(--gold)] font-bold text-sm mb-2">Offline Institutes</h4>
+                        <p class="text-xs text-gray-400">MADE EASY, ACE Engineering Academy, Engineers Academy.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[var(--gold)] font-bold text-sm mb-2">Online Platforms</h4>
+                        <p class="text-xs text-gray-400">Adda247, Testbook, Unacademy, Nimbus Learning.</p>
+                    </div>
+                </section>
+
+                <section class="ssc-card">
+                    <h2 class="ssc-heading">11. Career Roadmap 🚀</h2>
+                    <p class="text-sm text-gray-300 mb-4">Start as a JE and rise to Superintending Engineer.</p>
+                    <button class="ssc-btn" onclick="openSubModal('sub-roadmap')">View Promotion Path</button>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="sub-posts" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-posts')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 sticky top-0 bg-[#1A1C20] pb-2 border-b border-gray-700">Engineering Disciplines</h3>
+            
+            <div class="service-group">
+                <div class="service-item">
+                    <strong>1. Civil Engineering</strong>
+                    <p>Involved in design, construction, and maintenance of roads, bridges, and buildings. Departments: CPWD, BRO, MES.</p>
+                </div>
+                <div class="service-item">
+                    <strong>2. Mechanical Engineering</strong>
+                    <p>Responsible for design and operation of machinery and vehicles. Departments: CWC, MES.</p>
+                </div>
+                <div class="service-item">
+                    <strong>3. Electrical Engineering</strong>
+                    <p>Work on power generation and distribution systems. Maintain electrical systems for government buildings.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-process" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-process')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Exam Stages</h3>
+            
+            <div class="service-group">
+                <h4>1. Paper-I (Objective)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Type:</strong> Computer Based (MCQ).</li>
+                    <li><span class="icon">•</span> <strong>Marks:</strong> 200 (Reasoning-50, GA-50, Technical-100).</li>
+                    <li><span class="icon">•</span> <strong>Negative Marking:</strong> 0.25 marks.</li>
+                </ul>
+            </div>
+
+            <div class="service-group">
+                <h4>2. Paper-II (Descriptive)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Type:</strong> Written Examination.</li>
+                    <li><span class="icon">•</span> <strong>Subject:</strong> Specific Engineering Branch.</li>
+                    <li><span class="icon">•</span> <strong>Marks:</strong> 300.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-syllabus" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-syllabus')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-4">Detailed Syllabus</h3>
+            
+            <div class="service-group">
+                <h4>Paper-I (Non-Technical)</h4>
+                <ul class="styled-list text-sm text-gray-300">
+                    <li><span class="icon">•</span> <strong>Reasoning:</strong> Analogies, problem-solving, decision making.</li>
+                    <li><span class="icon">•</span> <strong>General Awareness:</strong> Current events, History, Culture, Geography, Economic Scene.</li>
+                </ul>
+            </div>
+            <div class="service-group">
+                <h4>Technical Papers</h4>
+                <p class="text-xs text-gray-400">Based on Diploma level curriculum for Civil, Mechanical, or Electrical.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="sub-roadmap" class="ssc-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeSubModal('sub-roadmap')">&times;</button>
+            <h3 class="text-2xl font-bold text-[var(--gold)] mb-6 text-center">Career Progression</h3>
+            
+            <div class="space-y-6 relative border-l-2 border-[var(--gold)] pl-6 ml-4">
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">1. Junior Engineer (JE)</h4>
+                    <p class="text-sm text-gray-400">Entry Level. Planning, execution, and supervision of projects.</p>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">2. Assistant Engineer (AE)</h4>
+                    <p class="text-sm text-gray-400">Promoted after ~5-7 years. Gazetted post with more decision power.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">3. Executive Engineer (EE)</h4>
+                    <p class="text-sm text-gray-400">Heads an entire division. Responsible for major projects.</p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-[var(--gold)] border-2 border-black"></div>
+                    <h4 class="text-lg font-bold text-white">4. Superintending Engineer (SE)</h4>
+                    <p class="text-sm text-gray-400">Senior management post. Heads a circle overseeing several divisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const translations = {
-            hi: {
-                doc_title: "SSC JE परीक्षा: संपूर्ण मार्गदर्शिका",
-                header_title: "🌟 SSC Junior Engineer (JE) परीक्षा 🌟",
-                header_subtitle: "इंजीनियरिंग स्नातकों के लिए सरकारी क्षेत्र में एक प्रतिष्ठित करियर",
-                section1_title: "1. परीक्षा क्या है? 🤔",
-                section1_desc: "कर्मचारी चयन आयोग (SSC) द्वारा आयोजित जूनियर इंजीनियर (JE) परीक्षा, भारत सरकार के विभिन्न विभागों और संगठनों में जूनियर इंजीनियर (ग्रुप 'B', गैर-राजपत्रित) के पदों पर भर्ती के लिए एक प्रमुख परीक्षा है। यह सिविल, मैकेनिकल और इलेक्ट्रिकल इंजीनियरिंग में डिप्लोमा या डिग्री धारकों के लिए एक शानदार अवसर है।",
-                section1_card1_title: "सिविल इंजीनियरिंग",
-                section1_card2_title: "मैकेनिकल इंजीनियरिंग",
-                section1_card3_title: "इलेक्ट्रिकल इंजीनियरिंग",
-                section1_card1_modal_title: "🏗️ सिविल इंजीनियरिंग",
-                section1_card1_modal_desc: "सिविल इंजीनियर सरकारी परियोजनाओं जैसे सड़कों, पुलों, भवनों और जल आपूर्ति प्रणालियों के डिजाइन, निर्माण और रखरखाव में शामिल होते हैं। वे CPWD, BRO, MES जैसे विभागों में काम करते हैं।",
-                section1_card2_modal_title: "⚙️ मैकेनिकल इंजीनियरिंग",
-                section1_card2_modal_desc: "मैकेनिकल इंजीनियर सरकारी मशीनरी, वाहनों और उपकरणों के डिजाइन, उत्पादन और संचालन के लिए जिम्मेदार होते हैं। वे केंद्रीय जल आयोग, MES, और अन्य तकनीकी विभागों में महत्वपूर्ण भूमिका निभाते हैं।",
-                section1_card3_modal_title: "⚡ इलेक्ट्रिकल इंजीनियरिंग",
-                section1_card3_modal_desc: "इलेक्ट्रिकल इंजीनियर बिजली उत्पादन, पारेषण और वितरण प्रणालियों पर काम करते हैं। वे सरकारी भवनों और परियोजनाओं के लिए विद्युत प्रणालियों के रखरखाव और संचालन को सुनिश्चित करते हैं।",
+        // --- GOOGLE SHEETS CONNECTION CONFIGURATION ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4iiSGL8AogqYasU1MYOxnG4GT2CqoERQIaPKMplMFWU19wgcbZIE3SINTvRh74dGl/exec';
 
-                section2_title: "2. परीक्षा प्रक्रिया 🎯",
-                section2_desc: "SSC JE चयन प्रक्रिया में दो चरण होते हैं, जिन्हें पेपर-I और पेपर-II कहा जाता है।",
-                section2_step1_title: "पेपर- I<br>(वस्तुनिष्ठ)",
-                section2_step2_title: "पेपर- II<br>(वर्णनात्मक)",
-
-                section3_title: "3. योग्यता और परीक्षा पैटर्न ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎓</span><div><strong class="text-[#9a3412]">शैक्षणिक योग्यता:</strong> संबंधित इंजीनियरिंग अनुशासन में डिग्री या डिप्लोमा।</div></li><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎂</span><div><strong class="text-[#9a3412]">आयु सीमा:</strong> 30/32 वर्ष तक (विभाग के अनुसार भिन्न)। (आरक्षित श्रेणियों के लिए छूट लागू है)।</div></li></ul>`,
-                section3_chart_title: "पेपर-I परीक्षा का पैटर्न 📊",
-                examPatternChartLabels: ['रीजनिंग (50)', 'GA (50)', 'तकनीकी (100)'],
-
-                section4_title: "4. परीक्षा का विस्तृत पाठ्यक्रम 📚",
-                section4_desc: "SSC JE का पाठ्यक्रम इंजीनियरिंग के मूल सिद्धांतों और सामान्य योग्यता पर केंद्रित है। पाठ्यक्रम को समझना तैयारी का पहला कदम है।",
-                section4_button: "विस्तृत पाठ्यक्रम देखें",
-
-                section5_title: "5. परीक्षा के सभी विषय",
-                section5_paper1_title: "पेपर-I के विषय:",
-                section5_paper1_list: `<div class="subject-item"><span>सामान्य बुद्धिमत्ता और रीजनिंग</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>सामान्य जागरूकता</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>आपकी इंजीनियरिंग शाखा</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>`,
-                section5_paper2_title: "पेपर-II के विषय:",
-                section5_paper2_list: `<div class="subject-item"><span>सिविल और स्ट्रक्चरल</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>मैकेनिकल इंजीनियरिंग</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div><div class="subject-item"><span>इलेक्ट्रिकल इंजीनियरिंग</span><div class="subject-buttons"><button class="rank-btn">नोट्स</button><button class="rank-btn">लेक्चर्स</button></div></div>`,
-
-                section6_title: "6. विभाग, पोस्ट, पदोन्नति और करियर के अवसर 🏢",
-                section6_desc: "SSC JE के माध्यम से चयनित उम्मीदवार केंद्रीय लोक निर्माण विभाग (CPWD), सैन्य इंजीनियरिंग सेवा (MES), सीमा सड़क संगठन (BRO) जैसे प्रतिष्ठित संगठनों में नियुक्त होते हैं।",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jeCareerModal">जूनियर इंजीनियर (JE)</button><button class="rank-btn" data-modal-target="aeCareerModal">सहायक इंजीनियर (AE)</button><button class="rank-btn" data-modal-target="eeCareerModal">कार्यकारी इंजीनियर (EE)</button><button class="rank-btn" data-modal-target="seCareerModal">अधीक्षण अभियंता (SE)</button>`,
-
-                section7_title: "7. आपकी तैयारी की रणनीति: स्मार्ट वर्क 📈",
-                section7_desc: "SSC JE में सफलता के लिए तकनीकी ज्ञान और समस्या-समाधान कौशल का एक मजबूत संयोजन आवश्यक है।",
-                section7_col1_title: "📚 अध्ययन के प्रमुख स्तंभ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>तकनीकी विषयों पर ध्यान दें:</strong> पेपर-I और पेपर-II दोनों में आपके इंजीनियरिंग विषय का वेटेज सबसे अधिक है।</li><li><strong>गैर-तकनीकी को नज़रअंदाज़ न करें:</strong> रीजनिंग और GA आपको बढ़त दिला सकते हैं।</li><li><strong>शॉर्ट नोट्स बनाएं:</strong> त्वरित रिवीजन के लिए महत्वपूर्ण सूत्रों और अवधारणाओं के नोट्स बनाएं।</li><li><strong>पिछले वर्ष के प्रश्न:</strong> परीक्षा के स्तर और महत्वपूर्ण विषयों को समझने के लिए इन्हें हल करना महत्वपूर्ण है।</li></ul>`,
-                section7_col2_title: "🔄 अभ्यास और सटीकता:",
-                section7_col2_desc: "**पेपर-II में आपकी लेखन और प्रस्तुति कौशल का परीक्षण होता है!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>नियमित रूप से ऑनलाइन टेस्ट सीरीज का अभ्यास करें।</li><li>पेपर-II के लिए पारंपरिक प्रश्नों को लिखने का अभ्यास करें।</li><li>अपनी गति और सटीकता में सुधार करें।</li></ul>`,
-
-                section8_title: "8. क्या नहीं करना है? 🚫 (असफलता से बचें)",
-                section8_desc: "इन सामान्य गलतियों से बचकर एक सफल इंजीनियर बनने की अपनी यात्रा को सुगम बनाएं।",
-                section8_item1: `<div><strong class="text-lg text-red-800">केवल तकनीकी भाग पर ध्यान केंद्रित करना:</strong> गैर-तकनीकी भाग (रीजनिंग और GA) आपकी रैंक तय करने में महत्वपूर्ण भूमिका निभाता है।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">पेपर-II की तैयारी की उपेक्षा:</strong> कई उम्मीदवार पेपर-I के बाद पेपर-II की तैयारी शुरू करते हैं, जो एक बड़ी गलती है। दोनों की तैयारी साथ-साथ करें।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">नकारात्मक अंकन:</strong> पेपर-I में प्रत्येक गलत उत्तर के लिए 0.25 अंक की नेगेटिव मार्किंग है।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">अवधारणाओं के बजाय रटना:</strong> इंजीनियरिंग में, अवधारणाओं को समझना महत्वपूर्ण है, विशेष रूप से पेपर-II के लिए।</div>`,
-                section8_final_thought: "✨ आपकी तकनीकी विशेषज्ञता और कड़ी मेहनत आपको देश के बुनियादी ढांचे के निर्माण में योगदान करने का अवसर दे सकती है। ✨",
-
-                section9_title: "9. आवेदन प्रक्रिया और समय-सीमा 🗓️",
-                section9_desc: "SSC JE परीक्षा एक वार्षिक चक्र का पालन करती है। प्रक्रिया को समझने से आपको अपनी तैयारी की बेहतर योजना बनाने में मदद मिलती है।",
-                section9_list: `<ul class="list-disc list-inside space-y-3"><li><strong>अधिसूचना जारी:</strong> आमतौर पर जून के अंत में जारी की जाती है।</li><li><strong>आवेदन अवधि:</strong> अधिसूचना के बाद लगभग 3-4 सप्ताह तक चलती है (जुलाई के अंत तक)।</li><li><strong>पेपर-I परीक्षा:</strong> आमतौर पर अक्टूबर में आयोजित की जाती है।</li><li><strong>पेपर-II परीक्षा:</strong> पेपर-I के कुछ महीनों बाद, अक्सर अगले वर्ष जनवरी-फरवरी में आयोजित की जाती है।</li><li><strong>कुल प्रक्रिया अवधि:</strong> अधिसूचना से अंतिम परिणाम तक पूरी प्रक्रिया में लगभग 8-12 महीने लगते हैं।</li></ul>`,
-
-                section10_title: "10. तैयारी के लिए संस्थान 🏫",
-                section10_desc: "SSC JE की तैयारी मुख्य रूप से निजी कोचिंग संस्थानों और ऑनलाइन प्लेटफॉर्मों द्वारा करवाई जाती है। यहाँ कुछ प्रसिद्ध नाम दिए गए हैं:",
-                section10_sub1_title: "प्रमुख ऑफ़लाइन संस्थान:",
-                section10_sub1_list: `<ul class="list-disc list-inside space-y-2"><li>MADE EASY (2001 से स्थापित, एक बहुत पुराना और प्रतिष्ठित नाम)</li><li>ACE Engineering Academy</li><li>Engineers Academy</li><li>Career Power</li><li>KD Campus</li></ul>`,
-                section10_sub2_title: "लोकप्रिय ऑनलाइन प्लेटफॉर्म:",
-                section10_sub2_list: `<ul class="list-disc list-inside space-y-2"><li>Adda247</li><li>Testbook</li><li>Unacademy</li><li>Nimbus Learning (Engineers Academy द्वारा)</li><li>Power Mind Institute</li></ul>`,
-
-                footer_text: "© 2025 - Crapd.in SSC JE गाइड। आपकी सफलता के लिए शुभकामनाएँ।",
-                
-                paper1_modal_title: "पेपर- I (वस्तुनिष्ठ)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>प्रकार:</strong> कंप्यूटर आधारित (MCQ)</li><li><strong>कुल अंक:</strong> 200 (रीजनिंग-50, GA-50, तकनीकी-100)</li><li><strong>अवधि:</strong> 2 घंटे</li><li><strong>नकारात्मक अंकन:</strong> 0.25 अंक</li></ul>`,
-                paper2_modal_title: "पेपर- II (वर्णनात्मक)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>प्रकार:</strong> लिखित परीक्षा</li><li><strong>विषय:</strong> आपकी इंजीनियरिंग शाखा पर आधारित</li><li><strong>कुल अंक:</strong> 300</li><li><strong>अवधि:</strong> 2 घंटे</li></ul>`,
-                syllabus_modal_title: "विस्तृत पाठ्यक्रम",
-                syllabus_modal_list: `<div><h4 class="font-bold text-lg">पेपर-I (गैर-तकनीकी):</h4><ul class="list-disc list-inside ml-4"><li><strong>रीजनिंग:</strong> Analogies, problem-solving, decision making, etc.</li><li><strong>सामान्य जागरूकता:</strong> Current events, History, Culture, Geography, Economic Scene, etc.</li></ul><h4 class="font-bold text-lg mt-4">पेपर-I & II (तकनीकी):</h4><p>पाठ्यक्रम आपकी इंजीनियरिंग शाखा (सिविल, मैकेनिकल, इलेक्ट्रिकल) के डिप्लोमा स्तर के पाठ्यक्रम पर आधारित है।</p></div>`,
-
-                je_career_modal_title: "स्तर 1: जूनियर इंजीनियर (JE)",
-                je_career_modal_desc: "यह आपका प्रवेश स्तर का पद है। एक JE के रूप में, आप परियोजनाओं की योजना, निष्पादन और पर्यवेक्षण में सहायक इंजीनियरों की सहायता करते हैं।",
-                ae_career_modal_title: "स्तर 2: सहायक इंजीनियर (AE)",
-                ae_career_modal_desc: "लगभग 5-7 वर्षों की सेवा या विभागीय परीक्षा पास करने के बाद, आप AE बन सकते हैं। यह एक राजपत्रित पद है और इसमें अधिक निर्णय लेने की शक्ति होती है।",
-                ee_career_modal_title: "स्तर 3: कार्यकारी इंजीनियर (EE)",
-                ee_career_modal_desc: "AE के रूप में अनुभव के साथ, आप एक कार्यकारी इंजीनियर बन जाते हैं, जो एक पूरे डिवीजन का प्रमुख होता है और प्रमुख परियोजनाओं के लिए जिम्मेदार होता है।",
-                se_career_modal_title: "स्तर 4: अधीक्षण अभियंता (SE)",
-                se_career_modal_desc: "यह एक वरिष्ठ प्रबंधन पद है। एक SE एक सर्कल का प्रमुख होता है और अपने अधिकार क्षेत्र में कई डिवीजनों के काम की देखरेख करता है।"
-            },
-            en: {
-                doc_title: "SSC JE Exam: Complete Guide",
-                header_title: "🌟 SSC Junior Engineer (JE) Exam 🌟",
-                header_subtitle: "A Prestigious Career in the Government Sector for Engineering Graduates",
-                section1_title: "1. What is the Exam? 🤔",
-                section1_desc: "The Junior Engineer (JE) Examination, conducted by the Staff Selection Commission (SSC), is a major exam for recruitment to the posts of Junior Engineer (Group 'B', Non-Gazetted) in various departments and organizations of the Government of India. It is a great opportunity for diploma or degree holders in Civil, Mechanical, and Electrical Engineering.",
-                section1_card1_title: "Civil Engineering",
-                section1_card2_title: "Mechanical Engineering",
-                section1_card3_title: "Electrical Engineering",
-                section1_card1_modal_title: "🏗️ Civil Engineering",
-                section1_card1_modal_desc: "Civil engineers are involved in the design, construction, and maintenance of government projects like roads, bridges, buildings, and water supply systems. They work in departments like CPWD, BRO, MES.",
-                section1_card2_modal_title: "⚙️ Mechanical Engineering",
-                section1_card2_modal_desc: "Mechanical engineers are responsible for the design, production, and operation of government machinery, vehicles, and equipment. They play a crucial role in the Central Water Commission, MES, and other technical departments.",
-                section1_card3_modal_title: "⚡ Electrical Engineering",
-                section1_card3_modal_desc: "Electrical engineers work on power generation, transmission, and distribution systems. They ensure the maintenance and operation of electrical systems for government buildings and projects.",
-
-                section2_title: "2. Examination Process 🎯",
-                section2_desc: "The SSC JE selection process consists of two stages, known as Paper-I and Paper-II.",
-                section2_step1_title: "Paper- I<br>(Objective)",
-                section2_step2_title: "Paper- II<br>(Descriptive)",
-
-                section3_title: "3. Eligibility & Exam Pattern ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎓</span><div><strong class="text-[#9a3412]">Educational Qualification:</strong> Degree or Diploma in the relevant engineering discipline.</div></li><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎂</span><div><strong class="text-[#9a3412]">Age Limit:</strong> Up to 30/32 years (varies by department). (Relaxation is applicable for reserved categories).</div></li></ul>`,
-                section3_chart_title: "Paper-I Exam Pattern 📊",
-                examPatternChartLabels: ['Reasoning (50)', 'GA (50)', 'Technical (100)'],
-
-                section4_title: "4. Detailed Examination Syllabus 📚",
-                section4_desc: "The SSC JE syllabus focuses on the core principles of engineering and general aptitude. Understanding the syllabus is the first step in preparation.",
-                section4_button: "View Detailed Syllabus",
-
-                section5_title: "5. All Subjects of the Exam",
-                section5_paper1_title: "Subjects for Paper-I:",
-                section5_paper1_list: `<div class="subject-item"><span>General Intelligence & Reasoning</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>General Awareness</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Your Engineering Branch</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>`,
-                section5_paper2_title: "Subjects for Paper-II:",
-                section5_paper2_list: `<div class="subject-item"><span>Civil & Structural Engg.</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Mechanical Engg.</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div><div class="subject-item"><span>Electrical Engg.</span><div class="subject-buttons"><button class="rank-btn">Notes</button><button class="rank-btn">Lectures</button></div></div>`,
-
-                section6_title: "6. Departments, Posts, Promotions & Career Opportunities 🏢",
-                section6_desc: "Candidates selected through SSC JE are appointed in prestigious organizations like the Central Public Works Department (CPWD), Military Engineer Services (MES), Border Roads Organisation (BRO), etc.",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jeCareerModal">Junior Engineer (JE)</button><button class="rank-btn" data-modal-target="aeCareerModal">Assistant Engineer (AE)</button><button class="rank-btn" data-modal-target="eeCareerModal">Executive Engineer (EE)</button><button class="rank-btn" data-modal-target="seCareerModal">Superintending Engineer (SE)</button>`,
-
-                section7_title: "7. Your Preparation Strategy: Smart Work 📈",
-                section7_desc: "Success in SSC JE requires a strong combination of technical knowledge and problem-solving skills.",
-                section7_col1_title: "📚 Key Pillars of Study:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>Focus on Technical Subjects:</strong> Your engineering subject has the highest weightage in both Paper-I and Paper-II.</li><li><strong>Don't Ignore Non-Technical:</strong> Reasoning and GA can give you an edge.</li><li><strong>Make Short Notes:</strong> Create notes of important formulas and concepts for quick revision.</li><li><strong>Previous Year Questions:</strong> Solving these is crucial to understand the exam level and important topics.</li></ul>`,
-                section7_col2_title: "🔄 Practice and Accuracy:",
-                section7_col2_desc: "**Paper-II tests your writing and presentation skills!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>Regularly practice online test series.</li><li>Practice writing conventional questions for Paper-II.</li><li>Improve your speed and accuracy.</li></ul>`,
-
-                section8_title: "8. What Not to Do? 🚫 (Avoid Failure)",
-                section8_desc: "Make your journey to becoming a successful engineer smoother by avoiding these common mistakes.",
-                section8_item1: `<div><strong class="text-lg text-red-800">Focusing only on the technical part:</strong> The non-technical part (Reasoning and GA) plays a crucial role in deciding your rank.</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">Neglecting Paper-II preparation:</strong> Many candidates start preparing for Paper-II after Paper-I, which is a big mistake. Prepare for both simultaneously.</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">Negative Marking:</strong> There is a negative marking of 0.25 marks for each wrong answer in Paper-I.</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">Rote learning instead of concepts:</strong> In engineering, understanding concepts is crucial, especially for Paper-II.</div>`,
-                section8_final_thought: "✨ Your technical expertise and hard work can give you the opportunity to contribute to building the nation's infrastructure. ✨",
-
-                section9_title: "9. Application Process & Timeline 🗓️",
-                section9_desc: "The SSC JE exam follows an annual cycle. Understanding the process helps you plan your preparation better.",
-                section9_list: `<ul class="list-disc list-inside space-y-3"><li><strong>Notification Release:</strong> Usually released around the end of June.</li><li><strong>Application Window:</strong> Lasts for about 3-4 weeks after the notification (till end of July).</li><li><strong>Paper-I Exam:</strong> Typically conducted in October.</li><li><strong>Paper-II Exam:</strong> Held a few months after Paper-I, often in January-February of the next year.</li><li><strong>Total Process Duration:</strong> The entire process from notification to final result takes approximately 8-12 months.</li></ul>`,
-
-                section10_title: "10. Institutions for Preparation 🏫",
-                section10_desc: "SSC JE preparation is primarily driven by private coaching institutions and online platforms. Here are some of the well-known names:",
-                section10_sub1_title: "Leading Offline Institutes:",
-                section10_sub1_list: `<ul class="list-disc list-inside space-y-2"><li>MADE EASY (Established in 2001, a very old and reputed name)</li><li>ACE Engineering Academy</li><li>Engineers Academy</li><li>Career Power</li><li>KD Campus</li></ul>`,
-                section10_sub2_title: "Popular Online Platforms:",
-                section10_sub2_list: `<ul class="list-disc list-inside space-y-2"><li>Adda247</li><li>Testbook</li><li>Unacademy</li><li>Nimbus Learning (by Engineers Academy)</li><li>Power Mind Institute</li></ul>`,
-
-                footer_text: "© 2025 - Crapd.in SSC JE Guide. Best wishes for your success.",
-                
-                paper1_modal_title: "Paper- I (Objective)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Type:</strong> Computer-Based (MCQ)</li><li><strong>Total Marks:</strong> 200 (Reasoning-50, GA-50, Technical-100)</li><li><strong>Duration:</strong> 2 Hours</li><li><strong>Negative Marking:</strong> 0.25 marks</li></ul>`,
-                paper2_modal_title: "Paper- II (Descriptive)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>Type:</strong> Written Examination</li><li><strong>Subject:</strong> Based on your engineering branch</li><li><strong>Total Marks:</strong> 300</li><li><strong>Duration:</strong> 2 Hours</li></ul>`,
-                syllabus_modal_title: "Detailed Syllabus",
-                syllabus_modal_list: `<div><h4 class="font-bold text-lg">Paper-I (Non-Technical):</h4><ul class="list-disc list-inside ml-4"><li><strong>Reasoning:</strong> Analogies, problem-solving, decision making, etc.</li><li><strong>General Awareness:</strong> Current events, History, Culture, Geography, Economic Scene, etc.</li></ul><h4 class="font-bold text-lg mt-4">Paper-I & II (Technical):</h4><p>The syllabus is based on the diploma level curriculum of your engineering branch (Civil, Mechanical, Electrical).</p></div>`,
-
-                je_career_modal_title: "Level 1: Junior Engineer (JE)",
-                je_career_modal_desc: "This is your entry-level post. As a JE, you assist Assistant Engineers in planning, execution, and supervision of projects.",
-                ae_career_modal_title: "Level 2: Assistant Engineer (AE)",
-                ae_career_modal_desc: "After about 5-7 years of service or by clearing departmental exams, you can become an AE. This is a gazetted post and involves more decision-making power.",
-                ee_career_modal_title: "Level 3: Executive Engineer (EE)",
-                ee_career_modal_desc: "With experience as an AE, you become an Executive Engineer, who heads an entire division and is responsible for major projects.",
-                se_career_modal_title: "Level 4: Superintending Engineer (SE)",
-                se_career_modal_desc: "This is a senior management post. An SE heads a circle and oversees the work of several divisions under his/her jurisdiction."
-            },
-            pa: {
-                doc_title: "SSC JE ਪ੍ਰੀਖਿਆ: ਸੰਪੂਰਨ ਗਾਈਡ",
-                header_title: "🌟 SSC Junior Engineer (JE) ਪ੍ਰੀਖਿਆ 🌟",
-                header_subtitle: "ਇੰਜੀਨੀਅਰਿੰਗ ਗ੍ਰੈਜੂਏਟਾਂ ਲਈ ਸਰਕਾਰੀ ਖੇਤਰ ਵਿੱਚ ਇੱਕ ਵੱਕਾਰੀ ਕਰੀਅਰ",
-                section1_title: "1. ਪ੍ਰੀਖਿਆ ਕੀ ਹੈ? 🤔",
-                section1_desc: "ਸਟਾਫ ਸਿਲੈਕਸ਼ਨ ਕਮਿਸ਼ਨ (SSC) ਦੁਆਰਾ ਆਯੋਜਿਤ ਜੂਨੀਅਰ ਇੰਜੀਨੀਅਰ (JE) ਪ੍ਰੀਖਿਆ, ਭਾਰਤ ਸਰਕਾਰ ਦੇ ਵੱਖ-ਵੱਖ ਵਿਭਾਗਾਂ ਅਤੇ ਸੰਗਠਨਾਂ ਵਿੱਚ ਜੂਨੀਅਰ ਇੰਜੀਨੀਅਰ (ਗਰੁੱਪ 'B', ਗੈਰ-ਗਜ਼ਟਿਡ) ਦੇ ਅਹੁਦਿਆਂ 'ਤੇ ਭਰਤੀ ਲਈ ਇੱਕ ਪ੍ਰਮੁੱਖ ਪ੍ਰੀਖਿਆ ਹੈ। ਇਹ ਸਿਵਲ, ਮਕੈਨੀਕਲ ਅਤੇ ਇਲੈਕਟ੍ਰੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ ਵਿੱਚ ਡਿਪਲੋਮਾ ਜਾਂ ਡਿਗਰੀ ਧਾਰਕਾਂ ਲਈ ਇੱਕ ਸ਼ਾਨਦਾਰ ਮੌਕਾ ਹੈ।",
-                section1_card1_title: "ਸਿਵਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card2_title: "ਮਕੈਨੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card3_title: "ਇਲੈਕਟ੍ਰੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card1_modal_title: "🏗️ ਸਿਵਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card1_modal_desc: "ਸਿਵਲ ਇੰਜੀਨੀਅਰ ਸਰਕਾਰੀ ਪ੍ਰੋਜੈਕਟਾਂ ਜਿਵੇਂ ਕਿ ਸੜਕਾਂ, ਪੁਲਾਂ, ਇਮਾਰਤਾਂ ਅਤੇ ਜਲ ਸਪਲਾਈ ਪ੍ਰਣਾਲੀਆਂ ਦੇ ਡਿਜ਼ਾਈਨ, ਨਿਰਮਾਣ ਅਤੇ ਰੱਖ-ਰਖਾਅ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਉਹ CPWD, BRO, MES ਵਰਗੇ ਵਿਭਾਗਾਂ ਵਿੱਚ ਕੰਮ ਕਰਦੇ ਹਨ।",
-                section1_card2_modal_title: "⚙️ ਮਕੈਨੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card2_modal_desc: "ਮਕੈਨੀਕਲ ਇੰਜੀਨੀਅਰ ਸਰਕਾਰੀ ਮਸ਼ੀਨਰੀ, ਵਾਹਨਾਂ ਅਤੇ ਉਪਕਰਣਾਂ ਦੇ ਡਿਜ਼ਾਈਨ, ਉਤਪਾਦਨ ਅਤੇ ਸੰਚਾਲਨ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੁੰਦੇ ਹਨ। ਉਹ ਕੇਂਦਰੀ ਜਲ ਕਮਿਸ਼ਨ, MES, ਅਤੇ ਹੋਰ ਤਕਨੀਕੀ ਵਿਭਾਗਾਂ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦੇ ਹਨ।",
-                section1_card3_modal_title: "⚡ ਇਲੈਕਟ੍ਰੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ",
-                section1_card3_modal_desc: "ਇਲੈਕਟ੍ਰੀਕਲ ਇੰਜੀਨੀਅਰ ਬਿਜਲੀ ਉਤਪਾਦਨ, ਪ੍ਰਸਾਰਣ ਅਤੇ ਵੰਡ ਪ੍ਰਣਾਲੀਆਂ 'ਤੇ ਕੰਮ ਕਰਦੇ ਹਨ। ਉਹ ਸਰਕਾਰੀ ਇਮਾਰਤਾਂ ਅਤੇ ਪ੍ਰੋਜੈਕਟਾਂ ਲਈ ਬਿਜਲਈ ਪ੍ਰਣਾਲੀਆਂ ਦੇ ਰੱਖ-ਰਖਾਅ ਅਤੇ ਸੰਚਾਲਨ ਨੂੰ ਯਕੀਨੀ ਬਣਾਉਂਦੇ ਹਨ।",
-
-                section2_title: "2. ਪ੍ਰੀਖਿਆ ਪ੍ਰਕਿਰਿਆ 🎯",
-                section2_desc: "SSC JE ਚੋਣ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਦੋ ਪੜਾਅ ਹੁੰਦੇ ਹਨ, ਜਿਨ੍ਹਾਂ ਨੂੰ ਪੇਪਰ-I ਅਤੇ ਪੇਪਰ-II ਕਿਹਾ ਜਾਂਦਾ ਹੈ।",
-                section2_step1_title: "ਪੇਪਰ- I<br>(ਆਬਜੈਕਟਿਵ)",
-                section2_step2_title: "ਪੇਪਰ- II<br>(ਵਰਣਨਯੋਗ)",
-
-                section3_title: "3. ਯੋਗਤਾ ਅਤੇ ਪ੍ਰੀਖਿਆ ਪੈਟਰਨ ✅",
-                section3_list: `<ul class="space-y-4 text-lg"><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎓</span><div><strong class="text-[#9a3412]">ਵਿੱਦਿਅਕ ਯੋਗਤਾ:</strong> ਸਬੰਧਤ ਇੰਜੀਨੀਅਰਿੰਗ ਅਨੁਸ਼ਾਸਨ ਵਿੱਚ ਡਿਗਰੀ ਜਾਂ ਡਿਪਲੋਮਾ।</div></li><li class="flex items-start"><span class="text-2xl text-orange-500 mr-4">🎂</span><div><strong class="text-[#9a3412]">ਉਮਰ ਸੀਮਾ:</strong> 30/32 ਸਾਲ ਤੱਕ (ਵਿਭਾਗ ਅਨੁਸਾਰ ਵੱਖ-ਵੱਖ)। (ਰਾਖਵੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਲਈ ਛੋਟ ਲਾਗੂ ਹੈ)।</div></li></ul>`,
-                section3_chart_title: "ਪੇਪਰ-I ਪ੍ਰੀਖਿਆ ਦਾ ਪੈਟਰਨ 📊",
-                examPatternChartLabels: ['ਰੀਜ਼ਨਿੰਗ (50)', 'GA (50)', 'ਤਕਨੀਕੀ (100)'],
-
-                section4_title: "4. ਪ੍ਰੀਖਿਆ ਦਾ ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ 📚",
-                section4_desc: "SSC JE ਦਾ ਸਿਲੇਬਸ ਇੰਜੀਨੀਅਰਿੰਗ ਦੇ ਮੂਲ ਸਿਧਾਂਤਾਂ ਅਤੇ ਆਮ ਯੋਗਤਾ 'ਤੇ ਕੇਂਦਰਿਤ ਹੈ। ਸਿਲੇਬਸ ਨੂੰ ਸਮਝਣਾ ਤਿਆਰੀ ਦਾ ਪਹਿਲਾ ਕਦਮ ਹੈ।",
-                section4_button: "ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ ਵੇਖੋ",
-
-                section5_title: "5. ਪ੍ਰੀਖਿਆ ਦੇ ਸਾਰੇ ਵਿਸ਼ੇ",
-                section5_paper1_title: "ਪੇਪਰ-I ਦੇ ਵਿਸ਼ੇ:",
-                section5_paper1_list: `<div class="subject-item"><span>ਜਨਰਲ ਇੰਟੈਲੀਜੈਂਸ ਅਤੇ ਰੀਜ਼ਨਿੰਗ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਜਨਰਲ ਅਵੇਅਰਨੈੱਸ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਤੁਹਾਡੀ ਇੰਜੀਨੀਅਰਿੰਗ ਸ਼ਾਖਾ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>`,
-                section5_paper2_title: "ਪੇਪਰ-II ਦੇ ਵਿਸ਼ੇ:",
-                section5_paper2_list: `<div class="subject-item"><span>ਸਿਵਲ ਅਤੇ ਸਟ੍ਰਕਚਰਲ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਮਕੈਨੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div><div class="subject-item"><span>ਇਲੈਕਟ੍ਰੀਕਲ ਇੰਜੀਨੀਅਰਿੰਗ</span><div class="subject-buttons"><button class="rank-btn">ਨੋਟਸ</button><button class="rank-btn">ਲੈਕਚਰ</button></div></div>`,
-
-                section6_title: "6. ਵਿਭਾਗ, ਪੋਸਟਾਂ, ਤਰੱਕੀਆਂ ਅਤੇ ਕੈਰੀਅਰ ਦੇ ਮੌਕੇ 🏢",
-                section6_desc: "SSC JE ਰਾਹੀਂ ਚੁਣੇ ਗਏ ਉਮੀਦਵਾਰ ਕੇਂਦਰੀ ਲੋਕ ਨਿਰਮਾਣ ਵਿਭਾਗ (CPWD), ਮਿਲਟਰੀ ਇੰਜੀਨੀਅਰ ਸੇਵਾਵਾਂ (MES), ਸੀਮਾ ਸੜਕ ਸੰਗਠਨ (BRO) ਵਰਗੇ ਵੱਕਾਰੀ ਸੰਗਠਨਾਂ ਵਿੱਚ ਨਿਯੁਕਤ ਹੁੰਦੇ ਹਨ।",
-                career_modal_list: `<button class="rank-btn" data-modal-target="jeCareerModal">ਜੂਨੀਅਰ ਇੰਜੀਨੀਅਰ (JE)</button><button class="rank-btn" data-modal-target="aeCareerModal">ਸਹਾਇਕ ਇੰਜੀਨੀਅਰ (AE)</button><button class="rank-btn" data-modal-target="eeCareerModal">ਕਾਰਜਕਾਰੀ ਇੰਜੀਨੀਅਰ (EE)</button><button class="rank-btn" data-modal-target="seCareerModal">ਨਿਗਰਾਨ ਇੰਜੀਨੀਅਰ (SE)</button>`,
-
-                section7_title: "7. ਤੁਹਾਡੀ ਤਿਆਰੀ ਦੀ ਰਣਨੀਤੀ: ਸਮਾਰਟ ਵਰਕ 📈",
-                section7_desc: "SSC JE ਵਿੱਚ ਸਫਲਤਾ ਲਈ ਤਕਨੀਕੀ ਗਿਆਨ ਅਤੇ ਸਮੱਸਿਆ-ਹੱਲ ਕਰਨ ਦੇ ਹੁਨਰ ਦਾ ਇੱਕ ਮਜ਼ਬੂਤ ​​ਸੁਮੇਲ ਜ਼ਰੂਰੀ ਹੈ।",
-                section7_col1_title: "📚 ਪੜ੍ਹਾਈ ਦੇ ਮੁੱਖ ਥੰਮ੍ਹ:",
-                section7_col1_list: `<ul class="list-disc list-inside space-y-3"><li><strong>ਤਕਨੀਕੀ ਵਿਸ਼ਿਆਂ 'ਤੇ ਧਿਆਨ ਦਿਓ:</strong> ਪੇਪਰ-I ਅਤੇ ਪੇਪਰ-II ਦੋਵਾਂ ਵਿੱਚ ਤੁਹਾਡੇ ਇੰਜੀਨੀਅਰਿੰਗ ਵਿਸ਼ੇ ਦਾ ਵਜ਼ਨ ਸਭ ਤੋਂ ਵੱਧ ਹੈ।</li><li><strong>ਗੈਰ-ਤਕਨੀਕੀ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ ਨਾ ਕਰੋ:</strong> ਰੀਜ਼ਨਿੰਗ ਅਤੇ GA ਤੁਹਾਨੂੰ ਬੜ੍ਹਤ ਦਿਵਾ ਸਕਦੇ ਹਨ।</li><li><strong>ਛੋਟੇ ਨੋਟਸ ਬਣਾਓ:</strong> ਤੁਰੰਤ ਦੁਹਰਾਈ ਲਈ ਮਹੱਤਵਪੂਰਨ ਫਾਰਮੂਲਿਆਂ ਅਤੇ ਧਾਰਨਾਵਾਂ ਦੇ ਨੋਟਸ ਬਣਾਓ।</li><li><strong>ਪਿਛਲੇ ਸਾਲ ਦੇ ਪ੍ਰਸ਼ਨ:</strong> ਪ੍ਰੀਖਿਆ ਦੇ ਪੱਧਰ ਅਤੇ ਮਹੱਤਵਪੂਰਨ ਵਿਸ਼ਿਆਂ ਨੂੰ ਸਮਝਣ ਲਈ ਇਨ੍ਹਾਂ ਨੂੰ ਹੱਲ ਕਰਨਾ ਮਹੱਤਵਪੂਰਨ ਹੈ।</li></ul>`,
-                section7_col2_title: "🔄 ਅਭਿਆਸ ਅਤੇ ਸ਼ੁੱਧਤਾ:",
-                section7_col2_desc: "**ਪੇਪਰ-II ਵਿੱਚ ਤੁਹਾਡੇ ਲਿਖਣ ਅਤੇ ਪੇਸ਼ਕਾਰੀ ਦੇ ਹੁਨਰ ਦੀ ਜਾਂਚ ਹੁੰਦੀ ਹੈ!**",
-                section7_col2_list: `<ul class="list-disc list-inside space-y-2"><li>ਨਿਯਮਿਤ ਤੌਰ 'ਤੇ ਔਨਲਾਈਨ ਟੈਸਟ ਸੀਰੀਜ਼ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li><li>ਪੇਪਰ-II ਲਈ ਰਵਾਇਤੀ ਪ੍ਰਸ਼ਨਾਂ ਨੂੰ ਲਿਖਣ ਦਾ ਅਭਿਆਸ ਕਰੋ।</li><li>ਆਪਣੀ ਗਤੀ ਅਤੇ ਸ਼ੁੱਧਤਾ ਵਿੱਚ ਸੁਧਾਰ ਕਰੋ।</li></ul>`,
-
-                section8_title: "8. ਕੀ ਨਹੀਂ ਕਰਨਾ ਹੈ? 🚫 (ਅਸਫਲਤਾ ਤੋਂ ਬਚੋ)",
-                section8_desc: "ਇਹਨਾਂ ਆਮ ਗਲਤੀਆਂ ਤੋਂ ਬਚ ਕੇ ਇੱਕ ਸਫਲ ਇੰਜੀਨੀਅਰ ਬਣਨ ਦੀ ਆਪਣੀ ਯਾਤਰਾ ਨੂੰ ਸੁਖਾਲਾ ਬਣਾਓ।",
-                section8_item1: `<div><strong class="text-lg text-red-800">ਸਿਰਫ਼ ਤਕਨੀਕੀ ਭਾਗ 'ਤੇ ਧਿਆਨ ਕੇਂਦਰਿਤ ਕਰਨਾ:</strong> ਗੈਰ-ਤਕਨੀਕੀ ਭਾਗ (ਰੀਜ਼ਨਿੰਗ ਅਤੇ GA) ਤੁਹਾਡੀ ਰੈਂਕ ਤੈਅ ਕਰਨ ਵਿੱਚ ਮਹੱਤਵਪੂਰਨ ਭੂਮਿਕਾ ਨਿਭਾਉਂਦਾ ਹੈ।</div>`,
-                section8_item2: `<div><strong class="text-lg text-red-800">ਪੇਪਰ-II ਦੀ ਤਿਆਰੀ ਦੀ ਅਣਦੇਖੀ:</strong> ਕਈ ਉਮੀਦਵਾਰ ਪੇਪਰ-I ਤੋਂ ਬਾਅਦ ਪੇਪਰ-II ਦੀ ਤਿਆਰੀ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ, ਜੋ ਇੱਕ ਵੱਡੀ ਗਲਤੀ ਹੈ। ਦੋਵਾਂ ਦੀ ਤਿਆਰੀ ਨਾਲ-ਨਾਲ ਕਰੋ।</div>`,
-                section8_item3: `<div><strong class="text-lg text-red-800">ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ:</strong> ਪੇਪਰ-I ਵਿੱਚ ਹਰੇਕ ਗਲਤ ਜਵਾਬ ਲਈ 0.25 ਅੰਕ ਦੀ ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ ਹੈ।</div>`,
-                section8_item4: `<div><strong class="text-lg text-red-800">ਧਾਰਨਾਵਾਂ ਦੀ ਬਜਾਏ ਰੱਟਾ ਲਗਾਉਣਾ:</strong> ਇੰਜੀਨੀਅਰਿੰਗ ਵਿੱਚ, ਧਾਰਨਾਵਾਂ ਨੂੰ ਸਮਝਣਾ ਮਹੱਤਵਪੂਰਨ ਹੈ, ਖਾਸ ਕਰਕੇ ਪੇਪਰ-II ਲਈ।</div>`,
-                section8_final_thought: "✨ ਤੁਹਾਡੀ ਤਕਨੀਕੀ ਮੁਹਾਰਤ ਅਤੇ ਸਖ਼ਤ ਮਿਹਨਤ ਤੁਹਾਨੂੰ ਦੇਸ਼ ਦੇ ਬੁਨਿਆਦੀ ਢਾਂਚੇ ਦੇ ਨਿਰਮਾਣ ਵਿੱਚ ਯੋਗਦਾਨ ਪਾਉਣ ਦਾ ਮੌਕਾ ਦੇ ਸਕਦੀ ਹੈ। ✨",
-
-                section9_title: "9. ਬਿਨੈ-ਪੱਤਰ ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਸਮਾਂ-ਸੀਮਾ 🗓️",
-                section9_desc: "SSC JE ਪ੍ਰੀਖਿਆ ਇੱਕ ਸਾਲਾਨਾ ਚੱਕਰ ਦੀ ਪਾਲਣਾ ਕਰਦੀ ਹੈ। ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਸਮਝਣਾ ਤੁਹਾਨੂੰ ਆਪਣੀ ਤਿਆਰੀ ਦੀ ਬਿਹਤਰ ਯੋਜਨਾ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।",
-                section9_list: `<ul class="list-disc list-inside space-y-3"><li><strong>ਨੋਟੀਫਿਕੇਸ਼ਨ ਜਾਰੀ:</strong> ਆਮ ਤੌਰ 'ਤੇ ਜੂਨ ਦੇ ਅਖੀਰ ਵਿੱਚ ਜਾਰੀ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।</li><li><strong>ਬਿਨੈ-ਪੱਤਰ ਦੀ ਮਿਆਦ:</strong> ਨੋਟੀਫਿਕੇਸ਼ਨ ਤੋਂ ਬਾਅਦ ਲਗਭਗ 3-4 ਹਫ਼ਤਿਆਂ ਤੱਕ (ਜੁਲਾਈ ਦੇ ਅਖੀਰ ਤੱਕ) ਚੱਲਦੀ ਹੈ।</li><li><strong>ਪੇਪਰ-I ਪ੍ਰੀਖਿਆ:</strong> ਆਮ ਤੌਰ 'ਤੇ ਅਕਤੂਬਰ ਵਿੱਚ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</li><li><strong>ਪੇਪਰ-II ਪ੍ਰੀਖਿਆ:</strong> ਪੇਪਰ-I ਤੋਂ ਕੁਝ ਮਹੀਨਿਆਂ ਬਾਅਦ, ਅਕਸਰ ਅਗਲੇ ਸਾਲ ਜਨਵਰੀ-ਫਰਵਰੀ ਵਿੱਚ ਆਯੋਜਿਤ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।</li><li><strong>ਕੁੱਲ ਪ੍ਰਕਿਰਿਆ ਦੀ ਮਿਆਦ:</strong> ਨੋਟੀਫਿਕੇਸ਼ਨ ਤੋਂ ਅੰਤਿਮ ਨਤੀਜੇ ਤੱਕ ਪੂਰੀ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਲਗਭਗ 8-12 ਮਹੀਨੇ ਲੱਗਦੇ ਹਨ।</li></ul>`,
-                
-                section10_title: "10. ਤਿਆਰੀ ਲਈ ਸੰਸਥਾਵਾਂ 🏫",
-                section10_desc: "SSC JE ਦੀ ਤਿਆਰੀ ਮੁੱਖ ਤੌਰ 'ਤੇ ਨਿੱਜੀ ਕੋਚਿੰਗ ਸੰਸਥਾਵਾਂ ਅਤੇ ਔਨਲਾਈਨ ਪਲੇਟਫਾਰਮਾਂ ਦੁਆਰਾ ਕਰਵਾਈ ਜਾਂਦੀ ਹੈ। ਇੱਥੇ ਕੁਝ ਪ੍ਰਸਿੱਧ ਨਾਂ ਦਿੱਤੇ ਗਏ ਹਨ:",
-                section10_sub1_title: "ਪ੍ਰਮੁੱਖ ਔਫਲਾਈਨ ਸੰਸਥਾਵਾਂ:",
-                section10_sub1_list: `<ul class="list-disc list-inside space-y-2"><li>MADE EASY (2001 ਤੋਂ ਸਥਾਪਿਤ, ਇੱਕ ਬਹੁਤ ਪੁਰਾਣਾ ਅਤੇ ਪ੍ਰਤਿਸ਼ਠਾਵਾਨ ਨਾਮ)</li><li>ACE Engineering Academy</li><li>Engineers Academy</li><li>Career Power</li><li>KD Campus</li></ul>`,
-                section10_sub2_title: "ਪ੍ਰਸਿੱਧ ਔਨਲਾਈਨ ਪਲੇਟਫਾਰਮ:",
-                section10_sub2_list: `<ul class="list-disc list-inside space-y-2"><li>Adda247</li><li>Testbook</li><li>Unacademy</li><li>Nimbus Learning (Engineers Academy ਦੁਆਰਾ)</li><li>Power Mind Institute</li></ul>`,
-
-                footer_text: "© 2025 - Crapd.in SSC JE ਗਾਈਡ। ਤੁਹਾਡੀ ਸਫਲਤਾ ਲਈ ਸ਼ੁੱਭਕਾਮਨਾਵਾਂ।",
-                
-                paper1_modal_title: "ਪੇਪਰ- I (ਆਬਜੈਕਟਿਵ)",
-                paper1_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕਿਸਮ:</strong> ਕੰਪਿਊਟਰ-ਅਧਾਰਤ (MCQ)</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 200 (ਰੀਜ਼ਨਿੰਗ-50, GA-50, ਤਕਨੀਕੀ-100)</li><li><strong>ਸਮਾਂ:</strong> 2 ਘੰਟੇ</li><li><strong>ਨੈਗੇਟਿਵ ਮਾਰਕਿੰਗ:</strong> 0.25 ਅੰਕ</li></ul>`,
-                paper2_modal_title: "ਪੇਪਰ- II (ਵਰਣਨਯੋਗ)",
-                paper2_modal_list: `<ul class="list-disc list-inside mt-4 space-y-2"><li><strong>ਕਿਸਮ:</strong> ਲਿਖਤੀ ਪ੍ਰੀਖਿਆ</li><li><strong>ਵਿਸ਼ਾ:</strong> ਤੁਹਾਡੀ ਇੰਜੀਨੀਅਰਿੰਗ ਸ਼ਾਖਾ 'ਤੇ ਅਧਾਰਤ</li><li><strong>ਕੁੱਲ ਅੰਕ:</strong> 300</li><li><strong>ਸਮਾਂ:</strong> 2 ਘੰਟੇ</li></ul>`,
-                syllabus_modal_title: "ਵਿਸਤ੍ਰਿਤ ਸਿਲੇਬਸ",
-                syllabus_modal_list: `<div><h4 class="font-bold text-lg">ਪੇਪਰ-I (ਗੈਰ-ਤਕਨੀਕੀ):</h4><ul class="list-disc list-inside ml-4"><li><strong>ਰੀਜ਼ਨਿੰਗ:</strong> Analogies, problem-solving, decision making, etc.</li><li><strong>ਜਨਰਲ ਅਵੇਅਰਨੈੱਸ:</strong> Current events, History, Culture, Geography, Economic Scene, etc.</li></ul><h4 class="font-bold text-lg mt-4">ਪੇਪਰ-I & II (ਤਕਨੀਕੀ):</h4><p>ਸਿਲੇਬਸ ਤੁਹਾਡੀ ਇੰਜੀਨੀਅਰਿੰਗ ਸ਼ਾਖਾ (ਸਿਵਲ, ਮਕੈਨੀਕਲ, ਇਲੈਕਟ੍ਰੀਕਲ) ਦੇ ਡਿਪਲੋਮਾ ਪੱਧਰ ਦੇ ਪਾਠਕ੍ਰਮ 'ਤੇ ਅਧਾਰਤ ਹੈ।</p></div>`,
-
-                je_career_modal_title: "ਪੱਧਰ 1: ਜੂਨੀਅਰ ਇੰਜੀਨੀਅਰ (JE)",
-                je_career_modal_desc: "ਇਹ ਤੁਹਾਡਾ ਦਾਖਲਾ-ਪੱਧਰ ਦਾ ਅਹੁਦਾ ਹੈ। ਇੱਕ JE ਵਜੋਂ, ਤੁਸੀਂ ਪ੍ਰੋਜੈਕਟਾਂ ਦੀ ਯੋਜਨਾ, ਲਾਗੂਕਰਨ ਅਤੇ ਨਿਗਰਾਨੀ ਵਿੱਚ ਸਹਾਇਕ ਇੰਜੀਨੀਅਰਾਂ ਦੀ ਸਹਾਇਤਾ ਕਰਦੇ ਹੋ।",
-                ae_career_modal_title: "ਪੱਧਰ 2: ਸਹਾਇਕ ਇੰਜੀਨੀਅਰ (AE)",
-                ae_career_modal_desc: "ਲਗਭਗ 5-7 ਸਾਲਾਂ ਦੀ ਸੇਵਾ ਜਾਂ ਵਿਭਾਗੀ ਪ੍ਰੀਖਿਆਵਾਂ ਪਾਸ ਕਰਨ ਤੋਂ ਬਾਅਦ, ਤੁਸੀਂ AE ਬਣ ਸਕਦੇ ਹੋ। ਇਹ ਇੱਕ ਗਜ਼ਟਿਡ ਅਹੁਦਾ ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਵਧੇਰੇ ਫੈਸਲੇ ਲੈਣ ਦੀ ਸ਼ਕਤੀ ਸ਼ਾਮਲ ਹੁੰਦੀ ਹੈ।",
-                ee_career_modal_title: "ਪੱਧਰ 3: ਕਾਰਜਕਾਰੀ ਇੰਜੀਨੀਅਰ (EE)",
-                ee_career_modal_desc: "AE ਵਜੋਂ ਤਜਰਬੇ ਨਾਲ, ਤੁਸੀਂ ਇੱਕ ਕਾਰਜਕਾਰੀ ਇੰਜੀਨੀਅਰ ਬਣ ਜਾਂਦੇ ਹੋ, ਜੋ ਪੂਰੇ ਡਿਵੀਜ਼ਨ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ ਅਤੇ ਪ੍ਰਮੁੱਖ ਪ੍ਰੋਜੈਕਟਾਂ ਲਈ ਜ਼ਿੰਮੇਵਾਰ ਹੁੰਦਾ ਹੈ।",
-                se_career_modal_title: "ਪੱਧਰ 4: ਨਿਗਰਾਨ ਇੰਜੀਨੀਅਰ (SE)",
-                se_career_modal_desc: "ਇਹ ਇੱਕ ਸੀਨੀਅਰ ਪ੍ਰਬੰਧਨ ਅਹੁਦਾ ਹੈ। ਇੱਕ SE ਇੱਕ ਸਰਕਲ ਦਾ ਮੁਖੀ ਹੁੰਦਾ ਹੈ ਅਤੇ ਆਪਣੇ ਅਧਿਕਾਰ ਖੇਤਰ ਵਿੱਚ ਕਈ ਡਿਵੀਜ਼ਨਾਂ ਦੇ ਕੰਮ ਦੀ ਨਿਗਰਾਨੀ ਕਰਦਾ ਹੈ।"
+        // --- PROFILE LOGIC ---
+        function checkProfile() {
+            const profileData = localStorage.getItem('userProfile');
+            if (profileData) {
+                // Profile exists: Unlock UI & Show SSC tab
+                unlockInterface();
+                loadProfile(JSON.parse(profileData));
+                return true;
+            } else {
+                // No profile: Lock UI & Force Profile Tab
+                lockInterface();
+                document.getElementById('profile-setup').style.display = 'block';
+                document.getElementById('profile-view').style.display = 'none';
+                return false;
             }
-        };
+        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            let examPatternChartInstance = null;
-
-            function initializeCharts(lang) {
-                if (examPatternChartInstance) {
-                    examPatternChartInstance.destroy();
+        function lockInterface() {
+            // Add 'locked' class to all except profile
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                if (item.id !== 'nav-profile') {
+                    item.classList.add('locked');
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
                 }
-                const marksCtx = document.getElementById('examPatternChart');
-                if (marksCtx) {
-                    examPatternChartInstance = new Chart(marksCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: translations[lang].examPatternChartLabels,
-                            datasets: [{
-                                label: 'Marks',
-                                data: [50, 50, 100],
-                                backgroundColor: [
-                                    'rgba(249, 115, 22, 0.7)',
-                                    'rgba(234, 88, 12, 0.8)',
-                                    'rgba(154, 52, 18, 0.9)'
-                                ],
-                                borderColor: [
-                                    '#FFFFFF'
-                                ],
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.label || '';
-                                            if (label) {
-                                                label += ': ';
-                                            }
-                                            if (context.parsed !== null) {
-                                                label += context.parsed + (lang === 'hi' ? ' अंक' : (lang === 'pa' ? ' ਅੰਕ' : ' Marks'));
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-
-            function changeLanguage(lang) {
-                document.documentElement.lang = lang;
-                document.title = translations[lang].doc_title;
-                document.querySelectorAll('[data-lang-key]').forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (translations[lang][key] !== undefined) {
-                        el.innerHTML = translations[lang][key];
-                    }
-                });
-                
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.getAttribute('data-lang') === lang) {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                initializeCharts(lang);
-                attachModalListeners();
-            }
-
-            function attachModalListeners() {
-                const modalTriggers = document.querySelectorAll('[data-modal-target]');
-                modalTriggers.forEach(trigger => {
-                    // Simple re-attachment of event listeners to avoid stale closures
-                    const newTrigger = trigger.cloneNode(true);
-                    trigger.parentNode.replaceChild(newTrigger, trigger);
-                });
-
-                document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-                    trigger.addEventListener('click', (e) => {
-                        const targetElement = e.target.closest('[data-modal-target]');
-                        if (targetElement) {
-                            const modalId = targetElement.getAttribute('data-modal-target');
-                            const modal = document.getElementById(modalId);
-                            if (modal) {
-                                modal.classList.add('active');
-                            }
-                        }
-                    });
-                });
-            }
-
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const lang = e.target.getAttribute('data-lang');
-                    changeLanguage(lang);
-                });
             });
+            
+            // Force modal to profile
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+            document.getElementById('modal-profile').classList.add('active');
+        }
 
-            // Initial load
-            changeLanguage('hi');
+        function unlockInterface() {
+            // Remove 'locked' class
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('locked'));
+        }
 
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => {
-                const closeButton = modal.querySelector('.modal-close-button');
-                if (closeButton) {
-                    closeButton.addEventListener('click', () => {
-                        modal.classList.remove('active');
-                    });
-                }
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active');
+        function saveProfile(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            const btnText = btn.querySelector('span');
+
+            // Collect Data
+            const form = document.getElementById('registration-form');
+            const formData = new FormData(form);
+            const dataObj = Object.fromEntries(formData.entries());
+
+            // UI Loading State
+            btn.disabled = true;
+            btnText.textContent = "Registering...";
+            spinner.style.display = 'inline-block';
+
+            // --- IMPROVED GOOGLE SHEETS FETCH ---
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' 
+            })
+            .then(() => {
+                console.log('Request sent successfully (no-cors mode)');
+                finalizeProfile(dataObj);
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Network issue. Saving locally so you can continue.");
+                finalizeProfile(dataObj);
+            });
+        }
+
+        function finalizeProfile(data) {
+            // Save Local
+            localStorage.setItem('userProfile', JSON.stringify(data));
+            
+            // UI Reset
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').querySelector('span').textContent = "Complete Registration";
+            document.getElementById('loading-spinner').style.display = 'none';
+
+            // Transition
+            unlockInterface();
+            loadProfile(data);
+            
+            // Switch to Main Tab after short delay
+            setTimeout(() => {
+                activateTab(document.getElementById('nav-ssc'), 'ssc');
+            }, 500);
+        }
+
+        function loadProfile(data) {
+            document.getElementById('profile-setup').style.display = 'none';
+            document.getElementById('profile-view').style.display = 'block';
+
+            // Set Fields
+            document.getElementById('display-name').textContent = data.name;
+            document.getElementById('display-phone').textContent = data.phone;
+            document.getElementById('display-email').textContent = data.email;
+            document.getElementById('display-gender').textContent = data.gender;
+            document.getElementById('display-place').textContent = data.place;
+            document.getElementById('display-date').textContent = data.startDate;
+            
+            // Calculate Days
+            const start = new Date(data.startDate);
+            const now = new Date();
+            const diffTime = Math.abs(now - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            document.getElementById('display-days').textContent = isNaN(diffDays) ? 0 : diffDays;
+        }
+
+        function resetProfile() {
+            if(confirm("Are you sure? All data will be cleared and you will be locked out until you register again.")) {
+                localStorage.removeItem('userProfile');
+                location.reload();
+            }
+        }
+
+        // --- TAB NAVIGATION LOGIC ---
+        function activateTab(element, tabId) {
+            const hasProfile = localStorage.getItem('userProfile');
+            
+            // Lock Logic
+            if (!hasProfile && tabId !== 'profile') {
+                alert("🔒 Please complete your profile registration to access this section.");
+                activateTab(document.getElementById('nav-profile'), 'profile');
+                return;
+            }
+
+            // UI Updates
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            // Hide all modals
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+
+            // Show target modal
+            const target = document.getElementById(`modal-${tabId}`);
+            if(target) target.classList.add('active');
+        }
+
+        // --- SUB-MODAL LOGIC ---
+        function openSubModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function closeSubModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // --- CHARTS INITIALIZATION ---
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Initial Check
+            const hasProfile = checkProfile();
+            if(hasProfile) {
+                activateTab(document.getElementById('nav-ssc'), 'ssc');
+            }
+
+            Chart.defaults.color = '#fff';
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+            // JE Paper-I Pattern Chart
+            const ctx1 = document.getElementById('examPatternChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'pie', // Changed to Pie as per JE original HTML logic, but kept responsive
+                data: {
+                    labels: ['Reasoning (50)', 'GA (50)', 'Technical (100)'],
+                    datasets: [{
+                        label: 'Marks',
+                        data: [50, 50, 100],
+                        backgroundColor: ['#FFC107', '#A37A00', '#FFD700'],
+                        borderColor: '#000',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'bottom', labels: { color: '#fff', font: {size: 11} } } 
                     }
-                });
+                }
             });
         });
+
+        // Close sub-modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('ssc-sub-modal')) {
+                event.target.classList.remove('active');
+            }
+        }
     </script>
-    
 </body>
 </html>
