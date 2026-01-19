@@ -1,18 +1,17 @@
 (function () {
     var ua = navigator.userAgent || "";
 
-    // Allow app WebView
-    if (ua.includes("STIPRO_APP")) {
-        return;
-    }
+    // ✅ Allow Android WebView (wv)
+    if (ua.indexOf("wv") !== -1) return;
 
-    // Allow Google for indexing
-    if (ua.includes("Googlebot")) {
-        return;
-    }
+    // ✅ Allow Stiskilli App
+    if (ua.indexOf("STISKILLI_APP") !== -1) return;
 
-    // Redirect all external users
-    window.location.replace(
-        "https://play.google.com/store/apps/details?id=com.ai.skillaura&pcampaignid=web_share"
+    // ✅ Allow Google bot
+    if (ua.indexOf("Googlebot") !== -1) return;
+
+    // ❌ Sabko Play Store bhejo
+    location.replace(
+        "https://play.google.com/store/apps/details?id=com.ai.skillaura"
     );
 })();
