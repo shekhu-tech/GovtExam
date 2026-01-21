@@ -799,6 +799,103 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
+
+        /* --- CUSTOM CONFIRMATION MODAL STYLES --- */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 6000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            padding: 20px;
+        }
+
+        .confirmation-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .confirmation-content {
+            background: #1A1C20;
+            border: 3px solid var(--gold);
+            border-radius: 25px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirmation-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .confirmation-message {
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .confirm-btn.yes {
+            background: linear-gradient(135deg, #FFC107, #B8860B);
+            color: #000;
+        }
+
+        .confirm-btn.no {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        /* Ensure vertical and horizontal centering */
+        .confirmation-modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .confirmation-content {
+            margin: auto;
+        }
     </style>
 </head>
 <body>
@@ -810,6 +907,21 @@
         <div class="header-center">UPSC-CSE<span></span></div>
         <div class="header-right"><img src="ytglogo.png" alt="User" onerror="this.src='https://placehold.co/40x40/333/FFF?text=U'"></div>
     </header>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="confirmation-modal">
+        <div class="confirmation-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="confirmation-title" id="confirmation-title">Confirm Action</h3>
+            <p class="confirmation-message" id="confirmation-message"></p>
+            <div class="confirmation-buttons">
+                <button class="confirm-btn no" id="confirm-no">No</button>
+                <button class="confirm-btn yes" id="confirm-yes">Yes</button>
+            </div>
+        </div>
+    </div>
 
     <div class="iphone-dock-wrapper">
         <nav class="iphone-dock">
@@ -948,7 +1060,7 @@
                         </div>
                     </div>
                     
-                    <button class="upsc-btn upsc-btn-secondary mt-8" onclick="resetProfile()">
+                    <button class="upsc-btn upsc-btn-secondary mt-8" onclick="showConfirmation('profile')">
                         <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
                     </button>
                 </div>
@@ -1128,7 +1240,7 @@
                     
                     <!-- Navigation Buttons -->
                     <div class="quiz-navigation" id="quiz-navigation">
-                        <button class="nav-btn reset-btn" id="reset-btn" onclick="resetQuizProgress()">
+                        <button class="nav-btn reset-btn" id="reset-btn" onclick="showConfirmation('quiz')">
                             <i class="fas fa-redo mr-2"></i> Reset
                         </button>
                         <button class="nav-btn" id="next-btn" onclick="nextQuestion()" style="display: none;">
@@ -1829,11 +1941,66 @@
     </div>
 
     <script>
+        // --- CONFIRMATION MODAL LOGIC ---
+        let currentConfirmationAction = null;
+        let currentConfirmationType = null;
+
+        function showConfirmation(type) {
+            currentConfirmationType = type;
+            
+            if (type === 'profile') {
+                document.getElementById('confirmation-title').textContent = 'Reset Profile';
+                document.getElementById('confirmation-message').innerHTML = 
+                    'Are you sure? <strong>StiSkilli App</strong> will clear all your data and you will be locked out until you register again.';
+                currentConfirmationAction = resetProfileConfirmed;
+            } else if (type === 'quiz') {
+                document.getElementById('confirmation-title').textContent = 'Reset Quiz Progress';
+                document.getElementById('confirmation-message').innerHTML = 
+                    'Are you sure? <strong>StiSkilli App</strong> will reset your quiz progress from the beginning of the current set.';
+                currentConfirmationAction = resetQuizConfirmed;
+            }
+            
+            document.getElementById('confirmation-modal').classList.add('active');
+        }
+
+        function hideConfirmation() {
+            document.getElementById('confirmation-modal').classList.remove('active');
+            currentConfirmationAction = null;
+            currentConfirmationType = null;
+        }
+
+        function resetProfileConfirmed() {
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('quizProgress');
+            location.reload();
+        }
+
+        function resetQuizConfirmed() {
+            currentQuestionIndex = last25StartIndex;
+            score = 0;
+            correctAnswers = 0;
+            wrongAnswers = 0;
+            streak = 0;
+            saveQuizProgress();
+            loadQuestion();
+            hideConfirmation();
+        }
+
+        // Initialize confirmation modal buttons
+        document.getElementById('confirm-yes').addEventListener('click', function() {
+            if (currentConfirmationAction) {
+                currentConfirmationAction();
+            }
+        });
+
+        document.getElementById('confirm-no').addEventListener('click', hideConfirmation);
+
         // --- GOOGLE SHEETS CONNECTION CONFIGURATION ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4iiSGL8AogqYasU1MYOxnG4GT2CqoERQIaPKMplMFWU19wgcbZIE3SINTvRh74dGl/exec';
 
         // --- QUIZ DATA AND LOGIC ---
         const quizQuestions = [
+            
             {
         question: "With reference to the 'Prithvi Vigyan (PRITHVI)' scheme, consider the following statements:",
         options: ["It is an overarching scheme of the Ministry of Earth Sciences.", "It aims to replace the Deep Ocean Mission.", "It focuses solely on atmospheric research.", "It is a joint initiative with NASA."],
@@ -7971,10 +8138,6 @@
         explanation: "The Cabinet approved the PM E-DRIVE scheme with an outlay of ₹10,900 crore."
     }
 
-
-
-
-
         ];
 
         let currentQuestionIndex = 0;
@@ -8211,7 +8374,7 @@
 
         function closeResultsModal() {
             document.getElementById('quiz-results-modal').classList.remove('active');
-            resetQuizProgress();
+            showConfirmation('quiz');
         }
 
         function continueQuiz() {
@@ -8219,18 +8382,6 @@
             last25StartIndex = currentQuestionIndex;
             saveQuizProgress();
             loadQuestion();
-        }
-
-        function resetQuizProgress() {
-            if (confirm("Reset your quiz progress? This will start from the beginning of the current set.")) {
-                currentQuestionIndex = last25StartIndex;
-                score = 0;
-                correctAnswers = 0;
-                wrongAnswers = 0;
-                streak = 0;
-                saveQuizProgress();
-                loadQuestion();
-            }
         }
 
         function saveQuizProgress() {
@@ -8316,7 +8467,7 @@
             })
             .catch(error => {
                 console.error('Error!', error.message);
-                alert("Network issue. Saving locally so you can continue.");
+                alert("StiSkilli App: Network issue. Saving locally so you can continue.");
                 finalizeProfile(dataObj);
             });
         }
@@ -8354,20 +8505,12 @@
             document.getElementById('display-days').textContent = isNaN(diffDays) ? 0 : diffDays;
         }
 
-        function resetProfile() {
-            if(confirm("Are you sure? All data will be cleared and you will be locked out until you register again.")) {
-                localStorage.removeItem('userProfile');
-                localStorage.removeItem('quizProgress');
-                location.reload();
-            }
-        }
-
         // --- TAB NAVIGATION LOGIC ---
         function activateTab(element, tabId) {
             const hasProfile = localStorage.getItem('userProfile');
             
             if (!hasProfile && tabId !== 'profile') {
-                alert("🔒 Please complete your profile registration to access this section.");
+                showCustomAlert("🔒 Please complete your profile registration to access this section.");
                 activateTab(document.getElementById('nav-profile'), 'profile');
                 return;
             }
@@ -8395,6 +8538,20 @@
         }
         function closeSubModal(id) {
             document.getElementById(id).classList.remove('active');
+        }
+
+        // --- CUSTOM ALERT FUNCTION ---
+        function showCustomAlert(message) {
+            document.getElementById('confirmation-title').textContent = 'StiSkilli App';
+            document.getElementById('confirmation-message').textContent = message;
+            document.getElementById('confirm-yes').style.display = 'none';
+            document.getElementById('confirm-no').textContent = 'OK';
+            document.getElementById('confirm-no').onclick = function() {
+                hideConfirmation();
+                document.getElementById('confirm-yes').style.display = 'block';
+                document.getElementById('confirm-no').textContent = 'No';
+            };
+            document.getElementById('confirmation-modal').classList.add('active');
         }
 
         // --- CHARTS INITIALIZATION ---
@@ -8490,6 +8647,12 @@
             }
             if (event.target.classList.contains('quiz-results-modal')) {
                 event.target.classList.remove('active');
+            }
+            if (event.target.classList.contains('confirmation-modal')) {
+                event.target.classList.remove('active');
+                // Reset confirmation modal buttons
+                document.getElementById('confirm-yes').style.display = 'block';
+                document.getElementById('confirm-no').textContent = 'No';
             }
         }
     </script>
