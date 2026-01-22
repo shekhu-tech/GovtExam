@@ -132,7 +132,7 @@
     <div class="gold-form-overlay">
       <div class="gold-form-box">
         <div class="gold-close">✕</div>
-        <h3>STISKILLI MESSAGE BOX</h3>
+        <h3>Tell-Us</h3>
 
         <input id="gf-name" placeholder="Your Name">
         <input id="gf-phone" placeholder="Mobile Number">
