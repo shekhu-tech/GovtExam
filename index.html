@@ -2,265 +2,252 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Skilli | Loading...</title>
-     <script src="/app-redirect.js"></script>
-    <!-- Tailwind for modern utilities -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>STI Skilli | Loading...</title>
+    
+    <!-- Redirect Script -->
+    <script src="/app-redirect.js"></script>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Professional Typography -->
+    
+    <!-- Fonts: Cinzel Decorative (Royal) & Montserrat (Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* Skilli Gold Theme mapped to Lully Structure */
-            --brand-primary: #FFD700;    /* Electric Gold */
-            --brand-secondary: #A37A00;  /* Darker Gold */
-            --surface-black: #0a0a0a;    /* Clean Surface */
-            --text-muted: #94a3b8;       /* Standard Muted */
+            --gold-primary: #FFD700;
+            --void-bg: #000000;
         }
 
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
-            background-color: var(--surface-black);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--void-bg);
+            font-family: 'Montserrat', sans-serif;
             color: white;
             overflow: hidden;
-            -webkit-font-smoothing: antialiased;
+            position: fixed; 
+            transition: opacity 0.8s ease-in-out; 
         }
 
-        /* --- 1. Soft Ambient Background (Lully Style) --- */
-        .ambient-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 20% 80%, rgba(163, 122, 0, 0.1) 0%, transparent 40%);
+        /* --- 1. HD Image Background (Ascension Style) --- */
+        #bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100dvh; 
+            object-fit: cover; 
+            object-position: center;
+            z-index: 0;
+            opacity: 0.85; 
+            animation: slowZoom 20s infinite alternate; 
         }
 
-        /* --- 2. Clean Container --- */
-        .container-box {
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        /* Overlay */
+        .image-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- 2. Main UI Layer --- */
+        .stage-center {
             position: relative;
             z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding: 2rem;
-        }
-
-        .content-card {
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            width: 100%;
-            max-width: 320px;
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            justify-content: center;
+            padding: 2rem;
+            transition: opacity 1s ease-in-out; 
         }
 
-        @media (min-width: 1024px) {
-            .content-card {
-                max-width: 900px;
-                flex-direction: row;
-                text-align: left;
-                gap: 5rem;
-            }
-        }
-
-        /* --- 3. Refined Branding --- */
+        /* --- 3. Logo (Floating & Transparent) --- */
         .logo-container {
+            width: 120px; height: 120px;
+            margin-bottom: 0.5rem; 
             position: relative;
-            width: 120px;
-            height: 120px;
-            flex-shrink: 0;
-            margin-bottom: 2rem;
+            z-index: 2;
+            animation: floatLogo 4s ease-in-out infinite;
         }
 
-        @media (min-width: 1024px) {
-            .logo-container {
-                width: 160px;
-                height: 160px;
-                margin-bottom: 0;
-            }
+        .logo-img {
+            width: 100%; height: 100%;
+            object-fit: contain; 
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4)); 
         }
 
-        .logo-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 1.5rem; /* Lully Rounded Square */
-            object-fit: cover;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            transition: transform 0.6s ease;
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        .logo-container:hover .logo-image {
-            transform: scale(1.02);
-        }
-
+        /* --- 4. Typography (Royal Fonts) --- */
         .brand-title {
-            font-family: 'Manrope', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             margin-bottom: 0.5rem;
-            color: #ffffff;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .tagline {
-            font-size: 0.875rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--brand-primary);
-            font-weight: 600;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem; 
+            animation: fadeIn 2s ease-out;
+            text-align: center;
         }
 
-        /* --- 4. Sophisticated Loader --- */
-        .progress-wrapper {
+        /* --- 5. Loader --- */
+        .loader-zone {
+            width: 160px;
+            text-align: center;
+        }
+
+        .loader-line {
             width: 100%;
-            max-width: 240px;
-        }
-
-        @media (min-width: 1024px) {
-            .progress-wrapper {
-                max-width: 350px;
-            }
-        }
-
-        .progress-track {
             height: 2px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
             overflow: hidden;
             position: relative;
         }
 
-        .progress-fill {
+        .loader-fill {
+            position: absolute;
+            left: 0; top: 0;
             height: 100%;
             width: 0%;
-            /* Gradient for Skilli Gold */
-            background: linear-gradient(90deg, var(--brand-secondary), var(--brand-primary));
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            transition: width 0.3s ease-out;
+            background: #FFD700;
+            box-shadow: 0 0 20px #FFD700;
+            transition: width 0.1s linear;
         }
 
-        .status-msg {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 1rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            min-height: 1.2em; /* Prevent layout jump */
+        .status-text {
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: #ddd;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        /* Reveal Effect */
-        .is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dissolve Effect Class */
+        .dissolve-active {
+            opacity: 0 !important;
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-bg"></div>
+    <!-- 1. HD Image Background (Same as STISoul) -->
+    <img id="bg-image" src="stiskillibck.png" alt="Divine Universe Background">
+    
+    <div class="image-overlay"></div>
 
-    <main class="container-box">
-        <div id="content" class="content-card">
-            
-            <!-- Logo -->
-            <div class="logo-container">
-                <img src="sti.png" alt="Skilli" class="logo-image" 
-                     onerror="this.src='https://placehold.co/400x400/FFD700/000000?text=S';">
+    <!-- UI Overlay -->
+    <main id="main-stage" class="stage-center">
+        
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="sti.png" alt="STI Skilli" class="logo-img"
+                 onerror="this.src='https://placehold.co/200x200/png?text=S';">
+        </div>
+
+        <!-- STI Skilli Text -->
+        <h1 class="brand-title">STI-Skilli</h1>
+        <p class="tagline">Your True Guide</p>
+
+        <div class="loader-zone">
+            <div class="loader-line">
+                <div id="progress-bar" class="loader-fill"></div>
             </div>
-
-            <!-- Text Content -->
-            <div class="flex-1">
-                <h1 class="brand-title">STISKilli</h1>
-                <p class="tagline">Your True Guide</p>
-                
-                <div class="progress-wrapper mx-auto lg:mx-0">
-                    <div class="progress-track">
-                        <div id="bar" class="progress-fill"></div>
-                    </div>
-                    <p id="status" class="status-msg">Initializing...</p>
-                </div>
-            </div>
-
+            <p id="status-text" class="status-text">Initializing...</p>
         </div>
     </main>
 
     <script>
-        const REDIRECT_URL = 'https://crapd.in/main.html';
-        const SPLASH_DURATION = 3500; 
-        const HAS_VISITED_KEY = 'hasVisitedSplashSkilli'; // Unique key for Skilli
+        // ORIGINAL DATA PRESERVED
+        const REDIRECT_URL = '/main.html';
+        const DURATION = 3500; 
+        const HAS_VISITED_KEY = 'hasVisitedSkilli';
 
         window.onload = () => {
-            const content = document.getElementById('content');
-            const bar = document.getElementById('bar');
-            const statusText = document.getElementById('status');
-            
-            // Show content with a delay
-            setTimeout(() => {
-                content.classList.add('is-visible');
-            }, 100);
+            const bar = document.getElementById('progress-bar');
+            const status = document.getElementById('status-text');
+            const stage = document.getElementById('main-stage');
 
-            // Status updates specific to Skilli
+            // STI Skilli Original Steps
             const steps = [
-                "Syncing Government Jobs...",
-                "Activating AI Tools...",
-                "Preparing Private Sector Data...",
-                "Finalizing Guide..."
+                { p: 15, t: "Syncing..." },
+                { p: 45, t: "Activating..." },
+                { p: 75, t: "Preparing ..." },
+                { p: 95, t: "Finalizing..." }
             ];
 
-            let start = Date.now();
+            let start = null;
 
-            function update() {
-                let elapsed = Date.now() - start;
-                let progress = Math.min(100, (elapsed / SPLASH_DURATION) * 100);
+            function loadLoop(timestamp) {
+                if (!start) start = timestamp;
+                const rawProgress = Math.min((timestamp - start) / DURATION, 1);
                 
-                bar.style.width = `${progress}%`;
+                // Ease In Quad Animation
+                const easedProgress = rawProgress < 0.5 ? 2 * rawProgress * rawProgress : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
+                
+                bar.style.width = `${rawProgress * 100}%`;
 
-                // Logic to update status text
-                let index = Math.floor((progress / 100) * steps.length);
-                if (steps[index] && statusText.innerText !== steps[index]) {
-                    statusText.style.opacity = '0';
-                    setTimeout(() => {
-                        statusText.innerText = steps[index];
-                        statusText.style.opacity = '1';
-                        statusText.style.transition = 'opacity 0.4s ease';
-                    }, 200);
-                }
+                const step = steps.findLast(s => (rawProgress * 100) >= s.p);
+                if (step && status.innerText !== step.t) status.innerText = step.t;
 
-                if (progress < 100) {
-                    requestAnimationFrame(update);
+                if (rawProgress < 1) {
+                    requestAnimationFrame(loadLoop);
                 } else {
+                    // Final State
+                    status.innerText = "Ready";
+                    status.style.color = "#FFF";
+                    status.style.letterSpacing = "0.5em";
+                    
                     localStorage.setItem(HAS_VISITED_KEY, 'true');
-                    setTimeout(exitAndRedirect, 400);
+
+                    // --- Quick Dissolve Transition ---
+                    setTimeout(() => {
+                        // Dissolve Screen
+                        document.body.classList.add('dissolve-active');
+                        
+                        // Redirect
+                        setTimeout(() => {
+                            window.location.replace(REDIRECT_URL);
+                        }, 800);
+                        
+                    }, 500);
                 }
             }
-
-            requestAnimationFrame(update);
+            requestAnimationFrame(loadLoop);
         };
-
-        function exitAndRedirect() {
-            const content = document.getElementById('content');
-            content.style.opacity = '0';
-            content.style.filter = 'blur(10px)';
-            content.style.transform = 'translateY(-10px)';
-            
-            setTimeout(() => {
-                window.location.replace(REDIRECT_URL);
-            }, 800);
-        }
     </script>
 </body>
 </html>
