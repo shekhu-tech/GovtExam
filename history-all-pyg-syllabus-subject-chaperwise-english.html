@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>STISkilli – Custom Units Pro</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --primary: #F4C430;       
+            --primary-glow: #FFD700; 
+            --shining-gold: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.2);
+            --header-height: 70px; 
+            --footer-height: 75px; 
+            --correct: #00e676;
+            --wrong: #ff1744;
+        }
+
+        /* --- GLOBAL RESET --- */
+        html, body {
+            margin: 0; padding: 0;
+            width: 100%; height: 100dvh;
+            overflow: hidden; 
+            position: fixed; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overscroll-behavior: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- UNIVERSE BACKGROUND --- */
+        #universe-bg {
+            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
+            z-index: -10;
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2072&auto=format&fit=crop');
+            background-size: cover;
+            filter: contrast(120%) brightness(40%);
+            animation: galaxyMove 60s linear infinite alternate;
+        }
+        @keyframes galaxyMove { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+        /* --- GOLDEN BORDER ANIMATION --- */
+        .golden-border-anim {
+            border: 2px solid var(--primary);
+            box-shadow: var(--shining-gold);
+            animation: borderPulse 3s infinite alternate;
+        }
+        @keyframes borderPulse {
+            0% { box-shadow: 0 0 10px rgba(244, 196, 48, 0.4); border-color: #bfa128; }
+            100% { box-shadow: 0 0 25px rgba(244, 196, 48, 0.9), inset 0 0 15px rgba(244, 196, 48, 0.3); border-color: #ffd700; }
+        }
+
+        /* --- HEADER --- */
+        .glass-header {
+            position: fixed; top: calc(15px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
+            width: 94%; max-width: 800px; height: var(--header-height);
+            background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(25px);
+            border-radius: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 3000;
+        }
+        .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
+        .header-title-img { height: 32px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px var(--primary)); }
+
+        /* --- DOCK (Footer) --- */
+        .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; }
+        .glass-dock { 
+            width: 100%; max-width: 700px; /* Increased slightly for new icon */
+            height: var(--footer-height); 
+            background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(30px);
+            border-radius: 24px; 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 10px;
+        }
+        .dock-item { 
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; 
+            color: rgba(255, 255, 255, 0.3); cursor: pointer; position: relative;
+            transition: all 0.3s ease; border-radius: 16px; flex: 1;
+        }
+        .dock-item i { font-size: 1.4rem; transition: 0.3s; }
+        .dock-item.active { 
+            color: var(--primary-glow); 
+            background: radial-gradient(circle, rgba(244, 196, 48, 0.2) 0%, transparent 70%);
+            text-shadow: 0 0 20px var(--primary);
+        }
+        .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
+
+        /* --- MAIN MODAL --- */
+        .modal-overlay { 
+            position: fixed; 
+            top: calc(var(--header-height) + 30px + env(safe-area-inset-top)); 
+            bottom: calc(var(--footer-height) + 35px + env(safe-area-inset-bottom)); 
+            left: 0; right: 0; 
+            z-index: 2500; 
+            display: flex; justify-content: center; align-items: center;
+            padding: 0 10px; pointer-events: none; 
+        }
+
+        .modal-box { 
+            pointer-events: auto; 
+            background-color: #111; 
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            border-radius: 30px; 
+            width: 100%; max-width: 1400px; height: 100%; padding: 15px; 
+            display: flex; flex-direction: column; overflow: hidden;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
+            position: relative; 
+        }
+
+        /* HEADER INSIDE MODAL */
+        .modal-header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; flex-shrink: 0; }
+        .modal-header { text-align: center; background: rgba(0,0,0,0.6); padding: 8px 25px; border-radius: 50px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; width: fit-content; min-width: 180px; }
+        .modal-header h2 { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); margin: 0; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .sub-nav { background: rgba(0,0,0,0.7); border-radius: 20px; padding: 8px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; width: 100%; }
+        .sub-item { padding: 8px 20px; border-radius: 12px; font-size: 0.8rem; font-family: 'Rajdhani'; font-weight: 700; color: #ccc; border: 1px solid transparent; transition: 0.3s; cursor: pointer; text-transform: uppercase; display: flex; align-items: center; gap: 5px; }
+        .sub-item.active { background: var(--primary); color: #000; border-color: var(--primary-glow); box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); font-weight: 800; }
+        .sub-item.locked { opacity: 0.5; cursor: not-allowed; background: #222; border: 1px solid #444; }
+
+        /* --- QUIZ INTERFACE --- */
+        #quiz-interface { flex-grow: 1; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
+        
+        .quiz-stats-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.05); border-radius: 12px;
+            padding: 8px 15px; margin-bottom: 15px; border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .stat-item { font-family: 'Rajdhani'; font-weight: 700; font-size: 0.9rem; color: #ddd; }
+        .stat-val { color: var(--primary); font-size: 1.1rem; margin-left: 5px; }
+
+        .question-box {
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            border-radius: 16px; padding: 20px; margin-bottom: 15px;
+            border-left: 3px solid var(--primary);
+        }
+        .q-text { font-size: 1.1rem; line-height: 1.4; font-weight: 600; color: #fff; }
+
+        .options-list { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn {
+            background: rgba(30, 30, 30, 0.9); border: 1px solid #444;
+            padding: 14px 18px; border-radius: 12px; color: #eee;
+            font-weight: 500; cursor: pointer; transition: 0.2s;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.95rem;
+        }
+        .option-btn:active { transform: scale(0.98); }
+        .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
+        .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
+
+        /* --- POPUPS --- */
+        .overlay-popup {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(5, 5, 5, 0.98); z-index: 50;
+            display: none; 
+            flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 30px; text-align: center;
+            padding: 20px;
+        }
+        .res-emoji { font-size: 4rem; margin-bottom: 15px; }
+        .res-title { font-family: 'Rajdhani'; font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 15px; line-height: 1.1; }
+        .res-btn { padding: 14px 35px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.1rem; border-radius: 50px; border: none; cursor: pointer; background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); margin-top: 25px; }
+        
+        .welcome-text { color: #ccc; margin-bottom: 20px; font-size: 1rem; max-width: 80%; line-height: 1.5; }
+        .user-highlight { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
+
+        /* --- PROFILE SECTION STYLES --- */
+        #profile-section { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; color: #fff; padding: 10px; }
+        .form-container { width: 100%; max-width: 450px; background: rgba(10,10,10,0.8); border: 1px solid var(--primary-glow); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .input-field { width: 100%; background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 10px; margin-bottom: 15px; outline: none; transition:0.3s; }
+        .input-field:focus { border-color:var(--primary); }
+        .btn-gold { width: 100%; background: linear-gradient(45deg, #FFC107, #B8860B); color: #000; font-weight: 800; padding: 12px; border-radius: 50px; border: none; cursor: pointer; font-size: 1rem; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        .plan-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .plan-item { 
+            display: flex; justify-content: space-between; align-items: center;
+            background: #1a1a1a; border: 1px solid #444; border-radius: 12px; padding: 15px; 
+            cursor: pointer; transition: 0.3s; 
+        }
+        .plan-item.selected { border-color: var(--primary); background: rgba(244, 196, 48, 0.1); box-shadow: 0 0 10px rgba(244, 196, 48, 0.2); }
+        .plan-info { text-align: left; }
+        .p-dur { font-size: 1rem; font-weight: 700; color: #fff; }
+        .p-prc { font-size: 1.1rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; }
+        .p-chk { color: var(--primary); opacity: 0; transition:0.2s; }
+        .plan-item.selected .p-chk { opacity: 1; }
+
+        .profile-card { width: 100%; max-width: 500px; background: linear-gradient(145deg, #111, #0a0a0a); border: 1px solid #333; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+        .profile-header { display: flex; align-items: center; gap: 15px; padding-bottom: 20px; border-bottom: 1px solid #222; margin-bottom: 20px; }
+        .p-avatar { width: 60px; height: 60px; background: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: var(--primary); font-size: 1.5rem; }
+        .p-details h3 { margin: 0; font-family: 'Rajdhani'; font-size: 1.4rem; color: #fff; }
+        .p-details p { margin: 0; color: #888; font-size: 0.8rem; }
+        
+        .progress-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .prog-item { background: rgba(30,30,30,0.5); padding: 10px; border-radius: 10px; border-left: 3px solid #444; }
+        .prog-head { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; color:#ddd; }
+        .prog-bar-bg { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
+        .prog-bar-fill { height: 100%; background: var(--primary); width: 0%; }
+        .prog-stats { display: flex; justify-content: space-between; font-size: 0.7rem; color: #aaa; margin-top: 5px; }
+
+        /* --- NEWS/DISCOVERY SECTION STYLES --- */
+        #news-section { width: 100%; height: 100%; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
+        .news-container { display: flex; flex-direction: column; gap: 15px; padding: 0 5px; }
+        
+        .news-card {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .news-card:active { transform: scale(0.98); }
+        
+        .news-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+        
+        .news-body { padding: 15px; }
+        .news-tag {
+            font-size: 0.7rem; color: #000; background: var(--primary);
+            padding: 2px 8px; border-radius: 4px; font-weight: 800;
+            display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani';
+        }
+        .news-title {
+            font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px;
+            line-height: 1.3; font-family: 'Plus Jakarta Sans';
+        }
+        .news-desc {
+            font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .news-btn {
+            background: transparent; border: 1px solid var(--primary);
+            color: var(--primary); padding: 8px 15px; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 700; width: 100%;
+            cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px;
+            transition: 0.3s;
+        }
+        .news-btn:hover { background: rgba(244, 196, 48, 0.1); }
+
+    </style>
+</head>
+<body>
+
+    <div id="universe-bg"></div>
+
+    <header class="glass-header golden-border-anim">
+        <img class="header-logo" src="sti.png" alt="Logo" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=S'">
+        <img class="header-title-img" src="skillora.png" alt="SKILLI" onerror="this.style.display='none'">
+        <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=Y'">
+    </header>
+
+    <div class="dock-wrapper">
+        <nav class="glass-dock golden-border-anim">
+            <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
+            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-gopuram"></i></div>
+            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)"><i class="fas fa-monument"></i></div>
+            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)"><i class="fas fa-flag"></i></div>
+            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)"><i class="fas fa-globe"></i></div>
+            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)"><i class="fas fa-palette"></i></div>
+            <div id="nav-news" class="dock-item" onclick="openCategory('news', this)"><i class="fas fa-newspaper"></i></div>
+        </nav>
+    </div>
+
+    <div id="main-modal" class="modal-overlay flex-modal">
+        <div class="modal-box golden-border-anim" id="dynamic-modal-box">
+            
+            <div class="modal-header-container" id="common-header">
+                <div class="modal-header">
+                    <h2 id="cat-title">PROFILE</h2>
+                </div>
+                <div class="sub-nav golden-border-anim" id="sub-nav-container"></div>
+            </div>
+
+            <div id="news-section">
+                <div class="news-container" id="news-feed">
+                    </div>
+            </div>
+
+            <div id="quiz-interface" style="display: none;">
+                <div class="quiz-stats-bar">
+                    <div class="stat-item"><span id="unit-name-display">UNIT 1</span></div>
+                    <div class="stat-item" style="color:#ff1744; font-weight:800;"><i class="fas fa-clock"></i> <span id="q-timer">30</span>s</div>
+                    <div class="stat-item">Q: <span id="q-num-display" style="color:#fff;">1/25</span></div>
+                </div>
+                <div class="question-box">
+                    <div id="q-text" class="q-text">Loading...</div>
+                </div>
+                <div id="options-list" class="options-list"></div>
+            </div>
+
+            <div id="result-overlay" class="overlay-popup">
+                <div id="res-emoji" class="res-emoji">🎉</div>
+                <div id="res-title" class="res-title">UNIT PASSED!</div>
+                <div style="font-size:1.4rem; color:var(--primary); margin-bottom:5px; font-weight:bold;">Score: <span id="final-score">0</span></div>
+                <div style="color:#aaa; font-size:1rem;">Correct: <span id="correct-count">0</span> / 25</div>
+                <div style="font-size: 0.8rem; color: #ff1744; margin-top: 10px; display:none;" id="fail-msg">Restarting Unit from Question 1</div>
+                <button id="res-btn" class="res-btn" onclick="handleResultAction()">NEXT UNIT</button>
+            </div>
+
+            <div id="welcome-popup" class="overlay-popup">
+                <div class="res-emoji">👑</div>
+                <div class="res-title" style="color:var(--primary);">WELCOME CLUB!</div>
+                <div class="welcome-text">
+                    Hello <span id="wel-user" class="user-highlight">User</span>, <br>
+                    You are now a Premium Member of <span style="color:var(--primary)">STISkilli</span>. <br>
+                    Your History journey begins now!
+                </div>
+                <button class="res-btn" onclick="closeWelcome()">LET'S START</button>
+            </div>
+
+            <div id="locked-popup" class="overlay-popup">
+                <div class="res-emoji">🔒</div>
+                <div class="res-title" style="color:#ff1744;">CONTENT LOCKED</div>
+                <div class="welcome-text">
+                    This content is for Premium Members only.<br>
+                    Please upgrade your plan to access all Units and Quizzes.
+                </div>
+                <button class="res-btn" onclick="goToProfileFromLock()">GO TO PROFILE</button>
+            </div>
+
+            <div id="profile-section" style="display: none;">
+                
+                <div id="step-1" class="form-container">
+                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; margin-bottom:15px; color:var(--primary);">JOIN SKILLI</h2>
+                    <form id="details-form">
+                        <input type="text" id="user-name" class="input-field" placeholder="Full Name" required>
+                        <input type="tel" id="user-number" class="input-field" placeholder="Mobile Number" required>
+                        <input type="email" id="user-email" class="input-field" placeholder="Email Address" required>
+                        <button type="submit" class="btn-gold">PROCEED <i class="fas fa-arrow-right"></i></button>
+                    </form>
+                </div>
+
+                <div id="step-2" class="form-container" style="display:none;">
+                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; color:var(--primary); margin-bottom: 15px;">CHOOSE PLAN</h2>
+                    <div class="plan-list">
+                        <div class="plan-item" onclick="selectPlan(51, '1 Month Access', this)">
+                            <div class="plan-info"><div class="p-dur">1 Month</div><div class="p-prc">₹51</div></div>
+                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                        <div class="plan-item" onclick="selectPlan(101, '3 Months Access', this)">
+                            <div class="plan-info"><div class="p-dur">3 Months</div><div class="p-prc">₹101</div></div>
+                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                        <div class="plan-item" onclick="selectPlan(151, '6 Months Access', this)">
+                            <div class="plan-info"><div class="p-dur">6 Months</div><div class="p-prc">₹151</div></div>
+                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                        <div class="plan-item" onclick="selectPlan(251, '1 Year Access', this)">
+                            <div class="plan-info"><div class="p-dur">1 Year</div><div class="p-prc">₹251</div></div>
+                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                    </div>
+                    <div id="secret-code-section" style="display:none; margin-bottom:10px;">
+                        <input type="text" id="secret-code" class="input-field" style="text-align:center;" placeholder="Enter Secret Code">
+                        <button id="secret-ok-btn" class="btn-gold" style="display:none;">VERIFY</button>
+                    </div>
+                    <button id="go-to-pay-btn" class="btn-gold">PAY NOW</button>
+                </div>
+
+                <div id="step-3" class="form-container" style="display:none;">
+                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; color:var(--primary);">COMPLETE PAYMENT</h2>
+                    <div id="final-price-display" style="font-size:1.5rem; color:#fff; margin:20px 0;">₹00.00</div>
+                    <div id="timer" style="color:var(--primary); font-weight:bold; margin-bottom:15px;">05:00</div>
+                    <button id="rzp-button" class="btn-gold">PAY WITH RAZORPAY</button>
+                </div>
+
+                <div id="step-4" style="width:100%; display:none; flex-direction:column; align-items:center;">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="p-avatar"><i class="fas fa-user"></i></div>
+                            <div class="p-details">
+                                <h3 id="disp-name">User Name</h3>
+                                <p id="disp-email">email@example.com</p>
+                                <p id="disp-plan" style="color:var(--primary); font-weight:bold;">Plan Name</p>
+                            </div>
+                        </div>
+                        <h4 style="font-family:'Rajdhani'; color:#888; margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">MY PROGRESS REPORT</h4>
+                        <div id="progress-container" class="progress-list">
+                            <div style="color:#555; font-size:0.8rem; text-align:center;">No quiz data yet. Start learning!</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const categoryBackgrounds = {
+            profile: 'skillipvtbck.png', ancient: 'skilligovtbck.png', medieval: 'skilliaibck.png',
+            modern: 'skillirequirebck.png', world: 'skillinewsbck.png', art: 'skilliaibck.png',
+            news: 'skillinewsbck.png' // Background for News
+        };
+
+        const CHECKPOINT = 25;
+        const PASS_REQ = 20;
+
+        // --- 2. CUSTOM DATA ---
+        
+        // --- MOCK NEWS DATA (LINK YOUR HTML PAGES HERE) ---
+        const newsDatabase = [
+            {
+                tag: "DISCOVERY",
+                title: "New Harappan Site Found in Gujarat",
+                desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.",
+                image: "https://images.unsplash.com/photo-1605634289895-46740b206124?q=80&w=2070&auto=format&fit=crop",
+                link: "page_harappa_news.html" // Change to your HTML file
+            },
+            {
+                tag: "RESEARCH",
+                title: "Decoding the Indus Script",
+                desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.",
+                image: "https://images.unsplash.com/photo-1628155930542-4d7a78370960?q=80&w=2070&auto=format&fit=crop",
+                link: "page_ai_script.html" // Change to your HTML file
+            },
+            {
+                tag: "EVENT",
+                title: "World History Conference 2026",
+                desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.",
+                image: "https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=1974&auto=format&fit=crop",
+                link: "page_conference.html" // Change to your HTML file
+            },
+            {
+                tag: "MYSTERY",
+                title: "The Lost Library of Nalanda",
+                desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.",
+                image: "https://images.unsplash.com/photo-1590076215667-875d4ef2d743?q=80&w=2070&auto=format&fit=crop",
+                link: "page_nalanda.html" // Change to your HTML file
+            }
+        ];
+
+        const quizDatabase = {
+            ancient: [
+                { name: "1857 REVOLUTION OF INDIA", questions: [ { q: "Oldest Veda?", options: ["Rigveda", "Samaveda", "Yajur", "Atharva"], ans: 0 }, { q: "Great Bath found in?", options: ["Harappa", "Mohenjodaro", "Lothal", "Kalibangan"], ans: 1 } ] },
+                { name: "Mauryan Empire", questions: [ { q: "Arthashastra author?", options: ["Chanakya", "Megasthenes", "Kalidasa", "Ashoka"], ans: 0 }, { q: "Kalinga War Year?", options: ["261 BC", "273 BC", "232 BC", "240 BC"], ans: 0 } ] },
+                { name: "Gupta Era", questions: [ { q: "Napoleon of India?", options: ["Samudragupta", "Chandragupta", "Ashoka", "Harsha"], ans: 0 }, { q: "Kalidasa court?", options: ["Chandragupta II", "Akbar", "Ashoka", "Kanishka"], ans: 0 } ] },
+                { name: "South Dynasties", questions: [ { q: "Chola Capital?", options: ["Thanjavur", "Madurai", "Kanchi", "Vatapi"], ans: 0 }, { q: "Ellora builder?", options: ["Rashtrakuta", "Chola", "Pallava", "Gupta"], ans: 0 } ] }
+            ],
+            medieval: [
+                { name: "Delhi Sultanate", questions: [ { q: "Slave Dynasty founder?", options: ["Aibak", "Iltutmish", "Balban", "Razia"], ans: 0 }, { q: "Market Control?", options: ["Alauddin", "Balban", "Firoz", "Akbar"], ans: 0 } ] },
+                { name: "Mughals", questions: [ { q: "Ain-i-Akbari author?", options: ["Abul Fazl", "Birbal", "Faizi", "Todar"], ans: 0 }, { q: "Haldighati Year?", options: ["1576", "1526", "1556", "1761"], ans: 0 } ] },
+                { name: "Marathas", questions: [ { q: "Shivaji Crowned?", options: ["1674", "1665", "1680", "1650"], ans: 0 }, { q: "Purandar Treaty?", options: ["Jai Singh", "Afzal", "Shaista", "Aurangzeb"], ans: 0 } ] },
+                { name: "Bhakti Movement", questions: [ { q: "Kabir Guru?", options: ["Ramananda", "Ramanuja", "Shankara", "Nanak"], ans: 0 }, { q: "Chisti Dargah?", options: ["Ajmer", "Delhi", "Agra", "Lahore"], ans: 0 } ] }
+            ],
+            modern: [
+                { name: "Revolt 1857", questions: [ { q: "1857 Start?", options: ["Meerut", "Delhi", "Kanpur", "Jhansi"], ans: 0 }, { q: "Last Mughal?", options: ["Bahadur Shah II", "Aurangzeb", "Shah Alam", "Akbar II"], ans: 0 } ] },
+                { name: "Gandhi Era", questions: [ { q: "Gandhi Return?", options: ["1915", "1917", "1919", "1920"], ans: 0 }, { q: "First Satyagraha?", options: ["Champaran", "Kheda", "Dandi", "Bardoli"], ans: 0 } ] },
+                { name: "Freedom Struggle", questions: [ { q: "INC Founded?", options: ["1885", "1905", "1920", "1947"], ans: 0 }, { q: "Do or Die?", options: ["Gandhi", "Nehru", "Bose", "Tilak"], ans: 0 } ] },
+                { name: "Independence", questions: [ { q: "Mountbatten Plan?", options: ["3 June 1947", "15 Aug", "26 Jan", "1946"], ans: 0 }, { q: "Iron Man?", options: ["Patel", "Nehru", "Gandhi", "Bose"], ans: 0 } ] }
+            ],
+            world: [
+                { name: "World Wars", questions: [ { q: "WW1 Start?", options: ["1914", "1918", "1939", "1945"], ans: 0 }, { q: "Versailles Treaty?", options: ["WW1", "WW2", "Cold War", "French"], ans: 0 } ] },
+                { name: "Revolutions", questions: [ { q: "French Rev?", options: ["1789", "1799", "1776", "1804"], ans: 0 }, { q: "Russian Rev?", options: ["1917", "1914", "1920", "1905"], ans: 0 } ] },
+                { name: "Cold War", questions: [ { q: "Cold War?", options: ["USA vs USSR", "USA vs China", "UK vs Ger", "Ind vs Pak"], ans: 0 }, { q: "Berlin Wall Fall?", options: ["1989", "1991", "1945", "1960"], ans: 0 } ] },
+                { name: "Modern Era", questions: [ { q: "UN Founded?", options: ["1945", "1919", "1950", "1947"], ans: 0 }, { q: "Industrial Rev?", options: ["England", "France", "USA", "Germany"], ans: 0 } ] }
+            ],
+            art: [
+                { name: "Dance Forms", questions: [ { q: "Bharatnatyam?", options: ["TN", "Kerala", "AP", "Odisha"], ans: 0 }, { q: "Kathakali?", options: ["Kerala", "Karnataka", "UP", "Assam"], ans: 0 } ] },
+                { name: "Music", questions: [ { q: "Hindustani Oldest?", options: ["Dhrupad", "Khayal", "Thumri", "Ghazal"], ans: 0 }, { q: "Sama Veda?", options: ["Music", "Magic", "Medicine", "Rituals"], ans: 0 } ] },
+                { name: "Architecture", questions: [ { q: "Sun Temple?", options: ["Konark", "Puri", "Bhubaneswar", "Cuttack"], ans: 0 }, { q: "Taj Mahal?", options: ["Shah Jahan", "Akbar", "Jahangir", "Aurangzeb"], ans: 0 } ] },
+                { name: "Paintings", questions: [ { q: "Madhubani?", options: ["Bihar", "Bengal", "Odisha", "Gujarat"], ans: 0 }, { q: "Ajanta?", options: ["Jatakas", "Ramayana", "Mahabharata", "Vedas"], ans: 0 } ] }
+            ]
+        };
+
+        // --- 3. STATE MANAGEMENT ---
+        let userData = {
+            name: localStorage.getItem('userName') || '',
+            number: localStorage.getItem('userMobile') || '',
+            email: localStorage.getItem('userEmail') || '',
+            txn: localStorage.getItem('userTxn') || '',
+            planAmount: localStorage.getItem('userPlanAmount') || '',
+            planName: localStorage.getItem('userPlanName') || ''
+        };
+        
+        let selectedPlanPrice = 0, selectedPlanLabel = "";
+        
+        // Progress & Unlocked - Safe Parsing
+        let progressData;
+        try {
+            progressData = JSON.parse(localStorage.getItem('quizProgress')) || {};
+        } catch(e) {
+            progressData = {};
+        }
+
+        let unlockedLevels;
+        try {
+            unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 };
+        } catch (e) {
+            unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 };
+        }
+
+        // Runtime vars
+        let activeCat = "", activeUnitIdx = 0;
+        let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
+        let blockCorrect = 0; 
+        let questionTimer;
+        let timeLeft = 30;
+
+        function hasPaid() { return localStorage.getItem('hasPaid') === 'true'; }
+
+        // --- 4. NAVIGATION ---
+        function openCategory(catName, btnElement) {
+            // Safety: Clear any running timer
+            if(questionTimer) clearInterval(questionTimer);
+
+            // Allow access to Profile AND News without locking. 
+            // If you want News locked, change condition to: if (catName !== 'profile' && catName !== 'news' && !hasPaid())
+            if (catName !== 'profile' && !hasPaid()) {
+                document.getElementById('locked-popup').style.display = 'flex';
+                return;
+            }
+
+            if (btnElement) {
+                document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            const modalBox = document.getElementById('dynamic-modal-box');
+            modalBox.style.backgroundImage = `url('${categoryBackgrounds[catName] || 'skilligovtbck.png'}')`;
+            
+            // Set Title
+            let dispTitle = catName.toUpperCase();
+            if(catName === 'news') dispTitle = "DISCOVERIES";
+            else if(catName !== 'profile') dispTitle += " HISTORY";
+            document.getElementById('cat-title').innerText = dispTitle;
+
+            const quizUI = document.getElementById('quiz-interface');
+            const profileUI = document.getElementById('profile-section');
+            const newsUI = document.getElementById('news-section'); // New
+            const subNav = document.getElementById('sub-nav-container');
+
+            // Hide all first
+            quizUI.style.display = 'none';
+            profileUI.style.display = 'none';
+            newsUI.style.display = 'none';
+            subNav.style.display = 'none';
+            document.getElementById('result-overlay').style.display = 'none';
+            document.getElementById('locked-popup').style.display = 'none';
+
+            if (catName === 'profile') {
+                profileUI.style.display = 'flex';
+                initProfileView();
+            } else if (catName === 'news') {
+                // Show News Section
+                newsUI.style.display = 'flex';
+                renderNews();
+            } else {
+                // Show Quiz Section
+                quizUI.style.display = 'flex';
+                subNav.style.display = 'flex';
+                activeCat = catName;
+                renderSubNav(catName);
+                switchUnit(0, document.getElementById(`sub-unit-0`)); 
+            }
+        }
+
+        function renderNews() {
+            const feed = document.getElementById('news-feed');
+            feed.innerHTML = '';
+            
+            newsDatabase.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <img src="${item.image}" class="news-img" alt="News">
+                    <div class="news-body">
+                        <div class="news-tag">${item.tag}</div>
+                        <div class="news-title">${item.title}</div>
+                        <div class="news-desc">${item.desc}</div>
+                        <a href="${item.link}" class="news-btn">READ FULL STORY <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        function renderSubNav(catName) {
+            const container = document.getElementById('sub-nav-container');
+            const units = quizDatabase[catName];
+            
+            // Safety check if category doesn't exist in DB
+            if(!units) {
+                container.innerHTML = '<div style="color:#aaa; padding:10px;">Coming Soon</div>';
+                document.getElementById('q-text').innerText = "No content available for this category.";
+                document.getElementById('options-list').innerHTML = '';
+                return;
+            }
+
+            // Ensure unlockedLevels has the key
+            if (!unlockedLevels[catName]) unlockedLevels[catName] = 1;
+            const maxLvl = unlockedLevels[catName];
+            
+            container.innerHTML = units.map((u, i) => {
+                const isLocked = (i + 1) > maxLvl;
+                return `<div class="sub-item ${isLocked?'locked':''}" id="sub-unit-${i}" ${isLocked?'':`onclick="switchUnit(${i}, this)"`}>${u.name} ${isLocked?'<i class="fas fa-lock"></i>':''}</div>`;
+            }).join('');
+        }
+
+        function switchUnit(idx, el) {
+            // Force integer type
+            idx = parseInt(idx);
+            
+            if(!el && document.getElementById(`sub-unit-${idx}`)) el = document.getElementById(`sub-unit-${idx}`);
+            if(el) {
+                document.querySelectorAll('.sub-item').forEach(e => e.classList.remove('active'));
+                el.classList.add('active');
+            }
+            startQuiz(idx);
+        }
+
+        // --- 5. QUIZ ENGINE (IMPROVED) ---
+        function startQuiz(idx) {
+            if(questionTimer) clearInterval(questionTimer);
+            activeUnitIdx = idx;
+            document.getElementById('result-overlay').style.display = 'none';
+            
+            // Safety Check
+            if(!quizDatabase[activeCat] || !quizDatabase[activeCat][idx]) {
+                document.getElementById('q-text').innerText = "Unit not found.";
+                return;
+            }
+
+            const unitName = quizDatabase[activeCat][idx].name;
+            document.getElementById('unit-name-display').innerText = unitName;
+
+            // Init Progress Safe
+            if (!progressData[activeCat]) progressData[activeCat] = {};
+            if (!progressData[activeCat][idx]) {
+                progressData[activeCat][idx] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0 };
+            }
+            
+            currentSession = progressData[activeCat][idx];
+            blockCorrect = currentSession.blockCorrect || 0; 
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if(questionTimer) clearInterval(questionTimer);
+            
+            try {
+                // Double check data existence
+                if(!quizDatabase[activeCat] || !quizDatabase[activeCat][activeUnitIdx]) return;
+                
+                const db = quizDatabase[activeCat][activeUnitIdx].questions;
+                if(!db || db.length === 0) {
+                    document.getElementById('q-text').innerText = "No questions in this unit.";
+                    return;
+                }
+
+                // Modulo ensures we never go out of bounds even if qIndex is huge
+                const actualQ = db[currentSession.qIndex % db.length];
+                
+                // Update UI
+                const displayNum = currentSession.qIndex + 1;
+                // Calculate display total based on checkpoints (25, 50, 75...)
+                const currentBatchLimit = CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1);
+                
+                document.getElementById('q-num-display').innerText = `${displayNum} / ${currentBatchLimit}`;
+                document.getElementById('q-text').innerText = actualQ.q;
+
+                const list = document.getElementById('options-list');
+                list.innerHTML = '';
+                actualQ.options.forEach((opt, i) => {
+                    const btn = document.createElement('div');
+                    btn.className = 'option-btn';
+                    btn.innerHTML = `<span>${opt}</span> <i class="far fa-circle"></i>`;
+                    btn.onclick = () => handleAnswer(i, actualQ.ans, btn);
+                    list.appendChild(btn);
+                });
+
+                startTimerLogic(actualQ.ans);
+
+            } catch (error) {
+                console.error("Error loading question:", error);
+                document.getElementById('q-text').innerText = "Error loading question. Resetting unit...";
+                // Fallback reset
+                currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0 };
+                saveProgress();
+                setTimeout(() => startQuiz(activeUnitIdx), 1500);
+            }
+        }
+
+        function startTimerLogic(correctIndex) {
+            timeLeft = 30;
+            document.getElementById('q-timer').innerText = timeLeft;
+            
+            questionTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('q-timer').innerText = timeLeft;
+                if(timeLeft <= 0) {
+                    clearInterval(questionTimer);
+                    handleTimeOut(correctIndex);
+                }
+            }, 1000);
+        }
+
+        function handleTimeOut(correctIndex) {
+            document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
+            const btns = document.querySelectorAll('.option-btn');
+            if(btns[correctIndex]) btns[correctIndex].classList.add('correct');
+            
+            currentSession.score -= 0.25;
+            currentSession.wrong++;
+            currentSession.qIndex++;
+            currentSession.blockCorrect = blockCorrect;
+            saveProgress();
+            
+            setTimeout(() => {
+                checkResultOrNext();
+            }, 1500);
+        }
+
+        function handleAnswer(sel, cor, btn) {
+            clearInterval(questionTimer);
+            document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
+
+            if(sel === cor) {
+                btn.classList.add('correct');
+                currentSession.score += 2;
+                currentSession.correct++;
+                blockCorrect++;
+            } else {
+                btn.classList.add('wrong');
+                currentSession.score -= 0.25;
+                currentSession.wrong++;
+                // Show correct answer
+                const allBtns = document.querySelectorAll('.option-btn');
+                if(allBtns[cor]) allBtns[cor].classList.add('correct');
+            }
+
+            currentSession.qIndex++;
+            currentSession.blockCorrect = blockCorrect;
+            saveProgress();
+
+            setTimeout(() => {
+                checkResultOrNext();
+            }, 1000);
+        }
+
+        function checkResultOrNext() {
+            // If we hit a multiple of CHECKPOINT (25, 50, etc.) and we just finished that question
+            if (currentSession.qIndex > 0 && currentSession.qIndex % CHECKPOINT === 0) {
+                showResultPopup();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function saveProgress() {
+            if (!progressData[activeCat]) progressData[activeCat] = {};
+            progressData[activeCat][activeUnitIdx] = currentSession;
+            localStorage.setItem('quizProgress', JSON.stringify(progressData));
+        }
+
+        function showResultPopup() {
+            const overlay = document.getElementById('result-overlay');
+            const emoji = document.getElementById('res-emoji');
+            const title = document.getElementById('res-title');
+            const btn = document.getElementById('res-btn');
+            const failMsg = document.getElementById('fail-msg');
+
+            document.getElementById('final-score').innerText = currentSession.score.toFixed(2);
+            document.getElementById('correct-count').innerText = `${blockCorrect} / ${CHECKPOINT}`;
+
+            // Logic: Passed if correct >= 20 out of the last 25
+            if (blockCorrect >= PASS_REQ) {
+                emoji.innerText = "🎉";
+                title.innerText = "UNIT PASSED!";
+                title.style.color = "#00e676";
+                failMsg.style.display = "none";
+                btn.innerText = "NEXT 25 Q";
+                
+                // Unlock next unit logic
+                const totalUnits = quizDatabase[activeCat].length;
+                if(activeUnitIdx + 1 === unlockedLevels[activeCat] && unlockedLevels[activeCat] < totalUnits) {
+                    unlockedLevels[activeCat]++;
+                    localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
+                    renderSubNav(activeCat);
+                }
+
+                btn.onclick = () => {
+                    // Reset block correct for next batch, keep total score/qIndex
+                    blockCorrect = 0; 
+                    currentSession.blockCorrect = 0; 
+                    saveProgress();
+                    overlay.style.display = 'none'; 
+                    loadQuestion();
+                };
+            } else {
+                emoji.innerText = "😢";
+                title.innerText = "FAILED!";
+                title.style.color = "#ff1744";
+                failMsg.style.display = "block";
+                btn.innerText = "RESTART UNIT";
+                btn.onclick = () => {
+                    // Reset session entirely for this unit
+                    currentSession.qIndex = 0; 
+                    currentSession.score = 0; 
+                    currentSession.correct = 0; 
+                    currentSession.wrong = 0; 
+                    blockCorrect = 0;
+                    saveProgress(); 
+                    overlay.style.display = 'none'; 
+                    loadQuestion();
+                };
+            }
+            overlay.style.display = 'flex';
+        }
+
+        // --- 6. PROFILE & LOGIC ---
+        function initProfileView() {
+            if (hasPaid()) {
+                showStep(4);
+                document.getElementById('disp-name').innerText = userData.name;
+                document.getElementById('disp-email').innerText = userData.email;
+                document.getElementById('disp-plan').innerText = userData.planName;
+                renderProgressReport();
+            } else { showStep(1); }
+        }
+
+        function renderProgressReport() {
+            const container = document.getElementById('progress-container');
+            container.innerHTML = '';
+            let hasData = false;
+            for (const cat in progressData) {
+                // Ensure cat exists in database to avoid errors
+                if(!quizDatabase[cat]) continue;
+
+                for (const uIdx in progressData[cat]) {
+                    const d = progressData[cat][uIdx];
+                    if(d.qIndex > 0) {
+                        hasData = true;
+                        const total = d.correct + d.wrong;
+                        const correctPct = total === 0 ? 0 : (d.correct / total) * 100;
+                        const unitObj = quizDatabase[cat][uIdx];
+                        const uName = unitObj ? unitObj.name : `Unit ${parseInt(uIdx)+1}`;
+                        
+                        container.innerHTML += `
+                        <div class="prog-item">
+                            <div class="prog-head">
+                                <span>${cat.toUpperCase()} - ${uName}</span>
+                                <span style="color:var(--primary)">${d.score.toFixed(1)} PTS</span>
+                            </div>
+                            <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${correctPct}%"></div></div>
+                            <div class="prog-stats">
+                                <span>Q: ${d.qIndex}</span>
+                                <span><i class="fas fa-check" style="color:#00e676"></i> ${d.correct} &nbsp; <i class="fas fa-times" style="color:#ff1744"></i> ${d.wrong}</span>
+                            </div>
+                        </div>`;
+                    }
+                }
+            }
+            if(!hasData) container.innerHTML = '<div style="color:#555; text-align:center;">No quiz data yet.</div>';
+        }
+
+        function goToProfileFromLock() {
+            document.getElementById('locked-popup').style.display = 'none';
+            openCategory('profile', document.getElementById('nav-profile'));
+        }
+
+        function showStep(n) { [1,2,3,4].forEach(i=>document.getElementById(`step-${i}`).style.display='none'); document.getElementById(`step-${n}`).style.display = (n===4?'flex':'block'); }
+
+        document.getElementById('details-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            userData.name = document.getElementById('user-name').value;
+            userData.number = document.getElementById('user-number').value;
+            userData.email = document.getElementById('user-email').value;
+            const last = userData.name.toLowerCase().split(' ').pop();
+            if(['insa','insha','insan'].includes(last)) { 
+                document.getElementById('secret-code-section').style.display='block'; 
+                document.getElementById('go-to-pay-btn').style.display='none'; 
+            }
+            showStep(2);
+        });
+
+        function selectPlan(p, l, el) { selectedPlanPrice=p; selectedPlanLabel=l; document.querySelectorAll('.plan-item').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
+        
+        document.getElementById('secret-code').addEventListener('input', (e)=>{ if(e.target.value==='MSGMSGMSG') document.getElementById('secret-ok-btn').style.display='block'; });
+        document.getElementById('secret-ok-btn').addEventListener('click', ()=>{ userData.planName='Lifetime VIP'; userData.txn='MSG-FREE'; userData.planAmount='0'; sendToSheet(); completeTxn(); });
+
+        document.getElementById('go-to-pay-btn').addEventListener('click', () => {
+            if(!selectedPlanPrice) return alert("Please select a plan.");
+            document.getElementById('final-price-display').innerText = `₹${selectedPlanPrice}.00`;
+            showStep(3); startTimer();
+        });
+
+        let tInt;
+        function startTimer() { 
+            let t=300; 
+            if(tInt) clearInterval(tInt); 
+            tInt=setInterval(()=>{ 
+                let m=Math.floor(t/60),s=t%60; 
+                document.getElementById('timer').innerText=`${m}:${s<10?'0'+s:s}`; 
+                t--; 
+                if(t<0) { clearInterval(tInt); alert("Expired"); showStep(1); } 
+            },1000); 
+        }
+
+        document.getElementById('rzp-button').addEventListener('click', () => {
+            const rzp = new Razorpay({
+                key: "rzp_live_zyUA84YdEZR7rO", amount: selectedPlanPrice*100, currency: "INR",
+                name: "SKILLI PRO", description: selectedPlanLabel,
+                handler: function(r){ 
+                    userData.txn=r.razorpay_payment_id; 
+                    userData.planAmount=selectedPlanPrice; 
+                    userData.planName=selectedPlanLabel; 
+                    sendToSheet();
+                    completeTxn(); 
+                },
+                prefill: { name: userData.name, email: userData.email, contact: userData.number }, theme: { color: "#F4C430" }
+            });
+            rzp.open();
+        });
+
+        async function sendToSheet() {
+            const url = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
+            const fd = new FormData();
+            fd.append('name', userData.name);
+            fd.append('number', userData.number);
+            fd.append('email', userData.email);
+            fd.append('amount', userData.planAmount);
+            fd.append('plan_name', userData.planName);
+            fd.append('transaction_id', userData.txn);
+            try { await fetch(url, { method:'POST', body:fd }); } catch(e){ console.log(e); }
+        }
+
+        function completeTxn() {
+            if(tInt) clearInterval(tInt);
+            localStorage.setItem('hasPaid','true'); 
+            localStorage.setItem('userName',userData.name);
+            localStorage.setItem('userEmail',userData.email);
+            localStorage.setItem('userTxn',userData.txn); 
+            localStorage.setItem('userPlanName',userData.planName);
+            document.getElementById('wel-user').innerText = userData.name;
+            document.getElementById('welcome-popup').style.display = 'flex';
+        }
+
+        function closeWelcome() {
+            document.getElementById('welcome-popup').style.display = 'none';
+            initProfileView();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
+            else openCategory('profile', document.getElementById('nav-profile'));
+        });
+    </script>
+</body>
+</html>
