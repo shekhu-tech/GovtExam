@@ -19,16 +19,16 @@
             --footer-height: 75px; 
         }
 
-        /* --- GLOBAL RESET (FIXED SCROLL ISSUE) --- */
+        /* --- GLOBAL RESET (FIXED SCROLL) --- */
         html, body {
             margin: 0; padding: 0;
-            width: 100%; height: 100dvh; /* Dynamic Viewport Height */
-            overflow: hidden; /* Stops body scroll */
-            position: fixed; /* Locks the page in place */
+            width: 100%; height: 100dvh;
+            overflow: hidden; /* No Body Scroll */
+            position: fixed; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #000;
             color: #fff;
-            overscroll-behavior: none; /* Stops bounce effect */
+            overscroll-behavior: none;
         }
 
         /* --- UNIVERSE BACKGROUND --- */
@@ -88,8 +88,7 @@
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
 
-        /* --- MAIN MODAL (Scroll Container) --- */
-        /* This handles layout between header and footer */
+        /* --- MAIN MODAL --- */
         .modal-overlay { 
             position: fixed; 
             top: calc(var(--header-height) + 30px); 
@@ -97,15 +96,15 @@
             left: 0; right: 0; 
             z-index: 2500; 
             display: none; justify-content: center; 
-            padding: 0 10px; pointer-events: none; /* Allows click through if needed, but box catches events */
+            padding: 0 10px; pointer-events: none; 
         }
         .flex-modal { display: flex !important; animation: fadeIn 0.4s ease-out forwards; }
         .hidden-modal { display: none !important; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Modal Box Styling */
+        /* Modal Box */
         .modal-box { 
-            pointer-events: auto; /* Re-enable clicks inside box */
+            pointer-events: auto; 
             background-color: #111; 
             background-size: cover; background-position: center; background-repeat: no-repeat;
             border-radius: 30px; 
@@ -114,13 +113,12 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.9);
         }
 
-        /* --- UPDATED COMPACT HEADER & NAV --- */
+        /* --- COMPACT HEADER & NAV --- */
         .modal-header-container {
             display: flex; flex-direction: column; align-items: center; 
             margin-bottom: 15px; flex-shrink: 0;
         }
 
-        /* Compact Heading */
         .modal-header { 
             text-align: center; 
             background: rgba(0,0,0,0.6); 
@@ -139,7 +137,6 @@
             margin: 0; letter-spacing: 1px; text-transform: uppercase;
         }
         
-        /* Types Bar with Golden Border */
         .sub-nav { 
             background: rgba(0,0,0,0.7); 
             border-radius: 20px; padding: 8px; 
@@ -157,10 +154,10 @@
             box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); font-weight: 800;
         }
 
-        /* --- SCROLLABLE CARDS GRID --- */
+        /* --- CARDS GRID --- */
         .grid-container { 
             flex-grow: 1; 
-            overflow-y: auto; /* ONLY this scrolls */
+            overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
             padding: 5px; 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
@@ -197,12 +194,12 @@
         .card-sub { font-size: 0.6rem; color: #ccc; text-transform: uppercase; margin-top: 2px; font-weight: 600; }
         .card-action { margin-top: auto; font-size: 0.55rem; text-align: right; color: var(--primary); font-weight: 800; letter-spacing: 1px; }
 
-        /* --- LANGUAGE POPUP (UPDATED VISIBILITY) --- */
+        /* --- LANGUAGE POPUP (UPDATED FOR 100% VISIBILITY) --- */
         #lang-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Semi-transparent background so Header/Footer stay visible */
-            background: rgba(0,0,0,0.5); 
-            backdrop-filter: blur(5px);
+            /* Very Transparent Background so Header/Footer are visible */
+            background: rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(3px); /* Minimal blur */
             z-index: 9999; display: none; align-items: center; justify-content: center;
         }
         #lang-popup.active { display: flex; animation: popIn 0.3s forwards; }
@@ -210,8 +207,9 @@
 
         .popup-card {
             width: 85%; max-width: 380px;
+            /* Solid Dark Background for the Card itself so it is readable */
             background: linear-gradient(160deg, #151515, #000);
-            border: 2px solid var(--primary); box-shadow: 0 0 60px rgba(244, 196, 48, 0.4);
+            border: 2px solid var(--primary); box-shadow: 0 0 60px rgba(244, 196, 48, 0.5);
             border-radius: 26px; padding: 25px; text-align: center; position: relative;
         }
         .popup-img { 
@@ -335,7 +333,7 @@
         };
 
         function openCategory(catName, btnElement) {
-            // Highlight Logic: If clicked (btnElement exists), use it. Else default logic.
+            // Highlight Logic
             if (btnElement) {
                 document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
                 btnElement.classList.add('active');
