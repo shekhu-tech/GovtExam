@@ -73,7 +73,7 @@
         /* --- DOCK (Footer) --- */
         .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; }
         .glass-dock { 
-            width: 100%; max-width: 700px; /* Increased slightly for new icon */
+            width: 100%; max-width: 700px; 
             height: var(--footer-height); 
             background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(30px);
             border-radius: 24px; 
@@ -303,7 +303,9 @@
             <div id="result-overlay" class="overlay-popup">
                 <div id="res-emoji" class="res-emoji">🎉</div>
                 <div id="res-title" class="res-title">UNIT PASSED!</div>
-                <div style="font-size:1.4rem; color:var(--primary); margin-bottom:5px; font-weight:bold;">Score: <span id="final-score">0</span></div>
+                <div style="font-size:1.8rem; color:var(--primary); margin-bottom:10px; font-weight:900; font-family:'Rajdhani'; text-shadow:0 0 10px rgba(244,196,48,0.5);">
+                    SCORE: <span id="final-score">0</span>
+                </div>
                 <div style="color:#aaa; font-size:1rem;">Correct: <span id="correct-count">0</span> / 25</div>
                 <div style="font-size: 0.8rem; color: #ff1744; margin-top: 10px; display:none;" id="fail-msg">Restarting Unit from Question 1</div>
                 <button id="res-btn" class="res-btn" onclick="handleResultAction()">NEXT UNIT</button>
@@ -402,7 +404,7 @@
         const categoryBackgrounds = {
             profile: 'skillipvtbck.png', ancient: 'skilligovtbck.png', medieval: 'skilliaibck.png',
             modern: 'skillirequirebck.png', world: 'skillinewsbck.png', art: 'skilliaibck.png',
-            news: 'skillinewsbck.png' // Background for News
+            news: 'skillinewsbck.png' 
         };
 
         const CHECKPOINT = 25;
@@ -410,35 +412,34 @@
 
         // --- 2. CUSTOM DATA ---
         
-        // --- MOCK NEWS DATA (LINK YOUR HTML PAGES HERE) ---
         const newsDatabase = [
             {
                 tag: "DISCOVERY",
                 title: "New Harappan Site Found in Gujarat",
                 desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.",
                 image: "https://images.unsplash.com/photo-1605634289895-46740b206124?q=80&w=2070&auto=format&fit=crop",
-                link: "page_harappa_news.html" // Change to your HTML file
+                link: "page_harappa_news.html" 
             },
             {
                 tag: "RESEARCH",
                 title: "Decoding the Indus Script",
                 desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.",
                 image: "https://images.unsplash.com/photo-1628155930542-4d7a78370960?q=80&w=2070&auto=format&fit=crop",
-                link: "page_ai_script.html" // Change to your HTML file
+                link: "page_ai_script.html" 
             },
             {
                 tag: "EVENT",
                 title: "World History Conference 2026",
                 desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.",
                 image: "https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=1974&auto=format&fit=crop",
-                link: "page_conference.html" // Change to your HTML file
+                link: "page_conference.html" 
             },
             {
                 tag: "MYSTERY",
                 title: "The Lost Library of Nalanda",
                 desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.",
                 image: "https://images.unsplash.com/photo-1590076215667-875d4ef2d743?q=80&w=2070&auto=format&fit=crop",
-                link: "page_nalanda.html" // Change to your HTML file
+                link: "page_nalanda.html" 
             }
         ];
 
@@ -487,7 +488,7 @@
         
         let selectedPlanPrice = 0, selectedPlanLabel = "";
         
-        // Progress & Unlocked - Safe Parsing
+        // Progress & Unlocked
         let progressData;
         try {
             progressData = JSON.parse(localStorage.getItem('quizProgress')) || {};
@@ -513,11 +514,8 @@
 
         // --- 4. NAVIGATION ---
         function openCategory(catName, btnElement) {
-            // Safety: Clear any running timer
             if(questionTimer) clearInterval(questionTimer);
 
-            // Allow access to Profile AND News without locking. 
-            // If you want News locked, change condition to: if (catName !== 'profile' && catName !== 'news' && !hasPaid())
             if (catName !== 'profile' && !hasPaid()) {
                 document.getElementById('locked-popup').style.display = 'flex';
                 return;
@@ -539,7 +537,7 @@
 
             const quizUI = document.getElementById('quiz-interface');
             const profileUI = document.getElementById('profile-section');
-            const newsUI = document.getElementById('news-section'); // New
+            const newsUI = document.getElementById('news-section');
             const subNav = document.getElementById('sub-nav-container');
 
             // Hide all first
@@ -554,11 +552,9 @@
                 profileUI.style.display = 'flex';
                 initProfileView();
             } else if (catName === 'news') {
-                // Show News Section
                 newsUI.style.display = 'flex';
                 renderNews();
             } else {
-                // Show Quiz Section
                 quizUI.style.display = 'flex';
                 subNav.style.display = 'flex';
                 activeCat = catName;
@@ -591,7 +587,6 @@
             const container = document.getElementById('sub-nav-container');
             const units = quizDatabase[catName];
             
-            // Safety check if category doesn't exist in DB
             if(!units) {
                 container.innerHTML = '<div style="color:#aaa; padding:10px;">Coming Soon</div>';
                 document.getElementById('q-text').innerText = "No content available for this category.";
@@ -599,7 +594,6 @@
                 return;
             }
 
-            // Ensure unlockedLevels has the key
             if (!unlockedLevels[catName]) unlockedLevels[catName] = 1;
             const maxLvl = unlockedLevels[catName];
             
@@ -610,7 +604,6 @@
         }
 
         function switchUnit(idx, el) {
-            // Force integer type
             idx = parseInt(idx);
             
             if(!el && document.getElementById(`sub-unit-${idx}`)) el = document.getElementById(`sub-unit-${idx}`);
@@ -621,13 +614,12 @@
             startQuiz(idx);
         }
 
-        // --- 5. QUIZ ENGINE (IMPROVED) ---
+        // --- 5. QUIZ ENGINE (WITH RANDOMIZATION) ---
         function startQuiz(idx) {
             if(questionTimer) clearInterval(questionTimer);
             activeUnitIdx = idx;
             document.getElementById('result-overlay').style.display = 'none';
             
-            // Safety Check
             if(!quizDatabase[activeCat] || !quizDatabase[activeCat][idx]) {
                 document.getElementById('q-text').innerText = "Unit not found.";
                 return;
@@ -639,11 +631,25 @@
             // Init Progress Safe
             if (!progressData[activeCat]) progressData[activeCat] = {};
             if (!progressData[activeCat][idx]) {
-                progressData[activeCat][idx] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0 };
+                progressData[activeCat][idx] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0, order: [] };
             }
             
             currentSession = progressData[activeCat][idx];
             blockCorrect = currentSession.blockCorrect || 0; 
+
+            // --- RANDOMIZATION LOGIC ---
+            // If order doesn't exist or length mismatch (updated DB), generate new shuffled order
+            const totalQuestions = quizDatabase[activeCat][idx].questions.length;
+            if(!currentSession.order || currentSession.order.length !== totalQuestions) {
+                // Create Array [0, 1, 2, ... n]
+                currentSession.order = Array.from({length: totalQuestions}, (_, i) => i);
+                // Fisher-Yates Shuffle
+                for (let i = currentSession.order.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [currentSession.order[i], currentSession.order[j]] = [currentSession.order[j], currentSession.order[i]];
+                }
+                saveProgress();
+            }
             
             loadQuestion();
         }
@@ -652,7 +658,6 @@
             if(questionTimer) clearInterval(questionTimer);
             
             try {
-                // Double check data existence
                 if(!quizDatabase[activeCat] || !quizDatabase[activeCat][activeUnitIdx]) return;
                 
                 const db = quizDatabase[activeCat][activeUnitIdx].questions;
@@ -661,12 +666,13 @@
                     return;
                 }
 
-                // Modulo ensures we never go out of bounds even if qIndex is huge
-                const actualQ = db[currentSession.qIndex % db.length];
+                // USE RANDOMIZED ORDER
+                // qIndex counts 0, 1, 2... we map this to the shuffled index
+                const shuffledIndex = currentSession.order[currentSession.qIndex % db.length];
+                const actualQ = db[shuffledIndex];
                 
                 // Update UI
                 const displayNum = currentSession.qIndex + 1;
-                // Calculate display total based on checkpoints (25, 50, 75...)
                 const currentBatchLimit = CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1);
                 
                 document.getElementById('q-num-display').innerText = `${displayNum} / ${currentBatchLimit}`;
@@ -687,8 +693,7 @@
             } catch (error) {
                 console.error("Error loading question:", error);
                 document.getElementById('q-text').innerText = "Error loading question. Resetting unit...";
-                // Fallback reset
-                currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0 };
+                currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0, order: [] };
                 saveProgress();
                 setTimeout(() => startQuiz(activeUnitIdx), 1500);
             }
@@ -737,7 +742,6 @@
                 btn.classList.add('wrong');
                 currentSession.score -= 0.25;
                 currentSession.wrong++;
-                // Show correct answer
                 const allBtns = document.querySelectorAll('.option-btn');
                 if(allBtns[cor]) allBtns[cor].classList.add('correct');
             }
@@ -752,7 +756,6 @@
         }
 
         function checkResultOrNext() {
-            // If we hit a multiple of CHECKPOINT (25, 50, etc.) and we just finished that question
             if (currentSession.qIndex > 0 && currentSession.qIndex % CHECKPOINT === 0) {
                 showResultPopup();
             } else {
@@ -773,6 +776,7 @@
             const btn = document.getElementById('res-btn');
             const failMsg = document.getElementById('fail-msg');
 
+            // UPDATE SCORE DISPLAY
             document.getElementById('final-score').innerText = currentSession.score.toFixed(2);
             document.getElementById('correct-count').innerText = `${blockCorrect} / ${CHECKPOINT}`;
 
@@ -784,7 +788,6 @@
                 failMsg.style.display = "none";
                 btn.innerText = "NEXT 25 Q";
                 
-                // Unlock next unit logic
                 const totalUnits = quizDatabase[activeCat].length;
                 if(activeUnitIdx + 1 === unlockedLevels[activeCat] && unlockedLevels[activeCat] < totalUnits) {
                     unlockedLevels[activeCat]++;
@@ -793,9 +796,10 @@
                 }
 
                 btn.onclick = () => {
-                    // Reset block correct for next batch, keep total score/qIndex
                     blockCorrect = 0; 
                     currentSession.blockCorrect = 0; 
+                    // Clear order so next 25 questions are also randomized differently if needed, 
+                    // or keep same order logic. To keep flow random but consistent, we keep order.
                     saveProgress();
                     overlay.style.display = 'none'; 
                     loadQuestion();
@@ -807,15 +811,16 @@
                 failMsg.style.display = "block";
                 btn.innerText = "RESTART UNIT";
                 btn.onclick = () => {
-                    // Reset session entirely for this unit
+                    // Reset session entirely for this unit AND CLEAR SHUFFLE ORDER
                     currentSession.qIndex = 0; 
                     currentSession.score = 0; 
                     currentSession.correct = 0; 
                     currentSession.wrong = 0; 
+                    currentSession.order = []; // Force re-shuffle on restart
                     blockCorrect = 0;
                     saveProgress(); 
                     overlay.style.display = 'none'; 
-                    loadQuestion();
+                    startQuiz(activeUnitIdx); // Call startQuiz to trigger randomization
                 };
             }
             overlay.style.display = 'flex';
@@ -837,7 +842,6 @@
             container.innerHTML = '';
             let hasData = false;
             for (const cat in progressData) {
-                // Ensure cat exists in database to avoid errors
                 if(!quizDatabase[cat]) continue;
 
                 for (const uIdx in progressData[cat]) {
