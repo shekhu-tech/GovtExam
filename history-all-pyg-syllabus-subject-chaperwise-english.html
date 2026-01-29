@@ -93,14 +93,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">ht@500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         /* --- THEME VARIABLES --- */
         :root {
             --primary: #F4C430;       
             --primary-glow: #FFD700; 
-            --shining-gold: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.2);
+            --dark-glass: rgba(10, 10, 10, 0.85);
+            --border-color: rgba(255, 215, 0, 0.3);
             --header-height: 70px; 
             --footer-height: 75px; 
             --correct: #00e676;
@@ -135,12 +136,12 @@
         /* --- GOLDEN BORDER ANIMATION --- */
         .golden-border-anim {
             border: 2px solid var(--primary);
-            box-shadow: var(--shining-gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
             animation: borderPulse 3s infinite alternate;
         }
         @keyframes borderPulse {
-            0% { box-shadow: 0 0 10px rgba(244, 196, 48, 0.4); border-color: #bfa128; }
-            100% { box-shadow: 0 0 25px rgba(244, 196, 48, 0.9), inset 0 0 15px rgba(244, 196, 48, 0.3); border-color: #ffd700; }
+            0% { box-shadow: 0 0 10px rgba(244, 196, 48, 0.2); border-color: #bfa128; }
+            100% { box-shadow: 0 0 20px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(244, 196, 48, 0.2); border-color: #ffd700; }
         }
 
         /* --- HEADER --- */
@@ -240,6 +241,136 @@
         .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
         .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
 
+        /* --- ULTRA PRO PROFILE STYLES --- */
+        #profile-section { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; padding: 10px 5px; }
+
+        /* Glass Cards */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 30px 25px;
+            width: 100%; max-width: 500px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* Input Styling */
+        .gold-input-group { width: 100%; margin-bottom: 20px; text-align: left; }
+        .gold-label { font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-left: 10px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .gold-input {
+            width: 100%; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 15px; border-radius: 12px;
+            color: #fff; font-size: 1rem;
+            transition: 0.3s;
+            outline: none;
+        }
+        .gold-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(244, 196, 48, 0.2); background: rgba(0,0,0,0.6); }
+
+        /* Buttons */
+        .btn-pro {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+            color: #000; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
+            padding: 16px; border-radius: 16px; border: none;
+            cursor: pointer; position: relative; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-pro:active { transform: scale(0.98); }
+        .btn-pro::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(rgba(255,255,255,0.4), transparent);
+            transform: rotate(45deg); transition: 0.5s; opacity: 0;
+        }
+        .btn-pro:hover::after { opacity: 1; left: 100%; }
+
+        /* Plan Cards */
+        .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 20px; }
+        .plan-card-pro {
+            background: rgba(30, 30, 30, 0.6); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 15px; cursor: pointer;
+            transition: 0.3s; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .plan-card-pro:hover { background: rgba(40,40,40,0.8); }
+        .plan-card-pro.selected {
+            background: rgba(244, 196, 48, 0.15);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.15);
+        }
+        .pc-dur { font-size: 0.9rem; color: #ccc; font-weight: 600; }
+        .pc-price { font-size: 1.4rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; margin: 5px 0; }
+        .pc-check { position: absolute; top: 5px; right: 5px; color: var(--primary); opacity: 0; transition: 0.2s; }
+        .plan-card-pro.selected .pc-check { opacity: 1; }
+
+        /* Dashboard (Step 4) */
+        .dashboard-container { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 20px; }
+        
+        /* Membership Card */
+        .membership-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            border: 1px solid #333;
+            border-radius: 24px; padding: 25px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 200px;
+        }
+        .membership-card::before {
+            content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(244,196,48,0.3) 0%, transparent 70%);
+            filter: blur(20px);
+        }
+        .mc-header { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
+        .mc-chip { width: 45px; height: 30px; background: linear-gradient(45deg, #FFD700, #FDB931); border-radius: 6px; position: relative; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.3); }
+        .mc-chip::after { content: ''; position: absolute; top:0; left:50%; width:1px; height:100%; background:rgba(0,0,0,0.2); }
+        .mc-plan-badge { 
+            background: rgba(244, 196, 48, 0.2); border: 1px solid var(--primary); 
+            color: var(--primary); padding: 5px 12px; border-radius: 50px; 
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; 
+        }
+        .mc-user { z-index: 2; margin-top: auto; }
+        .mc-name { font-family: 'Rajdhani'; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
+        .mc-email { color: #888; font-size: 0.9rem; margin-top: -2px; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        /* UPDATED STAT BOX (DARK GRAY) */
+        .stat-box {
+            background: rgba(30, 30, 30, 0.9); /* Dark Gray */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px; padding: 15px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .sb-icon { font-size: 1.2rem; color: #ccc; margin-bottom: 5px; } 
+        .sb-val { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 800; color: #fff; }
+        .sb-label { font-size: 0.7rem; color: #ddd; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+
+        /* Professional Progress List */
+        .pro-progress-header { font-family: 'Rajdhani'; font-size: 1.3rem; color: #fff; font-weight: 800; margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .pro-progress-header::after { content:''; flex:1; height:1px; background: rgba(255,255,255,0.1); }
+        
+        .pp-item {
+            background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(30,30,30,0.9) 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px; padding: 15px; margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .pp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .pp-title { font-size: 0.9rem; font-weight: 700; color: #ddd; }
+        .pp-score { background: rgba(244, 196, 48, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani'; }
+        
+        .pp-bar-bg { width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
+        .pp-bar-fill { height: 100%; background: linear-gradient(90deg, #F4C430, #FFD700); border-radius: 10px; box-shadow: 0 0 10px var(--primary); transition: width 1s ease; }
+        
+        .pp-meta { display: flex; justify-content: flex-end; gap: 15px; font-size: 0.75rem; color: #666; margin-top: 8px; }
+        .pp-meta span i { margin-right: 4px; }
+
+
         /* --- POPUPS --- */
         .overlay-popup {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -256,39 +387,6 @@
         .welcome-text { color: #ccc; margin-bottom: 20px; font-size: 1rem; max-width: 80%; line-height: 1.5; }
         .user-highlight { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
 
-        /* --- PROFILE SECTION STYLES --- */
-        #profile-section { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; color: #fff; padding: 10px; }
-        .form-container { width: 100%; max-width: 450px; background: rgba(10,10,10,0.8); border: 1px solid var(--primary-glow); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
-        .input-field { width: 100%; background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 10px; margin-bottom: 15px; outline: none; transition:0.3s; }
-        .input-field:focus { border-color:var(--primary); }
-        .btn-gold { width: 100%; background: linear-gradient(45deg, #FFC107, #B8860B); color: #000; font-weight: 800; padding: 12px; border-radius: 50px; border: none; cursor: pointer; font-size: 1rem; margin-top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        
-        .plan-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .plan-item { 
-            display: flex; justify-content: space-between; align-items: center;
-            background: #1a1a1a; border: 1px solid #444; border-radius: 12px; padding: 15px; 
-            cursor: pointer; transition: 0.3s; 
-        }
-        .plan-item.selected { border-color: var(--primary); background: rgba(244, 196, 48, 0.1); box-shadow: 0 0 10px rgba(244, 196, 48, 0.2); }
-        .plan-info { text-align: left; }
-        .p-dur { font-size: 1rem; font-weight: 700; color: #fff; }
-        .p-prc { font-size: 1.1rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; }
-        .p-chk { color: var(--primary); opacity: 0; transition:0.2s; }
-        .plan-item.selected .p-chk { opacity: 1; }
-
-        .profile-card { width: 100%; max-width: 500px; background: linear-gradient(145deg, #111, #0a0a0a); border: 1px solid #333; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-        .profile-header { display: flex; align-items: center; gap: 15px; padding-bottom: 20px; border-bottom: 1px solid #222; margin-bottom: 20px; }
-        .p-avatar { width: 60px; height: 60px; background: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary); color: var(--primary); font-size: 1.5rem; }
-        .p-details h3 { margin: 0; font-family: 'Rajdhani'; font-size: 1.4rem; color: #fff; }
-        .p-details p { margin: 0; color: #888; font-size: 0.8rem; }
-        
-        .progress-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .prog-item { background: rgba(30,30,30,0.5); padding: 10px; border-radius: 10px; border-left: 3px solid #444; }
-        .prog-head { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; color:#ddd; }
-        .prog-bar-bg { width: 100%; height: 6px; background: #222; border-radius: 3px; overflow: hidden; }
-        .prog-bar-fill { height: 100%; background: var(--primary); width: 0%; }
-        .prog-stats { display: flex; justify-content: space-between; font-size: 0.7rem; color: #aaa; margin-top: 5px; }
-
         /* --- NEWS/DISCOVERY SECTION STYLES --- */
         #news-section { width: 100%; height: 100%; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
         .news-container { display: flex; flex-direction: column; gap: 15px; padding: 0 5px; }
@@ -304,34 +402,12 @@
         }
         .news-card:active { transform: scale(0.98); }
         
-        .news-img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-bottom: 1px solid #333;
-        }
-        
+        .news-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #333; }
         .news-body { padding: 15px; }
-        .news-tag {
-            font-size: 0.7rem; color: #000; background: var(--primary);
-            padding: 2px 8px; border-radius: 4px; font-weight: 800;
-            display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani';
-        }
-        .news-title {
-            font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px;
-            line-height: 1.3; font-family: 'Plus Jakarta Sans';
-        }
-        .news-desc {
-            font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .news-btn {
-            background: transparent; border: 1px solid var(--primary);
-            color: var(--primary); padding: 8px 15px; border-radius: 8px;
-            font-size: 0.8rem; font-weight: 700; width: 100%;
-            cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px;
-            transition: 0.3s;
-        }
+        .news-tag { font-size: 0.7rem; color: #000; background: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: 800; display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani'; }
+        .news-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; font-family: 'Plus Jakarta Sans'; }
+        .news-desc { font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; width: 100%; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px; transition: 0.3s; }
         .news-btn:hover { background: rgba(244, 196, 48, 0.1); }
 
     </style>
@@ -369,8 +445,7 @@
             </div>
 
             <div id="news-section">
-                <div class="news-container" id="news-feed">
-                    </div>
+                <div class="news-container" id="news-feed"></div>
             </div>
 
             <div id="quiz-interface" style="display: none;">
@@ -419,64 +494,111 @@
 
             <div id="profile-section" style="display: none;">
                 
-                <div id="step-1" class="form-container">
-                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; margin-bottom:15px; color:var(--primary);">JOIN SKILLI</h2>
-                    <form id="details-form">
-                        <input type="text" id="user-name" class="input-field" placeholder="Full Name" required>
-                        <input type="tel" id="user-number" class="input-field" placeholder="Mobile Number" required>
-                        <input type="email" id="user-email" class="input-field" placeholder="Email Address" required>
-                        <button type="submit" class="btn-gold">PROCEED <i class="fas fa-arrow-right"></i></button>
+                <div id="step-1" class="glass-panel">
+                    <div style="width:70px; height:70px; background:rgba(0,0,0,0.5); border-radius:50%; border:2px solid var(--primary); display:flex; align-items:center; justify-content:center; margin-bottom:20px; box-shadow:0 0 20px var(--primary-glow);">
+                        <i class="fas fa-crown" style="color:var(--primary); font-size:2rem;"></i>
+                    </div>
+                    <h2 style="font-family:'Rajdhani'; font-size:2rem; margin-bottom:5px; color:#fff; font-weight:800;">JOIN ELITE CLUB</h2>
+                    <p style="color:#888; margin-bottom:25px; font-size:0.9rem;">Unlock the ultimate history experience.</p>
+                    
+                    <form id="details-form" style="width:100%;">
+                        <div class="gold-input-group">
+                            <label class="gold-label">FULL NAME</label>
+                            <input type="text" id="user-name" class="gold-input" placeholder="e.g. Rahul Kumar" required>
+                        </div>
+                        <div class="gold-input-group">
+                            <label class="gold-label">MOBILE NUMBER</label>
+                            <input type="tel" id="user-number" class="gold-input" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                        <div class="gold-input-group">
+                            <label class="gold-label">EMAIL ADDRESS</label>
+                            <input type="email" id="user-email" class="gold-input" placeholder="name@example.com" required>
+                        </div>
+                        <button type="submit" class="btn-pro">CONTINUE TO PLANS <i class="fas fa-arrow-right" style="margin-left:10px;"></i></button>
                     </form>
                 </div>
 
-                <div id="step-2" class="form-container" style="display:none;">
-                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; color:var(--primary); margin-bottom: 15px;">CHOOSE PLAN</h2>
-                    <div class="plan-list">
-                        <div class="plan-item" onclick="selectPlan(51, '1 Month Access', this)">
-                            <div class="plan-info"><div class="p-dur">1 Month</div><div class="p-prc">₹51</div></div>
-                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                <div id="step-2" class="glass-panel" style="display:none; max-width:600px;">
+                    <h2 style="font-family:'Rajdhani'; font-size:2rem; margin-bottom:20px; color:#fff; font-weight:800;">SELECT ACCESS</h2>
+                    
+                    <div class="plans-grid">
+                        <div class="plan-card-pro" onclick="selectPlan(51, '1 Month Access', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div class="pc-dur">1 Month</div>
+                            <div class="pc-price">₹51</div>
                         </div>
-                        <div class="plan-item" onclick="selectPlan(101, '3 Months Access', this)">
-                            <div class="plan-info"><div class="p-dur">3 Months</div><div class="p-prc">₹101</div></div>
-                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        <div class="plan-card-pro" onclick="selectPlan(101, '3 Months Access', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div class="pc-dur">3 Months</div>
+                            <div class="pc-price">₹101</div>
                         </div>
-                        <div class="plan-item" onclick="selectPlan(151, '6 Months Access', this)">
-                            <div class="plan-info"><div class="p-dur">6 Months</div><div class="p-prc">₹151</div></div>
-                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        <div class="plan-card-pro" onclick="selectPlan(151, '6 Months Access', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div class="pc-dur">6 Months</div>
+                            <div class="pc-price">₹151</div>
                         </div>
-                        <div class="plan-item" onclick="selectPlan(251, '1 Year Access', this)">
-                            <div class="plan-info"><div class="p-dur">1 Year</div><div class="p-prc">₹251</div></div>
-                            <div class="p-chk"><i class="fas fa-check-circle"></i></div>
+                        <div class="plan-card-pro" onclick="selectPlan(251, '1 Year Access', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div style="background:var(--primary); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; font-weight:800; margin-bottom:4px;">BEST VALUE</div>
+                            <div class="pc-dur">1 Year</div>
+                            <div class="pc-price">₹251</div>
                         </div>
                     </div>
-                    <div id="secret-code-section" style="display:none; margin-bottom:10px;">
-                        <input type="text" id="secret-code" class="input-field" style="text-align:center;" placeholder="Enter Secret Code">
-                        <button id="secret-ok-btn" class="btn-gold" style="display:none;">VERIFY</button>
+
+                    <div id="secret-code-section" style="display:none; width:100%; margin-bottom:15px;">
+                        <input type="text" id="secret-code" class="gold-input" style="text-align:center; margin-bottom:10px;" placeholder="Enter Secret Code">
+                        <button id="secret-ok-btn" class="btn-pro" style="display:none;">VERIFY CODE</button>
                     </div>
-                    <button id="go-to-pay-btn" class="btn-gold">PAY NOW</button>
+                    
+                    <button id="go-to-pay-btn" class="btn-pro">PROCEED TO PAY</button>
                 </div>
 
-                <div id="step-3" class="form-container" style="display:none;">
-                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; color:var(--primary);">COMPLETE PAYMENT</h2>
-                    <div id="final-price-display" style="font-size:1.5rem; color:#fff; margin:20px 0;">₹00.00</div>
-                    <div id="timer" style="color:var(--primary); font-weight:bold; margin-bottom:15px;">05:00</div>
-                    <button id="rzp-button" class="btn-gold">PAY WITH RAZORPAY</button>
+                <div id="step-3" class="glass-panel" style="display:none;">
+                    <div style="width:60px; height:60px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
+                        <i class="fas fa-lock" style="font-size:1.5rem; color:#aaa;"></i>
+                    </div>
+                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; margin-bottom:5px; color:#fff;">SECURE PAYMENT</h2>
+                    <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">Complete your transaction within</div>
+                    
+                    <div id="final-price-display" style="font-size:2.5rem; color:var(--primary); font-family:'Rajdhani'; font-weight:800; margin-bottom:10px; text-shadow:0 0 20px rgba(244,196,48,0.3);">₹00.00</div>
+                    <div id="timer" style="color:#fff; font-weight:bold; font-size:1.2rem; margin-bottom:30px; background:rgba(30,30,30,0.9); padding:8px 20px; border-radius:50px; border:1px solid #444;">05:00</div>
+                    
+                    <button id="rzp-button" class="btn-pro">PAY WITH RAZORPAY</button>
                 </div>
 
-                <div id="step-4" style="width:100%; display:none; flex-direction:column; align-items:center;">
-                    <div class="profile-card">
-                        <div class="profile-header">
-                            <div class="p-avatar"><i class="fas fa-user"></i></div>
-                            <div class="p-details">
-                                <h3 id="disp-name">User Name</h3>
-                                <p id="disp-email">email@example.com</p>
-                                <p id="disp-plan" style="color:var(--primary); font-weight:bold;">Plan Name</p>
+                <div id="step-4" style="display:none; width:100%; justify-content:center;">
+                    <div class="dashboard-container">
+                        
+                        <div class="membership-card">
+                            <div class="mc-header">
+                                <div class="mc-chip"></div>
+                                <div class="mc-plan-badge" id="disp-plan">PLAN</div>
+                            </div>
+                            <div class="mc-user">
+                                <div class="mc-name" id="disp-name">User Name</div>
+                                <div class="mc-email" id="disp-email">email@example.com</div>
                             </div>
                         </div>
-                        <h4 style="font-family:'Rajdhani'; color:#888; margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">MY PROGRESS REPORT</h4>
-                        <div id="progress-container" class="progress-list">
-                            <div style="color:#555; font-size:0.8rem; text-align:center;">No quiz data yet. Start learning!</div>
+
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <i class="fas fa-trophy sb-icon"></i>
+                                <div class="sb-val" id="total-score-display">0</div>
+                                <div class="sb-label">Total Score</div>
+                            </div>
+                            <div class="stat-box">
+                                <i class="fas fa-chart-line sb-icon"></i>
+                                <div class="sb-val" id="units-played-display">0</div>
+                                <div class="sb-label">Units Active</div>
+                            </div>
                         </div>
+
+                        <div>
+                            <div class="pro-progress-header"><span>PERFORMANCE LOG</span> <i class="fas fa-chevron-down" style="font-size:0.8rem; opacity:0.5;"></i></div>
+                            <div id="progress-container" style="padding-bottom:50px;">
+                                </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -487,8 +609,8 @@
     <script>
         // --- 1. CONFIGURATION ---
         const categoryBackgrounds = {
-            profile: 'skillipvtbck.png', ancient: 'skilligovtbck.png', medieval: 'skilliaibck.png',
-            modern: 'skillirequirebck.png', world: 'skillinewsbck.png', art: 'skilliaibck.png',
+            profile: 'skilligovtbck.png', ancient: 'anicianthistoryofindia.png', medieval: 'medivalhistoryofindia.png',
+            modern: 'modernhistoryofindia.png', world: 'worldhistory.png', art: 'artandcultureofindia.png',
             news: 'skillinewsbck.png' 
         };
 
@@ -573,7 +695,6 @@
         
         let selectedPlanPrice = 0, selectedPlanLabel = "";
         
-        // Progress & Unlocked
         let progressData;
         try {
             progressData = JSON.parse(localStorage.getItem('quizProgress')) || {};
@@ -588,7 +709,6 @@
             unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 };
         }
 
-        // Runtime vars
         let activeCat = "", activeUnitIdx = 0;
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
         let blockCorrect = 0; 
@@ -614,7 +734,6 @@
             const modalBox = document.getElementById('dynamic-modal-box');
             modalBox.style.backgroundImage = `url('${categoryBackgrounds[catName] || 'skilligovtbck.png'}')`;
             
-            // Set Title
             let dispTitle = catName.toUpperCase();
             if(catName === 'news') dispTitle = "DISCOVERIES";
             else if(catName !== 'profile') dispTitle += " HISTORY";
@@ -625,7 +744,6 @@
             const newsUI = document.getElementById('news-section');
             const subNav = document.getElementById('sub-nav-container');
 
-            // Hide all first
             quizUI.style.display = 'none';
             profileUI.style.display = 'none';
             newsUI.style.display = 'none';
@@ -713,7 +831,6 @@
             const unitName = quizDatabase[activeCat][idx].name;
             document.getElementById('unit-name-display').innerText = unitName;
 
-            // Init Progress Safe
             if (!progressData[activeCat]) progressData[activeCat] = {};
             if (!progressData[activeCat][idx]) {
                 progressData[activeCat][idx] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0, order: [] };
@@ -722,13 +839,9 @@
             currentSession = progressData[activeCat][idx];
             blockCorrect = currentSession.blockCorrect || 0; 
 
-            // --- RANDOMIZATION LOGIC ---
-            // If order doesn't exist or length mismatch (updated DB), generate new shuffled order
             const totalQuestions = quizDatabase[activeCat][idx].questions.length;
             if(!currentSession.order || currentSession.order.length !== totalQuestions) {
-                // Create Array [0, 1, 2, ... n]
                 currentSession.order = Array.from({length: totalQuestions}, (_, i) => i);
-                // Fisher-Yates Shuffle
                 for (let i = currentSession.order.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [currentSession.order[i], currentSession.order[j]] = [currentSession.order[j], currentSession.order[i]];
@@ -751,12 +864,9 @@
                     return;
                 }
 
-                // USE RANDOMIZED ORDER
-                // qIndex counts 0, 1, 2... we map this to the shuffled index
                 const shuffledIndex = currentSession.order[currentSession.qIndex % db.length];
                 const actualQ = db[shuffledIndex];
                 
-                // Update UI
                 const displayNum = currentSession.qIndex + 1;
                 const currentBatchLimit = CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1);
                 
@@ -861,11 +971,9 @@
             const btn = document.getElementById('res-btn');
             const failMsg = document.getElementById('fail-msg');
 
-            // UPDATE SCORE DISPLAY
             document.getElementById('final-score').innerText = currentSession.score.toFixed(2);
             document.getElementById('correct-count').innerText = `${blockCorrect} / ${CHECKPOINT}`;
 
-            // Logic: Passed if correct >= 20 out of the last 25
             if (blockCorrect >= PASS_REQ) {
                 emoji.innerText = "🎉";
                 title.innerText = "UNIT PASSED!";
@@ -883,8 +991,6 @@
                 btn.onclick = () => {
                     blockCorrect = 0; 
                     currentSession.blockCorrect = 0; 
-                    // Clear order so next 25 questions are also randomized differently if needed, 
-                    // or keep same order logic. To keep flow random but consistent, we keep order.
                     saveProgress();
                     overlay.style.display = 'none'; 
                     loadQuestion();
@@ -896,16 +1002,15 @@
                 failMsg.style.display = "block";
                 btn.innerText = "RESTART UNIT";
                 btn.onclick = () => {
-                    // Reset session entirely for this unit AND CLEAR SHUFFLE ORDER
                     currentSession.qIndex = 0; 
                     currentSession.score = 0; 
                     currentSession.correct = 0; 
                     currentSession.wrong = 0; 
-                    currentSession.order = []; // Force re-shuffle on restart
+                    currentSession.order = []; 
                     blockCorrect = 0;
                     saveProgress(); 
                     overlay.style.display = 'none'; 
-                    startQuiz(activeUnitIdx); // Call startQuiz to trigger randomization
+                    startQuiz(activeUnitIdx); 
                 };
             }
             overlay.style.display = 'flex';
@@ -926,6 +1031,9 @@
             const container = document.getElementById('progress-container');
             container.innerHTML = '';
             let hasData = false;
+            let grandTotal = 0;
+            let unitsPlayed = 0;
+
             for (const cat in progressData) {
                 if(!quizDatabase[cat]) continue;
 
@@ -933,27 +1041,37 @@
                     const d = progressData[cat][uIdx];
                     if(d.qIndex > 0) {
                         hasData = true;
+                        unitsPlayed++;
+                        grandTotal += d.score;
+
                         const total = d.correct + d.wrong;
                         const correctPct = total === 0 ? 0 : (d.correct / total) * 100;
                         const unitObj = quizDatabase[cat][uIdx];
                         const uName = unitObj ? unitObj.name : `Unit ${parseInt(uIdx)+1}`;
                         
                         container.innerHTML += `
-                        <div class="prog-item">
-                            <div class="prog-head">
-                                <span>${cat.toUpperCase()} - ${uName}</span>
-                                <span style="color:var(--primary)">${d.score.toFixed(1)} PTS</span>
+                        <div class="pp-item">
+                            <div class="pp-top">
+                                <span class="pp-title">${cat.toUpperCase()} / ${uName}</span>
+                                <span class="pp-score">${d.score.toFixed(1)} PTS</span>
                             </div>
-                            <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${correctPct}%"></div></div>
-                            <div class="prog-stats">
-                                <span>Q: ${d.qIndex}</span>
-                                <span><i class="fas fa-check" style="color:#00e676"></i> ${d.correct} &nbsp; <i class="fas fa-times" style="color:#ff1744"></i> ${d.wrong}</span>
+                            <div class="pp-bar-bg">
+                                <div class="pp-bar-fill" style="width:${correctPct}%"></div>
+                            </div>
+                            <div class="pp-meta">
+                                <span><i class="fas fa-check" style="color:var(--correct)"></i> ${d.correct}</span>
+                                <span><i class="fas fa-times" style="color:var(--wrong)"></i> ${d.wrong}</span>
                             </div>
                         </div>`;
                     }
                 }
             }
-            if(!hasData) container.innerHTML = '<div style="color:#555; text-align:center;">No quiz data yet.</div>';
+            if(!hasData) container.innerHTML = '<div style="color:#555; text-align:center; padding-top:20px;">No history data found. Start a quiz!</div>';
+            
+            try {
+                document.getElementById('total-score-display').innerText = grandTotal.toFixed(0);
+                document.getElementById('units-played-display').innerText = unitsPlayed;
+            } catch(e) {}
         }
 
         function goToProfileFromLock() {
@@ -961,7 +1079,7 @@
             openCategory('profile', document.getElementById('nav-profile'));
         }
 
-        function showStep(n) { [1,2,3,4].forEach(i=>document.getElementById(`step-${i}`).style.display='none'); document.getElementById(`step-${n}`).style.display = (n===4?'flex':'block'); }
+        function showStep(n) { [1,2,3,4].forEach(i=>document.getElementById(`step-${i}`).style.display='none'); document.getElementById(`step-${n}`).style.display = (n===4?'flex':'flex'); }
 
         document.getElementById('details-form').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -976,7 +1094,7 @@
             showStep(2);
         });
 
-        function selectPlan(p, l, el) { selectedPlanPrice=p; selectedPlanLabel=l; document.querySelectorAll('.plan-item').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
+        function selectPlan(p, l, el) { selectedPlanPrice=p; selectedPlanLabel=l; document.querySelectorAll('.plan-card-pro').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
         
         document.getElementById('secret-code').addEventListener('input', (e)=>{ if(e.target.value==='MSGMSGMSG') document.getElementById('secret-ok-btn').style.display='block'; });
         document.getElementById('secret-ok-btn').addEventListener('click', ()=>{ userData.planName='Lifetime VIP'; userData.txn='MSG-FREE'; userData.planAmount='0'; sendToSheet(); completeTxn(); });
