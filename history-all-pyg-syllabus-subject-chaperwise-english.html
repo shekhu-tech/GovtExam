@@ -85,7 +85,6 @@
             --primary: #F4C430;       
             --primary-glow: #FFD700; 
             --dark-glass: rgba(10, 10, 10, 0.85);
-            --border-color: rgba(255, 215, 0, 0.3);
             --header-height: 70px; 
             --footer-height: 75px; 
             --correct: #00e676;
@@ -128,7 +127,7 @@
             100% { box-shadow: 0 0 20px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(244, 196, 48, 0.2); border-color: #ffd700; }
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (UPDATED FOR CUSTOM TEXT) --- */
         .glass-header {
             position: fixed; top: calc(15px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
             width: 94%; max-width: 800px; height: var(--header-height);
@@ -138,7 +137,20 @@
             padding: 0 20px; z-index: 3000;
         }
         .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
-        .header-title-img { height: 32px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px var(--primary)); }
+        
+        /* NEW CUSTOM TEXT STYLE */
+        .header-title-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(to bottom, #FFD700, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 0 5px rgba(244, 196, 48, 0.5));
+            text-align: center;
+        }
 
         /* --- DOCK (Footer) --- */
         .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; }
@@ -225,137 +237,44 @@
         .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
         .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
 
-        /* --- ULTRA PRO PROFILE STYLES --- */
-        #profile-section { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; padding: 10px 5px; }
-
-        /* Glass Cards */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 30px 25px;
-            width: 100%; max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: flex; flex-direction: column; align-items: center;
+        /* --- EXPLANATION POPUP STYLES --- */
+        #explanation-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.85); z-index: 100;
+            display: none;
+            justify-content: center; align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
         }
-
-        /* Input Styling */
-        .gold-input-group { width: 100%; margin-bottom: 20px; text-align: left; }
-        .gold-label { font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-left: 10px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
-        .gold-input {
-            width: 100%; background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            padding: 15px; border-radius: 12px;
-            color: #fff; font-size: 1rem;
-            transition: 0.3s;
-            outline: none;
-        }
-        .gold-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(244, 196, 48, 0.2); background: rgba(0,0,0,0.6); }
-
-        /* Buttons */
-        .btn-pro {
-            width: 100%;
-            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
-            color: #000; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            padding: 16px; border-radius: 16px; border: none;
-            cursor: pointer; position: relative; overflow: hidden;
-            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-pro:active { transform: scale(0.98); }
-        .btn-pro::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(rgba(255,255,255,0.4), transparent);
-            transform: rotate(45deg); transition: 0.5s; opacity: 0;
-        }
-        .btn-pro:hover::after { opacity: 1; left: 100%; }
-
-        /* Plan Cards */
-        .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 20px; }
-        .plan-card-pro {
-            background: rgba(30, 30, 30, 0.6); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px; padding: 15px; cursor: pointer;
-            transition: 0.3s; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .plan-card-pro:hover { background: rgba(40,40,40,0.8); }
-        .plan-card-pro.selected {
-            background: rgba(244, 196, 48, 0.15);
+        
+        .expl-box {
+            background: rgba(20, 20, 20, 0.95);
             border: 2px solid var(--primary);
-            box-shadow: 0 0 20px rgba(244, 196, 48, 0.15);
-        }
-        .pc-dur { font-size: 0.9rem; color: #ccc; font-weight: 600; }
-        .pc-price { font-size: 1.4rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; margin: 5px 0; }
-        .pc-check { position: absolute; top: 5px; right: 5px; color: var(--primary); opacity: 0; transition: 0.2s; }
-        .plan-card-pro.selected .pc-check { opacity: 1; }
-
-        /* Dashboard (Step 4) */
-        .dashboard-container { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 20px; }
-        
-        /* Membership Card */
-        .membership-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            border: 1px solid #333;
             border-radius: 24px; padding: 25px;
-            position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            display: flex; flex-direction: column; justify-content: space-between;
-            min-height: 200px;
+            width: 100%; max-width: 500px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            animation: popUpAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
-        .membership-card::before {
-            content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
-            background: radial-gradient(circle, rgba(244,196,48,0.3) 0%, transparent 70%);
-            filter: blur(20px);
-        }
-        .mc-header { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
-        .mc-chip { width: 45px; height: 30px; background: linear-gradient(45deg, #FFD700, #FDB931); border-radius: 6px; position: relative; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.3); }
-        .mc-chip::after { content: ''; position: absolute; top:0; left:50%; width:1px; height:100%; background:rgba(0,0,0,0.2); }
-        .mc-plan-badge { 
-            background: rgba(244, 196, 48, 0.2); border: 1px solid var(--primary); 
-            color: var(--primary); padding: 5px 12px; border-radius: 50px; 
-            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; 
-        }
-        .mc-user { z-index: 2; margin-top: auto; }
-        .mc-name { font-family: 'Rajdhani'; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
-        .mc-email { color: #888; font-size: 0.9rem; margin-top: -2px; }
 
-        /* Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        /* UPDATED STAT BOX (DARK GRAY) */
-        .stat-box {
-            background: rgba(30, 30, 30, 0.9); /* Dark Gray */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px; padding: 15px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        @keyframes popUpAnim { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .expl-box::before {
+            content: ''; position: absolute; top: -50px; left: -50px; width: 100px; height: 100px;
+            background: var(--primary); filter: blur(60px); opacity: 0.2;
         }
-        .sb-icon { font-size: 1.2rem; color: #ccc; margin-bottom: 5px; } 
-        .sb-val { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 800; color: #fff; }
-        .sb-label { font-size: 0.7rem; color: #ddd; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
 
-        /* Professional Progress List */
-        .pro-progress-header { font-family: 'Rajdhani'; font-size: 1.3rem; color: #fff; font-weight: 800; margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .pro-progress-header::after { content:''; flex:1; height:1px; background: rgba(255,255,255,0.1); }
-        
-        .pp-item {
-            background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(30,30,30,0.9) 100%);
-            border-left: 4px solid var(--primary);
-            border-radius: 8px; padding: 15px; margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        .expl-icon { font-size: 3rem; margin-bottom: 10px; }
+        .expl-title { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .expl-text { 
+            color: #ccc; font-size: 1rem; line-height: 1.6; margin-bottom: 25px; 
+            font-family: 'Plus Jakarta Sans'; background: rgba(255,255,255,0.05); 
+            padding: 15px; border-radius: 12px; width: 100%; border: 1px solid rgba(255,255,255,0.1);
         }
-        .pp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .pp-title { font-size: 0.9rem; font-weight: 700; color: #ddd; }
-        .pp-score { background: rgba(244, 196, 48, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani'; }
-        
-        .pp-bar-bg { width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
-        .pp-bar-fill { height: 100%; background: linear-gradient(90deg, #F4C430, #FFD700); border-radius: 10px; box-shadow: 0 0 10px var(--primary); transition: width 1s ease; }
-        
-        .pp-meta { display: flex; justify-content: flex-end; gap: 15px; font-size: 0.75rem; color: #666; margin-top: 8px; }
-        .pp-meta span i { margin-right: 4px; }
 
-
-        /* --- POPUPS --- */
+        /* --- OTHER POPUPS --- */
         .overlay-popup {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(5, 5, 5, 0.98); z-index: 50;
@@ -366,33 +285,87 @@
         }
         .res-emoji { font-size: 4rem; margin-bottom: 15px; }
         .res-title { font-family: 'Rajdhani'; font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 15px; line-height: 1.1; }
-        .res-btn { padding: 14px 35px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.1rem; border-radius: 50px; border: none; cursor: pointer; background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); margin-top: 25px; }
-        
+        .res-btn { padding: 14px 35px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.1rem; border-radius: 50px; border: none; cursor: pointer; background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); margin-top: 10px; transition: 0.3s; width: 100%; max-width: 200px; }
+        .res-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 25px var(--primary); }
+
         .welcome-text { color: #ccc; margin-bottom: 20px; font-size: 1rem; max-width: 80%; line-height: 1.5; }
         .user-highlight { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
 
-        /* --- NEWS/DISCOVERY SECTION STYLES --- */
+        /* --- PRO PROFILE STYLES --- */
+        #profile-section { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; overflow-y: auto; padding: 10px 5px; }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 30px 25px;
+            width: 100%; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .gold-input-group { width: 100%; margin-bottom: 20px; text-align: left; }
+        .gold-label { font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-left: 10px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .gold-input {
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 15px; border-radius: 12px; color: #fff; font-size: 1rem; transition: 0.3s; outline: none;
+        }
+        .gold-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(244, 196, 48, 0.2); background: rgba(0,0,0,0.6); }
+        .btn-pro {
+            width: 100%; background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+            color: #000; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
+            padding: 16px; border-radius: 16px; border: none; cursor: pointer; position: relative; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.3); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-pro:active { transform: scale(0.98); }
+        .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-bottom: 20px; }
+        .plan-card-pro {
+            background: rgba(30, 30, 30, 0.6); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .plan-card-pro:hover { background: rgba(40,40,40,0.8); }
+        .plan-card-pro.selected { background: rgba(244, 196, 48, 0.15); border: 2px solid var(--primary); box-shadow: 0 0 20px rgba(244, 196, 48, 0.15); }
+        .pc-dur { font-size: 0.9rem; color: #ccc; font-weight: 600; }
+        .pc-price { font-size: 1.4rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; margin: 5px 0; }
+        .pc-check { position: absolute; top: 5px; right: 5px; color: var(--primary); opacity: 0; transition: 0.2s; }
+        .plan-card-pro.selected .pc-check { opacity: 1; }
+
+        /* Dashboard */
+        .dashboard-container { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 20px; }
+        .membership-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); border: 1px solid #333;
+            border-radius: 24px; padding: 25px; position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 200px;
+        }
+        .mc-header { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
+        .mc-chip { width: 45px; height: 30px; background: linear-gradient(45deg, #FFD700, #FDB931); border-radius: 6px; position: relative; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.3); }
+        .mc-chip::after { content: ''; position: absolute; top:0; left:50%; width:1px; height:100%; background:rgba(0,0,0,0.2); }
+        .mc-plan-badge { background: rgba(244, 196, 48, 0.2); border: 1px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .mc-user { z-index: 2; margin-top: auto; }
+        .mc-name { font-family: 'Rajdhani'; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
+        .mc-email { color: #888; font-size: 0.9rem; margin-top: -2px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .stat-box { background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .sb-icon { font-size: 1.2rem; color: #ccc; margin-bottom: 5px; } 
+        .sb-val { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 800; color: #fff; }
+        .sb-label { font-size: 0.7rem; color: #ddd; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        .pro-progress-header { font-family: 'Rajdhani'; font-size: 1.3rem; color: #fff; font-weight: 800; margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .pp-item { background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(30,30,30,0.9) 100%); border-left: 4px solid var(--primary); border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .pp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .pp-title { font-size: 0.9rem; font-weight: 700; color: #ddd; }
+        .pp-score { background: rgba(244, 196, 48, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani'; }
+        .pp-bar-bg { width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
+        .pp-bar-fill { height: 100%; background: linear-gradient(90deg, #F4C430, #FFD700); border-radius: 10px; box-shadow: 0 0 10px var(--primary); transition: width 1s ease; }
+        .pp-meta { display: flex; justify-content: flex-end; gap: 15px; font-size: 0.75rem; color: #666; margin-top: 8px; }
+
+        /* --- NEWS/DISCOVERY --- */
         #news-section { width: 100%; height: 100%; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
         .news-container { display: flex; flex-direction: column; gap: 15px; padding: 0 5px; }
-        
-        .news-card {
-            background: rgba(15, 15, 15, 0.9);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
+        .news-card { background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.3s; }
         .news-card:active { transform: scale(0.98); }
-        
         .news-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #333; }
         .news-body { padding: 15px; }
         .news-tag { font-size: 0.7rem; color: #000; background: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: 800; display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani'; }
         .news-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; font-family: 'Plus Jakarta Sans'; }
         .news-desc { font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .news-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; width: 100%; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px; transition: 0.3s; }
-        .news-btn:hover { background: rgba(244, 196, 48, 0.1); }
 
     </style>
 </head>
@@ -401,9 +374,11 @@
     <div id="universe-bg"></div>
 
     <header class="glass-header golden-border-anim">
-        <img class="header-logo" src="sti.png" alt="Logo" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=S'">
-        <img class="header-title-img" src="skillora.png" alt="SKILLI" onerror="this.style.display='none'">
-        <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.src='https://via.placeholder.com/44/FFD700/000?text=Y'">
+        <img class="header-logo" src="sti.png" alt="Logo" onerror="this.style.display='none'">
+        
+        <div id="app-main-title" class="header-title-text">STISkilli</div>
+        
+        <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.style.display='none'">
     </header>
 
     <div class="dock-wrapper">
@@ -442,6 +417,17 @@
                     <div id="q-text" class="q-text">Loading...</div>
                 </div>
                 <div id="options-list" class="options-list"></div>
+            </div>
+
+            <div id="explanation-overlay">
+                <div class="expl-box" id="expl-box">
+                    <div id="expl-icon" class="expl-icon">✅</div>
+                    <div id="expl-title" class="expl-title">CORRECT!</div>
+                    <div id="expl-text" class="expl-text">
+                        Detailed explanation goes here...
+                    </div>
+                    <button class="res-btn" onclick="closeExplanationAndNext()">NEXT <i class="fas fa-arrow-right"></i></button>
+                </div>
             </div>
 
             <div id="result-overlay" class="overlay-popup">
@@ -591,7 +577,22 @@
     </div>
 
     <script>
-        // --- 1. CONFIGURATION ---
+        // --- 1. CONFIGURATION (CUSTOMIZE HERE) ---
+        
+        const APP_NAME = "STISkilli"; 
+
+        // !!! CHANGE THESE VALUES TO RENAME CATEGORY HEADINGS !!!
+        const CATEGORY_TITLES = {
+            ancient: "HULIHULI",   // Aap change kar sakte hai: "PRACHIN BHARAT"
+            medieval: "MEDIEVAL HISTORY", // Aap change kar sakte hai: "MADHYAKALIN BHARAT"
+            modern: "MODERN HISTORY",
+            world: "WORLD HISTORY",
+            art: "ART & CULTURE",
+            news: "LATEST DISCOVERIES",
+            profile: "USER PROFILE"
+        };
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         const categoryBackgrounds = {
             profile: 'skilligovtbck.png', ancient: 'anicianthistoryofindia.png', medieval: 'medivalhistoryofindia.png',
             modern: 'modernhistoryofindia.png', world: 'worldhistory.png', art: 'artandcultureofindia.png',
@@ -601,69 +602,51 @@
         const CHECKPOINT = 25;
         const PASS_REQ = 20;
 
-        // --- 2. CUSTOM DATA ---
-        
+        // --- 2. CUSTOM DATA & NEWS ---
         const newsDatabase = [
-            {
-                tag: "DISCOVERY",
-                title: "New Harappan Site Found in Gujarat",
-                desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.",
-                image: "skillinewsbck.png",
-                link: "page_harappa_news.html" 
-            },
-            {
-                tag: "RESEARCH",
-                title: "Decoding the Indus Script",
-                desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.",
-                image: "skillinewsbck.png",
-                link: "page_ai_script.html" 
-            },
-            {
-                tag: "EVENT",
-                title: "World History Conference 2026",
-                desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.",
-                image: "skillinewsbck.png",
-                link: "page_conference.html" 
-            },
-            {
-                tag: "MYSTERY",
-                title: "The Lost Library of Nalanda",
-                desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.",
-                image: "skillinewsbck.png",
-                link: "page_nalanda.html" 
-            }
+            { tag: "DISCOVERY", title: "New Harappan Site Found in Gujarat", desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.", image: "skillinewsbck.png", link: "page_harappa_news.html" },
+            { tag: "RESEARCH", title: "Decoding the Indus Script", desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.", image: "skillinewsbck.png", link: "page_ai_script.html" },
+            { tag: "EVENT", title: "World History Conference 2026", desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.", image: "skillinewsbck.png", link: "page_conference.html" },
+            { tag: "MYSTERY", title: "The Lost Library of Nalanda", desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.", image: "skillinewsbck.png", link: "page_nalanda.html" }
         ];
 
+        // --- QUIZ DATA WITH EXPLANATIONS ---
         const quizDatabase = {
             ancient: [
-                { name: "1857 REVOLUTION OF INDIA", questions: [ { q: "Oldest Veda?", options: ["Rigveda", "Samaveda", "Yajur", "Atharva"], ans: 0 }, { q: "Great Bath found in?", options: ["Harappa", "Mohenjodaro", "Lothal", "Kalibangan"], ans: 1 } ] },
-                { name: "Mauryan Empire", questions: [ { q: "Arthashastra author?", options: ["Chanakya", "Megasthenes", "Kalidasa", "Ashoka"], ans: 0 }, { q: "Kalinga War Year?", options: ["261 BC", "273 BC", "232 BC", "240 BC"], ans: 0 } ] },
-                { name: "Gupta Era", questions: [ { q: "Napoleon of India?", options: ["Samudragupta", "Chandragupta", "Ashoka", "Harsha"], ans: 0 }, { q: "Kalidasa court?", options: ["Chandragupta II", "Akbar", "Ashoka", "Kanishka"], ans: 0 } ] },
-                { name: "South Dynasties", questions: [ { q: "Chola Capital?", options: ["Thanjavur", "Madurai", "Kanchi", "Vatapi"], ans: 0 }, { q: "Ellora builder?", options: ["Rashtrakuta", "Chola", "Pallava", "Gupta"], ans: 0 } ] }
+                { 
+                    name: "1857 REVOLUTION OF INDIA", 
+                    questions: [ 
+                        { q: "Oldest Veda?", options: ["Rigveda", "Samaveda", "Yajur", "Atharva"], ans: 0, explanation: "The Rigveda is the oldest known Vedic Sanskrit text. It is a collection of 1,028 hymns and 10,600 verses, organized into ten books (Mandalas)." }, 
+                        { q: "Great Bath found in?", options: ["Harappa", "Mohenjodaro", "Lothal", "Kalibangan"], ans: 1, explanation: "The Great Bath is one of the most well-known structures among the ruins of the ancient Indus Valley Civilization at Mohenjo-daro in Sindh, Pakistan." } 
+                    ] 
+                },
+                { name: "Mauryan Empire", questions: [ { q: "Arthashastra author?", options: ["Chanakya", "Megasthenes", "Kalidasa", "Ashoka"], ans: 0, explanation: "Chanakya, also known as Kautilya or Vishnugupta, was an Indian teacher, philosopher, and royal advisor who authored the Arthashastra." }, { q: "Kalinga War Year?", options: ["261 BC", "273 BC", "232 BC", "240 BC"], ans: 0, explanation: "The Kalinga War was fought in 261 BC between the Maurya Empire under Ashoka and the state of Kalinga." } ] },
+                { name: "Gupta Era", questions: [ { q: "Napoleon of India?", options: ["Samudragupta", "Chandragupta", "Ashoka", "Harsha"], ans: 0, explanation: "Samudragupta is called the 'Napoleon of India' by historian V.A. Smith because of his great military conquests." }, { q: "Kalidasa court?", options: ["Chandragupta II", "Akbar", "Ashoka", "Kanishka"], ans: 0, explanation: "Kalidasa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language, at the court of Chandragupta II." } ] },
+                { name: "South Dynasties", questions: [ { q: "Chola Capital?", options: ["Thanjavur", "Madurai", "Kanchi", "Vatapi"], ans: 0, explanation: "Thanjavur served as the capital of the Chola Empire, which was one of the longest-ruling dynasties in the history of southern India." }, { q: "Ellora builder?", options: ["Rashtrakuta", "Chola", "Pallava", "Gupta"], ans: 0, explanation: "The Ellora caves, specifically the Kailasa temple, were largely constructed during the reign of the Rashtrakuta dynasty." } ] }
             ],
             medieval: [
-                { name: "Delhi Sultanate", questions: [ { q: "Slave Dynasty founder?", options: ["Aibak", "Iltutmish", "Balban", "Razia"], ans: 0 }, { q: "Market Control?", options: ["Alauddin", "Balban", "Firoz", "Akbar"], ans: 0 } ] },
-                { name: "Mughals", questions: [ { q: "Ain-i-Akbari author?", options: ["Abul Fazl", "Birbal", "Faizi", "Todar"], ans: 0 }, { q: "Haldighati Year?", options: ["1576", "1526", "1556", "1761"], ans: 0 } ] },
-                { name: "Marathas", questions: [ { q: "Shivaji Crowned?", options: ["1674", "1665", "1680", "1650"], ans: 0 }, { q: "Purandar Treaty?", options: ["Jai Singh", "Afzal", "Shaista", "Aurangzeb"], ans: 0 } ] },
-                { name: "Bhakti Movement", questions: [ { q: "Kabir Guru?", options: ["Ramananda", "Ramanuja", "Shankara", "Nanak"], ans: 0 }, { q: "Chisti Dargah?", options: ["Ajmer", "Delhi", "Agra", "Lahore"], ans: 0 } ] }
+                { name: "Delhi Sultanate", questions: [ { q: "Slave Dynasty founder?", options: ["Aibak", "Iltutmish", "Balban", "Razia"], ans: 0, explanation: "Qutb ud-Din Aibak, a general of Muhammad Ghori, founded the Slave Dynasty (Mamluk Dynasty) in 1206." }, { q: "Market Control?", options: ["Alauddin", "Balban", "Firoz", "Akbar"], ans: 0, explanation: "Alauddin Khalji implemented market control reforms to maintain a large army at a low cost, fixing prices of essential commodities." } ] },
+                { name: "Mughals", questions: [ { q: "Ain-i-Akbari author?", options: ["Abul Fazl", "Birbal", "Faizi", "Todar"], ans: 0, explanation: "Ain-i-Akbari (Administration of Akbar) was written by Abul Fazl, the grand vizier of the Mughal emperor Akbar." }, { q: "Haldighati Year?", options: ["1576", "1526", "1556", "1761"], ans: 0, explanation: "The Battle of Haldighati was fought on 18 June 1576 between the forces of Maharana Pratap and the Mughal emperor Akbar." } ] },
+                { name: "Marathas", questions: [ { q: "Shivaji Crowned?", options: ["1674", "1665", "1680", "1650"], ans: 0, explanation: "Shivaji was crowned king of the Maratha Kingdom in a lavish ceremony at Raigad in 1674." }, { q: "Purandar Treaty?", options: ["Jai Singh", "Afzal", "Shaista", "Aurangzeb"], ans: 0, explanation: "The Treaty of Purandar (1665) was signed between the Rajput ruler Jai Singh I, who was commander of the Mughal Empire, and Chhatrapati Shivaji." } ] },
+                { name: "Bhakti Movement", questions: [ { q: "Kabir Guru?", options: ["Ramananda", "Ramanuja", "Shankara", "Nanak"], ans: 0, explanation: "Swami Ramananda is considered the guru of Saint Kabir Das." }, { q: "Chisti Dargah?", options: ["Ajmer", "Delhi", "Agra", "Lahore"], ans: 0, explanation: "The Dargah of Khwaja Moinuddin Chishti is located in Ajmer, Rajasthan." } ] }
             ],
             modern: [
-                { name: "Revolt 1857", questions: [ { q: "1857 Start?", options: ["Meerut", "Delhi", "Kanpur", "Jhansi"], ans: 0 }, { q: "Last Mughal?", options: ["Bahadur Shah II", "Aurangzeb", "Shah Alam", "Akbar II"], ans: 0 } ] },
-                { name: "Gandhi Era", questions: [ { q: "Gandhi Return?", options: ["1915", "1917", "1919", "1920"], ans: 0 }, { q: "First Satyagraha?", options: ["Champaran", "Kheda", "Dandi", "Bardoli"], ans: 0 } ] },
-                { name: "Freedom Struggle", questions: [ { q: "INC Founded?", options: ["1885", "1905", "1920", "1947"], ans: 0 }, { q: "Do or Die?", options: ["Gandhi", "Nehru", "Bose", "Tilak"], ans: 0 } ] },
-                { name: "Independence", questions: [ { q: "Mountbatten Plan?", options: ["3 June 1947", "15 Aug", "26 Jan", "1946"], ans: 0 }, { q: "Iron Man?", options: ["Patel", "Nehru", "Gandhi", "Bose"], ans: 0 } ] }
+                { name: "Revolt 1857", questions: [ { q: "1857 Start?", options: ["Meerut", "Delhi", "Kanpur", "Jhansi"], ans: 0, explanation: "The rebellion began on 10 May 1857 in the form of a mutiny of sepoys of the Company's army in the garrison town of Meerut." }, { q: "Last Mughal?", options: ["Bahadur Shah II", "Aurangzeb", "Shah Alam", "Akbar II"], ans: 0, explanation: "Bahadur Shah Zafar (Bahadur Shah II) was the twentieth and last Mughal Emperor of India." } ] },
+                { name: "Gandhi Era", questions: [ { q: "Gandhi Return?", options: ["1915", "1917", "1919", "1920"], ans: 0, explanation: "Mahatma Gandhi returned to India from South Africa on January 9, 1915." }, { q: "First Satyagraha?", options: ["Champaran", "Kheda", "Dandi", "Bardoli"], ans: 0, explanation: "The Champaran Satyagraha of 1917 was the first Satyagraha movement led by Gandhi in India." } ] },
+                { name: "Freedom Struggle", questions: [ { q: "INC Founded?", options: ["1885", "1905", "1920", "1947"], ans: 0, explanation: "The Indian National Congress was founded in 1885 by A.O. Hume." }, { q: "Do or Die?", options: ["Gandhi", "Nehru", "Bose", "Tilak"], ans: 0, explanation: "The slogan 'Do or Die' was given by Mahatma Gandhi during the Quit India Movement in 1942." } ] },
+                { name: "Independence", questions: [ { q: "Mountbatten Plan?", options: ["3 June 1947", "15 Aug", "26 Jan", "1946"], ans: 0, explanation: "The Mountbatten Plan, also known as the 3 June Plan, announced the partition of India." }, { q: "Iron Man?", options: ["Patel", "Nehru", "Gandhi", "Bose"], ans: 0, explanation: "Sardar Vallabhbhai Patel is known as the Iron Man of India for his role in unifying the princely states." } ] }
             ],
             world: [
-                { name: "World Wars", questions: [ { q: "WW1 Start?", options: ["1914", "1918", "1939", "1945"], ans: 0 }, { q: "Versailles Treaty?", options: ["WW1", "WW2", "Cold War", "French"], ans: 0 } ] },
-                { name: "Revolutions", questions: [ { q: "French Rev?", options: ["1789", "1799", "1776", "1804"], ans: 0 }, { q: "Russian Rev?", options: ["1917", "1914", "1920", "1905"], ans: 0 } ] },
-                { name: "Cold War", questions: [ { q: "Cold War?", options: ["USA vs USSR", "USA vs China", "UK vs Ger", "Ind vs Pak"], ans: 0 }, { q: "Berlin Wall Fall?", options: ["1989", "1991", "1945", "1960"], ans: 0 } ] },
-                { name: "Modern Era", questions: [ { q: "UN Founded?", options: ["1945", "1919", "1950", "1947"], ans: 0 }, { q: "Industrial Rev?", options: ["England", "France", "USA", "Germany"], ans: 0 } ] }
+                { name: "World Wars", questions: [ { q: "WW1 Start?", options: ["1914", "1918", "1939", "1945"], ans: 0, explanation: "World War I began on July 28, 1914, following the assassination of Archduke Franz Ferdinand." }, { q: "Versailles Treaty?", options: ["WW1", "WW2", "Cold War", "French"], ans: 0, explanation: "The Treaty of Versailles was the most important of the peace treaties that brought World War I to an end." } ] },
+                { name: "Revolutions", questions: [ { q: "French Rev?", options: ["1789", "1799", "1776", "1804"], ans: 0, explanation: "The French Revolution began in May 1789 with the Estates General of 1789." }, { q: "Russian Rev?", options: ["1917", "1914", "1920", "1905"], ans: 0, explanation: "The Russian Revolution was a period of political and social revolution across the territory of the Russian Empire in 1917." } ] },
+                { name: "Cold War", questions: [ { q: "Cold War?", options: ["USA vs USSR", "USA vs China", "UK vs Ger", "Ind vs Pak"], ans: 0, explanation: "The Cold War was a period of geopolitical tension between the United States and the Soviet Union and their respective allies." }, { q: "Berlin Wall Fall?", options: ["1989", "1991", "1945", "1960"], ans: 0, explanation: "The Berlin Wall fell on November 9, 1989, marking the symbolic end of the Cold War." } ] },
+                { name: "Modern Era", questions: [ { q: "UN Founded?", options: ["1945", "1919", "1950", "1947"], ans: 0, explanation: "The United Nations was established on October 24, 1945, after World War II." }, { q: "Industrial Rev?", options: ["England", "France", "USA", "Germany"], ans: 0, explanation: "The Industrial Revolution began in Great Britain (England) in the 18th century." } ] }
             ],
             art: [
-                { name: "Dance Forms", questions: [ { q: "Bharatnatyam?", options: ["TN", "Kerala", "AP", "Odisha"], ans: 0 }, { q: "Kathakali?", options: ["Kerala", "Karnataka", "UP", "Assam"], ans: 0 } ] },
-                { name: "Music", questions: [ { q: "Hindustani Oldest?", options: ["Dhrupad", "Khayal", "Thumri", "Ghazal"], ans: 0 }, { q: "Sama Veda?", options: ["Music", "Magic", "Medicine", "Rituals"], ans: 0 } ] },
-                { name: "Architecture", questions: [ { q: "Sun Temple?", options: ["Konark", "Puri", "Bhubaneswar", "Cuttack"], ans: 0 }, { q: "Taj Mahal?", options: ["Shah Jahan", "Akbar", "Jahangir", "Aurangzeb"], ans: 0 } ] },
-                { name: "Paintings", questions: [ { q: "Madhubani?", options: ["Bihar", "Bengal", "Odisha", "Gujarat"], ans: 0 }, { q: "Ajanta?", options: ["Jatakas", "Ramayana", "Mahabharata", "Vedas"], ans: 0 } ] }
+                { name: "Dance Forms", questions: [ { q: "Bharatnatyam?", options: ["TN", "Kerala", "AP", "Odisha"], ans: 0, explanation: "Bharatanatyam is a major form of Indian classical dance that originated in Tamil Nadu." }, { q: "Kathakali?", options: ["Kerala", "Karnataka", "UP", "Assam"], ans: 0, explanation: "Kathakali is a major form of classical Indian dance known for its elaborate makeup and costumes, originating in Kerala." } ] },
+                { name: "Music", questions: [ { q: "Hindustani Oldest?", options: ["Dhrupad", "Khayal", "Thumri", "Ghazal"], ans: 0, explanation: "Dhrupad is the oldest surviving form of Hindustani classical music." }, { q: "Sama Veda?", options: ["Music", "Magic", "Medicine", "Rituals"], ans: 0, explanation: "The Samaveda is the Veda of melodies and chants, serving as the root of Indian classical music." } ] },
+                { name: "Architecture", questions: [ { q: "Sun Temple?", options: ["Konark", "Puri", "Bhubaneswar", "Cuttack"], ans: 0, explanation: "The Konark Sun Temple is a 13th-century CE Sun Temple at Konark in Odisha, India." }, { q: "Taj Mahal?", options: ["Shah Jahan", "Akbar", "Jahangir", "Aurangzeb"], ans: 0, explanation: "The Taj Mahal was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favorite wife, Mumtaz Mahal." } ] },
+                { name: "Paintings", questions: [ { q: "Madhubani?", options: ["Bihar", "Bengal", "Odisha", "Gujarat"], ans: 0, explanation: "Madhubani art (or Mithila painting) is a style of Indian painting practiced in the Mithila region of India (Bihar) and Nepal." }, { q: "Ajanta?", options: ["Jatakas", "Ramayana", "Mahabharata", "Vedas"], ans: 0, explanation: "The Ajanta Caves contain paintings and rock-cut sculptures described as among the finest surviving examples of ancient Indian art, depicting Jataka tales." } ] }
             ]
         };
 
@@ -680,18 +663,10 @@
         let selectedPlanPrice = 0, selectedPlanLabel = "";
         
         let progressData;
-        try {
-            progressData = JSON.parse(localStorage.getItem('quizProgress')) || {};
-        } catch(e) {
-            progressData = {};
-        }
+        try { progressData = JSON.parse(localStorage.getItem('quizProgress')) || {}; } catch(e) { progressData = {}; }
 
         let unlockedLevels;
-        try {
-            unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 };
-        } catch (e) {
-            unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 };
-        }
+        try { unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; } catch (e) { unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; }
 
         let activeCat = "", activeUnitIdx = 0;
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
@@ -718,9 +693,8 @@
             const modalBox = document.getElementById('dynamic-modal-box');
             modalBox.style.backgroundImage = `url('${categoryBackgrounds[catName] || 'skilligovtbck.png'}')`;
             
-            let dispTitle = catName.toUpperCase();
-            if(catName === 'news') dispTitle = "DISCOVERIES";
-            else if(catName !== 'profile') dispTitle += " HISTORY";
+            // --- UPDATED TITLE LOGIC: USES CUSTOM TITLES ---
+            let dispTitle = CATEGORY_TITLES[catName] || catName.toUpperCase();
             document.getElementById('cat-title').innerText = dispTitle;
 
             const quizUI = document.getElementById('quiz-interface');
@@ -734,6 +708,7 @@
             subNav.style.display = 'none';
             document.getElementById('result-overlay').style.display = 'none';
             document.getElementById('locked-popup').style.display = 'none';
+            document.getElementById('explanation-overlay').style.display = 'none'; 
 
             if (catName === 'profile') {
                 profileUI.style.display = 'flex';
@@ -801,11 +776,12 @@
             startQuiz(idx);
         }
 
-        // --- 5. QUIZ ENGINE (WITH RANDOMIZATION) ---
+        // --- 5. QUIZ ENGINE (UPDATED WITH POPUP) ---
         function startQuiz(idx) {
             if(questionTimer) clearInterval(questionTimer);
             activeUnitIdx = idx;
             document.getElementById('result-overlay').style.display = 'none';
+            document.getElementById('explanation-overlay').style.display = 'none';
             
             if(!quizDatabase[activeCat] || !quizDatabase[activeCat][idx]) {
                 document.getElementById('q-text').innerText = "Unit not found.";
@@ -863,11 +839,11 @@
                     const btn = document.createElement('div');
                     btn.className = 'option-btn';
                     btn.innerHTML = `<span>${opt}</span> <i class="far fa-circle"></i>`;
-                    btn.onclick = () => handleAnswer(i, actualQ.ans, btn);
+                    btn.onclick = () => handleAnswer(i, actualQ.ans, btn, actualQ);
                     list.appendChild(btn);
                 });
 
-                startTimerLogic(actualQ.ans);
+                startTimerLogic(actualQ.ans, actualQ);
 
             } catch (error) {
                 console.error("Error loading question:", error);
@@ -878,7 +854,7 @@
             }
         }
 
-        function startTimerLogic(correctIndex) {
+        function startTimerLogic(correctIndex, qObj) {
             timeLeft = 30;
             document.getElementById('q-timer').innerText = timeLeft;
             
@@ -887,12 +863,12 @@
                 document.getElementById('q-timer').innerText = timeLeft;
                 if(timeLeft <= 0) {
                     clearInterval(questionTimer);
-                    handleTimeOut(correctIndex);
+                    handleTimeOut(correctIndex, qObj);
                 }
             }, 1000);
         }
 
-        function handleTimeOut(correctIndex) {
+        function handleTimeOut(correctIndex, qObj) {
             document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
             const btns = document.querySelectorAll('.option-btn');
             if(btns[correctIndex]) btns[correctIndex].classList.add('correct');
@@ -904,25 +880,29 @@
             saveProgress();
             
             setTimeout(() => {
-                checkResultOrNext();
-            }, 1500);
+                showExplanation(false, qObj);
+            }, 800);
         }
 
-        function handleAnswer(sel, cor, btn) {
+        function handleAnswer(sel, cor, btn, qObj) {
             clearInterval(questionTimer);
             document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
+
+            let isCorrect = false;
 
             if(sel === cor) {
                 btn.classList.add('correct');
                 currentSession.score += 2;
                 currentSession.correct++;
                 blockCorrect++;
+                isCorrect = true;
             } else {
                 btn.classList.add('wrong');
                 currentSession.score -= 0.25;
                 currentSession.wrong++;
                 const allBtns = document.querySelectorAll('.option-btn');
                 if(allBtns[cor]) allBtns[cor].classList.add('correct');
+                isCorrect = false;
             }
 
             currentSession.qIndex++;
@@ -930,8 +910,43 @@
             saveProgress();
 
             setTimeout(() => {
-                checkResultOrNext();
-            }, 1000);
+                showExplanation(isCorrect, qObj);
+            }, 800);
+        }
+
+        // --- EXPLANATION FUNCTIONS ---
+
+        function showExplanation(isCorrect, qObj) {
+            const overlay = document.getElementById('explanation-overlay');
+            const icon = document.getElementById('expl-icon');
+            const title = document.getElementById('expl-title');
+            const text = document.getElementById('expl-text');
+            const box = document.getElementById('expl-box');
+
+            // Fallback text if explanation missing
+            const explanation = qObj.explanation || "Detailed historical context for this answer is currently being updated in our archives.";
+
+            if(isCorrect) {
+                icon.innerHTML = "✅";
+                title.innerText = "CORRECT ANSWER";
+                title.style.color = "var(--correct)";
+                box.style.borderColor = "var(--correct)";
+                box.style.boxShadow = "0 0 30px rgba(0, 230, 118, 0.2)";
+            } else {
+                icon.innerHTML = "❌";
+                title.innerText = "INCORRECT";
+                title.style.color = "var(--wrong)";
+                box.style.borderColor = "var(--wrong)";
+                box.style.boxShadow = "0 0 30px rgba(255, 23, 68, 0.2)";
+            }
+
+            text.innerText = explanation;
+            overlay.style.display = 'flex';
+        }
+
+        function closeExplanationAndNext() {
+            document.getElementById('explanation-overlay').style.display = 'none';
+            checkResultOrNext();
         }
 
         function checkResultOrNext() {
@@ -1146,6 +1161,10 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Apply Customizable Heading on Load
+            document.getElementById('app-main-title').innerText = APP_NAME;
+            document.title = APP_NAME + " - History PYQ";
+
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
             else openCategory('profile', document.getElementById('nav-profile'));
         });
