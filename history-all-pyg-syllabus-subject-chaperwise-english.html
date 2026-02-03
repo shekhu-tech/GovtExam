@@ -79,7 +79,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+     <style>
         /* --- THEME VARIABLES --- */
         :root {
             --primary: #F4C430;       
@@ -127,7 +127,7 @@
             100% { box-shadow: 0 0 20px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(244, 196, 48, 0.2); border-color: #ffd700; }
         }
 
-        /* --- HEADER (UPDATED FOR CUSTOM TEXT) --- */
+        /* --- HEADER --- */
         .glass-header {
             position: fixed; top: calc(15px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
             width: 94%; max-width: 800px; height: var(--header-height);
@@ -138,7 +138,6 @@
         }
         .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
         
-        /* NEW CUSTOM TEXT STYLE */
         .header-title-text {
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.8rem;
@@ -174,6 +173,9 @@
             text-shadow: 0 0 20px var(--primary);
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
+        
+        /* Lock Icon on Dock Item */
+        .dock-lock-indicator { position: absolute; top: 15px; right: 10px; font-size: 0.6rem; color: #ff1744; background: rgba(0,0,0,0.8); padding: 2px; border-radius: 50%; }
 
         /* --- MAIN MODAL --- */
         .modal-overlay { 
@@ -237,7 +239,7 @@
         .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
         .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
 
-        /* --- EXPLANATION POPUP STYLES --- */
+        /* --- EXPLANATION POPUP STYLES (UPDATED FOR SCROLLING) --- */
         #explanation-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.85); z-index: 100;
@@ -257,6 +259,7 @@
             animation: popUpAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            max-height: 80vh; /* Prevent box from being taller than screen */
         }
 
         @keyframes popUpAnim { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -268,10 +271,14 @@
 
         .expl-icon { font-size: 3rem; margin-bottom: 10px; }
         .expl-title { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* SCROLLING FIX HERE */
         .expl-text { 
             color: #ccc; font-size: 1rem; line-height: 1.6; margin-bottom: 25px; 
             font-family: 'Plus Jakarta Sans'; background: rgba(255,255,255,0.05); 
             padding: 15px; border-radius: 12px; width: 100%; border: 1px solid rgba(255,255,255,0.1);
+            max-height: 300px; /* Limit Height */
+            overflow-y: auto;  /* Enable Vertical Scroll */
         }
 
         /* --- OTHER POPUPS --- */
@@ -384,13 +391,33 @@
     <div class="dock-wrapper">
         <nav class="glass-dock golden-border-anim">
             <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
-            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-gopuram"></i></div>
-            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)"><i class="fas fa-monument"></i></div>
-            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)"><i class="fas fa-flag"></i></div>
-            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)"><i class="fas fa-globe"></i></div>
-            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)"><i class="fas fa-palette"></i></div>
-            <div id="nav-news" class="dock-item" onclick="openCategory('news', this)"><i class="fas fa-newspaper"></i></div>
             
+            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)">
+                <i class="fas fa-gopuram"></i>
+                <div class="dock-lock-indicator" id="lock-ancient" style="display:none;"><i class="fas fa-lock"></i></div>
+            </div>
+            
+            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)">
+                <i class="fas fa-monument"></i>
+                <div class="dock-lock-indicator" id="lock-medieval" style="display:none;"><i class="fas fa-lock"></i></div>
+            </div>
+            
+            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)">
+                <i class="fas fa-flag"></i>
+                <div class="dock-lock-indicator" id="lock-modern" style="display:none;"><i class="fas fa-lock"></i></div>
+            </div>
+            
+            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)">
+                <i class="fas fa-globe"></i>
+                <div class="dock-lock-indicator" id="lock-world" style="display:none;"><i class="fas fa-lock"></i></div>
+            </div>
+            
+            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)">
+                <i class="fas fa-palette"></i>
+                <div class="dock-lock-indicator" id="lock-art" style="display:none;"><i class="fas fa-lock"></i></div>
+            </div>
+            
+            <div id="nav-news" class="dock-item" onclick="openCategory('news', this)"><i class="fas fa-newspaper"></i></div>
         </nav>
     </div>
 
@@ -410,7 +437,7 @@
 
             <div id="quiz-interface" style="display: none;">
                 <div class="quiz-stats-bar">
-                    <div class="stat-item"><span id="unit-name-display">UNIT 1</span></div>
+                    <div class="stat-item"><span id="unit-name-display">HISTORY QUIZ</span></div>
                     <div class="stat-item" style="color:#ff1744; font-weight:800;"><i class="fas fa-clock"></i> <span id="q-timer">30</span>s</div>
                     <div class="stat-item">Q: <span id="q-num-display" style="color:#fff;">1/25</span></div>
                 </div>
@@ -455,8 +482,8 @@
 
             <div id="locked-popup" class="overlay-popup">
                 <div class="res-emoji">🔒</div>
-                <div class="res-title" style="color:#ff1744;">CONTENT LOCKED</div>
-                <div class="welcome-text">
+                <div class="res-title" style="color:#ff1744;" id="lock-title">CONTENT LOCKED</div>
+                <div class="welcome-text" id="lock-msg">
                     This content is for Premium Members only.<br>
                     Please upgrade your plan to access all Units and Quizzes.
                 </div>
@@ -578,16 +605,12 @@
     </div>
 
     <script>
-        // --- 1. CONFIGURATION (CUSTOMIZE HERE) ---
+        // --- 1. CONFIGURATION ---
         
         const APP_NAME = "STISkilli"; 
 
-        // !!! CHANGE THESE VALUES TO RENAME CATEGORY HEADINGS !!!
-        // THIS WILL CHANGE:
-        // 1. POPUP TITLE
-        // 2. PROFILE LOG TITLE (AUTOMATICALLY)
         const CATEGORY_TITLES = {
-            ancient: "HULIHULI",   // Change here
+            ancient: "HULIHULI",   
             medieval: "MEDIEVAL HISTORY",
             modern: "MODERN HISTORY",
             world: "WORLD HISTORY",
@@ -595,7 +618,6 @@
             news: "LATEST DISCOVERIES",
             profile: "USER PROFILE"
         };
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         const categoryBackgrounds = {
             profile: 'skilligovtbck.png', ancient: 'anicianthistoryofindia.png', medieval: 'medivalhistoryofindia.png',
@@ -606,7 +628,10 @@
         const CHECKPOINT = 25;
         const PASS_REQ = 20;
 
-        // --- 2. CUSTOM DATA & NEWS ---
+        // --- NEW: ORDER OF CATEGORIES FOR SEQUENTIAL UNLOCKING ---
+        const CATEGORY_ORDER = ['ancient', 'medieval', 'modern', 'world', 'art'];
+
+        // --- 2. DATA & NEWS ---
         const newsDatabase = [
             { tag: "DISCOVERY", title: "New Harappan Site Found in Gujarat", desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.", image: "skillinewsbck.png", link: "page_harappa_news.html" },
             { tag: "RESEARCH", title: "Decoding the Indus Script", desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.", image: "skillinewsbck.png", link: "page_ai_script.html" },
@@ -614,8 +639,6 @@
             { tag: "MYSTERY", title: "The Lost Library of Nalanda", desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.", image: "skillinewsbck.png", link: "page_nalanda.html" }
         ];
 
-
-        // --- QUIZ DATA WITH EXPLANATIONS ---
         const quizDatabase = {
             ancient: [
                 { 
@@ -680,13 +703,58 @@
 
         function hasPaid() { return localStorage.getItem('hasPaid') === 'true'; }
 
-        // --- 4. NAVIGATION ---
+        // --- 4. NAVIGATION WITH SEQUENTIAL LOCKS ---
+        
+        function updateDockLocks() {
+            // Visualize locks on dock items based on sequence
+            CATEGORY_ORDER.forEach((cat, index) => {
+                const lockEl = document.getElementById(`lock-${cat}`);
+                if(!lockEl) return;
+                
+                if (index === 0) {
+                    lockEl.style.display = 'none'; // First one always unlocked
+                } else {
+                    const prevCat = CATEGORY_ORDER[index - 1];
+                    const prevTotalUnits = quizDatabase[prevCat] ? quizDatabase[prevCat].length : 0;
+                    const prevUnlocked = unlockedLevels[prevCat] || 1;
+                    
+                    // If previous category completed (unlocked level > total units), unlock this one
+                    if (prevUnlocked > prevTotalUnits) {
+                        lockEl.style.display = 'none';
+                    } else {
+                        lockEl.style.display = 'block';
+                    }
+                }
+            });
+        }
+
         function openCategory(catName, btnElement) {
             if(questionTimer) clearInterval(questionTimer);
 
+            // 1. Premium Check
             if (catName !== 'profile' && !hasPaid()) {
+                document.getElementById('lock-title').innerText = "CONTENT LOCKED";
+                document.getElementById('lock-msg').innerHTML = "This content is for Premium Members only.<br>Please upgrade your plan.";
                 document.getElementById('locked-popup').style.display = 'flex';
                 return;
+            }
+
+            // 2. Sequential Category Check (NEW LOGIC)
+            if (catName !== 'profile' && catName !== 'news') {
+                const catIndex = CATEGORY_ORDER.indexOf(catName);
+                if (catIndex > 0) {
+                    const prevCat = CATEGORY_ORDER[catIndex - 1];
+                    const prevTotalUnits = quizDatabase[prevCat] ? quizDatabase[prevCat].length : 0;
+                    const prevUnlocked = unlockedLevels[prevCat] || 1;
+
+                    if (prevUnlocked <= prevTotalUnits) {
+                        // Previous category not finished
+                        document.getElementById('lock-title').innerText = "SECTION LOCKED";
+                        document.getElementById('lock-msg').innerHTML = `Please complete all units in <b>${CATEGORY_TITLES[prevCat] || prevCat.toUpperCase()}</b> to unlock this section.`;
+                        document.getElementById('locked-popup').style.display = 'flex';
+                        return;
+                    }
+                }
             }
 
             if (btnElement) {
@@ -697,7 +765,6 @@
             const modalBox = document.getElementById('dynamic-modal-box');
             modalBox.style.backgroundImage = `url('${categoryBackgrounds[catName] || 'skilligovtbck.png'}')`;
             
-            // --- UPDATED TITLE LOGIC: USES CUSTOM TITLES ---
             let dispTitle = CATEGORY_TITLES[catName] || catName.toUpperCase();
             document.getElementById('cat-title').innerText = dispTitle;
 
@@ -780,7 +847,7 @@
             startQuiz(idx);
         }
 
-        // --- 5. QUIZ ENGINE (UPDATED WITH POPUP) ---
+        // --- 5. QUIZ ENGINE ---
         function startQuiz(idx) {
             if(questionTimer) clearInterval(questionTimer);
             activeUnitIdx = idx;
@@ -792,8 +859,9 @@
                 return;
             }
 
-            const unitName = quizDatabase[activeCat][idx].name;
-            document.getElementById('unit-name-display').innerText = unitName;
+            // --- CHANGED: Do NOT update the Red Circle text with Unit Name. Keep it static or short. ---
+            // Removed: document.getElementById('unit-name-display').innerText = unitName;
+            document.getElementById('unit-name-display').innerText = "QUESTION"; // Short static text
 
             if (!progressData[activeCat]) progressData[activeCat] = {};
             if (!progressData[activeCat][idx]) {
@@ -927,7 +995,6 @@
             const text = document.getElementById('expl-text');
             const box = document.getElementById('expl-box');
 
-            // Fallback text if explanation missing
             const explanation = qObj.explanation || "Detailed historical context for this answer is currently being updated in our archives.";
 
             if(isCorrect) {
@@ -982,13 +1049,17 @@
                 title.innerText = "UNIT PASSED!";
                 title.style.color = "#00e676";
                 failMsg.style.display = "none";
-                btn.innerText = "NEXT 25 Q";
+                btn.innerText = "NEXT LEVEL";
                 
                 const totalUnits = quizDatabase[activeCat].length;
-                if(activeUnitIdx + 1 === unlockedLevels[activeCat] && unlockedLevels[activeCat] < totalUnits) {
+                
+                // Unlock Logic
+                if(activeUnitIdx + 1 === unlockedLevels[activeCat]) {
                     unlockedLevels[activeCat]++;
                     localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
-                    renderSubNav(activeCat);
+                    
+                    // Update Lock Visuals in Dock
+                    updateDockLocks();
                 }
 
                 btn.onclick = () => {
@@ -996,7 +1067,17 @@
                     currentSession.blockCorrect = 0; 
                     saveProgress();
                     overlay.style.display = 'none'; 
-                    loadQuestion();
+                    
+                    // Logic to load next unit OR go back to menu if cat finished
+                    const maxUnits = quizDatabase[activeCat].length;
+                    if (activeUnitIdx + 1 < maxUnits) {
+                        // Go to next unit in same category
+                         switchUnit(activeUnitIdx + 1);
+                    } else {
+                        // Category Completed - Go back to menu to select next category
+                        alert("Category Completed! Next Section Unlocked.");
+                        openCategory(activeCat); // Refresh view
+                    }
                 };
             } else {
                 emoji.innerText = "😢";
@@ -1019,7 +1100,7 @@
             overlay.style.display = 'flex';
         }
 
-        // --- 6. PROFILE & LOGIC (UPDATED WITH DYNAMIC NAMING) ---
+        // --- 6. PROFILE & LOGIC ---
         function initProfileView() {
             if (hasPaid()) {
                 showStep(4);
@@ -1039,8 +1120,6 @@
 
             for (const cat in progressData) {
                 if(!quizDatabase[cat]) continue;
-                
-                // --- NEW FIX: Get Display Name from CATEGORY_TITLES ---
                 const displayCategoryName = CATEGORY_TITLES[cat] || cat.toUpperCase();
 
                 for (const uIdx in progressData[cat]) {
@@ -1168,9 +1247,11 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Apply Customizable Heading on Load
             document.getElementById('app-main-title').innerText = APP_NAME;
             document.title = APP_NAME + " - History PYQ";
+            
+            // Check locks on load
+            updateDockLocks();
 
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
             else openCategory('profile', document.getElementById('nav-profile'));
