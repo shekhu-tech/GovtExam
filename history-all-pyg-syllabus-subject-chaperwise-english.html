@@ -79,7 +79,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-     <style>
+     <!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>STISkilli History PYQ – Pro Sequential Edition</title>
+<script src="/app-redirect.js"></script>
+<meta name="description" content="Practice STISkilli History PYQ. Premium AI-powered preparation.">
+<meta name="robots" content="index, follow">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
         /* --- THEME VARIABLES --- */
         :root {
             --primary: #F4C430;       
@@ -89,6 +102,7 @@
             --footer-height: 75px; 
             --correct: #00e676;
             --wrong: #ff1744;
+            --locked-color: #555;
         }
 
         /* --- GLOBAL RESET --- */
@@ -167,15 +181,28 @@
             transition: all 0.3s ease; border-radius: 16px; flex: 1;
         }
         .dock-item i { font-size: 1.4rem; transition: 0.3s; }
+        
         .dock-item.active { 
             color: var(--primary-glow); 
             background: radial-gradient(circle, rgba(244, 196, 48, 0.2) 0%, transparent 70%);
             text-shadow: 0 0 20px var(--primary);
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
-        
-        /* Lock Icon on Dock Item */
-        .dock-lock-indicator { position: absolute; top: 15px; right: 10px; font-size: 0.6rem; color: #ff1744; background: rgba(0,0,0,0.8); padding: 2px; border-radius: 50%; }
+
+        /* LOCKED CATEGORY STYLE */
+        .dock-item.cat-locked {
+            color: #333 !important;
+            cursor: not-allowed;
+            pointer-events: auto; /* Allow click to show popup */
+        }
+        .dock-item.cat-locked i {
+            filter: grayscale(100%);
+        }
+        .lock-badge {
+            position: absolute; top: 15px; right: 10px;
+            font-size: 0.7rem; color: #fff; background: #000;
+            border-radius: 50%; padding: 2px; border: 1px solid #333;
+        }
 
         /* --- MAIN MODAL --- */
         .modal-overlay { 
@@ -209,16 +236,29 @@
         .sub-item.active { background: var(--primary); color: #000; border-color: var(--primary-glow); box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); font-weight: 800; }
         .sub-item.locked { opacity: 0.5; cursor: not-allowed; background: #222; border: 1px solid #444; }
 
-        /* --- QUIZ INTERFACE --- */
+        /* --- QUIZ INTERFACE & MODIFIED STATS BAR --- */
         #quiz-interface { flex-grow: 1; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
         
+        /* UPDATED: Solid Background & Border */
         .quiz-stats-bar {
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.05); border-radius: 12px;
-            padding: 8px 15px; margin-bottom: 15px; border: 1px solid rgba(255, 215, 0, 0.2);
+            background: #1a1a1a; /* Solid Dark Grey */
+            border-radius: 12px;
+            padding: 10px 15px; margin-bottom: 15px; 
+            border: 2px solid var(--primary); /* Gold Border */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+        /* UPDATED: Custom Editable Header Style */
+        .static-header-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .stat-item { font-family: 'Rajdhani'; font-weight: 700; font-size: 0.9rem; color: #ddd; }
-        .stat-val { color: var(--primary); font-size: 1.1rem; margin-left: 5px; }
 
         .question-box {
             background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
@@ -239,7 +279,7 @@
         .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
         .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
 
-        /* --- EXPLANATION POPUP STYLES (UPDATED FOR SCROLLING) --- */
+        /* --- EXPLANATION POPUP STYLES (UPDATED WITH SCROLL) --- */
         #explanation-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.85); z-index: 100;
@@ -250,7 +290,7 @@
         }
         
         .expl-box {
-            background: rgba(20, 20, 20, 0.95);
+            background: rgba(20, 20, 20, 0.98); /* Less transparent for readability */
             border: 2px solid var(--primary);
             border-radius: 24px; padding: 25px;
             width: 100%; max-width: 500px;
@@ -259,27 +299,34 @@
             animation: popUpAnim 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            max-height: 80vh; /* Prevent box from being taller than screen */
+            max-height: 80vh; /* Prevent overflowing screen */
         }
 
         @keyframes popUpAnim { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         .expl-box::before {
             content: ''; position: absolute; top: -50px; left: -50px; width: 100px; height: 100px;
-            background: var(--primary); filter: blur(60px); opacity: 0.2;
+            background: var(--primary); filter: blur(60px); opacity: 0.2; pointer-events: none;
         }
 
-        .expl-icon { font-size: 3rem; margin-bottom: 10px; }
-        .expl-title { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .expl-icon { font-size: 3rem; margin-bottom: 10px; flex-shrink: 0; }
+        .expl-title { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.8rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
         
-        /* SCROLLING FIX HERE */
+        /* UPDATED: SCROLLABLE TEXT AREA */
         .expl-text { 
             color: #ccc; font-size: 1rem; line-height: 1.6; margin-bottom: 25px; 
             font-family: 'Plus Jakarta Sans'; background: rgba(255,255,255,0.05); 
-            padding: 15px; border-radius: 12px; width: 100%; border: 1px solid rgba(255,255,255,0.1);
-            max-height: 300px; /* Limit Height */
-            overflow-y: auto;  /* Enable Vertical Scroll */
+            padding: 15px; border-radius: 12px; width: 100%; 
+            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 300px; /* Fixed height window */
+            overflow-y: auto; /* Vertical Scroll Enabled */
+            text-align: left;
         }
+
+        /* Custom Scrollbar for Explanation */
+        .expl-text::-webkit-scrollbar { width: 6px; }
+        .expl-text::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 4px; }
+        .expl-text::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
 
         /* --- OTHER POPUPS --- */
         .overlay-popup {
@@ -382,9 +429,7 @@
 
     <header class="glass-header golden-border-anim">
         <img class="header-logo" src="sti.png" alt="Logo" onerror="this.style.display='none'">
-        
         <div id="app-main-title" class="header-title-text">STISkilli</div>
-        
         <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.style.display='none'">
     </header>
 
@@ -392,30 +437,11 @@
         <nav class="glass-dock golden-border-anim">
             <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
             
-            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)">
-                <i class="fas fa-gopuram"></i>
-                <div class="dock-lock-indicator" id="lock-ancient" style="display:none;"><i class="fas fa-lock"></i></div>
-            </div>
-            
-            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)">
-                <i class="fas fa-monument"></i>
-                <div class="dock-lock-indicator" id="lock-medieval" style="display:none;"><i class="fas fa-lock"></i></div>
-            </div>
-            
-            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)">
-                <i class="fas fa-flag"></i>
-                <div class="dock-lock-indicator" id="lock-modern" style="display:none;"><i class="fas fa-lock"></i></div>
-            </div>
-            
-            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)">
-                <i class="fas fa-globe"></i>
-                <div class="dock-lock-indicator" id="lock-world" style="display:none;"><i class="fas fa-lock"></i></div>
-            </div>
-            
-            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)">
-                <i class="fas fa-palette"></i>
-                <div class="dock-lock-indicator" id="lock-art" style="display:none;"><i class="fas fa-lock"></i></div>
-            </div>
+            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-gopuram"></i></div>
+            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)"><i class="fas fa-monument"></i></div>
+            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)"><i class="fas fa-flag"></i></div>
+            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)"><i class="fas fa-globe"></i></div>
+            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)"><i class="fas fa-palette"></i></div>
             
             <div id="nav-news" class="dock-item" onclick="openCategory('news', this)"><i class="fas fa-newspaper"></i></div>
         </nav>
@@ -437,7 +463,8 @@
 
             <div id="quiz-interface" style="display: none;">
                 <div class="quiz-stats-bar">
-                    <div class="stat-item"><span id="unit-name-display">HISTORY QUIZ</span></div>
+                    <div class="stat-item"><span id="static-header-text" class="static-header-text">PYQ</span></div>
+                    
                     <div class="stat-item" style="color:#ff1744; font-weight:800;"><i class="fas fa-clock"></i> <span id="q-timer">30</span>s</div>
                     <div class="stat-item">Q: <span id="q-num-display" style="color:#fff;">1/25</span></div>
                 </div>
@@ -468,6 +495,16 @@
                 <div style="font-size: 0.8rem; color: #ff1744; margin-top: 10px; display:none;" id="fail-msg">Restarting Unit from Question 1</div>
                 <button id="res-btn" class="res-btn" onclick="handleResultAction()">NEXT UNIT</button>
             </div>
+            
+            <div id="category-unlock-popup" class="overlay-popup">
+                <div class="res-emoji">🔓</div>
+                <div class="res-title" style="color:var(--primary);">CATEGORY CONQUERED!</div>
+                <div class="welcome-text">
+                    Incredible! You have mastered <span id="completed-cat-name" class="user-highlight">Ancient</span>. <br><br>
+                    <span id="unlocked-cat-name" style="color:#00e676; font-weight:bold;">Medieval History</span> is now UNLOCKED!
+                </div>
+                <button class="res-btn" onclick="closeCategoryUnlock()">ENTER NEXT ERA</button>
+            </div>
 
             <div id="welcome-popup" class="overlay-popup">
                 <div class="res-emoji">👑</div>
@@ -482,12 +519,12 @@
 
             <div id="locked-popup" class="overlay-popup">
                 <div class="res-emoji">🔒</div>
-                <div class="res-title" style="color:#ff1744;" id="lock-title">CONTENT LOCKED</div>
-                <div class="welcome-text" id="lock-msg">
+                <div id="lock-title" class="res-title" style="color:#ff1744;">CONTENT LOCKED</div>
+                <div id="lock-msg" class="welcome-text">
                     This content is for Premium Members only.<br>
                     Please upgrade your plan to access all Units and Quizzes.
                 </div>
-                <button class="res-btn" onclick="goToProfileFromLock()">GO TO PROFILE</button>
+                <button id="lock-btn" class="res-btn" onclick="goToProfileFromLock()">GO TO PROFILE</button>
             </div>
 
             <div id="profile-section" style="display: none;">
@@ -604,13 +641,17 @@
         </div>
     </div>
 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         // --- 1. CONFIGURATION ---
         
         const APP_NAME = "STISkilli"; 
+        
+        // Editable Header Text for Stats Bar (User Request 2)
+        const HEADER_TEXT = "PYQ";
 
         const CATEGORY_TITLES = {
-            ancient: "HULIHULI",   
+            ancient: "ANCIENT HISTORY",   
             medieval: "MEDIEVAL HISTORY",
             modern: "MODERN HISTORY",
             world: "WORLD HISTORY",
@@ -618,6 +659,9 @@
             news: "LATEST DISCOVERIES",
             profile: "USER PROFILE"
         };
+        
+        // --- SEQUENTIAL ORDER DEFINITION (User Request 3) ---
+        const CATEGORY_ORDER = ['ancient', 'medieval', 'modern', 'world', 'art'];
 
         const categoryBackgrounds = {
             profile: 'skilligovtbck.png', ancient: 'anicianthistoryofindia.png', medieval: 'medivalhistoryofindia.png',
@@ -628,52 +672,39 @@
         const CHECKPOINT = 25;
         const PASS_REQ = 20;
 
-        // --- NEW: ORDER OF CATEGORIES FOR SEQUENTIAL UNLOCKING ---
-        const CATEGORY_ORDER = ['ancient', 'medieval', 'modern', 'world', 'art'];
-
-        // --- 2. DATA & NEWS ---
+        // --- 2. DATA ---
         const newsDatabase = [
-            { tag: "DISCOVERY", title: "New Harappan Site Found in Gujarat", desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.", image: "skillinewsbck.png", link: "page_harappa_news.html" },
-            { tag: "RESEARCH", title: "Decoding the Indus Script", desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.", image: "skillinewsbck.png", link: "page_ai_script.html" },
-            { tag: "EVENT", title: "World History Conference 2026", desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.", image: "skillinewsbck.png", link: "page_conference.html" },
-            { tag: "MYSTERY", title: "The Lost Library of Nalanda", desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.", image: "skillinewsbck.png", link: "page_nalanda.html" }
+            { tag: "DISCOVERY", title: "New Harappan Site Found in Gujarat", desc: "Archaeologists have unearthed a massive settlement near Dholavira, revealing advanced drainage systems.", image: "skillinewsbck.png", link: "#" },
+            { tag: "RESEARCH", title: "Decoding the Indus Script", desc: "AI models suggest new patterns in the undeciphered symbols of the Indus Valley Civilization.", image: "skillinewsbck.png", link: "#" },
+            { tag: "EVENT", title: "World History Conference 2026", desc: "Join the biggest virtual gathering of historians this March. Exclusive access for Premium members.", image: "skillinewsbck.png", link: "#" },
+            { tag: "MYSTERY", title: "The Lost Library of Nalanda", desc: "A deep dive into what was lost and what remains of the ancient university's vast knowledge.", image: "skillinewsbck.png", link: "#" }
         ];
 
         const quizDatabase = {
             ancient: [
                 { 
-                    name: "1857 REVOLUTION OF INDIA", questions: [ 
+                    name: "Indus Valley", questions: [ 
                         { q: "Oldest Veda?", options: ["Rigveda", "Samaveda", "Yajur", "Atharva"], ans: 0, explanation: "The Rigveda is the oldest known Vedic Sanskrit text. It is a collection of 1,028 hymns and 10,600 verses, organized into ten books (Mandalas)." }, 
                         { q: "Great Bath found in?", options: ["Harappa", "Mohenjodaro", "Lothal", "Kalibangan"], ans: 1, explanation: "The Great Bath is one of the most well-known structures among the ruins of the ancient Indus Valley Civilization at Mohenjo-daro in Sindh, Pakistan." } 
                     ] 
                 },
-                { name: "Mauryan Empire", questions: [ { q: "Arthashastra author?", options: ["Chanakya", "Megasthenes", "Kalidasa", "Ashoka"], ans: 0, explanation: "Chanakya, also known as Kautilya or Vishnugupta, was an Indian teacher, philosopher, and royal advisor who authored the Arthashastra." }, { q: "Kalinga War Year?", options: ["261 BC", "273 BC", "232 BC", "240 BC"], ans: 0, explanation: "The Kalinga War was fought in 261 BC between the Maurya Empire under Ashoka and the state of Kalinga." } ] },
-                { name: "Gupta Era", questions: [ { q: "Napoleon of India?", options: ["Samudragupta", "Chandragupta", "Ashoka", "Harsha"], ans: 0, explanation: "Samudragupta is called the 'Napoleon of India' by historian V.A. Smith because of his great military conquests." }, { q: "Kalidasa court?", options: ["Chandragupta II", "Akbar", "Ashoka", "Kanishka"], ans: 0, explanation: "Kalidasa was a Classical Sanskrit writer, widely regarded as the greatest poet and dramatist in the Sanskrit language, at the court of Chandragupta II." } ] },
-                { name: "South Dynasties", questions: [ { q: "Chola Capital?", options: ["Thanjavur", "Madurai", "Kanchi", "Vatapi"], ans: 0, explanation: "Thanjavur served as the capital of the Chola Empire, which was one of the longest-ruling dynasties in the history of southern India." }, { q: "Ellora builder?", options: ["Rashtrakuta", "Chola", "Pallava", "Gupta"], ans: 0, explanation: "The Ellora caves, specifically the Kailasa temple, were largely constructed during the reign of the Rashtrakuta dynasty." } ] }
+                { name: "Mauryan Empire", questions: [ { q: "Arthashastra author?", options: ["Chanakya", "Megasthenes", "Kalidasa", "Ashoka"], ans: 0, explanation: "Chanakya, also known as Kautilya or Vishnugupta, was an Indian teacher, philosopher, and royal advisor who authored the Arthashastra." }, { q: "Kalinga War Year?", options: ["261 BC", "273 BC", "232 BC", "240 BC"], ans: 0, explanation: "The Kalinga War was fought in 261 BC between the Maurya Empire under Ashoka and the state of Kalinga." } ] }
             ],
             medieval: [
                 { name: "Delhi Sultanate", questions: [ { q: "Slave Dynasty founder?", options: ["Aibak", "Iltutmish", "Balban", "Razia"], ans: 0, explanation: "Qutb ud-Din Aibak, a general of Muhammad Ghori, founded the Slave Dynasty (Mamluk Dynasty) in 1206." }, { q: "Market Control?", options: ["Alauddin", "Balban", "Firoz", "Akbar"], ans: 0, explanation: "Alauddin Khalji implemented market control reforms to maintain a large army at a low cost, fixing prices of essential commodities." } ] },
-                { name: "Mughals", questions: [ { q: "Ain-i-Akbari author?", options: ["Abul Fazl", "Birbal", "Faizi", "Todar"], ans: 0, explanation: "Ain-i-Akbari (Administration of Akbar) was written by Abul Fazl, the grand vizier of the Mughal emperor Akbar." }, { q: "Haldighati Year?", options: ["1576", "1526", "1556", "1761"], ans: 0, explanation: "The Battle of Haldighati was fought on 18 June 1576 between the forces of Maharana Pratap and the Mughal emperor Akbar." } ] },
-                { name: "Marathas", questions: [ { q: "Shivaji Crowned?", options: ["1674", "1665", "1680", "1650"], ans: 0, explanation: "Shivaji was crowned king of the Maratha Kingdom in a lavish ceremony at Raigad in 1674." }, { q: "Purandar Treaty?", options: ["Jai Singh", "Afzal", "Shaista", "Aurangzeb"], ans: 0, explanation: "The Treaty of Purandar (1665) was signed between the Rajput ruler Jai Singh I, who was commander of the Mughal Empire, and Chhatrapati Shivaji." } ] },
-                { name: "Bhakti Movement", questions: [ { q: "Kabir Guru?", options: ["Ramananda", "Ramanuja", "Shankara", "Nanak"], ans: 0, explanation: "Swami Ramananda is considered the guru of Saint Kabir Das." }, { q: "Chisti Dargah?", options: ["Ajmer", "Delhi", "Agra", "Lahore"], ans: 0, explanation: "The Dargah of Khwaja Moinuddin Chishti is located in Ajmer, Rajasthan." } ] }
+                { name: "Mughals", questions: [ { q: "Ain-i-Akbari author?", options: ["Abul Fazl", "Birbal", "Faizi", "Todar"], ans: 0, explanation: "Ain-i-Akbari (Administration of Akbar) was written by Abul Fazl, the grand vizier of the Mughal emperor Akbar." }, { q: "Haldighati Year?", options: ["1576", "1526", "1556", "1761"], ans: 0, explanation: "The Battle of Haldighati was fought on 18 June 1576 between the forces of Maharana Pratap and the Mughal emperor Akbar." } ] }
             ],
             modern: [
                 { name: "Revolt 1857", questions: [ { q: "1857 Start?", options: ["Meerut", "Delhi", "Kanpur", "Jhansi"], ans: 0, explanation: "The rebellion began on 10 May 1857 in the form of a mutiny of sepoys of the Company's army in the garrison town of Meerut." }, { q: "Last Mughal?", options: ["Bahadur Shah II", "Aurangzeb", "Shah Alam", "Akbar II"], ans: 0, explanation: "Bahadur Shah Zafar (Bahadur Shah II) was the twentieth and last Mughal Emperor of India." } ] },
-                { name: "Gandhi Era", questions: [ { q: "Gandhi Return?", options: ["1915", "1917", "1919", "1920"], ans: 0, explanation: "Mahatma Gandhi returned to India from South Africa on January 9, 1915." }, { q: "First Satyagraha?", options: ["Champaran", "Kheda", "Dandi", "Bardoli"], ans: 0, explanation: "The Champaran Satyagraha of 1917 was the first Satyagraha movement led by Gandhi in India." } ] },
-                { name: "Freedom Struggle", questions: [ { q: "INC Founded?", options: ["1885", "1905", "1920", "1947"], ans: 0, explanation: "The Indian National Congress was founded in 1885 by A.O. Hume." }, { q: "Do or Die?", options: ["Gandhi", "Nehru", "Bose", "Tilak"], ans: 0, explanation: "The slogan 'Do or Die' was given by Mahatma Gandhi during the Quit India Movement in 1942." } ] },
-                { name: "Independence", questions: [ { q: "Mountbatten Plan?", options: ["3 June 1947", "15 Aug", "26 Jan", "1946"], ans: 0, explanation: "The Mountbatten Plan, also known as the 3 June Plan, announced the partition of India." }, { q: "Iron Man?", options: ["Patel", "Nehru", "Gandhi", "Bose"], ans: 0, explanation: "Sardar Vallabhbhai Patel is known as the Iron Man of India for his role in unifying the princely states." } ] }
+                { name: "Gandhi Era", questions: [ { q: "Gandhi Return?", options: ["1915", "1917", "1919", "1920"], ans: 0, explanation: "Mahatma Gandhi returned to India from South Africa on January 9, 1915." }, { q: "First Satyagraha?", options: ["Champaran", "Kheda", "Dandi", "Bardoli"], ans: 0, explanation: "The Champaran Satyagraha of 1917 was the first Satyagraha movement led by Gandhi in India." } ] }
             ],
             world: [
                 { name: "World Wars", questions: [ { q: "WW1 Start?", options: ["1914", "1918", "1939", "1945"], ans: 0, explanation: "World War I began on July 28, 1914, following the assassination of Archduke Franz Ferdinand." }, { q: "Versailles Treaty?", options: ["WW1", "WW2", "Cold War", "French"], ans: 0, explanation: "The Treaty of Versailles was the most important of the peace treaties that brought World War I to an end." } ] },
-                { name: "Revolutions", questions: [ { q: "French Rev?", options: ["1789", "1799", "1776", "1804"], ans: 0, explanation: "The French Revolution began in May 1789 with the Estates General of 1789." }, { q: "Russian Rev?", options: ["1917", "1914", "1920", "1905"], ans: 0, explanation: "The Russian Revolution was a period of political and social revolution across the territory of the Russian Empire in 1917." } ] },
-                { name: "Cold War", questions: [ { q: "Cold War?", options: ["USA vs USSR", "USA vs China", "UK vs Ger", "Ind vs Pak"], ans: 0, explanation: "The Cold War was a period of geopolitical tension between the United States and the Soviet Union and their respective allies." }, { q: "Berlin Wall Fall?", options: ["1989", "1991", "1945", "1960"], ans: 0, explanation: "The Berlin Wall fell on November 9, 1989, marking the symbolic end of the Cold War." } ] },
-                { name: "Modern Era", questions: [ { q: "UN Founded?", options: ["1945", "1919", "1950", "1947"], ans: 0, explanation: "The United Nations was established on October 24, 1945, after World War II." }, { q: "Industrial Rev?", options: ["England", "France", "USA", "Germany"], ans: 0, explanation: "The Industrial Revolution began in Great Britain (England) in the 18th century." } ] }
+                { name: "Revolutions", questions: [ { q: "French Rev?", options: ["1789", "1799", "1776", "1804"], ans: 0, explanation: "The French Revolution began in May 1789 with the Estates General of 1789." } ] }
             ],
             art: [
                 { name: "Dance Forms", questions: [ { q: "Bharatnatyam?", options: ["TN", "Kerala", "AP", "Odisha"], ans: 0, explanation: "Bharatanatyam is a major form of Indian classical dance that originated in Tamil Nadu." }, { q: "Kathakali?", options: ["Kerala", "Karnataka", "UP", "Assam"], ans: 0, explanation: "Kathakali is a major form of classical Indian dance known for its elaborate makeup and costumes, originating in Kerala." } ] },
-                { name: "Music", questions: [ { q: "Hindustani Oldest?", options: ["Dhrupad", "Khayal", "Thumri", "Ghazal"], ans: 0, explanation: "Dhrupad is the oldest surviving form of Hindustani classical music." }, { q: "Sama Veda?", options: ["Music", "Magic", "Medicine", "Rituals"], ans: 0, explanation: "The Samaveda is the Veda of melodies and chants, serving as the root of Indian classical music." } ] },
-                { name: "Architecture", questions: [ { q: "Sun Temple?", options: ["Konark", "Puri", "Bhubaneswar", "Cuttack"], ans: 0, explanation: "The Konark Sun Temple is a 13th-century CE Sun Temple at Konark in Odisha, India." }, { q: "Taj Mahal?", options: ["Shah Jahan", "Akbar", "Jahangir", "Aurangzeb"], ans: 0, explanation: "The Taj Mahal was commissioned in 1632 by the Mughal emperor Shah Jahan to house the tomb of his favorite wife, Mumtaz Mahal." } ] },
-                { name: "Paintings", questions: [ { q: "Madhubani?", options: ["Bihar", "Bengal", "Odisha", "Gujarat"], ans: 0, explanation: "Madhubani art (or Mithila painting) is a style of Indian painting practiced in the Mithila region of India (Bihar) and Nepal." }, { q: "Ajanta?", options: ["Jatakas", "Ramayana", "Mahabharata", "Vedas"], ans: 0, explanation: "The Ajanta Caves contain paintings and rock-cut sculptures described as among the finest surviving examples of ancient Indian art, depicting Jataka tales." } ] }
+                { name: "Music", questions: [ { q: "Hindustani Oldest?", options: ["Dhrupad", "Khayal", "Thumri", "Ghazal"], ans: 0, explanation: "Dhrupad is the oldest surviving form of Hindustani classical music." } ] }
             ]
         };
 
@@ -692,8 +723,13 @@
         let progressData;
         try { progressData = JSON.parse(localStorage.getItem('quizProgress')) || {}; } catch(e) { progressData = {}; }
 
+        // Level Tracking (Units inside Categories)
         let unlockedLevels;
         try { unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; } catch (e) { unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; }
+
+        // Category Tracking (Global Categories) - NEW for Sequential Logic
+        let completedCategories;
+        try { completedCategories = JSON.parse(localStorage.getItem('completedCategories')) || []; } catch(e) { completedCategories = []; }
 
         let activeCat = "", activeUnitIdx = 0;
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
@@ -703,27 +739,40 @@
 
         function hasPaid() { return localStorage.getItem('hasPaid') === 'true'; }
 
-        // --- 4. NAVIGATION WITH SEQUENTIAL LOCKS ---
+        // --- 4. NAVIGATION & SEQUENTIAL LOGIC ---
         
-        function updateDockLocks() {
-            // Visualize locks on dock items based on sequence
-            CATEGORY_ORDER.forEach((cat, index) => {
-                const lockEl = document.getElementById(`lock-${cat}`);
-                if(!lockEl) return;
-                
-                if (index === 0) {
-                    lockEl.style.display = 'none'; // First one always unlocked
+        // Helper to check if a category is accessible
+        function isCategoryAccessible(catName) {
+            if (catName === 'ancient') return true; // First one always open (if paid)
+            
+            const catIndex = CATEGORY_ORDER.indexOf(catName);
+            if (catIndex <= 0) return true;
+
+            const prevCat = CATEGORY_ORDER[catIndex - 1];
+            return completedCategories.includes(prevCat);
+        }
+
+        // Helper to update Dock Icons visuals based on lock state
+        function updateDockIcons() {
+            if (!hasPaid()) return; 
+
+            CATEGORY_ORDER.forEach(cat => {
+                const el = document.getElementById(`nav-${cat}`);
+                if (!el) return;
+
+                // Remove existing badge if any
+                const existingBadge = el.querySelector('.lock-badge');
+                if(existingBadge) existingBadge.remove();
+
+                if (!isCategoryAccessible(cat)) {
+                    el.classList.add('cat-locked');
+                    // Add lock badge
+                    const badge = document.createElement('div');
+                    badge.className = 'lock-badge';
+                    badge.innerHTML = '<i class="fas fa-lock"></i>';
+                    el.appendChild(badge);
                 } else {
-                    const prevCat = CATEGORY_ORDER[index - 1];
-                    const prevTotalUnits = quizDatabase[prevCat] ? quizDatabase[prevCat].length : 0;
-                    const prevUnlocked = unlockedLevels[prevCat] || 1;
-                    
-                    // If previous category completed (unlocked level > total units), unlock this one
-                    if (prevUnlocked > prevTotalUnits) {
-                        lockEl.style.display = 'none';
-                    } else {
-                        lockEl.style.display = 'block';
-                    }
+                    el.classList.remove('cat-locked');
                 }
             });
         }
@@ -731,29 +780,33 @@
         function openCategory(catName, btnElement) {
             if(questionTimer) clearInterval(questionTimer);
 
-            // 1. Premium Check
+            // 1. Payment Check (Hard Gate)
             if (catName !== 'profile' && !hasPaid()) {
                 document.getElementById('lock-title').innerText = "CONTENT LOCKED";
                 document.getElementById('lock-msg').innerHTML = "This content is for Premium Members only.<br>Please upgrade your plan.";
+                document.getElementById('lock-btn').innerText = "GO TO PROFILE";
+                document.getElementById('lock-btn').onclick = () => goToProfileFromLock();
                 document.getElementById('locked-popup').style.display = 'flex';
                 return;
             }
 
-            // 2. Sequential Category Check (NEW LOGIC)
+            // 2. Sequential Category Check (The "Most Important" Logic)
             if (catName !== 'profile' && catName !== 'news') {
-                const catIndex = CATEGORY_ORDER.indexOf(catName);
-                if (catIndex > 0) {
-                    const prevCat = CATEGORY_ORDER[catIndex - 1];
-                    const prevTotalUnits = quizDatabase[prevCat] ? quizDatabase[prevCat].length : 0;
-                    const prevUnlocked = unlockedLevels[prevCat] || 1;
+                if (!isCategoryAccessible(catName)) {
+                    // Find previous category name
+                    const idx = CATEGORY_ORDER.indexOf(catName);
+                    const prevCat = CATEGORY_ORDER[idx - 1];
+                    const prevTitle = CATEGORY_TITLES[prevCat];
 
-                    if (prevUnlocked <= prevTotalUnits) {
-                        // Previous category not finished
-                        document.getElementById('lock-title').innerText = "SECTION LOCKED";
-                        document.getElementById('lock-msg').innerHTML = `Please complete all units in <b>${CATEGORY_TITLES[prevCat] || prevCat.toUpperCase()}</b> to unlock this section.`;
-                        document.getElementById('locked-popup').style.display = 'flex';
-                        return;
-                    }
+                    document.getElementById('lock-title').innerText = "ERA LOCKED";
+                    document.getElementById('lock-msg').innerHTML = `You must complete all units of <br><span class="user-highlight">${prevTitle}</span><br> to unlock this era.`;
+                    document.getElementById('lock-btn').innerText = "GO TO " + prevTitle;
+                    document.getElementById('lock-btn').onclick = () => {
+                        document.getElementById('locked-popup').style.display = 'none';
+                        openCategory(prevCat, document.getElementById(`nav-${prevCat}`));
+                    };
+                    document.getElementById('locked-popup').style.display = 'flex';
+                    return;
                 }
             }
 
@@ -778,6 +831,7 @@
             newsUI.style.display = 'none';
             subNav.style.display = 'none';
             document.getElementById('result-overlay').style.display = 'none';
+            document.getElementById('category-unlock-popup').style.display = 'none';
             document.getElementById('locked-popup').style.display = 'none';
             document.getElementById('explanation-overlay').style.display = 'none'; 
 
@@ -791,6 +845,9 @@
                 quizUI.style.display = 'flex';
                 subNav.style.display = 'flex';
                 activeCat = catName;
+                // Set the static Header Text
+                document.getElementById('static-header-text').innerText = HEADER_TEXT;
+                
                 renderSubNav(catName);
                 switchUnit(0, document.getElementById(`sub-unit-0`)); 
             }
@@ -858,11 +915,9 @@
                 document.getElementById('q-text').innerText = "Unit not found.";
                 return;
             }
-
-            // --- CHANGED: Do NOT update the Red Circle text with Unit Name. Keep it static or short. ---
-            // Removed: document.getElementById('unit-name-display').innerText = unitName;
-            document.getElementById('unit-name-display').innerText = "QUESTION"; // Short static text
-
+            
+            // Note: unit name is no longer displayed in stats bar per request, only in sub-nav.
+            
             if (!progressData[activeCat]) progressData[activeCat] = {};
             if (!progressData[activeCat][idx]) {
                 progressData[activeCat][idx] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0, order: [] };
@@ -900,7 +955,8 @@
                 const actualQ = db[shuffledIndex];
                 
                 const displayNum = currentSession.qIndex + 1;
-                const currentBatchLimit = CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1);
+                // Cap the display limit at actual available questions if less than CHECKPOINT
+                const currentBatchLimit = Math.min(db.length, CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1));
                 
                 document.getElementById('q-num-display').innerText = `${displayNum} / ${currentBatchLimit}`;
                 document.getElementById('q-text').innerText = actualQ.q;
@@ -987,7 +1043,6 @@
         }
 
         // --- EXPLANATION FUNCTIONS ---
-
         function showExplanation(isCorrect, qObj) {
             const overlay = document.getElementById('explanation-overlay');
             const icon = document.getElementById('expl-icon');
@@ -1011,7 +1066,10 @@
                 box.style.boxShadow = "0 0 30px rgba(255, 23, 68, 0.2)";
             }
 
+            // Scroll to top of explanation when opening new one
             text.innerText = explanation;
+            text.scrollTop = 0; 
+            
             overlay.style.display = 'flex';
         }
 
@@ -1034,6 +1092,7 @@
             localStorage.setItem('quizProgress', JSON.stringify(progressData));
         }
 
+        // --- SUCCESS LOGIC WITH SEQUENTIAL UNLOCKING ---
         function showResultPopup() {
             const overlay = document.getElementById('result-overlay');
             const emoji = document.getElementById('res-emoji');
@@ -1045,41 +1104,61 @@
             document.getElementById('correct-count').innerText = `${blockCorrect} / ${CHECKPOINT}`;
 
             if (blockCorrect >= PASS_REQ) {
+                // USER PASSED A BLOCK/UNIT
+                
+                // 1. Check if we need to unlock next UNIT within current category
+                const totalUnits = quizDatabase[activeCat].length;
+                if(activeUnitIdx + 1 === unlockedLevels[activeCat] && unlockedLevels[activeCat] < totalUnits) {
+                    unlockedLevels[activeCat]++;
+                    localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
+                    renderSubNav(activeCat);
+                }
+
+                // 2. Check if this was the LAST UNIT of the category (Unlock Next Category)
+                const isLastUnit = (activeUnitIdx + 1) === totalUnits;
+                
+                if (isLastUnit) {
+                    // Logic to unlock next Category
+                    if (!completedCategories.includes(activeCat)) {
+                        completedCategories.push(activeCat);
+                        localStorage.setItem('completedCategories', JSON.stringify(completedCategories));
+                        updateDockIcons(); // Update lock icons visual
+                        
+                        // Show Special Category Unlock Popup
+                        const nextCatIndex = CATEGORY_ORDER.indexOf(activeCat) + 1;
+                        if (nextCatIndex < CATEGORY_ORDER.length) {
+                            const nextCatKey = CATEGORY_ORDER[nextCatIndex];
+                            document.getElementById('completed-cat-name').innerText = CATEGORY_TITLES[activeCat];
+                            document.getElementById('unlocked-cat-name').innerText = CATEGORY_TITLES[nextCatKey];
+                            
+                            // Configure button to go to next category
+                            btn.onclick = null; // Prevent standard behavior
+                            document.getElementById('category-unlock-popup').style.display = 'flex';
+                            return; // Stop standard popup
+                        }
+                    }
+                }
+
+                // Standard Success Popup
                 emoji.innerText = "🎉";
                 title.innerText = "UNIT PASSED!";
                 title.style.color = "#00e676";
                 failMsg.style.display = "none";
-                btn.innerText = "NEXT LEVEL";
+                btn.innerText = isLastUnit ? "REPLAY UNIT" : "NEXT UNIT";
                 
-                const totalUnits = quizDatabase[activeCat].length;
-                
-                // Unlock Logic
-                if(activeUnitIdx + 1 === unlockedLevels[activeCat]) {
-                    unlockedLevels[activeCat]++;
-                    localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
-                    
-                    // Update Lock Visuals in Dock
-                    updateDockLocks();
-                }
-
                 btn.onclick = () => {
-                    blockCorrect = 0; 
-                    currentSession.blockCorrect = 0; 
-                    saveProgress();
-                    overlay.style.display = 'none'; 
-                    
-                    // Logic to load next unit OR go back to menu if cat finished
-                    const maxUnits = quizDatabase[activeCat].length;
-                    if (activeUnitIdx + 1 < maxUnits) {
-                        // Go to next unit in same category
-                         switchUnit(activeUnitIdx + 1);
+                    if (isLastUnit) {
+                        // Just reset current
+                        blockCorrect = 0; currentSession.blockCorrect = 0; saveProgress(); overlay.style.display = 'none'; loadQuestion();
                     } else {
-                        // Category Completed - Go back to menu to select next category
-                        alert("Category Completed! Next Section Unlocked.");
-                        openCategory(activeCat); // Refresh view
+                        // Go to next unit automatically
+                        overlay.style.display = 'none';
+                        switchUnit(activeUnitIdx + 1);
                     }
                 };
+
             } else {
+                // FAILED
                 emoji.innerText = "😢";
                 title.innerText = "FAILED!";
                 title.style.color = "#ff1744";
@@ -1100,7 +1179,17 @@
             overlay.style.display = 'flex';
         }
 
-        // --- 6. PROFILE & LOGIC ---
+        function closeCategoryUnlock() {
+            document.getElementById('category-unlock-popup').style.display = 'none';
+            // Auto navigate to next category
+            const nextCatIndex = CATEGORY_ORDER.indexOf(activeCat) + 1;
+            if (nextCatIndex < CATEGORY_ORDER.length) {
+                const nextCatKey = CATEGORY_ORDER[nextCatIndex];
+                openCategory(nextCatKey, document.getElementById(`nav-${nextCatKey}`));
+            }
+        }
+
+        // --- 6. PROFILE & PAYMENTS ---
         function initProfileView() {
             if (hasPaid()) {
                 showStep(4);
@@ -1120,6 +1209,7 @@
 
             for (const cat in progressData) {
                 if(!quizDatabase[cat]) continue;
+                
                 const displayCategoryName = CATEGORY_TITLES[cat] || cat.toUpperCase();
 
                 for (const uIdx in progressData[cat]) {
@@ -1237,6 +1327,10 @@
             localStorage.setItem('userEmail',userData.email);
             localStorage.setItem('userTxn',userData.txn); 
             localStorage.setItem('userPlanName',userData.planName);
+            
+            // Re-render visual locks
+            updateDockIcons();
+            
             document.getElementById('wel-user').innerText = userData.name;
             document.getElementById('welcome-popup').style.display = 'flex';
         }
@@ -1248,10 +1342,9 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('app-main-title').innerText = APP_NAME;
-            document.title = APP_NAME + " - History PYQ";
+            document.title = APP_NAME + " - Pro";
             
-            // Check locks on load
-            updateDockLocks();
+            updateDockIcons();
 
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
             else openCategory('profile', document.getElementById('nav-profile'));
