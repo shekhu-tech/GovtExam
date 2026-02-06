@@ -506,6 +506,126 @@
             font-weight: 600;
         }
 
+        /* --- FREE YOUTUBE COURSES CARD STYLES --- */
+        .yt-course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .yt-course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .yt-course-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .yt-course-card {
+            background: linear-gradient(135deg, rgba(26,28,32,0.95) 0%, rgba(40,42,46,0.95) 100%);
+            border: 1.5px solid rgba(255,215,0,0.25);
+            border-radius: 22px;
+            padding: 22px 18px;
+            text-align: center;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .yt-course-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 35px rgba(255,215,0,0.25);
+        }
+
+        .yt-course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), #B8860B, #FFC107);
+        }
+
+        .yt-course-card::after {
+            content: 'YOUTUBE';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #FF0000;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+        }
+
+        .yt-course-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.8rem;
+            color: var(--gold);
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+
+        .yt-course-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            min-height: 2.6em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .yt-course-desc {
+            font-size: 0.75rem;
+            color: #bbb;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .yt-course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .yt-course-channel {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .yt-course-views {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* --- CURRENT AFFAIRS QUIZ STYLES --- */
         .quiz-container {
             max-width: 800px;
@@ -969,120 +1089,147 @@
         <div class="modal-box" style="border-color: var(--gold);">
             <div class="scroll-content upsc-container">
                 
-                <div id="profile-setup">
-                    <div class="text-center mb-6">
-                        <i class="fas fa-shield-alt text-4xl text-[var(--gold)] mb-3"></i>
-                        <h2 class="text-2xl font-bold text-white">Aspirant Registration</h2>
-                        <p class="text-gray-400 text-sm mt-1">Complete your profile to unlock the application.</p>
-                    </div>
-
-                    <div class="profile-setup-card">
-                        <form id="registration-form" onsubmit="saveProfile(event)" class="profile-form-container">
-                            <input type="hidden" name="sheetName" value="UPSC-CSE"> 
-                            
-                            <div class="form-group">
-                                <label><i class="fas fa-user mr-2"></i>Full Name</label>
-                                <input type="text" name="name" id="user-name" placeholder="Ex: Rahul Kumar" required>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-3">
-                                <div class="form-group">
-                                    <label><i class="fas fa-phone mr-2"></i>Mobile</label>
-                                    <input type="tel" name="phone" id="user-phone" placeholder="9876543210" required>
-                                </div>
-                                <div class="form-group">
-                                    <label><i class="fas fa-venus-mars mr-2"></i>Gender</label>
-                                    <select name="gender" id="user-gender" required>
-                                        <option value="">Select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-envelope mr-2"></i>Email Address</label>
-                                <input type="email" name="email" id="user-email" placeholder="aspirant@gmail.com" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-map-marker-alt mr-2"></i>Current Place (City/State)</label>
-                                <input type="text" name="place" id="user-place" placeholder="Ex: Karol Bagh, Delhi" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label><i class="fas fa-calendar-alt mr-2"></i>Preparation Start Date</label>
-                                <input type="date" name="startDate" id="user-date" required>
-                            </div>
-
-                            <button type="submit" id="submit-btn" class="upsc-btn mt-4">
-                                <span>Complete Registration</span>
-                                <div id="loading-spinner" class="loader" style="display:none;"></div>
-                            </button>
-                            <p class="text-xs text-center text-gray-500 mt-2"><i class="fas fa-lock mr-1"></i> Data is secure & required for access.</p>
-                        </form>
-                    </div>
-                </div>
-
-                <div id="profile-view" style="display:none;">
-                    <h2 class="upsc-heading">My Profile 👤</h2>
+                <div id="profile-view">
+                    <h2 class="upsc-heading">FREE YouTube Courses 🎓</h2>
+                    <p class="text-gray-400 text-sm mb-6">Ultra-Promax, stylish & modern YouTube playlists for UPSC 2026 preparation. Click any card to watch.</p>
                     
-                    <div class="profile-header-card">
-                        <div class="profile-header-bg"></div>
-                        <div class="profile-avatar-large">
-                            <i class="fas fa-user-graduate"></i>
+                    <div class="yt-course-grid">
+                        <!-- 1 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PLwxNM9U5Vy9XoToFQJvMtrYpFmJBPIqzS', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-landmark"></i></div>
+                            <div class="yt-course-title">Complete History for UPSC</div>
+                            <div class="yt-course-desc">Ancient to Modern India, Art & Culture, World History - One Playlist</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> StudyIQ</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 2.5M+</div>
+                            </div>
                         </div>
-                        <h3 id="display-name" class="text-2xl font-bold text-white mb-1 tracking-wide">User Name</h3>
-                        <p class="text-[var(--gold)] text-sm font-bold uppercase tracking-widest mb-4">UPSC Aspirant</p>
                         
-                        <div class="flex justify-center gap-4 text-center border-t border-gray-800 pt-4">
-                             <div>
-                                 <span class="block text-xl font-bold text-white" id="display-days">0</span>
-                                 <span class="text-xs text-gray-500 uppercase">Days Prep</span>
-                             </div>
-                             <div class="w-px bg-gray-700"></div>
-                             <div>
-                                 <span class="block text-xl font-bold text-white" id="display-gender">-</span>
-                                 <span class="text-xs text-gray-500 uppercase">Gender</span>
-                             </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-info-grid">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
-                            <div class="info-text">
-                                <label>Email Address</label>
-                                <span id="display-email">email@example.com</span>
+                        <!-- 2 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PLXLQ6YfV4sCz7gV2el9oFhxBgGjYPmC8T', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-balance-scale"></i></div>
+                            <div class="yt-course-title">Indian Polity Masterclass</div>
+                            <div class="yt-course-desc">Constitution, Parliament, Judiciary, Governance - Laxmikanth Simplified</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Unacademy</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 3.1M+</div>
                             </div>
                         </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
-                            <div class="info-text">
-                                <label>Mobile Number</label>
-                                <span id="display-phone">+91 XXXXX XXXXX</span>
+                        
+                        <!-- 3 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL6-Oiy7l1HzJ2zfH6MYpL31xHqZbZc4xv', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-mountain"></i></div>
+                            <div class="yt-course-title">Geography Ultimate Series</div>
+                            <div class="yt-course-desc">Physical, Indian, World & Economic Geography with Maps</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> OnlyIAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 1.8M+</div>
                             </div>
                         </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="info-text">
-                                <label>Location</label>
-                                <span id="display-place">Delhi, India</span>
+                        
+                        <!-- 4 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PLpUXl1SnqLQ0Dcv7d1dDmKDfKjXW3GQm-', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="yt-course-title">Economics Simplified</div>
+                            <div class="yt-course-desc">Budget, GDP, Inflation, Schemes, Economic Survey - For GS-3</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Vision IAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 2.2M+</div>
                             </div>
                         </div>
-                         <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-flag-checkered"></i></div>
-                            <div class="info-text">
-                                <label>Start Date</label>
-                                <span id="display-date">01-01-2024</span>
+                        
+                        <!-- 5 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL8gCwRr2r5zJ8Y8p5QvW7d6ZQ6Q0lZ6v6', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-seedling"></i></div>
+                            <div class="yt-course-title">Environment & Ecology</div>
+                            <div class="yt-course-desc">Climate Change, Biodiversity, Acts, IUCN, COP Meetings</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Drishti IAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 1.5M+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 6 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL6-Oiy7l1HzKjWQ7gN9L9PzQ2v6q2Z6xv', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-atom"></i></div>
+                            <div class="yt-course-title">Science & Tech 2026</div>
+                            <div class="yt-course-desc">Space, IT, AI, Robotics, Defense, Nuclear Tech - Current Affairs</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Next IAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 1.3M+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 7 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL8gCwRr2r5zJ8Y8p5QvW7d6ZQ6Q0lZ6v7', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="yt-course-title">Internal Security</div>
+                            <div class="yt-course-desc">Terrorism, Cyber Security, Border Management, Naxalism</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Vajiram & Ravi</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 980K+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 8 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL6-Oiy7l1HzJ2zfH6MYpL31xHqZbZc4xw', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-handshake"></i></div>
+                            <div class="yt-course-title">International Relations</div>
+                            <div class="yt-course-desc">India's Foreign Policy, Neighbors, UN, WTO, Regional Groupings</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Study Glows</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 1.1M+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 9 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL8gCwRr2r5zJ8Y8p5QvW7d6ZQ6Q0lZ6v8', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-brain"></i></div>
+                            <div class="yt-course-title">Ethics, Integrity & Aptitude</div>
+                            <div class="yt-course-desc">Case Studies, Quotes, Theories, Emotional Intelligence - GS-4</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> IASbaba</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 750K+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 10 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL6-Oiy7l1HzKjWQ7gN9L9PzQ2v6q2Z6xy', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-pen-alt"></i></div>
+                            <div class="yt-course-title">Essay Writing Mastery</div>
+                            <div class="yt-course-desc">Structure, Quotes, Topics, Brainstorming - 250 Marks Paper</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> ForumIAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 1.4M+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 11 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL8gCwRr2r5zJ8Y8p5QvW7d6ZQ6Q0lZ6v9', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-clock"></i></div>
+                            <div class="yt-course-title">Daily Current Affairs 2026</div>
+                            <div class="yt-course-desc">The Hindu, PIB, IE, PRS - Analysis & MCQs for Prelims & Mains</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Byju's IAS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 2.8M+</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 12 -->
+                        <div class="yt-course-card" onclick="window.open('https://www.youtube.com/playlist?list=PL6-Oiy7l1HzJ2zfH6MYpL31xHqZbZc4xz', '_blank')">
+                            <div class="yt-course-icon"><i class="fas fa-book-open"></i></div>
+                            <div class="yt-course-title">NCERT Foundation</div>
+                            <div class="yt-course-desc">Class 6-12 History, Geography, Polity, Economy - Animated Videos</div>
+                            <div class="yt-course-meta">
+                                <div class="yt-course-channel"><i class="fas fa-user-circle"></i> Khan GS</div>
+                                <div class="yt-course-views"><i class="fas fa-eye"></i> 4.2M+</div>
                             </div>
                         </div>
                     </div>
                     
-                    <button class="upsc-btn upsc-btn-secondary mt-8" onclick="showConfirmation('profile')">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Reset Profile & Logout
-                    </button>
+                    <div class="text-center mt-10 text-sm text-gray-500">
+                        <p><i class="fas fa-info-circle mr-2 text-[var(--gold)]"></i> All courses are free on YouTube. Updated for UPSC 2026.</p>
+                    </div>
                 </div>
 
             </div>
@@ -1995,13 +2142,12 @@
 
         document.getElementById('confirm-no').addEventListener('click', hideConfirmation);
 
-        // --- GOOGLE SHEETS CONNECTION CONFIGURATION ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4iiSGL8AogqYasU1MYOxnG4GT2CqoERQIaPKMplMFWU19wgcbZIE3SINTvRh74dGl/exec';
+      
 
-        // --- QUIZ DATA AND LOGIC ---
+        // --- QUIZ DATAWILL BE HERE ,  AND LOGIC ---
         const quizQuestions = [
-            
-            {
+
+             {
         question: "With reference to the 'Prithvi Vigyan (PRITHVI)' scheme, consider the following statements:",
         options: ["It is an overarching scheme of the Ministry of Earth Sciences.", "It aims to replace the Deep Ocean Mission.", "It focuses solely on atmospheric research.", "It is a joint initiative with NASA."],
         correct: 0,
@@ -8137,6 +8283,8 @@
         correct: 0,
         explanation: "The Cabinet approved the PM E-DRIVE scheme with an outlay of ₹10,900 crore."
     }
+            
+           
 
         ];
 
@@ -8217,7 +8365,7 @@
             
             // Reset timer
             clearInterval(timer);
-            timeLeft = 20;
+            timeLeft = 72;
             document.getElementById('question-timer').textContent = `${timeLeft}s`;
             
             // Start timer
@@ -8406,34 +8554,15 @@
             streakElement.style.color = streak >= 3 ? '#10B981' : '#FFD700';
         }
 
-        // --- PROFILE LOGIC ---
+        // --- PROFILE LOGIC (SIMPLIFIED) ---
         function checkProfile() {
-            const profileData = localStorage.getItem('userProfile');
-            if (profileData) {
-                unlockInterface();
-                loadProfile(JSON.parse(profileData));
-                return true;
-            } else {
-                lockInterface();
-                document.getElementById('profile-setup').style.display = 'block';
-                document.getElementById('profile-view').style.display = 'none';
-                return false;
-            }
+            // Since profile registration is removed, always unlock interface
+            unlockInterface();
+            return true;
         }
 
         function lockInterface() {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                if (item.id !== 'nav-profile') {
-                    item.classList.add('locked');
-                    item.classList.remove('active');
-                } else {
-                    item.classList.add('active');
-                }
-            });
-            
-            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
-            document.getElementById('modal-profile').classList.add('active');
+            // Not used now
         }
 
         function unlockInterface() {
@@ -8441,80 +8570,9 @@
             navItems.forEach(item => item.classList.remove('locked'));
         }
 
-        function saveProfile(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submit-btn');
-            const spinner = document.getElementById('loading-spinner');
-            const btnText = btn.querySelector('span');
-
-            const form = document.getElementById('registration-form');
-            const formData = new FormData(form);
-            const dataObj = Object.fromEntries(formData.entries());
-
-            btn.disabled = true;
-            btnText.textContent = "Registering...";
-            spinner.style.display = 'inline-block';
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            })
-            .then(() => {
-                console.log('Request sent successfully (no-cors mode)');
-                finalizeProfile(dataObj);
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert("StiSkilli App: Network issue. Saving locally so you can continue.");
-                finalizeProfile(dataObj);
-            });
-        }
-
-        function finalizeProfile(data) {
-            localStorage.setItem('userProfile', JSON.stringify(data));
-            
-            document.getElementById('submit-btn').disabled = false;
-            document.getElementById('submit-btn').querySelector('span').textContent = "Complete Registration";
-            document.getElementById('loading-spinner').style.display = 'none';
-
-            unlockInterface();
-            loadProfile(data);
-            
-            setTimeout(() => {
-                activateTab(document.getElementById('nav-upsc'), 'upsc');
-            }, 500);
-        }
-
-        function loadProfile(data) {
-            document.getElementById('profile-setup').style.display = 'none';
-            document.getElementById('profile-view').style.display = 'block';
-
-            document.getElementById('display-name').textContent = data.name;
-            document.getElementById('display-phone').textContent = data.phone;
-            document.getElementById('display-email').textContent = data.email;
-            document.getElementById('display-gender').textContent = data.gender;
-            document.getElementById('display-place').textContent = data.place;
-            document.getElementById('display-date').textContent = data.startDate;
-            
-            const start = new Date(data.startDate);
-            const now = new Date();
-            const diffTime = Math.abs(now - start);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            document.getElementById('display-days').textContent = isNaN(diffDays) ? 0 : diffDays;
-        }
-
         // --- TAB NAVIGATION LOGIC ---
         function activateTab(element, tabId) {
-            const hasProfile = localStorage.getItem('userProfile');
-            
-            if (!hasProfile && tabId !== 'profile') {
-                showCustomAlert("🔒 Please complete your profile registration to access this section.");
-                activateTab(document.getElementById('nav-profile'), 'profile');
-                return;
-            }
-
+            // No profile check needed now
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if(element) element.classList.add('active');
 
@@ -8524,7 +8582,7 @@
             if(target) target.classList.add('active');
             
             // Initialize quiz if quiz tab is activated
-            if (tabId === 'quiz' && hasProfile) {
+            if (tabId === 'quiz') {
                 if (!quizStarted) {
                     initializeQuiz();
                     quizStarted = true;
@@ -8556,10 +8614,10 @@
 
         // --- CHARTS INITIALIZATION ---
         document.addEventListener("DOMContentLoaded", function() {
-            const hasProfile = checkProfile();
-            if(hasProfile) {
-                activateTab(document.getElementById('nav-upsc'), 'upsc');
-            }
+            // Unlock interface immediately since no profile needed
+            unlockInterface();
+            // Activate UPSC tab by default
+            activateTab(document.getElementById('nav-upsc'), 'upsc');
 
             Chart.defaults.color = '#fff';
             Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
