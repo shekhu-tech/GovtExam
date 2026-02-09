@@ -4,11 +4,11 @@
     // ==========================================
     
     // 1. AAPKI APP KA PACKAGE NAME (Abhi ye active hai)
-    var androidPackageName = "com.ai.skillaura";
+    var androidPackageName = "";
 
     // 2. FUTURE OPTION: Agar App nahi kholn, kisi aur website par bhejna hai
     // To upar wala variable khali chod dein ("") aur yahan link dalein.
-    var alternateWebsite = ""; // Example: "https://www.google.com"
+    var alternateWebsite = "https://play.google.com/store/apps/details?id=com.ai.skillaura"; // Example: "https://www.google.com"
 
     // ==========================================
     // LOGIC (ISKO MAT CHEDNA)
