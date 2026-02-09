@@ -1,17 +1,28 @@
 (function () {
     try {
         var ua = navigator.userAgent || "";
+        var isWebView = false;
 
-        // ✅ Allow Android WebView
-        if (ua.indexOf("wv") !== -1) return;
-
-        // ✅ Allow Stiskilli App
-        if (ua.indexOf("STISKILLI_APP") !== -1) return;
+        // ✅ Android WebView detection
+        if (
+            ua.includes("wv") ||
+            ua.includes("Android") && ua.includes("Version/") ||
+            window.AndroidInterface ||
+            window.ReactNativeWebView
+        ) {
+            isWebView = true;
+        }
 
         // ✅ Allow Googlebot
-        if (ua.indexOf("Googlebot") !== -1) return;
+        if (ua.includes("Googlebot")) return;
 
-        // ✅ GitHub Pages + external JS fix
+        // ❌ App ke andar redirect nahi
+        if (isWebView) {
+            console.log("WebView detected – redirect skipped");
+            return;
+        }
+
+        // ✅ Sab browsers ko redirect
         window.addEventListener("load", function () {
             setTimeout(function () {
                 window.location.href =
@@ -20,6 +31,6 @@
         });
 
     } catch (e) {
-        console.log("Redirect skipped:", e);
+        console.log("Redirect error:", e);
     }
 })();
