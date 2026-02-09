@@ -1,19 +1,23 @@
 (function () {
     var ua = navigator.userAgent || "";
+    console.log("Current User Agent:", ua); // Console mein UA print karega
 
-    // ❌ Agar Android App (WebView) hai → redirect nahi
+    // 1. Check for App
     if (ua.indexOf("STISKILLI_APP") !== -1) {
+        console.log("Blocked: Detected App");
         return;
     }
 
-    // ❌ Google bot ko skip
+    // 2. Check for Bot
     if (ua.indexOf("Googlebot") !== -1) {
+        console.log("Blocked: Detected Googlebot");
         return;
     }
 
-    // ✅ Baaki sab (browser, desktop, GitHub Pages)
+    // 3. Redirect logic
+    console.log("Redirecting in 300ms...");
     setTimeout(function () {
-        window.location.href =
-            "https://play.google.com/store/apps/details?id=com.ai.skillaura";
+        console.log("Redirect triggered!");
+        window.location.href = "https://play.google.com/store/apps/details?id=com.ai.skillaura";
     }, 300);
 })();
