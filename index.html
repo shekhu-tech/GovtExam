@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>STI Skilli | Loading...</title>
     
+    <!-- Redirect Script -->
     <script src="/app-redirect.js"></script>
 
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Fonts: Cinzel Decorative (Royal) & Montserrat (Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
@@ -17,7 +20,6 @@
         :root {
             --gold-primary: #FFD700;
             --void-bg: #000000;
-            --accent-glow: rgba(255, 215, 0, 0.15);
         }
 
         body, html {
@@ -30,56 +32,32 @@
             transition: opacity 0.8s ease-in-out; 
         }
 
-        /* --- 1. 11D ULTRA MODERN BACKGROUND (NO IMAGES) --- */
-        .modern-bg {
+        /* --- 1. HD Image Background (Ascension Style) --- */
+        #bg-image {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100dvh; 
+            object-fit: cover; 
+            object-position: center;
             z-index: 0;
-            overflow: hidden;
+            opacity: 0.85; 
+            animation: slowZoom 20s infinite alternate; 
         }
 
-        /* Animated Blobs for Depth */
-        .blob {
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        
+        /* Overlay */
+        .image-overlay {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
             z-index: 1;
-            opacity: 0.4;
-            animation: move 20s infinite alternate;
-        }
-
-        .blob-1 {
-            width: 400px; height: 400px;
-            background: var(--gold-primary);
-            top: -100px; left: -100px;
-            animation-delay: 0s;
-        }
-
-        .blob-2 {
-            width: 350px; height: 350px;
-            background: #4b3f00;
-            bottom: -50px; right: -50px;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            width: 300px; height: 300px;
-            background: #222;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 10s infinite alternate;
-        }
-
-        @keyframes move {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 100px) scale(1.2); }
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.2; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+            pointer-events: none;
         }
 
         /* --- 2. Main UI Layer --- */
@@ -92,7 +70,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            backdrop-filter: blur(5px); /* Glassmorphism touch */
+            transition: opacity 1s ease-in-out; 
         }
 
         /* --- 3. Logo (Floating & Transparent) --- */
@@ -107,34 +85,33 @@
         .logo-img {
             width: 100%; height: 100%;
             object-fit: contain; 
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6)); 
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4)); 
         }
 
         @keyframes floatLogo {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         /* --- 4. Typography (Royal Fonts) --- */
         .brand-title {
             font-family: 'Cinzel Decorative', cursive;
-            font-weight: 900;
+            font-weight: 700;
             font-size: clamp(2.5rem, 8vw, 4.5rem);
             line-height: 1;
             text-align: center;
             color: #fff;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             margin-bottom: 0.5rem;
             animation: fadeIn 1.5s ease-out;
-            letter-spacing: 2px;
         }
 
         .tagline {
             font-family: 'Montserrat', sans-serif;
             font-size: 0.75rem;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 2rem; 
             animation: fadeIn 2s ease-out;
             text-align: center;
@@ -142,18 +119,17 @@
 
         /* --- 5. Loader --- */
         .loader-zone {
-            width: 180px;
+            width: 160px;
             text-align: center;
         }
 
         .loader-line {
             width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
             overflow: hidden;
             position: relative;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
         }
 
         .loader-fill {
@@ -161,73 +137,77 @@
             left: 0; top: 0;
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #b8860b, #FFD700, #fff700);
-            box-shadow: 0 0 15px #FFD700;
+            background: #FFD700;
+            box-shadow: 0 0 20px #FFD700;
             transition: width 0.1s linear;
         }
 
         .status-text {
-            margin-top: 15px;
-            font-size: 0.65rem;
-            color: #aaa;
-            letter-spacing: 0.2em;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: #ddd;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); } 
+            from { opacity: 0; transform: translateY(10px); } 
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Dissolve Effect Class */
         .dissolve-active {
             opacity: 0 !important;
-            filter: blur(20px);
         }
     </style>
 </head>
 <body>
 
-    <div class="modern-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <!-- 1. HD Image Background (Same as STISoul) -->
+    <img id="bg-image" src="" alt="Divine Universe Background">
+    
+    <div class="image-overlay"></div>
 
+    <!-- UI Overlay -->
     <main id="main-stage" class="stage-center">
         
+        <!-- Logo -->
         <div class="logo-container">
             <img src="sti.png" alt="STI Skilli" class="logo-img"
                  onerror="this.src='https://placehold.co/200x200/png?text=S';">
         </div>
 
-        <h1 class="brand-title">STISkilli</h1>
+        <!-- STI Skilli Text -->
+        <h1 class="brand-title">STISKILLI</h1>
         <p class="tagline">Your True Guide</p>
 
         <div class="loader-zone">
             <div class="loader-line">
                 <div id="progress-bar" class="loader-fill"></div>
             </div>
-            <p id="status-text" class="status-text">System Booting...</p>
+            <p id="status-text" class="status-text">Initializing...</p>
         </div>
     </main>
 
     <script>
-        // --- ORIGINAL LOGIC PRESERVED ---
-        const REDIRECT_URL = '/main.html';
-        const DURATION = 3800; // Slightly increased for premium feel
+        // ORIGINAL DATA PRESERVED
+        const REDIRECT_URL = 'https://crapd.in/main.html';
+        const DURATION = 3500; 
         const HAS_VISITED_KEY = 'hasVisitedSkilli';
 
         window.onload = () => {
             const bar = document.getElementById('progress-bar');
             const status = document.getElementById('status-text');
+            const stage = document.getElementById('main-stage');
 
+            // STI Skilli Original Steps
             const steps = [
-                { p: 10, t: "Initializing Core..." },
-                { p: 35, t: "Syncing Assets..." },
-                { p: 60, t: "Optimizing UI..." },
-                { p: 85, t: "Securing Portal..." },
-                { p: 98, t: "Ready to Ascend" }
+                { p: 15, t: "Governmenting..." },
+                { p: 35, t: "A.Iing..." },
+                { p: 65, t: "Privatising..." },
+                { p: 85, t: "Finding..." },
+                { p: 95, t: "Welcome Buddy..." }
             ];
 
             let start = null;
@@ -236,29 +216,35 @@
                 if (!start) start = timestamp;
                 const rawProgress = Math.min((timestamp - start) / DURATION, 1);
                 
-                // Progress Bar Update
+                // Ease In Quad Animation
+                const easedProgress = rawProgress < 0.5 ? 2 * rawProgress * rawProgress : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
+                
                 bar.style.width = `${rawProgress * 100}%`;
 
-                // Status Text Update
                 const step = steps.findLast(s => (rawProgress * 100) >= s.p);
-                if (step && status.innerText !== step.t) {
-                    status.innerText = step.t;
-                }
+                if (step && status.innerText !== step.t) status.innerText = step.t;
 
                 if (rawProgress < 1) {
                     requestAnimationFrame(loadLoop);
                 } else {
-                    status.innerText = "Welcome";
-                    status.style.color = "#FFD700";
+                    // Final State
+                    status.innerText = "Ready";
+                    status.style.color = "#FFF";
+                    status.style.letterSpacing = "0.5em";
                     
                     localStorage.setItem(HAS_VISITED_KEY, 'true');
 
+                    // --- Quick Dissolve Transition ---
                     setTimeout(() => {
+                        // Dissolve Screen
                         document.body.classList.add('dissolve-active');
+                        
+                        // Redirect
                         setTimeout(() => {
                             window.location.replace(REDIRECT_URL);
                         }, 800);
-                    }, 600);
+                        
+                    }, 500);
                 }
             }
             requestAnimationFrame(loadLoop);
