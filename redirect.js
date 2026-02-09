@@ -24,6 +24,6 @@
     // Agar upar wale checks pass ho gaye (matlab ye normal user hai browser par),
     // to use Play Store par bhej do.
     
-    window.location.href = "https://play.google.com/store/apps/details?id=com.ai.skillaura&pcampaignid=web_share";
+    window.location.href = "https://play.google.com/store/apps/details?id=com.ai.skillaura";
 
 })();
