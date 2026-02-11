@@ -2024,41 +2024,42 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     </div>
 
     <script>
-        // --- CONFIRMATION MODAL LOGIC ---
-        let currentConfirmationAction = null;
-        let currentConfirmationType = null;
+    // --- CONFIRMATION MODAL LOGIC ---
+    let currentConfirmationAction = null;
+    let currentConfirmationType = null;
 
-        function showConfirmation(type) {
-            currentConfirmationType = type;
-            
-            if (type === 'profile') {
-                document.getElementById('confirmation-title').textContent = 'प्रोफाइल रीसेट करें';
-                document.getElementById('confirmation-message').innerHTML = 
-                    'क्या आप सुनिश्चित हैं? <strong>StiSkilli ऐप</strong> आपके सभी डेटा को हटा देगा और आप दोबारा रजिस्टर करने तक लॉक रहेंगे।';
-                currentConfirmationAction = resetProfileConfirmed;
-            } else if (type === 'quiz') {
-                document.getElementById('confirmation-title').textContent = 'क्विज प्रगति रीसेट करें';
-                document.getElementById('confirmation-message').innerHTML = 
-                    'क्या आप सुनिश्चित हैं? <strong>StiSkilli ऐप</strong> आपकी क्विज प्रगति को वर्तमान सेट की शुरुआत से रीसेट कर देगा।';
-                currentConfirmationAction = resetQuizConfirmed;
-            }
-            
-            document.getElementById('confirmation-modal').classList.add('active');
+    function showConfirmation(type) {
+        currentConfirmationType = type;
+        
+        if (type === 'profile') {
+            document.getElementById('confirmation-title').textContent = 'प्रोफाइल रीसेट करें';
+            document.getElementById('confirmation-message').innerHTML = 
+                'क्या आप सुनिश्चित हैं? <strong>StiSkilli ऐप</strong> आपके सभी डेटा को हटा देगा और आप दोबारा रजिस्टर करने तक लॉक रहेंगे।';
+            currentConfirmationAction = resetProfileConfirmed;
+        } else if (type === 'quiz') {
+            document.getElementById('confirmation-title').textContent = 'क्विज प्रगति रीसेट करें';
+            document.getElementById('confirmation-message').innerHTML = 
+                'क्या आप सुनिश्चित हैं? <strong>StiSkilli ऐप</strong> आपकी क्विज प्रगति को वर्तमान सेट की शुरुआत से रीसेट कर देगा।';
+            currentConfirmationAction = resetQuizConfirmed;
         }
+        
+        document.getElementById('confirmation-modal').classList.add('active');
+    }
 
-        function hideConfirmation() {
-            document.getElementById('confirmation-modal').classList.remove('active');
-            currentConfirmationAction = null;
-            currentConfirmationType = null;
-        }
+    function hideConfirmation() {
+        document.getElementById('confirmation-modal').classList.remove('active');
+        currentConfirmationAction = null;
+        currentConfirmationType = null;
+    }
 
-        function resetProfileConfirmed() {
-            localStorage.removeItem('userProfile');
-            localStorage.removeItem('quizProgress');
-            location.reload();
-        }
+    function resetProfileConfirmed() {
+        localStorage.removeItem('userProfile');
+        localStorage.removeItem('quizProgress');
+        location.reload();
+    }
 
-        function resetQuizConfirmed() {
+    function resetQuizConfirmed() {
+        if (typeof currentQuestionIndex !== 'undefined') {
             currentQuestionIndex = last25StartIndex;
             score = 0;
             correctAnswers = 0;
@@ -2066,10 +2067,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             streak = 0;
             saveQuizProgress();
             loadQuestion();
-            hideConfirmation();
         }
+        hideConfirmation();
+    }
 
-        // Initialize confirmation modal buttons
+    // Initialize confirmation modal buttons
+    document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('confirm-yes').addEventListener('click', function() {
             if (currentConfirmationAction) {
                 currentConfirmationAction();
@@ -2077,23 +2080,27 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         });
 
         document.getElementById('confirm-no').addEventListener('click', hideConfirmation);
+    });
 
-        // --- QUIZ LOGIC (USING EXTERNAL quizData.js) ---
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let correctAnswers = 0;
-        let wrongAnswers = 0;
-        let streak = 0;
-        let timer;
-        let timeLeft = 72;
-        let quizStarted = false;
-        let questionOrder = [];
-        let last25StartIndex = 0;
+    // --- QUIZ LOGIC (USING EXTERNAL quizData.js) ---
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+    let streak = 0;
+    let timer;
+    let timeLeft = 72;
+    let quizStarted = false;
+    let questionOrder = [];
+    let last25StartIndex = 0;
 
-        // Initialize quiz with external quiz data
-        function initializeQuiz() {
-            const savedProgress = localStorage.getItem('quizProgress');
-            if (savedProgress) {
+    // FIXED: Initialize quiz with external quiz data
+    function initializeQuiz() {
+        console.log("Initializing quiz with", quizQuestions.length, "questions");
+        
+        const savedProgress = localStorage.getItem('quizProgress');
+        if (savedProgress) {
+            try {
                 const progress = JSON.parse(savedProgress);
                 currentQuestionIndex = progress.currentQuestionIndex || 0;
                 score = progress.score || 0;
@@ -2103,315 +2110,362 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 questionOrder = progress.questionOrder || [];
                 last25StartIndex = progress.last25StartIndex || 0;
                 
-                if (questionOrder.length === 0) {
-                    questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
-                    shuffleArray(questionOrder);
-                }
-            } else {
-                questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
-                shuffleArray(questionOrder);
-                saveQuizProgress();
+                console.log("Loaded saved progress:", progress);
+            } catch (e) {
+                console.error("Error parsing saved progress:", e);
+                resetQuizState();
             }
-            
-            updateQuizUI();
-            loadQuestion();
-        }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function loadQuestion() {
-            if (currentQuestionIndex >= questionOrder.length) {
-                currentQuestionIndex = 0;
-                questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
-                shuffleArray(questionOrder);
-            }
-
-            const questionIndex = questionOrder[currentQuestionIndex];
-            const question = quizQuestions[questionIndex];
-            
-            document.getElementById('question-text').textContent = question.question;
-            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
-            document.getElementById('total-questions').textContent = quizQuestions.length;
-            
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-            
-            const letters = ['A', 'B', 'C', 'D'];
-            question.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-btn';
-                button.innerHTML = `
-                    <span class="option-letter">${letters[index]}</span>
-                    ${option}
-                `;
-                button.onclick = () => selectOption(index, question.correct);
-                optionsContainer.appendChild(button);
-            });
-            
-            // Reset timer
-            clearInterval(timer);
-            timeLeft = 72;
-            document.getElementById('question-timer').textContent = `${timeLeft}s`;
-            
-            // Start timer
-            timer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('question-timer').textContent = `${timeLeft}s`;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    handleTimeOut();
-                }
-            }, 1000);
-            
-            // Update progress bar
-            const progress = ((currentQuestionIndex % 25) + 1) / 25 * 100;
-            document.getElementById('quiz-progress').style.width = `${progress}%`;
-            
-            // Show/hide back button based on question count in current set
-            const currentSetQuestion = (currentQuestionIndex % 25) + 1;
-            document.getElementById('reset-btn').style.display = currentSetQuestion <= 1 ? 'none' : 'flex';
-            
-            updateQuizUI();
-        }
-
-        function selectOption(selectedIndex, correctIndex) {
-            clearInterval(timer);
-            
-            const options = document.querySelectorAll('.option-btn');
-            const selectedOption = options[selectedIndex];
-            const correctOption = options[correctIndex];
-            
-            // Disable all options
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            // Mark selected option
-            if (selectedIndex === correctIndex) {
-                selectedOption.classList.add('correct');
-                score += 2;
-                correctAnswers++;
-                streak++;
-                
-                // Update streak display
-                const streakElement = document.getElementById('user-streak');
-                streakElement.textContent = streak;
-                streakElement.style.color = streak >= 3 ? '#10B981' : '#FFD700';
-            } else {
-                selectedOption.classList.add('wrong');
-                correctOption.classList.add('correct');
-                score -= 0.25;
-                wrongAnswers++;
-                streak = 0;
-                document.getElementById('user-streak').textContent = streak;
-            }
-            
-            // Update score display
-            document.getElementById('current-score').textContent = score;
-            
-            // Show auto-next indicator
-            const indicator = document.getElementById('auto-next-indicator');
-            indicator.style.display = 'block';
-            
-            let countdown = 3;
-            const countdownElement = document.getElementById('next-countdown');
-            countdownElement.textContent = countdown;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    indicator.style.display = 'none';
-                    saveQuizProgress();
-                    
-                    // Check if we need to show results after 25 questions
-                    const currentSetQuestion = (currentQuestionIndex % 25) + 1;
-                    if (currentSetQuestion === 25) {
-                        showResultsModal();
-                    } else {
-                        currentQuestionIndex++;
-                        loadQuestion();
-                    }
-                }
-            }, 1000);
-        }
-
-        function handleTimeOut() {
-            const options = document.querySelectorAll('.option-btn');
-            const correctIndex = quizQuestions[questionOrder[currentQuestionIndex]].correct;
-            const correctOption = options[correctIndex];
-            
-            options.forEach(option => {
-                option.style.pointerEvents = 'none';
-            });
-            
-            correctOption.classList.add('correct');
-            wrongAnswers++;
-            streak = 0;
-            
-            // Show auto-next indicator
-            const indicator = document.getElementById('auto-next-indicator');
-            indicator.style.display = 'block';
-            
-            let countdown = 3;
-            const countdownElement = document.getElementById('next-countdown');
-            countdownElement.textContent = countdown;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    indicator.style.display = 'none';
-                    saveQuizProgress();
-                    
-                    // Check if we need to show results after 25 questions
-                    const currentSetQuestion = (currentQuestionIndex % 25) + 1;
-                    if (currentSetQuestion === 25) {
-                        showResultsModal();
-                    } else {
-                        currentQuestionIndex++;
-                        loadQuestion();
-                    }
-                }
-            }, 1000);
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            saveQuizProgress();
-            
-            // Check if we need to show results after 25 questions
-            const currentSetQuestion = (currentQuestionIndex % 25) + 1;
-            if (currentSetQuestion === 1 && currentQuestionIndex > 0) {
-                showResultsModal();
-            } else {
-                loadQuestion();
-            }
-        }
-
-        function showResultsModal() {
-            const accuracy = correctAnswers / (correctAnswers + wrongAnswers) * 100;
-            
-            document.getElementById('final-score').textContent = score;
-            document.getElementById('correct-answers').textContent = correctAnswers;
-            document.getElementById('wrong-answers').textContent = wrongAnswers;
-            document.getElementById('accuracy').textContent = `${accuracy.toFixed(1)}%`;
-            
-            document.getElementById('quiz-results-modal').classList.add('active');
-        }
-
-        function closeResultsModal() {
-            document.getElementById('quiz-results-modal').classList.remove('active');
-            showConfirmation('quiz');
-        }
-
-        function continueQuiz() {
-            document.getElementById('quiz-results-modal').classList.remove('active');
-            last25StartIndex = currentQuestionIndex;
-            saveQuizProgress();
-            loadQuestion();
-        }
-
-        function saveQuizProgress() {
-            const progress = {
-                currentQuestionIndex,
-                score,
-                correctAnswers,
-                wrongAnswers,
-                streak,
-                questionOrder,
-                last25StartIndex
-            };
-            localStorage.setItem('quizProgress', JSON.stringify(progress));
-        }
-
-        function updateQuizUI() {
-            document.getElementById('current-score').textContent = score;
-            document.getElementById('user-streak').textContent = streak;
-            
-            // Update streak color
-            const streakElement = document.getElementById('user-streak');
-            streakElement.style.color = streak >= 3 ? '#10B981' : '#FFD700';
-        }
-
-        // --- PROFILE LOGIC (SIMPLIFIED) ---
-        function checkProfile() {
-            unlockInterface();
-            return true;
-        }
-
-        function unlockInterface() {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('locked'));
-        }
-
-        // --- TAB NAVIGATION LOGIC ---
-        function activateTab(element, tabId) {
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            if(element) element.classList.add('active');
-
-            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
-
-            const target = document.getElementById(`modal-${tabId}`);
-            if(target) target.classList.add('active');
-            
-            // Initialize quiz if quiz tab is activated
-            if (tabId === 'quiz') {
-                if (!quizStarted) {
-                    initializeQuiz();
-                    quizStarted = true;
-                }
-            }
-        }
-
-        // --- SUB-MODAL LOGIC ---
-        function openSubModal(id) {
-            document.getElementById(id).classList.add('active');
+        } else {
+            resetQuizState();
         }
         
-        function closeSubModal(id) {
-            document.getElementById(id).classList.remove('active');
+        // Ensure we have questions
+        if (!quizQuestions || quizQuestions.length === 0) {
+            console.error("No quiz questions loaded!");
+            document.getElementById('question-text').textContent = "प्रश्न लोड नहीं हो सके। पेज रिफ्रेश करें।";
+            return;
+        }
+        
+        // Initialize question order if empty
+        if (questionOrder.length === 0 || questionOrder.length !== quizQuestions.length) {
+            questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
+            shuffleArray(questionOrder);
+            saveQuizProgress();
+        }
+        
+        updateQuizUI();
+        loadQuestion();
+    }
+
+    function resetQuizState() {
+        console.log("Resetting quiz state");
+        currentQuestionIndex = 0;
+        score = 0;
+        correctAnswers = 0;
+        wrongAnswers = 0;
+        streak = 0;
+        questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
+        shuffleArray(questionOrder);
+        last25StartIndex = 0;
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function loadQuestion() {
+        if (!quizQuestions || quizQuestions.length === 0) {
+            console.error("No questions available!");
+            return;
         }
 
-        // --- CUSTOM ALERT FUNCTION ---
-        function showCustomAlert(message) {
-            document.getElementById('confirmation-title').textContent = 'StiSkilli ऐप';
-            document.getElementById('confirmation-message').textContent = message;
-            document.getElementById('confirm-yes').style.display = 'none';
-            document.getElementById('confirm-no').textContent = 'ठीक है';
-            document.getElementById('confirm-no').onclick = function() {
-                hideConfirmation();
-                document.getElementById('confirm-yes').style.display = 'block';
-                document.getElementById('confirm-no').textContent = 'नहीं';
-            };
-            document.getElementById('confirmation-modal').classList.add('active');
+        if (currentQuestionIndex >= questionOrder.length) {
+            console.log("Resetting to first question");
+            currentQuestionIndex = 0;
+            questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
+            shuffleArray(questionOrder);
         }
 
-        // --- CHARTS INITIALIZATION ---
-        document.addEventListener("DOMContentLoaded", function() {
-            // Unlock interface immediately
-            unlockInterface();
+        const questionIndex = questionOrder[currentQuestionIndex];
+        const question = quizQuestions[questionIndex];
+        
+        console.log("Loading question", currentQuestionIndex + 1, "of", quizQuestions.length, ":", question.question);
+        
+        document.getElementById('question-text').textContent = question.question;
+        document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+        document.getElementById('total-questions').textContent = quizQuestions.length;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        const letters = ['A', 'B', 'C', 'D'];
+        question.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.innerHTML = `
+                <span class="option-letter">${letters[index]}</span>
+                ${option}
+            `;
+            button.onclick = () => selectOption(index, question.correct);
+            optionsContainer.appendChild(button);
+        });
+        
+        // Reset timer
+        clearInterval(timer);
+        timeLeft = 72;
+        document.getElementById('question-timer').textContent = `${timeLeft}s`;
+        
+        // Start timer
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('question-timer').textContent = `${timeLeft}s`;
             
-            // Activate UPSC tab by default
-            activateTab(document.getElementById('nav-upsc'), 'upsc');
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                handleTimeOut();
+            }
+        }, 1000);
+        
+        // Update progress bar
+        const progress = ((currentQuestionIndex % 25) + 1) / 25 * 100;
+        document.getElementById('quiz-progress').style.width = `${progress}%`;
+        
+        // Show/hide reset button based on question count in current set
+        const currentSetQuestion = (currentQuestionIndex % 25) + 1;
+        document.getElementById('reset-btn').style.display = currentSetQuestion <= 1 ? 'none' : 'flex';
+        
+        updateQuizUI();
+    }
 
-            Chart.defaults.color = '#fff';
-            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+    function selectOption(selectedIndex, correctIndex) {
+        clearInterval(timer);
+        
+        const options = document.querySelectorAll('.option-btn');
+        const selectedOption = options[selectedIndex];
+        const correctOption = options[correctIndex];
+        
+        // Disable all options
+        options.forEach(option => {
+            option.style.pointerEvents = 'none';
+        });
+        
+        // Mark selected option
+        if (selectedIndex === correctIndex) {
+            selectedOption.classList.add('correct');
+            score += 2;
+            correctAnswers++;
+            streak++;
+            
+            // Update streak display
+            const streakElement = document.getElementById('user-streak');
+            streakElement.textContent = streak;
+            streakElement.style.color = streak >= 3 ? '#10B981' : '#FFD700';
+        } else {
+            selectedOption.classList.add('wrong');
+            correctOption.classList.add('correct');
+            score -= 0.25;
+            wrongAnswers++;
+            streak = 0;
+            document.getElementById('user-streak').textContent = streak;
+        }
+        
+        // Update score display
+        document.getElementById('current-score').textContent = score;
+        
+        // Show auto-next indicator
+        const indicator = document.getElementById('auto-next-indicator');
+        indicator.style.display = 'block';
+        
+        let countdown = 3;
+        const countdownElement = document.getElementById('next-countdown');
+        countdownElement.textContent = countdown;
+        
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                indicator.style.display = 'none';
+                saveQuizProgress();
+                
+                // Check if we need to show results after 25 questions
+                const currentSetQuestion = (currentQuestionIndex % 25) + 1;
+                if (currentSetQuestion === 25) {
+                    showResultsModal();
+                } else {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            }
+        }, 1000);
+    }
 
-            // Attempts Chart
-            const ctx1 = document.getElementById('attemptsChart').getContext('2d');
-            new Chart(ctx1, {
+    function handleTimeOut() {
+        const options = document.querySelectorAll('.option-btn');
+        const questionIndex = questionOrder[currentQuestionIndex];
+        const correctIndex = quizQuestions[questionIndex].correct;
+        const correctOption = options[correctIndex];
+        
+        options.forEach(option => {
+            option.style.pointerEvents = 'none';
+        });
+        
+        correctOption.classList.add('correct');
+        wrongAnswers++;
+        streak = 0;
+        
+        // Show auto-next indicator
+        const indicator = document.getElementById('auto-next-indicator');
+        indicator.style.display = 'block';
+        
+        let countdown = 3;
+        const countdownElement = document.getElementById('next-countdown');
+        countdownElement.textContent = countdown;
+        
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                indicator.style.display = 'none';
+                saveQuizProgress();
+                
+                // Check if we need to show results after 25 questions
+                const currentSetQuestion = (currentQuestionIndex % 25) + 1;
+                if (currentSetQuestion === 25) {
+                    showResultsModal();
+                } else {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            }
+        }, 1000);
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        saveQuizProgress();
+        
+        // Check if we need to show results after 25 questions
+        const currentSetQuestion = (currentQuestionIndex % 25) + 1;
+        if (currentSetQuestion === 1 && currentQuestionIndex > 0) {
+            showResultsModal();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function showResultsModal() {
+        const totalAnswered = correctAnswers + wrongAnswers;
+        const accuracy = totalAnswered > 0 ? (correctAnswers / totalAnswered * 100) : 0;
+        
+        document.getElementById('final-score').textContent = score;
+        document.getElementById('correct-answers').textContent = correctAnswers;
+        document.getElementById('wrong-answers').textContent = wrongAnswers;
+        document.getElementById('accuracy').textContent = `${accuracy.toFixed(1)}%`;
+        
+        document.getElementById('quiz-results-modal').classList.add('active');
+    }
+
+    function closeResultsModal() {
+        document.getElementById('quiz-results-modal').classList.remove('active');
+        showConfirmation('quiz');
+    }
+
+    function continueQuiz() {
+        document.getElementById('quiz-results-modal').classList.remove('active');
+        last25StartIndex = currentQuestionIndex;
+        saveQuizProgress();
+        loadQuestion();
+    }
+
+    function saveQuizProgress() {
+        const progress = {
+            currentQuestionIndex,
+            score,
+            correctAnswers,
+            wrongAnswers,
+            streak,
+            questionOrder,
+            last25StartIndex
+        };
+        localStorage.setItem('quizProgress', JSON.stringify(progress));
+    }
+
+    function updateQuizUI() {
+        document.getElementById('current-score').textContent = score;
+        document.getElementById('user-streak').textContent = streak;
+        
+        // Update streak color
+        const streakElement = document.getElementById('user-streak');
+        streakElement.style.color = streak >= 3 ? '#10B981' : '#FFD700';
+    }
+
+    // --- PROFILE LOGIC (SIMPLIFIED) ---
+    function checkProfile() {
+        unlockInterface();
+        return true;
+    }
+
+    function unlockInterface() {
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => item.classList.remove('locked'));
+    }
+
+    // --- TAB NAVIGATION LOGIC ---
+    function activateTab(element, tabId) {
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        if(element) element.classList.add('active');
+
+        document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+
+        const target = document.getElementById(`modal-${tabId}`);
+        if(target) target.classList.add('active');
+        
+        // Initialize quiz if quiz tab is activated
+        if (tabId === 'quiz') {
+            if (!quizStarted) {
+                console.log("Activating quiz tab, initializing...");
+                initializeQuiz();
+                quizStarted = true;
+            }
+        }
+    }
+
+    // --- SUB-MODAL LOGIC ---
+    function openSubModal(id) {
+        document.getElementById(id).classList.add('active');
+    }
+    
+    function closeSubModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+
+    // --- CUSTOM ALERT FUNCTION ---
+    function showCustomAlert(message) {
+        document.getElementById('confirmation-title').textContent = 'StiSkilli ऐप';
+        document.getElementById('confirmation-message').textContent = message;
+        document.getElementById('confirm-yes').style.display = 'none';
+        document.getElementById('confirm-no').textContent = 'ठीक है';
+        document.getElementById('confirm-no').onclick = function() {
+            hideConfirmation();
+            document.getElementById('confirm-yes').style.display = 'block';
+            document.getElementById('confirm-no').textContent = 'नहीं';
+        };
+        document.getElementById('confirmation-modal').classList.add('active');
+    }
+
+    // --- CHARTS INITIALIZATION ---
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("DOM fully loaded");
+        
+        // Unlock interface immediately
+        unlockInterface();
+        
+        // Activate profile tab by default (as per your HTML structure)
+        activateTab(document.getElementById('nav-profile'), 'profile');
+
+        // Initialize charts
+        initializeCharts();
+        
+        // Debug: Check if quiz data is loaded
+        console.log("Quiz questions loaded:", window.quizQuestions ? window.quizQuestions.length : 0);
+    });
+
+    function initializeCharts() {
+        Chart.defaults.color = '#fff';
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+        // Attempts Chart
+        const ctx1 = document.getElementById('attemptsChart');
+        if (ctx1) {
+            new Chart(ctx1.getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: ['सामान्य', 'OBC', 'SC / ST'],
@@ -2441,10 +2495,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     }
                 }
             });
+        }
 
-            // Interview Qualities Chart
-            const ctx2 = document.getElementById('interviewChart').getContext('2d');
-            new Chart(ctx2, {
+        // Interview Qualities Chart
+        const ctx2 = document.getElementById('interviewChart');
+        if (ctx2) {
+            new Chart(ctx2.getContext('2d'), {
                 type: 'bubble',
                 data: {
                     labels: ['मानसिक सतर्कता', 'आलोचनात्मक सोच', 'संतुलित निर्णय', 'संचार', 'सत्यनिष्ठा', 'नेतृत्व'],
@@ -2483,22 +2539,23 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     }
                 }
             });
-        });
-
-        // Close modals on outside click
-        window.onclick = function(event) {
-            if (event.target.classList.contains('upsc-sub-modal')) {
-                event.target.classList.remove('active');
-            }
-            if (event.target.classList.contains('quiz-results-modal')) {
-                event.target.classList.remove('active');
-            }
-            if (event.target.classList.contains('confirmation-modal')) {
-                event.target.classList.remove('active');
-                document.getElementById('confirm-yes').style.display = 'block';
-                document.getElementById('confirm-no').textContent = 'नहीं';
-            }
         }
-    </script>
+    }
+
+    // Close modals on outside click
+    window.onclick = function(event) {
+        if (event.target.classList.contains('upsc-sub-modal')) {
+            event.target.classList.remove('active');
+        }
+        if (event.target.classList.contains('quiz-results-modal')) {
+            event.target.classList.remove('active');
+        }
+        if (event.target.classList.contains('confirmation-modal')) {
+            event.target.classList.remove('active');
+            document.getElementById('confirm-yes').style.display = 'block';
+            document.getElementById('confirm-no').textContent = 'नहीं';
+        }
+    }
+</script>
 </body>
 </html>
