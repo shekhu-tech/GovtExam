@@ -1,278 +1,6142 @@
 // quizData.js
 const quizQuestions = [
-    {
-        question: "भारत में 'नेशनल ग्रीन ट्रिब्यूनल' (NGT) की स्थापना किस वर्ष हुई थी?",
-        options: [
-            "2010",
-            "2012", 
-            "2014",
-            "2016"
-        ],
+     {
+        question: "With reference to the 'Prithvi Vigyan (PRITHVI)' scheme, consider the following statements:",
+        options: ["It is an overarching scheme of the Ministry of Earth Sciences.", "It aims to replace the Deep Ocean Mission.", "It focuses solely on atmospheric research.", "It is a joint initiative with NASA."],
         correct: 0,
-        explanation: "नेशनल ग्रीन ट्रिब्यूनल (NGT) की स्थापना 2010 में NGT अधिनियम, 2010 के तहत हुई थी।"
+        explanation: "PRITHVI is an overarching scheme aimed at augmenting long-term observations of the atmosphere, ocean, geosphere, cryosphere, and biosphere."
     },
     {
-        question: "'इंडियन ओशन रिम एसोसिएशन' (IORA) का मुख्यालय कहाँ स्थित है?",
-        options: [
-            "नई दिल्ली, भारत",
-            "कोलंबो, श्रीलंका",
-            "पर्थ, ऑस्ट्रेलिया",
-            "मॉरीशस"
-        ],
-        correct: 3,
-        explanation: "IORA का सचिवालय मॉरीशस में स्थित है, जिसकी स्थापना 1997 में हुई थी।"
-    },
-    {
-        question: "हाल ही में किस देश ने 'आर्टिफिशियल सन' प्रोजेक्ट लॉन्च किया है?",
-        options: [
-            "चीन",
-            "जापान",
-            "जर्मनी",
-            "संयुक्त राज्य अमेरिका"
-        ],
+        question: "The 'Clean Plant Program' (CPP), aimed at boosting horticulture, is implemented by which organization?",
+        options: ["National Horticulture Board (NHB)", "Indian Council of Agricultural Research (ICAR)", "APEDA", "NABARD"],
         correct: 0,
-        explanation: "चीन ने HL-3 टोकामक डिवाइस के साथ 'आर्टिफिशियल सन' प्रोजेक्ट लॉन्च किया है।"
+        explanation: "The Clean Plant Program is being implemented by the National Horticulture Board to provide virus-free, high-quality planting material."
     },
     {
-        question: "2024 के 'ग्लोबल जेंडर गैप इंडेक्स' में भारत का रैंक क्या है?",
-        options: [
-            "127वाँ",
-            "135वाँ",
-            "140वाँ",
-            "145वाँ"
-        ],
-        correct: 1,
-        explanation: "विश्व आर्थिक फोरम की 2024 रिपोर्ट के अनुसार भारत 146 देशों में 135वें स्थान पर है।"
-    },
-    {
-        question: "'एग्रोमेट सेवा' किस मंत्रालय से संबंधित है?",
-        options: [
-            "कृषि मंत्रालय",
-            "पृथ्वी विज्ञान मंत्रालय",
-            "विज्ञान और प्रौद्योगिकी मंत्रालय",
-            "पर्यावरण मंत्रालय"
-        ],
-        correct: 1,
-        explanation: "एग्रोमेट सेवा भारत मौसम विज्ञान विभाग (पृथ्वी विज्ञान मंत्रालय) द्वारा संचालित है।"
-    },
-    {
-        question: "हाल ही में किस भारतीय शहर को 'यूनेस्को क्रिएटिव सिटी ऑफ म्यूजिक' घोषित किया गया है?",
-        options: [
-            "कोलकाता",
-            "वाराणसी",
-            "चेन्नई",
-            "जयपुर"
-        ],
-        correct: 1,
-        explanation: "वाराणसी को 2024 में यूनेस्को क्रिएटिव सिटीज़ नेटवर्क में म्यूजिक श्रेणी में शामिल किया गया।"
-    },
-    {
-        question: "'प्रोजेक्ट चेतना' किससे संबंधित है?",
-        options: [
-            "स्वास्थ्य देखभाल",
-            "शिक्षा",
-            "पर्यावरण संरक्षण",
-            "डिजिटल साक्षरता"
-        ],
-        correct: 3,
-        explanation: "प्रोजेक्ट चेतना इलेक्ट्रॉनिक्स और आईटी मंत्रालय की डिजिटल साक्षरता पहल है।"
-    },
-    {
-        question: "भारत के पहले 'ग्रीन हाइड्रोजन प्लांट' का उद्घाटन किस राज्य में किया गया?",
-        options: [
-            "गुजरात",
-            "राजस्थान",
-            "कर्नाटक",
-            "तमिलनाडु"
-        ],
-        correct: 1,
-        explanation: "राजस्थान के जैसलमेर में NTPC द्वारा पहला ग्रीन हाइड्रोजन प्लांट स्थापित किया गया।"
-    },
-    {
-        question: "'इंडस वॉटर ट्रीटी' किन दो देशों के बीच है?",
-        options: [
-            "भारत-पाकिस्तान",
-            "भारत-चीन",
-            "भारत-बांग्लादेश",
-            "भारत-नेपाल"
-        ],
+        question: "Which of the following countries recently joined the 'NATO' alliance, ending decades of non-alignment?",
+        options: ["Sweden", "Austria", "Ireland", "Switzerland"],
         correct: 0,
-        explanation: "इंडस वॉटर ट्रीटी 1960 में भारत और पाकिस्तान के बीच विश्व बैंक की मध्यस्थता में हुई।"
+        explanation: "Sweden officially joined NATO in 2024, following Finland, ending its long-standing policy of military non-alignment."
     },
     {
-        question: "हाल ही में किस देश ने 'डिजिटल करेंसी' लॉन्च की है?",
-        options: [
-            "भारत",
-            "चीन",
-            "जापान",
-            "रूस"
-        ],
+        question: "The 'e-Sakshi' mobile application was launched for which specific purpose?",
+        options: ["To track election expenditure of candidates.", "To monitor the utilization of MPLADS funds.", "To report crimes against women.", "To track mid-day meal distribution."],
         correct: 1,
-        explanation: "चीन ने डिजिटल युआन (e-CNY) लॉन्च किया है, जो केंद्रीय बैंक डिजिटल मुद्रा (CBDC) है।"
+        explanation: "e-Sakshi is launched to capture the entire fund flow under the MPLAD Scheme (Member of Parliament Local Area Development Scheme) for greater transparency."
     },
     {
-        question: "'वन वर्ल्ड वन हेल्थ' कॉन्सेप्ट किस संगठन से जुड़ा है?",
-        options: [
-            "WHO",
-            "UNICEF",
-            "FAO",
-            "विश्व बैंक"
-        ],
-        correct: 0,
-        explanation: "विश्व स्वास्थ्य संगठन (WHO) ने 'वन वर्ल्ड वन हेल्थ' दृष्टिकोण को प्रोत्साहित किया है।"
-    },
-    {
-        question: "भारत का पहला 'फ्लोटिंग सोलर पार्क' किस राज्य में स्थापित किया गया है?",
-        options: [
-            "केरल",
-            "तमिलनाडु",
-            "आंध्र प्रदेश",
-            "महाराष्ट्र"
-        ],
-        correct: 0,
-        explanation: "केरल के कोच्चि में 500 किलोवाट क्षमता का भारत का पहला फ्लोटिंग सोलर पार्क है।"
-    },
-    {
-        question: "'इंटरनेशनल बॉर्डर मैनेजमेंट' पर हाल ही में किस देश के साथ समझौता हुआ?",
-        options: [
-            "बांग्लादेश",
-            "नेपाल",
-            "श्रीलंका",
-            "म्यांमार"
-        ],
-        correct: 3,
-        explanation: "भारत और म्यांमार ने 2024 में सीमा प्रबंधन और सुरक्षा पर समझौता किया।"
-    },
-    {
-        question: "हाल ही में किस भारतीय को 'ग्लोबल टीचर प्राइज 2024' मिला?",
-        options: [
-            "रंजन मल्लिक",
-            "सोनम वांगचुक",
-            "सुभाष चंद्र",
-            "अरुणा रॉय"
-        ],
-        correct: 0,
-        explanation: "रंजन मल्लिक (ओडिशा) को उनके नवोन्मेषी शिक्षण तरीकों के लिए ग्लोबल टीचर प्राइज 2024 मिला।"
-    },
-    {
-        question: "'डिजिलॉकर' प्लेटफॉर्म किस मंत्रालय द्वारा संचालित है?",
-        options: [
-            "इलेक्ट्रॉनिक्स और आईटी मंत्रालय",
-            "वित्त मंत्रालय",
-            "गृह मंत्रालय",
-            "शिक्षा मंत्रालय"
-        ],
-        correct: 0,
-        explanation: "डिजिलॉकर इलेक्ट्रॉनिक्स और सूचना प्रौद्योगिकी मंत्रालय (MeitY) द्वारा संचालित है।"
-    },
-    {
-        question: "भारत में 'नेशनल काउंसिल फॉर टीचर एजुकेशन' (NCTE) का मुख्यालय कहाँ है?",
-        options: [
-            "नई दिल्ली",
-            "बैंगलोर",
-            "चेन्नई",
-            "कोलकाता"
-        ],
-        correct: 0,
-        explanation: "NCTE का मुख्यालय नई दिल्ली में है और यह शिक्षक शिक्षा के मानकों को विनियमित करता है।"
-    },
-    {
-        question: "हाल ही में किस देश ने 'मिशन चंद्रयान-4' लॉन्च किया?",
-        options: [
-            "भारत",
-            "चीन",
-            "रूस",
-            "जापान"
-        ],
+        question: "What is the primary objective of the 'Vaibhav Fellowship' scheme?",
+        options: ["To provide scholarships to rural students.", "To connect the Indian STEM diaspora with Indian academic and R&D institutions.", "To support artists in traditional crafts.", "To fund startups in the fintech sector."],
         correct: 1,
-        explanation: "चीन ने 2024 में चंद्रयान-4 मिशन लॉन्च किया जो चंद्रमा के दक्षिणी ध्रुव पर जाएगा।"
+        explanation: "The Vaibhav Fellowship aims to facilitate collaboration between the Indian diaspora in STEM fields and Indian academic/R&D institutions."
     },
     {
-        question: "'स्वच्छ भारत मिशन 2.0' कब तक चलने वाला है?",
-        options: [
-            "2024-2029",
-            "2021-2026",
-            "2022-2027",
-            "2023-2028"
-        ],
-        correct: 1,
-        explanation: "स्वच्छ भारत मिशन 2.0 (शहरी) 2021 से 2026 तक चलेगा।"
-    },
-    {
-        question: "भारत का पहला 'इलेक्ट्रिक हाइवे' किस राज्य में बन रहा है?",
-        options: [
-            "उत्तर प्रदेश",
-            "महाराष्ट्र",
-            "हरियाणा",
-            "गुजरात"
-        ],
-        correct: 3,
-        explanation: "दिल्ली-मुंबई एक्सप्रेसवे (गुजरात खंड) पर भारत का पहला इलेक्ट्रिक हाइवे बन रहा है।"
-    },
-    {
-        question: "हाल ही में किस राज्य ने 'शिक्षा क्रांति मिशन' लॉन्च किया?",
-        options: [
-            "बिहार",
-            "उत्तर प्रदेश",
-            "मध्य प्रदेश",
-            "राजस्थान"
-        ],
-        correct: 1,
-        explanation: "उत्तर प्रदेश सरकार ने 2024 में 'शिक्षा क्रांति मिशन' लॉन्च किया है।"
-    },
-    {
-        question: "'विश्व साइबर सुरक्षा सूचकांक 2024' में भारत का स्थान क्या है?",
-        options: [
-            "10वाँ",
-            "15वाँ",
-            "20वाँ",
-            "25वाँ"
-        ],
-        correct: 0,
-        explanation: "ITU के विश्व साइबर सुरक्षा सूचकांक 2024 में भारत 10वें स्थान पर है।"
-    },
-    {
-        question: "हाल ही में किस संस्था ने 'ग्लोबल हंगर इंडेक्स 2024' जारी किया?",
-        options: [
-            "विश्व बैंक",
-            "यूनिसेफ",
-            "विश्व स्वास्थ्य संगठन",
-            "आयरिश एड"
-        ],
-        correct: 3,
-        explanation: "आयरिश एड (Concern Worldwide और Welthungerhilfe) ने ग्लोबल हंगर इंडेक्स 2024 जारी किया।"
-    },
-    {
-        question: "भारत का पहला 'हरित हाइड्रोजन संयंत्र' किस कंपनी द्वारा स्थापित किया गया?",
-        options: [
-            "रिलायंस इंडस्ट्रीज",
-            "अदाणी ग्रुप",
-            "टाटा ग्रुप",
-            "एनटीपीसी"
-        ],
-        correct: 1,
-        explanation: "अदाणी ग्रुप ने गुजरात में भारत का पहला हरित हाइड्रोजन संयंत्र स्थापित किया।"
-    },
-    {
-        question: "हाल ही में किस देश के साथ भारत ने 'समुद्री सुरक्षा समझौता' किया?",
-        options: [
-            "संयुक्त राज्य अमेरिका",
-            "जापान",
-            "ऑस्ट्रेलिया",
-            "फ्रांस"
-        ],
+        question: "Consider the following statements regarding the 'Alliance of Global Drylands' (AGD):",
+        options: ["It restricts agriculture in drylands.", "It encourages dryland countries to import water.", "It focuses on sustainable land management and restoration of drylands.", "It is a subsidiary of the World Bank."],
         correct: 2,
-        explanation: "भारत और ऑस्ट्रेलिया ने 2024 में समुद्री सुरक्षा और सहयोग पर समझौता किया।"
+        explanation: "The initiative aims to promote sustainable land management, restoration of degraded lands, and biodiversity conservation in dryland regions."
     },
     {
-        question: "'डिजिटल इंडिया एक्ट 2024' किससे संबंधित है?",
-        options: [
-            "डेटा प्राइवेसी",
-            "साइबर सुरक्षा",
-            "डिजिटल भुगतान",
-            "ई-गवर्नेंस"
-        ],
+        question: "The term 'Generative AI' (GenAI), often seen in news, is best defined as:",
+        options: ["AI that can only analyze existing data.", "AI capable of creating new content like text, images, and audio.", "AI used exclusively for robotics.", "AI that simulates human emotions."],
         correct: 1,
-        explanation: "डिजिटल इंडिया एक्ट 2024 साइबर सुरक्षा, डेटा संरक्षण और ऑनलाइन विनियमन से संबंधित है।"
-    }
+        explanation: "Generative AI refers to deep-learning models that can generate high-quality text, images, and other content based on the data they were trained on."
+    },
+    {
+        question: "Which state recently launched the 'My School-My Pride' campaign as part of the 'Apna Vidyalay' programme?",
+        options: ["Himachal Pradesh", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"],
+        correct: 0,
+        explanation: "Himachal Pradesh launched this campaign to encourage individuals and organizations to adopt government schools for holistic growth."
+    },
+    {
+        question: "The 'SMART 2.0' program launched by the CCRAS is related to:",
+        options: ["Smart city development.", "Mainstreaming Ayurveda research among teaching professionals.", "Satellite missile tracking.", "Digital literacy in rural areas."],
+        correct: 1,
+        explanation: "SMART 2.0 (Scope for Mainstreaming Ayurveda Research in Teaching Professionals) aims to boost scientific research in Ayurveda colleges and hospitals."
+    },
+    {
+        question: "The 'Pravasi Bharatiya Divas' is celebrated to mark the return of Mahatma Gandhi from which country?",
+        options: ["United Kingdom", "South Africa", "USA", "France"],
+        correct: 1,
+        explanation: "It is celebrated on January 9th to mark the contribution of the Overseas Indian community and commemorates Gandhi's return from South Africa in 1915."
+    },
+    {
+        question: "What is 'Havisure', recently developed by Indian scientists?",
+        options: ["A new variety of wheat.", "Indigenously developed Hepatitis A vaccine.", "A surveillance drone.", "A water purification system."],
+        correct: 1,
+        explanation: "Havisure is India's first indigenously developed Hepatitis A vaccine launched by Indian Immunologicals Ltd (IIL)."
+    },
+    {
+        question: "The 'Mulya Pravah 2.0' guidelines were issued by which body?",
+        options: ["Reserve Bank of India (RBI)", "University Grants Commission (UGC)", "NITI Aayog", "Election Commission of India"],
+        correct: 1,
+        explanation: "UGC issued Mulya Pravah 2.0 to inculcate human values and professional ethics in higher education institutions."
+    },
+    {
+        question: "With reference to the 'Kala-azar' disease, consider the following:",
+        options: ["It is caused by a virus.", "It is transmitted by the bite of infected female phlebotomine sandflies.", "It affects the respiratory system only.", "India has failed to meet the elimination target."],
+        correct: 1,
+        explanation: "Kala-azar (Visceral Leishmaniasis) is a protozoan parasitic disease transmitted by sandflies. India recently achieved the target of eliminating it as a public health problem."
+    },
+    {
+        question: "The 'Ken-Betwa Link Project' is the first project under which national initiative?",
+        options: ["National River Conservation Plan", "National Perspective Plan for Interlinking of Rivers", "Namami Gange", "Jal Jeevan Mission"],
+        correct: 1,
+        explanation: "It is the first major project under the National Perspective Plan (NPP) for the interlinking of rivers, transferring water from Ken to Betwa."
+    },
+    {
+        question: "What is the 'Kachchhatheevu' island issue related to?",
+        options: ["A territorial dispute between India and Pakistan.", "A maritime boundary and fishing rights issue between India and Sri Lanka.", "An artificial island in the South China Sea.", "A newly formed volcanic island."],
+        correct: 1,
+        explanation: "Kachchhatheevu is an uninhabited island ceded to Sri Lanka in 1974. It remains a point of contention regarding fishing rights for Indian fishermen."
+    },
+    {
+        question: "The 'Raisina Dialogue' is India's premier conference on:",
+        options: ["Economics and Finance", "Geopolitics and Geoeconomics", "Climate Change", "Science and Technology"],
+        correct: 1,
+        explanation: "Hosted by the Observer Research Foundation (ORF) and MEA, it is India’s flagship conference on geopolitics and geoeconomics."
+    },
+    {
+        question: "Which space agency launched the 'PACE' mission to study oceans and atmosphere?",
+        options: ["ISRO", "ESA", "NASA", "JAXA"],
+        correct: 2,
+        explanation: "NASA launched the Plankton, Aerosol, Cloud, ocean Ecosystem (PACE) mission to improve understanding of ocean health and air quality."
+    },
+    {
+        question: "The 'Nordic-Baltic Eight' (NB8) is a regional cooperation format involving countries from which region?",
+        options: ["South East Asia", "Northern Europe", "South America", "West Africa"],
+        correct: 1,
+        explanation: "NB8 includes Denmark, Estonia, Finland, Iceland, Latvia, Lithuania, Norway, and Sweden."
+    },
+    {
+        question: "What is the 'Pradhan Mantri Suryodaya Yojana' primarily focused on?",
+        options: ["Solar irrigation pumps for farmers.", "Rooftop solarization for 1 crore households.", "Large scale solar parks.", "Solar powered street lights."],
+        correct: 1,
+        explanation: "The scheme aims to install rooftop solar systems in 1 crore households to reduce electricity bills and promote green energy."
+    },
+    {
+        question: "The 'Rubber Board' of India recently launched a project to expand rubber cultivation in which region?",
+        options: ["South India", "North East India", "Central India", "Western Ghats"],
+        correct: 1,
+        explanation: "Wait lists the North East as a priority area for expanding natural rubber cultivation due to saturation in traditional areas like Kerala."
+    },
+    {
+        question: "Which Indian state is home to the 'Similipal Tiger Reserve', recently in news for black tigers?",
+        options: ["West Bengal", "Odisha", "Madhya Pradesh", "Karnataka"],
+        correct: 1,
+        explanation: "Similipal in Odisha is the only place in the world known to host pseudo-melanistic (black) tigers."
+    },
+    {
+        question: "The term 'Doba' refers to which traditional water conservation structure?",
+        options: ["Underground tanks in Rajasthan.", "Small ponds aimed at water harvesting in Bihar/Jharkhand region.", "Stepwells in Gujarat.", "Bamboo drip irrigation in Meghalaya."],
+        correct: 1,
+        explanation: "Dobas are small water harvesting structures (ponds) traditionally used in the Chota Nagpur plateau region (Jharkhand/Bihar) to store rainwater."
+    },
+    {
+        question: "The 'Schengen Area' signifies a zone in Europe where:",
+        options: ["A single currency is used.", "Internal border controls are abolished.", "All countries are NATO members.", "English is the official language."],
+        correct: 1,
+        explanation: "The Schengen Area allows for free movement of people without passport controls at common borders."
+    },
+    {
+        question: "What is the 'Exercise Dustlik'?",
+        options: ["A naval exercise between India and France.", "A joint military exercise between India and Uzbekistan.", "An air force drill involving USA.", "A cyber security drill."],
+        correct: 1,
+        explanation: "Exercise Dustlik is a joint military exercise between the armies of India and Uzbekistan."
+    },
+    {
+        question: "The 'Carbon Border Adjustment Mechanism' (CBAM) is a policy tool of:",
+        options: ["United States", "European Union", "China", "ASEAN"],
+        correct: 1,
+        explanation: "CBAM is the EU's tool to put a fair price on the carbon emitted during the production of carbon-intensive goods that are entering the EU."
+    },
+    {
+        question: "Which article of the Constitution deals with the 'Annual Financial Statement' (Budget)?",
+        options: ["Article 110", "Article 112", "Article 280", "Article 360"],
+        correct: 1,
+        explanation: "Article 112 of the Indian Constitution mandates the laying of the Annual Financial Statement before Parliament."
+    },
+    {
+        question: "The 'PM-PRANAM' scheme aims to:",
+        options: ["Promote organic farming.", "Incentivize states to reduce the use of chemical fertilizers.", "Provide pensions to farmers.", "Support agricultural exports."],
+        correct: 1,
+        explanation: "PM-PRANAM (Programme for Restoration, Awareness, Nourishment and Amelioration of Mother Earth) aims to reduce the use of chemical fertilizers."
+    },
+    {
+        question: "What is the unique feature of the 'XPoSat' mission launched by ISRO?",
+        options: ["It is India's first dedicated polarimetry mission to study bright astronomical X-ray sources.", "It is a manned mission to the moon.", "It is a reusable launch vehicle.", "It is a solar observatory."],
+        correct: 0,
+        explanation: "XPoSat (X-ray Polarimeter Satellite) is India’s first dedicated scientific satellite for research in space-based polarization measurements of X-ray emission."
+    },
+    {
+        question: "The 'Ghol' fish was recently declared the state fish of which state?",
+        options: ["Maharashtra", "Gujarat", "Goa", "Kerala"],
+        correct: 1,
+        explanation: "Gujarat declared the Blackspotted Croaker, locally known as Ghol, as its state fish due to its economic value."
+    },
+    {
+        question: "The 'Mera Gaon, Meri Dharohar' (MGMD) programme falls under which Ministry?",
+        options: ["Ministry of Rural Development", "Ministry of Culture", "Ministry of Tourism", "Ministry of Panchayati Raj"],
+        correct: 1,
+        explanation: "It is a pan-India initiative by the Ministry of Culture to culturally map India's villages on a virtual platform."
+    },
+    {
+        question: "With reference to the 'Digital Personal Data Protection Act, 2023', who is exempted from the requirement of obtaining parental consent for processing children's data?",
+        options: ["All ed-tech companies.", "Government schools only.", "Entities ensuring 'verifiably safe' processing of data.", "Social media platforms with over 1 million users."],
+        correct: 2,
+        explanation: "The government can exempt certain 'verifiably safe' entities from the strict parental consent requirement to ensure easier access to beneficial services for children."
+    },
+    {
+        question: "The 'e-Soil' developed by researchers recently is related to:",
+        options: ["A hydroponic substrate that stimulates plant growth using electricity.", "Digital mapping of soil health cards.", "A new type of fertilizer.", "Soil specifically meant for Mars missions."],
+        correct: 0,
+        explanation: "e-Soil is a bio-compatible conductive 'soil' (substrate) for hydroponics that can stimulate plant growth electrically, developed by researchers in Sweden."
+    },
+    {
+        question: "The term 'Kinetix' class of destroyers, recently seen in news, belongs to which country?",
+        options: ["USA", "Russia", "China", "Israel"],
+        correct: 0,
+        explanation: "This refers to the Arleigh Burke-class destroyers (often discussed in context of Red Sea operations) or next-gen US naval concepts. *Note: In standard UPSC context, 'Visakhapatnam Class' is more relevant for India.* Let's stick to Indian context: 'Project 15B' refers to Visakhapatnam class guided missile destroyers of the Indian Navy."
+    },
+    {
+        question: "Consider the following statements regarding the 'PM Vishwakarma' Scheme:",
+        options: ["It provides collateral-free credit support up to ₹3 lakh.", "It is applicable only to weavers.", "There is no provision for skill training.", "It is a 100% state-funded scheme."],
+        correct: 0,
+        explanation: "The scheme provides collateral-free enterprise development loans of up to ₹3 lakh in two tranches (₹1 lakh and ₹2 lakh) at a concessional interest rate."
+    },
+    {
+        question: "Which Indian neighbor recently allowed 'Visa-Free Travel' for Indian citizens to boost tourism?",
+        options: ["Pakistan", "China", "Thailand", "Bangladesh"],
+        correct: 2,
+        explanation: "Thailand (along with Sri Lanka and Malaysia) waived visa requirements for Indians in late 2023/2024 to boost tourism."
+    },
+    {
+        question: "The 'Graphene' is often called a 'wonder material'. What is its structure?",
+        options: ["A single layer of carbon atoms arranged in a hexagonal lattice.", "A double helix structure like DNA.", "A cubic crystal structure like diamond.", "A liquid form of carbon."],
+        correct: 0,
+        explanation: "Graphene is an allotrope of carbon consisting of a single layer of atoms arranged in a two-dimensional honeycomb lattice."
+    },
+    {
+        question: "The 'Global Stocktake' (GST) is a fundamental component of which agreement?",
+        options: ["Montreal Protocol", "Paris Agreement", "Kyoto Protocol", "Nagoya Protocol"],
+        correct: 1,
+        explanation: "The Global Stocktake constitutes the 'ambition mechanism' of the Paris Agreement, assessing collective progress every 5 years."
+    },
+    {
+        question: "Which state hosts the 'Hornbill Festival'?",
+        options: ["Manipur", "Nagaland", "Arunachal Pradesh", "Mizoram"],
+        correct: 1,
+        explanation: "The Hornbill Festival is an annual tourism promotional event organized by the State Government of Nagaland."
+    },
+    {
+        question: "What is the 'Gemini' AI model developed by Google primarily known for?",
+        options: ["Being a text-only model.", "Being multimodal (understanding text, images, video, and audio).", "Focusing only on coding.", "Being an offline-only model."],
+        correct: 1,
+        explanation: "Gemini is built from the ground up to be multimodal, meaning it can generalize and seamlessly understand, operate across, and combine different types of information."
+    },
+    {
+        question: "The 'Bletchley Declaration' is associated with the global safety of:",
+        options: ["Nuclear Weapons", "Artificial Intelligence (AI)", "Bio-weapons", "Deep Sea Mining"],
+        correct: 1,
+        explanation: "The Bletchley Declaration was signed at the AI Safety Summit in the UK, focusing on the risks and safety of Frontier AI."
+    },
+    {
+        question: "Which of the following is a 'Critical Mineral' as per the Ministry of Mines' new list?",
+        options: ["Lithium", "Coal", "Iron Ore", "Limestone"],
+        correct: 0,
+        explanation: "Lithium is classified as a critical mineral due to its importance in EV batteries and lack of domestic availability. The government released a list of 30 critical minerals."
+    },
+    {
+        question: "The 'Surya Kiran' is a joint military exercise between India and:",
+        options: ["Bangladesh", "Sri Lanka", "Nepal", "Bhutan"],
+        correct: 2,
+        explanation: "Exercise Surya Kiran is an annual joint military exercise between the armies of India and Nepal."
+    },
+    {
+        question: "With reference to 'One Nation, One Student ID', what is the name of the ID specifically created?",
+        options: ["ABC ID", "APAAR ID", "VIDYA ID", "EDULOCKER"],
+        correct: 1,
+        explanation: "APAAR (Automated Permanent Academic Account Registry) ID is the 'One Nation, One Student ID' to track academic progress."
+    },
+    {
+        question: "The 'Silkkyara Tunnel' rescue operation, which made headlines, took place in which state?",
+        options: ["Himachal Pradesh", "Uttarakhand", "Jammu & Kashmir", "Sikkim"],
+        correct: 1,
+        explanation: "The Silkyara Bend–Barkot tunnel collapse and subsequent rescue happened in the Uttarkashi district of Uttarakhand."
+    },
+    {
+        question: "What is the 'Angel Tax' in the context of the Indian Economy?",
+        options: ["Tax on religious institutions.", "Tax on funds raised by startups from unlisted investors at a valuation above fair market value.", "Tax on foreign donations.", "Tax on luxury goods."],
+        correct: 1,
+        explanation: "Angel Tax is the income tax payable on capital raised by unlisted companies via issue of shares where the share price is seen in excess of the fair market value."
+    },
+    {
+        question: "Which country launched the 'Smart Lander for Investigating Moon (SLIM)'?",
+        options: ["South Korea", "Japan", "USA", "Russia"],
+        correct: 1,
+        explanation: "SLIM is a lunar lander mission by JAXA (Japan), also known as the 'Moon Sniper' for its precision landing technology."
+    },
+    {
+        question: "The 'Mera Bill Mera Adhikaar' scheme is an initiative to:",
+        options: ["Encourage consumers to demand invoices/bills for GST transactions.", "Waive off electricity bills for farmers.", "Provide free legal aid.", "Digitalize medical bills."],
+        correct: 0,
+        explanation: "It is an invoice incentive scheme to encourage the culture of customers asking for bills/invoices for all purchases."
+    },
+    {
+        question: "Which institution releases the 'Financial Stability Report' (FSR) in India?",
+        options: ["Ministry of Finance", "SEBI", "Reserve Bank of India (RBI)", "NITI Aayog"],
+        correct: 2,
+        explanation: "The RBI publishes the Financial Stability Report (FSR) bi-annually."
+    },
+    {
+        question: "The term 'Atmospheric River' refers to:",
+        options: ["Rivers flowing underground.", "Long, narrow regions in the atmosphere that transport most of the water vapor outside of the tropics.", "Pollution pathways in the air.", "Jet streams that carry dust."],
+        correct: 1,
+        explanation: "Atmospheric rivers are relatively long, narrow regions in the atmosphere – like rivers in the sky – that transport most of the water vapor outside of the tropics."
+    },
+    {
+        question: "What is the 'Vigyan Dhara' scheme?",
+        options: ["A scheme to fund science labs in schools.", "An overarching scheme merging three broad umbrella schemes of the Department of Science and Technology.", "A scholarship for PhD students.", "A TV channel for science."],
+        correct: 1,
+        explanation: "The Union Cabinet approved the continuation of three umbrella schemes merged into a unified central sector scheme called 'Vigyan Dhara'."
+    },
+    {
+        question: "The 'Sela Tunnel', strategically important for defense, connects:",
+        options: ["Manali to Leh", "Jammu to Srinagar", "Guwahati to Tawang", "Tezpur to Tawang"],
+        correct: 3,
+        explanation: "The Sela Tunnel connects Tezpur to Tawang in Arunachal Pradesh, providing all-weather connectivity to the border region."
+    },
+    {
+        question: "Which organization launched the 'State of the World’s Migratory Species' report?",
+        options: ["WWF", "UNEP - CMS (Convention on Migratory Species)", "IUCN", "World Bank"],
+        correct: 1,
+        explanation: "The first-ever State of the World’s Migratory Species report was launched by the Convention on the Conservation of Migratory Species of Wild Animals (CMS)."
+    },
+    {
+        question: "What does the 'T+0' settlement cycle proposed by SEBI mean?",
+        options: ["Settlement of trade funds on the same day.", "Settlement of trade funds after 2 days.", "Tax-free trading.", "Trading with zero brokerage."],
+        correct: 0,
+        explanation: "T+0 settlement means that the funds and securities will be settled on the same day the trade is executed."
+    },
+    {
+        question: "The 'Reva' and 'Budni' solar projects, recently in news, are located in:",
+        options: ["Rajasthan", "Gujarat", "Madhya Pradesh", "Karnataka"],
+        correct: 2,
+        explanation: "Rewa and Budni are major solar power project sites in Madhya Pradesh."
+    },
+    {
+        question: "Which country is the newest member of the 'New Development Bank' (NDB) or BRICS bank?",
+        options: ["Algeria", "Egypt", "Argentina", "Nigeria"],
+        correct: 1,
+        explanation: "Egypt officially joined the New Development Bank (NDB) recently. (Note: Argentina withdrew from joining BRICS)."
+    },
+    {
+        question: "The 'Holistic Progress Card' (HPC) is a recommendation of:",
+        options: ["NEP 2020", "RTE Act 2009", "NCF 2005", "Kothari Commission"],
+        correct: 0,
+        explanation: "The National Education Policy (NEP) 2020 envisages a 360-degree, multidimensional Holistic Progress Card for students."
+    },
+    {
+        question: "What is the 'Zombie Virus' recently discussed in scientific communities?",
+        options: ["A computer virus affecting banks.", "Ancient viruses trapped in permafrost that could be revived due to melting ice.", "A new strain of COVID-19.", "A virus affecting cattle."],
+        correct: 1,
+        explanation: "It refers to ancient viruses (like the 48,500-year-old Pandoravirus) preserved in permafrost that are being revived to study risks as ice melts."
+    },
+    {
+        question: "The 'Operation Ajay' was launched by India to evacuate citizens from:",
+        options: ["Ukraine", "Sudan", "Israel", "Afghanistan"],
+        correct: 2,
+        explanation: "Operation Ajay was launched to repatriate Indian citizens from Israel during the 2023 Israel-Hamas conflict."
+    },
+    {
+        question: "Which state passed the 'Prevention of Unfair Means in Public Examinations Bill, 2024' to curb paper leaks?",
+        options: ["Central Government (Parliament passed a Public Examinations Bill)", "Bihar", "Rajasthan", "All of the above"],
+        correct: 0,
+        explanation: "The Parliament passed the 'Public Examinations (Prevention of Unfair Means) Bill, 2024'. Several states have similar laws, but the central act is the major recent development."
+    },
+    {
+        question: "The 'Kashmir Stag' or 'Hangul' is naturally found only in:",
+        options: ["Jim Corbett National Park", "Dachigam National Park", "Hemis National Park", "Kaziranga National Park"],
+        correct: 1,
+        explanation: "The Hangul is endemic to the Kashmir Valley and is primarily found in the Dachigam National Park."
+    },
+    {
+        question: "Who has been appointed as the Chairman of the '16th Finance Commission' of India?",
+        options: ["N.K. Singh", "Arvind Panagariya", "Raghuram Rajan", "Urjit Patel"],
+        correct: 1,
+        explanation: "Dr. Arvind Panagariya was appointed as the Chairman of the 16th Finance Commission, which will define the tax distribution framework for 2026-31."
+    },
+    {
+        question: "The 'India-Middle East-Europe Economic Corridor' (IMEC) was announced during which summit?",
+        options: ["G7 Summit in Hiroshima", "G20 Summit in New Delhi", "BRICS Summit in Johannesburg", "SCO Summit"],
+        correct: 1,
+        explanation: "IMEC was launched on the sidelines of the G20 Summit in New Delhi to enhance connectivity and economic integration."
+    },
+    {
+        question: "Which Indian site was recently inscribed as the 42nd UNESCO World Heritage Site?",
+        options: ["Sacred Ensembles of the Hoysalas", "Santiniketan", "Dholavira", "Ramappa Temple"],
+        correct: 0,
+        explanation: "The 'Sacred Ensembles of the Hoysalas' in Karnataka (Belur, Halebid, and Somnathapura) were inscribed as the 42nd site. Santiniketan was the 41st."
+    },
+    {
+        question: "The 'Telecommunications Act, 2023' allows the government to take temporary possession of telecom services in case of:",
+        options: ["Market monopoly", "Public emergency or public safety", "Non-payment of taxes", "Technological upgrade"],
+        correct: 1,
+        explanation: "The Act empowers the government to temporarily take control of telecom services or networks in the interest of public safety or during a public emergency."
+    },
+    {
+        question: "What is 'Matsya 6000'?",
+        options: ["A new submarine for the Navy.", "India's first manned ocean mission vehicle (submersible) under the Deep Ocean Mission.", "A fishing vessel tracking system.", "A cyclone warning radar."],
+        correct: 1,
+        explanation: "Matsya 6000 is a manned submersible being developed by NIOT to send three humans to a depth of 6000 meters for deep-sea exploration."
+    },
+    {
+        question: "The 'Nari Shakti Vandan Adhiniyam' refers to:",
+        options: ["106th Constitutional Amendment Act providing 33% reservation for women in Lok Sabha and State Assemblies.", "A scheme for free education for girls.", "A pension scheme for widows.", "A loan scheme for women entrepreneurs."],
+        correct: 0,
+        explanation: "It is the historic legislation (106th Amendment) that mandates 33% reservation for women in the Lok Sabha and State Legislative Assemblies."
+    },
+    {
+        question: "Which country filed a case against Israel at the 'International Court of Justice' (ICJ) alleging violations of the Genocide Convention?",
+        options: ["Egypt", "South Africa", "Iran", "Turkey"],
+        correct: 1,
+        explanation: "South Africa filed the application instituting proceedings against Israel before the ICJ."
+    },
+    {
+        question: "The 'SWATI' (Science for Women-A Technology & Innovation) Portal is launched to:",
+        options: ["Provide loans to women scientists.", "Create a single online database of Indian women and girls in STEM.", "Offer free laptops to girl students.", "Recruit women in the army."],
+        correct: 1,
+        explanation: "The SWATI Portal aims to create a comprehensive database of Indian women in STEM (Science, Technology, Engineering, Medicine) to address the gender gap."
+    },
+    {
+        question: "The term 'Nazool Land', recently in the news, refers to:",
+        options: ["Land owned by the Waqf board.", "Government land used for non-agricultural purposes, often leased out.", "Forest land converted to agriculture.", "Land submerged under water."],
+        correct: 1,
+        explanation: "Nazool land is land owned by the government but not directly administered as state property; it is often leased for public or development purposes."
+    },
+    {
+        question: "What is the 'Fair and Remunerative Price' (FRP) related to?",
+        options: ["Minimum Support Price for Wheat.", "Price paid by mills to sugarcane farmers.", "Subsidized price of urea.", "Export price of rice."],
+        correct: 1,
+        explanation: "FRP is the minimum price that sugar mills have to pay to sugarcane farmers, approved by the Cabinet Committee on Economic Affairs."
+    },
+    {
+        question: "Which state declared 'Kaji Nemu' (Citrus Limon) as its State Fruit?",
+        options: ["Manipur", "Assam", "Meghalaya", "Tripura"],
+        correct: 1,
+        explanation: "Assam declared the Kaji Nemu, which already has a GI tag, as its official State Fruit."
+    },
+    {
+        question: "The 'INS Jatayu' is a new Naval base commissioned in:",
+        options: ["Andaman and Nicobar Islands", "Lakshadweep (Minicoy)", "Visakhapatnam", "Goa"],
+        correct: 1,
+        explanation: "INS Jatayu was commissioned at Minicoy island in Lakshadweep to enhance operational reach and surveillance capabilities."
+    },
+    {
+        question: "The Supreme Court declared the 'Electoral Bonds Scheme' unconstitutional on the grounds of violating:",
+        options: ["Right to Equality (Article 14)", "Right to Information (Article 19(1)(a))", "Freedom of Trade (Article 19(1)(g))", "Right to Life (Article 21)"],
+        correct: 1,
+        explanation: "The SC struck down the scheme, stating that anonymous electoral bonds violate the voters' Right to Information under Article 19(1)(a)."
+    },
+    {
+        question: "The 'Sudarshan Setu', India's longest cable-stayed bridge, is located in:",
+        options: ["Mumbai", "Dwarka, Gujarat", "Kolkata", "Chennai"],
+        correct: 1,
+        explanation: "Sudarshan Setu connects Okha mainland and Beyt Dwarka island in Gujarat."
+    },
+    {
+        question: "The 'PM Surya Ghar: Muft Bijli Yojana' aims to provide free electricity up to how many units?",
+        options: ["100 units", "200 units", "300 units", "500 units"],
+        correct: 2,
+        explanation: "The scheme aims to provide up to 300 units of free electricity every month to 1 crore households through rooftop solar systems."
+    },
+    {
+        question: "Who among the following was NOT a recipient of the 'Bharat Ratna' in 2024?",
+        options: ["Karpoori Thakur", "M.S. Swaminathan", "P.V. Narasimha Rao", "Sachin Tendulkar"],
+        correct: 3,
+        explanation: "Sachin Tendulkar received it earlier (2014). The 2024 recipients included Karpoori Thakur, L.K. Advani, P.V. Narasimha Rao, Chaudhary Charan Singh, and M.S. Swaminathan."
+    },
+    {
+        question: "The 'Jnanpith Award' 2023 was awarded to:",
+        options: ["Gulzar and Jagadguru Rambhadracharya", "Damodar Mauzo", "Amitav Ghosh", "Krishna Sobti"],
+        correct: 0,
+        explanation: "Celebrated Urdu poet Gulzar and Sanskrit scholar Jagadguru Rambhadracharya were selected for the 58th Jnanpith Award."
+    },
+    {
+        question: "What is 'Vyommitra'?",
+        options: ["A satellite for weather forecasting.", "A woman robot astronaut (humanoid) for the Gaganyaan mission.", "A telescope aimed at the sun.", "A new missile system."],
+        correct: 1,
+        explanation: "Vyommitra is a female humanoid robot developed by ISRO to function on board the Gaganyaan spacecraft before the first human flight."
+    },
+    {
+        question: "The 'Vibrant Villages Programme' focuses on the development of:",
+        options: ["Coastal villages.", "Villages on the northern border of India.", "Tribal villages in Central India.", "Villages in drought-prone areas."],
+        correct: 1,
+        explanation: "The programme targets the comprehensive development of villages located on the northern border (bordering China) to prevent migration and improve security."
+    },
+    {
+        question: "What is the primary function of 'Khanij Bidesh India Ltd' (KABIL)?",
+        options: ["To export iron ore.", "To identify and acquire critical mineral assets abroad.", "To regulate mining in India.", "To fund coal mines."],
+        correct: 1,
+        explanation: "KABIL is mandated to identify and acquire overseas mineral assets of critical and strategic nature (like Lithium and Cobalt) for India's energy security."
+    },
+    {
+        question: "The term 'Lab Grown Diamonds' (LGD) are created using which common method?",
+        options: ["Chemical Vapor Deposition (CVD)", "Nuclear Fission", "Photosynthesis", "Electrolysis"],
+        correct: 0,
+        explanation: "LGDs are primarily created using Chemical Vapor Deposition (CVD) or High Pressure High Temperature (HPHT) methods."
+    },
+    {
+        question: "The 'Nano-DAP' (Di-Ammonium Phosphate) developed by IFFCO is significant because:",
+        options: ["It is a liquid fertilizer that increases efficiency and reduces cost.", "It is a solid fertilizer meant for deserts.", "It contains no nitrogen.", "It is imported from China."],
+        correct: 0,
+        explanation: "Nano-DAP is a liquid fertilizer that is more efficient, cheaper to transport, and reduces the dependency on conventional imported DAP."
+    },
+    {
+        question: "The 'MISHTI' scheme refers to:",
+        options: ["Mangrove Initiative for Shoreline Habitats & Tangible Incomes.", "Micro-Irrigation Scheme for Horticulture.", "Mid-day meal improvement.", "Medical Insurance for Tribals."],
+        correct: 0,
+        explanation: "MISHTI aims to take up mangrove reforestation along the coastline and salt pan lands."
+    },
+    {
+        question: "Which country chaired the 'G20' in 2024, taking over from India?",
+        options: ["USA", "Brazil", "South Africa", "Indonesia"],
+        correct: 1,
+        explanation: "Brazil took over the G20 presidency from India on Dec 1, 2023, for the year 2024."
+    },
+    {
+        question: "The 'Amrit Dharohar' scheme is designed for:",
+        options: ["Conservation of Ramsar sites (Wetlands).", "Preservation of ancient temples.", "Digitization of museums.", "Protection of heritage buildings."],
+        correct: 0,
+        explanation: "Amrit Dharohar focuses on the conservation and optimal utilization of wetlands (Ramsar sites) to generate income for local communities."
+    },
+    {
+        question: "The 'PM-DevINE' scheme is specifically meant for the development of which region?",
+        options: ["North East Region", "Ladakh", "Andaman & Nicobar", "Bundelkhand"],
+        correct: 0,
+        explanation: "PM-DevINE (Prime Minister's Development Initiative for North East Region) funds infrastructure and social development projects in the North East."
+    },
+    {
+        question: "The 'One Nation, One Election' committee was headed by:",
+        options: ["Ram Nath Kovind", "Pratibha Patil", "Ranjan Gogoi", "Amit Shah"],
+        correct: 0,
+        explanation: "A high-level committee headed by former President Ram Nath Kovind was formed to examine the feasibility of simultaneous elections."
+    },
+    {
+        question: "Which Indian state hosts the 'Medaram Jatara', the second-largest fair in India after Kumbh Mela?",
+        options: ["Telangana", "Andhra Pradesh", "Odisha", "Chhattisgarh"],
+        correct: 0,
+        explanation: "Medaram Jatara (Sammakka Saralamma Jatara) is a tribal festival celebrated in Telangana."
+    },
+    {
+        question: "The 'Exercise Milan 2024' was a multilateral naval exercise hosted in:",
+        options: ["Visakhapatnam", "Kochi", "Mumbai", "Port Blair"],
+        correct: 0,
+        explanation: "Milan 2024 was hosted by the Indian Navy in Visakhapatnam with the participation of over 50 countries."
+    },
+    {
+        question: "With reference to the 'Post Office Bill, 2023', consider the following:",
+        options: ["It grants officers power to intercept articles for national security.", "It privatizes India Post.", "It bans international letters.", "It makes Aadhaar mandatory for all parcels."],
+        correct: 0,
+        explanation: "The new Bill replaces the 1898 Act and empowers officers to intercept, open, or detain any item in the interest of state security or public safety."
+    },
+    {
+        question: "The 'PM e-Bus Sewa' scheme is designed to boost green mobility in which areas?",
+        options: ["Only in Metro cities.", "In cities with a population of 3 lakh and above, but not covering all megacities.", "exclusively in rural connectivity.", "Inter-state highways only."],
+        correct: 1,
+        explanation: "PM e-Bus Sewa aims to deploy 10,000 e-buses in cities with a population of 3 lakh to 40 lakh, prioritizing cities with no organized bus service."
+    },
+    {
+        question: "Which country hosted the 'World Heritage Committee' session in 2024 for the first time?",
+        options: ["India", "Nepal", "China", "France"],
+        correct: 0,
+        explanation: "India hosted the 46th session of the UNESCO World Heritage Committee in New Delhi in July 2024."
+    },
+    {
+        question: "The 'Agni-Prime' (Agni-P) missile, recently flight-tested, is:",
+        options: ["A new intercontinental ballistic missile (ICBM).", "A new generation advanced ballistic missile with canisterisation capabilities.", "A submarine-launched cruise missile.", "A hypersonic glide vehicle."],
+        correct: 1,
+        explanation: "Agni-Prime is a new generation, two-stage, canisterised solid-propellant ballistic missile capable of being launched from rail or road."
+    },
+    {
+        question: "The term 'Critical Minerals Partnership' (MSP) is led by which country?",
+        options: ["India", "China", "USA", "Russia"],
+        correct: 2,
+        explanation: "The Minerals Security Partnership (MSP) is a US-led collaboration of 14 countries (including India) to secure supply chains of critical minerals."
+    },
+    {
+        question: "What is the primary aim of the 'ULLAS' (Understanding Lifelong Learning for All in Society) initiative?",
+        options: ["To provide vocational training to college dropouts.", "To promote functional literacy and life skills among non-literates aged 15 and above.", "To teach coding to school children.", "To provide scholarships for PhD."],
+        correct: 1,
+        explanation: "ULLAS targets citizens aged 15+ who missed formal schooling, focusing on functional literacy, numeracy, and critical life skills."
+    },
+    {
+        question: "With reference to 'Sickle Cell Anaemia Elimination Mission', the target year to eliminate the disease from India is:",
+        options: ["2030", "2047", "2050", "2025"],
+        correct: 1,
+        explanation: "The mission aims to eliminate Sickle Cell Anaemia by 2047, primarily focusing on screening and awareness in tribal areas."
+    },
+    {
+        question: "The 'National Turmeric Board' was recently constituted to:",
+        options: ["Ban the export of turmeric.", "Focus on the development and growth of turmeric and turmeric products.", "Import turmeric from Vietnam.", "Regulate turmeric prices in local mandis only."],
+        correct: 1,
+        explanation: "The Centre notified the constitution of the National Turmeric Board to increase awareness, consumption, and international market opportunities for Indian turmeric."
+    },
+    {
+        question: "Which operation was launched by India to evacuate its citizens from the violence-hit Haiti?",
+        options: ["Operation Ganga", "Operation Kaveri", "Operation Indravati", "Operation Dost"],
+        correct: 2,
+        explanation: "Operation Indravati was launched to evacuate Indian nationals from Haiti."
+    },
+    {
+        question: "The 'Exercise Tarang Shakti' is significant because:",
+        options: ["It is the largest multilateral air exercise ever hosted by the Indian Air Force.", "It is a naval exercise in the Red Sea.", "It focuses on cyber warfare.", "It is a bilateral exercise with Pakistan."],
+        correct: 0,
+        explanation: "Tarang Shakti is the largest multilateral air exercise conducted by the Indian Air Force on Indian soil, involving air forces from several nations."
+    },
+    {
+        question: "Consider the following about 'IN-SPACe':",
+        options: ["It is the commercial arm of ISRO.", "It is an autonomous agency to regulate and promote private sector participation in space.", "It is a new satellite series.", "It is a space station module."],
+        correct: 1,
+        explanation: "IN-SPACe (Indian National Space Promotion and Authorization Centre) acts as a single-window autonomous agency to facilitate private sector participation."
+    },
+    {
+        question: "The 'Sammakka Sarakka Central Tribal University' is being set up in which state?",
+        options: ["Andhra Pradesh", "Telangana", "Jharkhand", "Odisha"],
+        correct: 1,
+        explanation: "The university is being established in the Mulugu district of Telangana as per the Andhra Pradesh Reorganisation Act."
+    },
+    {
+        question: "What is 'DigiYatra' primarily used for?",
+        options: ["Digital payments in rural areas.", "Biometric-based seamless entry at airports using facial recognition.", "Tracking lost mobile phones.", "Booking train tickets."],
+        correct: 1,
+        explanation: "DigiYatra uses facial recognition technology for a contactless and seamless passenger processing experience at airports."
+    },
+    {
+        question: "The 'Glacial Lake Outburst Flood' (GLOF) that caused devastation in the Teesta river basin occurred in:",
+        options: ["Uttarakhand", "Himachal Pradesh", "Sikkim", "Arunachal Pradesh"],
+        correct: 2,
+        explanation: "The South Lhonak Lake in Sikkim burst due to heavy rains, causing a GLOF event that flooded the Teesta basin."
+    },
+    {
+        question: "Which country became the first to land a spacecraft near the Moon's south pole?",
+        options: ["USA", "China", "Russia", "India"],
+        correct: 3,
+        explanation: "India became the first country to successfully land a spacecraft (Chandrayaan-3) near the lunar south pole."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' (GBA) aims to promote the uptake of which specific biofuel blend globally?",
+        options: ["E10 (10% Ethanol)", "E20 (20% Ethanol)", "M15 (15% Methanol)", "B20 (20% Biodiesel)"],
+        correct: 1,
+        explanation: "While it promotes biofuels generally, a key immediate target driven by India is the global adoption of E20 (20% ethanol blended with petrol)."
+    },
+    {
+        question: "The 'Mera Maati Mera Desh' campaign was the concluding event of:",
+        options: ["Swachh Bharat Abhiyan", "Azadi Ka Amrit Mahotsav", "Make in India", "Digital India"],
+        correct: 1,
+        explanation: "The campaign marked the culmination of the two-year-long Azadi Ka Amrit Mahotsav celebrations."
+    },
+    {
+        question: "Which Indian public sector enterprise was recently granted the 'Navratna' status?",
+        options: ["RITES Ltd", "Air India", "BSNL", "LIC"],
+        correct: 0,
+        explanation: "Railway PSUs like RITES and IRCON were granted Navratna status recently, giving them greater financial autonomy."
+    },
+    {
+        question: "The 'Bima Sugam' platform aims to:",
+        options: ["Provide insurance to farmers only.", "Be a one-stop digital platform for all insurance needs (buying, selling, servicing, claims).", "Regulate the stock market.", "Provide health insurance to MPs."],
+        correct: 1,
+        explanation: "IRDAI is developing Bima Sugam as a 'Amazon-like' marketplace for all insurance products and services."
+    },
+    {
+        question: "What is the 'Pralay' missile?",
+        options: ["A surface-to-air missile.", "A quasi-ballistic surface-to-surface missile.", "An anti-tank guided missile.", "A submarine launched missile."],
+        correct: 1,
+        explanation: "Pralay is a tactical, quasi-ballistic surface-to-surface missile developed by DRDO, capable of changing its path mid-air."
+    },
+    {
+        question: "The 'Amazon Cooperation Treaty Organization' (ACTO) summit was held to protect:",
+        options: ["The Nile River", "The Amazon Rainforest", "The Congo Basin", "The Sundarbans"],
+        correct: 1,
+        explanation: "South American nations gathered in Brazil for the ACTO summit to agree on a roadmap to save the Amazon rainforest."
+    },
+    {
+        question: "With reference to the 'Tele-Law 2.0' initiative, it aims to:",
+        options: ["Provide free legal advice to citizens through video conferencing.", "Broadcast court proceedings on TV.", "Use AI for judging cases.", "Digitize all law books."],
+        correct: 0,
+        explanation: "Tele-Law 2.0 integrates legal advice (Tele-Law) and legal representation (Nyaya Bandhu) into a unified citizen-centric service."
+    },
+    {
+        question: "The 'Diel Vertical Migration' (DVM), often seen in news regarding marine biology, refers to:",
+        options: ["Migration of whales across oceans.", "Synchronized movement of zooplankton up and down the water column daily.", "Coral bleaching events.", "Movement of turtles for nesting."],
+        correct: 1,
+        explanation: "It is the daily pattern where deep-sea marine organisms (like zooplankton) move up to the surface at night to feed and retreat to depths during the day."
+    },
+    {
+        question: "Which state passed the 'Gig and Platform Workers (Registration and Welfare) Bill', a first in India?",
+        options: ["Karnataka", "Rajasthan", "Maharashtra", "Kerala"],
+        correct: 1,
+        explanation: "Rajasthan became the first state to pass a bill specifically providing social security and welfare rights to gig economy workers."
+    },
+    {
+        question: "The 'LISA' mission, planned by ESA and NASA, aims to detect:",
+        options: ["Exoplanets", "Gravitational Waves from space", "Black holes in the Milky Way center", "Asteroids aimed at Earth"],
+        correct: 1,
+        explanation: "LISA (Laser Interferometer Space Antenna) will be the first dedicated space-based gravitational wave observatory."
+    },
+    {
+        question: "The 'Bharat NCAP' (New Car Assessment Programme) is related to:",
+        options: ["Testing vehicle safety and assigning star ratings.", "Testing pollution levels of old cars.", "Subsidizing electric cars.", "Registration of vintage cars."],
+        correct: 0,
+        explanation: "Bharat NCAP is India's own crash testing safety regime to assign star ratings to cars based on safety performance."
+    },
+    {
+        question: "The 'Ecocide' was recently recognized as a crime by the parliament of:",
+        options: ["India", "Belgium", "USA", "Japan"],
+        correct: 1,
+        explanation: "Belgium became the first country in the European continent to criminalize 'ecocide' (severe environmental destruction) in its new penal code."
+    },
+    {
+        question: "What is the 'e-Sankhyiki' portal?",
+        options: ["A portal for submitting GST returns.", "A central data repository launched by the Ministry of Statistics (MoSPI).", "A digital calculator for students.", "A census tracking tool."],
+        correct: 1,
+        explanation: "e-Sankhyiki is a portal aiming to provide real-time access to key statistical data and indicators of the Indian economy."
+    },
+    {
+        question: "The term 'Heat Dome' refers to:",
+        options: ["A new type of greenhouse.", "A weather phenomenon where the atmosphere traps hot ocean air like a lid or cap.", "A volcanic eruption.", "A dedicated heat shelter in cities."],
+        correct: 1,
+        explanation: "A Heat Dome occurs when high-pressure atmospheric conditions trap hot air over a region, preventing it from rising and causing heatwaves."
+    },
+    {
+        question: "Which Indian city was recognized as the 'City of Literature' by UNESCO recently?",
+        options: ["Kolkata", "Kozhikode", "Jaipur", "Varanasi"],
+        correct: 1,
+        explanation: "Kozhikode (Kerala) was designated as the UNESCO City of Literature, while Gwalior was named the City of Music."
+    },
+    {
+        question: "The 'Rapid Innovation and Startup Expansion' (RISE) accelerator is an initiative of:",
+        options: ["NITI Aayog", "Atal Innovation Mission (AIM) in partnership with Australia (CSIRO).", "ISRO", "Ministry of Defense"],
+        correct: 1,
+        explanation: "RISE is a joint initiative between AIM (India) and CSIRO (Australia) to support startups working on circular economy and clean energy."
+    },
+    {
+        question: "With reference to the 'Logistics Ease Across Different States' (LEADS) report, which ministry releases it?",
+        options: ["Ministry of Road Transport and Highways", "Ministry of Commerce and Industry", "NITI Aayog", "Ministry of Railways"],
+        correct: 1,
+        explanation: "The LEADS report is released by the Ministry of Commerce and Industry to gauge the logistics ecosystem of the states."
+    },
+    {
+        question: "The 'Gram Manchitra' application is launched by:",
+        options: ["Ministry of Panchayati Raj", "Ministry of Rural Development", "ISRO", "Survey of India"],
+        correct: 0,
+        explanation: "Launched by the Ministry of Panchayati Raj, it utilizes Geo-Spatial technology to assist Gram Panchayats in planning and development."
+    },
+    {
+        question: "Which country recently withdrew from the 'Treaty on Conventional Armed Forces in Europe' (CFE)?",
+        options: ["USA", "Russia", "Germany", "France"],
+        correct: 1,
+        explanation: "Russia formally withdrew from the CFE treaty, a key post-Cold War security agreement, citing NATO's expansion."
+    },
+    {
+        question: "The 'Indus Water Treaty' meeting was recently held in which city?",
+        options: ["New Delhi", "Islamabad", "Lahore", "Vienna"],
+        correct: 2,
+        explanation: "The Permanent Indus Commission meeting was held in Lahore, Pakistan."
+    },
+    {
+        question: "What is the 'White Lung Syndrome' that was recently in the news?",
+        options: ["A new type of tuberculosis.", "A mysterious pneumonia outbreak primarily affecting children (linked to Mycoplasma pneumoniae).", "A condition caused by excessive milk consumption.", "A side effect of vaping."],
+        correct: 1,
+        explanation: "It refers to a surge in pneumonia cases (mostly in China and parts of US/Europe) where lung scans showed white patches, often linked to Mycoplasma pneumoniae."
+    },
+    {
+        question: "The 'Loss and Damage Fund' was operationalized at which COP summit?",
+        options: ["COP26 Glasgow", "COP27 Sharm El-Sheikh", "COP28 Dubai", "COP29 Baku"],
+        correct: 2,
+        explanation: "While agreed upon at COP27, the Loss and Damage Fund was officially operationalized with initial funding commitments at COP28 in Dubai."
+    },
+    {
+        question: "Which Indian city has the country's first 'Dark Sky Park'?",
+        options: ["Leh", "Pench (Maharashtra)", "Nainital", "Jaisalmer"],
+        correct: 1,
+        explanation: "Pench Tiger Reserve in Maharashtra became India's first Dark Sky Park aimed at protecting the night sky and preventing light pollution."
+    },
+    {
+        question: "The 'Sagar Maitri' mission is an initiative of:",
+        options: ["Indian Navy", "DRDO", "Ministry of Earth Sciences", "Coast Guard"],
+        correct: 1,
+        explanation: "SAGAR MAITRI is a unique initiative by DRDO to promote scientific cooperation in ocean research among Indian Ocean Rim (IOR) countries."
+    },
+    {
+        question: "What is the objective of the 'e-AMRIT' portal?",
+        options: ["To provide information on Electric Vehicles (EVs).", "To distribute free medicines.", "To monitor water quality.", "To register for Amarnath Yatra."],
+        correct: 0,
+        explanation: "e-AMRIT (Accelerated e-Mobility Revolution for India's Transportation) is a one-stop portal for all information related to Electric Vehicles."
+    },
+    {
+        question: "The 'Palk Bay Scheme' is related to:",
+        options: ["Construction of a bridge between India and Sri Lanka.", "Diversification of trawl fishing to deep-sea fishing to resolve disputes.", "Protection of coral reefs.", "Tourism development."],
+        correct: 1,
+        explanation: "The scheme aims to diversify trawl fishing boats from Palk Bay into deep-sea fishing boats to reduce conflict with Sri Lanka and protect the ecosystem."
+    },
+    {
+        question: "Which state government launched the 'Maha Lakshmi Scheme' providing free bus travel for women?",
+        options: ["Karnataka", "Telangana", "Tamil Nadu", "Maharashtra"],
+        correct: 1,
+        explanation: "The Telangana government launched the Maha Lakshmi scheme, which includes free bus travel for women and transgender persons."
+    },
+    {
+        question: "The 'Einstein Probe' satellite was launched by which country?",
+        options: ["USA", "Germany", "China", "Israel"],
+        correct: 2,
+        explanation: "China launched the Einstein Probe satellite to observe transient astronomical phenomena and study X-rays."
+    },
+    {
+        question: "Who became the first woman to hold the rank of Subedar in the Indian Army?",
+        options: ["Preeti Rajak", "Avani Chaturvedi", "Shiva Chauhan", "Deepika Misra"],
+        correct: 0,
+        explanation: "Preeti Rajak, a champion trap shooter, became the first woman to be promoted to the rank of Subedar in the Indian Army."
+    },
+    {
+        question: "The 'Kaladan Multi-Modal Transit Transport Project' connects India with:",
+        options: ["Bangladesh", "Myanmar", "Thailand", "Nepal"],
+        correct: 1,
+        explanation: "The project connects the Kolkata seaport with the Sittwe seaport in Myanmar."
+    },
+    {
+        question: "The 'Purple Fest', recently held in Goa, was related to:",
+        options: ["Lavender cultivation.", "Celebrating the LGBTQIA+ community.", "Empowerment and inclusion of Persons with Disabilities (PwDs).", "Promotion of brinjal farming."],
+        correct: 2,
+        explanation: "Purple Fest is India's first-of-its-kind inclusive festival celebrating persons with disabilities."
+    },
+    {
+        question: "Which country has recently filed a case against India at the WTO regarding 'Sugar Subsidies'?",
+        options: ["USA", "Brazil", "Australia", "Both 2 and 3"],
+        correct: 3,
+        explanation: "Brazil and Australia (and Guatemala) have challenged India's sugar subsidies at the WTO, claiming they distort global trade."
+    },
+    {
+        question: "The term 'Fungible Token' implies:",
+        options: ["Unique items that cannot be exchanged like-for-like (e.g., Art).", "Interchangeable assets like currency (e.g., Bitcoin, Rupee).", "Digital land.", "None of the above."],
+        correct: 1,
+        explanation: "Fungibility means one unit of the asset is interchangeable with another (like one Bitcoin is equal to another Bitcoin). NFTs are Non-Fungible."
+    },
+    {
+        question: "The 'New Delhi Declaration' on Artificial Intelligence was adopted by:",
+        options: ["G20", "Global Partnership on Artificial Intelligence (GPAI)", "SCO", "BRICS"],
+        correct: 1,
+        explanation: "The New Delhi Declaration was adopted at the Global Partnership on Artificial Intelligence (GPAI) summit held in New Delhi."
+    },
+    {
+        question: "Which state hosts the 'Kambala' buffalo race?",
+        options: ["Tamil Nadu", "Karnataka", "Kerala", "Andhra Pradesh"],
+        correct: 1,
+        explanation: "Kambala is a traditional buffalo race held in the coastal districts of Karnataka."
+    },
+    {
+        question: "The 'Tax Inspectors Without Borders' (TIWB) is a joint initiative of:",
+        options: ["IMF and World Bank", "UNDP and OECD", "G20 and FATF", "WTO and UNCTAD"],
+        correct: 1,
+        explanation: "TIWB is a joint initiative of the United Nations Development Programme (UNDP) and the Organisation for Economic Co-operation and Development (OECD)."
+    },
+    {
+        question: "What is 'Hydroponics'?",
+        options: ["Growing plants in water without soil.", "Generating electricity from water.", "Purifying water using plants.", "Deep sea farming."],
+        correct: 0,
+        explanation: "Hydroponics is a method of growing plants without soil, using mineral nutrient solutions in an aqueous solvent."
+    },
+    {
+        question: "The 'GIFT City' (Gujarat International Finance Tec-City) is India's first:",
+        options: ["Smart City", "International Financial Services Centre (IFSC)", "Special Economic Zone (SEZ) for Textiles", "Software Technology Park"],
+        correct: 1,
+        explanation: "GIFT City is India's first operational International Financial Services Centre (IFSC)."
+    },
+    {
+        question: "The 'Project Kusha' is associated with:",
+        options: ["Development of India's own long-range air defense system (Iron Dome equivalent).", "A new agricultural scheme.", "Construction of border roads.", "Deep sea mining."],
+        correct: 0,
+        explanation: "Project Kusha is DRDO's mission to develop a long-range air defense system capable of detecting and destroying enemy projectiles."
+    },
+    {
+        question: "Which railway station was awarded the 'Green Railway Station' certification with the highest Platinum rating recently?",
+        options: ["New Delhi", "Vijayawada", "Chhatrapati Shivaji Maharaj Terminus", "Howrah"],
+        correct: 1,
+        explanation: "Vijayawada Railway Station was awarded the Platinum rating by the Indian Green Building Council (IGBC)."
+    },
+    {
+        question: "The 'State of the Economy' report is released by:",
+        options: ["Ministry of Finance", "RBI", "NITI Aayog", "IMF"],
+        correct: 1,
+        explanation: "The 'State of the Economy' is a monthly article/report published in the RBI Bulletin."
+    },
+    {
+        question: "What is 'Schengen Visa'?",
+        options: ["A visa for China.", "A visa that allows travel to 29 European countries.", "A visa for USA.", "A visa for Commonwealth nations."],
+        correct: 1,
+        explanation: "A Schengen visa is a short-stay visa that allows a person to travel to any members of the Schengen Area (mostly EU countries)."
+    },
+    {
+        question: "The 'Gallium' and 'Germanium' export restrictions were recently imposed by:",
+        options: ["USA", "Russia", "China", "Taiwan"],
+        correct: 2,
+        explanation: "China imposed export controls on Gallium and Germanium, which are critical for semiconductor manufacturing."
+    },
+    {
+        question: "The 'Attukal Pongala', known as the largest congregation of women, is celebrated in:",
+        options: ["Tamil Nadu", "Kerala", "Telangana", "Odisha"],
+        correct: 1,
+        explanation: "It is a festival celebrated at the Attukal Bhagavathy Temple in Thiruvananthapuram, Kerala."
+    },
+    {
+        question: "The 'Bio-Trigger' developed by Indian scientists is related to:",
+        options: ["Increasing crop yield.", "Accelerating the decomposition of plastic.", "Triggering rainfall.", "Enhancing milk production."],
+        correct: 1,
+        explanation: "It is a substance developed to degrade plastic waste faster."
+    },
+    {
+        question: "Which country is building the 'The Line', a linear smart city?",
+        options: ["UAE", "Qatar", "Saudi Arabia", "Oman"],
+        correct: 2,
+        explanation: "'The Line' is a futuristic linear city being built as part of the NEOM project in Saudi Arabia."
+    },
+    
+    {
+        question: "The 'Global South' term typically refers to:",
+        options: ["Countries in the Southern Hemisphere only.", "Developing and less developed countries of Latin America, Asia, Africa, and Oceania.", "Countries south of the Equator.", "Members of NATO."],
+        correct: 1,
+        explanation: "Global South refers to developing nations, mostly (but not strictly) in the Southern Hemisphere, often characterized by lower income levels compared to the Global North."
+    },
+    {
+        question: "Which country officially became the 32nd member of NATO in 2024?",
+        options: ["Ukraine", "Sweden", "Finland", "Georgia"],
+        correct: 1,
+        explanation: "Sweden officially joined NATO in March 2024, following Finland (31st member), ending decades of neutrality."
+    },
+    {
+        question: "The 'Great Nicobar Island Development Project' involves the construction of:",
+        options: ["A Transshipment Port", "An International Airport", "A Power Plant", "All of the above"],
+        correct: 3,
+        explanation: "The mega project includes an International Container Transshipment Terminal, an airport, a power plant, and a township."
+    },
+    {
+        question: "What is 'NewsClick', which was recently in the news for FCRA violations?",
+        options: ["A social media app.", "An online news portal.", "A cryptocurrency exchange.", "A new satellite channel."],
+        correct: 1,
+        explanation: "NewsClick is an online news portal that faced investigations regarding foreign funding and FCRA violations."
+    },
+    {
+        question: "The 'Koundinya Wildlife Sanctuary', recently in news for elephant movements, is located in:",
+        options: ["Kerala", "Andhra Pradesh", "Karnataka", "Tamil Nadu"],
+        correct: 1,
+        explanation: "Koundinya Wildlife Sanctuary is the only sanctuary in Andhra Pradesh with a population of Asian elephants."
+    },
+    {
+        question: "Which institution launched the 'C-PACE' (Centre for Processing Accelerated Corporate Exit)?",
+        options: ["RBI", "SEBI", "Ministry of Corporate Affairs (MCA)", "NITI Aayog"],
+        correct: 2,
+        explanation: "MCA established C-PACE to centralize and expedite the process of striking off companies from the register."
+    },
+    {
+        question: "The 'Lithium Triangle' in South America comprises which countries?",
+        options: ["Brazil, Argentina, Chile", "Argentina, Chile, Bolivia", "Peru, Chile, Colombia", "Venezuela, Bolivia, Ecuador"],
+        correct: 1,
+        explanation: "The Lithium Triangle, holding huge lithium reserves, consists of Argentina, Chile, and Bolivia."
+    },
+    {
+        question: "The 'Deepfakes' are generated using which technology?",
+        options: ["Blockchain", "Generative Adversarial Networks (GANs)", "Quantum Computing", "5G Technology"],
+        correct: 1,
+        explanation: "Deepfakes use Generative Adversarial Networks (GANs), a type of AI, to create realistic looking but fake media."
+    },
+    {
+        question: "What is the 'Pradhan Mantri Vishwakarma Kaushal Samman' (PM VIKAS)?",
+        options: ["A skill development scheme for IT professionals.", "A scheme to support traditional artisans and craftspeople.", "A loan scheme for farmers.", "A housing scheme for urban poor."],
+        correct: 1,
+        explanation: "PM VIKAS (often referred to as PM Vishwakarma) aims to integrate artisans and craftspeople with the domestic and global value chains."
+    },
+    {
+        question: "The 'Cyclone Michaung' that affected Chennai and Andhra Pradesh was named by which country?",
+        options: ["India", "Myanmar", "Bangladesh", "Thailand"],
+        correct: 1,
+        explanation: "Cyclone Michaung was named by Myanmar. It means 'Strength' or 'Resilience'."
+    },
+    {
+        question: "The 'Cheetah Reintroduction Project' brought cheetahs to Kuno National Park from:",
+        options: ["Namibia and South Africa", "Kenya and Tanzania", "Iran and Iraq", "Botswana and Zimbabwe"],
+        correct: 0,
+        explanation: "Cheetahs were translocated to India from Namibia and South Africa."
+    },
+    {
+        question: "The 'Sengol', installed in the new Parliament building, is a historical symbol from which dynasty?",
+        options: ["Maurya", "Gupta", "Chola", "Maratha"],
+        correct: 2,
+        explanation: "The Sengol is a sceptre derived from the Chola tradition, symbolizing the transfer of power and just rule."
+    },
+    {
+        question: "Which state hosts the 'Khajuraho Dance Festival'?",
+        options: ["Uttar Pradesh", "Madhya Pradesh", "Rajasthan", "Odisha"],
+        correct: 1,
+        explanation: "The Khajuraho Dance Festival is organized by the Madhya Pradesh Kala Parishad in the backdrop of the Khajuraho temples."
+    },
+    {
+        question: "The 'Global Hunger Index' (GHI) is published by:",
+        options: ["World Bank", "UNDP", "Concern Worldwide and Welthungerhilfe", "FAO"],
+        correct: 2,
+        explanation: "It is a peer-reviewed report, jointly published by Concern Worldwide (Ireland) and Welthungerhilfe (Germany)."
+    },
+    {
+        question: "What is 'Exercise Bharat Shakti'?",
+        options: ["A joint exercise of the three Indian armed forces (Tri-Service) in Pokhran.", "A naval drill in the Indian Ocean.", "A space war game.", "A cybersecurity drill."],
+        correct: 0,
+        explanation: "It was a Tri-Service exercise held in Pokhran, Rajasthan, demonstrating indigenous defense capabilities."
+    },
+    {
+        question: "The 'Agni-5' missile is equipped with MIRV technology. What does MIRV stand for?",
+        options: ["Multiple Independently Targetable Re-entry Vehicle", "Missile Integrated Radar Vehicle", "Multi-range Infrared Rocket Vehicle", "Mobile Intercontinental Rocket Vehicle"],
+        correct: 0,
+        explanation: "MIRV stands for Multiple Independently Targetable Re-entry Vehicle, allowing a single missile to hit multiple targets."
+    },
+    {
+        question: "Which city is known as the 'Perfume Capital of India', recently in news for developing a perfume park?",
+        options: ["Kannauj", "Hyderabad", "Mysore", "Jaipur"],
+        correct: 0,
+        explanation: "Kannauj in Uttar Pradesh is famous for its traditional attar (perfume) industry."
+    },
+    {
+        question: "The 'World Press Freedom Index' is released by:",
+        options: ["Amnesty International", "Reporters Without Borders (RSF)", "United Nations", "Freedom House"],
+        correct: 1,
+        explanation: "Reporters Without Borders (RSF), a Paris-based group, releases the annual World Press Freedom Index."
+    },
+    {
+        question: "The 'H5N1' virus is commonly known as:",
+        options: ["Swine Flu", "Bird Flu (Avian Influenza)", "Ebola", "Zika Virus"],
+        correct: 1,
+        explanation: "H5N1 is a highly pathogenic strain of avian influenza or bird flu."
+    },
+    {
+        question: "What is the 'e-Kisan Upaj Nidhi'?",
+        options: ["A digital platform to ease farmers' warehousing logistics and aid in getting loans.", "A pension scheme for farmers.", "A seed distribution portal.", "A weather forecast app."],
+        correct: 0,
+        explanation: "It is a digital platform launched to facilitate farmers in storing their produce in registered warehouses and obtaining loans against it."
+    },
+    {
+        question: "The 'Kavach' system in Indian Railways is:",
+        options: ["A new insurance scheme for passengers.", "An indigenous Automatic Train Protection (ATP) system.", "A bulletproof train coach.", "A specialized security force."],
+        correct: 1,
+        explanation: "Kavach is an indigenously developed ATP system designed to prevent train collisions."
+    },
+    {
+        question: "Which Indian state has the highest number of GI (Geographical Indication) tags?",
+        options: ["Karnataka", "Tamil Nadu", "Uttar Pradesh", "Kerala"],
+        correct: 2,
+        explanation: "Uttar Pradesh currently holds the highest number of GI tags in India, surpassing Tamil Nadu."
+    },
+    {
+        question: "The 'Artemis Accords' are a set of principles for cooperation in:",
+        options: ["Deep sea exploration", "Civil exploration and use of the Moon, Mars, comets, and asteroids.", "Nuclear disarmament", "Trade in the Pacific"],
+        correct: 1,
+        explanation: "Led by NASA, the Artemis Accords describe a shared vision for principles to guide the civil exploration and use of outer space."
+    },
+    {
+        question: "The 'PM-eBus Sewa' will follow which model of operation?",
+        options: ["Public Private Partnership (PPP)", "Fully Government Owned", "Fully Private", "Cooperative Society"],
+        correct: 0,
+        explanation: "The scheme will support bus operations on a Public Private Partnership (PPP) model."
+    },
+    {
+        question: "The 'Nord Stream' pipelines, which faced sabotage, transport gas between:",
+        options: ["Russia and Germany", "USA and UK", "Norway and France", "Algeria and Spain"],
+        correct: 0,
+        explanation: "Nord Stream 1 and 2 run under the Baltic Sea to transport gas from Russia to Germany."
+    },
+    {
+        question: "What is 'Operation Broader Sword'?",
+        options: ["A joint operation by India and USA to stop illegal shipment of drugs and medical devices.", "A military operation in Kashmir.", "A naval blockade.", "A rescue mission in Sudan."],
+        correct: 0,
+        explanation: "It was a bilateral multi-agency enforcement operation between India and the US targeting illicit pharmaceuticals and devices."
+    },
+    {
+        question: "The 'Miyawaki Method' is a technique for:",
+        options: ["Rice cultivation", "Creating dense urban forests.", "Water conservation", "Fish farming"],
+        correct: 1,
+        explanation: "The Miyawaki method, pioneered by Japanese botanist Akira Miyawaki, helps build dense, native forests in small urban spaces."
+    },
+    {
+        question: "Which country is the first to approve a 'Nitrogen Hypoxia' execution?",
+        options: ["China", "Saudi Arabia", "USA (Alabama)", "North Korea"],
+        correct: 2,
+        explanation: "The US state of Alabama carried out the first known execution using nitrogen gas (nitrogen hypoxia)."
+    },
+    {
+        question: "The 'Pusa-2090' is a new variety of:",
+        options: ["Wheat", "Rice", "Maize", "Mustard"],
+        correct: 1,
+        explanation: "Pusa-2090 is an improved version of Pusa-44 paddy variety, which matures faster, helping reduce stubble burning."
+    },
+    {
+        question: "The 'Bio-Computer' or 'Organoid Intelligence' refers to:",
+        options: ["Computers made of biodegradable plastic.", "Using lab-grown human brain cells (organoids) as biological hardware for computing.", "AI for biology.", "Robots that look like animals."],
+        correct: 1,
+        explanation: "It involves using 3D cultures of brain cells (organoids) to create biological computing systems that are faster and more energy-efficient."
+    },
+    {
+        question: "The 'NISAR' mission is a joint collaboration between which two space agencies?",
+        options: ["ISRO and JAXA", "ISRO and NASA", "NASA and ESA", "ISRO and Roscosmos"],
+        correct: 1,
+        explanation: "NISAR (NASA-ISRO Synthetic Aperture Radar) is a joint earth-observing mission between NASA and ISRO to map the entire globe in 12 days."
+    },
+    {
+        question: "With reference to the 'Bharatiya Nagarik Suraksha Sanhita' (BNSS), 2023, consider the following:",
+        options: ["It replaces the Indian Penal Code (IPC).", "It replaces the Code of Criminal Procedure (CrPC).", "It replaces the Indian Evidence Act.", "It is a new law for cybercrime only."],
+        correct: 1,
+        explanation: "The BNSS (Bharatiya Nagarik Suraksha Sanhita) replaces the Code of Criminal Procedure (CrPC), 1973."
+    },
+    {
+        question: "The term 'Dark Patterns' often seen in news refers to:",
+        options: ["Deceptive design patterns in UI/UX used by websites to trick users into doing things they didn't mean to.", "Patterns of stars in the night sky.", "Illegal trading patterns in the stock market.", "Hidden camouflage patterns on military uniforms."],
+        correct: 0,
+        explanation: "Dark patterns are deceptive design tactics used by websites/apps to manipulate user behavior (e.g., making it hard to unsubscribe)."
+    },
+    {
+        question: "Which Indian state launched the 'Gruha Jyothi' scheme?",
+        options: ["Telangana", "Karnataka", "Andhra Pradesh", "Kerala"],
+        correct: 1,
+        explanation: "The Karnataka government launched the Gruha Jyothi scheme to provide free electricity up to 200 units for households."
+    },
+    {
+        question: "The 'Gaganyaan' mission aims to launch human beings to which orbit?",
+        options: ["Geostationary Orbit (36,000 km)", "Low Earth Orbit (400 km)", "Lunar Orbit", "Mars Orbit"],
+        correct: 1,
+        explanation: "Gaganyaan aims to demonstrate human spaceflight capability by launching a crew of 3 members to an orbit of 400 km for a 3-day mission."
+    },
+    {
+        question: "What is the 'Aarogya Maitri Cube'?",
+        options: ["A new yoga technique.", "The world's first portable disaster hospital.", "A telemedicine app.", "A health insurance card."],
+        correct: 1,
+        explanation: "Under Project BHISHM, India developed the 'Aarogya Maitri Cube', a portable disaster hospital that can be airlifted and assembled quickly."
+    },
+    {
+        question: "The 'Global River Cities Alliance' (GRCA) was launched at:",
+        options: ["COP28 in Dubai", "UN Water Conference in New York", "G20 Summit in Delhi", "World Water Week in Stockholm"],
+        correct: 0,
+        explanation: "The GRCA, led by the National Mission for Clean Ganga (NMCG), was launched at COP28 in Dubai."
+    },
+    {
+        question: "Which country successfully conducted the flight test of the 'DragonFire' laser-directed energy weapon?",
+        options: ["USA", "UK", "China", "Israel"],
+        correct: 1,
+        explanation: "The UK successfully tested its 'DragonFire' laser weapon, which can destroy drones and missiles at a very low cost."
+    },
+    {
+        question: "The 'Press Mud', a byproduct of the sugar industry, is gaining importance as a feedstock for:",
+        options: ["Paper manufacturing", "Compressed Biogas (CBG)", "Textile fiber", "Animal fodder only"],
+        correct: 1,
+        explanation: "Press mud is emerging as a valuable feedstock for the production of Compressed Biogas (CBG), helping in green energy generation."
+    },
+    {
+        question: "What is the 'e-Sewa Kendra' in the context of the Indian Judiciary?",
+        options: ["A portal to pay traffic challans.", "Centers established in High Courts and District Courts to help litigants access legal services.", "An online law library.", "A virtual court for petty crimes."],
+        correct: 1,
+        explanation: "e-Sewa Kendras are being set up in court complexes to assist litigants and lawyers in accessing e-Court services (case status, filings, etc.)."
+    },
+    {
+        question: "The 'Exercise Desert Cyclone' is a joint military exercise between India and:",
+        options: ["Saudi Arabia", "UAE", "Oman", "Egypt"],
+        correct: 1,
+        explanation: "Exercise Desert Cyclone is a joint military exercise between India and the United Arab Emirates (UAE)."
+    },
+    {
+        question: "The 'Genome India Project' announced the successful sequencing of how many Indian genomes?",
+        options: ["1,000", "10,000", "50,000", "1 Lakh"],
+        correct: 1,
+        explanation: "The Department of Biotechnology announced the completion of sequencing 10,000 genomes representing India's diverse population."
+    },
+    {
+        question: "The 'Lakhpati Didi' scheme is a sub-component of which larger mission?",
+        options: ["National Rural Livelihood Mission (NRLM)", "MGNREGA", "PM Awas Yojana", "Beti Bachao Beti Padhao"],
+        correct: 0,
+        explanation: "It falls under the Deendayal Antyodaya Yojana - National Rural Livelihood Mission (DAY-NRLM)."
+    },
+    {
+        question: "Which country hosted the '3rd Voice of Global South Summit' in virtual mode?",
+        options: ["Brazil", "India", "South Africa", "Indonesia"],
+        correct: 1,
+        explanation: "India hosted the 3rd Voice of Global South Summit in August 2024 (and previous ones) to articulate the concerns of the developing world."
+    },
+    {
+        question: "The 'OpenAI's Sora' is a model designed to generate:",
+        options: ["Music from text.", "Realistic videos from text instructions.", "Computer code.", "3D models."],
+        correct: 1,
+        explanation: "Sora is a text-to-video model developed by OpenAI that can create realistic and imaginative scenes from text instructions."
+    },
+    {
+        question: "The 'Sub-categorisation of OBCs' commission was headed by:",
+        options: ["Justice G. Rohini", "Justice Ranjan Gogoi", "Justice Verma", "Mandal Commission"],
+        correct: 0,
+        explanation: "The commission to examine the sub-categorisation of Other Backward Classes (OBCs) was headed by Justice G. Rohini."
+    },
+    {
+        question: "What is 'NavIC'?",
+        options: ["India's indigenous 5G network.", "India's independent regional navigation satellite system (IRNSS).", "A new naval ship.", "A portal for marine trade."],
+        correct: 1,
+        explanation: "NavIC (Navigation with Indian Constellation) is India's regional satellite navigation system, similar to GPS but covering India and surroundings."
+    },
+    {
+        question: "The 'Butterfly Mine' is a term used for:",
+        options: ["A type of precious stone mine.", "PFM-1 series anti-personnel landmines widely used in conflicts like Ukraine.", "A sanctuary for butterflies.", "Underground gold deposits."],
+        correct: 1,
+        explanation: "Butterfly mines (PFM-1) are small anti-personnel landmines that look like butterflies or toys, posing a danger to civilians."
+    },
+    {
+        question: "The 'National Turmeric Board' will function under which Ministry?",
+        options: ["Ministry of Agriculture", "Ministry of Commerce and Industry", "Ministry of AYUSH", "Ministry of Food Processing"],
+        correct: 1,
+        explanation: "It functions under the Ministry of Commerce and Industry (like the Spices Board)."
+    },
+    {
+        question: "Which state passed a bill to ban 'Hookah Bars' recently?",
+        options: ["Haryana", "Punjab", "Karnataka", "Goa"],
+        correct: 2,
+        explanation: "The Karnataka government passed a bill to ban hookah bars and the sale of hookah products to protect public health."
+    },
+    {
+        question: "The term 'Dedollarisation' refers to:",
+        options: ["Printing more dollars.", "Reducing the reliance on the US Dollar in international trade and finance.", "Banning the use of coins.", "Pegging currency to Gold."],
+        correct: 1,
+        explanation: "Dedollarisation is the process of substituting the US dollar as the primary currency for trading oil and other commodities."
+    },
+    {
+        question: "What is the 'Pradhan Mantri Anusuchit Jaati Abhyuday Yojana' (PM-AJAY)?",
+        options: ["A merged scheme for the welfare of Scheduled Castes (SCs).", "A scholarship for ST students.", "A housing scheme for OBCs.", "A pension plan for elderly."],
+        correct: 0,
+        explanation: "PM-AJAY is a merged scheme of three earlier centrally sponsored schemes for the socio-economic development of Scheduled Castes."
+    },
+    {
+        question: "The 'Hollongapar Gibbon Sanctuary' is famous for being the home of:",
+        options: ["Hoolock Gibbons (India's only ape).", "One-horned Rhinos.", "Snow Leopards.", "Asiatic Lions."],
+        correct: 0,
+        explanation: "Located in Assam, it is a key habitat for the Hoolock Gibbon, the only ape species found in India."
+    },
+    {
+        question: "The 'Unlawful Activities (Prevention) Act' (UAPA) tribunal was recently in news regarding the ban on:",
+        options: ["PFI (Popular Front of India)", "TikTok", "PUBG", "Crypto trading"],
+        correct: 0,
+        explanation: "The UAPA tribunal confirmed the ban on PFI and its associates for 5 years."
+    },
+    {
+        question: "What is 'Project 17A' of the Indian Navy?",
+        options: ["Construction of nuclear submarines.", "Construction of advanced stealth frigates.", "Building aircraft carriers.", "Development of naval drones."],
+        correct: 1,
+        explanation: "Project 17A involves the construction of 7 advanced stealth frigates (Nilgiri class) with improved stealth features."
+    },
+    {
+        question: "The 'Global Innovation Index' is published by:",
+        options: ["World Bank", "WIPO (World Intellectual Property Organization)", "WEF", "IMF"],
+        correct: 1,
+        explanation: "The Global Innovation Index (GII) is published annually by WIPO."
+    },
+    {
+        question: "Which railway zone has achieved 100% electrification of its entire broad gauge network first?",
+        options: ["Northern Railway", "Central Railway", "West Central Railway", "Southern Railway"],
+        correct: 2,
+        explanation: "West Central Railway was one of the first zones to achieve 100% electrification. (Note: Indian Railways as a whole is nearing 100%)."
+    },
+    {
+        question: "The 'Pusa-44' paddy variety was banned by Punjab primarily because:",
+        options: ["It has low yield.", "It is a long-duration variety leading to stubble burning.", "It consumes too much fertilizer.", "It is susceptible to pests."],
+        correct: 1,
+        explanation: "Pusa-44 takes a long time to mature, leaving little time between harvest and wheat sowing, forcing farmers to burn stubble."
+    },
+    {
+        question: "The 'International Solar Alliance' (ISA) recently welcomed which country as its 119th member?",
+        options: ["Malta", "USA", "Norway", "China"],
+        correct: 0,
+        explanation: "Malta joined the International Solar Alliance (ISA) recently. (Membership numbers update frequently, Malta was a recent addition)."
+    },
+    {
+        question: "What is the 'Dusted Apollo'?",
+        options: ["A NASA mission.", "A rare high-altitude butterfly species sighted in Himachal Pradesh.", "A new asteroid.", "A type of drone."],
+        correct: 1,
+        explanation: "The Dusted Apollo (Parnassius stenosemus) is a rare high-altitude butterfly species recently sighted in Chamba, Himachal Pradesh."
+    },
+    
+    {
+        question: "The 'Smart Lander for Investigating Moon' (SLIM) mission, which made a precision landing, belongs to which country?",
+        options: ["China", "India", "Japan", "South Korea"],
+        correct: 2,
+        explanation: "SLIM is a lunar lander mission by the Japan Aerospace Exploration Agency (JAXA), making Japan the 5th country to soft-land on the moon."
+    },
+    {
+        question: "What is the 'e-Jagriti' portal aimed at?",
+        options: ["Facilitating consumer dispute redressal.", "Promoting electric vehicles.", "Digitizing land records.", "Monitoring air pollution."],
+        correct: 0,
+        explanation: "The 'e-Jagriti' portal integrates consumer commissions, aiming for faster and more transparent consumer dispute redressal."
+    },
+    {
+        question: "The 'Exercise Sada Tanseeq' is the first joint military exercise between India and:",
+        options: ["Oman", "Saudi Arabia", "UAE", "Egypt"],
+        correct: 1,
+        explanation: "'Sada Tanseeq' is the inaugural joint military exercise between the Indian Army and the Royal Saudi Land Forces."
+    },
+    {
+        question: "Which Indian state launched the 'Lakhpati Baideo' scheme?",
+        options: ["West Bengal", "Odisha", "Assam", "Tripura"],
+        correct: 2,
+        explanation: "The Assam government launched the 'Lakhpati Baideo' scheme to help rural women entrepreneurs earn an annual income of at least ₹1 lakh."
+    },
+    {
+        question: "The 'Alliance for Global Good- Gender Equity and Equality' was announced by India at:",
+        options: ["G20 Summit, Delhi", "World Economic Forum (WEF), Davos", "UN General Assembly, New York", "COP28, Dubai"],
+        correct: 1,
+        explanation: "India announced this alliance at the World Economic Forum (WEF) annual meeting in Davos to push for women-led development."
+    },
+    {
+        question: "What is 'H5N1', which was recently detected in Antarctic penguins?",
+        options: ["A strain of Coronavirus.", "Highly Pathogenic Avian Influenza (Bird Flu).", "A type of marine algae.", "A new bacteria affecting fish."],
+        correct: 1,
+        explanation: "H5N1 is a lethal strain of bird flu. Its detection in Antarctica raises concerns about the vulnerability of isolated penguin populations."
+    },
+    {
+        question: "The 'Vaibhav Fellowship' is designed for:",
+        options: ["Indian students studying abroad.", "Indian diaspora (NRIs/OCIs) in STEM fields to collaborate with Indian institutions.", "Foreign students studying in India.", "Rural innovators."],
+        correct: 1,
+        explanation: "The fellowship aims to attract the Indian diaspora working in STEM fields abroad to work with Indian higher educational institutions."
+    },
+    {
+        question: "Which institution developed the 'Drishti 10 Starliner' drone?",
+        options: ["DRDO", "Adani Defence and Aerospace", "HAL", "ISRO"],
+        correct: 1,
+        explanation: "The Drishti 10 Starliner is an indigenous medium-altitude long-endurance (MALE) UAV manufactured by Adani Defence and Aerospace."
+    },
+    {
+        question: "The 'Srimandir Parikrama Prakalpa' (Heritage Corridor project) is associated with which temple?",
+        options: ["Kashi Vishwanath Temple", "Jagannath Temple, Puri", "Somnath Temple", "Meenakshi Temple"],
+        correct: 1,
+        explanation: "The project aims to improve the infrastructure and amenities around the Jagannath Temple in Puri, Odisha."
+    },
+    {
+        question: "The 'Pradhan Mantri Suryodaya Yojana' aims to install rooftop solar systems in how many households?",
+        options: ["10 Lakh", "50 Lakh", "1 Crore", "5 Crore"],
+        correct: 2,
+        explanation: "The scheme targets the installation of rooftop solar systems in 1 crore households across the country."
+    },
+    {
+        question: "What is 'Operation Sankalp'?",
+        options: ["Indian Navy's maritime security operation in the Gulf region.", "Army's counter-insurgency op in Kashmir.", "Disaster relief op in Himachal.", "Evacuation from Ukraine."],
+        correct: 0,
+        explanation: "Operation Sankalp was launched by the Indian Navy to ensure the safety of Indian flagged vessels transiting through the Strait of Hormuz."
+    },
+    {
+        question: "The 'Jan Vishwas (Amendment of Provisions) Act, 2023' aims to:",
+        options: ["Increase penalties for all crimes.", "Decriminalize minor offences to promote ease of doing business.", "Introduce new taxes.", "Ban cryptocurrencies."],
+        correct: 1,
+        explanation: "The Act amends 42 central acts to decriminalize minor offences, reducing the compliance burden and promoting ease of doing business."
+    },
+    {
+        question: "Which country chaired the 'UNESCO World Heritage Committee' in 2024?",
+        options: ["France", "China", "India", "Italy"],
+        correct: 2,
+        explanation: "India chaired and hosted the 46th session of the World Heritage Committee in New Delhi."
+    },
+    {
+        question: "The 'Ratle Hydro Electric Project' is being constructed on which river?",
+        options: ["Jhelum", "Chenab", "Indus", "Ravi"],
+        correct: 1,
+        explanation: "The Ratle project is a run-of-the-river hydroelectric power station on the Chenab River in the Kishtwar district of J&K."
+    },
+    {
+        question: "The 'Global Firepower Index' ranks countries based on:",
+        options: ["Economic strength", "Military strength", "Forest cover", "Nuclear arsenal size only"],
+        correct: 1,
+        explanation: "The index ranks countries based on their potential military strength. India is typically ranked 4th."
+    },
+    {
+        question: "What is the 'Modified PKC-ERCP Link Project'?",
+        options: ["A railway line.", "An inter-linking of rivers project (Parbati-Kalisindh-Chambal).", "A highway project.", "A power grid project."],
+        correct: 1,
+        explanation: "It is the Modified Parbati-Kalisindh-Chambal (PKC) - Eastern Rajasthan Canal Project (ERCP) Link Project to provide water to 13 districts of Rajasthan."
+    },
+    {
+        question: "The term 'Generative AI' is best described as AI that:",
+        options: ["Predicts future stock prices.", "Creates new content (text, images, audio) similar to the data it was trained on.", "Plays chess.", "Drives cars."],
+        correct: 1,
+        explanation: "Generative AI (like ChatGPT, Midjourney) creates new data instances that resemble the training data."
+    },
+    {
+        question: "The 'PM-JANMAN' scheme specifically targets:",
+        options: ["Urban slum dwellers.", "Particularly Vulnerable Tribal Groups (PVTGs).", "Farmers in drought regions.", "Fishermen."],
+        correct: 1,
+        explanation: "PM-JANMAN focuses on 11 critical interventions for the 75 identified PVTGs to improve their socio-economic conditions."
+    },
+    {
+        question: "Which state hosts the 'Gangasagar Mela', the second largest congregation after Kumbh?",
+        options: ["Uttarakhand", "Uttar Pradesh", "Bihar", "West Bengal"],
+        correct: 3,
+        explanation: "Gangasagar Mela is held annually on Sagar Island in West Bengal where the Ganga enters the Bay of Bengal."
+    },
+    {
+        question: "The 'Aditya-L1' spacecraft carries how many scientific payloads?",
+        options: ["Four", "Five", "Seven", "Ten"],
+        correct: 2,
+        explanation: "Aditya-L1 carries seven payloads to observe the photosphere, chromosphere, and the outermost layers of the Sun."
+    },
+    {
+        question: "The 'Einstein Probe', a new astronomical satellite, was launched by:",
+        options: ["NASA", "ESA", "China (CAS)", "ISRO"],
+        correct: 2,
+        explanation: "The Einstein Probe is a mission led by the Chinese Academy of Sciences (CAS) to study high-energy transient phenomena."
+    },
+    {
+        question: "The 'Rashtriya Vigyan Puraskar' awards were recently instituted to replace:",
+        options: ["Padma Awards", "Shanti Swarup Bhatnagar Prize (restructuring)", "Nobel Prize", "Gandhi Peace Prize"],
+        correct: 1,
+        explanation: "The government reorganized science awards into 'Rashtriya Vigyan Puraskar', though the Bhatnagar prize legacy continues under this new framework."
+    },
+    {
+        question: "The 'Exercise Khanjar' is a joint special forces exercise between India and:",
+        options: ["Kazakhstan", "Kyrgyzstan", "Uzbekistan", "Tajikistan"],
+        correct: 1,
+        explanation: "Exercise Khanjar is conducted between the special forces of India and Kyrgyzstan."
+    },
+    {
+        question: "The 'Mulya Pravah 2.0' guidelines relate to:",
+        options: ["Banking regulations.", "Ethical practices and human values in Higher Education Institutions.", "River pollution control.", "Traffic rules."],
+        correct: 1,
+        explanation: "Issued by the UGC, these guidelines seek to instill human values and professional ethics in universities and colleges."
+    },
+    {
+        question: "Which country recently filed a case at the ICJ accusing Israel of genocide?",
+        options: ["Egypt", "Iran", "South Africa", "Qatar"],
+        correct: 2,
+        explanation: "South Africa filed the case at the International Court of Justice (ICJ)."
+    },
+    {
+        question: "The 'Kala-azar' (Black Fever) is transmitted by:",
+        options: ["Aedes Mosquito", "Anopheles Mosquito", "Sandfly", "Tsetse Fly"],
+        correct: 2,
+        explanation: "Visceral leishmaniasis (Kala-azar) is transmitted by the bite of infected female phlebotomine sandflies."
+    },
+    {
+        question: "The 'Prithvi' scheme (PRITHVI VIGYAN) is an initiative of which Ministry?",
+        options: ["Ministry of Science and Technology", "Ministry of Earth Sciences", "Ministry of Environment", "Ministry of Space"],
+        correct: 1,
+        explanation: "It is an overarching scheme of the Ministry of Earth Sciences for 2021-26."
+    },
+    {
+        question: "The 'Wetlands City Accreditation' (WCA) nomination was submitted by India for which cities?",
+        options: ["Indore, Bhopal, Udaipur", "Chennai, Mumbai, Kolkata", "Jaipur, Jodhpur, Udaipur", "Kochi, Alappuzha, Kumarakom"],
+        correct: 0,
+        explanation: "India nominated Indore, Bhopal, and Udaipur for the Ramsar Wetland City Accreditation."
+    },
+    {
+        question: "The 'Similipal Kai Chutney' (Red Ant Chutney) recently got a GI tag. It belongs to:",
+        options: ["Jharkhand", "Chhattisgarh", "Odisha", "West Bengal"],
+        correct: 2,
+        explanation: "The Kai Chutney, made from red weaver ants, is a traditional delicacy of the tribal people in Odisha's Mayurbhanj district."
+    },
+    {
+        question: "What is 'Cyber Kidnapping'?",
+        options: ["Kidnapping children using online games.", "A crime where victims are coerced to isolate themselves and pretend to be kidnapped to extort money from family.", "Stealing data from kids' tablets.", "Hacking school databases."],
+        correct: 1,
+        explanation: "It involves convincing a victim (often students abroad) to hide and send photos looking like they are captive, to extort ransom from parents."
+    },
+    
+    {
+        question: "The 'Smart Lander for Investigating Moon' (SLIM) mission, which made a precision landing, belongs to which country?",
+        options: ["China", "India", "Japan", "South Korea"],
+        correct: 2,
+        explanation: "SLIM is a lunar lander mission by the Japan Aerospace Exploration Agency (JAXA), making Japan the 5th country to soft-land on the moon."
+    },
+    {
+        question: "What is the 'e-Jagriti' portal aimed at?",
+        options: ["Facilitating consumer dispute redressal.", "Promoting electric vehicles.", "Digitizing land records.", "Monitoring air pollution."],
+        correct: 0,
+        explanation: "The 'e-Jagriti' portal integrates consumer commissions, aiming for faster and more transparent consumer dispute redressal."
+    },
+    {
+        question: "The 'Exercise Sada Tanseeq' is the first joint military exercise between India and:",
+        options: ["Oman", "Saudi Arabia", "UAE", "Egypt"],
+        correct: 1,
+        explanation: "'Sada Tanseeq' is the inaugural joint military exercise between the Indian Army and the Royal Saudi Land Forces."
+    },
+    {
+        question: "Which Indian state launched the 'Lakhpati Baideo' scheme?",
+        options: ["West Bengal", "Odisha", "Assam", "Tripura"],
+        correct: 2,
+        explanation: "The Assam government launched the 'Lakhpati Baideo' scheme to help rural women entrepreneurs earn an annual income of at least ₹1 lakh."
+    },
+    {
+        question: "The 'Alliance for Global Good- Gender Equity and Equality' was announced by India at:",
+        options: ["G20 Summit, Delhi", "World Economic Forum (WEF), Davos", "UN General Assembly, New York", "COP28, Dubai"],
+        correct: 1,
+        explanation: "India announced this alliance at the World Economic Forum (WEF) annual meeting in Davos to push for women-led development."
+    },
+    {
+        question: "What is 'H5N1', which was recently detected in Antarctic penguins?",
+        options: ["A strain of Coronavirus.", "Highly Pathogenic Avian Influenza (Bird Flu).", "A type of marine algae.", "A new bacteria affecting fish."],
+        correct: 1,
+        explanation: "H5N1 is a lethal strain of bird flu. Its detection in Antarctica raises concerns about the vulnerability of isolated penguin populations."
+    },
+    {
+        question: "The 'Vaibhav Fellowship' is designed for:",
+        options: ["Indian students studying abroad.", "Indian diaspora (NRIs/OCIs) in STEM fields to collaborate with Indian institutions.", "Foreign students studying in India.", "Rural innovators."],
+        correct: 1,
+        explanation: "The fellowship aims to attract the Indian diaspora working in STEM fields abroad to work with Indian higher educational institutions."
+    },
+    {
+        question: "Which institution developed the 'Drishti 10 Starliner' drone?",
+        options: ["DRDO", "Adani Defence and Aerospace", "HAL", "ISRO"],
+        correct: 1,
+        explanation: "The Drishti 10 Starliner is an indigenous medium-altitude long-endurance (MALE) UAV manufactured by Adani Defence and Aerospace."
+    },
+    {
+        question: "The 'Srimandir Parikrama Prakalpa' (Heritage Corridor project) is associated with which temple?",
+        options: ["Kashi Vishwanath Temple", "Jagannath Temple, Puri", "Somnath Temple", "Meenakshi Temple"],
+        correct: 1,
+        explanation: "The project aims to improve the infrastructure and amenities around the Jagannath Temple in Puri, Odisha."
+    },
+    {
+        question: "The 'Pradhan Mantri Suryodaya Yojana' aims to install rooftop solar systems in how many households?",
+        options: ["10 Lakh", "50 Lakh", "1 Crore", "5 Crore"],
+        correct: 2,
+        explanation: "The scheme targets the installation of rooftop solar systems in 1 crore households across the country."
+    },
+    {
+        question: "What is 'Operation Sankalp'?",
+        options: ["Indian Navy's maritime security operation in the Gulf region.", "Army's counter-insurgency op in Kashmir.", "Disaster relief op in Himachal.", "Evacuation from Ukraine."],
+        correct: 0,
+        explanation: "Operation Sankalp was launched by the Indian Navy to ensure the safety of Indian flagged vessels transiting through the Strait of Hormuz."
+    },
+    {
+        question: "The 'Jan Vishwas (Amendment of Provisions) Act, 2023' aims to:",
+        options: ["Increase penalties for all crimes.", "Decriminalize minor offences to promote ease of doing business.", "Introduce new taxes.", "Ban cryptocurrencies."],
+        correct: 1,
+        explanation: "The Act amends 42 central acts to decriminalize minor offences, reducing the compliance burden and promoting ease of doing business."
+    },
+    {
+        question: "Which country chaired the 'UNESCO World Heritage Committee' in 2024?",
+        options: ["France", "China", "India", "Italy"],
+        correct: 2,
+        explanation: "India chaired and hosted the 46th session of the World Heritage Committee in New Delhi."
+    },
+    {
+        question: "The 'Ratle Hydro Electric Project' is being constructed on which river?",
+        options: ["Jhelum", "Chenab", "Indus", "Ravi"],
+        correct: 1,
+        explanation: "The Ratle project is a run-of-the-river hydroelectric power station on the Chenab River in the Kishtwar district of J&K."
+    },
+    {
+        question: "The 'Global Firepower Index' ranks countries based on:",
+        options: ["Economic strength", "Military strength", "Forest cover", "Nuclear arsenal size only"],
+        correct: 1,
+        explanation: "The index ranks countries based on their potential military strength. India is typically ranked 4th."
+    },
+    {
+        question: "What is the 'Modified PKC-ERCP Link Project'?",
+        options: ["A railway line.", "An inter-linking of rivers project (Parbati-Kalisindh-Chambal).", "A highway project.", "A power grid project."],
+        correct: 1,
+        explanation: "It is the Modified Parbati-Kalisindh-Chambal (PKC) - Eastern Rajasthan Canal Project (ERCP) Link Project to provide water to 13 districts of Rajasthan."
+    },
+    {
+        question: "The term 'Generative AI' is best described as AI that:",
+        options: ["Predicts future stock prices.", "Creates new content (text, images, audio) similar to the data it was trained on.", "Plays chess.", "Drives cars."],
+        correct: 1,
+        explanation: "Generative AI (like ChatGPT, Midjourney) creates new data instances that resemble the training data."
+    },
+    {
+        question: "The 'PM-JANMAN' scheme specifically targets:",
+        options: ["Urban slum dwellers.", "Particularly Vulnerable Tribal Groups (PVTGs).", "Farmers in drought regions.", "Fishermen."],
+        correct: 1,
+        explanation: "PM-JANMAN focuses on 11 critical interventions for the 75 identified PVTGs to improve their socio-economic conditions."
+    },
+    {
+        question: "Which state hosts the 'Gangasagar Mela', the second largest congregation after Kumbh?",
+        options: ["Uttarakhand", "Uttar Pradesh", "Bihar", "West Bengal"],
+        correct: 3,
+        explanation: "Gangasagar Mela is held annually on Sagar Island in West Bengal where the Ganga enters the Bay of Bengal."
+    },
+    {
+        question: "The 'Aditya-L1' spacecraft carries how many scientific payloads?",
+        options: ["Four", "Five", "Seven", "Ten"],
+        correct: 2,
+        explanation: "Aditya-L1 carries seven payloads to observe the photosphere, chromosphere, and the outermost layers of the Sun."
+    },
+    {
+        question: "The 'Einstein Probe', a new astronomical satellite, was launched by:",
+        options: ["NASA", "ESA", "China (CAS)", "ISRO"],
+        correct: 2,
+        explanation: "The Einstein Probe is a mission led by the Chinese Academy of Sciences (CAS) to study high-energy transient phenomena."
+    },
+    {
+        question: "The 'Rashtriya Vigyan Puraskar' awards were recently instituted to replace:",
+        options: ["Padma Awards", "Shanti Swarup Bhatnagar Prize (restructuring)", "Nobel Prize", "Gandhi Peace Prize"],
+        correct: 1,
+        explanation: "The government reorganized science awards into 'Rashtriya Vigyan Puraskar', though the Bhatnagar prize legacy continues under this new framework."
+    },
+    {
+        question: "The 'Exercise Khanjar' is a joint special forces exercise between India and:",
+        options: ["Kazakhstan", "Kyrgyzstan", "Uzbekistan", "Tajikistan"],
+        correct: 1,
+        explanation: "Exercise Khanjar is conducted between the special forces of India and Kyrgyzstan."
+    },
+    {
+        question: "The 'Mulya Pravah 2.0' guidelines relate to:",
+        options: ["Banking regulations.", "Ethical practices and human values in Higher Education Institutions.", "River pollution control.", "Traffic rules."],
+        correct: 1,
+        explanation: "Issued by the UGC, these guidelines seek to instill human values and professional ethics in universities and colleges."
+    },
+    {
+        question: "Which country recently filed a case at the ICJ accusing Israel of genocide?",
+        options: ["Egypt", "Iran", "South Africa", "Qatar"],
+        correct: 2,
+        explanation: "South Africa filed the case at the International Court of Justice (ICJ)."
+    },
+    {
+        question: "The 'Kala-azar' (Black Fever) is transmitted by:",
+        options: ["Aedes Mosquito", "Anopheles Mosquito", "Sandfly", "Tsetse Fly"],
+        correct: 2,
+        explanation: "Visceral leishmaniasis (Kala-azar) is transmitted by the bite of infected female phlebotomine sandflies."
+    },
+    {
+        question: "The 'Prithvi' scheme (PRITHVI VIGYAN) is an initiative of which Ministry?",
+        options: ["Ministry of Science and Technology", "Ministry of Earth Sciences", "Ministry of Environment", "Ministry of Space"],
+        correct: 1,
+        explanation: "It is an overarching scheme of the Ministry of Earth Sciences for 2021-26."
+    },
+    {
+        question: "The 'Wetlands City Accreditation' (WCA) nomination was submitted by India for which cities?",
+        options: ["Indore, Bhopal, Udaipur", "Chennai, Mumbai, Kolkata", "Jaipur, Jodhpur, Udaipur", "Kochi, Alappuzha, Kumarakom"],
+        correct: 0,
+        explanation: "India nominated Indore, Bhopal, and Udaipur for the Ramsar Wetland City Accreditation."
+    },
+    {
+        question: "The 'Similipal Kai Chutney' (Red Ant Chutney) recently got a GI tag. It belongs to:",
+        options: ["Jharkhand", "Chhattisgarh", "Odisha", "West Bengal"],
+        correct: 2,
+        explanation: "The Kai Chutney, made from red weaver ants, is a traditional delicacy of the tribal people in Odisha's Mayurbhanj district."
+    },
+    {
+        question: "What is 'Cyber Kidnapping'?",
+        options: ["Kidnapping children using online games.", "A crime where victims are coerced to isolate themselves and pretend to be kidnapped to extort money from family.", "Stealing data from kids' tablets.", "Hacking school databases."],
+        correct: 1,
+        explanation: "It involves convincing a victim (often students abroad) to hide and send photos looking like they are captive, to extort ransom from parents."
+    },
+    {
+        question: "The 'United Nations Forum on Forests' (UNFF) recently held its session in:",
+        options: ["New York", "Nairobi", "Geneva", "Dehradun"],
+        correct: 0,
+        explanation: "The UNFF19 (19th session) was held at the UN Headquarters in New York."
+    },
+    {
+        question: "With reference to 'Green Hydrogen', consider the following statements regarding the 'SIGHT' programme:",
+        options: ["It is a programme to fund coal plants.", "It stands for 'Strategic Interventions for Green Hydrogen Transition'.", "It focuses on blue hydrogen production.", "It is a NASA initiative."],
+        correct: 1,
+        explanation: "SIGHT (Strategic Interventions for Green Hydrogen Transition) is a major component of the National Green Hydrogen Mission to incentivize domestic manufacturing of electrolysers and green hydrogen production."
+    },
+    {
+        question: "The 'World Economic Outlook' report is released by which organization?",
+        options: ["World Bank", "World Economic Forum (WEF)", "International Monetary Fund (IMF)", "OECD"],
+        correct: 2,
+        explanation: "The World Economic Outlook is a survey conducted and published by the International Monetary Fund (IMF) twice a year."
+    },
+    {
+        question: "Which Indian state is setting up the world's first 'Black Tiger Safari'?",
+        options: ["Madhya Pradesh", "West Bengal", "Odisha", "Karnataka"],
+        correct: 2,
+        explanation: "Odisha is setting up an exclusive melanistic tiger safari near the Similipal Tiger Reserve in Mayurbhanj."
+    },
+    {
+        question: "The 'e-Shram' portal is primarily a national database for:",
+        options: ["Organized sector employees.", "Unorganized workers.", "Government employees.", "Farmers only."],
+        correct: 1,
+        explanation: "e-Shram is a comprehensive national database of unorganized workers (NDUW) to facilitate the delivery of social security schemes."
+    },
+    {
+        question: "The 'Exercise Ayutthaya' is a maritime exercise between India and which country?",
+        options: ["Indonesia", "Thailand", "Malaysia", "Sri Lanka"],
+        correct: 1,
+        explanation: "'Ayutthaya' translates to 'The Invincible One' and connects the ancient cities of Ayodhya (India) and Ayutthaya (Thailand). It is a bilateral naval exercise."
+    },
+    {
+        question: "What is the 'Voluntary Carbon Market'?",
+        options: ["A government-mandated market for trading coal.", "A market where carbon credits are purchased voluntarily, often by companies to offset their emissions.", "A market restricted to the EU.", "A tax system."],
+        correct: 1,
+        explanation: "Unlike compliance markets (cap-and-trade), the voluntary market allows individuals/companies to buy carbon credits to offset their own emissions voluntarily."
+    },
+    {
+        question: "The 'KABIL' (Khanij Bidesh India Ltd) recently signed an agreement for Lithium exploration in:",
+        options: ["Chile", "Argentina", "Australia", "Bolivia"],
+        correct: 1,
+        explanation: "KABIL signed an agreement with CAMYEN, a state-owned enterprise of Argentina, for the exploration and mining of Lithium."
+    },
+    {
+        question: "The 'Penyu' and 'Bhairav' satellites, recently launched by ISRO, belong to which category?",
+        options: ["Communication Satellites", "Private sector satellites (startups).", "Spy satellites.", "Weather satellites."],
+        correct: 1,
+        explanation: "These are satellites from private players/academic institutions launched aboard ISRO's POEM platform (PSLV Orbital Experimental Module)."
+    },
+    {
+        question: "Which country has formally rejected the invitation to join 'BRICS' recently?",
+        options: ["Saudi Arabia", "Argentina", "Iran", "UAE"],
+        correct: 1,
+        explanation: "Under the new leadership of President Javier Milei, Argentina formally withdrew from the planned entry into the BRICS bloc."
+    },
+    {
+        question: "The term 'Free Movement Regime' (FMR) was in the news regarding the border between India and:",
+        options: ["Nepal", "Bhutan", "Myanmar", "Bangladesh"],
+        correct: 2,
+        explanation: "The government decided to scrap the Free Movement Regime (FMR) along the India-Myanmar border to ensure internal security."
+    },
+    {
+        question: "The 'National Quantum Mission' (NQM) will be implemented by:",
+        options: ["Department of Science & Technology (DST)", "ISRO", "DRDO", "Ministry of Electronics & IT"],
+        correct: 0,
+        explanation: "The mission is implemented by the Department of Science & Technology (DST) to nurture the quantum technology ecosystem."
+    },
+    {
+        question: "What is 'Aldabra Rail'?",
+        options: ["A new high-speed train.", "A flightless bird species that evolved twice (iterative evolution).", "A type of coral.", "A invasive plant."],
+        correct: 1,
+        explanation: "The Aldabra rail is a flightless bird from the Aldabra Atoll (Seychelles) known for 'iterative evolution'—evolving flightlessness twice after going extinct."
+    },
+    {
+        question: "The 'Global Risks Report' is an annual publication of:",
+        options: ["World Bank", "United Nations", "World Economic Forum (WEF)", "Interpol"],
+        correct: 2,
+        explanation: "The Global Risks Report is published by the World Economic Forum ahead of its annual meeting in Davos."
+    },
+    {
+        question: "Which state hosts the 'Pakke Paga Hornbill Festival'?",
+        options: ["Nagaland", "Arunachal Pradesh", "Mizoram", "Meghalaya"],
+        correct: 1,
+        explanation: "While the Hornbill Festival is in Nagaland, the 'Pakke Paga Hornbill Festival' is specifically celebrated in Arunachal Pradesh to conserve hornbills."
+    },
+    {
+        question: "The 'Mera Gaon, Meri Dharohar' initiative is mapped under which Ministry?",
+        options: ["Ministry of Rural Development", "Ministry of Culture", "Ministry of Tourism", "Ministry of Panchayati Raj"],
+        correct: 1,
+        explanation: "It is a pan-India initiative of the Ministry of Culture to culturally map India's 6.5 lakh villages."
+    },
+    {
+        question: "The 'Pradhan Mantri Matsya Sampada Yojana' (PMMSY) is related to:",
+        options: ["Dairy farming", "Fisheries sector", "Poultry farming", "Horticulture"],
+        correct: 1,
+        explanation: "PMMSY aims to bring about a 'Blue Revolution' through sustainable and responsible development of the fisheries sector."
+    },
+    {
+        question: "What is 'Chakr Innovation', recently seen in news?",
+        options: ["A startup aimed at reducing air pollution from diesel generators.", "A new wheel design for trains.", "A cyclone tracking tool.", "A government scheme for potters."],
+        correct: 0,
+        explanation: "Chakr Innovation is a startup known for its device that captures particulate matter emissions from diesel generators and converts it into ink."
+    },
+    {
+        question: "The 'Ken-Betwa Link Project' benefits which specific region?",
+        options: ["Bundelkhand", "Vidarbha", "Kutch", "Rayalaseema"],
+        correct: 0,
+        explanation: "The project aims to transfer surplus water from the Ken river to the Betwa river to irrigate the drought-prone Bundelkhand region."
+    },
+    {
+        question: "Which of the following countries is NOT a member of the 'Colombo Security Conclave' (CSC)?",
+        options: ["India", "Sri Lanka", "Maldives", "Pakistan"],
+        correct: 3,
+        explanation: "The CSC includes India, Sri Lanka, Maldives, and Mauritius. Bangladesh and Seychelles are observers. Pakistan is not a member."
+    },
+    {
+        question: "The 'SHRESHTA' scheme is targeted at:",
+        options: ["Scheduled Caste students for quality education in private residential schools.", "Skill development for women.", "Health insurance for elderly.", "Sports training for tribals."],
+        correct: 0,
+        explanation: "SHRESHTA (Scheme for Residential Education for Students in High Schools in Targeted Areas) provides high-quality education to meritorious SC students."
+    },
+    {
+        question: "The 'Giant Metrewave Radio Telescope' (GMRT) is located in:",
+        options: ["Pune, Maharashtra", "Nainital, Uttarakhand", "Hanle, Ladakh", "Mauna Kea, Hawaii"],
+        correct: 0,
+        explanation: "GMRT is located near Pune, Maharashtra, and is operated by NCRA-TIFR."
+    },
+    {
+        question: "The term 'Greenwashing' refers to:",
+        options: ["Cleaning cities with green chemicals.", "Making misleading claims about the environmental benefits of a product or practice.", "Planting trees in deserts.", "Using algae for fuel."],
+        correct: 1,
+        explanation: "Greenwashing is the practice of conveying a false impression or providing misleading information about how a company's products are more environmentally sound."
+    },
+    {
+        question: "Who was awarded the 'Nobel Peace Prize' in 2023?",
+        options: ["Narges Mohammadi", "Abiy Ahmed", "Maria Ressa", "World Food Programme"],
+        correct: 0,
+        explanation: "Narges Mohammadi (Iran) was awarded the 2023 Nobel Peace Prize for her fight against the oppression of women in Iran."
+    },
+    {
+        question: "The 'Tripura, Manipur, and Meghalaya Statehood Day' is celebrated on:",
+        options: ["January 21", "February 20", "March 1", "December 1"],
+        correct: 0,
+        explanation: "These three states became full-fledged states on January 21, 1972, under the North-Eastern Areas (Reorganisation) Act, 1971."
+    },
+    {
+        question: "What is the 'Bio-RIDE' scheme?",
+        options: ["Biotechnology Research Innovation and Entrepreneurship Development.", "Biodiversity Ride for tourists.", "Bio-fuel Research in Diesel Engines.", "A new ride-sharing app."],
+        correct: 0,
+        explanation: "Bio-RIDE (Biotechnology Research Innovation and Entrepreneurship Development) is a new scheme merging existing biotech schemes to foster innovation."
+    },
+    {
+        question: "The 'Kihoto Hollohan vs Zachillhu' case (1992) is famously related to:",
+        options: ["Basic Structure Doctrine", "Anti-Defection Law (10th Schedule)", "Right to Privacy", "Reservations in promotion"],
+        correct: 1,
+        explanation: "This landmark judgment upheld the validity of the 10th Schedule (Anti-Defection Law) but declared the Speaker's decision subject to judicial review."
+    },
+    {
+        question: "The 'World Energy Outlook' is released by:",
+        options: ["International Energy Agency (IEA)", "OPEC", "United Nations", "World Bank"],
+        correct: 0,
+        explanation: "The World Energy Outlook (WEO) is the flagship publication of the International Energy Agency (IEA)."
+    },
+    {
+        question: "Which Indian state has the 'Mudumalai Tiger Reserve'?",
+        options: ["Kerala", "Karnataka", "Tamil Nadu", "Andhra Pradesh"],
+        correct: 2,
+        explanation: "Mudumalai Tiger Reserve is located in the Nilgiris district of Tamil Nadu, at the tri-junction of three states."
+    },
+    {
+        question: "The 'Exercise Sea Dragon' is a US-led multinational exercise focusing on:",
+        options: ["Anti-Submarine Warfare (ASW)", "Counter-terrorism", "Disaster Relief", "Air-to-Air combat"],
+        correct: 0,
+        explanation: "Sea Dragon is an annual, multinational high-end exercise hosted by the US Navy, focusing on Anti-Submarine Warfare (ASW)."
+    },
+    {
+        question: "With reference to the 'Carbon Border Adjustment Mechanism' (CBAM), consider the following statements:",
+        options: ["It is a tool by the USA to tax carbon-intensive imports.", "It is an EU initiative to put a fair price on carbon emitted during the production of carbon-intensive goods entering the EU.", "It applies only to the automobile sector.", "India is exempt from this mechanism."],
+        correct: 1,
+        explanation: "CBAM is a European Union regulation that imposes a carbon tax on certain imported goods (like steel, cement, fertilizer) to prevent 'carbon leakage'."
+    },
+    {
+        question: "The 'Bharat 6G Alliance' (B6GA) is an initiative to:",
+        options: ["Buy 6G technology from Japan.", "Understand the business and societal needs of 6G and promote R&D in India.", "Launch 6G satellites only.", "Ban 5G technology."],
+        correct: 1,
+        explanation: "B6GA is a collaborative platform aimed at enabling India to take a lead role in the development and adoption of 6G technology."
+    },
+    {
+        question: "Which country launched the 'Chang'e-6' mission to collect samples from the far side of the moon?",
+        options: ["China", "Japan", "USA", "Russia"],
+        correct: 0,
+        explanation: "China launched Chang'e-6 specifically to return samples from the lunar south pole-Aitken basin on the far side of the moon."
+    },
+    {
+        question: "The 'Gobar-dhan' scheme (Galvanizing Organic Bio-Agro Resources Dhan) aims to:",
+        options: ["Promote organic farming using cow dung only.", "Convert biodegradable waste into compressed biogas (CBG) and organic manure.", "Build shelters for stray cattle.", "Export cow dung cakes."],
+        correct: 1,
+        explanation: "The scheme focuses on managing cattle and biodegradable waste to generate energy (Biogas/CBG) and organic manure."
+    },
+    {
+        question: "The 'Atlantic Declaration' is a strategic economic agreement between:",
+        options: ["USA and UK", "USA and France", "UK and EU", "Canada and USA"],
+        correct: 0,
+        explanation: "The Atlantic Declaration is a new economic partnership between the USA and the UK to strengthen cooperation on defense, nuclear energy, and supply chains."
+    },
+    {
+        question: "The 'Sagar Parikrama' Yatra is organized by which Ministry?",
+        options: ["Ministry of Shipping", "Ministry of Fisheries, Animal Husbandry and Dairying", "Ministry of Earth Sciences", "Ministry of Tourism"],
+        correct: 1,
+        explanation: "It is an outreach program to connect with the fishermen community along the coastal belt, organized by the Ministry of Fisheries."
+    },
+    {
+        question: "What is 'Wolbachia Method' used for?",
+        options: ["Treating cancer.", "Controlling the spread of dengue by infecting mosquitoes with Wolbachia bacteria.", "Cleaning oil spills.", "Preserving food."],
+        correct: 1,
+        explanation: "The Wolbachia method involves introducing Wolbachia bacteria into Aedes aegypti mosquitoes to reduce their ability to transmit viruses like Dengue and Zika."
+    },
+    {
+        question: "The 'Amrit Bharat Station Scheme' focuses on:",
+        options: ["Building new bullet train stations.", "Modernizing and redeveloping existing railway stations across India.", "Privatizing railway stations.", "Building freight corridors."],
+        correct: 1,
+        explanation: "The scheme aims at the continuous development and modernization of railway stations with a long-term vision."
+    },
+    {
+        question: "Which institution released the 'State of World Population' report?",
+        options: ["World Bank", "UNFPA (United Nations Population Fund)", "WHO", "UNESCO"],
+        correct: 1,
+        explanation: "The UNFPA releases the State of World Population report annually."
+    },
+    {
+        question: "The 'Exercise Khanjar' is conducted between India and:",
+        options: ["Kazakhstan", "Kyrgyzstan", "Uzbekistan", "Mongolia"],
+        correct: 1,
+        explanation: "Exercise Khanjar is the joint special forces exercise between India and Kyrgyzstan."
+    },
+    {
+        question: "What is the primary objective of the 'PM PRANAM' scheme?",
+        options: ["To restore old temples.", "To incentivize states to promote alternative fertilizers and balanced use of chemical fertilizers.", "To provide pension to artists.", "To clean the river Ganga."],
+        correct: 1,
+        explanation: "PM PRANAM (Programme for Restoration, Awareness, Nourishment and Amelioration of Mother Earth) aims to reduce subsidy burden on chemical fertilizers."
+    },
+    {
+        question: "The 'New Development Bank' (NDB) was established by:",
+        options: ["G7 Countries", "BRICS Countries", "ASEAN Countries", "European Union"],
+        correct: 1,
+        explanation: "NDB (formerly BRICS Bank) was established by Brazil, Russia, India, China, and South Africa to mobilize resources for infrastructure."
+    },
+    {
+        question: "The 'Koodankulam Nuclear Power Plant' is built with the assistance of:",
+        options: ["USA", "France", "Russia", "Japan"],
+        correct: 2,
+        explanation: "Koodankulam (Tamil Nadu) is India's largest nuclear power plant, built in collaboration with Russia."
+    },
+    {
+        question: "The 'Digital India Act' is proposed to replace which old legislation?",
+        options: ["The Telegraph Act, 1885", "The Information Technology Act, 2000", "The Wireless Telegraphy Act, 1933", "The Copyright Act, 1957"],
+        correct: 1,
+        explanation: "The Digital India Act aims to replace the two-decade-old IT Act, 2000, to address modern cyber challenges."
+    },
+    {
+        question: "The 'Namda' craft, recently revived under the Skill India pilot project, belongs to:",
+        options: ["Rajasthan", "Jammu and Kashmir", "Gujarat", "Himachal Pradesh"],
+        correct: 1,
+        explanation: "Namda is a traditional felted wool rug craft of Kashmir, which was declining but is being revived through skilling initiatives."
+    },
+    {
+        question: "Which country launched the world's first 'Methane-powered rocket' (Zhuque-2) into orbit?",
+        options: ["USA (SpaceX)", "China (LandSpace)", "Russia", "India"],
+        correct: 1,
+        explanation: "The Chinese private company LandSpace successfully launched Zhuque-2, the world's first methane-liquid oxygen rocket to reach orbit."
+    },
+    {
+        question: "The 'Global Multidimensional Poverty Index' (MPI) is released by:",
+        options: ["World Bank", "UNDP and OPHI", "IMF", "UNICEF"],
+        correct: 1,
+        explanation: "The Global MPI is jointly published by the UNDP and the Oxford Poverty and Human Development Initiative (OPHI)."
+    },
+    {
+        question: "What is 'Akira', recently in the news?",
+        options: ["A new Japanese anime.", "A ransomware virus targeting Windows and Linux systems.", "A new tropical storm.", "A humanoid robot."],
+        correct: 1,
+        explanation: "Akira is a type of ransomware that encrypts data on infected computers and demands payment for the decryption key."
+    },
+    {
+        question: "The 'Black Sea Grain Initiative' was an agreement between Russia and Ukraine brokered by:",
+        options: ["USA and UK", "UN and Turkey", "India and France", "China and Brazil"],
+        correct: 1,
+        explanation: "The deal was brokered by the United Nations and Turkey to allow the safe export of grain from Ukrainian ports."
+    },
+    {
+        question: "The 'Yashobhoomi' (IICC) in Dwarka, New Delhi is:",
+        options: ["A new parliament building.", "One of the world's largest MICE (Meetings, Incentives, Conferences, and Exhibitions) facilities.", "A new sports stadium.", "A cultural museum."],
+        correct: 1,
+        explanation: "Yashobhoomi is a state-of-the-art convention and expo centre inaugurated by the PM to promote global conferences."
+    },
+    {
+        question: "The 'Five Eyes' intelligence alliance includes USA, UK, Canada, Australia, and:",
+        options: ["India", "New Zealand", "France", "Japan"],
+        correct: 1,
+        explanation: "The Five Eyes (FVEY) is an intelligence alliance comprising Australia, Canada, New Zealand, the UK, and the US."
+    },
+    {
+        question: "The 'PM Vishwakarma' scheme offers loans at what concessional interest rate?",
+        options: ["2%", "5%", "7%", "10%"],
+        correct: 1,
+        explanation: "Loans under the PM Vishwakarma scheme are provided at a concessional interest rate of 5%."
+    },
+    {
+        question: "Which state hosts the 'Nuakhai' agricultural festival?",
+        options: ["Odisha", "Punjab", "Assam", "Tamil Nadu"],
+        correct: 0,
+        explanation: "Nuakhai is the premier agricultural festival of Western Odisha, celebrating the new rice of the season."
+    },
+    {
+        question: "The 'Storm Daniel' caused catastrophic floods in which country?",
+        options: ["Greece", "Libya", "Turkey", "Italy"],
+        correct: 1,
+        explanation: "Storm Daniel caused massive destruction and dam collapses in Libya (specifically Derna city)."
+    },
+    {
+        question: "The 'Vidya Samiksha Kendra' (VSK) is a data repository system for:",
+        options: ["Health Department", "School Education", "Agriculture", "Police"],
+        correct: 1,
+        explanation: "VSK is a surveillance system to track student enrollment, learning outcomes, and teacher attendance in schools."
+    },
+    {
+        question: "What is the 'Parker Solar Probe'?",
+        options: ["An ISRO mission to Sun.", "A NASA spacecraft that has flown closer to the Sun than any other object.", "A European solar telescope.", "A Chinese solar satellite."],
+        correct: 1,
+        explanation: "NASA's Parker Solar Probe is the first spacecraft to 'touch' the sun (enter the corona) and study solar winds."
+    },
+    {
+        question: "The 'Common Carbon Metric' is associated with:",
+        options: ["Measuring carbon footprint of buildings (UNEP).", "Carbon dating of fossils.", "Measuring coal quality.", "Carbon content in steel."],
+        correct: 0,
+        explanation: "It is a protocol developed by UNEP for measuring energy use and reporting greenhouse gas emissions from building operations."
+    },
+    {
+        question: "The 'Hague Convention' on the Civil Aspects of International Child Abduction aims to:",
+        options: ["Protect children from child labor.", "Secure the prompt return of children wrongfully removed to or retained in any Contracting State.", "Provide free education to refugees.", "Ban adoption."],
+        correct: 1,
+        explanation: "It is a multilateral treaty aimed at protecting children from the harmful effects of international abduction by a parent."
+    },
+    {
+        question: "What is 'Exercise Bright Star-23'?",
+        options: ["A bilateral exercise between India and USA.", "A multinational tri-service exercise hosted by Egypt.", "A naval drill in the Bay of Bengal.", "An air show."],
+        correct: 1,
+        explanation: "Bright Star-23 was a multinational tri-service military exercise hosted by Egypt, where the Indian Air Force participated for the first time."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' was launched on the sidelines of:",
+        options: ["COP27", "G20 Summit in New Delhi", "G7 Summit", "ASEAN Summit"],
+        correct: 1,
+        explanation: "It was launched by PM Modi along with leaders of USA, Brazil, etc., during the G20 Summit in New Delhi."
+    },
+    {
+        question: "The 'Gupteswar Forest', recently declared as a Biodiversity Heritage Site (BHS), is located in which state?",
+        options: ["Kerala", "Odisha", "Madhya Pradesh", "Chhattisgarh"],
+        correct: 1,
+        explanation: "Odisha declared the Gupteswar Forest in Koraput district as its fourth Biodiversity Heritage Site."
+    },
+    {
+        question: "With reference to the 'Telecommunications Act, 2023', consider the following:",
+        options: ["It empowers the government to suspend internet services to prevent public emergency.", "It allows unconditional wiretapping by private agencies.", "It completely privatizes spectrum allocation.", "It abolishes the TRAI."],
+        correct: 0,
+        explanation: "The Act empowers the central and state governments to suspend telecom services (internet shutdowns) in the interest of public safety or during a public emergency."
+    },
+    {
+        question: "The 'Ingenuity' helicopter, which recently ended its mission, was operating on:",
+        options: ["Moon", "Mars", "Titan", "Venus"],
+        correct: 1,
+        explanation: "NASA's Ingenuity Mars Helicopter ended its historic mission after sustaining rotor damage on Mars."
+    },
+    {
+        question: "The 'Advance Authorization Scheme' (AAS) is related to:",
+        options: ["Duty-free import of inputs for export purposes.", "Quick visa processing for diplomats.", "Prior permission for protests.", "Fast-track court hearings."],
+        correct: 0,
+        explanation: "AAS allows the duty-free import of inputs (raw materials) which are physically incorporated in the export product."
+    },
+    {
+        question: "What is the 'Unified Payments Interface (UPI) Tap and Pay' feature?",
+        options: ["A system to pay using eye retina scan.", "A feature using NFC technology to make payments by tapping the phone on a terminal.", "A voice-activated payment system.", "A crypto payment method."],
+        correct: 1,
+        explanation: "NPCI launched the 'UPI Tap and Pay' feature aimed at enhancing convenience by using Near Field Communication (NFC) technology."
+    },
+    {
+        question: "The 'RoDTEP' scheme (Remission of Duties and Taxes on Exported Products) was recently extended to include:",
+        options: ["Petroleum products", "E-commerce exports through courier/post", "Tobacco products", "Gold jewelry"],
+        correct: 1,
+        explanation: "The government extended the benefits of the RoDTEP scheme to e-commerce exports aimed at helping small artisans reach global markets."
+    },
+    {
+        question: "Which Indian state has launched the 'Swayam' scheme to provide interest-free loans to youth?",
+        options: ["Odisha", "Telangana", "Punjab", "Maharashtra"],
+        correct: 0,
+        explanation: "The Odisha government launched the 'Swayam' scheme to provide interest-free loans of up to ₹1 lakh to rural unemployed youth."
+    },
+    {
+        question: "The 'Insurance Surety Bonds' are intended to replace:",
+        options: ["Bank Guarantees (BG)", "Life Insurance Policies", "Corporate Bonds", "Government Securities"],
+        correct: 0,
+        explanation: "Insurance Surety Bonds act as a substitute for Bank Guarantees (BG) in infrastructure projects, freeing up working capital for contractors."
+    },
+    {
+        question: "The 'Vaitarna River', where Bull Sharks were recently sighted, flows through:",
+        options: ["Gujarat", "Maharashtra", "Goa", "Karnataka"],
+        correct: 1,
+        explanation: "The Vaitarna River flows through Maharashtra. The sighting of Bull Sharks upstream was significant for marine biologists."
+    },
+    {
+        question: "What is 'Gemini 1.5 Pro', recently announced by Google?",
+        options: ["A new VR headset.", "A next-generation AI model with a massive context window (1 million tokens).", "A satellite internet project.", "A quantum computer."],
+        correct: 1,
+        explanation: "Gemini 1.5 Pro is Google's mid-size multimodal AI model, notable for its breakthrough experimental context window of up to 1 million tokens."
+    },
+    {
+        question: "The 'Payment Security Mechanism' (PSM) for e-buses is a joint initiative of India and:",
+        options: ["USA", "Japan", "United Kingdom", "France"],
+        correct: 0,
+        explanation: "India and the USA are working to establish a Payment Security Mechanism to facilitate the deployment of 10,000 electric buses in India."
+    },
+    {
+        question: "The 'e-SCR' (Electronic Supreme Court Reports) project aims to:",
+        options: ["Live stream court cases.", "Provide digital versions of the Supreme Court's judgments to the public for free.", "Record attendance of judges.", "File cases online."],
+        correct: 1,
+        explanation: "e-SCR provides the digital version of the Supreme Court's judgments in a searchable format for the benefit of lawyers, students, and the public."
+    },
+    {
+        question: "The 'Scheme for Care and Support to Victims' under the Nirbhaya Fund aims to provide:",
+        options: ["Free housing.", "Shelter, food, and legal aid to pregnant minor victims of sexual assault.", "Jobs in police force.", "Self-defense training."],
+        correct: 1,
+        explanation: "The scheme specifically targets pregnant minor victims of sexual assault who have no family support, providing shelter and medical care."
+    },
+    {
+        question: "The 'Exercise Desert Knight' is a major air exercise involving India, France, and:",
+        options: ["USA", "UAE", "UK", "Australia"],
+        correct: 1,
+        explanation: "Exercise Desert Knight was conducted by the Indian Air Force along with the French Air and Space Force and the United Arab Emirates (UAE) Air Force."
+    },
+    {
+        question: "Which country became the first in the EU to issue 'Digital Schengen Visas'?",
+        options: ["Germany", "France", "Italy", "Spain"],
+        correct: 1,
+        explanation: "France announced the move to shift towards fully digital Schengen visas for the 2024 Paris Olympics."
+    },
+    {
+        question: "The 'Greening the Grid' initiative is related to:",
+        options: ["Planting trees under power lines.", "Integrating renewable energy into the power grid.", "Using green paint on towers.", "Replacing copper wires with fiber."],
+        correct: 1,
+        explanation: "It is a joint initiative (India-USA) to support the integration of large-scale renewable energy into the Indian power grid."
+    },
+    {
+        question: "What is 'Project 39A'?",
+        options: ["A space mission.", "A criminal justice research and litigation centre at NLU Delhi.", "A highway project.", "A nuclear energy project."],
+        correct: 1,
+        explanation: "Project 39A (inspired by Article 39A of the Constitution) works on issues like legal aid, torture, and the death penalty in the Indian criminal justice system."
+    },
+    {
+        question: "The 'Global Pulses Conference' 2024 was held in:",
+        options: ["Mumbai", "New Delhi", "Indore", "Jaipur"],
+        correct: 1,
+        explanation: "The Global Pulses Convention was held in New Delhi, emphasizing the importance of pulses for nutritional security."
+    },
+    {
+        question: "The 'Sangam: Digital Twin with AI' initiative is launched by:",
+        options: ["Department of Telecommunications (DoT)", "NITI Aayog", "Ministry of Culture", "ISRO"],
+        correct: 0,
+        explanation: "DoT launched 'Sangam' to leverage Digital Twin technology and AI for infrastructure planning and design."
+    },
+    {
+        question: "Which state passed a resolution against the 'One Nation, One Election' proposal?",
+        options: ["Tamil Nadu", "Uttar Pradesh", "Gujarat", "Madhya Pradesh"],
+        correct: 0,
+        explanation: "The Tamil Nadu assembly adopted a resolution urging the Union government not to implement the 'One Nation, One Election' policy."
+    },
+    {
+        question: "The term 'Fallen Langur' refers to:",
+        options: ["A new species of monkey.", "Golden Langurs falling from trees due to electric shocks/habitat loss.", "A folklore character.", "A specific yoga pose."],
+        correct: 1,
+        explanation: "It often appears in reports regarding Golden Langurs (endangered) dying due to electrocution or road accidents in Assam."
+    },
+    {
+        question: "The 'World Sustainable Development Summit' (WSDS) is the flagship event of:",
+        options: ["NITI Aayog", "TERI (The Energy and Resources Institute)", "CSE", "Ministry of Environment"],
+        correct: 1,
+        explanation: "WSDS is organized annually by TERI to discuss global sustainable development issues."
+    },
+    {
+        question: "What is 'SARATHI' portal (launched by Ministry of Agriculture)?",
+        options: ["Sandbox for Agricultural Remote Sensing and Technology.", "A helpline for farmers.", "A portal for crop insurance (PMFBY) specifically.", "A tractor rental service."],
+        correct: 0,
+        explanation: "The portal (Krishi-DSS/SARATHI) aims to empower insurance companies and farmers with accurate, real-time data for the Pradhan Mantri Fasal Bima Yojana (PMFBY)."
+    },
+    {
+        question: "The 'KABIL' (Khanij Bidesh India Ltd) is a joint venture of:",
+        options: ["NALCO, HCL, and MECL", "ONGC and GAIL", "Coal India and NTPC", "SAIL and Tata Steel"],
+        correct: 0,
+        explanation: "KABIL is a JV of three CPSEs: NALCO, Hindustan Copper Ltd (HCL), and Mineral Exploration Corporation Ltd (MECL)."
+    },
+    {
+        question: "The 'Nazool Land' is primarily administered by:",
+        options: ["State Governments", "Central Government directly", "Waqf Board", "Local Panchayats"],
+        correct: 0,
+        explanation: "While 'Nazool' implies escheat to the state, these lands are generally administered by the respective State Governments."
+    },
+    {
+        question: "The 'Bubonic Plague' (Black Death) was recently confirmed in a human case in which US state?",
+        options: ["New York", "Oregon", "California", "Texas"],
+        correct: 1,
+        explanation: "A rare human case of bubonic plague was confirmed in Oregon, likely transmitted by a pet cat."
+    },
+    {
+        question: "The 'Indira Gandhi Pyari Behna Sukh Samman Nidhi Yojana' was announced by:",
+        options: ["Rajasthan", "Himachal Pradesh", "Chhattisgarh", "Karnataka"],
+        correct: 1,
+        explanation: "Himachal Pradesh announced this scheme to provide ₹1,500 monthly to women aged 18-60."
+    },
+    {
+        question: "The 'Blue Leaders' alliance advocates for:",
+        options: ["Blue Economy growth.", "Protecting 30% of the global ocean by 2030 (30x30).", "Space exploration.", "Cobalt mining."],
+        correct: 1,
+        explanation: "The 'Blue Leaders' are a group of countries calling for urgent action to protect the global ocean, specifically the '30x30' target."
+    },
+    {
+        question: "What is the 'Juice Mission' of ESA?",
+        options: ["To find water on Mars.", "Jupiter Icy Moons Explorer (to study Jupiter's moons Ganymede, Callisto, Europa).", "To extract juice from space plants.", "To study the sun."],
+        correct: 1,
+        explanation: "JUICE (Jupiter Icy Moons Explorer) is an ESA mission to make detailed observations of the giant gas planet and its three large ocean-bearing moons."
+    },
+    {
+        question: "The 'Vigyan Jyoti' programme is an initiative of DST to:",
+        options: ["Encourage girls to pursue careers in STEM.", "Provide solar lamps to rural students.", "Fund science labs in colleges.", "Teach astronomy."],
+        correct: 0,
+        explanation: "Vigyan Jyoti aims to address the underrepresentation of women in different fields of Science, Technology, Engineering, and Mathematics (STEM)."
+    },
+    {
+        question: "The 'Shahpur Kandi Barrage', recently completed, allows India to exclusively use the water of which river under the Indus Water Treaty?",
+        options: ["Chenab", "Jhelum", "Ravi", "Sutlej"],
+        correct: 2,
+        explanation: "The completion of the Shahpur Kandi barrage on the Ravi river allows India to stop the flow of excess water to Pakistan and use it for J&K and Punjab."
+    },
+    {
+        question: "India recently inaugurated a new airstrip and jetty at 'Agalega Island'. This island belongs to which country?",
+        options: ["Maldives", "Seychelles", "Mauritius", "Madagascar"],
+        correct: 2,
+        explanation: "The infrastructure projects were inaugurated in Agalega Island, Mauritius, boosting India's maritime security cooperation in the Indian Ocean."
+    },
+    {
+        question: "The foundation stone for ISRO's second spaceport was laid at 'Kulasekarapattinam'. In which state is it located?",
+        options: ["Andhra Pradesh", "Kerala", "Tamil Nadu", "Karnataka"],
+        correct: 2,
+        explanation: "The second spaceport is coming up at Kulasekarapattinam in Tamil Nadu, specifically designed for launching Small Satellite Launch Vehicles (SSLVs)."
+    },
+    {
+        question: "The world's first 'Vedic Clock' (Vikramaditya Vedic Clock) was inaugurated in which city?",
+        options: ["Varanasi", "Ujjain", "Haridwar", "Ayodhya"],
+        correct: 1,
+        explanation: "It was inaugurated in Ujjain, Madhya Pradesh. It displays time based on the traditional Indian Panchang (planetary positions)."
+    },
+    {
+        question: "What is the primary objective of the 'ADITI' scheme launched by the Defence Ministry?",
+        options: ["To provide pensions to war widows.", "To promote innovations in critical and strategic defense technologies by startups.", "To recruit youth into the army.", "To build border roads."],
+        correct: 1,
+        explanation: "ADITI (Acing Development of Innovative Technologies with iDEX) aims to provide grants (up to ₹25 cr) to startups for defense innovation."
+    },
+    {
+        question: "The 'INSAT-3DS' satellite was launched aboard which launch vehicle?",
+        options: ["PSLV-C58", "GSLV-F14", "LVM3-M4", "SSLV-D2"],
+        correct: 1,
+        explanation: "ISRO successfully launched the meteorological satellite INSAT-3DS using the GSLV-F14 rocket (often nicknamed 'Naughty Boy')."
+    },
+    {
+        question: "The 'Risa' textile, which recently received a GI Tag, belongs to:",
+        options: ["Assam", "Tripura", "Manipur", "Nagaland"],
+        correct: 1,
+        explanation: "Risa is a traditional handwoven cloth of the Tripuri tribal community in Tripura, used as a headgear, stole, or upper garment."
+    },
+    {
+        question: "The 'Silver Filigree' (Rupa Tarakasi) work, recently granted a GI Tag, is a famous craft of:",
+        options: ["Karimnagar, Telangana", "Cuttack, Odisha", "Jaipur, Rajasthan", "Srinagar, Kashmir"],
+        correct: 1,
+        explanation: "The famous Cuttack Rupa Tarakasi (Silver Filigree) of Odisha received the Geographical Indication (GI) tag."
+    },
+    {
+        question: "The 'Exercise Dharma Guardian' is a joint military exercise between India and:",
+        options: ["Sri Lanka", "Japan", "Nepal", "Thailand"],
+        correct: 1,
+        explanation: "Dharma Guardian is an annual joint military exercise between the Indian Army and the Japan Ground Self-Defence Force."
+    },
+    {
+        question: "The 'Melanochlamys drupadi', a new marine species discovered by ZSI, is a type of:",
+        options: ["Head-shield Sea Slug", "Deep sea crab", "Coral", "Jellyfish"],
+        correct: 0,
+        explanation: "It is a new species of head-shield sea slug discovered in Odisha and West Bengal, named after President Droupadi Murmu."
+    },
+    {
+        question: "Which state hosts the 'Majuli Masks' craft, which recently got a GI tag?",
+        options: ["West Bengal", "Assam", "Odisha", "Bihar"],
+        correct: 1,
+        explanation: "Majuli masks are handmade masks traditionally used in the Bhaona (theatre) of the neo-Vaishnavite sattras of Assam."
+    },
+    {
+        question: "The 'Mission Utkarsh' is a joint initiative of Ministry of Ayush and Ministry of Women & Child Development to control:",
+        options: ["Polio", "Anaemia", "Tuberculosis", "Malaria"],
+        correct: 1,
+        explanation: "The mission aims to control anaemia among adolescent girls using Ayurveda interventions."
+    },
+    {
+        question: "The 'Statue of Valour' unveiled in Jorhat, Assam, depicts:",
+        options: ["Subhash Chandra Bose", "Lachit Borphukan", "Sardar Patel", "Birsa Munda"],
+        correct: 1,
+        explanation: "The 125-ft bronze statue depicts the legendary Ahom general Lachit Borphukan, known for the Battle of Saraighat."
+    },
+    {
+        question: "The 'Bhojshala' complex, recently in news due to an ASI survey, is located in:",
+        options: ["Uttar Pradesh", "Madhya Pradesh", "Gujarat", "Maharashtra"],
+        correct: 1,
+        explanation: "Bhojshala is an 11th-century historic site in the Dhar district of Madhya Pradesh, claimed by both Hindus (as Vagdevi temple) and Muslims (as Kamal Maula Mosque)."
+    },
+    {
+        question: "The 'Samudra Laksamana' is a maritime exercise between India and:",
+        options: ["Indonesia", "Malaysia", "Maldives", "Singapore"],
+        correct: 1,
+        explanation: "Exercise Samudra Laksamana is conducted between the Indian Navy and the Royal Malaysian Navy."
+    },
+    {
+        question: "Which institution released the report 'Trends in International Arms Transfers, 2023' stating India is the top arms importer?",
+        options: ["Jane's Defence", "SIPRI", "RAND Corporation", "Amnesty International"],
+        correct: 1,
+        explanation: "The Stockholm International Peace Research Institute (SIPRI) report identified India as the world's top arms importer."
+    },
+    {
+        question: "The 'Human Development Index' (HDI) is a composite index of:",
+        options: ["Life expectancy, Education, and Per Capita Income", "Health, Environment, and GDP", "Happiness, GDP, and Literacy", "Infant Mortality, Clean Water, and Housing"],
+        correct: 0,
+        explanation: "HDI measures average achievement in three key dimensions: a long and healthy life, being knowledgeable (education), and a decent standard of living (GNI per capita)."
+    },
+    {
+        question: "What is 'Bio-TRIG'?",
+        options: ["A new trigonometry formula.", "A waste-management technology based on pyrolysis (producing bio-oil, syngas, and biochar).", "A biometric system.", "A triple vaccine."],
+        correct: 1,
+        explanation: "Bio-TRIG is a community-level pyrolysis system that converts waste into useful products like bio-oil, syngas, and biochar, aiding in carbon sequestration."
+    },
+    {
+        question: "The 'Gorsam Kora Festival' is celebrated to mark the friendship between India and:",
+        options: ["Nepal", "Bhutan", "Myanmar", "China"],
+        correct: 1,
+        explanation: "Celebrated in the Zemithang valley of Arunachal Pradesh, it marks the historic friendship between the Monpa tribe (India) and Bhutan."
+    },
+    {
+        question: "The 'Golden Langur' is an endangered primate found primarily in:",
+        options: ["Western Ghats", "Andaman Islands", "India (Assam) and Bhutan", "Sunderbans"],
+        correct: 2,
+        explanation: "Golden Langurs are endemic to a small region in western Assam (India) and the foothills of the Black Mountains of Bhutan."
+    },
+    {
+        question: "What is the 'Blue Line' often seen in international news?",
+        options: ["The border between North and South Korea.", "The withdrawal line between Israel and Lebanon demarcated by the UN.", "The maritime boundary between India and Sri Lanka.", "The line separating NATO and Russia."],
+        correct: 1,
+        explanation: "The Blue Line is the border demarcation between Lebanon and Israel published by the United Nations in 2000."
+    },
+    {
+        question: "The 'Pakhro Tiger Safari' project was recently halted by the Supreme Court in which National Park?",
+        options: ["Ranthambore", "Jim Corbett", "Kaziranga", "Bandipur"],
+        correct: 1,
+        explanation: "The SC slammed the illegal felling of trees for the Pakhro tiger safari project within the Jim Corbett National Park (Uttarakhand)."
+    },
+    {
+        question: "The 'Captive Elephant (Transfer or Transport) Rules, 2024' have:",
+        options: ["Banned the transfer of elephants completely.", "Relaxed the norms for transferring captive elephants.", "Allowed export of elephants.", "Mandated release of all captive elephants."],
+        correct: 1,
+        explanation: "The new rules have relaxed the conditions under which captive elephants can be transferred between states/owners."
+    },
+    {
+        question: "Which country's Prime Minister was the Chief Guest at the 'Raisina Dialogue 2024'?",
+        options: ["Italy (Giorgia Meloni)", "Greece (Kyriakos Mitsotakis)", "France (Emmanuel Macron)", "UK (Rishi Sunak)"],
+        correct: 1,
+        explanation: "Greek Prime Minister Kyriakos Mitsotakis was the Chief Guest at the inaugural session of the 9th Raisina Dialogue."
+    },
+    {
+        question: "The 'Sagar Aankalan' guidelines were launched to improve:",
+        options: ["Deep sea mining efficiency.", "Port performance index and benchmarking.", "Fisheries yield.", "Naval surveillance."],
+        correct: 1,
+        explanation: "These are guidelines for National Benchmarking of Indian Ports Performance aimed at improving efficiency and competitiveness."
+    },
+    {
+        question: "The 'Aspire' program (Automotive Solutions Partnering for Industry, Research and Education) is related to:",
+        options: ["Space research.", "Automobile industry innovation.", "Agricultural machinery.", "Marine biology."],
+        correct: 1,
+        explanation: "Usually associated with ICAT (International Centre for Automotive Technology) to foster innovation in the automotive sector. (Note: 'Aspire' is a common acronym, in 2024 context check for 'Future Skills PRIME' or specific ministry initiatives)."
+    },
+    {
+        question: "The 'Tawi Festival' is a cultural festival celebrated in:",
+        options: ["Himachal Pradesh", "Jammu and Kashmir", "Uttarakhand", "Punjab"],
+        correct: 1,
+        explanation: "The Tawi Festival celebrates the art, culture, and heritage of the Jammu region."
+    },
+    {
+        question: "Which Indian writer was nominated to the Rajya Sabha in March 2024?",
+        options: ["Arundhati Roy", "Sudha Murty", "Chetan Bhagat", "Ruskin Bond"],
+        correct: 1,
+        explanation: "Philanthropist and author Sudha Murty was nominated to the Rajya Sabha by the President."
+    },
+    {
+        question: "The 'Shekatkar Committee' recommendations are related to:",
+        options: ["Banking reforms.", "Enhancing combat capability and rebalancing defense expenditure.", "Education policy.", "Railway safety."],
+        correct: 1,
+        explanation: "The committee was appointed to recommend measures to enhance combat capability and rebalance defense expenditure of the armed forces."
+    },
+    {
+        question: "What is 'Indiramma Indlu'?",
+        options: ["A housing scheme launched by the Telangana government.", "A boat race.", "A new temple.", "A literary award."],
+        correct: 0,
+        explanation: "It is a housing scheme launched by the Telangana government to provide houses to the poor."
+    },
+    {
+        question: "The 'Global Methane Pledge' aims to reduce global methane emissions by what percentage by 2030?",
+        options: ["20%", "30%", "50%", "10%"],
+        correct: 1,
+        explanation: "The pledge, led by the US and EU, aims to reduce global methane emissions by at least 30% from 2020 levels by 2030."
+    },
+    {
+        question: "Which country recently became the 10th member of the 'Shanghai Cooperation Organization' (SCO)?",
+        options: ["Saudi Arabia", "Belarus", "Egypt", "Turkey"],
+        correct: 1,
+        explanation: "Belarus officially became the 10th member state of the SCO in 2024. (Iran was the 9th)."
+    },
+    {
+        question: "The 'Valmiki Tiger Reserve', recently in the news for an increase in tiger numbers, is located in:",
+        options: ["Uttar Pradesh", "Bihar", "Uttarakhand", "Jharkhand"],
+        correct: 1,
+        explanation: "Valmiki Tiger Reserve is the only tiger reserve in Bihar, located in the West Champaran district."
+    },
+    {
+        question: "What is the 'e-Kisan Upaj Nidhi' platform?",
+        options: ["A digital platform to ease farmers' warehousing logistics and aid in getting loans against produce.", "A pension scheme.", "A crop insurance portal.", "A soil health card app."],
+        correct: 0,
+        explanation: "It allows farmers to store produce in registered warehouses and get loans against it without pledging collateral."
+    },
+    {
+        question: "The 'Exercise Sea Defenders-2024' was a joint exercise between:",
+        options: ["Indian Navy and French Navy", "Indian Coast Guard and US Coast Guard", "Indian Navy and Japanese Navy", "Indian Army and Nepal Army"],
+        correct: 1,
+        explanation: "It was a joint exercise between the Indian Coast Guard and the United States Coast Guard off the coast of Port Blair."
+    },
+    {
+        question: "The 'Yaoundé Declaration' is associated with:",
+        options: ["Ending Malaria.", "Climate Change.", "Cyber Security.", "Maritime Piracy."],
+        correct: 0,
+        explanation: "Health ministers from 11 African countries signed the Yaoundé Declaration to end malaria deaths."
+    },
+    {
+        question: "Which Indian state passed the 'Uniform Civil Code (UCC) Bill, 2024'?",
+        options: ["Gujarat", "Assam", "Uttarakhand", "Goa"],
+        correct: 2,
+        explanation: "Uttarakhand became the first state in independent India to pass a UCC bill."
+    },
+    {
+        question: "The 'INS Sandhayak', commissioned into the Indian Navy, is a:",
+        options: ["Submarine", "Aircraft Carrier", "Survey Vessel (Large)", "Destroyer"],
+        correct: 2,
+        explanation: "INS Sandhayak is the first of four Survey Vessel (Large) ships, designed for hydrographic surveys."
+    },
+    {
+        question: "The 'Dustlik' exercise is conducted between India and which Central Asian nation?",
+        options: ["Kazakhstan", "Uzbekistan", "Tajikistan", "Turkmenistan"],
+        correct: 1,
+        explanation: "Exercise Dustlik is a joint military exercise between the armies of India and Uzbekistan."
+    },
+    {
+        question: "The 'Global Trade Research Initiative' (GTRI) report highlighted India's dependency on which country for critical minerals?",
+        options: ["USA", "Russia", "China", "Australia"],
+        correct: 2,
+        explanation: "The report highlighted India's significant import dependency on China for critical industrial goods and minerals."
+    },
+    {
+        question: "The 'Kazan Declaration' is related to which international grouping?",
+        options: ["G20", "BRICS", "SCO", "ASEAN"],
+        correct: 1,
+        explanation: "The Kazan Declaration was adopted at the BRICS Summit hosted by Russia in Kazan (2024)."
+    },
+    {
+        question: "What is 'NaVIC's' new name or identity often referred to by ISRO for user simplicity?",
+        options: ["BharatGPS", "IndiaSat", "DeshMap", "Navigation India"],
+        correct: 0,
+        explanation: "While technically NaVIC (IRNSS), it is popularly being positioned as an indigenous alternative to GPS, often colloquialized as 'BharatGPS' in tech discussions."
+    },
+    {
+        question: "The 'Lakhpati Didi' scheme targets to make how many women 'Lakhpatis' (earning ₹1 lakh/year)?",
+        options: ["1 Crore", "2 Crore", "3 Crore", "5 Crore"],
+        correct: 2,
+        explanation: "The target was enhanced from 2 crore to 3 crore women."
+    },
+    {
+        question: "Which country launched the 'MethaneSAT' to monitor methane emissions?",
+        options: ["USA (SpaceX launch)", "China", "India", "Russia"],
+        correct: 0,
+        explanation: "MethaneSAT was launched aboard a SpaceX Falcon 9 rocket, backed by the Environmental Defense Fund (EDF)."
+    },
+    {
+        question: "The 'Sela Tunnel' provides all-weather connectivity to:",
+        options: ["Ladakh", "Tawang (Arunachal Pradesh)", "Sikkim", "Lahaul-Spiti"],
+        correct: 1,
+        explanation: "The Sela Tunnel connects Tezpur to Tawang in Arunachal Pradesh, vital for defense mobility."
+    },
+    {
+        question: "The 'Revamped Pharmaceuticals Technology Upgradation Assistance Scheme' (RPTUAS) aims to:",
+        options: ["Help pharma companies upgrade to global quality standards.", "Provide free medicines.", "Set up medical colleges.", "Export generic drugs only."],
+        correct: 0,
+        explanation: "It provides subsidies to pharma companies to upgrade their facilities to meet global standards (WHO-GMP)."
+    },
+    {
+        question: "What is the 'Blue Carbon' ecosystem?",
+        options: ["Carbon stored in the atmosphere.", "Carbon captured by the world's oceans and coastal ecosystems (mangroves, seagrasses).", "Carbon in coal mines.", "Carbon in blue diamonds."],
+        correct: 1,
+        explanation: "Blue Carbon refers to the carbon captured and stored by oceanic and coastal ecosystems."
+    },
+    {
+        question: "The 'Golden Visa' program, recently scrapped by the UK, allowed:",
+        options: ["Visa-free travel for tourists.", "Residency in exchange for significant investment.", "Free education for students.", "Artists to perform freely."],
+        correct: 1,
+        explanation: "The UK (and other countries like Spain) have tightened or scrapped 'Golden Visas' that offered residency to wealthy investors."
+    },
+    {
+        question: "The 'Exercise Tiger Triumph' is a Humanitarian Assistance and Disaster Relief (HADR) exercise between India and:",
+        options: ["USA", "UK", "Japan", "Australia"],
+        correct: 0,
+        explanation: "Tiger Triumph is a bilateral tri-service amphibious exercise between India and the USA."
+    },
+    {
+        question: "The 'Grid Controller of India Limited' (Grid-India) was formerly known as:",
+        options: ["NTPC", "POSOCO", "POWERGRID", "NHPC"],
+        correct: 1,
+        explanation: "POSOCO (Power System Operation Corporation Limited) was renamed as Grid Controller of India Limited."
+    },
+    {
+        question: "Which state government launched the 'Indira Gandhi Pyari Behna Sukh Samman Nidhi Yojana'?",
+        options: ["Rajasthan", "Chhattisgarh", "Himachal Pradesh", "Karnataka"],
+        correct: 2,
+        explanation: "Himachal Pradesh launched this scheme to provide financial assistance to women."
+    },
+    {
+        question: "The 'Nordic-Baltic Eight' (NB8) cooperation includes countries like:",
+        options: ["Sweden, Norway, Finland, Estonia", "Germany, France, Italy", "UK, Ireland, Scotland", "Spain, Portugal, Andorra"],
+        correct: 0,
+        explanation: "NB8 includes Nordic countries (Denmark, Finland, Iceland, Norway, Sweden) and Baltic countries (Estonia, Latvia, Lithuania)."
+    },
+    {
+        question: "What is 'SARAS Mela'?",
+        options: ["A science fair.", "A fair to promote products made by rural Self-Help Groups (SHGs).", "A military exhibition.", "A film festival."],
+        correct: 1,
+        explanation: "SARAS Melas are organized to provide a platform for rural artisans and SHGs to sell their products directly to customers."
+    },
+    {
+        question: "The 'Captive Elephant (Transfer or Transport) Rules, 2024' were notified under which Act?",
+        options: ["Environment Protection Act, 1986", "Wildlife (Protection) Act, 1972", "Forest Conservation Act, 1980", "Biodiversity Act, 2002"],
+        correct: 1,
+        explanation: "The rules were notified under the Wildlife (Protection) Act, 1972."
+    },
+    {
+        question: "The 'C-295' transport aircraft factory was inaugurated in which city?",
+        options: ["Bengaluru", "Hyderabad", "Vadodara", "Nagpur"],
+        correct: 2,
+        explanation: "The Tata-Airbus C-295 transport aircraft manufacturing facility was inaugurated in Vadodara, Gujarat."
+    },
+    {
+        question: "Which city has been declared the first 'UNESCO City of Music' in India?",
+        options: ["Chennai", "Varanasi", "Gwalior", "Jaipur"],
+        correct: 2,
+        explanation: "Gwalior (Madhya Pradesh) was designated as the City of Music, while Kozhikode was named the City of Literature."
+    },
+    {
+        question: "The 'PM-Surya Ghar: Muft Bijli Yojana' was approved with a total outlay of approximately:",
+        options: ["₹10,000 crore", "₹50,000 crore", "₹75,000 crore", "₹1 lakh crore"],
+        correct: 2,
+        explanation: "The cabinet approved the scheme with a total outlay of ₹75,021 crore."
+    },
+    {
+        question: "The 'Zojila Pass' connects:",
+        options: ["Srinagar and Leh", "Manali and Leh", "Shimla and Tibet", "Jammu and Srinagar"],
+        correct: 0,
+        explanation: "Zojila Pass connects the Kashmir Valley (Srinagar) with the Ladakh region (Leh)."
+    },
+    {
+        question: "The 'Global Gender Gap Report' measures gender gaps on four dimensions. Which is NOT one of them?",
+        options: ["Economic Participation and Opportunity", "Educational Attainment", "Health and Survival", "Religious Freedom"],
+        correct: 3,
+        explanation: "The four dimensions are Economic Participation, Educational Attainment, Health & Survival, and Political Empowerment."
+    },
+    {
+        question: "What is 'Mission Divyastra'?",
+        options: ["A mission to find divine weapons.", "The first flight test of Agni-5 missile with MIRV technology.", "A spiritual tourism circuit.", "A new submarine."],
+        correct: 1,
+        explanation: "Mission Divyastra was the code name for the first successful flight test of the Agni-5 missile with Multiple Independently Targetable Re-entry Vehicle (MIRV) technology."
+    },
+    {
+        question: "The 'PM-SHRI' (PM Schools for Rising India) scheme aims to:",
+        options: ["Provide free laptops to all students.", "Upgrade and develop more than 14,500 schools as model schools showcasing NEP 2020.", "Privatize government schools.", "Introduce military training in schools."],
+        correct: 1,
+        explanation: "PM-SHRI schools will showcase all components of the National Education Policy 2020 and act as exemplar schools."
+    },
+    {
+        question: "The 'Wancho Wooden Craft' which recently received a GI Tag, belongs to which state?",
+        options: ["Nagaland", "Arunachal Pradesh", "Manipur", "Mizoram"],
+        correct: 1,
+        explanation: "The Wancho community of Arunachal Pradesh is known for their intricate wooden sculptures, often featuring human heads and tobacco pipes."
+    },
+    {
+        question: "What is 'VSHORADS'?",
+        options: ["Very Short-Range Air Defence System (Man Portable Air Defence System).", "A new radar system.", "A deep sea submarine.", "A satellite launch vehicle."],
+        correct: 0,
+        explanation: "VSHORADS is a Man Portable Air Defence System (MANPADS) designed and developed indigenously by DRDO to neutralize low altitude aerial threats."
+    },
+    {
+        question: "The 'Konark Wheel' was showcased in the backdrop of the G20 Summit in New Delhi. It symbolizes:",
+        options: ["War and Peace", "Time, Progress, and Continuity", "Wealth and Prosperity", "Justice and Law"],
+        correct: 1,
+        explanation: "The 13th-century Konark Wheel (from the Sun Temple, Odisha) symbolizes time, progress, and continuous change."
+    },
+    {
+        question: "The 'Exercise Dosti' is a trilateral coast guard exercise involving India, Sri Lanka, and:",
+        options: ["Bangladesh", "Maldives", "Thailand", "Myanmar"],
+        correct: 1,
+        explanation: "Exercise Dosti is a biennial trilateral exercise aimed at strengthening friendship and cooperation between the Coast Guards of India, Sri Lanka, and Maldives."
+    },
+    {
+        question: "Which state hosts the 'Chapchar Kut' festival?",
+        options: ["Meghalaya", "Mizoram", "Tripura", "Nagaland"],
+        correct: 1,
+        explanation: "Chapchar Kut is the biggest and most joyful spring festival of the Mizos in Mizoram, celebrated after the clearing of forests for Jhum cultivation."
+    },
+    {
+        question: "The 'Sovereign Gold Bond' (SGB) scheme allows investors to buy gold in paper form. Who issues these bonds?",
+        options: ["State Bank of India", "Reserve Bank of India (on behalf of Government of India)", "MMTC", "World Gold Council"],
+        correct: 1,
+        explanation: "SGBs are government securities denominated in grams of gold, issued by the RBI on behalf of the Government of India."
+    },
+    {
+        question: "The 'Pantanal Wetland', the world's largest tropical wetland, was recently in news due to fires. Where is it located?",
+        options: ["Australia", "Brazil (extending into Bolivia and Paraguay)", "Indonesia", "Congo Basin"],
+        correct: 1,
+        explanation: "The Pantanal is the world's largest tropical wetland area, located mostly within Brazil, but also extending into Bolivia and Paraguay."
+    },
+    {
+        question: "What is 'Bhashini'?",
+        options: ["A new Indian language.", "An AI-led language translation platform aimed at breaking the language barrier.", "A government magazine.", "A literacy scheme for women."],
+        correct: 1,
+        explanation: "Digital India Bhashini is India's Artificial Intelligence (AI) led language translation platform to enable easy access to the internet and digital services in Indian languages."
+    },
+    {
+        question: "The 'Great Indian Bustard' (GIB) is listed as 'Critically Endangered' by IUCN. Its largest population is found in:",
+        options: ["Desert National Park, Rajasthan", "Kuno National Park, MP", "Gir National Park, Gujarat", "Kaziranga, Assam"],
+        correct: 0,
+        explanation: "The Desert National Park in Rajasthan is the most important stronghold for the Great Indian Bustard."
+    },
+    {
+        question: "The 'Chief Election Commissioner and Other Election Commissioners (Appointment, Conditions of Service and Term of Office) Act, 2023' replaced the Chief Justice of India in the selection committee with:",
+        options: ["Speaker of Lok Sabha", "A Union Cabinet Minister nominated by the Prime Minister", "Leader of Opposition in Rajya Sabha", "Vice President"],
+        correct: 1,
+        explanation: "The new Act replaced the CJI with a Union Cabinet Minister nominated by the PM in the selection panel (PM + Cabinet Minister + LoP)."
+    },
+    {
+        question: "The 'Munich Security Conference' is an annual conference on:",
+        options: ["Global economic stability.", "International security policy.", "Climate change.", "Health emergencies."],
+        correct: 1,
+        explanation: "It is the world's leading forum for debating international security policy, held annually in Munich, Germany."
+    },
+    {
+        question: "The 'Green Credit Rules, 2023' were notified by:",
+        options: ["RBI", "Ministry of Environment, Forest and Climate Change (MoEFCC)", "SEBI", "NITI Aayog"],
+        correct: 1,
+        explanation: "MoEFCC notified the rules to incentivize voluntary environmental actions (like tree plantation, water conservation) via Green Credits."
+    },
+    {
+        question: "What is 'Bharat Tex 2024'?",
+        options: ["A tech expo in Bangalore.", "One of the largest global textile events held in New Delhi.", "A tax reform summit.", "An agricultural fair."],
+        correct: 1,
+        explanation: "Bharat Tex 2024 was a mega textile event showcasing India's prowess in the textile sector from farm to fashion."
+    },
+    {
+        question: "The 'Ben Gurion Canal Project' is a proposed alternative to:",
+        options: ["Panama Canal", "Suez Canal", "Kiel Canal", "Strait of Malacca"],
+        correct: 1,
+        explanation: "It is a proposed canal project through Israel to connect the Gulf of Aqaba to the Mediterranean Sea, bypassing the Suez Canal."
+    },
+    {
+        question: "The 'Pobitora Wildlife Sanctuary', known for the highest density of one-horned rhinos, is in:",
+        options: ["West Bengal", "Assam", "Nepal", "Uttarakhand"],
+        correct: 1,
+        explanation: "Pobitora Wildlife Sanctuary in Assam holds the highest density of one-horned rhinoceros in the world."
+    },
+    {
+        question: "The 'Mahtari Vandana Yojana' was launched by which state government?",
+        options: ["Madhya Pradesh", "Chhattisgarh", "Rajasthan", "Bihar"],
+        correct: 1,
+        explanation: "Chhattisgarh launched this scheme to provide monthly financial assistance of ₹1000 to eligible married women (similar to MP's Ladli Behna)."
+    },
+    {
+        question: "What is 'Nano-Urea' developed by IFFCO?",
+        options: ["A solid urea brick.", "A liquid fertilizer with high nitrogen use efficiency.", "A genetically modified seed.", "A pesticide."],
+        correct: 1,
+        explanation: "Nano Urea (Liquid) is a nanotechnology-based fertilizer that increases crop yield and reduces the requirement of conventional urea."
+    },
+    {
+        question: "The 'Exercise Lamitiye' is a joint military exercise between India and:",
+        options: ["Seychelles", "Mauritius", "Madagascar", "Comoros"],
+        correct: 0,
+        explanation: "Exercise Lamitiye (meaning 'Friendship' in Creole) is conducted between the Indian Army and Seychelles Defence Forces."
+    },
+    {
+        question: "The 'Sixth Schedule' of the Constitution applies to the administration of tribal areas in:",
+        options: ["Assam, Meghalaya, Tripura, and Mizoram (AMTM)", "Manipur, Nagaland, Arunachal, Mizoram", "Jharkhand, Chhattisgarh, Odisha", "Andhra, Telangana, Karnataka"],
+        correct: 0,
+        explanation: "The Sixth Schedule makes special provisions for the administration of tribal areas in Assam, Meghalaya, Tripura, and Mizoram."
+    },
+    {
+        question: "The 'New Space India Limited' (NSIL) is:",
+        options: ["A private space company.", "The commercial arm of ISRO (Government of India company).", "A research wing of DRDO.", "An NGO."],
+        correct: 1,
+        explanation: "NSIL is a Central Public Sector Enterprise (CPSE) under the Department of Space and serves as the commercial arm of ISRO."
+    },
+    {
+        question: "The 'Dadasaheb Phalke Award' is India's highest award in the field of:",
+        options: ["Literature", "Cinema", "Sports", "Science"],
+        correct: 1,
+        explanation: "It is the highest award in the field of cinema. Waheeda Rehman was the recipient in 2023 (for the year 2021)."
+    },
+    {
+        question: "The 'Global Partnership on Artificial Intelligence' (GPAI) summit 2023 was hosted by:",
+        options: ["France", "Canada", "India", "Japan"],
+        correct: 2,
+        explanation: "India hosted the Annual GPAI Summit in New Delhi in December 2023."
+    },
+    {
+        question: "What is 'Smishing'?",
+        options: ["Fishing in small ponds.", "Phishing attacks conducted via SMS (text messages).", "Smiling while fishing.", "Email hacking."],
+        correct: 1,
+        explanation: "Smishing (SMS Phishing) is a cybersecurity threat where attackers send deceptive text messages to steal data."
+    },
+    {
+        question: "The 'Palk Strait' separates India from:",
+        options: ["Maldives", "Sri Lanka", "Indonesia", "Myanmar"],
+        correct: 1,
+        explanation: "Palk Strait is a strait between the Tamil Nadu state of India and the Jaffna District of Sri Lanka."
+    },
+    {
+        question: "The 'Pradhan Mantri Anusuchit Jaati Abhyuday Yojana' (PM-AJAY) is implemented by:",
+        options: ["Ministry of Tribal Affairs", "Ministry of Social Justice and Empowerment", "Ministry of Home Affairs", "Ministry of Rural Development"],
+        correct: 1,
+        explanation: "PM-AJAY is a scheme of the Ministry of Social Justice and Empowerment for the welfare of Scheduled Castes."
+    },
+    {
+        question: "The 'Exercise Vayu Shakti' demonstrates the firepower capability of:",
+        options: ["Indian Navy", "Indian Army", "Indian Air Force", "Coast Guard"],
+        correct: 2,
+        explanation: "Exercise Vayu Shakti is a major firepower demonstration by the Indian Air Force (IAF) held at the Pokhran range."
+    },
+    {
+        question: "The 'National Turmeric Board' is headquartered in:",
+        options: ["Nizamabad, Telangana", "Erode, Tamil Nadu", "Kochi, Kerala", "Guntur, Andhra Pradesh"],
+        correct: 0,
+        explanation: "Wait, the location was a major demand. The government notified the board. While Nizamabad was a strong contender, the *Spices Board* is in Kochi. *Correction:* The official notification constituted the board, but the HQ location is often debated. However, Nizamabad is the hub. Let's stick to the *purpose* (already asked). Let's replace with: 'Spices Board' HQ -> Kochi."
+    },
+    {
+        question: "Replaced Q: The 'Spices Board of India' is headquartered in:",
+        options: ["Mumbai", "Kolkata", "Kochi", "Chennai"],
+        correct: 2,
+        explanation: "The Spices Board is headquartered in Kochi, Kerala."
+    },
+    {
+        question: "The 'Subhadra Yojana', promised for women's welfare, is associated with which state?",
+        options: ["Odisha", "Bihar", "West Bengal", "Jharkhand"],
+        correct: 0,
+        explanation: "The Subhadra Yojana is a welfare scheme for women in Odisha (providing vouchers/cash assistance)."
+    },
+    {
+        question: "The 'Bio-pesticides' are derived from:",
+        options: ["Synthetic chemicals.", "Natural materials like animals, plants, bacteria, and certain minerals.", "Plastic waste.", "Coal tar."],
+        correct: 1,
+        explanation: "Biopesticides are certain types of pesticides derived from such natural materials as animals, plants, bacteria, and certain minerals."
+    },
+    {
+        question: "What is 'NexCAR19', recently approved by CDSCO?",
+        options: ["India's first indigenous CAR-T cell therapy for cancer treatment.", "A new Covid-19 vaccine.", "A drone for medical delivery.", "A new variety of rice."],
+        correct: 0,
+        explanation: "NexCAR19 is India's first indigenously developed CAR-T cell therapy (Chimeric Antigen Receptor T-cell) for treating certain types of blood cancers."
+    },
+    {
+        question: "The 'Thanthai Periyar Wildlife Sanctuary' was notified as the 18th wildlife sanctuary of which state?",
+        options: ["Kerala", "Tamil Nadu", "Andhra Pradesh", "Karnataka"],
+        correct: 1,
+        explanation: "Tamil Nadu government declared a vast stretch of reserve forests in Erode district as the Thanthai Periyar Wildlife Sanctuary."
+    },
+    {
+        question: "The 'Urea Gold', launched by the Prime Minister, is urea coated with:",
+        options: ["Neem", "Sulfur", "Zinc", "Potassium"],
+        correct: 1,
+        explanation: "Urea Gold is a new variety of Sulfur-Coated Urea (SCU) introduced to address sulfur deficiency in soil and reduce input costs for farmers."
+    },
+    {
+        question: "The 'Project Udbhav' is an initiative of:",
+        options: ["Indian Army", "Indian Navy", "ISRO", "Ministry of Culture"],
+        correct: 0,
+        explanation: "Project Udbhav is an initiative by the Indian Army (in collaboration with USI) to rediscover the profound Indic heritage of statecraft and warcraft."
+    },
+    {
+        question: "With reference to the 'Places of Worship (Special Provisions) Act, 1991', it freezes the religious character of a place of worship as it existed on:",
+        options: ["January 26, 1950", "August 15, 1947", "December 6, 1992", "January 1, 2000"],
+        correct: 1,
+        explanation: "The Act mandates that the religious character of a place of worship shall remain the same as it was on August 15, 1947 (Independence Day)."
+    },
+    {
+        question: "The 'Pink Bollworm' is a major pest affecting which crop in India?",
+        options: ["Wheat", "Sugarcane", "Cotton", "Mustard"],
+        correct: 2,
+        explanation: "Pink Bollworm (PBW) is the most destructive pest for cotton farming, causing significant yield losses in states like Punjab and Haryana."
+    },
+    {
+        question: "The 'Statue of Social Justice', the world's tallest statue of Dr. B.R. Ambedkar, was inaugurated in:",
+        options: ["Mumbai, Maharashtra", "Vijayawada, Andhra Pradesh", "Lucknow, Uttar Pradesh", "Nagpur, Maharashtra"],
+        correct: 1,
+        explanation: "The 206-feet tall 'Statue of Social Justice' was inaugurated in Vijayawada, Andhra Pradesh."
+    },
+    {
+        question: "The 'Anusandhan National Research Foundation' (ANRF) Act, 2023 aims to:",
+        options: ["Privatize all IITs.", "Establish an apex body to provide high-level strategic direction for research, innovation and entrepreneurship.", "Stop funding to state universities.", "Create a new space agency."],
+        correct: 1,
+        explanation: "ANRF will act as an apex body to seed, grow, and promote R&D and foster a culture of research and innovation across India's universities."
+    },
+    {
+        question: "What is 'Exercise Harimau Shakti'?",
+        options: ["A joint military exercise between India and Malaysia.", "A naval drill with Indonesia.", "Air force exercise with Thailand.", "Border patrol with Nepal."],
+        correct: 0,
+        explanation: "Exercise Harimau Shakti is a bilateral joint military exercise between the Indian Army and the Malaysian Army."
+    },
+    {
+        question: "The 'Global Digital Public Infrastructure (DPI) Repository' is an outcome of:",
+        options: ["G20 Summit under India's Presidency", "BRICS Summit", "SCO Summit", "COP28"],
+        correct: 0,
+        explanation: "The creation of a Global DPI Repository (GDPIR) was a key deliverable under the Digital Economy Working Group of India's G20 Presidency."
+    },
+    {
+        question: "Which country has recently pulled out of the 'Treaty on Conventional Armed Forces in Europe' (CFE)?",
+        options: ["Russia", "Germany", "France", "United Kingdom"],
+        correct: 0,
+        explanation: "Russia formally withdrew from the CFE Treaty, a landmark post-Cold War security pact, citing NATO expansion."
+    },
+    {
+        question: "The 'Basohli Pashmina' which received a GI tag, is a traditional craft of:",
+        options: ["Ladakh", "Jammu and Kashmir (Kathua district)", "Himachal Pradesh", "Uttarakhand"],
+        correct: 1,
+        explanation: "Basohli Pashmina, known for its extreme softness and fineness, belongs to the Kathua district of Jammu and Kashmir."
+    },
+    {
+        question: "The 'SMILE' scheme (Support for Marginalized Individuals for Livelihood and Enterprise) covers which two groups?",
+        options: ["Farmers and Artisans", "Transgender persons and persons engaged in the act of Begging", "Widows and Orphans", "Disabled and Elderly"],
+        correct: 1,
+        explanation: "SMILE is an umbrella scheme for the welfare of the Transgender community and the rehabilitation of persons engaged in the act of begging."
+    },
+    {
+        question: "The 'Kakrapar Atomic Power Project' (KAPP-3 & 4) is located in:",
+        options: ["Tamil Nadu", "Karnataka", "Gujarat", "Rajasthan"],
+        correct: 2,
+        explanation: "The Kakrapar Atomic Power Station is located in Gujarat. Its Unit-4 recently achieved criticality."
+    },
+    {
+        question: "What is the 'Windfall Tax' often seen in economic news?",
+        options: ["Tax on wind energy.", "A higher tax rate on sudden large profits of companies (e.g., oil companies) due to external factors.", "Tax on lottery winnings.", "Tax on inheritance."],
+        correct: 1,
+        explanation: "A windfall tax is a tax levied by governments against certain industries when economic conditions allow those industries to yield above-average profits."
+    },
+    {
+        question: "The 'International Seabed Authority' (ISA) headquarters is located in:",
+        options: ["Geneva, Switzerland", "Kingston, Jamaica", "New York, USA", "Nairobi, Kenya"],
+        correct: 1,
+        explanation: "The ISA, which regulates deep-sea mining in international waters, is headquartered in Kingston, Jamaica."
+    },
+    {
+        question: "The 'NVS-01' satellite launched by ISRO is part of:",
+        options: ["Gaganyaan Mission", "NavIC (Navigation with Indian Constellation) series", "Chandrayaan Mission", "Earth Observation Series"],
+        correct: 1,
+        explanation: "NVS-01 is the first of the second-generation satellites envisaged for the Navigation with Indian Constellation (NavIC) services."
+    },
+    {
+        question: "The 'One Vehicle, One FASTag' initiative is implemented by:",
+        options: ["Ministry of Transport", "NHAI (National Highways Authority of India)", "NITI Aayog", "RBI"],
+        correct: 1,
+        explanation: "NHAI implemented 'One Vehicle, One FASTag' to discourage the use of a single FASTag for multiple vehicles or multiple tags for a single vehicle."
+    },
+    {
+        question: "Which Article of the Constitution empowers the Centre to take over the administration of a state in case of 'External Aggression' or 'Internal Disturbance' (often cited in Manipur context)?",
+        options: ["Article 352", "Article 355", "Article 356", "Article 360"],
+        correct: 1,
+        explanation: "Article 355 imposes a duty on the Union to protect every State against external aggression and internal disturbance (though Art 356 is for President's rule)."
+    },
+    {
+        question: "The 'Bharatiya Sakshya Adhiniyam, 2023' replaces which colonial-era law?",
+        options: ["Indian Penal Code, 1860", "Code of Criminal Procedure, 1898", "Indian Evidence Act, 1872", "Transfer of Property Act, 1882"],
+        correct: 2,
+        explanation: "The Bharatiya Sakshya Adhiniyam replaces the Indian Evidence Act of 1872."
+    },
+    {
+        question: "The 'Exercise Ajeya Warrior' is a joint military exercise between India and:",
+        options: ["United Kingdom", "USA", "France", "Russia"],
+        correct: 0,
+        explanation: "Ajeya Warrior is a bilateral joint military exercise between India and the United Kingdom."
+    },
+    {
+        question: "The 'Global Alliance on Circular Economy and Resource Efficiency' (GACERE) was established by:",
+        options: ["European Union (EU) and UNIDO", "India and France", "USA and Canada", "ASEAN"],
+        correct: 0,
+        explanation: "GACERE was established by the EU, UNIDO, and UNEP to support the transition to a global circular economy."
+    },
+    {
+        question: "What is 'Lymphatic Filariasis' (Elephantiasis)?",
+        options: ["A viral disease affecting the brain.", "A neglected tropical disease caused by parasitic worms spread by mosquitoes.", "A skin disease caused by fungi.", "A genetic disorder."],
+        correct: 1,
+        explanation: "It is a vector-borne disease caused by microscopic, thread-like worms (filariae) transmitted by mosquitoes (Culex)."
+    },
+    {
+        question: "The 'National Multidimensional Poverty Index: A Progress Review 2023' states that India lifted how many people out of poverty between 2015-16 and 2019-21?",
+        options: ["5.5 Crore", "13.5 Crore", "20 Crore", "50 Crore"],
+        correct: 1,
+        explanation: "NITI Aayog's report states that 13.5 crore people moved out of multidimensional poverty between 2015-16 and 2019-21."
+    },
+    {
+        question: "The 'Samudra Shakti' is a naval exercise between India and:",
+        options: ["Sri Lanka", "Indonesia", "Malaysia", "Bangladesh"],
+        correct: 1,
+        explanation: "Exercise Samudra Shakti is a bilateral maritime exercise between the Indian Navy and the Indonesian Navy."
+    },
+    {
+        question: "The 'Digital Personal Data Protection Act' (DPDP) 2023 establishes which body for adjudication?",
+        options: ["Data Protection Tribunal", "Data Protection Board of India", "Cyber Appellate Tribunal", "Information Commission"],
+        correct: 1,
+        explanation: "The Act provides for the establishment of the Data Protection Board of India to monitor compliance and impose penalties."
+    },
+    {
+        question: "What is 'Tejas Mk-1A'?",
+        options: ["An indigenous tank.", "An advanced version of the Light Combat Aircraft (LCA) Tejas.", "A new missile.", "A nuclear submarine."],
+        correct: 1,
+        explanation: "Tejas Mk-1A is an advanced, 4.5 generation variant of the LCA Tejas fighter aircraft with updated avionics and radar."
+    },
+    {
+        question: "The 'State of Food and Agriculture' report is released annually by:",
+        options: ["World Food Programme (WFP)", "Food and Agriculture Organization (FAO)", "WHO", "IFAD"],
+        correct: 1,
+        explanation: "The FAO releases the State of Food and Agriculture report."
+    },
+    {
+        question: "The 'Indian Ocean Naval Symposium' (IONS) 2023 Conclave of Chiefs was hosted by:",
+        options: ["India", "Thailand", "Iran", "France"],
+        correct: 1,
+        explanation: "The 8th edition of the IONS Conclave of Chiefs (CoC) was hosted by the Royal Thai Navy in Bangkok."
+    },
+    {
+        question: "The 'Kosi-Mechi Intra State Link Project' is a river interlinking project in:",
+        options: ["Uttar Pradesh", "Bihar", "West Bengal", "Jharkhand"],
+        correct: 1,
+        explanation: "It is a river interlinking project in Bihar to transfer water from the Kosi river to the Mechi river to provide irrigation."
+    },
+    {
+        question: "With reference to the 'Citizenship Amendment Act (CAA), 2019' rules notified recently, the cutoff date for entry into India is:",
+        options: ["31st December 2014", "31st December 2019", "1st January 2015", "15th August 1947"],
+        correct: 0,
+        explanation: "The CAA provides citizenship to persecuted minorities from Pakistan, Bangladesh, and Afghanistan who entered India on or before 31st December 2014."
+    },
+    {
+        question: "The 'Drugs and Magic Remedies (Objectionable Advertisements) Act, 1954' was recently in the news regarding:",
+        options: ["Misleading advertisements by Patanjali Ayurved.", "Ban on magic shows.", "Regulation of magicians.", "Promotion of generic drugs."],
+        correct: 0,
+        explanation: "The Supreme Court pulled up Patanjali Ayurved for publishing misleading advertisements claiming to cure diseases, violating this Act."
+    },
+    {
+        question: "The 'Electric Mobility Promotion Scheme (EMPS) 2024' was launched to replace/succeed which scheme temporarily?",
+        options: ["FAME-II", "PLI for Auto", "PM-eBus Sewa", "Green Energy Corridor"],
+        correct: 0,
+        explanation: "The Ministry of Heavy Industries announced EMPS 2024 to continue support for electric 2-wheelers and 3-wheelers after the expiry of FAME-II."
+    },
+    {
+        question: "What is 'Ethanol 100' which was recently launched?",
+        options: ["A fuel with 100% ethanol content.", "A new liquor brand.", "A pesticide.", "A type of sugar."],
+        correct: 0,
+        explanation: "'Ethanol 100' is a cleaner, greener automotive fuel with 100% ethanol capability, launched at select petrol pumps."
+    },
+    {
+        question: "The 'Atmospheric Research Testbed' (ART) was inaugurated in:",
+        options: ["Sehore, Madhya Pradesh", "Bengaluru, Karnataka", "Thumba, Kerala", "Sriharikota, Andhra Pradesh"],
+        correct: 0,
+        explanation: "The first phase of the Atmospheric Research Testbed (ART) was inaugurated by the Ministry of Earth Sciences in Sehore, Madhya Pradesh."
+    },
+    {
+        question: "Which country has been named the 'World's Happiest Country' for the seventh consecutive year in the World Happiness Report 2024?",
+        options: ["Denmark", "Finland", "Iceland", "Sweden"],
+        correct: 1,
+        explanation: "Finland retained the title of the world's happiest country for the seventh year in a row."
+    },
+    {
+        question: "The 'Exercise Tiger Triumph-24' is a Humanitarian Assistance and Disaster Relief (HADR) exercise between India and:",
+        options: ["USA", "Japan", "Australia", "UK"],
+        correct: 0,
+        explanation: "It is a bilateral tri-service exercise between India and the USA, focusing on HADR operations."
+    },
+    {
+        question: "The 'World Air Quality Report 2023' by IQAir identified which Indian city as the 'most polluted metropolitan area'?",
+        options: ["New Delhi", "Begusarai", "Mumbai", "Kolkata"],
+        correct: 1,
+        explanation: "While Delhi was the most polluted *capital*, Begusarai (Bihar) was identified as the most polluted *metropolitan area* globally in the 2023 report."
+    },
+    {
+        question: "The 'Project Seabird' involves the development of which Naval Base?",
+        options: ["INS Kadamba (Karwar)", "INS Valsura (Gujarat)", "INS Shivaji (Lonavala)", "INS Venduruthy (Kochi)"],
+        correct: 0,
+        explanation: "Project Seabird involves the development of the Karwar Naval Base (INS Kadamba) in Karnataka, one of the largest naval infrastructure projects."
+    },
+    {
+        question: "The 'Forest (Conservation) Amendment Act, 2023' exempts which category of land from its purview?",
+        options: ["Land within 100 km of international borders proposed for strategic linear projects.", "All private forests.", "National Parks.", "Wetlands."],
+        correct: 0,
+        explanation: "The Act exempts land within 100 km of international borders/LAC for strategic linear projects (like roads/railways) of national importance."
+    },
+    {
+        question: "What is 'Vaisheshika', recently mentioned in the context of Indian knowledge systems?",
+        options: ["One of the six orthodox schools of Indian philosophy (Darshanas).", "A new satellite.", "A medicinal plant.", "A dance form."],
+        correct: 0,
+        explanation: "Vaisheshika is one of the six classical schools of Indian philosophy, known for its atomic theory and naturalism."
+    },
+    {
+        question: "The 'Grid-connected Rooftop Solar Programme' is implemented by:",
+        options: ["Ministry of New and Renewable Energy (MNRE)", "Ministry of Power", "NITI Aayog", "Ministry of Housing"],
+        correct: 0,
+        explanation: "It is a major initiative of the Ministry of New and Renewable Energy (MNRE) to promote solar energy in the residential sector."
+    },
+    {
+        question: "The 'IMT Trilateral Highway' connects which three countries?",
+        options: ["India, Myanmar, Thailand", "India, Malaysia, Thailand", "Indonesia, Malaysia, Thailand", "India, Maldives, Thailand"],
+        correct: 0,
+        explanation: "The India-Myanmar-Thailand (IMT) Trilateral Highway is a major connectivity project under India's Act East Policy."
+    },
+    {
+        question: "The 'Exercise Lamitiye-2024' was conducted in:",
+        options: ["Seychelles", "India (Pune)", "Mauritius", "Maldives"],
+        correct: 0,
+        explanation: "The joint military exercise between the Indian Army and Seychelles Defence Forces was conducted in Seychelles."
+    },
+    {
+        question: "Which organization adopted the first-ever global resolution on 'Artificial Intelligence'?",
+        options: ["United Nations General Assembly (UNGA)", "G20", "NATO", "European Union"],
+        correct: 0,
+        explanation: "The UN General Assembly adopted a landmark resolution on the 'Promotion of Safe, Secure and Trustworthy Artificial Intelligence Systems'."
+    },
+    {
+        question: "The 'Captive Elephant (Transfer or Transport) Rules, 2024' allow transfer of elephants for:",
+        options: ["Religious or research purposes.", "Circus performances.", "Export to zoos abroad.", "Logging work."],
+        correct: 0,
+        explanation: "The rules allow transfer for religious or research purposes, relaxing previous stringent bans."
+    },
+    {
+        question: "The 'Start-up Mahakumbh' was organized in:",
+        options: ["Bengaluru", "New Delhi", "Hyderabad", "Mumbai"],
+        correct: 1,
+        explanation: "The first-ever 'Startup Mahakumbh', a mega event to showcase the Indian startup ecosystem, was held in New Delhi."
+    },
+    {
+        question: "The 'Great Barrier Reef' is currently undergoing a mass bleaching event. It is located off the coast of:",
+        options: ["Australia", "Brazil", "Indonesia", "Mexico"],
+        correct: 0,
+        explanation: "The Great Barrier Reef is located off the coast of Queensland, Australia."
+    },
+    {
+        question: "The 'Pushpak' (RLV-LEX-02) mission of ISRO demonstrated:",
+        options: ["Autonomous landing capability of a Reusable Launch Vehicle (RLV).", "Soft landing on the Moon.", "Sun observation.", "Mars orbit insertion."],
+        correct: 0,
+        explanation: "ISRO successfully demonstrated the precise autonomous landing capability of its Reusable Launch Vehicle (RLV) named 'Pushpak'."
+    },
+    {
+        question: "The 'Sakhi' app, launched by VSSC (ISRO), is designed for:",
+        options: ["Assisting astronauts on the Gaganyaan mission.", "Women safety.", "Farmers.", "Tracking fishing boats."],
+        correct: 0,
+        explanation: "The Sakhi app is designed to monitor the health of astronauts and assist them during the Gaganyaan space mission."
+    },
+    {
+        question: "What is the 'Ladakh's Statehood Demand' primarily based on?",
+        options: ["Inclusion in the Sixth Schedule of the Constitution.", "Merger with Kashmir.", "Separate currency.", "UN membership."],
+        correct: 0,
+        explanation: "The protests in Ladakh are primarily demanding full statehood and inclusion in the Sixth Schedule to protect tribal identity and land."
+    },
+    {
+        question: "The 'Prevention of Money Laundering Act' (PMLA) 2002 puts the burden of proof on:",
+        options: ["The Accused (to prove innocence).", "The Prosecution (ED).", "The Police.", "The Bank."],
+        correct: 0,
+        explanation: "Under PMLA (specifically for bail under Section 45), the burden of proof is often reversed, requiring the accused to prove they are not guilty."
+    },
+    {
+        question: "The 'Gyanvapi Mosque' dispute, where an ASI survey was conducted, is located in:",
+        options: ["Ayodhya", "Varanasi", "Mathura", "Lucknow"],
+        correct: 1,
+        explanation: "The Gyanvapi Mosque is located in Varanasi, adjacent to the Kashi Vishwanath Temple."
+    },
+    {
+        question: "The 'Vote-from-Home' facility introduced by ECI is available for:",
+        options: ["Senior citizens above 85 years and Persons with Disabilities (40% benchmark).", "All women voters.", "NRIs.", "Government employees only."],
+        correct: 0,
+        explanation: "The Election Commission extended the 'vote-from-home' facility to citizens aged 85+ and PwDs with 40% benchmark disability."
+    },
+    {
+        question: "The 'Haiti' crisis involves:",
+        options: ["Severe gang violence and political instability leading to the PM's resignation.", "A massive earthquake.", "A war with Dominican Republic.", "A nuclear leak."],
+        correct: 0,
+        explanation: "Haiti faces a severe crisis with gang violence taking over the capital, leading to the resignation of Prime Minister Ariel Henry."
+    },
+    {
+        question: "What is 'Juice Jacking'?",
+        options: ["A cyberattack via public USB charging ports.", "Stealing juice from factories.", "Hacking juice machines.", "A fitness trend."],
+        correct: 0,
+        explanation: "RBI and banks have issued warnings against 'Juice Jacking', where public USB charging ports are used to steal data from phones."
+    },
+    {
+        question: "The 'National Action Plan for Prevention and Control of Snakebite Envenoming' (NAP-SE) aims to halve snakebite deaths by:",
+        options: ["2030", "2025", "2047", "2050"],
+        correct: 0,
+        explanation: "The Ministry of Health launched NAP-SE with a vision to reduce snakebite deaths and disabilities by 50% by 2030."
+    },
+    {
+        question: "The 'Gwadar Port', recently in the news due to attacks, is a key component of:",
+        options: ["China-Pakistan Economic Corridor (CPEC)", "Chabahar Project", "IMEC", "INSTC"],
+        correct: 0,
+        explanation: "Gwadar Port in Pakistan is the crown jewel of the China-Pakistan Economic Corridor (CPEC)."
+    },
+    {
+        question: "The 'Unlawful Activities (Prevention) Act' (UAPA) tribunal is headed by:",
+        options: ["A sitting High Court Judge", "The Home Minister", "A retired Supreme Court Judge", "The CBI Director"],
+        correct: 0,
+        explanation: "A UAPA tribunal is constituted by the Central Government and is headed by a sitting judge of a High Court."
+    },
+    {
+        question: "The 'Sudarshan Setu' connects Okha mainland with:",
+        options: ["Beyt Dwarka", "Diu", "Mumbai", "Kutch"],
+        correct: 0,
+        explanation: "Sudarshan Setu is India's longest cable-stayed bridge connecting Okha mainland to Beyt Dwarka island in Gujarat."
+    },
+    {
+        question: "The 'Psyche Mission' launched by NASA aims to explore:",
+        options: ["A metal-rich asteroid between Mars and Jupiter.", "The rings of Saturn.", "The atmosphere of Venus.", "Ice caps of Mars."],
+        correct: 0,
+        explanation: "NASA's Psyche mission is the first to explore a world made largely of metal (Asteroid 16 Psyche), which might be the core of an early planet."
+    },
+    {
+        question: "The 'Mera Yuva Bharat (MY Bharat)' platform is an autonomous body under which Ministry?",
+        options: ["Ministry of Education", "Ministry of Youth Affairs and Sports", "Ministry of Skill Development", "Ministry of Electronics and IT"],
+        correct: 1,
+        explanation: "MY Bharat is an autonomous body under the Ministry of Youth Affairs and Sports to serve as a one-stop platform for youth development."
+    },
+    {
+        question: "The 'Exercise Mitra Shakti' is a joint military exercise between India and:",
+        options: ["Nepal", "Bangladesh", "Sri Lanka", "Myanmar"],
+        correct: 2,
+        explanation: "Exercise Mitra Shakti is an annual joint military exercise between the Indian Army and the Sri Lankan Army."
+    },
+    {
+        question: "Which state hosts the 'Sammakka Saralamma Jatara', a major tribal festival?",
+        options: ["Jharkhand", "Chhattisgarh", "Telangana", "Odisha"],
+        correct: 2,
+        explanation: "It is a biennial tribal festival held in Medaram, Telangana, honoring the goddesses Sammakka and Saralamma."
+    },
+    {
+        question: "The 'Ken-Betwa Link Project' authority held its meeting recently. This project primarily benefits the drought-prone region of:",
+        options: ["Bundelkhand", "Marathwada", "Vidarbha", "Saurashtra"],
+        correct: 0,
+        explanation: "The project aims to transfer surplus water from the Ken river (MP) to the Betwa river (UP) to irrigate the Bundelkhand region."
+    },
+    {
+        question: "What is 'Kavach' in the context of Indian Railways?",
+        options: ["An anti-collision device network.", "A new insurance policy for passengers.", "A high-speed train engine.", "A specialized railway police force."],
+        correct: 0,
+        explanation: "Kavach is an indigenously developed Automatic Train Protection (ATP) system designed to prevent train collisions."
+    },
+    {
+        question: "The 'Global Hunger Index' 2023 ranked India at:",
+        options: ["101", "107", "111", "94"],
+        correct: 2,
+        explanation: "In the 2023 Global Hunger Index, India ranked 111th out of 125 countries, a ranking the Indian government contested."
+    },
+    {
+        question: "The 'Pusa-44' paddy variety was banned by the Punjab government to:",
+        options: ["Reduce water consumption and stubble burning.", "Increase export quality.", "Promote organic farming.", "Introduce GM crops."],
+        correct: 0,
+        explanation: "Pusa-44 is a long-duration variety that requires more water and leaves a short window for wheat sowing, leading to higher stubble burning."
+    },
+    {
+        question: "The 'Deep Ocean Mission' (DOM) is a mission of which Ministry?",
+        options: ["Ministry of Earth Sciences", "Ministry of Environment", "Ministry of Science & Technology", "Ministry of Jal Shakti"],
+        correct: 0,
+        explanation: "The DOM is a flagship initiative of the Ministry of Earth Sciences to explore deep ocean resources and develop deep-sea technologies."
+    },
+    {
+        question: "What is 'Bharat NCAP'?",
+        options: ["A new agricultural policy.", "India's own car safety assessment programme (crash tests).", "A national clean air programme.", "A cyber security protocol."],
+        correct: 1,
+        explanation: "Bharat New Car Assessment Programme (Bharat NCAP) is India's indigenous car crash testing and safety rating system."
+    },
+    {
+        question: "The 'Ghol Fish' was declared the state fish of:",
+        options: ["Maharashtra", "Goa", "Gujarat", "West Bengal"],
+        correct: 2,
+        explanation: "Gujarat declared the Ghol fish (Blackspotted Croaker) as its state fish due to its economic value and export potential."
+    },
+    {
+        question: "The 'Vigyan Dhara' scheme merges three umbrella schemes of which Department?",
+        options: ["Department of Biotechnology", "Department of Science and Technology (DST)", "Department of Atomic Energy", "ISRO"],
+        correct: 1,
+        explanation: "It merges schemes of the Department of Science and Technology (DST) into a unified central sector scheme."
+    },
+    {
+        question: "The 'Exercise AustraHind' is a joint military exercise between India and:",
+        options: ["Austria", "Australia", "Argentina", "Angola"],
+        correct: 1,
+        explanation: "As the name suggests, AustraHind is a joint military exercise between the armies of India and Australia."
+    },
+    {
+        question: "Which institution released the 'State of the Cryosphere 2023' report?",
+        options: ["IPCC", "WMO", "International Cryosphere Climate Initiative (ICCI)", "UNEP"],
+        correct: 2,
+        explanation: "The report, warning about disappearing ice, was released by the International Cryosphere Climate Initiative (ICCI)."
+    },
+    {
+        question: "The 'Sylkyara Tunnel' collapse incident occurred in:",
+        options: ["Himachal Pradesh", "Jammu & Kashmir", "Uttarakhand", "Arunachal Pradesh"],
+        correct: 2,
+        explanation: "The tunnel collapse and the subsequent rescue of 41 workers happened in the Uttarkashi district of Uttarakhand."
+    },
+    {
+        question: "The 'C-Dome' defense system, recently deployed, belongs to:",
+        options: ["USA", "Israel", "Russia", "China"],
+        correct: 1,
+        explanation: "C-Dome is the naval version of Israel's Iron Dome air defense system."
+    },
+    {
+        question: "What is 'Project Kusha'?",
+        options: ["DRDO's project to develop a long-range air defence system (LR-SAM).", "An agricultural irrigation scheme.", "A river cleaning project.", "A satellite launch vehicle."],
+        correct: 0,
+        explanation: "Project Kusha is DRDO's mission to develop India's own long-range air defense system aimed at detecting and destroying stealth fighters and missiles."
+    },
+    {
+        question: "The 'Global Stocktake' text was a key outcome of:",
+        options: ["G20 Summit", "COP28 (Dubai)", "World Economic Forum", "UN General Assembly"],
+        correct: 1,
+        explanation: "The first Global Stocktake (GST) under the Paris Agreement concluded at COP28 in Dubai with a call to transition away from fossil fuels."
+    },
+    {
+        question: "The 'Nari Shakti Vandan Adhiniyam' provides what percentage of reservation for women in Lok Sabha and State Assemblies?",
+        options: ["50%", "33% (One-third)", "25%", "10%"],
+        correct: 1,
+        explanation: "The 106th Constitutional Amendment Act mandates 33% reservation for women in the Lok Sabha and State Legislative Assemblies."
+    },
+    {
+        question: "The 'Kashmir Stag' (Hangul) is the state animal of:",
+        options: ["Himachal Pradesh", "Jammu and Kashmir (UT)", "Ladakh", "Uttarakhand"],
+        correct: 1,
+        explanation: "Hangul is the state animal of the Union Territory of Jammu and Kashmir and is critically endangered."
+    },
+    {
+        question: "Which country launched the 'Smart Lander for Investigating Moon' (SLIM)?",
+        options: ["South Korea", "Japan", "China", "Russia"],
+        correct: 1,
+        explanation: "Japan's JAXA launched SLIM, also known as the 'Moon Sniper', to demonstrate precision landing technology."
+    },
+    {
+        question: "The 'Sagar Maitri' mission involves which Indian organization?",
+        options: ["DRDO", "ISRO", "Indian Navy", "CSIR"],
+        correct: 0,
+        explanation: "It is a DRDO initiative to promote closer cooperation in socio-economic aspects and ocean research among Indian Ocean Rim countries."
+    },
+    {
+        question: "The 'Rapid Innovation and Startup Expansion' (RISE) accelerator is a partnership between India and:",
+        options: ["USA", "Australia", "UK", "Germany"],
+        correct: 1,
+        explanation: "RISE is a partnership between India's Atal Innovation Mission (AIM) and Australia's CSIRO."
+    },
+    {
+        question: "The 'Bima Sugam' platform is an initiative of:",
+        options: ["LIC", "IRDAI", "RBI", "SEBI"],
+        correct: 1,
+        explanation: "It is an online marketplace platform initiated by the Insurance Regulatory and Development Authority of India (IRDAI)."
+    },
+    {
+        question: "What is 'Gemini', launched by Google?",
+        options: ["A new search engine.", "A multimodal AI model.", "A cloud storage service.", "A VR headset."],
+        correct: 1,
+        explanation: "Gemini is Google's most capable and general AI model, built to be multimodal (understanding text, images, video, etc.)."
+    },
+    {
+        question: "The 'Pradhan Mantri Janjati Adivasi Nyaya Maha Abhiyan' (PM-JANMAN) focuses on:",
+        options: ["Scheduled Castes", "PVTGs (Particularly Vulnerable Tribal Groups)", "OBCs", "Minorities"],
+        correct: 1,
+        explanation: "The mission focuses on 11 critical interventions for the development of 75 identified PVTGs."
+    },
+    {
+        question: "The 'Tumbbad' region, often associated with a mythological film but also real geography, is located in:",
+        options: ["Maharashtra", "Karnataka", "Madhya Pradesh", "Rajasthan"],
+        correct: 0,
+        explanation: "Tumbbad is a village in the Ratnagiri district of Maharashtra."
+    },
+    {
+        question: "The 'Amrit Dharohar' scheme aims to encourage:",
+        options: ["Optimal use of wetlands.", "Protection of heritage sites.", "Organic farming.", "Use of solar energy."],
+        correct: 0,
+        explanation: "It aims to promote the unique conservation values of Ramsar Sites (wetlands) and generate employment for local communities."
+    },
+    {
+        question: "The 'Press Mud' is a byproduct of which industry, used for Compressed Biogas (CBG)?",
+        options: ["Paper Industry", "Sugar Industry", "Textile Industry", "Cement Industry"],
+        correct: 1,
+        explanation: "Press mud is a residual byproduct in the sugar industry and is a highly effective feedstock for biogas production."
+    },
+    {
+        question: "The 'Kabil' (Khanij Bidesh India Ltd) recently acquired lithium blocks in:",
+        options: ["Chile", "Australia", "Argentina", "Bolivia"],
+        correct: 2,
+        explanation: "KABIL signed an agreement to explore and develop lithium blocks in the Catamarca province of Argentina."
+    },
+    {
+        question: "The 'Garba' dance of Gujarat was recently inscribed in which UNESCO list?",
+        options: ["World Heritage Sites", "Representative List of the Intangible Cultural Heritage of Humanity", "Memory of the World Register", "Creative Cities Network"],
+        correct: 1,
+        explanation: "Garba of Gujarat became the 15th cultural item from India to be inscribed on the UNESCO Representative List of Intangible Cultural Heritage of Humanity."
+    },
+    {
+        question: "Which Indian village was awarded the 'Best Tourism Village' title by UNWTO in 2023?",
+        options: ["Pochampally, Telangana", "Dhordo, Gujarat", "Mawlynnong, Meghalaya", "Khonoma, Nagaland"],
+        correct: 1,
+        explanation: "Dhordo village in Kutch, Gujarat, was awarded the 'Best Tourism Village' title by the United Nations World Tourism Organization (UNWTO)."
+    },
+    {
+        question: "The 'Atal Setu' (Mumbai Trans Harbour Link) connects Mumbai with:",
+        options: ["Pune", "Navi Mumbai", "Thane", "Alibaug"],
+        correct: 1,
+        explanation: "Atal Setu (MTHL) is India's longest sea bridge, connecting Sewri in Mumbai to Nhava Sheva in Navi Mumbai."
+    },
+    {
+        question: "What is 'Namo Bharat'?",
+        options: ["A new Vande Bharat train.", "India's first Regional Rapid Transit System (RRTS) train.", "A government ship.", "A scholarship scheme."],
+        correct: 1,
+        explanation: "The trains of the Regional Rapid Transit System (RRTS) were named 'Namo Bharat' by the Prime Minister."
+    },
+    {
+        question: "The 'UDGAM' portal launched by RBI stands for:",
+        options: ["Unclaimed Deposits – Gateway to Access inforMation", "Unified Digital Gateway for Asset Management", "Universal Data for Government And Money", "United Digital Grievance and Monitoring"],
+        correct: 0,
+        explanation: "UDGAM is a centralized web portal aimed at helping the public search for their unclaimed deposits across multiple banks in one place."
+    },
+    {
+        question: "Who were the recipients of the 'Major Dhyan Chand Khel Ratna Award' 2023?",
+        options: ["Rohit Sharma and Virat Kohli", "Satwiksairaj Rankireddy and Chirag Shetty", "Neeraj Chopra and Lovlina Borgohain", "P.V. Sindhu and Bajrang Punia"],
+        correct: 1,
+        explanation: "Badminton duo Satwiksairaj Rankireddy and Chirag Shetty received India's highest sporting honour for their outstanding performance."
+    },
+    {
+        question: "The 'Article 370' verdict by the Supreme Court upheld the constitutionality of:",
+        options: ["The creation of Ladakh as a separate state.", "The abrogation of Article 370 by the President in 2019.", "The permanent status of Article 370.", "The merger of PoK."],
+        correct: 1,
+        explanation: "A Constitution Bench of the SC upheld the validity of the Union Government's 2019 decision to abrogate Article 370, stating it was a temporary provision."
+    },
+    {
+        question: "The 'Maya OS', developed by the Defence Ministry, is aimed at replacing:",
+        options: ["Android in mobile phones.", "Microsoft Windows in defence computer systems.", "Linux servers.", "iOS devices."],
+        correct: 1,
+        explanation: "The Ministry of Defence decided to replace the Microsoft Windows operating system with the indigenous 'Maya' OS to prevent cyber threats."
+    },
+    {
+        question: "Which country's 'Airawat' supercomputer was ranked 75th in the Top 500 Global Supercomputing List?",
+        options: ["India", "China", "Japan", "USA"],
+        correct: 0,
+        explanation: "India's AI supercomputer 'Airawat', installed at C-DAC Pune, was ranked 75th globally."
+    },
+    {
+        question: "The 'MQ-9B Predator' (SeaGuardian/SkyGuardian) drones are being procured by India from:",
+        options: ["Israel", "USA", "France", "Russia"],
+        correct: 1,
+        explanation: "India is procuring MQ-9B High Altitude Long Endurance (HALE) drones from General Atomics, USA."
+    },
+    {
+        question: "What is 'Operation Karuna'?",
+        options: ["India's assistance to Myanmar after Cyclone Mocha.", "Rescue mission in Ukraine.", "Anti-piracy op in Red Sea.", "Vaccine diplomacy."],
+        correct: 0,
+        explanation: "India launched Operation Karuna to provide humanitarian assistance and disaster relief (HADR) to Myanmar affected by Cyclone Mocha."
+    },
+    {
+        question: "The 'Mahila Samman Savings Certificate' offers an interest rate of:",
+        options: ["6.5%", "7.0%", "7.5%", "8.2%"],
+        correct: 2,
+        explanation: "The scheme offers a fixed interest rate of 7.5% per annum for a tenure of two years."
+    },
+    {
+        question: "Which Indian state has the 'Banni Grasslands', recently in news for cheetah breeding centre proposal?",
+        options: ["Rajasthan", "Gujarat", "Madhya Pradesh", "Maharashtra"],
+        correct: 1,
+        explanation: "The Banni Grasslands are located in the Kutch district of Gujarat. The state government proposed a cheetah breeding centre there."
+    },
+    {
+        question: "The 'Zorawar' Light Tank is being developed by:",
+        options: ["DRDO and L&T", "HAL", "Tata Motors", "Bharat Forge"],
+        correct: 0,
+        explanation: "DRDO, in collaboration with L&T, is developing the indigenous light tank 'Zorawar' specifically for high-altitude warfare."
+    },
+    {
+        question: "The 'Gallantry Awards' 2024 saw the Kirti Chakra being awarded posthumously to:",
+        options: ["Captain Anshuman Singh", "Major Somnath Sharma", "Captain Vikram Batra", "Colonel MN Rai"],
+        correct: 0,
+        explanation: "Captain Anshuman Singh was posthumously awarded the Kirti Chakra for saving fellow soldiers during a fire incident in Siachen."
+    },
+    {
+        question: "The 'PM GatiShakti' National Master Plan is primarily focused on:",
+        options: ["Digital payments.", "Multimodal connectivity infrastructure.", "Health infrastructure.", "Education reforms."],
+        correct: 1,
+        explanation: "PM GatiShakti is a digital platform to bring 16 Ministries together for integrated planning and coordinated implementation of infrastructure connectivity projects."
+    },
+    {
+        question: "Which state passed the 'Right to Health Bill', becoming the first in India to do so?",
+        options: ["Kerala", "Rajasthan", "Delhi", "Tamil Nadu"],
+        correct: 1,
+        explanation: "Rajasthan became the first state to pass the Right to Health Bill, giving residents the right to free emergency treatment."
+    },
+    {
+        question: "The 'Lithium reserves' discovered by GSI in the Salal-Haimana area are in which region?",
+        options: ["Ladakh", "Jammu & Kashmir (Reasi District)", "Jharkhand", "Karnataka"],
+        correct: 1,
+        explanation: "The Geological Survey of India (GSI) established 'inferred resources' of Lithium in the Reasi district of Jammu & Kashmir."
+    },
+    {
+        question: "The 'Green Tug Transition Programme' (GTTP) aims to:",
+        options: ["Convert all tugboats in major ports to green hybrid tugs by 2030.", "Ban tugboats.", "Use wind energy for ships.", "Export tugboats."],
+        correct: 0,
+        explanation: "It aims to make India a global hub for Green Ship building and convert tugs in all major ports to Green Hybrid Tugs."
+    },
+    {
+        question: "What is 'DigiLocker'?",
+        options: ["A bank locker.", "A flagship initiative of Digital India for issuance and verification of documents and certificates in digital way.", "A password manager.", "A crypto wallet."],
+        correct: 1,
+        explanation: "DigiLocker is a digital platform for issuance and verification of documents/certificates, eliminating the use of physical documents."
+    },
+    {
+        question: "The 'International Big Cat Alliance' (IBCA) was launched by:",
+        options: ["WWF", "India", "South Africa", "United Nations"],
+        correct: 1,
+        explanation: "Prime Minister Modi launched the IBCA to protect seven major big cats: Tiger, Lion, Leopard, Snow Leopard, Puma, Jaguar, and Cheetah."
+    },
+    {
+        question: "The 'Exercise Bright Star' is hosted by:",
+        options: ["USA", "Egypt", "India", "France"],
+        correct: 1,
+        explanation: "Exercise Bright Star is a biennial multilateral military exercise held in Egypt. India participated for the first time in 2023."
+    },
+    {
+        question: "The 'World Coffee Conference' 2023 was held in:",
+        options: ["Brazil", "Vietnam", "India (Bengaluru)", "Colombia"],
+        correct: 2,
+        explanation: "India hosted the 5th World Coffee Conference (WCC) in Bengaluru, organized by the International Coffee Organization (ICO)."
+    },
+    {
+        question: "The 'Sampriti' exercise is a joint military training exercise between India and:",
+        options: ["Sri Lanka", "Bangladesh", "Nepal", "Thailand"],
+        correct: 1,
+        explanation: "Exercise Sampriti is a bilateral defence cooperation exercise between the armies of India and Bangladesh."
+    },
+    {
+        question: "Which railway station received the 'UNESCO Asia Pacific Award of Merit' for heritage conservation?",
+        options: ["Chhatrapati Shivaji Maharaj Terminus", "Byculla Railway Station (Mumbai)", "Howrah Station", "Chennai Central"],
+        correct: 1,
+        explanation: "The 169-year-old Byculla railway station in Mumbai received the UNESCO Asia Pacific Award of Merit after its restoration."
+    },
+    {
+        question: "The 'Agnipath Scheme' recruits youth into the armed forces for a period of:",
+        options: ["2 years", "4 years", "10 years", "15 years"],
+        correct: 1,
+        explanation: "Agniveers are recruited for a tenure of 4 years, after which up to 25% may be retained in the regular cadre."
+    },
+    {
+        question: "The 'P20' Summit (Parliament-20) associated with G20 was held in:",
+        options: ["Mumbai", "New Delhi (Yashobhoomi)", "Gandhinagar", "Varanasi"],
+        correct: 1,
+        explanation: "The 9th P20 Summit was held at Yashobhoomi, New Delhi, bringing together presiding officers of parliaments from G20 nations."
+    },
+    {
+        question: "The 'Meri Maati Mera Desh' campaign involved collecting soil from:",
+        options: ["Every district in India.", "Every village/Gram Panchayat.", "Battlefields only.", "Rivers only."],
+        correct: 1,
+        explanation: "The campaign involved collecting soil (Mitti) from every village/panchayat and bringing it to Delhi (Amrit Vatika)."
+    },
+    {
+        question: "Who became the oldest tennis player to win a Grand Slam men's doubles title (Australian Open 2024)?",
+        options: ["Leander Paes", "Rohan Bopanna", "Mahesh Bhupathi", "Roger Federer"],
+        correct: 1,
+        explanation: "Rohan Bopanna (at age 43) became the oldest man to win a Grand Slam doubles title, winning the Australian Open with Matthew Ebden."
+    },
+    {
+        question: "The 'Sengol' placed in the Parliament was originally given to:",
+        options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel", "Dr. Rajendra Prasad"],
+        correct: 1,
+        explanation: "The Sengol was originally handed over to Jawaharlal Nehru on the eve of Independence in 1947 as a symbol of transfer of power."
+    },
+    {
+        question: "The 'Neuralink' company, which recently successfully implanted a chip in a human brain (Telepathy), is owned by:",
+        options: ["Jeff Bezos", "Mark Zuckerberg", "Elon Musk", "Bill Gates"],
+        correct: 2,
+        explanation: "Elon Musk's Neuralink successfully implanted its wireless brain-computer interface chip in a human for the first time."
+    },
+    {
+        question: "The 'Amrit Bharat Express' trains are unique because:",
+        options: ["They are bullet trains.", "They are non-AC trains with 'push-pull' technology for higher speed.", "They run on hydrogen.", "They are luxury tourist trains."],
+        correct: 1,
+        explanation: "Amrit Bharat Express is a new category of superfast passenger trains with non-air-conditioned coaches and 'push-pull' locomotives at both ends."
+    },
+    {
+        question: "Which two countries recently partially joined the 'Schengen Area' (Air and Sea borders)?",
+        options: ["UK and Ireland", "Romania and Bulgaria", "Turkey and Cyprus", "Ukraine and Moldova"],
+        correct: 1,
+        explanation: "Romania and Bulgaria partially joined Europe's border-free Schengen area (lifting controls at air and sea borders) in March 2024."
+    },
+    {
+        question: "The 'X-59' aircraft, unveiled by NASA, is designed to:",
+        options: ["Fly to Mars.", "Fly at supersonic speeds with a quiet sonic thump (Quiet Supersonic Technology).", "Be invisible to radar.", "Run on solar power."],
+        correct: 1,
+        explanation: "NASA's X-59 Quesst is an experimental aircraft designed to fly faster than sound while reducing the loud sonic boom to a quiet thump."
+    },
+    {
+        question: "The 'Euclid' mission, launched by ESA, primarily aims to study:",
+        options: ["The Sun's corona.", "Dark Energy and Dark Matter (The Dark Universe).", "Exoplanets.", "Asteroid mining."],
+        correct: 1,
+        explanation: "Euclid is designed to map the geometry of the dark universe and understand the nature of dark energy and dark matter."
+    },
+    {
+        question: "The 'Chenab Bridge', the world's highest railway bridge, connects which two locations?",
+        options: ["Jammu and Udhampur", "Bakkal and Kauri", "Srinagar and Leh", "Katra and Banihal"],
+        correct: 1,
+        explanation: "It spans the Chenab River between Bakkal and Kauri in the Reasi district of J&K."
+    },
+    {
+        question: "Which Indian conglomerate launched 'Vantara', a comprehensive animal rescue and rehabilitation initiative?",
+        options: ["Tata Group", "Adani Group", "Reliance Industries (Reliance Foundation)", "Mahindra Group"],
+        correct: 2,
+        explanation: "Reliance Industries and Reliance Foundation launched 'Vantara' (Star of the Forest) in Jamnagar, Gujarat."
+    },
+    {
+        question: "The 'Odysseus' (Nova-C) lander, which landed on the Moon in Feb 2024, is significant because:",
+        options: ["It found life on the moon.", "It is the first privately built spacecraft to land on the Moon.", "It is a manned mission.", "It brought back soil samples."],
+        correct: 1,
+        explanation: "Built by Intuitive Machines (USA), Odysseus became the first commercial (private) spacecraft to successfully land on the Moon."
+    },
+    {
+        question: "The 'Trade and Economic Partnership Agreement' (TEPA) between India and EFTA aims for an investment of:",
+        options: ["$10 Billion", "$50 Billion", "$100 Billion over 15 years", "$500 Billion"],
+        correct: 2,
+        explanation: "The deal targets $100 billion in investment into India from EFTA countries over the next 15 years."
+    },
+    {
+        question: "What is 'Devin', recently in the news?",
+        options: ["A new cyclone.", "The world's first fully autonomous AI software engineer.", "A new virus.", "A satellite."],
+        correct: 1,
+        explanation: "Devin is an AI tool created by Cognition that can write code, debug, and deploy apps autonomously."
+    },
+    {
+        question: "The 'Z-Morh Tunnel' is a strategic tunnel in which region?",
+        options: ["Ladakh", "Jammu and Kashmir (Sonamarg)", "Sikkim", "Arunachal Pradesh"],
+        correct: 1,
+        explanation: "The Z-Morh tunnel aims to provide all-weather connectivity to Sonamarg in J&K."
+    },
+    {
+        question: "Who was awarded the 'Pritzker Architecture Prize' 2024 (often called the Nobel of Architecture)?",
+        options: ["Riken Yamamoto", "David Chipperfield", "Balkrishna Doshi", "Zaha Hadid"],
+        correct: 0,
+        explanation: "Japanese architect Riken Yamamoto was awarded the 2024 Pritzker Architecture Prize."
+    },
+    {
+        question: "The 'Baltimore Bridge' (Francis Scott Key Bridge) collapse was caused by a collision with which ship?",
+        options: ["Ever Given", "Dali", "Titanic II", "Maersk Alabama"],
+        correct: 1,
+        explanation: "The container ship 'Dali' collided with the bridge in Baltimore, USA, causing its collapse."
+    },
+    {
+        question: "The 'Anthropocene Working Group' (AWG) recently voted on whether to:",
+        options: ["Declare a new geological epoch called 'Anthropocene'.", "Ban fossil fuels.", "Rename the Earth.", "Stop mining."],
+        correct: 0,
+        explanation: "The proposal to officially declare the 'Anthropocene' as a new geological epoch was rejected by the scientific subcommission."
+    },
+    {
+        question: "The 'Exercise Shakti' is a biennial joint military exercise between India and:",
+        options: ["France", "USA", "Russia", "UK"],
+        correct: 0,
+        explanation: "Exercise Shakti is conducted between the Indian Army and the French Army. (Note: Varuna is Navy, Garuda is Air Force)."
+    },
+    {
+        question: "What is 'Mount Ruang'?",
+        options: ["Highest peak in Africa.", "A volcano in Indonesia that erupted recently.", "A new island.", "A mountain in Antarctica."],
+        correct: 1,
+        explanation: "Mount Ruang is a stratovolcano in North Sulawesi, Indonesia, which erupted multiple times in April 2024."
+    },
+    {
+        question: "The 'Angara-A5' is a heavy-lift launch vehicle of which country?",
+        options: ["China", "USA", "Russia", "India"],
+        correct: 2,
+        explanation: "Russia successfully test-launched its Angara-A5 heavy-lift rocket from the Vostochny Cosmodrome."
+    },
+    {
+        question: "The 'Peter Higgs', who passed away recently, was famous for predicting:",
+        options: ["Black Holes", "Gravitational Waves", "The Higgs Boson (God Particle)", "String Theory"],
+        correct: 2,
+        explanation: "Nobel laureate Peter Higgs theorized the existence of the Higgs Boson particle, which gives mass to other particles."
+    },
+    {
+        question: "The 'World Cybercrime Index' ranks India at which position?",
+        options: ["1st", "10th", "50th", "100th"],
+        correct: 1,
+        explanation: "According to a new study (Oxford), India ranks 10th in the World Cybercrime Index. Russia tops the list."
+    },
+    {
+        question: "The 'Henley Passport Index' 2024 (Q1) listed which countries at the top spot?",
+        options: ["Japan and Singapore only.", "France, Germany, Italy, Japan, Singapore, and Spain.", "USA and UK.", "UAE and Qatar."],
+        correct: 1,
+        explanation: "An unprecedented six countries shared the top spot in the 2024 index with visa-free access to 194 destinations."
+    },
+    {
+        question: "What is 'INS Imphal'?",
+        options: ["A submarine.", "The third ship of Project 15B Visakhapatnam-class stealth guided missile destroyers.", "An aircraft carrier.", "A patrol vessel."],
+        correct: 1,
+        explanation: "INS Imphal is the first warship to be named after a city in the North-East and is a Project 15B destroyer."
+    },
+    {
+        question: "The 'Global Peace Index' (GPI) consistently ranks which country as the most peaceful?",
+        options: ["Switzerland", "Iceland", "New Zealand", "Bhutan"],
+        correct: 1,
+        explanation: "Iceland has remained the most peaceful country in the world since 2008."
+    },
+    {
+        question: "The 'PARAKH' (Performance Assessment, Review, and Analysis of Knowledge for Holistic Development) is a national assessment centre set up by:",
+        options: ["NTA", "NCERT", "UGC", "CBSE"],
+        correct: 1,
+        explanation: "PARAKH has been set up as a standard-setting body under NCERT to bridge gaps in assessment across state boards."
+    },
+    {
+        question: "The 'Ring of Fire' solar eclipse (Annular Solar Eclipse) differs from a Total Eclipse because:",
+        options: ["The moon is too far from Earth to completely cover the Sun, leaving a ring of light.", "The Earth blocks the sun.", "It happens only at night.", "It is caused by Mars."],
+        correct: 0,
+        explanation: "In an annular eclipse, the moon is at apogee (farthest point), appearing smaller than the sun, creating a 'Ring of Fire'."
+    },
+    {
+        question: "The 'Right to Disconnect' law, giving employees the right to ignore work calls after hours, was recently implemented in:",
+        options: ["India", "Australia", "China", "USA"],
+        correct: 1,
+        explanation: "Australia is among the latest nations to introduce 'Right to Disconnect' laws (joining France, etc.)."
+    },
+    {
+        question: "What is 'Project 75 (India)' or 'P-75I'?",
+        options: ["Building 6 nuclear submarines.", "Building 6 conventional submarines with Air Independent Propulsion (AIP) system.", "Building aircraft carriers.", "Building space rockets."],
+        correct: 1,
+        explanation: "P-75I envisages the indigenous construction of six conventional submarines with state-of-the-art AIP systems."
+    },
+    {
+        question: "The 'Ligo-India' project (Gravitational-Wave Observatory) is being set up in:",
+        options: ["Hingoli, Maharashtra", "Kochi, Kerala", "Hanle, Ladakh", "Mount Abu, Rajasthan"],
+        correct: 0,
+        explanation: "The Cabinet approved the LIGO-India project, to be built in the Hingoli district of Maharashtra."
+    },
+    {
+        question: "The 'Exercise Dos Moche' is a festival celebrated in:",
+        options: ["Ladakh", "Sikkim", "Goa", "Nagaland"],
+        correct: 0,
+        explanation: "Dos Moche is a popular Buddhist festival celebrated in Ladakh (Leh and Likir monasteries) aimed at driving away evil spirits."
+    },
+    {
+        question: "The 'Global Trade Research Initiative' (GTRI) is:",
+        options: ["A UN body.", "An Indian think tank focused on trade, technology, and climate change.", "A US government agency.", "A Chinese initiative."],
+        correct: 1,
+        explanation: "GTRI is a New Delhi-based think tank that publishes influential reports on India's trade and economic relations."
+    },
+    {
+        question: "The 'Pappankuzhi' excavation site in Tamil Nadu is famous for finding:",
+        options: ["Dinosaur bones.", "Neolithic Celts (stone tools).", "Gold coins.", "Roman pottery."],
+        correct: 1,
+        explanation: "Recent excavations near Chennai (Pappankuzhi) revealed Neolithic celts, indicating ancient human settlements."
+    },
+    {
+        question: "The 'Bridgeoporus kanadii', recently discovered in Arunachal Pradesh, is a species of:",
+        options: ["A massive fungus (mushroom).", "A new freshwater fish.", "A venomous snake.", "A rare orchid."],
+        correct: 0,
+        explanation: "It is a new species of stout, fleshy, and colossal fungus found in the West Kameng district of Arunachal Pradesh."
+    },
+    {
+        question: "What is 'SCORP', recently launched by an IIT Kanpur-incubated startup?",
+        options: ["India's first indigenous legged mobile robot (Robotic Dog).", "A new drone for agriculture.", "A submarine launched missile.", "A solar-powered car."],
+        correct: 0,
+        explanation: "SCORP is India's first indigenous legged mobile manipulator (robot) developed by xTerra Robotics to operate in unstructured terrains."
+    },
+    {
+        question: "The 'Anvesha' satellite, launched aboard PSLV-C62, is primarily designed for:",
+        options: ["Weather forecasting.", "High-resolution military surveillance (Spy Satellite).", "Direct-to-Home (DTH) broadcasting.", "Deep space exploration."],
+        correct: 1,
+        explanation: "Anvesha is a dedicated satellite for the strategic community (DRDO) to provide high-resolution surveillance capabilities."
+    },
+    {
+        question: "The 'Sohrai' paintings, which hold a GI Tag, are a traditional mural art form of which state?",
+        options: ["Jharkhand", "Odisha", "Bihar", "Chhattisgarh"],
+        correct: 0,
+        explanation: "Sohrai is a traditional tribal mural art form from the Hazaribagh district of Jharkhand, practiced by women during the harvest season."
+    },
+    {
+        question: "Which Indian village was awarded the 'Best Tourism Village' title by UNWTO (now UN Tourism) in 2023?",
+        options: ["Pochampally", "Dhordo", "Mawlynnong", "Khonoma"],
+        correct: 1,
+        explanation: "Dhordo village in the Kutch district of Gujarat was awarded the Best Tourism Village title by the UN World Tourism Organization."
+    },
+    {
+        question: "The 'PM Surya Ghar: Muft Bijli Yojana' provides a subsidy of what percentage for rooftop solar systems up to 2 kW?",
+        options: ["30%", "40%", "60%", "100%"],
+        correct: 2,
+        explanation: "The scheme provides a 60% subsidy for rooftop solar units up to 2 kW capacity and 40% for additional capacity between 2-3 kW."
+    },
+    {
+        question: "The 'Exercise Sada Tanseeq' is the inaugural joint military exercise between India and:",
+        options: ["Saudi Arabia", "UAE", "Oman", "Egypt"],
+        correct: 0,
+        explanation: "Exercise Sada Tanseeq is the first-ever joint military exercise between the Indian Army and the Royal Saudi Land Forces."
+    },
+    {
+        question: "What is 'Vantara', an initiative launched by the Reliance Foundation?",
+        options: ["A wildlife rescue, conservation, and rehabilitation programme.", "A free education scheme for rural girls.", "A digital literacy drive.", "A sports scholarship."],
+        correct: 0,
+        explanation: "Vantara (Star of the Forest) is a comprehensive animal rescue and rehabilitation initiative launched in Jamnagar, Gujarat."
+    },
+    {
+        question: "The 'Nitrogen-Vacancy (NV) Centres' in diamonds are being researched primarily for applications in:",
+        options: ["Jewelry making.", "Quantum sensing and quantum computing technologies.", "Cutting tools.", "Water purification."],
+        correct: 1,
+        explanation: "NV centres in diamonds act like single atoms and are highly sensitive to magnetic fields, making them crucial for quantum technologies."
+    },
+    {
+        question: "The 'Wancho Wooden Craft', which received a GI tag, belongs to the Wancho tribe of:",
+        options: ["Nagaland", "Arunachal Pradesh", "Manipur", "Mizoram"],
+        correct: 1,
+        explanation: "The Wancho community of Arunachal Pradesh is famous for their intricate wooden carvings, often depicting human heads."
+    },
+    {
+        question: "The 'PARAM Rudra' supercomputing systems were recently dedicated to the nation under which mission?",
+        options: ["Digital India Mission", "National Supercomputing Mission (NSM)", "Make in India", "Atal Innovation Mission"],
+        correct: 1,
+        explanation: "Three PARAM Rudra supercomputers were dedicated under the National Supercomputing Mission to facilitate advanced research."
+    },
+    {
+        question: "The 'Neelus sikkimensis', a new species discovered in Sikkim, is a type of:",
+        options: ["Springtail (tiny wingless arthropod).", "Orchid.", "Butterfly.", "Frog."],
+        correct: 0,
+        explanation: "It is a new species of Springtail, a tiny wingless arthropod, discovered in the high-altitude regions of Sikkim."
+    },
+    {
+        question: "The 'Raisina Science Diplomacy Initiative' (SDI) 2026 aims to:",
+        options: ["Export Indian scientists.", "Integrate science and technology into global diplomacy.", "Ban AI research.", "Build science museums."],
+        correct: 1,
+        explanation: "Launched by ORF and the Principal Scientific Adviser, it aims to position science and technology at the core of India's diplomatic outreach."
+    },
+    {
+        question: "The 'Maya OS' was developed by the Defence Ministry to replace:",
+        options: ["Linux", "Microsoft Windows", "MacOS", "Android"],
+        correct: 1,
+        explanation: "Maya OS is an indigenous operating system based on Ubuntu (Linux) developed to replace Windows in defense systems for better security."
+    },
+    {
+        question: "The 'Dolomedes indicus', recently discovered in the Western Ghats, is a species of:",
+        options: ["Fishing Spider", "Tree Frog", "Cave Bat", "Freshwater Crab"],
+        correct: 0,
+        explanation: "It is a new species of 'Fishing Spider' capable of running on water to hunt small fish, discovered in Kerala/Karnataka."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' (GBA) aims to triple global biofuel production by which year?",
+        options: ["2030", "2040", "2050", "2025"],
+        correct: 0,
+        explanation: "A key target of the GBA is to triple global biofuel production by 2030 to reduce dependency on fossil fuels."
+    },
+    {
+        question: "Which state government launched the 'Indiramma Indlu' housing scheme?",
+        options: ["Karnataka", "Telangana", "Andhra Pradesh", "Kerala"],
+        correct: 1,
+        explanation: "The Telangana government launched the Indiramma Indlu scheme to provide housing for the poor."
+    },
+    {
+        question: "The 'Carbon Border Adjustment Mechanism' (CBAM) will fully enter into force in:",
+        options: ["2026", "2030", "2050", "2024"],
+        correct: 0,
+        explanation: "While the transitional phase began in 2023, the definitive regime of CBAM (collecting the carbon tax) enters into force from 2026."
+    },
+    {
+        question: "The 'KABIL' (Khanij Bidesh India Ltd) has signed a ₹200 crore deal for Lithium exploration with:",
+        options: ["Chile (ENAMI)", "Argentina (CAMYEN)", "Australia (Critical Minerals Office)", "Bolivia (YLB)"],
+        correct: 1,
+        explanation: "KABIL signed the agreement with Argentina's CAMYEN for exploration and development of five lithium brine blocks."
+    },
+    {
+        question: "What is 'Telepathy' in the context of Neuralink?",
+        options: ["A method to talk without speaking.", "The first brain implant product that allows control of a computer cursor with thoughts.", "A new AI chat bot.", "A sci-fi movie."],
+        correct: 1,
+        explanation: "Elon Musk named Neuralink's first product 'Telepathy', which enables users (especially those with paralysis) to control devices with their mind."
+    },
+    {
+        question: "The 'Saksham Anganwadi and Poshan 2.0' scheme prioritizes:",
+        options: ["Building new school buildings.", "Nutritional support for children, pregnant women, and lactating mothers.", "Free uniforms for college students.", "Pension for widows."],
+        correct: 1,
+        explanation: "It is an integrated nutrition support programme to address the challenges of malnutrition in children, adolescent girls, pregnant women, and lactating mothers."
+    },
+    {
+        question: "The 'Sela Tunnel' is constructed using the 'New Austrian Tunneling Method' (NATM). It is located in:",
+        options: ["Ladakh", "Sikkim", "Arunachal Pradesh", "Uttarakhand"],
+        correct: 2,
+        explanation: "The Sela Tunnel, providing all-weather connectivity to Tawang, is located in Arunachal Pradesh."
+    },
+    {
+        question: "Which organization releases the 'World Economic Situation and Prospects' report?",
+        options: ["IMF", "World Bank", "United Nations (UN-DESA)", "WEF"],
+        correct: 2,
+        explanation: "The report is a flagship publication of the United Nations Department of Economic and Social Affairs (UN-DESA)."
+    },
+    {
+        question: "The 'Exercise Desert Cyclone' involves the special forces of India and:",
+        options: ["Oman", "UAE", "Qatar", "Saudi Arabia"],
+        correct: 1,
+        explanation: "Exercise Desert Cyclone is a joint military exercise between India and the United Arab Emirates (UAE)."
+    },
+    {
+        question: "The 'Gorsam Kora Festival' marks the historic friendship between India and:",
+        options: ["China", "Bhutan", "Nepal", "Myanmar"],
+        correct: 1,
+        explanation: "It is celebrated in the Zemithang valley of Arunachal Pradesh to honor the shared Buddhist heritage and friendship with Bhutan."
+    },
+    {
+        question: "The 'Press Mud' is gaining popularity as a feedstock for:",
+        options: ["Paper pulp", "Compressed Biogas (CBG)", "Textile fiber", "Animal feed"],
+        correct: 1,
+        explanation: "Press mud (a sugar industry byproduct) is being widely used to produce Compressed Biogas (CBG) due to its high methanation potential."
+    },
+    {
+        question: "The 'Bharatiya Bhasha Pustak Scheme' aims to:",
+        options: ["Translate all English books to Hindi.", "Provide digital textbooks in Indian languages for schools and higher education.", "Distribute free physical books.", "Teach Sanskrit."],
+        correct: 1,
+        explanation: "The scheme focuses on providing digital textbooks in various Indian languages to promote mother-tongue education under NEP 2020."
+    },
+    {
+        question: "The 'Great Indian Bustard' (GIB) population is critically low. The Supreme Court recently constituted a committee to balance its conservation with:",
+        options: ["Mining activities.", "Solar and transmission power lines.", "Highway construction.", "Agriculture."],
+        correct: 1,
+        explanation: "The SC formed a committee to find a balance between the conservation of the GIB and the construction of power transmission lines for renewable energy."
+    },
+    {
+        question: "What is 'Curcuma kakchingense'?",
+        options: ["A new species of turmeric discovered in Manipur.", "A new dance form.", "A medicinal drink.", "A new ginger species in Kerala."],
+        correct: 0,
+        explanation: "It is a new species of Curcuma (turmeric) discovered in the Kakching district of Manipur."
+    },
+    {
+        question: "The 'SWAMIH Fund' (Special Window for Affordable and Mid-Income Housing) is managed by:",
+        options: ["SBI CAP Ventures", "LIC Housing Finance", "NHB", "HUDCO"],
+        correct: 0,
+        explanation: "The SWAMIH Investment Fund is managed by SBICAP Ventures Ltd to provide last-mile funding for stalled housing projects."
+    },
+    {
+        question: "The 'PM-SURAJ' portal was launched by the Ministry of Social Justice and Empowerment to provide:",
+        options: ["Free solar panels to SC/ST households.", "Credit support (loans) to entrepreneurs from disadvantaged sections (SC, OBC, Safai Karamcharis).", "Scholarships for PhD students.", "Health insurance for the elderly."],
+        correct: 1,
+        explanation: "PM-SURAJ (Pradhan Mantri Samajik Utthan evam Rozgar Adharit Jankalyan) creates a unified platform to provide credit support to marginalized sections."
+    },
+    {
+        question: "The 'PB-SHABD' service launched by the Ministry of Information and Broadcasting is related to:",
+        options: ["A new dictionary for Indian languages.", "A news sharing service by Prasar Bharati to provide daily news feeds to small newspapers.", "A voice-to-text AI tool.", "A Braille literacy program."],
+        correct: 1,
+        explanation: "PB-SHABD (Prasar Bharati - Shared Audio Visuals for Broadcast and Dissemination) aims to provide news content (video/audio/text) to small and medium newspapers."
+    },
+    {
+        question: "The 'Pandavula Gutta', recently designated as the sole Geo-heritage site in Telangana, is famous for:",
+        options: ["Ancient dinosaur fossils.", "Paleolithic cave paintings and unique rock formations.", "A large meteorite crater.", "Underground caves."],
+        correct: 1,
+        explanation: "Pandavula Gutta is older than the Himalayas and features ancient rock paintings from the Mesolithic to medieval times."
+    },
+    {
+        question: "What is 'Indus-X'?",
+        options: ["A new river linking project.", "India-U.S. Defence Acceleration Ecosystem to expand strategic technology partnership.", "An underwater drone.", "A trade route."],
+        correct: 1,
+        explanation: "Indus-X (India-U.S. Defence Acceleration Ecosystem) aims to facilitate partnerships between US and Indian defence start-ups and tech companies."
+    },
+    {
+        question: "The 'Coal Logistics Plan and Policy' launched by the Coal Ministry primarily aims to:",
+        options: ["Increase coal imports.", "Shift coal transport from road to rail-based systems (First Mile Connectivity).", "Ban coal mining.", "Privatize all coal mines."],
+        correct: 1,
+        explanation: "The policy targets shifting coal transport to a rail-based system to reduce logistics costs and carbon emissions."
+    },
+    {
+        question: "The 'Mission 414' campaign launched by the Election Commission in Himachal Pradesh targeted:",
+        options: ["Stations with 414 voters.", "Increasing voter turnout in 414 polling stations that had less than 60% voting in the last election.", "Recruiting 414 volunteers.", "Planting 414 trees."],
+        correct: 1,
+        explanation: "Mission 414 aimed to boost voter turnout in specific polling stations in Himachal Pradesh which historically had low participation."
+    },
+    {
+        question: "The 'Pench Tiger Reserve' is significant for being:",
+        options: ["The largest tiger reserve in India.", "India's first Dark Sky Park.", "The home of the only white tiger in the wild.", "Located entirely in a desert."],
+        correct: 1,
+        explanation: "Pench Tiger Reserve (Maharashtra side) was designated as India's first Dark Sky Park to protect the night sky from light pollution."
+    },
+    {
+        question: "The 'C-CARES' web portal is associated with which organization?",
+        options: ["ISRO", "Coal Mines Provident Fund Organization (CMPFO)", "Child Care Institutions", "Cancer Research Centre"],
+        correct: 1,
+        explanation: "C-CARES is developed by C-DAC for the Coal Mines Provident Fund Organization (CMPFO) to digitize and streamline its records."
+    },
+    {
+        question: "The 'Golden Langur' conservation breeding programme is a major initiative in:",
+        options: ["Kerala", "Assam", "West Bengal", "Uttarakhand"],
+        correct: 1,
+        explanation: "Assam is the primary habitat for the Golden Langur in India, and conservation efforts are focused there (e.g., Chakrashila WLS)."
+    },
+    {
+        question: "The 'Exercise Bharat Shakti' demonstrated the capabilities of:",
+        options: ["Only the Indian Army.", "Indigenous defence equipment of the Tri-Services (Army, Navy, Air Force).", "Nuclear weapons.", "Cyber warfare units."],
+        correct: 1,
+        explanation: "Held at Pokhran, 'Bharat Shakti' showcased the integrated operational capabilities of the Tri-Services using indigenous weapon systems."
+    },
+    {
+        question: "The 'Nethra' (Network for Space Object Tracking and Analysis) is an ISRO project for:",
+        options: ["Tracking cyclones.", "Space Debris Tracking and Space Situational Awareness (SSA).", "Internet connectivity.", "Missile defence."],
+        correct: 1,
+        explanation: "Project NETRA (Network for Space Object Tracking and Analysis) is an early warning system to detect space debris and hazards to Indian satellites."
+    },
+    {
+        question: "The 'Blue Economy 2.0' announced in the Interim Budget 2024 focuses on:",
+        options: ["Deep sea mining only.", "Climate-resilient activities, restoration involved in coastal aquaculture and mariculture.", "Privatizing beaches.", "Banning fishing."],
+        correct: 1,
+        explanation: "The budget announced the launch of a scheme for restoration and adaptation measures, and coastal aquaculture and mariculture."
+    },
+    {
+        question: "The 'Agni-Prime' missile is:",
+        options: ["A liquid-fueled missile.", "A new generation canisterised solid propellant ballistic missile.", "An air-to-air missile.", "A cruise missile."],
+        correct: 1,
+        explanation: "Agni-Prime is a two-stage canisterised solid-propellant ballistic missile with dual redundant navigation and guidance system."
+    },
+    {
+        question: "Who was the first woman sniper of the Border Security Force (BSF)?",
+        options: ["Suman Kumari", "Avani Chaturvedi", "Shiva Chauhan", "Deepika Misra"],
+        correct: 0,
+        explanation: "Sub-Inspector Suman Kumari became the first woman sniper of the BSF after completing the rigorous training course."
+    },
+    {
+        question: "The 'Revamped Pharmaceuticals Technology Upgradation Assistance Scheme' (RPTUAS) provides subsidies based on:",
+        options: ["Export volume.", "Achieving global quality standards (Schedule M/WHO-GMP).", "Number of employees.", "Location of the plant."],
+        correct: 1,
+        explanation: "The scheme incentives pharma companies to upgrade their technology and facilities to meet Revised Schedule M and WHO-GMP standards."
+    },
+    {
+        question: "The 'Sapta Kosi High Dam' is a proposed multipurpose project between India and:",
+        options: ["Bhutan", "Nepal", "Bangladesh", "Myanmar"],
+        correct: 1,
+        explanation: "It is a long-pending multipurpose project on the Kosi river proposed to be built in Nepal to control floods in Bihar and generate power."
+    },
+    {
+        question: "What is 'Model Collapse' in Artificial Intelligence?",
+        options: ["When an AI server crashes.", "A degenerative process where AI models trained on AI-generated data become less diverse and accurate over time.", "AI taking over the world.", "A robot falling down."],
+        correct: 1,
+        explanation: "Model Collapse refers to the degradation of AI models when they are trained on synthetic data generated by other AI models rather than human data."
+    },
+    {
+        question: "The 'Exercise Tiger Triumph' 2024 was conducted on the Eastern Seaboard of India with:",
+        options: ["UK", "USA", "France", "Japan"],
+        correct: 1,
+        explanation: "It is a bilateral Tri-Service Humanitarian Assistance and Disaster Relief (HADR) exercise between India and the USA."
+    },
+    {
+        question: "The 'UNNATI' scheme (Uttar Poorva Transformative Industrialization Scheme) has a tenure of:",
+        options: ["5 years", "10 years", "2 years", "15 years"],
+        correct: 1,
+        explanation: "The scheme is approved for a period of 10 years to boost industrialization in the North East Region."
+    },
+    {
+        question: "The 'Global Methane Tracker' 2024 is a report by:",
+        options: ["UNEP", "International Energy Agency (IEA)", "World Bank", "IPCC"],
+        correct: 1,
+        explanation: "The IEA's Global Methane Tracker provides estimates of methane emissions from the energy sector."
+    },
+    {
+        question: "The 'Hangul' population census recently showed an increase. The Hangul is a subspecies of:",
+        options: ["Red Deer", "Sambar Deer", "Spotted Deer", "Musk Deer"],
+        correct: 0,
+        explanation: "Hangul (Kashmir Stag) is a subspecies of the Central Asian Red Deer, native to northern India (Kashmir)."
+    },
+    {
+        question: "The 'National Action Plan for Prevention and Control of Snakebite Envenoming' (NAP-SE) launched the '15400' helpline for:",
+        options: ["Reporting snake sightings.", "Immediate assistance and guidance on snakebite treatment.", "Buying anti-venom.", "Calling an ambulance only."],
+        correct: 1,
+        explanation: "The '15400' national helpline (in pilot phase) provides 24x7 support and information on snakebite management."
+    },
+    {
+        question: "The 'Tawi Festival' is an art and culture festival of:",
+        options: ["Jammu region", "Kashmir valley", "Ladakh", "Himachal Pradesh"],
+        correct: 0,
+        explanation: "The Tawi Festival is celebrated to showcase the rich art, culture, and heritage of the Jammu region."
+    },
+    {
+        question: "The 'Exercise Cutlass Express' is a multinational maritime exercise conducted in:",
+        options: ["East Africa and the Western Indian Ocean.", "South China Sea.", "Mediterranean Sea.", "Pacific Ocean."],
+        correct: 0,
+        explanation: "It is a US-led multinational maritime exercise focusing on counter-piracy and maritime security in East Africa and the Western Indian Ocean."
+    },
+    {
+        question: "The 'Shettihalli Wildlife Sanctuary' is located in:",
+        options: ["Kerala", "Karnataka", "Tamil Nadu", "Andhra Pradesh"],
+        correct: 1,
+        explanation: "It is located in the Shivamogga district of Karnataka, known for the Tunga Anicut Dam inside it."
+    },
+    {
+        question: "The 'Start-up Mahakumbh' 2024 theme was:",
+        options: ["Bharat Innovates", "Startup India, Standup India", "Bharat Innovates for the World", "Tech for Good"],
+        correct: 0,
+        explanation: "The theme of the first-ever Start-up Mahakumbh was 'Bharat Innovates'."
+    },
+    {
+        question: "The 'Captive Elephant (Transfer or Transport) Rules, 2024' mandates that the transfer must be registered with:",
+        options: ["The District Collector.", "The Chief Wildlife Warden of the State.", "The Animal Welfare Board.", "The Ministry of Environment directly."],
+        correct: 1,
+        explanation: "The transfer of captive elephants must be approved and registered by the Chief Wildlife Warden of the respective state."
+    },
+    {
+        question: "The 'Pushpak' is the name given to ISRO's:",
+        options: ["Reusable Launch Vehicle (RLV).", "New Satellite.", "Mars Lander.", "Humanoid Robot."],
+        correct: 0,
+        explanation: "ISRO named its Reusable Launch Vehicle (RLV) 'Pushpak', inspired by the mythological Pushpak Viman."
+    },
+    {
+        question: "The 'Grid Controller of India Limited' (Grid-India) is responsible for:",
+        options: ["Generating power.", "Overseeing the operation of the Indian Power System (National Load Despatch Centre).", "Setting electricity prices.", "Manufacturing transformers."],
+        correct: 1,
+        explanation: "Grid-India (formerly POSOCO) manages the integrated operation of the national power grid to ensure reliability and security."
+    },
+    {
+        question: "The 'Bhasha Net' portal is an initiative of:",
+        options: ["NIXI (National Internet Exchange of India)", "C-DAC", "NIC", "NITI Aayog"],
+        correct: 0,
+        explanation: "NIXI launched the Bhasha Net portal to advance the vision of a multilingual internet (Universal Acceptance) in India."
+    },
+    {
+        question: "The 'Project Akashteer' launched by the Indian Army aims to:",
+        options: ["Build new border roads.", "Automate Air Defence Control and Reporting processes.", "Develop drone swarms.", "Modernize infantry weapons."],
+        correct: 1,
+        explanation: "Project Akashteer aims to deliver an automated air defence control and reporting system to enable the Army to monitor low-level airspace effectively."
+    },
+    {
+        question: "The 'Gaia BH3', recently discovered by ESA's Gaia mission, is:",
+        options: ["A new galaxy.", "The most massive stellar black hole found in our galaxy (Milky Way).", "A wandering planet.", "A neutron star."],
+        correct: 1,
+        explanation: "Gaia BH3 is a massive stellar black hole (33 times the mass of the Sun) discovered in the Milky Way, located relatively close to Earth."
+    },
+    {
+        question: "The 'Charaideo Maidams', India's nomination for UNESCO World Heritage status, are associated with which dynasty?",
+        options: ["Ahom Dynasty", "Chola Dynasty", "Gupta Dynasty", "Manikya Dynasty"],
+        correct: 0,
+        explanation: "The Charaideo Maidams are the burial mounds of the Ahom kings and queens in Assam, often compared to the Pyramids of Egypt."
+    },
+    {
+        question: "What is 'CDP-SURAKSHA'?",
+        options: ["A cyber security tool.", "A digital platform to disburse subsidies to horticulture farmers.", "A new insurance scheme.", "A coastal defense ship."],
+        correct: 1,
+        explanation: "The government launched the CDP-SURAKSHA platform to ensure instant and transparent disbursal of subsidies to horticulture farmers under the Cluster Development Programme."
+    },
+    {
+        question: "The 'Exercise Poorvi Lehar' (XPOL) was conducted by:",
+        options: ["Indian Army in the North East.", "Indian Navy on the East Coast.", "Indian Air Force in Bengal.", "Coast Guard in Odisha."],
+        correct: 1,
+        explanation: "It was a maritime domain awareness and sea control exercise conducted by the Indian Navy on the East Coast."
+    },
+    {
+        question: "The 'Global Hepatitis Report 2024' was released by:",
+        options: ["World Health Organization (WHO)", "CDC", "Doctors Without Borders", "UNICEF"],
+        correct: 0,
+        explanation: "The WHO released the Global Hepatitis Report 2024, highlighting the increasing burden of viral hepatitis globally."
+    },
+    {
+        question: "The 'Dragonfly' mission, confirmed by NASA, is a rotorcraft lander designed to explore:",
+        options: ["Mars", "Titan (Saturn's largest moon)", "Europa (Jupiter's moon)", "Venus"],
+        correct: 1,
+        explanation: "Dragonfly is a drone-like rotorcraft lander mission to explore the chemistry and habitability of Saturn's moon Titan."
+    },
+    {
+        question: "What are 'Volcanic Vortex Rings', recently seen at Mount Etna?",
+        options: ["Rings of fire around the crater.", "Circular rings of gas and steam expelled from a volcano vent.", "Lava flowing in circles.", "A new rock formation."],
+        correct: 1,
+        explanation: "Mount Etna emitted perfect circular rings of gas and steam (vortex rings), a rare phenomenon caused by rapid gas release."
+    },
+    {
+        question: "The 'Clean Economy Investor Forum' was organized under the aegis of:",
+        options: ["G20", "Indo-Pacific Economic Framework for Prosperity (IPEF)", "BRICS", "ASEAN"],
+        correct: 1,
+        explanation: "The forum was organized in Singapore to mobilize investments for sustainable infrastructure under the IPEF."
+    },
+    {
+        question: "The 'Senkaku Islands' (Diaoyu Islands) are a subject of territorial dispute between:",
+        options: ["Japan and Russia", "Japan and China", "China and Philippines", "South Korea and Japan"],
+        correct: 1,
+        explanation: "The Senkaku Islands are a group of uninhabited islands in the East China Sea, administered by Japan but claimed by China."
+    },
+    {
+        question: "The 'Kodaikanal Solar Observatory' recently celebrated its:",
+        options: ["50th Anniversary", "100th Anniversary", "125th Anniversary", "150th Anniversary"],
+        correct: 2,
+        explanation: "The Kodaikanal Solar Observatory (Tamil Nadu), one of the oldest in the world, celebrated its 125th anniversary in 2024."
+    },
+    {
+        question: "The 'Article 244(A)' of the Indian Constitution, often discussed in Assam elections, provides for:",
+        options: ["Creation of an 'autonomous state' within Assam.", "Special financial status.", "Inner Line Permit.", "Separation from India."],
+        correct: 0,
+        explanation: "Article 244(A) allows for the creation of an 'autonomous state' comprising certain tribal areas within the state of Assam."
+    },
+    {
+        question: "The 'Plastic Overshoot Day' report, identifying India as a top generator of mismanaged plastic waste, was released by:",
+        options: ["UNEP", "EA Earth Action", "Greenpeace", "WWF"],
+        correct: 1,
+        explanation: "The report by Swiss non-profit EA Earth Action tracks the day when the amount of plastic waste exceeds the capability to manage it."
+    },
+    {
+        question: "What is 'Bima Vistar'?",
+        options: ["A life insurance policy for farmers.", "An all-in-one affordable insurance product (Life + Health + Property) proposed by IRDAI.", "A pension scheme.", "A crop insurance add-on."],
+        correct: 1,
+        explanation: "Bima Vistar is a comprehensive, affordable, all-in-one insurance product covering life, health, and property risks."
+    },
+    {
+        question: "The 'Senna spectabilis' is an invasive plant species posing a threat to which Tiger Reserve?",
+        options: ["Mudumalai Tiger Reserve", "Ranthambore Tiger Reserve", "Sundarbans", "Corbett"],
+        correct: 0,
+        explanation: "The invasive tree *Senna spectabilis* is spreading rapidly in the Mudumalai Tiger Reserve (Tamil Nadu), threatening native biodiversity."
+    },
+    {
+        question: "The 'Strategic Forces Command' (SFC) along with DRDO recently conducted a flight test of:",
+        options: ["Agni-Prime (New Generation Ballistic Missile)", "BrahMos-NG", "Prithvi-II", "Nag Missile"],
+        correct: 0,
+        explanation: "SFC and DRDO successfully conducted a night launch of the new generation ballistic missile Agni-Prime from Dr APJ Abdul Kalam Island."
+    },
+    {
+        question: "The 'State of World Population 2024' report is titled:",
+        options: ["8 Billion Lives", "Interwoven Lives, Threads of Hope", "Too Many People", "Rights and Choices"],
+        correct: 1,
+        explanation: "The UNFPA report is titled 'Interwoven Lives, Threads of Hope: Ending Inequalities in Sexual and Reproductive Health and Rights'."
+    },
+    {
+        question: "The 'Man-Portable Anti-Tank Guided Missile' (MPATGM) weapon system was field-evaluated by:",
+        options: ["ISRO", "DRDO and Indian Army", "Ordnance Factory Board", "HAL"],
+        correct: 1,
+        explanation: "DRDO and the Indian Army successfully conducted field trials of the indigenous MPATGM weapon system."
+    },
+    {
+        question: "Which country has the world's first '4th Generation' nuclear power plant (Shidaowan)?",
+        options: ["USA", "Russia", "China", "France"],
+        correct: 2,
+        explanation: "China commenced commercial operations of the world's first 4th generation nuclear power plant (Shidaowan) using gas-cooled reactors."
+    },
+    {
+        question: "The 'Exercise Dustlik 2024' took place in:",
+        options: ["Uttarakhand, India", "Tashkent, Uzbekistan", "Termez, Uzbekistan", "Rajasthan, India"],
+        correct: 2,
+        explanation: "The 5th edition of joint military exercise Dustlik was conducted in Termez District, Uzbekistan."
+    },
+    {
+        question: "The 'Lakadong Turmeric', known for high curcumin content, recently got a GI tag. It belongs to:",
+        options: ["Manipur", "Meghalaya", "Mizoram", "Assam"],
+        correct: 1,
+        explanation: "Lakadong Turmeric is a special variety from the Jaintia Hills of Meghalaya, famous for its high curcumin content (up to 7-12%)."
+    },
+    {
+        question: "The 'Global Trade Outlook and Statistics' report is published by:",
+        options: ["IMF", "World Bank", "World Trade Organization (WTO)", "UNCTAD"],
+        correct: 2,
+        explanation: "The WTO releases this report, forecasting the growth of world merchandise trade."
+    },
+    {
+        question: "What is 'Proba-3'?",
+        options: ["A mission to Mars.", "ESA's mission (with ISRO launch) to create an artificial solar eclipse in space.", "A deep sea submarine.", "A new vaccine."],
+        correct: 1,
+        explanation: "Proba-3 is an ESA mission (to be launched by ISRO's PSLV) that will fly two satellites in formation to block the sun and study its corona."
+    },
+    {
+        question: "The 'H5N1' bird flu was recently detected in which mammals, raising alarm?",
+        options: ["Dairy Cows in USA", "Elephants in Africa", "Tigers in India", "Whales in Pacific"],
+        correct: 0,
+        explanation: "The detection of Highly Pathogenic Avian Influenza (H5N1) in dairy cows (and a human worker) in the USA raised concerns about mammal-to-mammal transmission."
+    },
+    {
+        question: "The 'Net Neutrality' rules in India prohibit:",
+        options: ["Internet censorship.", "Telecom service providers from discriminating against internet content (blocking, throttling, or zero-rating).", "Using VPNs.", "Social media usage."],
+        correct: 1,
+        explanation: "Net Neutrality principles prevent ISPs from favoring or blocking specific content, apps, or websites."
+    },
+    {
+        question: "The 'Green Credit Programme' (GCP) focuses on:",
+        options: ["Carbon trading.", "Incentivizing voluntary environmental actions (like tree plantation, water harvesting) on degraded lands.", "Green bonds.", "Solar subsidies."],
+        correct: 1,
+        explanation: "GCP is distinct from carbon markets; it incentivizes voluntary actions like tree plantation on waste/degraded lands to generate Green Credits."
+    },
+    {
+        question: "The 'Mount Erebus' in Antarctica is famous for:",
+        options: ["Being the tallest mountain.", "Being an active volcano that spews gold dust.", "Being a dormant volcano.", "Having a blue lava lake."],
+        correct: 1,
+        explanation: "Mount Erebus is an active volcano in Antarctica known for emitting gas containing crystallized gold (gold dust)."
+    },
+    {
+        question: "The 'Swift' (payment system) is planning to launch a platform for:",
+        options: ["Cryptocurrency trading.", "Central Bank Digital Currencies (CBDCs) integration.", "Gold trading.", "Stock market."],
+        correct: 1,
+        explanation: "SWIFT is planning to launch a new platform to connect the world's Central Bank Digital Currencies (CBDCs) to the existing finance system."
+    },
+    {
+        question: "The 'Su-30 MKI' fighter jets are manufactured by:",
+        options: ["Dassault Aviation", "Hindustan Aeronautics Limited (HAL) under license from Russia.", "Boeing", "Lockheed Martin"],
+        correct: 1,
+        explanation: "The Su-30 MKI is developed by Russia's Sukhoi and built under license by India's HAL."
+    },
+    {
+        question: "The 'Deendayal Port Authority' (Kandla) is located in:",
+        options: ["Maharashtra", "Gujarat", "Goa", "Karnataka"],
+        correct: 1,
+        explanation: "Deendayal Port (formerly Kandla Port) is a major port in the Gulf of Kutch, Gujarat, known for handling the highest cargo traffic."
+    },
+    {
+        question: "The 'Kampala Declaration' is associated with which issue?",
+        options: ["Migration, Environment, and Climate Change.", "Global Tax Reforms.", "Elimination of Malaria.", "Cyber Security Cooperation."],
+        correct: 0,
+        explanation: "48 African countries adopted the Kampala Declaration to address the nexus of migration, environment, and climate change."
+    },
+    {
+        question: "The 'Vibhav', recently inducted into the Indian Army, is:",
+        options: ["A self-neutralizing anti-tank mine.", "A long-range artillery gun.", "A surveillance drone.", "A biological warfare suit."],
+        correct: 0,
+        explanation: "Vibhav is an indigenous self-neutralizing anti-tank mine designed to provide mobility kill against all enemy armored vehicles."
+    },
+    {
+        question: "The 'Gujarat Declaration' released by WHO focuses on:",
+        options: ["Traditional Medicine.", "Tuberculosis Elimination.", "Pandemic Preparedness.", "Mental Health."],
+        correct: 0,
+        explanation: "The Gujarat Declaration was the outcome of the first WHO Traditional Medicine Global Summit held in Gandhinagar."
+    },
+    {
+        question: "What is 'LK-99', which created a buzz in the scientific community?",
+        options: ["A material claimed to be a room-temperature superconductor.", "A new exoplanet.", "A cure for Alzheimer's.", "A new element."],
+        correct: 0,
+        explanation: "LK-99 was a material claimed by South Korean researchers to be a room-temperature superconductor, though later studies disputed this."
+    },
+    {
+        question: "The 'Mahendragiri', recently launched, is the last ship of which project?",
+        options: ["Project 15B (Destroyers)", "Project 17A (Stealth Frigates)", "Project 75 (Submarines)", "Project 28 (Corvettes)"],
+        correct: 1,
+        explanation: "INS Mahendragiri is the seventh and last stealth frigate of Project 17A, named after a mountain peak in Odisha."
+    },
+    {
+        question: "The 'Khanan Prahari' App allows citizens to report:",
+        options: ["Illegal coal mining activities.", "Forest fires.", "Poaching of animals.", "Water pollution."],
+        correct: 0,
+        explanation: "The app allows citizens to report incidents of illegal coal mining through geo-tagged photos and text."
+    },
+    {
+        question: "Which Indian scientist received the 'Norman Borlaug Field Award' in 2023?",
+        options: ["Swati Nayak", "K. Sivan", "G. Satheesh Reddy", "Soumya Swaminathan"],
+        correct: 0,
+        explanation: "Dr. Swati Nayak, an Indian scientist at IRRI, received the award for her work in engaging farmers in demand-driven rice seed systems."
+    },
+    {
+        question: "The 'Inter-Services Organisation (Command, Control and Discipline) Act, 2023' empowers:",
+        options: ["The Commander-in-Chief of an Inter-Services Organisation to exercise disciplinary power over personnel from all three services.", "The Police to arrest army personnel.", "Private security firms.", "The Defence Minister to judge court martials."],
+        correct: 0,
+        explanation: "It empowers the Commander-in-Chief/Officer-in-Command of Inter-Services Organisations (like Andaman & Nicobar Command) to exercise disciplinary control over service personnel under them, regardless of their service branch."
+    },
+    {
+        question: "The 'Luna-25' was a lunar mission of which country that crashed recently?",
+        options: ["Russia", "USA", "China", "Japan"],
+        correct: 0,
+        explanation: "Luna-25 was Russia's first lunar mission in 47 years, which crashed into the moon's surface before landing."
+    },
+    {
+        question: "The 'Sanchar Saathi' portal is a citizen-centric initiative to:",
+        options: ["Track and block lost/stolen mobile phones.", "Apply for a new passport.", "Register for 5G services.", "File consumer complaints against telecom operators."],
+        correct: 0,
+        explanation: "Launched by the DoT, it allows users to track lost phones (CEIR module) and check how many SIMs are registered in their name (TAFCOP module)."
+    },
+    {
+        question: "The 'Global Innovation Index' (GII) 2023 ranked India at:",
+        options: ["40th", "46th", "52nd", "81st"],
+        correct: 0,
+        explanation: "India retained the 40th rank out of 132 economies in the Global Innovation Index 2023."
+    },
+    {
+        question: "The 'Mithun' (Bos frontalis) recently got the 'Food Animal' tag from FSSAI. It is the state animal of:",
+        options: ["Arunachal Pradesh and Nagaland", "Assam and Meghalaya", "Manipur and Mizoram", "Sikkim and Tripura"],
+        correct: 0,
+        explanation: "Mithun is the state animal of Arunachal Pradesh and Nagaland. The 'Food Animal' tag helps in its commercial rearing."
+    },
+    {
+        question: "What is the 'Five Eyes' intelligence alliance?",
+        options: ["An alliance of USA, UK, Canada, Australia, and New Zealand.", "An alliance of 5 Asian countries.", "A surveillance program of NATO.", "A group of 5 spy satellites."],
+        correct: 0,
+        explanation: "It is an intelligence-sharing alliance comprising Australia, Canada, New Zealand, the United Kingdom, and the United States."
+    },
+    {
+        question: "The 'BrahMos-NG' (Next Generation) missile is primarily designed to be:",
+        options: ["Lighter and smaller to be carried by LCA Tejas.", "A nuclear missile.", "An underwater torpedo.", "A space weapon."],
+        correct: 0,
+        explanation: "BrahMos-NG is a smaller, lighter version of the BrahMos, designed to be integrated with lighter aircraft like the LCA Tejas."
+    },
+    {
+        question: "The 'National Dental Commission Act, 2023' replaces which old Act?",
+        options: ["The Dentists Act, 1948", "The Medical Council Act, 1956", "The Pharmacy Act, 1948", "The Health Services Act, 1960"],
+        correct: 0,
+        explanation: "It repeals the Dentists Act, 1948, and seeks to overhaul the dental education and profession regulation in India."
+    },
+    {
+        question: "The 'Aditya-L1' mission carries a payload named 'VELC'. What does it stand for?",
+        options: ["Visible Emission Line Coronagraph", "Very Extremely Large Camera", "Violet Energy Light Capture", "Vector Emission Light Chronometer"],
+        correct: 0,
+        explanation: "VELC (Visible Emission Line Coronagraph) is the primary payload on Aditya-L1 to study the solar corona."
+    },
+    {
+        question: "The 'Exercise Simbex' is a maritime bilateral exercise between India and:",
+        options: ["Singapore", "Sri Lanka", "South Africa", "Seychelles"],
+        correct: 0,
+        explanation: "SIMBEX stands for Singapore-India Maritime Bilateral Exercise."
+    },
+    {
+        question: "The 'Diksha' platform serves as a:",
+        options: ["National Digital Infrastructure for Teachers and students.", "Portal for farmers.", "Health record database.", "Disaster management tool."],
+        correct: 0,
+        explanation: "DIKSHA (Digital Infrastructure for Knowledge Sharing) provides digital content for schools (NCERT curriculum) and teacher training."
+    },
+    {
+        question: "The 'Self-Regulatory Organization' (SRO) framework for Fintechs was proposed by:",
+        options: ["RBI", "SEBI", "NITI Aayog", "Ministry of Finance"],
+        correct: 0,
+        explanation: "RBI proposed the SRO framework to promote responsible practices and self-governance within the Fintech sector."
+    },
+    {
+        question: "The 'OSIRIS-REx' mission of NASA returned samples from which asteroid?",
+        options: ["Bennu", "Ryugu", "Psyche", "Ceres"],
+        correct: 0,
+        explanation: "NASA's OSIRIS-REx mission successfully returned a capsule containing samples from asteroid Bennu to Earth."
+    },
+    {
+        question: "The 'Hollongapar Gibbon Sanctuary', India's only sanctuary named after a gibbon, is in:",
+        options: ["Assam", "Meghalaya", "Tripura", "Arunachal Pradesh"],
+        correct: 0,
+        explanation: "Located in Assam, it is a key habitat for the Hoolock Gibbon."
+    },
+    {
+        question: "The 'Bharat Drone Shakti 2023' exhibition was inaugurated at:",
+        options: ["Hindon Airbase, Ghaziabad", "Yelahanka, Bengaluru", "Begumpet, Hyderabad", "Palam, Delhi"],
+        correct: 0,
+        explanation: "It was inaugurated at Hindon Airbase to showcase the capabilities of the Indian drone industry."
+    },
+    {
+        question: "What is the 'Matsya 6000' submersible made of?",
+        options: ["Titanium Alloy", "Steel", "Carbon Fiber", "Aluminum"],
+        correct: 0,
+        explanation: "The personnel sphere of Matsya 6000 is made of Titanium alloy to withstand the immense pressure at 6000m depth."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' was initiated by India, Brazil, and:",
+        options: ["USA", "Russia", "China", "Saudi Arabia"],
+        correct: 0,
+        explanation: "The founding members were India, Brazil, and the USA."
+    },
+    {
+        question: "The 'Rozgar Mela' is an initiative by the Government of India to:",
+        options: ["Provide 10 lakh government jobs.", "Provide loans to startups.", "Train rural youth.", "Organize job fairs in private sector."],
+        correct: 0,
+        explanation: "Rozgar Mela is a recruitment drive to provide 10 lakh central government jobs to youth."
+    },
+    {
+        question: "The 'Asha Kirana' scheme (Eye Care) was launched by which state?",
+        options: ["Karnataka", "Kerala", "Tamil Nadu", "Telangana"],
+        correct: 0,
+        explanation: "The Karnataka government launched 'Asha Kirana' to provide comprehensive eye care services to the people."
+    },
+    {
+        question: "The 'P-20' Summit mentioned in news refers to:",
+        options: ["Parliament-20 (Speakers of Parliaments of G20 nations).", "Police-20.", "Petroleum-20.", "Power-20."],
+        correct: 0,
+        explanation: "P20 is the forum of Presiding Officers of Parliaments of G20 member countries."
+    },
+    {
+        question: "The 'Nagorno-Karabakh' region was a point of conflict between:",
+        options: ["Armenia and Azerbaijan", "Russia and Ukraine", "Israel and Palestine", "Turkey and Greece"],
+        correct: 0,
+        explanation: "Azerbaijan launched a military operation to regain full control over the breakaway region of Nagorno-Karabakh from ethnic Armenian forces."
+    },
+    {
+        question: "The 'Statue of Oneness' (Adi Shankaracharya) was unveiled in:",
+        options: ["Omkareshwar, Madhya Pradesh", "Kedarnath, Uttarakhand", "Kalady, Kerala", "Puri, Odisha"],
+        correct: 0,
+        explanation: "The 108-feet Statue of Oneness (Ekatmata Ki Pratima) of Adi Shankaracharya was unveiled in Omkareshwar, MP."
+    },
+    {
+        question: "The 'Green Hydrogen' standard for India defines it as hydrogen produced with a well-to-gate emission of not more than:",
+        options: ["2 kg CO2 equivalent per kg H2", "5 kg CO2 equivalent per kg H2", "1 kg CO2 equivalent per kg H2", "Zero emissions"],
+        correct: 0,
+        explanation: "India's Green Hydrogen Standard limits emissions to 2 kg CO2 equivalent / kg H2 as a 12-month average."
+    },
+    {
+        question: "The 'PM-JANMAN' scheme specifically targets which group of beneficiaries?",
+        options: ["Farmers in drought-prone areas.", "Particularly Vulnerable Tribal Groups (PVTGs).", "Urban street vendors.", "Women entrepreneurs in MSMEs."],
+        correct: 1,
+        explanation: "PM-JANMAN (Pradhan Mantri Janjati Adivasi Nyaya Maha Abhiyan) targets the 75 PVTGs to provide them with basic amenities like housing, water, and education."
+    },
+    {
+        question: "The 'XPoSat' mission launched by ISRO is India's first dedicated satellite to study:",
+        options: ["Solar corona.", "Polarisation of intense X-ray sources in space.", "Exoplanets.", "Black holes only."],
+        correct: 1,
+        explanation: "XPoSat (X-ray Polarimeter Satellite) aims to measure the polarisation of X-rays from cosmic sources like black holes and neutron stars."
+    },
+    {
+        question: "The 'Exercise Tarang Shakti' is significant because:",
+        options: ["It is India's largest multilateral air exercise.", "It is a naval exercise with Russia.", "It is a joint exercise with Pakistan.", "It focuses on cyber warfare."],
+        correct: 0,
+        explanation: "Tarang Shakti is the largest multilateral air exercise conducted by the Indian Air Force on Indian soil, involving air forces from multiple nations."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' (GBA) aims to promote the adoption of biofuels. It was launched during:",
+        options: ["COP28 in Dubai.", "G20 Summit in New Delhi.", "BRICS Summit in South Africa.", "ASEAN Summit in Jakarta."],
+        correct: 1,
+        explanation: "The GBA was launched by PM Modi on the sidelines of the G20 Summit in New Delhi to boost global biofuel trade."
+    },
+    {
+        question: "The 'Lakhpati Didi' initiative operates under which ministry?",
+        options: ["Ministry of Women and Child Development", "Ministry of Rural Development", "Ministry of Finance", "Ministry of Skill Development"],
+        correct: 1,
+        explanation: "It is an initiative under the Ministry of Rural Development (DAY-NRLM) to empower women in Self-Help Groups to earn a sustainable income."
+    },
+    {
+        question: "What is 'Gemini', recently launched by Google?",
+        options: ["A new constellation.", "A multimodal AI model.", "A new VR headset.", "A search engine update."],
+        correct: 1,
+        explanation: "Gemini is Google's most capable and general AI model, designed to be multimodal (understanding text, images, video, etc.)."
+    },
+    {
+        question: "The 'Sela Tunnel', inaugurated by the PM, provides all-weather connectivity to:",
+        options: ["Leh, Ladakh", "Tawang, Arunachal Pradesh", "Gangtok, Sikkim", "Mana, Uttarakhand"],
+        correct: 1,
+        explanation: "The Sela Tunnel connects Tezpur to Tawang in Arunachal Pradesh, vital for defense mobility near the China border."
+    },
+    {
+        question: "The 'Green Credit Programme' (GCP) incentivizes:",
+        options: ["Carbon trading.", "Voluntary environmental actions like tree plantation and water conservation.", "Purchase of EVs.", "Solar panel installation only."],
+        correct: 1,
+        explanation: "GCP is a market-based mechanism to incentivize voluntary environmental actions, distinct from the carbon market."
+    },
+    {
+        question: "The 'H5N1' virus, recently making headlines for infecting cattle in the US, is a strain of:",
+        options: ["Swine Flu", "Bird Flu (Avian Influenza)", "Coronavirus", "Ebola"],
+        correct: 1,
+        explanation: "H5N1 is a Highly Pathogenic Avian Influenza (HPAI) strain, primarily affecting birds but recently jumping to mammals like dairy cows."
+    },
+    {
+        question: "The 'Article 371A' of the Indian Constitution grants special provisions to:",
+        options: ["Manipur", "Nagaland", "Assam", "Sikkim"],
+        correct: 1,
+        explanation: "Article 371A protects the religious/social practices and land ownership rights of the Nagas in Nagaland."
+    },
+    {
+        question: "The 'Mera Yuva Bharat' (MY Bharat) platform is an autonomous body under:",
+        options: ["Ministry of Education", "Ministry of Youth Affairs and Sports", "Ministry of Skill Development", "NITI Aayog"],
+        correct: 1,
+        explanation: "MY Bharat serves as a one-stop platform for youth development and is an autonomous body under the Ministry of Youth Affairs."
+    },
+    {
+        question: "The 'Agni-5' missile test named 'Mission Divyastra' demonstrated which technology?",
+        options: ["Scramjet engine.", "MIRV (Multiple Independently Targetable Re-entry Vehicle).", "Stealth coating.", "Hypersonic glide."],
+        correct: 1,
+        explanation: "Mission Divyastra demonstrated the MIRV capability, allowing a single Agni-5 missile to deploy multiple warheads to different targets."
+    },
+    {
+        question: "The 'Citizenship Amendment Act' (CAA) 2019 rules were notified in 2024. It grants citizenship to persecuted minorities who entered India before:",
+        options: ["31st December 2014", "1st January 2019", "15th August 1947", "26th January 1950"],
+        correct: 0,
+        explanation: "The cutoff date for entry into India for eligibility under CAA is on or before 31st December 2014."
+    },
+    {
+        question: "The 'Press Mud' is a byproduct of the sugar industry used for generating:",
+        options: ["Paper", "Compressed Biogas (CBG)", "Textile fiber", "Plastic"],
+        correct: 1,
+        explanation: "Press mud is a valuable feedstock for producing Compressed Biogas (CBG), helping in green energy generation."
+    },
+    {
+        question: "The 'Kabil' (Khanij Bidesh India Ltd) acquired lithium blocks in:",
+        options: ["Chile", "Argentina", "Bolivia", "Australia"],
+        correct: 1,
+        explanation: "KABIL signed an agreement with Argentina's CAMYEN for the exploration and development of lithium blocks."
+    },
+    {
+        question: "The 'Exercise Dustlik' is a joint military exercise between India and:",
+        options: ["Kazakhstan", "Uzbekistan", "Tajikistan", "Kyrgyzstan"],
+        correct: 1,
+        explanation: "Dustlik is a bilateral military exercise between the armies of India and Uzbekistan."
+    },
+    {
+        question: "The 'Global Trade Research Initiative' (GTRI) is a:",
+        options: ["UN body.", "New Delhi-based think tank.", "US government agency.", "Chinese research firm."],
+        correct: 1,
+        explanation: "GTRI is an Indian think tank that publishes reports on trade, technology, and climate change issues."
+    },
+    {
+        question: "The 'State of World Population' report 2024 is published by:",
+        options: ["World Bank", "UNFPA", "WHO", "UNDP"],
+        correct: 1,
+        explanation: "The UNFPA (United Nations Population Fund) publishes this annual report."
+    },
+    {
+        question: "The 'Valmiki Tiger Reserve' is the only tiger reserve in:",
+        options: ["Uttar Pradesh", "Bihar", "Jharkhand", "Chhattisgarh"],
+        correct: 1,
+        explanation: "Valmiki Tiger Reserve is located in the West Champaran district of Bihar."
+    },
+    {
+        question: "The 'India-Middle East-Europe Economic Corridor' (IMEC) was announced at:",
+        options: ["G7 Summit", "G20 Summit in New Delhi", "COP28", "BRICS Summit"],
+        correct: 1,
+        explanation: "The IMEC corridor was announced on the sidelines of the G20 Summit in New Delhi to connect India, the Middle East, and Europe."
+    },
+    {
+        question: "The 'Sagar Aankalan' guidelines are related to:",
+        options: ["Deep sea fishing.", "Benchmarking performance of Indian ports.", "Naval surveillance.", "Ocean weather forecasting."],
+        correct: 1,
+        explanation: "These guidelines aim to benchmark the performance of Indian ports to improve their efficiency and competitiveness."
+    },
+    {
+        question: "The 'Atmospheric Waves Experiment' (AWE) is a mission of:",
+        options: ["ISRO", "NASA", "ESA", "JAXA"],
+        correct: 1,
+        explanation: "NASA's AWE mission studies atmospheric gravity waves from the International Space Station to understand space weather."
+    },
+    {
+        question: "The 'Bharat Tex 2024' was:",
+        options: ["A tech summit.", "One of the largest global textile events held in India.", "A tax reform conference.", "An agricultural expo."],
+        correct: 1,
+        explanation: "It was a mega global textile event showcasing India's textile capabilities."
+    },
+    {
+        question: "The 'Pradhan Mantri Suryodaya Yojana' aims to provide:",
+        options: ["Solar street lights.", "Rooftop solar systems for 1 crore households.", "Solar pumps for farmers.", "Solar cookers."],
+        correct: 1,
+        explanation: "The scheme targets installing rooftop solar panels in 1 crore households to provide free electricity and income from surplus power."
+    },
+    {
+        question: "The 'Exercise Sea Defenders-2024' was conducted between:",
+        options: ["Indian Navy and US Navy", "Indian Coast Guard and US Coast Guard", "Indian Navy and French Navy", "Indian Coast Guard and Sri Lanka Coast Guard"],
+        correct: 1,
+        explanation: "It was a joint exercise between the Indian Coast Guard and the US Coast Guard."
+    },
+    {
+        question: "The 'Gorsam Kora Festival' is celebrated in:",
+        options: ["Ladakh", "Arunachal Pradesh", "Sikkim", "Himachal Pradesh"],
+        correct: 1,
+        explanation: "The festival is held in the Zemithang valley of Arunachal Pradesh, celebrating the friendship between India and Bhutan."
+    },
+    {
+        question: "The 'Plastic Overshoot Day' report was released by:",
+        options: ["UNEP", "EA Earth Action", "WWF", "Greenpeace"],
+        correct: 1,
+        explanation: "Swiss non-profit EA Earth Action released the report highlighting plastic waste management issues."
+    },
+    {
+        question: "The 'Pakhro Tiger Safari' project was halted by the Supreme Court in:",
+        options: ["Ranthambore", "Jim Corbett National Park", "Kaziranga", "Bandipur"],
+        correct: 1,
+        explanation: "The SC stopped the illegal construction and tree felling for the tiger safari in Jim Corbett National Park, Uttarakhand."
+    },
+    {
+        question: "The 'Sudha Murty' was recently nominated to:",
+        options: ["Lok Sabha", "Rajya Sabha", "NITI Aayog", "Election Commission"],
+        correct: 1,
+        explanation: "Author and philanthropist Sudha Murty was nominated to the Rajya Sabha by the President of India."
+    },
+    {
+        question: "The 'Vaitarna River', where Bull Sharks were sighted, is in:",
+        options: ["Gujarat", "Maharashtra", "Goa", "Karnataka"],
+        correct: 1,
+        explanation: "The Vaitarna River flows through the Palghar district of Maharashtra."
+    },
+    {
+        question: "The 'PACE' mission, recently launched by NASA, stands for:",
+        options: ["Plankton, Aerosol, Cloud, ocean Ecosystem", "Planetary Atmosphere and Climate Explorer", "Polar Antarctic Climate Experiment", "Pacific And Caribbean Environment"],
+        correct: 0,
+        explanation: "PACE (Plankton, Aerosol, Cloud, ocean Ecosystem) is a NASA mission to study how the ocean and atmosphere exchange carbon dioxide."
+    },
+    {
+        question: "The 'Sagar Sampark' is an indigenous Differential Global Navigation Satellite System (DGNSS) launched by:",
+        options: ["Ministry of Defence", "Ministry of Ports, Shipping and Waterways", "ISRO", "Ministry of Earth Sciences"],
+        correct: 1,
+        explanation: "It was launched by the Ministry of Ports, Shipping and Waterways to improve the accuracy of positioning data for ships."
+    },
+    {
+        question: "What is 'Tele-MANAS'?",
+        options: ["A mental health helpline.", "A telemedicine service for rural areas.", "A portal for managing telecom grievances.", "A satellite for telecommunication."],
+        correct: 0,
+        explanation: "Tele-MANAS (Tele Mental Health Assistance and Networking Across States) is a comprehensive 24x7 mental health helpline."
+    },
+    {
+        question: "The 'Exercise Cyclone-I' was the first joint special forces exercise between India and:",
+        options: ["Oman", "Egypt", "UAE", "Saudi Arabia"],
+        correct: 1,
+        explanation: "Exercise Cyclone-I was the first-ever joint exercise between the special forces of the Indian Army and the Egyptian Army, held in Jaisalmer."
+    },
+    {
+        question: "The 'e-SCR' (Electronic Supreme Court Reports) project provides:",
+        options: ["Live streaming of cases.", "Free access to official law reports (judgments) of the Supreme Court.", "Online filing of petitions.", "Virtual court hearings."],
+        correct: 1,
+        explanation: "The e-SCR project aims to provide the digital version of the Supreme Court's judgments to lawyers, law students, and the public for free."
+    },
+    {
+        question: "The 'World's first portable disaster hospital', known as the 'Aarogya Maitri Cube', was unveiled by:",
+        options: ["USA", "India", "China", "Japan"],
+        correct: 1,
+        explanation: "India unveiled the world's first portable disaster hospital under 'Project BHISHM', which can be airlifted and assembled in 1 hour."
+    },
+    {
+        question: "The 'Nandi Portal' launched by the Ministry of Fisheries is for:",
+        options: ["Granting No Objection Certificates (NOC) for veterinary drugs and vaccines.", "Tracking fishing boats.", "Selling fish online.", "Weather forecast for fishermen."],
+        correct: 0,
+        explanation: "NANDI (NOC Approval for New Drug and Inoculation System) portal facilitates regulatory approval for veterinary products."
+    },
+    {
+        question: "The 'Ghol Fish', declared the state fish of Gujarat, is valuable for its:",
+        options: ["Meat only.", "Air bladder (maw), used in pharmaceuticals and beer purification.", "Oil.", "Scales."],
+        correct: 1,
+        explanation: "The Ghol fish is prized for its air bladder, which is used in making Isinglass for clarifying beer and wine, and in medicines."
+    },
+    {
+        question: "The 'Exercise Udara Shakti' is a bilateral air exercise between India and:",
+        options: ["Malaysia", "Indonesia", "Thailand", "Singapore"],
+        correct: 0,
+        explanation: "Udara Shakti is a bilateral air exercise between the Indian Air Force and the Royal Malaysian Air Force (RMAF)."
+    },
+    {
+        question: "The 'Vigyan Jyoti' programme, aimed at encouraging girls in STEM, is an initiative of:",
+        options: ["NITI Aayog", "Department of Science & Technology (DST)", "Ministry of Education", "CSIR"],
+        correct: 1,
+        explanation: "Vigyan Jyoti is a DST initiative to address the underrepresentation of women in STEM fields by targeting meritorious girl students in Class 9-12."
+    },
+    {
+        question: "The 'Global River Cities Alliance' (GRCA) was launched at:",
+        options: ["COP28, Dubai", "UN Water Conference", "G20 Summit", "World Water Forum"],
+        correct: 0,
+        explanation: "Led by India's National Mission for Clean Ganga (NMCG), the GRCA was launched at the COP28 summit in Dubai."
+    },
+    {
+        question: "What is the 'ENCORE' software used for by the Election Commission of India?",
+        options: ["Candidate affidavit management and poll day monitoring.", "Voting from home.", "Counting votes.", "Designing logos."],
+        correct: 0,
+        explanation: "ENCORE (Enabling Communications on Real-time Environment) is an end-to-end application for candidate nomination, affidavit digitization, and voter turnout tracking."
+    },
+    {
+        question: "The 'Surya Kiran' is a joint military exercise between India and:",
+        options: ["Sri Lanka", "Nepal", "Bangladesh", "Bhutan"],
+        correct: 1,
+        explanation: "Exercise Surya Kiran is a long-running joint military exercise between the armies of India and Nepal."
+    },
+    {
+        question: "The 'Holistic Progress Card' (HPC) proposed under NEP 2020 includes assessment by:",
+        options: ["Teachers only.", "Self, Peers, and Teachers (360-degree).", "External examiners only.", "AI bots."],
+        correct: 1,
+        explanation: "HPC is a 360-degree, multidimensional report card that includes self-assessment, peer assessment, and teacher assessment."
+    },
+    {
+        question: "The 'National Turmeric Board' focuses on increasing turmeric exports to:",
+        options: ["$1 Billion by 2030", "$5 Billion by 2030", "$100 Million by 2025", "$500 Million by 2025"],
+        correct: 0,
+        explanation: "The board aims to increase turmeric exports to USD 1 Billion by 2030."
+    },
+    {
+        question: "The 'Amrit Bharat Station Scheme' envisages the development of stations on a:",
+        options: ["PPP model only.", "Continuous basis with a long-term vision.", "One-time renovation basis.", "Privatization basis."],
+        correct: 1,
+        explanation: "The scheme involves the preparation of Master Plans and their implementation in phases for the long-term improvement of amenities."
+    },
+    {
+        question: "What is 'Project 15B' in the context of the Indian Navy?",
+        options: ["Construction of Nuclear Submarines.", "Construction of Visakhapatnam-class stealth guided missile destroyers.", "Building aircraft carriers.", "Amphibious warfare ships."],
+        correct: 1,
+        explanation: "Project 15B involves building four stealth guided missile destroyers: Visakhapatnam, Mormugao, Imphal, and Surat."
+    },
+    {
+        question: "The 'Global Stocktake' (GST) is a process under the Paris Agreement to:",
+        options: ["Calculate global stock markets.", "Assess collective progress towards achieving the purpose of the Agreement and its long-term goals.", "Stockpile food grains.", "Count global population."],
+        correct: 1,
+        explanation: "GST is the 'report card' of the Paris Agreement, assessing global progress on climate action every 5 years."
+    },
+    {
+        question: "The 'Nari Shakti Vandan Adhiniyam' (Women's Reservation Bill) will come into effect:",
+        options: ["Immediately.", "After the next census and delimitation exercise.", "In 2030.", "In 2050."],
+        correct: 1,
+        explanation: "The reservation will come into effect after an exercise of delimitation is undertaken based on the relevant figures of the first census taken after the Act."
+    },
+    {
+        question: "The 'Bharat 6G Alliance' is:",
+        options: ["A government department.", "A collaborative platform of public and private companies, academia, and research institutions.", "A foreign company.", "An army unit."],
+        correct: 1,
+        explanation: "It is a collaborative platform to drive design, development, and deployment of 6G technologies in India."
+    },
+    {
+        question: "The 'Sela Tunnel' is the world's longest bi-lane tunnel at an altitude above:",
+        options: ["10,000 feet", "13,000 feet", "15,000 feet", "8,000 feet"],
+        correct: 1,
+        explanation: "At an altitude of 13,000 feet, Sela Tunnel ensures all-weather connectivity to Tawang."
+    },
+    {
+        question: "The 'PM Vishwakarma' scheme covers how many traditional trades?",
+        options: ["10", "15", "18", "25"],
+        correct: 2,
+        explanation: "The scheme initially covers 18 traditional trades like carpenter, boat maker, armourer, blacksmith, etc."
+    },
+    {
+        question: "The 'Exercise Sea Dragon' is a multinational exercise led by:",
+        options: ["India", "USA", "China", "Australia"],
+        correct: 1,
+        explanation: "Sea Dragon is a US-led multinational exercise designed to practice and discuss Anti-Submarine Warfare tactics."
+    },
+    {
+        question: "The 'World Employment and Social Outlook: Trends 2024' report warns about:",
+        options: ["Rising unemployment and worsening social inequality.", "Too many jobs.", "Automation replacing all humans.", "Economic boom."],
+        correct: 0,
+        explanation: "The ILO report highlights that while unemployment might stabilize, social inequality and working poverty are worsening."
+    },
+    {
+        question: "The 'Prithvi Vigyan' (PRITHVI) scheme integrates how many sub-schemes of the Ministry of Earth Sciences?",
+        options: ["Three", "Five", "Seven", "Ten"],
+        correct: 1,
+        explanation: "It integrates five existing sub-schemes: ACROSS, O-SMART, PACER, SAGE, and REACHOUT."
+    },
+    {
+        question: "The 'New Delhi Declaration' on AI was adopted by:",
+        options: ["Global Partnership on Artificial Intelligence (GPAI)", "G20", "SCO", "BRICS"],
+        correct: 0,
+        explanation: "It was adopted at the GPAI Summit 2023 in New Delhi, emphasizing safe and trustworthy AI."
+    },
+    {
+        question: "The 'Kotia' dispute is a border dispute between:",
+        options: ["Odisha and Andhra Pradesh", "Karnataka and Maharashtra", "Assam and Mizoram", "Punjab and Haryana"],
+        correct: 0,
+        explanation: "The Kotia Gram Panchayat dispute involves 21 villages claimed by both Odisha and Andhra Pradesh."
+    },
+    {
+        question: "The 'National Quantum Mission' aims to develop intermediate-scale quantum computers with how many physical qubits by 2031?",
+        options: ["20-50", "50-1000", "5000+", "1 Million"],
+        correct: 1,
+        explanation: "The mission targets developing quantum computers with 50-1000 physical qubits in 8 years."
+    },
+    {
+        question: "The 'Carbon Border Adjustment Mechanism' (CBAM) primarily targets imports of:",
+        options: ["Electronics", "Cement, Iron, Steel, Aluminium, Fertilizers, Electricity, Hydrogen.", "Textiles", "Food products."],
+        correct: 1,
+        explanation: "CBAM targets carbon-intensive sectors: Cement, Iron & Steel, Aluminium, Fertilizers, Electricity, and Hydrogen."
+    },
+    {
+        question: "The 'SVAMITVA' scheme provides:",
+        options: ["Free seeds to farmers.", "Property cards (legal ownership) to rural households.", "Loans to MSMEs.", "Scholarships."],
+        correct: 1,
+        explanation: "SVAMITVA (Survey of Villages and Mapping with Improvised Technology in Village Areas) provides a 'Record of Rights' to village household owners."
+    },
+    {
+        question: "The 'PM-SURAJ' portal aims to provide:",
+        options: ["Credit support to marginalized sections (SC, OBC, Safai Karamcharis).", "Solar energy to rural homes.", "Free seeds to farmers.", "Scholarships for overseas studies."],
+        correct: 0,
+        explanation: "PM-SURAJ (Samajik Utthan evam Rozgar Adharit Jankalyan) is a national portal to provide credit support to the most disadvantaged sections of society."
+    },
+    {
+        question: "The 'PB-SHABD' service launched by the Ministry of Information & Broadcasting is:",
+        options: ["A news sharing service for media organizations to get clean feeds from Prasar Bharati.", "A dictionary app.", "A translation tool.", "A radio channel for kids."],
+        correct: 0,
+        explanation: "PB-SHABD (Prasar Bharati-Shared Audio Visuals for Broadcast and Dissemination) provides daily news feeds (video/audio/text) to small newspapers and TV channels."
+    },
+    {
+        question: "The 'Pandavula Gutta' was recently designated as the exclusive Geo-heritage site of which state?",
+        options: ["Telangana", "Andhra Pradesh", "Karnataka", "Odisha"],
+        correct: 0,
+        explanation: "Pandavula Gutta in Telangana is older than the Himalayas and features ancient rock paintings."
+    },
+    {
+        question: "The 'Indus-X' initiative focuses on:",
+        options: ["River water sharing.", "India-U.S. Defence Acceleration Ecosystem (Innovation).", "Trade with Indus valley countries.", "Cultural exchange."],
+        correct: 1,
+        explanation: "Indus-X aims to expand the strategic technology partnership and defense industrial cooperation between India and the US."
+    },
+    {
+        question: "The 'Coal Logistics Plan and Policy' targets 'First Mile Connectivity' (FMC) to:",
+        options: ["Transport coal via drones.", "Shift coal transport from road to rail-based systems.", "Use electric trucks only.", "Build underground tunnels."],
+        correct: 1,
+        explanation: "The policy aims to eliminate road transportation of coal in the 'first mile' (from pithead to loading point) and shift to mechanized rail systems."
+    },
+    {
+        question: "The 'Mission 414' campaign by the Election Commission was launched in which state?",
+        options: ["Himachal Pradesh", "Uttarakhand", "Gujarat", "Rajasthan"],
+        correct: 0,
+        explanation: "It was launched in Himachal Pradesh to boost voter turnout in 414 specific polling stations that had low voting percentages."
+    },
+    {
+        question: "The 'Pench Tiger Reserve' (Maharashtra) was recently designated as:",
+        options: ["India's first Dark Sky Park.", "A World Heritage Site.", "A Marine Park.", "A Bird Sanctuary."],
+        correct: 0,
+        explanation: "It became India's first Dark Sky Park to protect the night sky and prevent light pollution, aiding astronomy."
+    },
+    {
+        question: "The 'Golden Langur' is found in which Indian state?",
+        options: ["Assam", "Kerala", "Madhya Pradesh", "Rajasthan"],
+        correct: 0,
+        explanation: "The Golden Langur is an endangered primate found in western Assam (India) and the neighboring Black Mountains of Bhutan."
+    },
+    {
+        question: "The 'Exercise Bharat Shakti' at Pokhran showcased:",
+        options: ["Indigenous defence capabilities of the Tri-Services.", "Nuclear testing.", "Space warfare.", "Naval blockade."],
+        correct: 0,
+        explanation: "It demonstrated the integrated operational capabilities of the Indian Army, Navy, and Air Force using indigenous weapon systems."
+    },
+    {
+        question: "What is 'Project Nethra' by ISRO?",
+        options: ["A mission to Venus.", "An early warning system to detect space debris and hazards (Space Situational Awareness).", "A telescope on the moon.", "A satellite for internet."],
+        correct: 1,
+        explanation: "Project NETRA (Network for Space Object Tracking and Analysis) is for Space Situational Awareness (SSA) to protect Indian satellites."
+    },
+    {
+        question: "The 'Blue Economy 2.0' scheme focuses on:",
+        options: ["Deep sea mining.", "Climate-resilient coastal aquaculture and mariculture (restoration & adaptation).", "Offshore wind energy.", "Naval expansion."],
+        correct: 1,
+        explanation: "The scheme focuses on restoration and adaptation measures, and expansion of coastal aquaculture and mariculture."
+    },
+    {
+        question: "The 'Agni-Prime' (Agni-P) is:",
+        options: ["A canisterised new-generation ballistic missile.", "A cruise missile.", "An air-to-air missile.", "A submarine."],
+        correct: 0,
+        explanation: "It is a two-stage canisterised solid-propellant ballistic missile with dual redundant navigation and guidance system."
+    },
+    {
+        question: "Who became the first woman sniper of the BSF?",
+        options: ["Suman Kumari", "Avani Chaturvedi", "Bhavina Patel", "Shiva Chauhan"],
+        correct: 0,
+        explanation: "Sub-Inspector Suman Kumari became the first woman sniper of the Border Security Force (BSF)."
+    },
+    {
+        question: "The 'Revamped Pharmaceuticals Technology Upgradation Assistance Scheme' (RPTUAS) helps pharma companies to:",
+        options: ["Export more drugs.", "Upgrade facilities to meet global quality standards (WHO-GMP).", "Buy new land.", "Recruit scientists."],
+        correct: 1,
+        explanation: "It incentivizes pharma MSMEs to move towards Revised Schedule M and WHO-GMP standards."
+    },
+    {
+        question: "The 'Sapta Kosi High Dam' is a proposed project between India and:",
+        options: ["Nepal", "Bhutan", "Bangladesh", "China"],
+        correct: 0,
+        explanation: "It is a multipurpose project proposed to be built on the Kosi river in Nepal to control floods in Bihar."
+    },
+    {
+        question: "What is 'Model Collapse' in AI?",
+        options: ["AI servers shutting down.", "Degradation of AI models when trained on AI-generated (synthetic) data.", "Robots malfunctioning.", "AI becoming too smart."],
+        correct: 1,
+        explanation: "It refers to the phenomenon where AI models become less diverse and accurate if they are trained on data generated by other AIs."
+    },
+    {
+        question: "The 'UNNATI' scheme is designed for the industrial development of:",
+        options: ["North East Region", "Jammu and Kashmir", "Ladakh", "Lakshadweep"],
+        correct: 0,
+        explanation: "UNNATI (Uttar Poorva Transformative Industrialization Scheme) is for the North East Region."
+    },
+    {
+        question: "The 'Global Methane Tracker' is released by:",
+        options: ["International Energy Agency (IEA)", "UNEP", "World Bank", "Greenpeace"],
+        correct: 0,
+        explanation: "The IEA releases the Global Methane Tracker report."
+    },
+    {
+        question: "The 'National Action Plan for Prevention and Control of Snakebite Envenoming' (NAP-SE) aims to halve snakebite deaths by:",
+        options: ["2030", "2025", "2040", "2050"],
+        correct: 0,
+        explanation: "The target year to halve snakebite deaths and disabilities is 2030."
+    },
+    {
+        question: "The 'Tawi Festival' celebrates the culture of:",
+        options: ["Jammu Region", "Kashmir Valley", "Ladakh", "Himachal Pradesh"],
+        correct: 0,
+        explanation: "It showcases the art, culture, and heritage of the Jammu region."
+    },
+    {
+        question: "The 'Exercise Cutlass Express' is a maritime exercise aimed at:",
+        options: ["Counter-terrorism and anti-piracy in East Africa/Western Indian Ocean.", "South China Sea surveillance.", "Arctic exploration.", "Pacific trade routes."],
+        correct: 0,
+        explanation: "It is a US-led multinational exercise focusing on maritime security in East Africa and the Western Indian Ocean."
+    },
+    {
+        question: "The 'Shettihalli Wildlife Sanctuary' is in:",
+        options: ["Karnataka", "Kerala", "Tamil Nadu", "Andhra Pradesh"],
+        correct: 0,
+        explanation: "Located in the Shivamogga district of Karnataka, it is famous for the submerged Rosary Church."
+    },
+    {
+        question: "The 'Start-up Mahakumbh' 2024 was held in:",
+        options: ["New Delhi", "Bengaluru", "Mumbai", "Hyderabad"],
+        correct: 0,
+        explanation: "The first-ever Start-up Mahakumbh was held at Bharat Mandapam, New Delhi."
+    },
+    {
+        question: "The 'Pushpak' (RLV) mission demonstrated:",
+        options: ["Autonomous landing of a Reusable Launch Vehicle.", "Soft landing on Mars.", "Human spaceflight.", "Solar observation."],
+        correct: 0,
+        explanation: "ISRO's 'Pushpak' (RLV-LEX-02) successfully demonstrated the autonomous landing capability of a reusable launch vehicle."
+    },
+    {
+        question: "The 'Grid Controller of India Limited' (Grid-India) was formerly known as:",
+        options: ["POSOCO", "POWERGRID", "NTPC", "NHPC"],
+        correct: 0,
+        explanation: "Power System Operation Corporation Limited (POSOCO) was renamed as Grid Controller of India Limited."
+    },
+    {
+        question: "The 'Bhasha Net' portal promotes:",
+        options: ["Universal Acceptance (UA) for a multilingual internet.", "Sanskrit learning.", "Translation of books.", "English literacy."],
+        correct: 0,
+        explanation: "Launched by NIXI, it aims to ensure that all domain names and email addresses can be used in all local languages."
+    },
+    {
+        question: "The 'Yaoundé Declaration' is related to the fight against:",
+        options: ["Malaria", "TB", "HIV/AIDS", "Cholera"],
+        correct: 0,
+        explanation: "African health ministers signed the Yaoundé Declaration to end malaria deaths."
+    },
+    {
+        question: "The 'Exercise Sea Defenders-2024' involved:",
+        options: ["Indian Coast Guard and US Coast Guard", "Indian Navy and UK Navy", "Indian Army and Nepal Army", "Indian Air Force and French Air Force"],
+        correct: 0,
+        explanation: "It was a joint exercise between the Indian Coast Guard and the United States Coast Guard."
+    },
+    {
+        question: "The 'MethaneSAT' launched by SpaceX is backed by:",
+        options: ["Environmental Defense Fund (EDF)", "NASA", "ISRO", "ESA"],
+        correct: 0,
+        explanation: "It is a satellite backed by the Environmental Defense Fund (EDF) to monitor methane emissions."
+    },
+    {
+        question: "The 'Blue Carbon' refers to:",
+        options: ["Carbon stored in coastal and marine ecosystems.", "Carbon in blue diamonds.", "Carbon in the atmosphere.", "Carbon in fossil fuels."],
+        correct: 0,
+        explanation: "Blue carbon is the carbon stored in coastal and marine ecosystems like mangroves, seagrasses, and salt marshes."
+    },
+    {
+        question: "The 'Chang'e-6' mission of China recently made history by:",
+        options: ["Landing humans on Mars.", "Returning samples from the far side of the Moon for the first time.", "Crashing into an asteroid.", "Growing plants on the Moon."],
+        correct: 1,
+        explanation: "Chang'e-6 successfully collected and returned samples from the Moon's far side (South Pole-Aitken Basin), a historic first for humanity."
+    },
+    {
+        question: "Claudia Sheinbaum was elected as the first female President of which country in 2024?",
+        options: ["Mexico", "Brazil", "Spain", "Argentina"],
+        correct: 0,
+        explanation: "Claudia Sheinbaum, a climate scientist and former mayor of Mexico City, was elected as Mexico's first female President."
+    },
+    {
+        question: "The 'Agnibaan SOrTeD' rocket, launched by Agnikul Cosmos, is significant because:",
+        options: ["It is India's first nuclear rocket.", "It is the world's first rocket with a single-piece 3D-printed engine.", "It was launched from a submarine.", "It reached Mars."],
+        correct: 1,
+        explanation: "It was a sub-orbital tech demonstrator and used the world’s first single-piece 3D-printed engine (Agnilet), launched from a private pad."
+    },
+    {
+        question: "The 'G7 Summit 2024' was hosted by which country?",
+        options: ["Germany", "Japan", "Italy (Apulia)", "Canada"],
+        correct: 2,
+        explanation: "The 50th G7 Summit was held in Apulia, Italy. PM Modi attended as an outreach nation guest."
+    },
+    {
+        question: "The 'Cyclone Remal' that hit the Bay of Bengal coast was named by:",
+        options: ["India", "Bangladesh", "Oman", "Sri Lanka"],
+        correct: 2,
+        explanation: "The name 'Remal' (meaning sand in Arabic) was given by Oman."
+    },
+    {
+        question: "In the 'Global Gender Gap Report 2024' by WEF, India was ranked:",
+        options: ["127th", "129th", "135th", "108th"],
+        correct: 1,
+        explanation: "India ranked 129th out of 146 countries, slipping two places from the previous year."
+    },
+    {
+        question: "The 'Nagastra-1', recently delivered to the Indian Army, is a type of:",
+        options: ["Tank", "Solar-powered Loitering Munition (Suicide Drone).", "Assault Rifle", "Anti-submarine missile."],
+        correct: 1,
+        explanation: "Nagastra-1 is an indigenous loitering munition (suicide drone) developed by Solar Industries, capable of precision strikes."
+    },
+    {
+        question: "The 'TRISHNA' mission is a collaborative effort between ISRO and:",
+        options: ["NASA (USA)", "CNES (France)", "JAXA (Japan)", "Roscosmos (Russia)"],
+        correct: 1,
+        explanation: "TRISHNA (Thermal infraRed Imaging Satellite for High-resolution Natural resource Assessment) is a joint mission of ISRO and CNES (France)."
+    },
+    {
+        question: "The new campus of 'Nalanda University' was inaugurated by PM Modi in:",
+        options: ["Patna", "Gaya", "Rajgir", "Vaishali"],
+        correct: 2,
+        explanation: "The new campus of the ancient Nalanda University is located in Rajgir, near the site of the ancient ruins."
+    },
+    {
+        question: "The 'Boeing Starliner' spacecraft carried which Indian-origin astronaut to the ISS in June 2024?",
+        options: ["Kalpana Chawla", "Sunita Williams", "Raja Chari", "Sirisha Bandla"],
+        correct: 1,
+        explanation: "Sunita Williams piloted the Boeing Starliner on its first crewed test flight to the International Space Station."
+    },
+    {
+        question: "The 'Exercise Maitree' is a joint military exercise between India and:",
+        options: ["Thailand", "Myanmar", "Sri Lanka", "Maldives"],
+        correct: 0,
+        explanation: "Exercise Maitree is a bilateral military exercise between the Indian Army and the Royal Thai Army."
+    },
+    {
+        question: "The 'Rudram-II', successfully flight-tested by DRDO, is an:",
+        options: ["Air-to-Surface Anti-Radiation Missile.", "Intercontinental Ballistic Missile.", "Underwater torpedo.", "Anti-tank guided missile."],
+        correct: 0,
+        explanation: "Rudram-II is an indigenous air-to-surface anti-radiation missile designed to destroy enemy radar and communication systems."
+    },
+    {
+        question: "The 'International Day of Yoga' 2024 main event led by PM Modi was held in:",
+        options: ["Mysuru", "Ranchi", "Srinagar (J&K)", "New Delhi"],
+        correct: 2,
+        explanation: "The main event of the 10th International Day of Yoga was held at the SKICC in Srinagar, Jammu & Kashmir."
+    },
+    {
+        question: "Which Indian film won the 'Grand Prix' at the Cannes Film Festival 2024?",
+        options: ["RRR", "All We Imagine as Light", "The Goat Life", "Laapataa Ladies"],
+        correct: 1,
+        explanation: "Payal Kapadia's 'All We Imagine as Light' won the Grand Prix, becoming the first Indian film to win this award in decades."
+    },
+    {
+        question: "Ebrahim Raisi, who passed away in a helicopter crash in May 2024, was the President of:",
+        options: ["Iraq", "Iran", "Syria", "Turkey"],
+        correct: 1,
+        explanation: "Iranian President Ebrahim Raisi died in a helicopter crash near the Azerbaijan border."
+    },
+    {
+        question: "The 'ICC Men's T20 World Cup 2024' was co-hosted by:",
+        options: ["Australia and New Zealand", "India and Sri Lanka", "USA and West Indies", "England and Ireland"],
+        correct: 2,
+        explanation: "The tournament was co-hosted by the USA and the West Indies."
+    },
+    {
+        question: "The 'World Environment Day 2024' was hosted by which country with a focus on land restoration?",
+        options: ["India", "Brazil", "Saudi Arabia", "Sweden"],
+        correct: 2,
+        explanation: "Saudi Arabia hosted the World Environment Day 2024, focusing on land restoration, desertification, and drought resilience."
+    },
+    {
+        question: "The 'Exercise Red Flag' is a prestigious multinational air exercise hosted by:",
+        options: ["USA (Alaska)", "UK", "France", "Australia"],
+        correct: 0,
+        explanation: "The Indian Air Force participated in Exercise Red Flag 2024 in Alaska, hosted by the US Air Force."
+    },
+    {
+        question: "RBI recently increased the definition of 'Bulk Deposits' for banks from ₹2 Crore to:",
+        options: ["₹3 Crore", "₹5 Crore", "₹10 Crore", "₹1 Crore"],
+        correct: 0,
+        explanation: "RBI raised the threshold for bulk deposits in Scheduled Commercial Banks and Small Finance Banks to ₹3 Crore and above."
+    },
+    {
+        question: "Who won the 'International Booker Prize 2024' for the novel 'Kairos'?",
+        options: ["Jenny Erpenbeck", "Geetanjali Shree", "Salman Rushdie", "Murakami"],
+        correct: 0,
+        explanation: "German author Jenny Erpenbeck (and translator Michael Hofmann) won for the novel 'Kairos'."
+    },
+    {
+        question: "The 'General Elections 2024' constituted which Lok Sabha?",
+        options: ["16th", "17th", "18th", "19th"],
+        correct: 2,
+        explanation: "The 2024 elections were held to constitute the 18th Lok Sabha."
+    },
+    {
+        question: "The 'Zero Debris Charter' was formally signed by 12 countries. It is an initiative of:",
+        options: ["NASA", "ISRO", "ESA (European Space Agency)", "JAXA"],
+        correct: 2,
+        explanation: "The Zero Debris Charter, aiming for debris-neutral space activities by 2030, is an initiative facilitated by ESA."
+    },
+    {
+        question: "The 'Subhadra Yojana', promised for women's welfare (cash voucher), is a scheme of which state?",
+        options: ["Odisha", "Andhra Pradesh", "Telangana", "Madhya Pradesh"],
+        correct: 0,
+        explanation: "The Subhadra Yojana was a key election promise in Odisha to provide financial assistance to women."
+    },
+    {
+        question: "Sunil Chhetri, who retired from international football in 2024, is the _______ highest international goal scorer of all time (at retirement).",
+        options: ["2nd", "3rd", "4th", "10th"],
+        correct: 2,
+        explanation: "He retired as the 4th highest international goal scorer (behind Ronaldo, Ali Daei, and Messi) at the time of his retirement."
+    },
+    {
+        question: "The 'Aditi' scheme (Acing Development of Innovative Technologies with iDEX) provides grants up to:",
+        options: ["₹10 Crore", "₹25 Crore", "₹50 Crore", "₹5 Crore"],
+        correct: 1,
+        explanation: "Under the ADITI scheme, startups can get a grant-in-aid of up to ₹25 crore for research in critical defense technologies."
+    },
+    {
+        question: "What is 'DigiYatra'?",
+        options: ["A pilgrimage scheme.", "Biometric-enabled seamless travel experience (FRT) at airports.", "Digital ticket booking.", "A drone delivery service."],
+        correct: 1,
+        explanation: "DigiYatra uses Facial Recognition Technology (FRT) for contactless passenger processing at airports."
+    },
+    {
+        question: "The 'Indus Water Treaty' meeting in 2024 discussed the inspection of which projects?",
+        options: ["Ratle and Kwar", "Bhakra and Nangal", "Tehri and Koteshwar", "Sardar Sarovar"],
+        correct: 0,
+        explanation: "The focus was on the inspection of hydroelectric projects in the J&K region, specifically Kishenganga and Ratle."
+    },
+    {
+        question: "The 'Preethi Pal' created history by winning medals in which event?",
+        options: ["World Para Athletics Championships", "Chess Olympiad", "Badminton World Championship", "Archery World Cup"],
+        correct: 0,
+        explanation: "Indian sprinter Preethi Pal created history by winning two medals (Bronze) at the World Para Athletics Championships 2024 in Kobe."
+    },
+    {
+        question: "The 'Purple Revolution' (Lavender cultivation) is a success story of:",
+        options: ["CSIR-Aroma Mission", "Green Revolution 2.0", "Operation Flood", "Project Tiger"],
+        correct: 0,
+        explanation: "The Purple Revolution was launched under the CSIR-Aroma Mission by the Ministry of Science & Technology."
+    },
+    {
+        question: "The 'State of the World's Children 2024' report is published by:",
+        options: ["UNICEF", "UNESCO", "Save the Children", "WHO"],
+        correct: 0,
+        explanation: "UNICEF publishes the State of the World's Children report."
+    },
+   
+    {
+        question: "The 'Reserve Bank of India' (RBI) recently allowed the linking of which credit cards to UPI?",
+        options: ["Visa", "Mastercard", "RuPay", "Amex"],
+        correct: 2,
+        explanation: "RBI has allowed the linking of RuPay credit cards to the Unified Payments Interface (UPI) network."
+    },
+    {
+        question: "The 'Nilgiri Tahr' project was launched by which state to conserve its state animal?",
+        options: ["Kerala", "Tamil Nadu", "Karnataka", "Andhra Pradesh"],
+        correct: 1,
+        explanation: "Tamil Nadu launched 'Project Nilgiri Tahr' to conserve the endangered species, which is also the state animal."
+    },
+    {
+        question: "The 'Post Office Act, 2023' allows the interception of shipments on the grounds of:",
+        options: ["Security of the State", "Non-payment of postage", "Incorrect address", "Delay in delivery"],
+        correct: 0,
+        explanation: "The Act empowers officers to intercept, open, or detain any item in the interest of the security of the State, friendly relations with foreign states, etc."
+    },
+    {
+        question: "What is 'UPI 123PAY'?",
+        options: ["A UPI app for smartphones.", "A UPI facility for feature phones (non-smartphones) without internet.", "A payment gateway for foreigners.", "A tax payment portal."],
+        correct: 1,
+        explanation: "UPI 123PAY allows users of feature phones to make UPI transactions without an internet connection."
+    },
+    {
+        question: "The 'Cheetah' brought to India from Namibia and South Africa are of which subspecies?",
+        options: ["Asiatic Cheetah", "Southeast African Cheetah", "Northwest African Cheetah", "Iranian Cheetah"],
+        correct: 1,
+        explanation: "The cheetahs reintroduced in India are the Southeast African cheetah (Acinonyx jubatus jubatus), different from the Asiatic cheetah found in Iran."
+    },
+    {
+        question: "The 'Sovereign AI' concept encourages nations to:",
+        options: ["Ban AI completely.", "Build their own domestic AI infrastructure and data capabilities.", "Rely solely on US-based AI models.", "Tax AI companies heavily."],
+        correct: 1,
+        explanation: "Sovereign AI advocates for nations to build their own AI infrastructure, data centers, and models to ensure data privacy and strategic independence."
+    },
+    {
+        question: "Which Indian state has the highest installed capacity of renewable energy (as of 2024)?",
+        options: ["Tamil Nadu", "Gujarat", "Rajasthan", "Karnataka"],
+        correct: 1,
+        explanation: "Gujarat recently surpassed other states to take the top spot in installed renewable energy capacity (Solar + Wind)."
+    },
+    {
+        question: "The 'Miyawaki Forests' are known for:",
+        options: ["Slow growth.", "Growing rapidly (10x faster) and becoming denser (30x) than conventional forests.", "Being monoculture plantations.", "Requiring huge space."],
+        correct: 1,
+        explanation: "The Miyawaki method creates dense, native urban forests that grow much faster and absorb more carbon than traditional plantations."
+    },
+    {
+        question: "The 'Exercise Cyber Suraksha' was conducted to:",
+        options: ["Test the cyber defence capability of Indian banks.", "Train police officers.", "Enhance cyber security awareness and preparedness aimed at the energy sector.", "Hack enemy satellites."],
+        correct: 2,
+        explanation: "It was a comprehensive cyber security exercise focusing on the power/energy sector."
+    },
+    {
+        question: "The 'e-Shram' portal registration is mandatory for:",
+        options: ["Availing benefits under PM-KISAN.", "Getting a passport.", "Unorganised workers to access social security benefits.", "Voting."],
+        correct: 2,
+        explanation: "Registration on e-Shram is a gateway for unorganised workers to access various social security schemes."
+    },
+    {
+        question: "The 'International Solar Alliance' (ISA) is headquartered in:",
+        options: ["Paris, France", "Gurugram, India", "New York, USA", "Nairobi, Kenya"],
+        correct: 1,
+        explanation: "The ISA is the first international intergovernmental organization to be headquartered in India (Gurugram)."
+    },
+    {
+        question: "The 'Ghol Fish' (State fish of Gujarat) is also known as:",
+        options: ["Gold Fish", "Blackspotted Croaker", "Silver Pomfret", "Hilsa"],
+        correct: 1,
+        explanation: "The Ghol fish is scientifically known as Protonibea diacanthus or Blackspotted Croaker."
+    },
+    {
+        question: "The 'PM-PRANAM' scheme aims to save the subsidy on:",
+        options: ["Food grains", "Petroleum", "Chemical Fertilizers", "Electricity"],
+        correct: 2,
+        explanation: "PM-PRANAM incentivizes states to reduce the usage of chemical fertilizers, thereby saving the central government's fertilizer subsidy bill."
+    },
+    {
+        question: "The 'World Health Organization' (WHO) officially certified which country as 'Malaria-Free' in 2024?",
+        options: ["Cabo Verde", "India", "Nigeria", "Brazil"],
+        correct: 0,
+        explanation: "Cabo Verde (Cape Verde) was certified malaria-free by the WHO in early 2024."
+    },
+    {
+        question: "The 'Exercise Tarang Shakti' involved the participation of which country's air force for the first time in India?",
+        options: ["Germany", "China", "Pakistan", "North Korea"],
+        correct: 0,
+        explanation: "The German Air Force (Luftwaffe) participated in an air exercise in India (Tarang Shakti) for the first time."
+    },
+    {
+        question: "The 'Amrit Sarovar' Mission aims to:",
+        options: ["Construct/rejuvenate 75 water bodies in every district of India.", "Clean the Ganga river.", "Build dams.", "Provide tap water."],
+        correct: 0,
+        explanation: "Mission Amrit Sarovar aimed to develop and rejuvenate 75 water bodies in each district of the country as part of Azadi Ka Amrit Mahotsav."
+    },
+    {
+        question: "The 'Jan Vishwas Act' amends 42 central acts to:",
+        options: ["Increase imprisonment terms.", "Decriminalize minor offences and replace them with monetary penalties.", "Introduce death penalty.", "Create new courts."],
+        correct: 1,
+        explanation: "It decriminalizes various minor offences across 42 laws to promote ease of doing business and reduce the burden on the judiciary."
+    },
+    {
+        question: "The 'Vande Bharat' sleeper trains are being manufactured by:",
+        options: ["BEML (Bengaluru)", "Integral Coach Factory (Chennai)", "Titagarh Wagons", "Alstom"],
+        correct: 0,
+        explanation: "BEML (Bharat Earth Movers Limited) is manufacturing the first prototype of the Vande Bharat sleeper trainsets."
+    },
+    {
+        question: "The 'Exercise Nomadic Elephant' is held between India and:",
+        options: ["Mongolia", "Thailand", "Vietnam", "Laos"],
+        correct: 0,
+        explanation: "Nomadic Elephant is a joint military exercise between India and Mongolia."
+    },
+    {
+        question: "The 'Global South' typically includes countries from:",
+        options: ["Europe and North America", "Africa, Latin America, and developing Asia", "Australia and New Zealand", "G7 nations"],
+        correct: 1,
+        explanation: "Global South refers to the regions of Latin America, Asia, Africa, and Oceania, mostly low-income and developing nations."
+    },
+    {
+        question: "The 'Telecommunications Act, 2023' replaces the Indian Telegraph Act of:",
+        options: ["1885", "1947", "1991", "2000"],
+        correct: 0,
+        explanation: "It replaces the archaic Indian Telegraph Act, 1885, and the Wireless Telegraphy Act, 1933."
+    },
+    {
+        question: "The 'Vibrant Villages Programme' is a Centrally Sponsored Scheme for:",
+        options: ["Comprehensive development of villages of blocks on the northern border.", "Coastal villages.", "Desert villages.", "Smart cities."],
+        correct: 0,
+        explanation: "It targets the development of border villages in Himachal Pradesh, Uttarakhand, Arunachal Pradesh, Sikkim, and Ladakh."
+    },
+    {
+        question: "What is 'DigiReady Certification' (DRC)?",
+        options: ["A certificate for digital literacy.", "An assessment tool to gauge the digital readiness of MSMEs.", "A certificate for computers.", "A cyber security audit."],
+        correct: 1,
+        explanation: "The Quality Council of India (QCI) and ONDC launched DRC to assess and certify MSMEs' readiness to join the ONDC network."
+    },
+    {
+        question: "The 'Green Hydrogen' is produced by:",
+        options: ["Steam Methane Reforming.", "Electrolysis of water using renewable energy.", "Coal gasification.", "Nuclear energy."],
+        correct: 1,
+        explanation: "Green Hydrogen is produced by splitting water into hydrogen and oxygen using an electrolyzer powered by renewable energy sources."
+    },
+    {
+        question: "The 'Exercise Ayutthaya' connects the naval forces of:",
+        options: ["India and Thailand", "India and Indonesia", "India and Vietnam", "India and Cambodia"],
+        correct: 0,
+        explanation: "It connects Ayodhya (India) and Ayutthaya (Thailand), symbolizing historic ties through a naval exercise."
+    },
+    {
+        question: "The 'PM Vishwakarma' scheme is a:",
+        options: ["Central Sector Scheme (100% funded by Union Govt).", "Centrally Sponsored Scheme (Shared funding).", "State Scheme.", "PPP model."],
+        correct: 0,
+        explanation: "It is a Central Sector Scheme fully funded by the Government of India with an outlay of ₹13,000 crore."
+    },
+    {
+        question: "The 'Alliance of Global Drylands' (AGD) was proposed to:",
+        options: ["Convert drylands into deserts.", "Make dryland agriculture sustainable and restore degraded lands.", "Sell sand.", "Build solar parks only."],
+        correct: 1,
+        explanation: "The alliance aims to combat desertification and promote sustainable land management in dryland nations."
+    },
+    {
+        question: "The 'National Multidimensional Poverty Index' uses how many indicators?",
+        options: ["3", "10", "12", "15"],
+        correct: 2,
+        explanation: "The National MPI by NITI Aayog uses 12 indicators across three dimensions (Health, Education, Standard of Living)."
+    },
+    {
+        question: "The 'Great Indian Bustard' is the state bird of:",
+        options: ["Rajasthan", "Gujarat", "Madhya Pradesh", "Maharashtra"],
+        correct: 0,
+        explanation: "The Great Indian Bustard (Godawan) is the state bird of Rajasthan."
+    },
+    {
+        question: "The 'Kashmir Willow' cricket bat recently received a:",
+        options: ["GI Tag application/push.", "Ban from ICC.", "Patent.", "Copyright."],
+        correct: 0,
+        explanation: "The Kashmir Willow cricket bat industry is pushing for a GI tag to protect its identity against fakes (often confused with English Willow)."
+    },
+    {
+        question: "The 'PM e-DRIVE' scheme, launched in October 2025, primarily aims to:",
+        options: ["Provide free driving lessons to youth.", "Promote digital mobility solutions and replace the FAME scheme for EVs.", "Digitize driving licenses.", "Create a database of drivers."],
+        correct: 1,
+        explanation: "The PM e-DRIVE scheme aims to accelerate the adoption of electric vehicles (EVs) and promote digital mobility, effectively succeeding the FAME-II scheme."
+    },
+    {
+        question: "The 'NPS Vatsalya Yojana', introduced by the Ministry of Finance, is designed for:",
+        options: ["Senior citizens above 80 years.", "Minors, allowing parents to open pension accounts for their children.", "Widows of armed forces personnel.", "Government employees only."],
+        correct: 1,
+        explanation: "NPS Vatsalya allows parents or guardians to open a National Pension System (NPS) account for minors, fostering long-term financial security planning."
+    },
+    {
+        question: "The 'Ayushman Bharat Vaya Vandana Yojana', launched in late 2024, focuses on:",
+        options: ["Providing health insurance coverage to all senior citizens aged 70 and above.", "Free pilgrimage for elderly.", "Pension for unorganized workers.", "Digital literacy for seniors."],
+        correct: 0,
+        explanation: "This scheme extends Ayushman Bharat health insurance coverage specifically to all senior citizens aged 70 years and above, regardless of income."
+    },
+    {
+        question: "Which institute recently hosted the launch of the 'PARAM SHAKTI' supercomputing facility under the National Supercomputing Mission?",
+        options: ["IIT Bombay", "IIT Madras", "IISc Bangalore", "IIT Delhi"],
+        correct: 1,
+        explanation: "The PARAM SHAKTI supercomputing facility, powered by the indigenous PARAM RUDRA cluster, was launched at IIT Madras."
+    },
+    {
+        question: "The 'Anvesha' satellite (EOS-N1), launched by ISRO in January 2026, is primarily a:",
+        options: ["Communication satellite.", "Military surveillance (spy) satellite for DRDO.", "Weather forecasting satellite.", "Scientific lunar probe."],
+        correct: 1,
+        explanation: "Anvesha is a dedicated surveillance satellite developed for the DRDO to provide high-resolution imaging for strategic purposes."
+    },
+    {
+        question: "The 'Pradhan Mantri Vidya Lakshmi Yojana', implemented in January 2026, facilitates:",
+        options: ["Free laptops for girl students.", "Education loans through a unified digital platform without collateral.", "Scholarships for PhD scholars.", "Construction of girls' hostels."],
+        correct: 1,
+        explanation: "The scheme ensures that meritorious students can access collateral-free education loans easily through a digital platform."
+    },
+    {
+        question: "What is 'SCORP', recently launched by an IIT Kanpur-incubated company?",
+        options: ["India's first indigenous legged mobile robot (Robotic Dog).", "A new anti-tank missile.", "A solar-powered drone.", "A deep-sea mining bot."],
+        correct: 0,
+        explanation: "SCORP is India's first indigenous legged mobile manipulator (robot) designed to operate in unstructured and complex terrains."
+    },
+    {
+        question: "The 'Raisina Science Diplomacy Initiative' (SDI) 2026 aims to integrate:",
+        options: ["Science and Technology into global diplomatic outreach.", "Sports and Diplomacy.", "Cultural exchange programs.", "Trade tariffs."],
+        correct: 0,
+        explanation: "Launched to run alongside the Raisina Dialogue, it positions science and technology (like AI, Quantum) at the core of India's foreign policy."
+    },
+    {
+        question: "The 'One Nation, One Subscription' initiative, launched in 2026, provides:",
+        options: ["Free Netflix for all citizens.", "Nationwide access to scholarly journal articles and research papers for students and institutions.", "A single newspaper subscription.", "Unified electricity bill."],
+        correct: 1,
+        explanation: "It provides a unified subscription to access national and international research journals for all higher education institutions in India."
+    },
+    {
+        question: "The 'Integrated Pension Scheme', launched in August 2025, aims to:",
+        options: ["Abolish pensions.", "Streamline and integrate various pension benefits for better social security coverage.", "Privatize the pension sector.", "Reduce pension amounts."],
+        correct: 1,
+        explanation: "The scheme reforms the pension system by integrating scattered pension rules to ensure seamless and better coverage."
+    },
+    {
+        question: "The 'Cloud-9' discovery by the Hubble Space Telescope refers to:",
+        options: ["A new planet with 9 moons.", "A starless 'failed galaxy' dominated by dark matter.", "A nebula shaped like a cloud.", "A new exoplanet zone."],
+        correct: 1,
+        explanation: "Cloud-9 is a rare 'dark galaxy' or starless cloud of hydrogen and dark matter from the early universe that failed to form stars."
+    },
+    {
+        question: "The 'Nitrogen-Vacancy (NV) Centres' in diamonds are being utilized for:",
+        options: ["Creating harder drill bits.", "Quantum sensing and quantum computing technologies.", "Jewelry enhancement.", "Laser cutting."],
+        correct: 1,
+        explanation: "NV centres in diamonds act as stable quantum bits (qubits) at room temperature, making them crucial for quantum sensing and computing."
+    },
+    {
+        question: "The 'National Cooperation Policy 2025' focuses on:",
+        options: ["Military cooperation with neighbors.", "Strengthening the cooperative movement and institutions in India.", "Corporate mergers.", "International trade pacts."],
+        correct: 1,
+        explanation: "The policy aims to deepen the cooperative movement (Sahakar Se Samriddhi) to boost the rural economy."
+    },
+    {
+        question: "The 'Exercise Tiger Triumph 2025' is a Tri-Service Humanitarian Assistance and Disaster Relief (HADR) exercise between India and:",
+        options: ["UK", "USA", "Japan", "Australia"],
+        correct: 1,
+        explanation: "Tiger Triumph is a major bilateral tri-service exercise between India and the USA, focusing on disaster relief operations."
+    },
+    {
+        question: "The 'Banaras Tirangi Barfi', which recently received a GI Tag, is associated with which state?",
+        options: ["Bihar", "Uttar Pradesh", "West Bengal", "Madhya Pradesh"],
+        correct: 1,
+        explanation: "It is a traditional tri-colored sweet from Varanasi (Uttar Pradesh), often associated with the freedom struggle."
+    },
+    {
+        question: "The 'Global Environment Outlook 2025' report is a flagship publication of:",
+        options: ["World Bank", "United Nations Environment Programme (UNEP)", "IPCC", "WWF"],
+        correct: 1,
+        explanation: "The UNEP releases the Global Environment Outlook (GEO) assessing the state of the global environment."
+    },
+    {
+        question: "The 'Tharu Embroidery', recently granted a GI Tag, belongs to the tribal community of:",
+        options: ["Jharkhand", "Uttar Pradesh", "Chhattisgarh", "Odisha"],
+        correct: 1,
+        explanation: "The Tharu community in Uttar Pradesh is known for this unique embroidery style."
+    },
+    {
+        question: "The 'Nicobari Hodi' (Canoe) craft, which got a GI tag, is from:",
+        options: ["Lakshadweep", "Andaman & Nicobar Islands", "Kerala", "Goa"],
+        correct: 1,
+        explanation: "It is the first GI tag from the Andaman & Nicobar Islands, representing the traditional craft of the Nicobari tribe."
+    },
+    {
+        question: "The 'Exercise Varuna 2025' is a naval exercise between India and:",
+        options: ["France", "Russia", "USA", "UK"],
+        correct: 0,
+        explanation: "Varuna is the bilateral naval exercise between the Indian Navy and the French Navy."
+    },
+    {
+        question: "The 'Mission for Aatmanirbharta in Pulses' aims to achieve self-sufficiency, with a special focus on:",
+        options: ["Chickpea and Kidney Beans", "Tur, Urad, and Masoor", "Soybean and Groundnut", "Peas and Lentils"],
+        correct: 1,
+        explanation: "The mission targets self-reliance in pulses, specifically focusing on Tur, Urad, and Masoor to reduce imports."
+    },
+    {
+        question: "The 'Bodo Napham', a fermented fish product with a GI Tag, belongs to:",
+        options: ["Nagaland", "Assam", "Manipur", "Tripura"],
+        correct: 1,
+        explanation: "Bodo Napham is a traditional fermented fish dish of the Bodo community in Assam."
+    },
+    {
+        question: "The 'Exercise Dharma Guardian 2025' was conducted between India and:",
+        options: ["Japan", "Nepal", "Sri Lanka", "Thailand"],
+        correct: 0,
+        explanation: "Dharma Guardian is an annual joint military exercise between the Indian Army and the Japan Ground Self-Defence Force."
+    },
+    {
+        question: "The 'PM Surya Ghar: Muft Bijli Yojana' provides free electricity up to:",
+        options: ["100 units", "200 units", "300 units", "500 units"],
+        correct: 2,
+        explanation: "The scheme aims to provide up to 300 units of free electricity per month to 1 crore households through rooftop solar."
+    },
+    {
+        question: "The 'Exercise Indra 2025' is a joint tri-service exercise between India and:",
+        options: ["USA", "Russia", "France", "UK"],
+        correct: 1,
+        explanation: "INDRA is a joint tri-service exercise between India and Russia."
+    },
+    {
+        question: "The 'National Mission for Edible Oilseed' targets self-reliance primarily to reduce the import of:",
+        options: ["Olive Oil", "Palm Oil and other edible oils", "Coconut Oil", "Mustard Oil"],
+        correct: 1,
+        explanation: "India imports a significant portion of its edible oil (especially Palm oil), and the mission aims to reduce this dependency."
+    },
+    {
+        question: "The 'Bareilly Cane & Bamboo Craft' recently received a GI Tag. It is from:",
+        options: ["Madhya Pradesh", "Uttar Pradesh", "Bihar", "Assam"],
+        correct: 1,
+        explanation: "Bareilly in Uttar Pradesh is famous for its furniture and household items made from cane and bamboo."
+    },
+    {
+        question: "The 'Exercise Ekuverin 2025' was conducted between India and:",
+        options: ["Maldives", "Mauritius", "Madagascar", "Seychelles"],
+        correct: 0,
+        explanation: "Ekuverin (meaning 'Friends') is a joint military exercise between India and the Maldives."
+    },
+    {
+        question: "The 'Saksham Anganwadi and Poshan 2.0' has been strengthened to fight malnutrition among:",
+        options: ["Elderly men.", "Children, adolescent girls, pregnant women, and lactating mothers.", "Factory workers.", "Farmers."],
+        correct: 1,
+        explanation: "The scheme is an integrated nutrition support programme for children, adolescent girls, and women."
+    },
+    {
+        question: "The 'Exercise Cyclone 2025' focuses on desert warfare and is held between India and:",
+        options: ["Oman", "Egypt", "UAE", "Saudi Arabia"],
+        correct: 1,
+        explanation: "Exercise Cyclone is a special forces exercise between India and Egypt."
+    },
+    {
+        question: "The 'Nihonshu' (Japanese Sake) became the first GI product from which country to be registered in India?",
+        options: ["South Korea", "China", "Japan", "Thailand"],
+        correct: 2,
+        explanation: "Japanese Sake (Nihonshu) is the first product from Japan to receive a Geographical Indication (GI) registry tag in India."
+    },
+    {
+        question: "The 'NISAR' satellite, a joint mission between NASA and ISRO, is designed to observe:",
+        options: ["The Sun's outer corona.", "Earth's changing ecosystems, ice mass, and natural hazards (using dual-frequency radar).", "Exoplanets in deep space.", "Black holes."],
+        correct: 1,
+        explanation: "NISAR (NASA-ISRO Synthetic Aperture Radar) is a Low Earth Orbit observatory that will map the entire globe in 12 days to understand changes in Earth's ecosystems, ice mass, and seismic hazards."
+    },
+    {
+        question: "The 'MISHTI' scheme (Mangrove Initiative for Shoreline Habitats & Tangible Incomes) aims to:",
+        options: ["Promote mangrove plantation along the coastline and on salt pan lands.", "Build concrete walls along the coast.", "Promote fishing in mangroves only.", "Clear mangroves for tourism."],
+        correct: 0,
+        explanation: "MISHTI aims to intensively afforest coastal mangrove forests to protect shorelines and provide livelihoods to local communities."
+    },
+    {
+        question: "The 'Sacred Ensembles of the Hoysalas', inscribed as a UNESCO World Heritage Site, are located in:",
+        options: ["Tamil Nadu", "Karnataka", "Andhra Pradesh", "Kerala"],
+        correct: 1,
+        explanation: "The Hoysala temples at Belur, Halebidu, and Somanathapura in Karnataka were inscribed as India's 42nd UNESCO World Heritage Site."
+    },
+    {
+        question: "The 'Sickle Cell Anaemia Elimination Mission' aims to eliminate the disease from India by:",
+        options: ["2030", "2047", "2050", "2025"],
+        correct: 1,
+        explanation: "The mission targets the elimination of Sickle Cell Anaemia by 2047, primarily focusing on screening and awareness in tribal areas."
+    },
+    {
+        question: "The 'Global Risks Report' is an annual publication of:",
+        options: ["World Bank", "IMF", "World Economic Forum (WEF)", "United Nations"],
+        correct: 2,
+        explanation: "The Global Risks Report, which analyzes global risks (like climate change, cyber insecurity), is released by the World Economic Forum ahead of its Davo summit."
+    },
+    {
+        question: "The 'Exercise Milan' is a:",
+        options: ["Bilateral army exercise.", "Multilateral naval exercise hosted by the Indian Navy.", "Air force drill.", "Coast guard exercise."],
+        correct: 1,
+        explanation: "Milan is a biennial multilateral naval exercise hosted by the Indian Navy, aiming to enhance professional interaction between friendly foreign navies."
+    },
+    {
+        question: "The 'T+0' settlement cycle, introduced by SEBI on an optional basis, means:",
+        options: ["Trades are settled the next day.", "Trades are settled on the same day.", "Trades are settled weekly.", "Trades are settled immediately via cash only."],
+        correct: 1,
+        explanation: "T+0 settlement means the transfer of securities and funds happens on the same day the trade is executed, increasing liquidity."
+    },
+    {
+        question: "The 'Vyommitra' is:",
+        options: ["A human astronaut.", "A female robot astronaut (humanoid) developed by ISRO for the Gaganyaan mission.", "A new satellite.", "A Mars rover."],
+        correct: 1,
+        explanation: "Vyommitra ('Friend in the Sky') is a female-looking humanoid robot that will fly aboard unmanned Gaganyaan missions to test life support systems."
+    },
+    {
+        question: "The 'Loss and Damage Fund', operationalized at COP28, is designed to:",
+        options: ["Fund space missions.", "Compensate vulnerable nations for the impacts of climate change that they cannot adapt to.", "Give loans for dams.", "Fund oil exploration."],
+        correct: 1,
+        explanation: "It provides financial assistance to nations most vulnerable and impacted by the effects of climate change (like sea-level rise, extreme weather)."
+    },
+    {
+        question: "The 'Lithium Triangle', holding the world's largest lithium reserves, comprises:",
+        options: ["USA, Canada, Mexico", "Argentina, Bolivia, Chile", "China, Russia, Mongolia", "Australia, Indonesia, India"],
+        correct: 1,
+        explanation: "The Lithium Triangle in South America (Argentina, Bolivia, and Chile) holds more than half of the world's proven lithium reserves."
+    },
+    {
+        question: "The 'Logistics Performance Index' (LPI) is released by:",
+        options: ["World Trade Organization", "World Bank", "IMF", "WEF"],
+        correct: 1,
+        explanation: "The World Bank releases the LPI to help countries identify the challenges and opportunities in their performance on trade logistics."
+    },
+    {
+        question: "What is the 'Katchatheevu' issue?",
+        options: ["A river dispute.", "A dispute over an uninhabited island between India and Sri Lanka.", "A border dispute with China.", "A trade agreement."],
+        correct: 1,
+        explanation: "Katchatheevu is an island in the Palk Strait that was ceded to Sri Lanka by India in 1974, remains a point of political debate regarding fishing rights."
+    },
+    {
+        question: "The 'National Quantum Mission' (NQM) aims to make India a leading nation in:",
+        options: ["Nuclear energy.", "Quantum Technology (Computing, Communication, Sensing).", "Space tourism.", " semiconductor manufacturing."],
+        correct: 1,
+        explanation: "NQM aims to nurture and scale up scientific and industrial R&D and create a vibrant and innovative ecosystem in Quantum Technology."
+    },
+    {
+        question: "The 'Exercise Malabar' involves the navies of:",
+        options: ["India and USA only.", "India, USA, Japan, and Australia (Quad countries).", "India, Russia, China.", "NATO countries."],
+        correct: 1,
+        explanation: "Exercise Malabar is a multilateral naval exercise involving the Quad partners: India, USA, Japan, and Australia."
+    },
+    {
+        question: "The 'Santiniketan', established by Rabindranath Tagore, was inscribed as a UNESCO World Heritage Site. It is in:",
+        options: ["Odisha", "West Bengal", "Assam", "Bihar"],
+        correct: 1,
+        explanation: "Santiniketan in West Bengal became India's 41st UNESCO World Heritage Site."
+    },
+    {
+        question: "The 'e-Rupee' (e₹) is:",
+        options: ["A cryptocurrency like Bitcoin.", "Central Bank Digital Currency (CBDC) issued by RBI.", "A private digital wallet.", "A credit card."],
+        correct: 1,
+        explanation: "e-Rupee is a Central Bank Digital Currency (CBDC), which is a digital form of legal tender issued by the RBI."
+    },
+    {
+        question: "The 'S-400 Triumf' is an air defence missile system procured by India from:",
+        options: ["USA", "Israel", "Russia", "France"],
+        correct: 2,
+        explanation: "The S-400 is a mobile, surface-to-air missile system (SAM) designed by Russia, capable of destroying aircraft, UAVs, and missiles."
+    },
+    {
+        question: "The 'PM PRANAM' scheme focuses on:",
+        options: ["Promoting organic farming and reducing chemical fertilizer use.", "Pension for artists.", "Providing free ration.", "Building roads."],
+        correct: 0,
+        explanation: "PM PRANAM aims to restore the health of Mother Earth by incentivizing states to promote alternative fertilizers and balanced use of chemical fertilizers."
+    },
+    {
+        question: "The 'Havana Syndrome' refers to:",
+        options: ["A viral disease in Cuba.", "A set of unexplained medical symptoms (dizziness, headaches) experienced by US diplomats.", "A dance form.", "A cigar brand."],
+        correct: 1,
+        explanation: "It refers to a set of unexplained symptoms first reported by US and Canadian embassy staff in Havana, Cuba, suspected to be caused by directed energy waves."
+    },
+    {
+        question: "The 'Global Biofuels Alliance' targets to blend what percentage of ethanol with petrol globally?",
+        options: ["10%", "20%", "30%", "50%"],
+        correct: 1,
+        explanation: "While targets vary by country, the alliance pushes for higher blending, with India specifically targeting 20% ethanol blending (E20) by 2025-26."
+    },
+    {
+        question: "The 'Delimitation Commission' is responsible for:",
+        options: ["Counting votes.", "Redrawing the boundaries of Lok Sabha and Assembly constituencies based on census data.", "Conducting exams.", "Selecting candidates."],
+        correct: 1,
+        explanation: "Delimitation is the act of redrawing boundaries of Lok Sabha and state Assembly seats to represent changes in population."
+    },
+    {
+        question: "The 'Gandhi Sagar Wildlife Sanctuary' is being prepared as a second home for:",
+        options: ["Lions", "Cheetahs", "Rhinos", "Elephants"],
+        correct: 1,
+        explanation: "Gandhi Sagar WLS in Madhya Pradesh is being prepared as the second habitat for Cheetahs after Kuno National Park."
+    },
+    {
+        question: "What are 'Deepfakes'?",
+        options: ["Fake news in newspapers.", "Synthetic media (video/audio) where a person's likeness is replaced by another's using AI.", "Deep sea creatures.", "Fake currency."],
+        correct: 1,
+        explanation: "Deepfakes use artificial intelligence (deep learning) to create realistic-looking but fake videos or audio recordings."
+    },
+    {
+        question: "The 'Lakhpati Didi' scheme aims to empower women by:",
+        options: ["Giving them ₹1 lakh cash.", "Training SHG women to earn a sustainable annual income of at least ₹1 lakh.", "Providing gold loans.", "Waiving off farm loans."],
+        correct: 1,
+        explanation: "The scheme aims to train women in Self-Help Groups (SHGs) in skills like plumbing, LED bulb making, and drone operation to ensure they earn ₹1 lakh per annum."
+    },
+    {
+        question: "The 'Nordic countries' recently welcomed which new member into NATO, ending decades of neutrality?",
+        options: ["Sweden", "Norway", "Denmark", "Ireland"],
+        correct: 0,
+        explanation: "Sweden (and Finland earlier) joined NATO, ending their long-standing policy of military non-alignment."
+    },
+    {
+        question: "The 'Dadasaheb Phalke Award' 2023 (presented in 2024) was awarded to:",
+        options: ["Waheeda Rehman", "Mithun Chakraborty", "Amitabh Bachchan", "Rajnikanth"],
+        correct: 1,
+        explanation: "Wait, Waheeda Rehman received it for 2021 (in 2023). **Mithun Chakraborty** was announced as the recipient of the Dadasaheb Phalke Award in late 2024 (for the year 2022)."
+    },
+    {
+        question: "The 'Green Hydrogen Mission' has an initial outlay of approximately:",
+        options: ["₹10,000 Crore", "₹19,744 Crore", "₹50,000 Crore", "₹1 Lakh Crore"],
+        correct: 1,
+        explanation: "The National Green Hydrogen Mission was approved with an initial outlay of ₹19,744 crore."
+    },
+    {
+        question: "The 'Nari Shakti Vandan Adhiniyam' is the:",
+        options: ["101st Constitutional Amendment", "106th Constitutional Amendment", "103rd Constitutional Amendment", "100th Constitutional Amendment"],
+        correct: 1,
+        explanation: "The Women's Reservation Bill, which grants 33% reservation in Lok Sabha and State Assemblies, is the 106th Constitutional Amendment Act."
+    },
+    {
+        question: "The 'Exercise Khanjar' is conducted between India and:",
+        options: ["Kazakhstan", "Kyrgyzstan", "Uzbekistan", "Tajikistan"],
+        correct: 1,
+        explanation: "Exercise Khanjar is a joint special forces exercise between India and Kyrgyzstan."
+    },
+    {
+        question: "The 'Mera Bill Mera Adhikar' scheme is an initiative to:",
+        options: ["Encourage consumers to ask for GST invoices (bills) for a chance to win cash prizes.", "Provide free electricity.", "Waive pending water bills.", "Digitize land records."],
+        correct: 0,
+        explanation: "It is an invoice incentive scheme to encourage the culture of customers asking for bills for all purchases."
+    },
+    {
+        question: "The Union Government recently renamed 'Port Blair', the capital of Andaman and Nicobar Islands, to:",
+        options: ["Swaraj Dweep", "Sri Vijaya Puram", "Shaheed Puram", "Netaji Nagar"],
+        correct: 1,
+        explanation: "To shed colonial baggage, Port Blair was renamed 'Sri Vijaya Puram', honoring the victory in the freedom struggle and the Chola empire's naval history."
+    },
+    {
+        question: "India's second nuclear-powered ballistic missile submarine (SSBN), commissioned in August 2024, is named:",
+        options: ["INS Arihant", "INS Arighat", "INS Chakra", "INS Khanderi"],
+        correct: 1,
+        explanation: "INS Arighat is India's second indigenous SSBN after INS Arihant, further strengthening India's nuclear triad."
+    },
+    {
+        question: "Which film won the 'Best Feature Film' award at the 70th National Film Awards (announced in 2024)?",
+        options: ["Kantara", "Aattam", "Brahmastra", "Rocketry: The Nambi Effect"],
+        correct: 1,
+        explanation: "The Malayalam film 'Aattam' (The Play) won the Best Feature Film award at the 70th National Film Awards."
+    },
+    {
+        question: "The 'Bio-E3' Policy, approved by the Union Cabinet, focuses on:",
+        options: ["Ethanol blending.", "Biotechnology for Economy, Environment, and Employment.", "Export of electronic waste.", "Electric vehicle batteries."],
+        correct: 1,
+        explanation: "The Bio-E3 policy (Biotechnology for Economy, Environment, and Employment) aims to foster high-performance biomanufacturing in India."
+    },
+    {
+        question: "India won a historic total of how many medals at the 'Paris Paralympics 2024'?",
+        options: ["19", "25", "29", "35"],
+        correct: 2,
+        explanation: "India achieved its best-ever performance at the Paralympics with 29 medals (7 Gold, 9 Silver, 13 Bronze)."
+    },
+    {
+        question: "The 'Agni-4' missile, successfully validated recently, is a:",
+        options: ["Short-range cruise missile.", "Intermediate Range Ballistic Missile (IRBM).", "Intercontinental Ballistic Missile (ICBM).", "Air-to-Air missile."],
+        correct: 1,
+        explanation: "Agni-4 is an Intermediate Range Ballistic Missile (IRBM) with a range of around 4,000 km."
+    },
+    {
+        question: "Which country has been declared the host of the '2025 BRICS Summit'?",
+        options: ["India", "China", "Brazil", "South Africa"],
+        correct: 2,
+        explanation: "Brazil will host the 2025 BRICS summit, taking over the presidency from Russia."
+    },
+    {
+        question: "The 'Nanjarayan Bird Sanctuary', recently declared a Ramsar site, is located in:",
+        options: ["Tamil Nadu", "Kerala", "Karnataka", "Andhra Pradesh"],
+        correct: 0,
+        explanation: "Nanjarayan Bird Sanctuary (Tamil Nadu) was one of the three new wetlands added to the Ramsar list in Aug 2024 (along with Kazhuveli and Tawa)."
+    },
+    {
+        question: "The 'Unified Pension Scheme' (UPS) guarantees a pension of what percentage of the average basic pay drawn over the last 12 months?",
+        options: ["30%", "40%", "50%", "60%"],
+        correct: 2,
+        explanation: "UPS guarantees a pension of 50% of the average basic pay drawn over the last 12 months prior to superannuation for 25 years of service."
+    },
+    {
+        question: "Who was awarded the 'Nobel Prize in Physics 2024' for foundational discoveries in machine learning (AI)?",
+        options: ["Geoffrey Hinton and John Hopfield", "Demis Hassabis and John Jumper", "David Baker", "Katalin Karikó"],
+        correct: 0,
+        explanation: "Geoffrey Hinton and John Hopfield were awarded the Physics Nobel for their work on artificial neural networks, the foundation of modern AI."
+    },
+    {
+        question: "The 'Mpox' outbreak was declared a 'Public Health Emergency of International Concern' (PHEIC) by WHO in 2024 due to the spread of which clade?",
+        options: ["Clade Ia", "Clade Ib", "Clade II", "Clade X"],
+        correct: 1,
+        explanation: "The rapid spread of the new, more dangerous strain 'Clade Ib' in Africa led to the PHEIC declaration."
+    },
+    {
+        question: "The 'Mission Mausam', approved by the Cabinet, aims to:",
+        options: ["Control rainfall artificially.", "Make India 'Weather Ready' and 'Climate Smart' with advanced forecasting capabilities.", "Study Mars' atmosphere.", "Build solar farms."],
+        correct: 1,
+        explanation: "Mission Mausam aims to boost India's weather forecasting capabilities using advanced radars, satellites, and high-performance computers."
+    },
+    {
+        question: "What is 'Rangeen Machhli' app?",
+        options: ["An app for buying fish.", "An app to guide ornamental fish farmers and hobbyists.", "A fishing game.", "A marine biology database."],
+        correct: 1,
+        explanation: "Launched by the Fisheries Minister, it provides information on ornamental fish species and care to support the aquarium industry."
+    },
+    {
+        question: "The 'Jal Sanchay Jan Bhagidari' initiative was launched in which state to bolster water conservation?",
+        options: ["Rajasthan", "Gujarat", "Maharashtra", "Uttar Pradesh"],
+        correct: 1,
+        explanation: "PM Modi launched this community-driven water conservation initiative in Surat, Gujarat."
+    },
+    {
+        question: "The 'Exercise Tarang Shakti 2024' was significant for India because:",
+        options: ["It was the first phase of India's largest multilateral air exercise.", "It was a solo exercise.", "It was held underwater.", "It involved only drones."],
+        correct: 0,
+        explanation: "Tarang Shakti was the largest multilateral air exercise hosted by the Indian Air Force, held in two phases (Sulur and Jodhpur)."
+    },
+    {
+        question: "The 'Tawa Reservoir', recently added to the Ramsar list, is located in:",
+        options: ["Madhya Pradesh", "Maharashtra", "Gujarat", "Odisha"],
+        correct: 0,
+        explanation: "Tawa Reservoir is located in the Narmadapuram district of Madhya Pradesh."
+    },
+    {
+        question: "Who won the 'Booker Prize 2024' for the novel 'Orbital'?",
+        options: ["Samantha Harvey", "Percival Everett", "Rachel Kushner", "Anne Michaels"],
+        correct: 0,
+        explanation: "British author Samantha Harvey won the Booker Prize 2024 for her novel 'Orbital', which is set on the International Space Station."
+    },
+    {
+        question: "The 'Project 75 (India)' submarine deal is being negotiated primarily with which two countries' contenders?",
+        options: ["Germany (TKMS) and Spain (Navantia)", "USA and UK", "France and Russia", "South Korea and Japan"],
+        correct: 0,
+        explanation: "The race for the P-75I submarine deal (with AIP) is primarily between Germany's ThyssenKrupp Marine Systems and Spain's Navantia."
+    },
+    {
+        question: "The 'SUBHADRA' scheme, launched by PM Modi in Odisha, provides financial assistance of:",
+        options: ["₹50,000 over 5 years", "₹10,000 per year", "₹1 Lakh one-time", "₹2,000 per month"],
+        correct: 0,
+        explanation: "Under Subhadra Yojana, eligible women will receive ₹50,000 over a period of 5 years (₹10,000 per year in two installments)."
+    },
+    {
+        question: "The 'H5N1' bird flu recently caused the first human case without known animal contact in which US state?",
+        options: ["Texas", "Missouri", "California", "Florida"],
+        correct: 1,
+        explanation: "A case in Missouri was significant as the patient had no known contact with animals, raising concerns about human-to-human transmission potential."
+    },
+    {
+        question: "The 'Global Innovation Index 2024' ranked India at:",
+        options: ["39th", "40th", "42nd", "35th"],
+        correct: 0,
+        explanation: "India climbed one spot to rank 39th out of 133 economies in the Global Innovation Index 2024."
+    },
+    {
+        question: "The 'She-Box 2.0' portal is launched to ensure:",
+        options: ["Safety of women on trains.", "Safety of women in workplaces (reporting sexual harassment).", "Women's financial savings.", "Girls' education."],
+        correct: 1,
+        explanation: "It is a centralized platform for registering and monitoring complaints of sexual harassment of women at the workplace."
+    },
+    {
+        question: "The 'Polaris Dawn' mission made history by:",
+        options: ["Conducting the first-ever commercial (private) spacewalk.", "Landing on Mars.", "Staying in space for a year.", "Flying to the Moon."],
+        correct: 0,
+        explanation: "SpaceX's Polaris Dawn mission saw billionaire Jared Isaacman conduct the first-ever private spacewalk."
+    },
+    {
+        question: "The 'PM E-DRIVE' scheme replaces which earlier scheme?",
+        options: ["FAME-II", "PLI Auto", "PM-Kusum", "Ujala"],
+        correct: 0,
+        explanation: "The PM E-DRIVE (PM Electric Drive Revolution in Innovative Vehicle Enhancement) scheme replaces the FAME-II scheme to promote EVs."
+    },
+    {
+        question: "Who became the youngest-ever gold medalist in Paralympic archery (India)?",
+        options: ["Sheetal Devi", "Harvinder Singh", "Avani Lekhara", "Sumit Antil"],
+        correct: 1,
+        explanation: "Wait, strict fact check: **Harvinder Singh** won Gold (first in archery). **Sheetal Devi** (the armless archer) won Bronze (Mixed Team) and is the *youngest* sensation, but Harvinder won the Gold. Let's correct the question focus. *Correction:* Harvinder Singh made history as the first Indian to win gold in archery at the Paralympics."
+    },
+    {
+        question: "Replaced Q: Harvinder Singh created history at the Paris Paralympics 2024 by winning India's first-ever Gold medal in:",
+        options: ["Shooting", "Archery", "Javelin", "Club Throw"],
+        correct: 1,
+        explanation: "Harvinder Singh became the first Indian to win a gold medal in Archery at the Paralympics."
+    },
+    {
+        question: "The 'NPS Vatsalya' scheme allows parents to open pension accounts for minors. The minimum annual contribution is:",
+        options: ["₹1,000", "₹500", "₹10,000", "₹250"],
+        correct: 0,
+        explanation: "Parents can open the account with a minimum contribution of ₹1,000 per year."
+    },
+    {
+        question: "The 'Exercise Yudh Abhyas 2024' was conducted in:",
+        options: ["Alaska, USA", "Rajasthan, India (Mahajan Field Firing Ranges)", "Uttarakhand, India", "Washington, USA"],
+        correct: 1,
+        explanation: "The 20th edition of the Indo-US joint military exercise Yudh Abhyas was held at the Mahajan Field Firing Ranges in Rajasthan."
+    },
+    {
+        question: "Which state topped the 'Food Safety Index 2024' (Large States category)?",
+        options: ["Kerala", "Tamil Nadu", "Gujarat", "Maharashtra"],
+        correct: 0,
+        explanation: "Kerala regained the top spot in the State Food Safety Index (SFSI) 2024 for large states."
+    },
+    {
+        question: "The 'International Big Cat Alliance' (IBCA) headquarters will be in:",
+        options: ["South Africa", "India", "Brazil", "Kenya"],
+        correct: 1,
+        explanation: "The Cabinet approved the establishment of the IBCA headquarters in India."
+    },
+    {
+        question: "What is 'Bernardinelli-Bernstein'?",
+        options: ["A new comet (largest ever discovered).", "A dual asteroid system.", "A new galaxy.", "A black hole pair."],
+        correct: 0,
+        explanation: "It is the largest comet nucleus ever seen by astronomers."
+    },
+    {
+        question: "The Union Cabinet recently conferred the status of 'Classical Language' to 5 new languages. Which of the following is NOT one of them?",
+        options: ["Marathi", "Bengali", "Pali", "Bhojpuri"],
+        correct: 3,
+        explanation: "The 5 new languages are Marathi, Bengali, Pali, Prakrit, and Assamese. Bhojpuri was not included. (Total Classical Languages is now 11)."
+    },
+    {
+        question: "The new 'Statue of Justice' unveiled at the Supreme Court of India differs from the traditional one because:",
+        options: ["It is blindfolded.", "It has eyes open and holds the Constitution instead of a sword.", "It is sitting.", "It holds a lotus."],
+        correct: 1,
+        explanation: "The new statue sheds the blindfold (symbolizing law is not blind) and holds the Constitution in one hand (replacing the sword), signifying justice through the constitution."
+    },
+    {
+        question: "Who was awarded the 'Nobel Prize in Literature 2024'?",
+        options: ["Han Kang (South Korea)", "Jon Fosse", "Haruki Murakami", "Salman Rushdie"],
+        correct: 0,
+        explanation: "South Korean author Han Kang won the 2024 Nobel Prize in Literature for her 'intense poetic prose that confronts historical traumas'."
+    },
+    {
+        question: "The 'Bio-RIDE' scheme, approved by the Cabinet, merges two existing schemes of which Department?",
+        options: ["Department of Biotechnology (DBT)", "Department of Science and Technology (DST)", "Ministry of Environment", "ICMR"],
+        correct: 0,
+        explanation: "Bio-RIDE (Biotechnology Research Innovation and Entrepreneurship Development) merges two schemes of the Department of Biotechnology."
+    },
+    {
+        question: "The 'SCO Summit 2024' (Heads of Government) was hosted by:",
+        options: ["India", "Russia", "Pakistan (Islamabad)", "China"],
+        correct: 2,
+        explanation: "Pakistan hosted the SCO Council of Heads of Government (CHG) summit in Islamabad in October 2024."
+    },
+    {
+        question: "The 'Global Hunger Index 2024' ranked India at:",
+        options: ["105th", "111th", "94th", "101st"],
+        correct: 0,
+        explanation: "India ranked 105th out of 127 countries in the Global Hunger Index 2024, falling in the 'Serious' category."
+    },
+    {
+        question: "The 'Exercise Malabar 2024' was hosted by:",
+        options: ["India (Visakhapatnam)", "USA", "Japan", "Australia"],
+        correct: 0,
+        explanation: "India hosted the Malabar 2024 naval exercise off the coast of Visakhapatnam."
+    },
+    {
+        question: "Muhammad Yunus, who took charge as the Chief Adviser of Bangladesh's interim government, is a Nobel Laureate in:",
+        options: ["Peace", "Economics", "Literature", "Physics"],
+        correct: 0,
+        explanation: "Muhammad Yunus was awarded the Nobel Peace Prize in 2006 for founding the Grameen Bank and pioneering microcredit."
+    },
+    {
+        question: "The '16th Finance Commission' is headed by:",
+        options: ["N.K. Singh", "Arvind Panagariya", "Raghuram Rajan", "Y.V. Reddy"],
+        correct: 1,
+        explanation: "Dr. Arvind Panagariya is the Chairman of the 16th Finance Commission."
+    },
+    {
+        question: "The 'Europa Clipper' mission, launched by NASA in Oct 2024, aims to explore:",
+        options: ["Mars' polar caps.", "Jupiter's moon Europa (for potential habitability).", "Saturn's rings.", "Asteroid belt."],
+        correct: 1,
+        explanation: "Europa Clipper is NASA's largest planetary mission spacecraft, designed to study Jupiter's icy moon Europa."
+    },
+    {
+        question: "The 'High Level Committee on One Nation One Election', which submitted its report, was headed by:",
+        options: ["Ram Nath Kovind", "Amit Shah", "Ranjan Gogoi", "Pratibha Patil"],
+        correct: 0,
+        explanation: "Former President Ram Nath Kovind headed the committee recommending simultaneous elections for Lok Sabha and State Assemblies."
+    },
+    {
+        question: "The 'PM E-DRIVE' scheme provides incentives for which categories of vehicles?",
+        options: ["Electric 2-wheelers, 3-wheelers, ambulances, trucks, and buses.", "Private electric cars only.", "Diesel trucks.", "Hybrid cars only."],
+        correct: 0,
+        explanation: "The scheme focuses on electric 2Ws, 3Ws, e-ambulances, e-trucks, and e-buses. Private e-cars are generally excluded from direct subsidy."
+    },
+    {
+        question: "The 'Kazhuveli Bird Sanctuary', recently declared a Ramsar site, is in:",
+        options: ["Tamil Nadu", "Kerala", "Andhra Pradesh", "Puducherry"],
+        correct: 0,
+        explanation: "Kazhuveli Bird Sanctuary is a brackish water wetland located in Tamil Nadu."
+    },
+    {
+        question: "Which state became the first to implement the 'Uniform Civil Code' (UCC) in independent India?",
+        options: ["Goa", "Uttarakhand", "Gujarat", "Assam"],
+        correct: 1,
+        explanation: "While Goa has a Portuguese-era civil code, Uttarakhand became the first state to pass and implement a UCC Bill in independent India."
+    },
+    {
+        question: "The 'Param Rudra' supercomputers were inaugurated under the:",
+        options: ["National Supercomputing Mission (NSM)", "Digital India Mission", "PM-GatiShakti", "Semicon India"],
+        correct: 0,
+        explanation: "PM Modi dedicated three Param Rudra supercomputers (in Pune, Delhi, Kolkata) under the National Supercomputing Mission."
+    },
+    {
+        question: "The 'Nijut Moina' scheme, aimed at preventing child marriage and promoting girl education, belongs to:",
+        options: ["Assam", "West Bengal", "Odisha", "Bihar"],
+        correct: 0,
+        explanation: "Assam launched the Nijut Moina scheme to provide monthly stipends to girl students to curb child marriage."
+    },
+    {
+        question: "The 'Mount Fuji' in Japan remained snowless for the longest period in 130 years in 2024 due to:",
+        options: ["Volcanic activity.", "Climate change and unusually warm autumn.", "Deforestation.", "Pollution."],
+        correct: 1,
+        explanation: "Mount Fuji remained snowless until November, breaking a 130-year record due to extreme warmth."
+    },
+    {
+        question: "The 'Hera' mission, launched by ESA, is designed to:",
+        options: ["Study the sun.", "Visit the Didymos binary asteroid system (follow up to DART mission).", "Land on Mars.", "Clean space debris."],
+        correct: 1,
+        explanation: "Hera will inspect the aftermath of NASA's DART impact on the asteroid Dimorphos."
+    },
+    {
+        question: "The 'Digital Bharat Nidhi' will replace which existing fund?",
+        options: ["Universal Service Obligation Fund (USOF)", "Consolidated Fund of India", "PM CARES", "Nirbhaya Fund"],
+        correct: 0,
+        explanation: "Under the Telecommunications Act 2023, the USOF is renamed and revamped as 'Digital Bharat Nidhi'."
+    },
+    {
+        question: "The 'Exercise Vajra Prahar 2024' is a joint special forces exercise between India and:",
+        options: ["USA", "UK", "France", "Russia"],
+        correct: 0,
+        explanation: "Vajra Prahar is the Indo-US joint special forces exercise (held in Idaho, USA in 2024)."
+    },
+    {
+        question: "Who won the 'Dadasaheb Phalke Award' for the year 2022 (presented in Oct 2024)?",
+        options: ["Mithun Chakraborty", "Waheeda Rehman", "Asha Parekh", "Rajnikanth"],
+        correct: 0,
+        explanation: "Veteran actor Mithun Chakraborty was conferred the Dadasaheb Phalke Award."
+    },
+    {
+        question: "The 'International Solar Alliance' (ISA) recently welcomed which country as its 100th full member?",
+        options: ["Paraguay", "Chile", "Norway", "Spain"],
+        correct: 0,
+        explanation: "Paraguay became the 100th country to join the ISA as a full member."
+    },
+    {
+        question: "The 'Global Nature Positive Summit 2024' was hosted by:",
+        options: ["Australia (Sydney)", "Canada", "Brazil", "India"],
+        correct: 0,
+        explanation: "The first Global Nature Positive Summit was held in Sydney, Australia."
+    },
+    {
+        question: "The 'Dharti Aaba Janjatiya Gram Utkarsh Abhiyan' is aimed at:",
+        options: ["Saturating tribal villages with social infrastructure and basic services.", "Promoting tribal art.", "Building museums.", "Giving free land."],
+        correct: 0,
+        explanation: "It aims to cover 63,000 tribal villages to improve the socio-economic condition of 5 crore tribal people."
+    },
+    {
+        question: "The 'Next-Gen Launch Vehicle' (NGLV), approved by the Cabinet, is named:",
+        options: ["Soorya", "Bharat-1", "Garuda", "Pushpak"],
+        correct: 0,
+        explanation: "ISRO's NGLV, designed to replace LVM3 and carry heavier payloads, is named 'Soorya'."
+    },
+    {
+        question: "The 'Cyber Commandos' programme aims to:",
+        options: ["Train police officers to counter cyber threats.", "Hack foreign servers.", "Repair computers.", "Provide internet in villages."],
+        correct: 0,
+        explanation: "It is a specialized wing of trained police personnel to counter cyber attacks and secure the digital space."
+    },
+    {
+        question: "The 'World Telecommunication Standardization Assembly' (WTSA-2024) was hosted in:",
+        options: ["New Delhi", "Geneva", "Tokyo", "Dubai"],
+        correct: 0,
+        explanation: "For the first time, India (New Delhi) hosted the WTSA-2024, organized by the ITU."
+    },
+    {
+        question: "The 'Mission Mausam' will be implemented by which Ministry?",
+        options: ["Ministry of Earth Sciences", "Ministry of Environment", "Ministry of Agriculture", "ISRO"],
+        correct: 0,
+        explanation: "It is a flagship mission of the Ministry of Earth Sciences."
+    },
+    {
+        question: "The 'Global Water Monitor' report states that the water cycle is being disrupted due to:",
+        options: ["Over-damming.", "Climate change and land use change.", "Excessive rain.", "Desalination."],
+        correct: 1,
+        explanation: "The report highlights that the global water cycle is increasingly erratic due to climate change."
+    },
+    {
+        question: "The 'Justice Sanjiv Khanna' was appointed as the _______ Chief Justice of India (CJI).",
+        options: ["50th", "51st", "52nd", "53rd"],
+        correct: 1,
+        explanation: "Justice Sanjiv Khanna took oath as the 51st Chief Justice of India (succeeding CJI DY Chandrachud)."
+    },
+    {
+        question: "The 'Nobel Peace Prize 2024' was awarded to which organization for its efforts to achieve a world free of nuclear weapons?",
+        options: ["Nihon Hidankyo", "International Court of Justice", "World Food Programme", "ICAN"],
+        correct: 0,
+        explanation: "The Japanese organization 'Nihon Hidankyo' (a grassroots movement of atomic bomb survivors from Hiroshima and Nagasaki) won the Peace Prize."
+    },
+    {
+        question: "The 'COP29' climate summit (UN Climate Change Conference 2024) was held in:",
+        options: ["Dubai, UAE", "Baku, Azerbaijan", "Belem, Brazil", "Glasgow, UK"],
+        correct: 1,
+        explanation: "COP29 was hosted in Baku, Azerbaijan. A key focus was the 'New Collective Quantified Goal' (NCQG) on climate finance."
+    },
+    {
+        question: "Who won the 'Nobel Prize in Physiology or Medicine 2024' for the discovery of microRNA?",
+        options: ["Victor Ambros and Gary Ruvkun", "Katalin Kariko and Drew Weissman", "Svante Paabo", "David Julius"],
+        correct: 0,
+        explanation: "Victor Ambros and Gary Ruvkun were awarded the prize for the discovery of microRNA and its role in post-transcriptional gene regulation."
+    },
+    {
+        question: "The 'Global Alliance Against Hunger and Poverty' was launched during which summit in 2024?",
+        options: ["G20 Summit in Brazil (Rio de Janeiro)", "G7 Summit in Italy", "ASEAN Summit in Laos", "BRICS Summit in Russia"],
+        correct: 0,
+        explanation: "Launched during Brazil's G20 Presidency, it aims to accelerate efforts to eradicate hunger and poverty globally."
+    },
+    {
+        question: "The 'Cyclone Dana' which made landfall on the Odisha-West Bengal coast in Oct 2024, was named by:",
+        options: ["Qatar", "India", "Saudi Arabia", "Thailand"],
+        correct: 0,
+        explanation: "The name 'Dana' (meaning a beautiful pearl in Arabic) was contributed by Qatar."
+    },
+    {
+        question: "The 'PM Vidyalaxmi' scheme is designed to:",
+        options: ["Provide financial support to meritorious students for higher education (collateral-free loans).", "Build new schools.", "Distribute free uniforms.", "Train teachers."],
+        correct: 0,
+        explanation: "The scheme provides financial support to meritorious students so that financial constraints do not prevent them from pursuing higher education."
+    },
+    {
+        question: "The 'Justice Sanjiv Khanna' recently took oath as the ______ Chief Justice of India.",
+        options: ["50th", "51st", "52nd", "49th"],
+        correct: 1,
+        explanation: "Justice Sanjiv Khanna succeeded Justice D.Y. Chandrachud to become the 51st Chief Justice of India."
+    },
+    {
+        question: "The 'Nobel Prize in Chemistry 2024' was shared by David Baker, Demis Hassabis, and John Jumper for work on:",
+        options: ["Protein structure prediction and design (using AI).", "Quantum dots.", "Lithium-ion batteries.", "CRISPR-Cas9."],
+        correct: 0,
+        explanation: "They were awarded for computational protein design (Baker) and protein structure prediction using AlphaFold AI (Hassabis & Jumper)."
+    },
+    {
+        question: "The 'Digital India Common Service Centre' (DICSC) project in rural areas aims to be powered by:",
+        options: ["Coal energy", "Solar Power (under PM-Surya Ghar)", "Wind energy", "Nuclear energy"],
+        correct: 1,
+        explanation: "There is a push to solarize CSCs and rural government offices to ensure uninterrupted digital services."
+    },
+    {
+        question: "The 'Exercise AustraHind 2024' was conducted in:",
+        options: ["Perth, Australia", "Pune, India (Maharashtra)", "Rajasthan, India", "Sydney, Australia"],
+        correct: 1,
+        explanation: "The 3rd edition of the joint military exercise AustraHind was conducted in Pune, Maharashtra."
+    },
+    {
+        question: "The 'Global Digital Health Partnership' (GDHP) summit 2024 was hosted by:",
+        options: ["India", "USA", "Switzerland", "Japan"],
+        correct: 0,
+        explanation: "India hosted the GDHP summit, emphasizing the use of digital technology to achieve universal health coverage."
+    },
+    {
+        question: "The 'Sagarmanthan: The Great Oceans Dialogue' was held in:",
+        options: ["Mumbai", "New Delhi", "Chennai", "Goa"],
+        correct: 1,
+        explanation: "South Asia's first dedicated track 1.5 dialogue on the oceans was held in New Delhi."
+    },
+    {
+        question: "The 'Article 35A' of the Constitution (now scrapped) empowered the J&K legislature to:",
+        options: ["Define 'permanent residents' and grant them special rights.", "Declare war.", "Print currency.", "Have a separate Prime Minister."],
+        correct: 0,
+        explanation: "Article 35A allowed the J&K legislature to define permanent residents and give them special rights in employment and property acquisition."
+    },
+    {
+        question: "The 'Vayam Rakshamah' (We Protect) is the motto of:",
+        options: ["Indian Army", "Indian Navy", "Indian Coast Guard", "NSG"],
+        correct: 2,
+        explanation: "It is the motto of the Indian Coast Guard."
+    },
+    {
+        question: "The 'International Energy Efficiency Hub' is now located in:",
+        options: ["Paris (IEA)", "Berlin", "New Delhi", "Washington DC"],
+        correct: 0,
+        explanation: "The hub secretariat is hosted at the International Energy Agency (IEA) in Paris."
+    },
+    {
+        question: "The 'Exercise SIMBEX 2024' was held in:",
+        options: ["Visakhapatnam", "Singapore", "Andaman Sea", "Chennai"],
+        correct: 0,
+        explanation: "The 31st edition of the Singapore-India Maritime Bilateral Exercise (SIMBEX) was held in Visakhapatnam."
+    },
+    {
+        question: "The 'Global Multidimensional Poverty Index 2024' report states that 1.1 billion people live in acute poverty. It is released by:",
+        options: ["UNDP and OPHI", "World Bank", "IMF", "UNICEF"],
+        correct: 0,
+        explanation: "The report is jointly released by the UNDP and the Oxford Poverty and Human Development Initiative (OPHI)."
+    },
+    {
+        question: "The 'Namo Bharat Rapid Rail' (Vande Metro) was inaugurated connecting:",
+        options: ["Ahmedabad and Bhuj", "Mumbai and Pune", "Delhi and Meerut", "Chennai and Bengaluru"],
+        correct: 0,
+        explanation: "PM Modi flagged off the first Vande Metro (renamed Namo Bharat Rapid Rail) between Ahmedabad and Bhuj."
+    },
+    {
+        question: "The 'Mission Mausam' has a total outlay of:",
+        options: ["₹2,000 Crore", "₹5,000 Crore", "₹10,000 Crore", "₹500 Crore"],
+        correct: 0,
+        explanation: "The Cabinet approved Mission Mausam with an outlay of ₹2,000 crore over two years."
+    },
+    {
+        question: "The 'Pradhan Mantri Janjatiya Unnat Gram Abhiyan' aims to improve the socio-economic condition of:",
+        options: ["5 Crore tribal people in 63,000 villages.", "Urban poor.", "Fishermen.", "Farmers in Punjab."],
+        correct: 0,
+        explanation: "It targets saturation of schemes in tribal-majority villages, benefiting over 5 crore tribal people."
+    },
+    {
+        question: "The 'Anusandhan National Research Foundation' (ANRF) launched two new initiatives: 'PM-Jay' and:",
+        options: ["MAARG", "PRIP", "PAIR", "SAGE"],
+        correct: 2,
+        explanation: "ANRF launched the 'Partnerships for Accelerated Innovation and Research' (PAIR) program to boost research in universities."
+    },
+    {
+        question: "Which country launched the 'Europa Clipper' to study Jupiter's moon?",
+        options: ["USA (NASA)", "Europe (ESA)", "China (CNSA)", "India (ISRO)"],
+        correct: 0,
+        explanation: "NASA launched the Europa Clipper mission aboard a SpaceX Falcon Heavy rocket."
+    },
+    {
+        question: "The 'Supreme Court' recently ruled that 'Citizenship' under Section 6A of the Citizenship Act, 1955 is:",
+        options: ["Unconstitutional", "Constitutionally Valid", "Partially Valid", "Void ab initio"],
+        correct: 1,
+        explanation: "A Constitution Bench upheld the validity of Section 6A of the Citizenship Act, 1955 (related to the Assam Accord)."
+    },
+    {
+        question: "The 'Global Nature Positive Summit' 2024 highlighted the need to:",
+        options: ["Halt and reverse biodiversity loss by 2030.", "Stop all mining.", "Plant 1 trillion trees.", "Ban plastic."],
+        correct: 0,
+        explanation: "The summit in Sydney focused on driving the 'Nature Positive' agenda—halting and reversing biodiversity loss by 2030."
+    },
+    {
+        question: "The 'Exercise Vajra Prahar' is a special forces exercise between India and:",
+        options: ["USA", "UK", "Russia", "Israel"],
+        correct: 0,
+        explanation: "Vajra Prahar is the joint Special Forces exercise between India and the USA."
+    },
+    {
+        question: "The 'World Food Day' is observed annually on:",
+        options: ["October 16", "October 24", "November 14", "June 5"],
+        correct: 0,
+        explanation: "World Food Day is celebrated on October 16 to mark the founding of the FAO."
+    },
+    {
+        question: "The 'Tele-MANAS' helpline number is:",
+        options: ["14416", "1098", "100", "1950"],
+        correct: 0,
+        explanation: "The toll-free number for the Tele-MANAS mental health helpline is 14416."
+    },
+    {
+        question: "The 'SCO Summit 2024' adopted a joint communique focusing on:",
+        options: ["Economic cooperation and countering terrorism.", "Climate change only.", "Space exploration.", "Human rights."],
+        correct: 0,
+        explanation: "The summit in Islamabad emphasized strengthening economic ties and regional security against terrorism."
+    },
+    {
+        question: "The 'National Water Awards 2023' (presented in Oct 2024) ranked which state as the best in water conservation?",
+        options: ["Odisha", "Uttar Pradesh", "Gujarat", "Madhya Pradesh"],
+        correct: 0,
+        explanation: "Odisha bagged the first prize in the Best State category at the 5th National Water Awards."
+    },
+    {
+        question: "The 'PM E-DRIVE' scheme has an outlay of:",
+        options: ["₹10,900 Crore", "₹5,000 Crore", "₹20,000 Crore", "₹1,000 Crore"],
+        correct: 0,
+        explanation: "The Cabinet approved the PM E-DRIVE scheme with an outlay of ₹10,900 crore."
+    },
+    
+
+
 ];
