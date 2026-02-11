@@ -2448,8 +2448,18 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         // Unlock interface immediately
         unlockInterface();
         
-        // Activate profile tab by default (as per your HTML structure)
-        activateTab(document.getElementById('nav-profile'), 'profile');
+        // CRITICAL FIX: Activate UPSC tab by default (not profile tab)
+        // This makes the UPSC tab active in footer navigation
+        const upscNavItem = document.getElementById('nav-upsc');
+        if (upscNavItem) {
+            activateTab(upscNavItem, 'upsc');
+        } else {
+            // Fallback: Activate UPSC tab using query selector
+            const upscTab = document.querySelector('.nav-item.upsc-tab');
+            if (upscTab) {
+                activateTab(upscTab, 'upsc');
+            }
+        }
 
         // Initialize charts
         initializeCharts();
