@@ -1,33 +1,24 @@
 (function () {
   try {
-    var ua = navigator.userAgent.toLowerCase();
+    const params = new URLSearchParams(window.location.search);
+    const allow = params.get("allow");
 
-    // 1. Android App allow
-    if (ua.indexOf("stiskilli_app") > -1) {
+    // App / PWA allow
+    if (allow === "stiskilli") {
       return;
     }
 
-    // 2. Google / SEO bots allow
+    // SEO bots allow
+    const ua = navigator.userAgent.toLowerCase();
     if (/bot|googlebot|crawler|spider|robot|crawling/i.test(ua)) {
       return;
     }
 
-    // 3. Microsoft / Windows / PWA allow
-    if (
-      ua.indexOf("windows") > -1 ||
-      ua.indexOf("edg") > -1 ||      // Microsoft Edge
-      ua.indexOf("chrome") > -1 ||   // Browser testing
-      ua.indexOf("pwa") > -1
-    ) {
-      return;
-    }
-
-    // 4. Baaki sab ko Play Store bhejo
+    // Redirect baaki sab
     window.location.replace(
       "https://play.google.com/store/apps/details?id=com.ai.skillaura"
     );
-
   } catch (e) {
-    console.log("Redirect safely handled");
+    console.log("redirect error", e);
   }
 })();
