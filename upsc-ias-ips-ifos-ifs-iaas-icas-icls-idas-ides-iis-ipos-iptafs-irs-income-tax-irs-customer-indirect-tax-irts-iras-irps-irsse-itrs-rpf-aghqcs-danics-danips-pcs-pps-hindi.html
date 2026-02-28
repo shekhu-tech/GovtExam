@@ -51,6 +51,8 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- QUIZ DATA (External File) -->
     <script src="currentaffairsquizdatahindi.js"></script>
+    <!-- LATEST NEWS DATA (External File) -->
+    <script src="latestnewsdatahindi.js"></script>
     
     <style>
         /* --- MAIN APP THEME (Green/Neon) --- */
@@ -1338,32 +1340,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     <div id="modal-news" class="modal-overlay">
         <div class="modal-box" style="border-color: var(--gold);">
             <div class="scroll-content upsc-container">
-                <h2 class="upsc-heading">नवीनतम अपडेट 📰</h2>
-                
-                <a href="#" class="news-card">
-                    <div class="news-title">UPSC वार्षिक कैलेंडर 2026 जारी</div>
-                    <div class="news-desc">आयोग ने CSE 2026 के लिए कार्यक्रम जारी किया है। प्रीलिम्स मई के अंत में निर्धारित। अब तिथियां जांचें।</div>
-                    <span class="news-date">आज • आधिकारिक वेबसाइट</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">DAF-1 फॉर्म जमा करने की अंतिम तिथि</div>
-                    <div class="news-desc">मेन्स क्वालीफाईड उम्मीदवारों के लिए डिटेल्ड एप्लीकेशन फॉर्म जमा करने की अंतिम तिथि नजदीक आ रही है।</div>
-                    <span class="news-date">कल • अधिसूचना</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">नए वैकल्पिक विषयों के रुझान</div>
-                    <div class="news-desc">पिछले साल के परिणामों के विश्लेषण से मानव विज्ञान और PSIR की ओर बदलाव दिखता है।</div>
-                    <span class="news-date">2 दिन पहले • विश्लेषण</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">आर्थिक सर्वेक्षण सारांश PDF</div>
-                    <div class="news-desc">आर्थिक सर्वेक्षण 2024-25 का सार डाउनलोड करें। जीएस-3 और निबंध के लिए आवश्यक।</div>
-                    <span class="news-date">1 सप्ताह पहले • संसाधन</span>
-                </a>
-
+                <!-- News content will be dynamically injected here by JavaScript -->
             </div>
         </div>
     </div>
@@ -2398,6 +2375,74 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         navItems.forEach(item => item.classList.remove('locked'));
     }
 
+    // --- LATEST NEWS DATA LOADING FUNCTION ---
+    function loadLatestNews() {
+        console.log("Loading latest news data...");
+        
+        const newsContainer = document.querySelector('#modal-news .scroll-content');
+        if (!newsContainer) {
+            console.error("News container not found");
+            return;
+        }
+        
+        // Check if news data is available
+        if (typeof latestNews === 'undefined' || latestNews.length === 0) {
+            console.error("Latest news data not loaded");
+            newsContainer.innerHTML = '<h2 class="upsc-heading">नवीनतम अपडेट 📰</h2><p class="text-gray-400 text-center">समाचार लोड नहीं हो सके। कृपया पुनः प्रयास करें।</p>';
+            return;
+        }
+        
+        // Create HTML for news items
+        let newsHTML = '<h2 class="upsc-heading">नवीनतम अपडेट 📰</h2>';
+        
+        latestNews.forEach(news => {
+            // Determine icon based on category
+            let icon = '📰';
+            if (news.category === 'notification') icon = '📢';
+            else if (news.category === 'result') icon = '🏆';
+            else if (news.category === 'analysis') icon = '📊';
+            else if (news.category === 'resource') icon = '📚';
+            else if (news.category === 'preparation') icon = '✍️';
+            else if (news.category === 'event') icon = '🎉';
+            else if (news.category === 'environment') icon = '🌲';
+            else if (news.category === 'international-relations') icon = '🌍';
+            else if (news.category === 'exam-pattern') icon = '📋';
+            else if (news.category === 'coaching') icon = '🎓';
+            
+            newsHTML += `
+                <a href="${news.url}" class="news-card">
+                    <div class="news-title">${icon} ${news.title}</div>
+                    <div class="news-desc">${news.description}</div>
+                    <span class="news-date">${news.date} • ${news.source}</span>
+                </a>
+            `;
+        });
+        
+        // Add more news items if available from extended dataset
+        if (typeof latestNewsExtended !== 'undefined' && latestNewsExtended.length > 0) {
+            latestNewsExtended.forEach(news => {
+                let icon = '📰';
+                if (news.category === 'notification') icon = '📢';
+                else if (news.category === 'result') icon = '🏆';
+                else if (news.category === 'exam-pattern') icon = '📋';
+                else if (news.category === 'coaching') icon = '🎓';
+                else if (news.category === 'environment') icon = '🌲';
+                else if (news.category === 'international-relations') icon = '🌍';
+                
+                newsHTML += `
+                    <a href="${news.url}" class="news-card ${news.isImportant ? 'border-l-4 border-red-500' : ''}">
+                        <div class="news-title">${icon} ${news.title}</div>
+                        <div class="news-desc">${news.summary || news.fullText.substring(0, 100)}...</div>
+                        <span class="news-date">${news.date} • ${news.source}</span>
+                    </a>
+                `;
+            });
+        }
+        
+        // Update the container
+        newsContainer.innerHTML = newsHTML;
+    }
+
     // --- TAB NAVIGATION LOGIC ---
     function activateTab(element, tabId) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -2415,6 +2460,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 initializeQuiz();
                 quizStarted = true;
             }
+        }
+        
+        // Load latest news when news tab is activated
+        if (tabId === 'news') {
+            console.log("Activating news tab, loading latest news...");
+            loadLatestNews();
         }
     }
 
@@ -2465,7 +2516,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         initializeCharts();
         
         // Debug: Check if quiz data is loaded
-        console.log("Quiz questions loaded:", window.quizQuestions ? window.quizQuestions.length : 0);
+        console.log("Quiz questions loaded:", typeof quizQuestions !== 'undefined' ? quizQuestions.length : 0);
+        
+        // Debug: Check if news data is loaded
+        console.log("Latest news data loaded:", typeof latestNews !== 'undefined' ? latestNews.length : 0);
+        console.log("Latest news extended data loaded:", typeof latestNewsExtended !== 'undefined' ? latestNewsExtended.length : 0);
     });
 
     function initializeCharts() {
