@@ -52,6 +52,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     <!-- QUIZ DATA (External File) -->
     <script src="currentaffairsquizdataenglish.js"></script>
     
+    <!-- NEWS DATA (External File) -->
+    <script src="latestnewsdata.js"></script>
+    
     <style>
         /* --- MAIN APP THEME (Green/Neon) --- */
         :root {
@@ -1337,33 +1340,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
     <div id="modal-news" class="modal-overlay">
         <div class="modal-box" style="border-color: var(--gold);">
-            <div class="scroll-content upsc-container">
-                <h2 class="upsc-heading">Latest Updates 📰</h2>
-                
-                <a href="#" class="news-card">
-                    <div class="news-title">UPSC Annual Calendar 2026 Released</div>
-                    <div class="news-desc">Commission has released schedule for CSE 2026. Prelims scheduled for end of May. Check dates now.</div>
-                    <span class="news-date">Today • Official Website</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">DAF-1 Form Submission Last Date</div>
-                    <div class="news-desc">Last date for submitting Detailed Application Form for Mains qualified candidates is approaching.</div>
-                    <span class="news-date">Yesterday • Notification</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">New Optional Subjects Trends</div>
-                    <div class="news-desc">Analysis of last year's results shows shift toward Anthropology and PSIR.</div>
-                    <span class="news-date">2 days ago • Analysis</span>
-                </a>
-
-                <a href="#" class="news-card">
-                    <div class="news-title">Economic Survey Summary PDF</div>
-                    <div class="news-desc">Download summary of Economic Survey 2024-25. Essential for GS-3 and Essay.</div>
-                    <span class="news-date">1 week ago • Resource</span>
-                </a>
-
+            <div class="scroll-content upsc-container" id="news-container">
+                <!-- News will be dynamically injected from external JS file -->
+                <div class="text-center py-10">
+                    <div class="loader mx-auto mb-4"></div>
+                    <p class="text-gray-400">Loading latest updates...</p>
+                </div>
             </div>
         </div>
     </div>
@@ -2078,6 +2060,37 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
         document.getElementById('confirm-no').addEventListener('click', hideConfirmation);
 
+        // --- NEWS LOADING FUNCTION ---
+        function loadNews() {
+            const newsContainer = document.getElementById('news-container');
+            
+            // Check if newsData exists (from external JS file)
+            if (typeof newsData !== 'undefined' && newsData.length > 0) {
+                let newsHTML = '<h2 class="upsc-heading">Latest Updates 📰</h2>';
+                
+                newsData.forEach(news => {
+                    newsHTML += `
+                        <a href="${news.link}" class="news-card" target="_blank" rel="noopener noreferrer">
+                            <div class="news-title">${news.title}</div>
+                            <div class="news-desc">${news.description}</div>
+                            <span class="news-date">${news.date} • ${news.source}</span>
+                        </a>
+                    `;
+                });
+                
+                newsContainer.innerHTML = newsHTML;
+            } else {
+                // Fallback if newsData is not available
+                newsContainer.innerHTML = `
+                    <h2 class="upsc-heading">Latest Updates 📰</h2>
+                    <div class="vacant-msg">
+                        <i class="fas fa-newspaper"></i>
+                        <p>No news available at the moment.</p>
+                    </div>
+                `;
+            }
+        }
+
         // --- QUIZ LOGIC (USING EXTERNAL quizData.js) ---
         let currentQuestionIndex = 0;
         let score = 0;
@@ -2092,6 +2105,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
         // Initialize quiz with external quiz data
         function initializeQuiz() {
+            // Check if quizQuestions exists
+            if (typeof quizQuestions === 'undefined') {
+                console.error('Quiz data not found');
+                return;
+            }
+            
             const savedProgress = localStorage.getItem('quizProgress');
             if (savedProgress) {
                 const progress = JSON.parse(savedProgress);
@@ -2126,6 +2145,8 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         }
 
         function loadQuestion() {
+            if (typeof quizQuestions === 'undefined') return;
+            
             if (currentQuestionIndex >= questionOrder.length) {
                 currentQuestionIndex = 0;
                 questionOrder = Array.from({length: quizQuestions.length}, (_, i) => i);
@@ -2373,6 +2394,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     quizStarted = true;
                 }
             }
+            
+            // Load news when news tab is activated
+            if (tabId === 'news') {
+                loadNews();
+            }
         }
 
         // --- SUB-MODAL LOGIC ---
@@ -2483,6 +2509,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     }
                 }
             });
+            
+            // Preload news data when page loads (optional)
+            if (typeof newsData !== 'undefined') {
+                console.log('News data loaded successfully');
+            }
         });
 
         // Close modals on outside click
