@@ -462,6 +462,30 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
+        /* --- NEW: Trial & Subscription Styles --- */
+        .trial-badge {
+            background: #ff1744;
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 5px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .warning-small {
+            font-size: 0.7rem;
+            color: #ffaaaa;
+            background: rgba(255,0,0,0.2);
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 10px;
+        }
+        .expiry-text {
+            font-size: 0.7rem;
+            color: #ffaa00;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -539,8 +563,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 <div class="res-title" style="color:var(--primary);">क्लब में आपका स्वागत है!</div>
                 <div class="welcome-text">
                     नमस्ते <span id="wel-user" class="user-highlight">उपयोगकर्ता</span>, <br>
-                    अब आप <span style="color:var(--primary)">STISkilli</span> के प्रीमियम सदस्य हैं। <br>
-                    आपकी इतिहास यात्रा अब शुरू होती है!
+                    अब आप <span id="plan-name-display">प्रीमियम</span> सदस्य हैं। <br>
+                    <span id="validity-message"></span>
+                </div>
+                <div class="warning-small" id="uninstall-warning">
+                    ⚠️ अगर आप ऐप अनइंस्टॉल करते हैं, तो आपकी सदस्यता तुरंत समाप्त हो जाएगी और आपको फिर से खरीदना होगा।
                 </div>
                 <button class="res-btn" onclick="closeWelcome()">चलिए शुरू करते हैं</button>
             </div>
@@ -579,7 +606,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                         <br>
                         <p>यह उपलब्धि सभी इकाइयों के पूरा होने का प्रतीक है। अब आप उन चुनिंदा लोगों में शामिल हो गए हैं जिन्होंने इस संग्रह के इतिहास के हर अध्याय को अनलॉक कर लिया है। सीखने के प्रति आपका समर्पण और इन चुनौतियों के दौरान आपका दृढ़ता वाकई सराहनीय है।</p>
                         <br>
-                        <p>आपने राजव्यवस्था में महारत हासिल कर ली है। अगली चुनौती के लिए तैयार हो जाइए।</p>
+                        <p>आपने इतिहास में महारत हासिल कर ली है। अगली चुनौती के लिए तैयार हो जाइए।</p>
                     </div>
 
                     <div class="grand-btn-group">
@@ -619,26 +646,32 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     <h2 style="font-family:'Rajdhani'; font-size:2rem; margin-bottom:20px; color:#fff; font-weight:800;">पहुंच चुनें</h2>
                     
                     <div class="plans-grid">
-                        <div class="plan-card-pro" onclick="selectPlan(51, '1 माह की पहुंच', this)">
+                        <!-- NEW: 9₹ Trial - 24 hours -->
+                        <div class="plan-card-pro" onclick="selectPlan(9, '24 घंटे ट्रायल (9₹)', this)">
                             <div class="pc-check"><i class="fas fa-check-circle"></i></div>
-                            <div class="pc-dur">1 माह</div>
+                            <div class="pc-dur">24 घंटे ट्रायल <span class="trial-badge">नया</span></div>
+                            <div class="pc-price">₹9</div>
+                            <small style="color:#aaa;">केवल 24 घंटे के लिए वैध</small>
+                        </div>
+                        <!-- 51₹ plan - 30 days -->
+                        <div class="plan-card-pro" onclick="selectPlan(51, '30 दिन पहुंच (51₹)', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div class="pc-dur">30 दिन</div>
                             <div class="pc-price">₹51</div>
                         </div>
-                        <div class="plan-card-pro" onclick="selectPlan(101, '3 माह की पहुंच', this)">
-                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
-                            <div class="pc-dur">3 माह</div>
-                            <div class="pc-price">₹101</div>
-                        </div>
-                        <div class="plan-card-pro" onclick="selectPlan(151, '6 माह की पहुंच', this)">
-                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
-                            <div class="pc-dur">6 माह</div>
-                            <div class="pc-price">₹151</div>
-                        </div>
-                        <div class="plan-card-pro" onclick="selectPlan(251, '1 वर्ष की पहुंच', this)">
+                        <!-- NEW: 399₹ plan - 1 Year -->
+                        <div class="plan-card-pro" onclick="selectPlan(399, '1 वर्ष पहुंच (399₹)', this)">
                             <div class="pc-check"><i class="fas fa-check-circle"></i></div>
                             <div style="background:var(--primary); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; font-weight:800; margin-bottom:4px;">सर्वोत्तम मूल्य</div>
                             <div class="pc-dur">1 वर्ष</div>
-                            <div class="pc-price">₹251</div>
+                            <div class="pc-price">₹399</div>
+                        </div>
+                        <!-- NEW: 799₹ plan - Lifetime -->
+                        <div class="plan-card-pro" onclick="selectPlan(799, 'आजीवन पहुंच (799₹)', this)">
+                            <div class="pc-check"><i class="fas fa-check-circle"></i></div>
+                            <div class="pc-dur">आजीवन</div>
+                            <div class="pc-price">₹799</div>
+                            <small style="color:#aaa;">कभी समाप्त नहीं होता</small>
                         </div>
                     </div>
 
@@ -674,6 +707,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                             <div class="mc-user">
                                 <div class="mc-name" id="disp-name">उपयोगकर्ता नाम</div>
                                 <div class="mc-email" id="disp-email">email@example.com</div>
+                                <div id="expiry-display" class="expiry-text"></div>
                             </div>
                         </div>
 
@@ -718,10 +752,10 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             profile: "उपयोगकर्ता प्रोफाइल"
         };
         
-        // REQ 3: STRICT PROGRESSION ORDER
+        // STRICT PROGRESSION ORDER
         const PROGRESSION_ORDER = ['ancient', 'medieval', 'modern', 'world', 'art'];
 
-        // REQ 2: CONFIGURABLE TEXT FOR RED CIRCLE AREA
+        // CONFIGURABLE TEXT FOR RED CIRCLE AREA
         const STATIC_HEADER_TEXT = "PYQ";
 
         const categoryBackgrounds = {
@@ -733,9 +767,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         const CHECKPOINT = 25;
         const PASS_REQ = 20;
 
-        // --- 2. QUIZ DATA ---
+        // --- 2. QUIZ DATA (keeping original structure) ---
         const quizDatabase = {
-             ancient: [
+            ancient: [
               {
     "name": "UNIT 1: भारतीय प्राचीन इतिहास",
     "questions": [
@@ -7456,16 +7490,19 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
   },
             ]
         };
+        
         const newsDatabase = []; // Populated via external logic or empty for now
 
-        // --- 3. STATE MANAGEMENT ---
+        // --- 3. STATE MANAGEMENT WITH EXPIRY ---
         let userData = {
             name: localStorage.getItem('userName') || '',
             number: localStorage.getItem('userMobile') || '',
             email: localStorage.getItem('userEmail') || '',
             txn: localStorage.getItem('userTxn') || '',
             planAmount: localStorage.getItem('userPlanAmount') || '',
-            planName: localStorage.getItem('userPlanName') || ''
+            planName: localStorage.getItem('userPlanName') || '',
+            expiry: localStorage.getItem('subscriptionExpiry') || null,
+            purchaseTime: localStorage.getItem('purchaseTime') || null
         };
         
         let selectedPlanPrice = 0, selectedPlanLabel = "";
@@ -7483,20 +7520,39 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         let questionTimer;
         let timeLeft = 30;
 
-        function hasPaid() { return localStorage.getItem('hasPaid') === 'true'; }
+        // --- EXPIRY CHECK FUNCTION ---
+        function isSubscriptionValid() {
+            if (!localStorage.getItem('hasPaid')) return false;
+            if (!userData.expiry) return true; // Lifetime or legacy
+            // If plan includes Lifetime, always valid
+            if (userData.planName && userData.planName.toLowerCase().includes('आजीवन')) return true;
+            
+            const now = new Date().getTime();
+            const exp = new Date(userData.expiry).getTime();
+            if (now > exp) {
+                // Expired - clear everything
+                localStorage.removeItem('hasPaid');
+                localStorage.removeItem('subscriptionExpiry');
+                localStorage.removeItem('purchaseTime');
+                localStorage.removeItem('userPlanName');
+                localStorage.removeItem('userPlanAmount');
+                userData.expiry = null;
+                return false;
+            }
+            return true;
+        }
 
-        // --- REQ 3: SEQUENTIAL PROGRESSION LOGIC ---
+        function hasPaid() { return isSubscriptionValid(); }
+
+        // --- SEQUENTIAL PROGRESSION LOGIC ---
         function isCategoryFullyComplete(cat) {
             if (!quizDatabase[cat]) return false;
-            // A category is complete if the unlocked level is greater than total units
-            // OR if the user has passed the last unit.
-            // In my logic, when last unit is passed, unlockedLevels[cat] becomes length + 1.
             return (unlockedLevels[cat] || 1) > quizDatabase[cat].length;
         }
 
         function checkCategoryAccess(targetCat) {
             const idx = PROGRESSION_ORDER.indexOf(targetCat);
-            if (idx <= 0) return { accessible: true }; // First one always open
+            if (idx <= 0) return { accessible: true };
 
             const prevCat = PROGRESSION_ORDER[idx - 1];
             if (isCategoryFullyComplete(prevCat)) {
@@ -7507,7 +7563,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         }
 
         function updateDockVisuals() {
-            // Apply visual lock to dock items
             PROGRESSION_ORDER.forEach((cat, index) => {
                 const el = document.getElementById(`nav-${cat}`);
                 if (el) {
@@ -7529,13 +7584,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         function openCategory(catName, btnElement) {
             if(questionTimer) clearInterval(questionTimer);
 
-            // 1. Check Paywall
             if (catName !== 'profile' && !hasPaid()) {
                 document.getElementById('locked-popup').style.display = 'flex';
                 return;
             }
 
-            // 2. REQ 3: Check Sequential Progression (Pro Locking)
             if (catName !== 'profile' && catName !== 'news') {
                 const access = checkCategoryAccess(catName);
                 if (!access.accessible) {
@@ -7593,7 +7646,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         function renderNews() {
             const feed = document.getElementById('news-feed');
             feed.innerHTML = '';
-            // Demo content if empty
             if(newsDatabase.length === 0) {
                 feed.innerHTML = '<div style="color:#aaa; text-align:center; padding:20px;">कोई अपडेट उपलब्ध नहीं।</div>';
             }
@@ -7630,7 +7682,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             startQuiz(idx);
         }
 
-        // --- 5. QUIZ ENGINE ---
+        // --- 5. QUIZ ENGINE (keeping original) ---
         function startQuiz(idx) {
             if(questionTimer) clearInterval(questionTimer);
             activeUnitIdx = idx;
@@ -7642,7 +7694,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 return;
             }
 
-            // REQ 2: APPLY STATIC HEADER TEXT
             document.getElementById('unit-name-display').innerText = STATIC_HEADER_TEXT;
 
             if (!progressData[activeCat]) progressData[activeCat] = {};
@@ -7768,8 +7819,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             }, 800);
         }
 
-        // --- EXPLANATION FUNCTIONS ---
-
         function showExplanation(isCorrect, qObj) {
             const overlay = document.getElementById('explanation-overlay');
             const icon = document.getElementById('expl-icon');
@@ -7816,7 +7865,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             localStorage.setItem('quizProgress', JSON.stringify(progressData));
         }
 
-        // --- RESULT & COMPLETION LOGIC ---
         function showResultPopup() {
             const overlay = document.getElementById('result-overlay');
             const emoji = document.getElementById('res-emoji');
@@ -7828,17 +7876,14 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             document.getElementById('correct-count').innerText = `${blockCorrect} / ${CHECKPOINT}`;
 
             if (blockCorrect >= PASS_REQ) {
-                
-                // Logic to update unlocked levels for CURRENT category
                 const totalUnits = quizDatabase[activeCat].length;
                 if(activeUnitIdx + 1 === unlockedLevels[activeCat]) {
                     unlockedLevels[activeCat]++;
                     localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
                     renderSubNav(activeCat);
-                    updateDockVisuals(); // Update locks if a full section completed
+                    updateDockVisuals();
                 }
 
-                // Check for GRAND COMPLETION (Final unit of Final Category)
                 const lastCat = PROGRESSION_ORDER[PROGRESSION_ORDER.length - 1];
                 if (activeCat === lastCat && activeUnitIdx === (quizDatabase[lastCat].length - 1)) {
                     document.getElementById('grand-completion-overlay').style.display = 'flex';
@@ -7856,11 +7901,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     currentSession.blockCorrect = 0; 
                     saveProgress();
                     overlay.style.display = 'none'; 
-                    // Reload to update locks or move next
                     if(activeUnitIdx + 1 < totalUnits) {
                         switchUnit(activeUnitIdx + 1);
                     } else {
-                        // Section complete, guide to dock
                         overlay.style.display = 'none';
                         alert("भाग पूरा हुआ! कृपया मेनू से अगला अनलॉक भाग चुनें।");
                         updateDockVisuals();
@@ -7897,13 +7940,22 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             startQuiz(0);
         }
 
-        // --- 6. PROFILE & LOGIC ---
+        // --- 6. PROFILE & PAYMENT WITH EXPIRY ---
         function initProfileView() {
             if (hasPaid()) {
                 showStep(4);
                 document.getElementById('disp-name').innerText = userData.name;
                 document.getElementById('disp-email').innerText = userData.email;
-                document.getElementById('disp-plan').innerText = userData.planName;
+                document.getElementById('disp-plan').innerText = userData.planName || 'प्रीमियम';
+                
+                // Show expiry if not lifetime
+                if (userData.expiry && !userData.planName?.toLowerCase().includes('आजीवन')) {
+                    let expDate = new Date(userData.expiry).toLocaleString();
+                    document.getElementById('expiry-display').innerText = `वैध तक: ${expDate}`;
+                } else if (userData.planName?.toLowerCase().includes('आजीवन')) {
+                    document.getElementById('expiry-display').innerText = 'आजीवन पहुंच (कभी समाप्त नहीं होती)';
+                }
+                
                 renderProgressReport();
             } else { showStep(1); }
         }
@@ -7977,15 +8029,27 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             showStep(2);
         });
 
-        function selectPlan(p, l, el) { selectedPlanPrice=p; selectedPlanLabel=l; document.querySelectorAll('.plan-card-pro').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
+        function selectPlan(p, l, el) { 
+            selectedPlanPrice = p; 
+            selectedPlanLabel = l; 
+            document.querySelectorAll('.plan-card-pro').forEach(c=>c.classList.remove('selected')); 
+            el.classList.add('selected'); 
+        }
         
         document.getElementById('secret-code').addEventListener('input', (e)=>{ if(e.target.value==='MSGMSGMSG') document.getElementById('secret-ok-btn').style.display='block'; });
-        document.getElementById('secret-ok-btn').addEventListener('click', ()=>{ userData.planName='लाइफटाइम वीआईपी'; userData.txn='MSG-FREE'; userData.planAmount='0'; sendToSheet(); completeTxn(); });
+        document.getElementById('secret-ok-btn').addEventListener('click', ()=>{ 
+            userData.planName='आजीवन वीआईपी'; 
+            userData.txn='MSG-FREE'; 
+            userData.planAmount='0'; 
+            sendToSheet(); 
+            completeTxn(); 
+        });
 
         document.getElementById('go-to-pay-btn').addEventListener('click', () => {
             if(!selectedPlanPrice) return alert("कृपया एक योजना चुनें।");
             document.getElementById('final-price-display').innerText = `₹${selectedPlanPrice}.00`;
-            showStep(3); startTimer();
+            showStep(3); 
+            startTimer();
         });
 
         let tInt;
@@ -8002,16 +8066,20 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
         document.getElementById('rzp-button').addEventListener('click', () => {
             const rzp = new Razorpay({
-                key: "rzp_live_zyUA84YdEZR7rO", amount: selectedPlanPrice*100, currency: "INR",
-                name: "स्किली प्रो", description: selectedPlanLabel,
+                key: "rzp_live_zyUA84YdEZR7rO", 
+                amount: selectedPlanPrice*100, 
+                currency: "INR",
+                name: "स्किली प्रो", 
+                description: selectedPlanLabel,
                 handler: function(r){ 
-                    userData.txn=r.razorpay_payment_id; 
-                    userData.planAmount=selectedPlanPrice; 
-                    userData.planName=selectedPlanLabel; 
+                    userData.txn = r.razorpay_payment_id; 
+                    userData.planAmount = selectedPlanPrice; 
+                    userData.planName = selectedPlanLabel; 
                     sendToSheet();
                     completeTxn(); 
                 },
-                prefill: { name: userData.name, email: userData.email, contact: userData.number }, theme: { color: "#F4C430" }
+                prefill: { name: userData.name, email: userData.email, contact: userData.number }, 
+                theme: { color: "#F4C430" }
             });
             rzp.open();
         });
@@ -8030,25 +8098,68 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
         function completeTxn() {
             if(tInt) clearInterval(tInt);
+            
+            // Set expiry based on selected plan
+            let now = new Date();
+            let expiryDate = null;
+            
+            if (selectedPlanLabel.includes('24 घंटे')) {
+                expiryDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours
+            } else if (selectedPlanLabel.includes('30 दिन')) {
+                expiryDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
+            } else if (selectedPlanLabel.includes('1 वर्ष')) {
+                expiryDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000); // 1 year
+            } else if (selectedPlanLabel.includes('आजीवन')) {
+                expiryDate = null; // Lifetime - no expiry
+            }
+            
             localStorage.setItem('hasPaid','true'); 
-            localStorage.setItem('userName',userData.name);
-            localStorage.setItem('userEmail',userData.email);
-            localStorage.setItem('userTxn',userData.txn); 
-            localStorage.setItem('userPlanName',userData.planName);
+            localStorage.setItem('userName', userData.name);
+            localStorage.setItem('userEmail', userData.email);
+            localStorage.setItem('userTxn', userData.txn); 
+            localStorage.setItem('userPlanName', userData.planName);
+            localStorage.setItem('userPlanAmount', selectedPlanPrice);
+            localStorage.setItem('purchaseTime', now.toISOString());
+            
+            if (expiryDate) {
+                localStorage.setItem('subscriptionExpiry', expiryDate.toISOString());
+                userData.expiry = expiryDate.toISOString();
+            } else {
+                localStorage.removeItem('subscriptionExpiry');
+                userData.expiry = null;
+            }
+            
+            // Show welcome message with validity info
+            let validityMsg = '';
+            if (selectedPlanLabel.includes('24 घंटे')) {
+                validityMsg = `आपका ₹9 ट्रायल अभी से 24 घंटे के लिए वैध है (${expiryDate.toLocaleString()} तक)।`;
+            } else if (selectedPlanLabel.includes('30 दिन')) {
+                validityMsg = `आपकी 30 दिन की सदस्यता ${expiryDate.toLocaleString()} तक वैध है।`;
+            } else if (selectedPlanLabel.includes('1 वर्ष')) {
+                validityMsg = `आपकी 1 वर्ष की सदस्यता ${expiryDate.toLocaleString()} तक वैध है।`;
+            } else if (selectedPlanLabel.includes('आजीवन')) {
+                validityMsg = `आपकी आजीवन सदस्यता कभी समाप्त नहीं होती!`;
+            }
+            
             document.getElementById('wel-user').innerText = userData.name;
+            document.getElementById('plan-name-display').innerText = selectedPlanLabel;
+            document.getElementById('validity-message').innerText = validityMsg;
             document.getElementById('welcome-popup').style.display = 'flex';
         }
 
         function closeWelcome() {
             document.getElementById('welcome-popup').style.display = 'none';
             initProfileView();
+            openCategory('ancient', document.getElementById('nav-ancient'));
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('app-main-title').innerText = APP_NAME;
             document.title = APP_NAME + " - इतिहास PYQ";
             
-            // Initialize visual locks on load
+            // Check expiry on load
+            isSubscriptionValid();
+            
             updateDockVisuals();
 
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
