@@ -72,6 +72,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
     <style>
         /* --- THEME VARIABLES --- */
         :root {
@@ -772,6 +775,8 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         // --- 2. QUIZ DATABASE (keeping exactly as original) ---
         const quizDatabase = {
             // Original structure preserved - add your questions here
+
+
             ancient: [
                 {
     "name": "UNIT 1: INDIAN ANCIENT HISTORY",
@@ -6612,7 +6617,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
       }
     ]
   },
-            ]
+      ]
         };
         
         const newsDatabase = []; // Populated via external logic or empty for now
@@ -7188,24 +7193,57 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             },1000); 
         }
 
+        // Fixed Razorpay Integration
         document.getElementById('rzp-button').addEventListener('click', () => {
-            const rzp = new Razorpay({
-                key: "rzp_live_SLy447saTnXqbZ", 
-                amount: selectedPlanPrice*100, 
+            if (!selectedPlanPrice) {
+                alert("Please select a plan first.");
+                return;
+            }
+
+            const options = {
+                key: "rzp_live_SLy447saTnXqbZ",
+                amount: selectedPlanPrice * 100,
                 currency: "INR",
-                name: "StiWorldOfficial", 
+                name: "StiWorldOfficial",
                 description: selectedPlanLabel,
-                handler: function(r){ 
-                    userData.txn = r.razorpay_payment_id; 
-                    userData.planAmount = selectedPlanPrice; 
-                    userData.planName = selectedPlanLabel; 
+                image: "https://your-logo-url.png",
+                handler: function(response) {
+                    userData.txn = response.razorpay_payment_id;
+                    userData.planAmount = selectedPlanPrice;
+                    userData.planName = selectedPlanLabel;
+                    
                     sendToSheet();
-                    completeTxn(); 
+                    completeTxn();
+                    
+                    alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
                 },
-                prefill: { name: userData.name, email: userData.email, contact: userData.number }, 
-                theme: { color: "#F4C430" }
-            });
+                prefill: {
+                    name: userData.name || document.getElementById('user-name')?.value || "Customer",
+                    email: userData.email || document.getElementById('user-email')?.value || "customer@example.com",
+                    contact: userData.number || document.getElementById('user-number')?.value || "9999999999"
+                },
+                notes: {
+                    address: "StiWorldOfficial Corporate Office"
+                },
+                theme: {
+                    color: "#F4C430"
+                },
+                modal: {
+                    ondismiss: function() {
+                        console.log("Payment modal closed");
+                    }
+                }
+            };
+
+            if (tInt) clearInterval(tInt);
+
+            const rzp = new Razorpay(options);
             rzp.open();
+
+            rzp.on('payment.failed', function(response) {
+                alert("Payment Failed: " + response.error.description);
+                console.error(response.error);
+            });
         });
 
         async function sendToSheet() {
@@ -7217,32 +7255,43 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             fd.append('amount', userData.planAmount);
             fd.append('plan_name', userData.planName);
             fd.append('transaction_id', userData.txn);
-            try { await fetch(url, { method:'POST', body:fd }); } catch(e){ console.log(e); }
+            fd.append('timestamp', new Date().toISOString());
+            
+            try { 
+                const response = await fetch(url, { 
+                    method: 'POST', 
+                    body: fd,
+                    mode: 'no-cors'
+                });
+                console.log("Payment data sent to sheet successfully");
+            } catch(e) { 
+                console.log("Error sending to sheet:", e);
+            }
         }
 
         function completeTxn() {
             if(tInt) clearInterval(tInt);
             
-            // Set expiry based on selected plan
             let now = new Date();
             let expiryDate = null;
             
-            if (selectedPlanLabel.includes('24 Hours')) {
-                expiryDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours
-            } else if (selectedPlanLabel.includes('30 Days')) {
-                expiryDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
-            } else if (selectedPlanLabel.includes('1 Year')) {
-                expiryDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000); // 1 year
-            } else if (selectedPlanLabel.includes('Lifetime')) {
-                expiryDate = null; // Lifetime - no expiry
+            if (selectedPlanLabel.includes('24 Hours') || selectedPlanPrice === 9) {
+                expiryDate = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+            } else if (selectedPlanLabel.includes('30 Days') || selectedPlanPrice === 51) {
+                expiryDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+            } else if (selectedPlanLabel.includes('1 Year') || selectedPlanPrice === 399) {
+                expiryDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+            } else if (selectedPlanLabel.includes('Lifetime') || selectedPlanPrice === 799) {
+                expiryDate = null;
             }
             
-            localStorage.setItem('hasPaid','true'); 
+            localStorage.setItem('hasPaid', 'true'); 
             localStorage.setItem('userName', userData.name);
             localStorage.setItem('userEmail', userData.email);
+            localStorage.setItem('userMobile', userData.number);
             localStorage.setItem('userTxn', userData.txn); 
             localStorage.setItem('userPlanName', userData.planName);
-            localStorage.setItem('userPlanAmount', selectedPlanPrice);
+            localStorage.setItem('userPlanAmount', selectedPlanPrice.toString());
             localStorage.setItem('purchaseTime', now.toISOString());
             
             if (expiryDate) {
@@ -7253,22 +7302,35 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 userData.expiry = null;
             }
             
-            // Show welcome message with validity info
+            userData.planName = selectedPlanLabel;
+            userData.planAmount = selectedPlanPrice.toString();
+            
             let validityMsg = '';
-            if (selectedPlanLabel.includes('24 Hours')) {
+            if (selectedPlanLabel.includes('24 Hours') || selectedPlanPrice === 9) {
                 validityMsg = `Your 9₹ trial is valid for 24 hours from now (till ${expiryDate.toLocaleString()}).`;
-            } else if (selectedPlanLabel.includes('30 Days')) {
+            } else if (selectedPlanLabel.includes('30 Days') || selectedPlanPrice === 51) {
                 validityMsg = `Your 30 day subscription is valid till ${expiryDate.toLocaleString()}.`;
-            } else if (selectedPlanLabel.includes('1 Year')) {
+            } else if (selectedPlanLabel.includes('1 Year') || selectedPlanPrice === 399) {
                 validityMsg = `Your 1 year subscription is valid till ${expiryDate.toLocaleString()}.`;
-            } else if (selectedPlanLabel.includes('Lifetime')) {
+            } else if (selectedPlanLabel.includes('Lifetime') || selectedPlanPrice === 799) {
                 validityMsg = `Your lifetime subscription never expires!`;
             }
             
-            document.getElementById('wel-user').innerText = userData.name;
+            document.getElementById('wel-user').innerText = userData.name || "User";
             document.getElementById('plan-name-display').innerText = selectedPlanLabel;
             document.getElementById('validity-message').innerText = validityMsg;
             document.getElementById('welcome-popup').style.display = 'flex';
+            
+            showStep(4);
+            document.getElementById('disp-name').innerText = userData.name;
+            document.getElementById('disp-email').innerText = userData.email;
+            document.getElementById('disp-plan').innerText = selectedPlanLabel;
+            
+            if (expiryDate && !selectedPlanLabel.toLowerCase().includes('lifetime')) {
+                document.getElementById('expiry-display').innerText = `Valid till: ${expiryDate.toLocaleString()}`;
+            } else {
+                document.getElementById('expiry-display').innerText = 'Lifetime Access (Never Expires)';
+            }
         }
 
         function closeWelcome() {
@@ -7281,9 +7343,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             document.getElementById('app-main-title').innerText = APP_NAME;
             document.title = APP_NAME + " - History PYQ";
             
-            // Check expiry on load
             isSubscriptionValid();
-            
             updateDockVisuals();
 
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
