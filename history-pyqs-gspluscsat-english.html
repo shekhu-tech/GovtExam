@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>STISkilli History PYQ – Ancient, Medieval, Modern, World & Art Previous Year Questions</title>
 <script src="/app-redirect.js"></script>
-<meta name="description" content="Practice STISkilli History PYQ with Ancient, Medieval, Modern, World History & Art Previous Year Questions. Premium  preparation for competitive exams, government jobs & GK in India.">
+<meta name="description" content="Practice STISkilli History PYQ with Ancient, Medieval, Modern, World History & Art Previous Year Questions. Premium preparation for competitive exams, government jobs & GK in India.">
 <meta name="keywords" content="Polity PYQ, Ancient History PYQ, Medieval History PYQ, Modern History PYQ, World History PYQ, Art & Culture PYQ, Competitive Exam History, STISkilli">
 <meta name="author" content="StiSkilli">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -746,6 +746,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         // --- 1. CONFIGURATION ---
         
         const APP_NAME = "STISkilli"; 
+        const APP_PACKAGE_NAME = "com.ai.skillaura"; // Your app package name
 
         const CATEGORY_TITLES = {
             ancient: "ANCIENT HISTORY",
@@ -775,9 +776,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         // --- 2. QUIZ DATABASE (keeping exactly as original) ---
         const quizDatabase = {
             // Original structure preserved - add your questions here
-
-
-            ancient: [
+ ancient: [
                 {
     "name": "UNIT 1: INDIAN ANCIENT HISTORY",
     "questions": [
@@ -7189,24 +7188,37 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 let m=Math.floor(t/60),s=t%60; 
                 document.getElementById('timer').innerText=`${m}:${s<10?'0'+s:s}`; 
                 t--; 
-                if(t<0) { clearInterval(tInt); alert("Expired"); showStep(1); } 
+                if(t<0) { clearInterval(tInt); alert("Time Expired"); showStep(1); } 
             },1000); 
         }
 
-        // Fixed Razorpay Integration
+        // --- IMPROVED RAZORPAY INTEGRATION FOR WEBVIEW ---
         document.getElementById('rzp-button').addEventListener('click', () => {
             if (!selectedPlanPrice) {
                 alert("Please select a plan first.");
                 return;
             }
 
+            // For Android WebView - set app package name in window object
+            window.appPackageName = APP_PACKAGE_NAME;
+            
+            // Check if running in WebView
+            const isWebView = navigator.userAgent.includes("wv") || 
+                             (window.navigator.userAgent.includes("Android") && 
+                              !window.navigator.userAgent.includes("Chrome/"));
+            
             const options = {
                 key: "rzp_live_SLy447saTnXqbZ",
                 amount: selectedPlanPrice * 100,
                 currency: "INR",
-                name: "StiWorldOfficial",
+                name: "StiWorldOfficial", // This will appear in notifications
                 description: selectedPlanLabel,
-                image: "https://your-logo-url.png",
+                image: "https://stiworldofficial.in/logo.png", // Add your logo URL here
+                
+                // Important for WebView - enable redirect
+                redirect: true,
+                
+                // Handle response
                 handler: function(response) {
                     userData.txn = response.razorpay_payment_id;
                     userData.planAmount = selectedPlanPrice;
@@ -7215,23 +7227,55 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                     sendToSheet();
                     completeTxn();
                     
+                    // Send message to Android app if interface exists
+                    if (window.Android && window.Android.onPaymentSuccess) {
+                        Android.onPaymentSuccess(response.razorpay_payment_id);
+                    }
+                    
                     alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
                 },
+                
+                // Prefill user details
                 prefill: {
                     name: userData.name || document.getElementById('user-name')?.value || "Customer",
                     email: userData.email || document.getElementById('user-email')?.value || "customer@example.com",
-                    contact: userData.number || document.getElementById('user-number')?.value || "9999999999"
+                    contact: userData.number || document.getElementById('user-number')?.value || "9999999999",
+                    method: "upi" // Prefer UPI
                 },
+                
                 notes: {
-                    address: "StiWorldOfficial Corporate Office"
+                    address: "StiWorldOfficial Corporate Office",
+                    app_package: APP_PACKAGE_NAME
                 },
+                
                 theme: {
                     color: "#F4C430"
                 },
+                
                 modal: {
+                    escape: false,
                     ondismiss: function() {
                         console.log("Payment modal closed");
-                    }
+                        if (window.Android && window.Android.onPaymentDismiss) {
+                            Android.onPaymentDismiss();
+                        }
+                    },
+                    confirm_close: true
+                },
+                
+                // Enable all payment methods
+                method: {
+                    upi: true,
+                    card: true,
+                    netbanking: true,
+                    wallet: true,
+                    paylater: true,
+                    emi: false
+                },
+                
+                // For UPI auto-redirect
+                upi: {
+                    flow: "intent" // This enables UPI app auto-redirect
                 }
             };
 
@@ -7243,6 +7287,10 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             rzp.on('payment.failed', function(response) {
                 alert("Payment Failed: " + response.error.description);
                 console.error(response.error);
+                
+                if (window.Android && window.Android.onPaymentFailed) {
+                    Android.onPaymentFailed(response.error.description);
+                }
             });
         });
 
@@ -7256,6 +7304,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             fd.append('plan_name', userData.planName);
             fd.append('transaction_id', userData.txn);
             fd.append('timestamp', new Date().toISOString());
+            fd.append('app_package', APP_PACKAGE_NAME);
             
             try { 
                 const response = await fetch(url, { 
