@@ -7192,107 +7192,155 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             },1000); 
         }
 
-        // --- IMPROVED RAZORPAY INTEGRATION FOR WEBVIEW ---
-        document.getElementById('rzp-button').addEventListener('click', () => {
-            if (!selectedPlanPrice) {
-                alert("Please select a plan first.");
-                return;
+        // --- IMPROVED RAZORPAY INTEGRATION WITH UPI AUTO-REDIRECT AND CUSTOM DOMAIN ---
+document.getElementById('rzp-button').addEventListener('click', () => {
+    if (!selectedPlanPrice) {
+        alert("Please select a plan first.");
+        return;
+    }
+
+    // For Android WebView - set app package name in window object
+    window.appPackageName = APP_PACKAGE_NAME;
+    
+    // Check if running in WebView or mobile browser
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isWebView = navigator.userAgent.includes("wv") || 
+                     (window.navigator.userAgent.includes("Android") && 
+                      !window.navigator.userAgent.includes("Chrome/"));
+    
+    // Determine if we should use UPI intent for auto-redirect to UPI apps
+    const useUpiIntent = isMobile && (isWebView || true); // Enable for all mobile
+    
+    const options = {
+        key: "rzp_live_SLy447saTnXqbZ",
+        amount: selectedPlanPrice * 100,
+        currency: "INR",
+        name: "StiWorldOfficial",
+        description: selectedPlanLabel,
+        image: "https://stiworldofficial.com/logo.png", // Updated to stiworldofficial.com
+        
+        // Important for WebView - enable redirect
+        redirect: true,
+        
+        // Handle response
+        handler: function(response) {
+            userData.txn = response.razorpay_payment_id;
+            userData.planAmount = selectedPlanPrice;
+            userData.planName = selectedPlanLabel;
+            
+            sendToSheet();
+            completeTxn();
+            
+            // Send message to Android app if interface exists
+            if (window.Android && window.Android.onPaymentSuccess) {
+                Android.onPaymentSuccess(response.razorpay_payment_id);
             }
-
-            // For Android WebView - set app package name in window object
-            window.appPackageName = APP_PACKAGE_NAME;
             
-            // Check if running in WebView
-            const isWebView = navigator.userAgent.includes("wv") || 
-                             (window.navigator.userAgent.includes("Android") && 
-                              !window.navigator.userAgent.includes("Chrome/"));
-            
-            const options = {
-                key: "rzp_live_SLy447saTnXqbZ",
-                amount: selectedPlanPrice * 100,
-                currency: "INR",
-                name: "StiWorldOfficial", // This will appear in notifications
-                description: selectedPlanLabel,
-                image: "https://stiworldofficial.in/logo.png", // Add your logo URL here
-                
-                // Important for WebView - enable redirect
-                redirect: true,
-                
-                // Handle response
-                handler: function(response) {
-                    userData.txn = response.razorpay_payment_id;
-                    userData.planAmount = selectedPlanPrice;
-                    userData.planName = selectedPlanLabel;
-                    
-                    sendToSheet();
-                    completeTxn();
-                    
-                    // Send message to Android app if interface exists
-                    if (window.Android && window.Android.onPaymentSuccess) {
-                        Android.onPaymentSuccess(response.razorpay_payment_id);
-                    }
-                    
-                    alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
-                },
-                
-                // Prefill user details
-                prefill: {
-                    name: userData.name || document.getElementById('user-name')?.value || "Customer",
-                    email: userData.email || document.getElementById('user-email')?.value || "customer@example.com",
-                    contact: userData.number || document.getElementById('user-number')?.value || "9999999999",
-                    method: "upi" // Prefer UPI
-                },
-                
-                notes: {
-                    address: "StiWorldOfficial Corporate Office",
-                    app_package: APP_PACKAGE_NAME
-                },
-                
-                theme: {
-                    color: "#F4C430"
-                },
-                
-                modal: {
-                    escape: false,
-                    ondismiss: function() {
-                        console.log("Payment modal closed");
-                        if (window.Android && window.Android.onPaymentDismiss) {
-                            Android.onPaymentDismiss();
-                        }
-                    },
-                    confirm_close: true
-                },
-                
-                // Enable all payment methods
-                method: {
-                    upi: true,
-                    card: true,
-                    netbanking: true,
-                    wallet: true,
-                    paylater: true,
-                    emi: false
-                },
-                
-                // For UPI auto-redirect
-                upi: {
-                    flow: "intent" // This enables UPI app auto-redirect
+            // Custom success message - NO GITHUB LINKS
+            alert(`✅ Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\nThank you for choosing StiWorldOfficial!`);
+        },
+        
+        // Prefill user details
+        prefill: {
+            name: userData.name || document.getElementById('user-name')?.value || "Customer",
+            email: userData.email || document.getElementById('user-email')?.value || "customer@example.com",
+            contact: userData.number || document.getElementById('user-number')?.value || "9999999999",
+            method: "upi" // Prefer UPI for mobile auto-redirect
+        },
+        
+        notes: {
+            address: "StiWorldOfficial Corporate Office",
+            app_package: APP_PACKAGE_NAME,
+            domain: "stiworldofficial.com" // Added custom domain reference
+        },
+        
+        theme: {
+            color: "#F4C430"
+        },
+        
+        modal: {
+            escape: false,
+            ondismiss: function() {
+                console.log("Payment modal closed");
+                // Custom dismiss message - NO GITHUB
+                if (window.Android && window.Android.onPaymentDismiss) {
+                    Android.onPaymentDismiss();
                 }
-            };
+            },
+            confirm_close: true,
+            confirm_close_title: "Cancel Payment?",
+            confirm_close_description: "Are you sure you want to close the payment window? Your transaction will not be completed."
+        },
+        
+        // Enhanced UPI configuration for auto-redirect to UPI apps
+        method: {
+            upi: true,
+            card: true,
+            netbanking: true,
+            wallet: true,
+            paylater: true,
+            emi: false
+        },
+        
+        // For UPI auto-redirect to default UPI apps (Google Pay, PhonePe, Paytm, etc.)
+        upi: {
+            flow: useUpiIntent ? "intent" : "collect" // "intent" enables auto-redirect to UPI apps
+        },
+        
+        // Mobile-specific configurations
+        ...(isMobile && {
+            // These settings help with mobile redirections
+            remember_customer: true,
+            retry: {
+                enabled: true,
+                max_count: 3
+            }
+        })
+    };
 
-            if (tInt) clearInterval(tInt);
+    // Clear timer if running
+    if (tInt) clearInterval(tInt);
 
-            const rzp = new Razorpay(options);
-            rzp.open();
+    const rzp = new Razorpay(options);
+    rzp.open();
 
-            rzp.on('payment.failed', function(response) {
-                alert("Payment Failed: " + response.error.description);
-                console.error(response.error);
-                
-                if (window.Android && window.Android.onPaymentFailed) {
-                    Android.onPaymentFailed(response.error.description);
-                }
-            });
-        });
+    // Enhanced error handling with custom domain messages
+    rzp.on('payment.failed', function(response) {
+        const error = response.error;
+        let errorMessage = "❌ Payment Failed";
+        
+        // Customize error message based on error type - NO GITHUB REFERENCES
+        if (error.code === "BAD_REQUEST_ERROR") {
+            errorMessage = "Payment could not be processed. Please try again.";
+        } else if (error.code === "GATEWAY_ERROR") {
+            errorMessage = "Bank/server issue. Please try another payment method.";
+        } else if (error.code === "CANCELLED") {
+            errorMessage = "Payment was cancelled. You can try again.";
+        } else {
+            errorMessage = error.description || "Transaction failed. Please try again.";
+        }
+        
+        // Show alert with custom message - stiworldofficial.com only
+        alert(`${errorMessage}\n\nFor assistance, contact: stiworldofficial@gmail.com`);
+        
+        console.error("Payment Failed:", error);
+        
+        if (window.Android && window.Android.onPaymentFailed) {
+            Android.onPaymentFailed(error.description || "Payment failed");
+        }
+        
+        // Return to profile step after failed payment
+        setTimeout(() => {
+            showStep(2);
+        }, 1000);
+    });
+
+    // Additional event handlers for better user experience
+    rzp.on('payment.success', function(response) {
+        // This is handled by handler above, but added for completeness
+        console.log("Payment successful, redirecting...");
+    });
+});
 
         async function sendToSheet() {
             const url = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
