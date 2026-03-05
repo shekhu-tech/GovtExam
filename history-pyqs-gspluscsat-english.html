@@ -910,9 +910,36 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         const CHECKPOINT = 25;
         const PASS_REQ = 20;
 
-        // --- 2. QUIZ DATABASE (simplified for brevity - keep your original database) ---
+        /* ======================================================
+           =====  YAHAN APNA QUESTION DATA PASTE KAREIN =====
+           ======================================================
+           
+           INSTRUCTIONS:
+           1. Neeche diye gaye quizDatabase object mein apna data paste karein
+           2. Har category ke andar units aur questions ka array hona chahiye
+           3. Example structure:
+           
+           ancient: [
+               {
+                   name: "UNIT 1: INDIAN ANCIENT HISTORY",
+                   questions: [
+                       {
+                           q: "Question text here?",
+                           options: ["Option A", "Option B", "Option C", "Option D"],
+                           ans: 0,  // 0-based index (0 = Option A)
+                           explanation: "Explanation here..."
+                       },
+                       // more questions...
+                   ]
+               },
+               // more units...
+           ]
+           
+        */
+        
+        // --- 2. QUIZ DATABASE - APNA DATA YAHAN PASTE KAREIN ---
         const quizDatabase = {
-            ancient: [
+           ancient: [
                 {
     "name": "UNIT 1: INDIAN ANCIENT HISTORY",
     "questions": [
@@ -1371,6 +1398,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     ]
 }            
             ],
+
+
+
             medieval: [
                {
     "name": "UNIT 1: EARLY MEDIEVAL PERIOD INDIA",
@@ -2094,6 +2124,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 }
                
             ],
+
+
+            
             modern: [
                 
 {
@@ -6755,6 +6788,10 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
       ]
         };
         
+        /* ======================================================
+           =====  QUESTION DATA PASTE KARNE KA END =====
+           ====================================================== */
+        
         const newsDatabase = [];
 
         // --- 3. STATE MANAGEMENT WITH EXPIRY ---
@@ -6944,7 +6981,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             startQuiz(idx);
         }
 
-        // --- QUIZ ENGINE FUNCTIONS (simplified) ---
+        // --- FIXED QUIZ ENGINE FUNCTIONS ---
         function startQuiz(idx) {
             if(questionTimer) clearInterval(questionTimer);
             activeUnitIdx = idx;
@@ -6967,6 +7004,12 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             blockCorrect = currentSession.blockCorrect || 0; 
 
             const totalQuestions = quizDatabase[activeCat][idx].questions.length;
+            if (totalQuestions === 0) {
+                document.getElementById('q-text').innerText = "No questions in this unit. Please add questions.";
+                document.getElementById('options-list').innerHTML = '';
+                return;
+            }
+            
             if(!currentSession.order || currentSession.order.length !== totalQuestions) {
                 currentSession.order = Array.from({length: totalQuestions}, (_, i) => i);
                 for (let i = currentSession.order.length - 1; i > 0; i--) {
@@ -6983,31 +7026,66 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             if(questionTimer) clearInterval(questionTimer);
             
             try {
-                if(!quizDatabase[activeCat] || !quizDatabase[activeCat][activeUnitIdx]) return;
+                if(!quizDatabase[activeCat] || !quizDatabase[activeCat][activeUnitIdx]) {
+                    document.getElementById('q-text').innerText = "Category or Unit not found.";
+                    return;
+                }
                 
-                const db = quizDatabase[activeCat][activeUnitIdx].questions;
-                if(!db || db.length === 0) {
+                const unitData = quizDatabase[activeCat][activeUnitIdx];
+                const questions = unitData.questions;
+                
+                if(!questions || questions.length === 0) {
                     document.getElementById('q-text').innerText = "No questions in this unit.";
+                    document.getElementById('options-list').innerHTML = '';
                     return;
                 }
 
-                document.getElementById('q-num-display').innerText = `${currentSession.qIndex + 1} / ${CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1)}`;
-                document.getElementById('q-text').innerText = "Sample Question - Add your database content";
-
-                const list = document.getElementById('options-list');
-                list.innerHTML = '';
-                for(let i = 0; i < 4; i++) {
-                    const btn = document.createElement('div');
-                    btn.className = 'option-btn';
-                    btn.innerHTML = `<span>Option ${i+1}</span> <i class="far fa-circle"></i>`;
-                    btn.onclick = () => handleAnswer(i, 0, btn, {});
-                    list.appendChild(btn);
+                // Check if we've reached the end of current batch
+                if (currentSession.qIndex >= questions.length) {
+                    showResultPopup();
+                    return;
                 }
 
-                startTimerLogic(0, {});
+                // Get shuffled index
+                const shuffledIndex = currentSession.order[currentSession.qIndex];
+                const actualQ = questions[shuffledIndex];
+                
+                if (!actualQ) {
+                    console.error("Question not found at index:", shuffledIndex);
+                    return;
+                }
+                
+                const displayNum = currentSession.qIndex + 1;
+                const totalQuestions = questions.length;
+                const currentBatchLimit = Math.min(CHECKPOINT * (Math.floor(currentSession.qIndex/CHECKPOINT) + 1), totalQuestions);
+                
+                document.getElementById('q-num-display').innerText = `${displayNum} / ${currentBatchLimit}`;
+                document.getElementById('unit-name-display').innerText = unitData.name || STATIC_HEADER_TEXT;
+                
+                // Display question
+                document.getElementById('q-text').innerText = actualQ.q;
+
+                // Display options
+                const list = document.getElementById('options-list');
+                list.innerHTML = '';
+                
+                if (actualQ.options && Array.isArray(actualQ.options)) {
+                    actualQ.options.forEach((opt, i) => {
+                        const btn = document.createElement('div');
+                        btn.className = 'option-btn';
+                        btn.innerHTML = `<span>${opt}</span> <i class="far fa-circle"></i>`;
+                        btn.onclick = () => handleAnswer(i, actualQ.ans, btn, actualQ);
+                        list.appendChild(btn);
+                    });
+                } else {
+                    console.error("Options not found for question:", actualQ);
+                }
+
+                startTimerLogic(actualQ.ans, actualQ);
 
             } catch (error) {
                 console.error("Error loading question:", error);
+                document.getElementById('q-text').innerText = "Error loading question. Please try again.";
             }
         }
 
