@@ -491,6 +491,47 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             color: #ffaa00;
             margin-top: 5px;
         }
+        @keyframes premiumPopIn {
+    0% { opacity: 0; transform: perspective(1000px) rotateX(10deg) scale(0.7) translateY(50px); }
+    50% { opacity: 0.8; transform: perspective(1000px) rotateX(2deg) scale(1.02) translateY(-5px); }
+    100% { opacity: 1; transform: perspective(1000px) rotateX(2deg) scale(1) translateY(0); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 10px 30px rgba(244,196,48,0.3), 0 0 50px rgba(244,196,48,0.2) inset; }
+    100% { box-shadow: 0 20px 50px rgba(244,196,48,0.6), 0 0 80px rgba(244,196,48,0.4) inset; }
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#premium-success-popup button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(244,196,48,0.5), 0 5px 0 #8B691B, 0 10px 20px rgba(0,0,0,0.5);
+}
+
+#premium-success-popup button:active {
+    transform: translateY(5px) scale(0.98);
+    box-shadow: 0 10px 20px rgba(244,196,48,0.3), 0 2px 0 #8B691B;
+}
+
+#premium-success-popup button:hover div {
+    left: 100%;
+    transition: left 0.5s ease;
+}
     </style>
 </head>
 <body>
@@ -734,10 +775,63 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                             <div id="progress-container" style="padding-bottom:50px;">
                                 </div>
                         </div>
-
                     </div>
                 </div>
+      <!-- ULTRA PREMIUM 3D SUCCESS POPUP - Add this right before closing </body> tag -->
+<div id="premium-success-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 99999; align-items: center; justify-content: center; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);">
+    <div style="background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%); border: 2px solid #F4C430; border-radius: 40px; padding: 30px; width: 90%; max-width: 450px; box-shadow: 0 30px 60px rgba(244,196,48,0.3), 0 0 0 2px rgba(244,196,48,0.1) inset, 0 0 30px rgba(0,0,0,0.8); transform: perspective(1000px) rotateX(2deg) translateY(0); animation: premiumPopIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; position: relative; overflow: hidden;">
+        
+        <!-- Animated background particles -->
+        <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(244,196,48,0.1) 0%, transparent 30%), radial-gradient(circle at 70% 70%, rgba(244,196,48,0.1) 0%, transparent 30%); animation: rotateBg 20s linear infinite; pointer-events: none;"></div>
+        
+        <!-- Glowing corner accents -->
+        <div style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; background: linear-gradient(135deg, #F4C430 0%, transparent 80%); opacity: 0.2; border-radius: 40px 0 0 0;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(315deg, #F4C430 0%, transparent 80%); opacity: 0.2; border-radius: 0 0 40px 0;"></div>
+        
+        <!-- Main content - VERTICALLY & HORIZONTALLY CENTERED -->
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 10;">
+            
+            <!-- 3D Animated Icon -->
+            <div style="width: 120px; height: 120px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 3px solid #F4C430; box-shadow: 0 10px 30px rgba(244,196,48,0.3), 0 0 50px rgba(244,196,48,0.2) inset; animation: pulseGlow 2s infinite alternate; transform-style: preserve-3d; transform: perspective(500px) rotateX(10deg);">
+                <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-check-circle" style="font-size: 70px; color: #F4C430; filter: drop-shadow(0 0 20px #F4C430); animation: checkBounce 0.5s ease-out;"></i>
+                    <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(244,196,48,0.4), transparent 70%); animation: rotate 10s linear infinite;"></div>
+                </div>
+            </div>
+            
+            <!-- Premium Success Text -->
+            <div style="font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 2.8rem; background: linear-gradient(135deg, #FFD700, #F4C430, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 0 30px rgba(244,196,48,0.5); transform: translateZ(20px);">
+                PAYMENT SUCCESSFUL!
+            </div>
+            
+            <!-- Stylish Divider -->
+            <div style="width: 100px; height: 3px; background: linear-gradient(90deg, transparent, #F4C430, #FFD700, #F4C430, transparent); margin: 15px 0 20px 0;"></div>
+            
+            <!-- Payment ID with 3D effect -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(244,196,48,0.2); border-radius: 50px; padding: 12px 25px; margin-bottom: 20px; backdrop-filter: blur(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); transform: translateZ(10px);">
+                <span style="font-family: 'Plus Jakarta Sans', monospace; color: #aaa; font-size: 0.9rem; letter-spacing: 1px;">TRANSACTION ID</span>
+                <div style="font-family: 'Rajdhani', monospace; color: #F4C430; font-size: 1.3rem; font-weight: 700; letter-spacing: 1px;" id="success-payment-id">pay_SNUCx0TGqT07Qa</div>
+            </div>
+            
+            <!-- THANK YOU MESSAGE WITH YOUR DOMAIN - HIGHLIGHTED AREA -->
+            <div style="background: linear-gradient(145deg, rgba(244,196,48,0.1), rgba(0,0,0,0.3)); border: 2px solid #F4C430; border-radius: 30px; padding: 20px; margin: 20px 0 25px 0; width: 100%; box-shadow: 0 10px 25px rgba(244,196,48,0.2), 0 0 30px rgba(244,196,48,0.1) inset; transform: translateZ(15px);">
+                <div style="font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; font-size: 1.1rem; line-height: 1.8; display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                    <span style="color: #aaa;">Thank you for choosing</span>
+                    <span style="font-family: 'Rajdhani', sans-serif; font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #F4C430); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; text-shadow: 0 0 20px rgba(244,196,48,0.5);">stiworldofficial.com</span>
+                    <span style="color: #F4C430; font-size: 1.2rem; margin-top: 5px;">✨ Premium Member ✨</span>
+                </div>
+            </div>
+            
+            <!-- OK Button with 3D hover effect -->
+            <button onclick="closePremiumPopup()" style="width: 100%; padding: 18px; background: linear-gradient(145deg, #F4C430, #B8860B); border: none; border-radius: 60px; font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 1.4rem; color: #000; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 15px 30px rgba(244,196,48,0.3), 0 5px 0 #8B691B, 0 8px 15px rgba(0,0,0,0.5); transition: all 0.2s ease; transform: translateY(0); margin-top: 10px; position: relative; overflow: hidden;">
+                <span style="position: relative; z-index: 10;">OK</span>
+                <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s ease;"></div>
+            </button>
+        </div>
+    </div>
+</div>
 
+                
             </div>
         </div>
     </div>
@@ -7192,7 +7286,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             },1000); 
         }
 
-        // --- IMPROVED RAZORPAY INTEGRATION WITH UPI AUTO-REDIRECT AND CUSTOM DOMAIN ---
+        // Replace your existing Razorpay handler with this enhanced version
 document.getElementById('rzp-button').addEventListener('click', () => {
     if (!selectedPlanPrice) {
         alert("Please select a plan first.");
@@ -7217,7 +7311,7 @@ document.getElementById('rzp-button').addEventListener('click', () => {
         currency: "INR",
         name: "StiWorldOfficial",
         description: selectedPlanLabel,
-        image: "https://stiworldofficial.com/logo.png", // Updated to stiworldofficial.com
+        image: "https://stiworldofficial.com/logo.png",
         
         // Important for WebView - enable redirect
         redirect: true,
@@ -7236,8 +7330,8 @@ document.getElementById('rzp-button').addEventListener('click', () => {
                 Android.onPaymentSuccess(response.razorpay_payment_id);
             }
             
-            // Custom success message - NO GITHUB LINKS
-            alert(`✅ Payment Successful!\n\nPayment ID: ${response.razorpay_payment_id}\nThank you for choosing StiWorldOfficial!`);
+            // SHOW PREMIUM POPUP INSTEAD OF DEFAULT ALERT
+            showPremiumSuccessPopup(response.razorpay_payment_id);
         },
         
         // Prefill user details
@@ -7251,7 +7345,7 @@ document.getElementById('rzp-button').addEventListener('click', () => {
         notes: {
             address: "StiWorldOfficial Corporate Office",
             app_package: APP_PACKAGE_NAME,
-            domain: "stiworldofficial.com" // Added custom domain reference
+            domain: "stiworldofficial.com"
         },
         
         theme: {
@@ -7262,7 +7356,6 @@ document.getElementById('rzp-button').addEventListener('click', () => {
             escape: false,
             ondismiss: function() {
                 console.log("Payment modal closed");
-                // Custom dismiss message - NO GITHUB
                 if (window.Android && window.Android.onPaymentDismiss) {
                     Android.onPaymentDismiss();
                 }
@@ -7289,7 +7382,6 @@ document.getElementById('rzp-button').addEventListener('click', () => {
         
         // Mobile-specific configurations
         ...(isMobile && {
-            // These settings help with mobile redirections
             remember_customer: true,
             retry: {
                 enabled: true,
@@ -7307,9 +7399,9 @@ document.getElementById('rzp-button').addEventListener('click', () => {
     // Enhanced error handling with custom domain messages
     rzp.on('payment.failed', function(response) {
         const error = response.error;
-        let errorMessage = "❌ Payment Failed";
+        let errorMessage = "";
         
-        // Customize error message based on error type - NO GITHUB REFERENCES
+        // Customize error message based on error type
         if (error.code === "BAD_REQUEST_ERROR") {
             errorMessage = "Payment could not be processed. Please try again.";
         } else if (error.code === "GATEWAY_ERROR") {
@@ -7320,8 +7412,8 @@ document.getElementById('rzp-button').addEventListener('click', () => {
             errorMessage = error.description || "Transaction failed. Please try again.";
         }
         
-        // Show alert with custom message - stiworldofficial.com only
-        alert(`${errorMessage}\n\nFor assistance, contact: stiworldofficial@gmail.com`);
+        // Show premium error popup
+        showPremiumErrorPopup(errorMessage);
         
         console.error("Payment Failed:", error);
         
@@ -7337,10 +7429,78 @@ document.getElementById('rzp-button').addEventListener('click', () => {
 
     // Additional event handlers for better user experience
     rzp.on('payment.success', function(response) {
-        // This is handled by handler above, but added for completeness
         console.log("Payment successful, redirecting...");
     });
 });
+
+// Function to show premium success popup
+function showPremiumSuccessPopup(paymentId) {
+    const popup = document.getElementById('premium-success-popup');
+    const paymentIdElement = document.getElementById('success-payment-id');
+    
+    if (paymentIdElement) {
+        paymentIdElement.textContent = paymentId;
+    }
+    
+    popup.style.display = 'flex';
+    
+    // Auto-hide after 5 seconds? (optional - remove if you want manual close only)
+    // setTimeout(closePremiumPopup, 5000);
+}
+
+// Function to show premium error popup
+function showPremiumErrorPopup(errorMessage) {
+    // Create error popup if it doesn't exist
+    if (!document.getElementById('premium-error-popup')) {
+        const errorPopup = document.createElement('div');
+        errorPopup.id = 'premium-error-popup';
+        errorPopup.innerHTML = `
+            <div style="background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%); border: 2px solid #ff1744; border-radius: 40px; padding: 30px; width: 90%; max-width: 450px; box-shadow: 0 30px 60px rgba(255,23,68,0.3), 0 0 0 2px rgba(255,23,68,0.1) inset; transform: perspective(1000px) rotateX(2deg); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(255,23,68,0.1) 0%, transparent 30%); animation: rotateBg 20s linear infinite;"></div>
+                
+                <div style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 10;">
+                    <div style="width: 120px; height: 120px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 3px solid #ff1744; box-shadow: 0 10px 30px rgba(255,23,68,0.3);">
+                        <i class="fas fa-times-circle" style="font-size: 70px; color: #ff1744; filter: drop-shadow(0 0 20px #ff1744);"></i>
+                    </div>
+                    
+                    <div style="font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 2.5rem; background: linear-gradient(135deg, #ff1744, #ff4444); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px;">
+                        PAYMENT FAILED
+                    </div>
+                    
+                    <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,23,68,0.2); border-radius: 30px; padding: 20px; margin: 15px 0 25px 0; width: 100%;">
+                        <div style="font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; font-size: 1rem; line-height: 1.6;">
+                            ${errorMessage}
+                        </div>
+                    </div>
+                    
+                    <div style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px;">
+                        Need help? <span style="color: #ff1744;">support@stiworldofficial.com</span>
+                    </div>
+                    
+                    <button onclick="closePremiumErrorPopup()" style="width: 100%; padding: 18px; background: linear-gradient(145deg, #ff1744, #aa0000); border: none; border-radius: 60px; font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 1.2rem; color: #fff; text-transform: uppercase; cursor: pointer; box-shadow: 0 15px 30px rgba(255,23,68,0.3);">
+                        TRY AGAIN
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        errorPopup.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); z-index: 99999; align-items: center; justify-content: center;';
+        
+        document.body.appendChild(errorPopup);
+    }
+    
+    const errorPopup = document.getElementById('premium-error-popup');
+    errorPopup.style.display = 'flex';
+}
+
+function closePremiumPopup() {
+    document.getElementById('premium-success-popup').style.display = 'none';
+}
+
+function closePremiumErrorPopup() {
+    const errorPopup = document.getElementById('premium-error-popup');
+    if (errorPopup) errorPopup.style.display = 'none';
+}
 
         async function sendToSheet() {
             const url = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
