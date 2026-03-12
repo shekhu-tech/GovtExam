@@ -313,25 +313,39 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             max-height: 100%; overflow-y: auto;
         }
         
-        .popup-img { 
-            width: 70px; height: 70px; border-radius: 18px; margin: 0 auto 15px; 
-            border: 2px solid var(--primary); object-fit: cover; box-shadow: 0 0 25px var(--primary-glow);
-        }
-        .popup-h2 { font-family: 'Rajdhani'; font-size: 1.6rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0; }
-        .popup-p { font-size: 0.75rem; color: #888; margin-bottom: 25px; text-transform: uppercase; font-weight: 600; }
+        /* IMAGE REMOVED per request: no image in popup */
+        /* .popup-img removed */
+        
+        .popup-h2 { font-family: 'Rajdhani'; font-size: 1.6rem; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0 0 8px 0; }
+        .popup-p { font-size: 0.75rem; color: #888; margin-bottom: 20px; text-transform: uppercase; font-weight: 600; }
 
-        .lang-btn {
-            display: flex; align-items: center; justify-content: space-between;
-            width: 100%; padding: 14px 18px; margin-bottom: 12px;
-            border-radius: 14px; text-decoration: none;
-            font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem;
-            transition: 0.3s; position: relative; overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+        /* ---- NEW ROW LAYOUT for both buttons side by side ---- */
+        .lang-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 10px;
         }
-        .btn-hindi { background: linear-gradient(90deg, rgba(255, 87, 34, 0.1), transparent); color: #FF5722; border-color: rgba(255, 87, 34, 0.3); }
-        .btn-hindi:hover { background: #FF5722; color: #fff; box-shadow: 0 0 20px rgba(255, 87, 34, 0.5); }
-        .btn-eng { background: linear-gradient(90deg, rgba(33, 150, 243, 0.1), transparent); color: #2196F3; border-color: rgba(33, 150, 243, 0.3); }
-        .btn-eng:hover { background: #2196F3; color: #fff; box-shadow: 0 0 20px rgba(33, 150, 243, 0.5); }
+        .lang-btn-row {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 8px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.15);
+            white-space: nowrap;
+        }
+        .btn-hindi-row { background: rgba(255, 87, 34, 0.15); color: #FF5722; border-color: rgba(255, 87, 34, 0.4); }
+        .btn-hindi-row:hover { background: #FF5722; color: #fff; box-shadow: 0 0 20px #FF5722; }
+        .btn-eng-row { background: rgba(33, 150, 243, 0.15); color: #2196F3; border-color: rgba(33, 150, 243, 0.4); }
+        .btn-eng-row:hover { background: #2196F3; color: #fff; box-shadow: 0 0 20px #2196F3; }
+        
         .close-popup { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: #555; cursor: pointer; }
 
     </style>
@@ -370,19 +384,23 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         </div>
     </div>
 
+    <!-- POPUP - Image removed, buttons in one row -->
     <div id="lang-popup">
         <div class="popup-card">
             <div class="close-popup" onclick="closePopup()">&times;</div>
-            <img id="pop-img" src="" class="popup-img" alt="Icon">
+            <!-- IMAGE TAG REMOVED per request -->
             <h2 id="pop-title" class="popup-h2">Title</h2>
             <p class="popup-p">Select Language / भाषा चुनें</p>
             
-            <a id="link-hi" href="#" class="lang-btn btn-hindi">
-                <span><i class=""></i> HINDI (हिंदी)</span> <i class=""></i>
-            </a> 
-            <a id="link-en" href="#" class="lang-btn btn-eng">
-                <span><i class=""></i> ENGLISH</span> <i class=""></i>
-            </a>
+            <!-- Buttons in a single row -->
+            <div class="lang-row">
+                <a id="link-hi" href="#" class="lang-btn-row btn-hindi-row">
+                    <span>हिंदी</span>
+                </a> 
+                <a id="link-en" href="#" class="lang-btn-row btn-eng-row">
+                    <span>ENGLISH</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -395,8 +413,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             news: 'skillinewsbck.webp'
         };
 
+        // ========== COMPLETE DATABASE ==========
         const dataBase = {
-           govt: {
+             govt: {
                 'UPSC Exam': [
   {
     title: "Civil-Service",
@@ -3368,7 +3387,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             modalBox.style.backgroundImage = `url('${bgImage}')`;
 
             const titles = { govt: "GOVT EXAMS", private: "PVT JOBS", ai: "AI TOOLS", trending: "TRENDING", news: "NEWS" };
-            document.getElementById('cat-title').innerText = titles[catName];
+            document.getElementById('cat-title').innerText = titles[catName] || "GOVT EXAMS";
 
             const subNav = document.getElementById('sub-nav-container');
             const subKeys = Object.keys(dataBase[catName] || {});
@@ -3391,7 +3410,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             }
 
             const grid = document.getElementById('cards-grid');
-            const items = dataBase[catName][subKey];
+            const items = dataBase[catName]?.[subKey] || [];
 
             grid.innerHTML = items.map((item, i) => {
                 const t = item.title.replace(/'/g, "\\'");
@@ -3418,9 +3437,10 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             }).join('');
         }
 
+        // Updated popup: image removed (not used), buttons placed in row
         function showLangPopup(title, img, linkHi, linkEn) {
             document.getElementById('pop-title').innerText = title;
-            document.getElementById('pop-img').src = img;
+            // img parameter is ignored – image element removed from popup
             document.getElementById('link-hi').href = linkHi;
             document.getElementById('link-en').href = linkEn;
             document.getElementById('lang-popup').classList.add('active');
