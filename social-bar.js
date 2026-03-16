@@ -109,8 +109,8 @@
                 border-radius: 0 12px 12px 0;
             }
             .social-icon {
-                width: 12px !important;
-                height: 12px !important;
+                width: 17px !important;
+                height: 17px !important;
                 font-size: 5px !important;
             }
             body { padding-left: 18px; }
