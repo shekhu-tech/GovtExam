@@ -217,21 +217,52 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             margin: 0; letter-spacing: 1px; text-transform: uppercase;
         }
         
+        /* --- HORIZONTAL SCROLLING SUB-NAV (VISIBLE SCROLLBAR ON PC) --- */
         .sub-nav { 
             background: rgba(0,0,0,0.7); 
-            border-radius: 20px; padding: 8px; 
-            display: flex; gap: 8px; overflow-x: auto; 
-            scrollbar-width: none; white-space: nowrap;
+            border-radius: 20px; 
+            padding: 8px; 
+            display: flex; 
+            gap: 8px; 
+            overflow-x: auto;      /* Enables horizontal scroll when needed */
+            white-space: nowrap;
             width: 100%;
+            /* Remove scrollbar hiding – now scrollbar appears on desktop */
+            scrollbar-width: thin;   /* Thin scrollbar on Firefox */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+        }
+        /* Custom scrollbar styling for WebKit browsers (Chrome, Edge, Safari) – optional but makes it visible */
+        .sub-nav::-webkit-scrollbar {
+            height: 5px;
+        }
+        .sub-nav::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+        }
+        .sub-nav::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
         
         .sub-item { 
-            padding: 6px 16px; border-radius: 12px; font-size: 0.7rem; font-family: 'Rajdhani'; font-weight: 700; 
-            color: #ccc; border: 1px solid transparent; transition: 0.3s; cursor: pointer; text-transform: uppercase;
+            padding: 6px 16px; 
+            border-radius: 12px; 
+            font-size: 0.7rem; 
+            font-family: 'Rajdhani'; 
+            font-weight: 700; 
+            color: #ccc; 
+            border: 1px solid transparent; 
+            transition: 0.3s; 
+            cursor: pointer; 
+            text-transform: uppercase;
+            flex-shrink: 0;  /* Prevent items from shrinking, ensures horizontal scroll */
         }
         .sub-item.active { 
-            background: var(--primary); color: #000; border-color: var(--primary-glow); 
-            box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); font-weight: 800;
+            background: var(--primary); 
+            color: #000; 
+            border-color: var(--primary-glow); 
+            box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); 
+            font-weight: 800;
         }
 
         /* --- CARDS GRID --- */
@@ -405,15 +436,9 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
     </div>
 
     <script>
-        const categoryBackgrounds = {
-            govt: 'skilligovtbck.webp',
-            private: 'skillipvtbck.webp',
-            ai: 'skilliaibck.webp',
-            trending: 'skillirequirebck.webp',
-            news: 'skillinewsbck.webp'
-        };
-
-        // ========== COMPLETE DATABASE ==========
+        // -----------------------------------------------
+        // COMPLETE DATABASE (Govt, Private, AI, Trending, News)
+        // -----------------------------------------------
         const dataBase = {
              govt: {
                 'UPSC Exam': [
@@ -3376,33 +3401,42 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             }
         };
 
-        function openCategory(catName, btnElement) {
-            if (btnElement) {
-                document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
-                btnElement.classList.add('active');
-            }
+        const categoryBackgrounds = {
+            govt: 'skilligovtbck.webp',
+            private: 'skillipvtbck.webp',
+            ai: 'skilliaibck.webp',
+            trending: 'skillirequirebck.webp',
+            news: 'skillinewsbck.webp'
+        };
 
-            const modalBox = document.getElementById('dynamic-modal-box');
-            const bgImage = categoryBackgrounds[catName] || 'skilligovtbck.png';
-            modalBox.style.backgroundImage = `url('${bgImage}')`;
-
-            const titles = { govt: "GOVT EXAMS", private: "PVT JOBS", ai: "AI TOOLS", trending: "TRENDING", news: "NEWS" };
-            document.getElementById('cat-title').innerText = titles[catName] || "GOVT EXAMS";
-
-            const subNav = document.getElementById('sub-nav-container');
-            const subKeys = Object.keys(dataBase[catName] || {});
-            
-            if(subKeys.length > 0) {
-                subNav.innerHTML = subKeys.map((key, idx) => 
-                    `<div class="sub-item ${idx===0?'active':''}" onclick="renderCards('${catName}', '${key}', this)">${key}</div>`
-                ).join('');
-                renderCards(catName, subKeys[0]);
+        // ----- GLOBAL HANDLER: GOVT shows popup, OTHERS direct navigation -----
+        function handleCardClick(catName, title, img, linkHi, linkEn) {
+            if (catName === 'govt') {
+                // Only government category shows language selection popup
+                showLangPopup(title, img, linkHi, linkEn);
             } else {
-                subNav.innerHTML = '';
-                document.getElementById('cards-grid').innerHTML = '<div style="color:#fff; text-align:center; width:200%; padding-top:40px;">No Data Available</div>';
+                // All other categories: direct link (prefer English, fallback Hindi)
+                const targetUrl = linkEn && linkEn !== '#' ? linkEn : (linkHi || '#');
+                if (targetUrl && targetUrl !== '#') {
+                    window.location.href = targetUrl;
+                }
             }
         }
 
+        // Original popup function (image param kept but not used)
+        function showLangPopup(title, img, linkHi, linkEn) {
+            document.getElementById('pop-title').innerText = title;
+            // img is ignored as per design (no image in popup)
+            document.getElementById('link-hi').href = linkHi;
+            document.getElementById('link-en').href = linkEn;
+            document.getElementById('lang-popup').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('lang-popup').classList.remove('active');
+        }
+
+        // Render cards with conditional navigation
         function renderCards(catName, subKey, btnElement) {
             if(btnElement) {
                 document.querySelectorAll('.sub-item').forEach(el => el.classList.remove('active'));
@@ -3417,10 +3451,10 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 const img = item.img;
                 const lh = item.linkHi;
                 const le = item.linkEn;
-
+                // IMPORTANT: Pass catName, title, img, linkHi, linkEn to handler
                 return `
                 <div class="card-11d" style="animation: fadeInUp 0.4s ease backwards ${i * 0.05}s" 
-                     onclick="showLangPopup('${t}', '${img}', '${lh}', '${le}')">
+                     onclick="handleCardClick('${catName}', '${t}', '${img}', '${lh}', '${le}')">
                     <div class="card-img-box">
                         <img src="${img}" onerror="this.src='https://via.placeholder.com/150/000000/F4C430?text=SKILLI'">
                         <span class="card-tag">${item.tag}</span>
@@ -3437,18 +3471,42 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             }).join('');
         }
 
-        // Updated popup: image removed (not used), buttons placed in row
-        function showLangPopup(title, img, linkHi, linkEn) {
-            document.getElementById('pop-title').innerText = title;
-            // img parameter is ignored – image element removed from popup
-            document.getElementById('link-hi').href = linkHi;
-            document.getElementById('link-en').href = linkEn;
-            document.getElementById('lang-popup').classList.add('active');
+        // Open category and populate subnav + cards
+        function openCategory(catName, btnElement) {
+            if (btnElement) {
+                document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            const modalBox = document.getElementById('dynamic-modal-box');
+            const bgImage = categoryBackgrounds[catName] || 'skilligovtbck.png';
+            modalBox.style.backgroundImage = `url('${bgImage}')`;
+
+            // Updated titles: Trending -> LATEST REQUIREMENT, News -> TEST SERIES
+            const titles = { 
+                govt: "GOVT EXAMS", 
+                private: "PVT JOBS", 
+                ai: "AI TOOLS", 
+                trending: "LATEST REQUIREMENT", 
+                news: "TEST SERIES" 
+            };
+            document.getElementById('cat-title').innerText = titles[catName] || "GOVT EXAMS";
+
+            const subNav = document.getElementById('sub-nav-container');
+            const subKeys = Object.keys(dataBase[catName] || {});
+            
+            if(subKeys.length > 0) {
+                subNav.innerHTML = subKeys.map((key, idx) => 
+                    `<div class="sub-item ${idx===0?'active':''}" onclick="renderCards('${catName}', '${key}', this)">${key}</div>`
+                ).join('');
+                renderCards(catName, subKeys[0]);
+            } else {
+                subNav.innerHTML = '';
+                document.getElementById('cards-grid').innerHTML = '<div style="color:#fff; text-align:center; width:200%; padding-top:40px;">No Data Available</div>';
+            }
         }
 
-        function closePopup() {
-            document.getElementById('lang-popup').classList.remove('active');
-        }
+        // Popup close on background click
         document.getElementById('lang-popup').addEventListener('click', function(e) {
             if(e.target === this) closePopup();
         });
