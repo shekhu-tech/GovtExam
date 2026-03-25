@@ -4,7 +4,7 @@
 
 window.ancientQuizData = [
     {
-  "name": "UNIT 1: Pure Direct Retrieval (Straight Lift)",
+  "name": "Pure Direct Retrieval (Straight Lift)",
   "questions": [
     {
       "passage": "The Junagadh rock inscription of Rudradaman, dated to 150 AD, is written entirely in chaste Sanskrit. It provides a detailed historical record of the Sudarshana Lake, located in the Girnar hills. According to the inscription, the lake was originally constructed by Pushyagupta, the provincial governor under Chandragupta Maurya, and its conduits were later completed by the Yavana king Tushaspha during the reign of Emperor Ashoka.",
