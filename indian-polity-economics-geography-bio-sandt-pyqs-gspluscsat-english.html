@@ -792,7 +792,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 <div class="grand-box">
                     <div class="grand-icon"></div>
                     <div class="grand-title">Ultimate Champion</div>
-                    <div class="grand-subtitle">History Master</div>
+                    <div class="grand-subtitle">Subject Master</div>
                     
                     <div class="grand-scroll-container">
                         <p><strong>Congratulations!</strong> You have successfully crossed the corridors of time. From the ancient roots of civilization to the complexities of the modern world, and through vibrant expressions of art and culture, you have proven your mastery.</p>
@@ -982,7 +982,17 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         // ======================================================
         // UNIQUE PRODUCT ID - EDITABLE
         // ======================================================
-        const PRODUCT_ID = "GS+CSAT-LAST-35-YEARS-PYQ-ENGLISH";
+        const PRODUCT_ID = "POLITY_ECO_GEO_EN_001";
+
+        // UNIQUE LOCALSTORAGE KEYS BASED ON PRODUCT_ID
+        const PROGRESS_KEY = 'quizProgress_' + PRODUCT_ID;
+        const UNLOCKED_KEY = 'unlockedLevels_' + PRODUCT_ID;
+        const HAS_PAID_KEY = 'hasPaid_' + PRODUCT_ID;
+        const EXPIRY_KEY = 'subscriptionExpiry_' + PRODUCT_ID;
+        const PLAN_NAME_KEY = 'userPlanName_' + PRODUCT_ID;
+        const PLAN_AMOUNT_KEY = 'userPlanAmount_' + PRODUCT_ID;
+        const PURCHASE_TIME_KEY = 'purchaseTime_' + PRODUCT_ID;
+        const TXN_KEY = 'userTxn_' + PRODUCT_ID;
 
         // ======================================================
         // COMBINED QUIZ DATABASE FROM SEPARATE FILES
@@ -997,6 +1007,11 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         };
         
         console.log("All quiz data combined successfully!");
+        console.log("Polity units:", quizDatabase.ancient.length);
+        console.log("Economics units:", quizDatabase.medieval.length);
+        console.log("Geography units:", quizDatabase.modern.length);
+        console.log("Ecology units:", quizDatabase.world.length);
+        console.log("Science units:", quizDatabase.art.length);
         
         // --- 1. CONFIGURATION ---
         
@@ -1046,20 +1061,20 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
             name: localStorage.getItem('userName') || '',
             number: localStorage.getItem('userMobile') || '',
             email: localStorage.getItem('userEmail') || '',
-            txn: localStorage.getItem('userTxn') || '',
-            planAmount: localStorage.getItem('userPlanAmount') || '',
-            planName: localStorage.getItem('userPlanName') || '',
-            expiry: localStorage.getItem('subscriptionExpiry') || null,
-            purchaseTime: localStorage.getItem('purchaseTime') || null
+            txn: localStorage.getItem(TXN_KEY) || '',
+            planAmount: localStorage.getItem(PLAN_AMOUNT_KEY) || '',
+            planName: localStorage.getItem(PLAN_NAME_KEY) || '',
+            expiry: localStorage.getItem(EXPIRY_KEY) || null,
+            purchaseTime: localStorage.getItem(PURCHASE_TIME_KEY) || null
         };
         
         let selectedPlanPrice = 0, selectedPlanLabel = "";
         
         let progressData;
-        try { progressData = JSON.parse(localStorage.getItem('quizProgress')) || {}; } catch(e) { progressData = {}; }
+        try { progressData = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch(e) { progressData = {}; }
 
         let unlockedLevels;
-        try { unlockedLevels = JSON.parse(localStorage.getItem('unlockedLevels')) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; } catch (e) { unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; }
+        try { unlockedLevels = JSON.parse(localStorage.getItem(UNLOCKED_KEY)) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; } catch (e) { unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; }
 
         let activeCat = "", activeUnitIdx = 0;
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
@@ -1068,18 +1083,19 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         let timeLeft = 72; // 72 seconds timer as requested
 
         function isSubscriptionValid() {
-            if (!localStorage.getItem('hasPaid')) return false;
+            if (!localStorage.getItem(HAS_PAID_KEY)) return false;
             if (!userData.expiry) return true;
             if (userData.planName && (userData.planName.toLowerCase().includes('lifetime') || userData.planName.toLowerCase().includes('आजीवन'))) return true;
             
             const now = new Date().getTime();
             const exp = new Date(userData.expiry).getTime();
             if (now > exp) {
-                localStorage.removeItem('hasPaid');
-                localStorage.removeItem('subscriptionExpiry');
-                localStorage.removeItem('purchaseTime');
-                localStorage.removeItem('userPlanName');
-                localStorage.removeItem('userPlanAmount');
+                localStorage.removeItem(HAS_PAID_KEY);
+                localStorage.removeItem(EXPIRY_KEY);
+                localStorage.removeItem(PURCHASE_TIME_KEY);
+                localStorage.removeItem(PLAN_NAME_KEY);
+                localStorage.removeItem(PLAN_AMOUNT_KEY);
+                localStorage.removeItem(TXN_KEY);
                 userData.expiry = null;
                 return false;
             }
@@ -1449,7 +1465,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
         function saveProgress() {
             if (!progressData[activeCat]) progressData[activeCat] = {};
             progressData[activeCat][activeUnitIdx] = currentSession;
-            localStorage.setItem('quizProgress', JSON.stringify(progressData));
+            localStorage.setItem(PROGRESS_KEY, JSON.stringify(progressData));
         }
 
         function showSectionCompletePopup(nextCat) {
@@ -1484,7 +1500,7 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 const totalUnits = quizDatabase[activeCat].length;
                 if(activeUnitIdx + 1 === unlockedLevels[activeCat]) {
                     unlockedLevels[activeCat]++;
-                    localStorage.setItem('unlockedLevels', JSON.stringify(unlockedLevels));
+                    localStorage.setItem(UNLOCKED_KEY, JSON.stringify(unlockedLevels));
                     renderSubNav(activeCat);
                     updateDockVisuals();
                 }
@@ -1889,20 +1905,20 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
                 expiryDate = null;
             }
             
-            localStorage.setItem('hasPaid', 'true'); 
+            localStorage.setItem(HAS_PAID_KEY, 'true'); 
             localStorage.setItem('userName', userData.name);
             localStorage.setItem('userEmail', userData.email);
             localStorage.setItem('userMobile', userData.number);
-            localStorage.setItem('userTxn', userData.txn); 
-            localStorage.setItem('userPlanName', userData.planName);
-            localStorage.setItem('userPlanAmount', selectedPlanPrice.toString());
-            localStorage.setItem('purchaseTime', now.toISOString());
+            localStorage.setItem(TXN_KEY, userData.txn); 
+            localStorage.setItem(PLAN_NAME_KEY, userData.planName);
+            localStorage.setItem(PLAN_AMOUNT_KEY, selectedPlanPrice.toString());
+            localStorage.setItem(PURCHASE_TIME_KEY, now.toISOString());
             
             if (expiryDate) {
-                localStorage.setItem('subscriptionExpiry', expiryDate.toISOString());
+                localStorage.setItem(EXPIRY_KEY, expiryDate.toISOString());
                 userData.expiry = expiryDate.toISOString();
             } else {
-                localStorage.removeItem('subscriptionExpiry');
+                localStorage.removeItem(EXPIRY_KEY);
                 userData.expiry = null;
             }
             
@@ -1939,7 +1955,6 @@ href="android-app://com.ai.skillaura/https/play.google.com/store/apps/details?id
 
         function closeWelcome() {
             document.getElementById('welcome-popup').style.display = 'none';
-            // Show Syllabus Index after Welcome popup
             document.getElementById('subscribe-index-popup').style.display = 'flex';
         }
 
