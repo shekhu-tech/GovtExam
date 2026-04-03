@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
- <title>STISkilli राजनीति के अंतिम पिछले वर्ष के प्रश्न</title>
-<meta name="description" content="STISkilli भारतीय राजनीति के पिछले वर्ष के प्रश्नों का अभ्यास करें। प्रतियोगी परीक्षाओं, सरकारी नौकरियों और जनरल नॉलेज के लिए प्रीमियम तैयारी।">
-<meta name="keywords" content="राजनीति पीवाईक्यू, शासन पीवाईक्यू, समाज पीवाईक्यू, STISkilli">
-<link rel="me" href="https://www.facebook.com/stiworldofficial/">
-<link rel="me" href="https://www.instagram.com/stiworldofficial">
-<script src="redirect.js?v=99"></script>  <script src="https://cdn.tailwindcss.com"></script>
+    <title>STISkilli राजनीति के अंतिम पिछले वर्ष के प्रश्न</title>
+    <meta name="description" content="STISkilli भारतीय राजनीति के पिछले वर्ष के प्रश्नों का अभ्यास करें। प्रतियोगी परीक्षाओं, सरकारी नौकरियों और जनरल नॉलेज के लिए प्रीमियम तैयारी।">
+    <meta name="keywords" content="राजनीति पीवाईक्यू, शासन पीवाईक्यू, समाज पीवाईक्यू, STISkilli">
+    <link rel="me" href="https://www.facebook.com/stiworldofficial/">
+    <link rel="me" href="https://www.instagram.com/stiworldofficial">
+    <script src="redirect.js?v=99"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -69,6 +70,13 @@
             border-radius: 24px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 3000;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .glass-header.header-hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-120%);
+            visibility: hidden;
+            pointer-events: none;
         }
         .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
         
@@ -86,7 +94,17 @@
         }
 
         /* --- डॉक (फुटर) --- */
-        .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; }
+        .dock-wrapper { 
+            position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; 
+            display: flex; justify-content: center; z-index: 3000; padding: 0 5px;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .dock-wrapper.footer-hidden {
+            opacity: 0;
+            transform: translateY(120%);
+            visibility: hidden;
+            pointer-events: none;
+        }
         .glass-dock { 
             width: 100%; max-width: 700px; 
             height: var(--footer-height); 
@@ -126,7 +144,12 @@
             left: 0; right: 0; 
             z-index: 2500; 
             display: flex; justify-content: center; align-items: center;
-            padding: 0 10px; pointer-events: none; 
+            padding: 0 10px; pointer-events: none;
+            transition: top 0.3s ease, bottom 0.3s ease;
+        }
+        .modal-overlay.modal-expand {
+            top: calc(15px + env(safe-area-inset-top)) !important;
+            bottom: calc(20px + env(safe-area-inset-bottom)) !important;
         }
 
         .modal-box { 
@@ -562,9 +585,6 @@
             transition: left 0.5s ease;
         }
 
-        /* =========================================
-           NEW CUSTOM POPUPS CSS (Responsive)
-           ========================================= */
         .custom-popup-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.95); z-index: 4000;
@@ -599,13 +619,13 @@
 
     <div id="universe-bg"></div>
 
-    <header class="glass-header golden-border-anim">
+    <header class="glass-header golden-border-anim" id="main-header">
         <img class="header-logo" src="sti.png" alt="लोगो" onerror="this.style.display='none'">
         <div id="app-main-title" class="header-title-text">STISkilli</div>
         <img class="header-logo" src="ytglogo.png" alt="लोगो" onerror="this.style.display='none'">
     </header>
 
-    <div class="dock-wrapper">
+    <div class="dock-wrapper" id="dock-wrapper">
         <nav class="glass-dock golden-border-anim" id="dock-nav-container">
             <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
             <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-landmark section-icon"></i></div>
@@ -616,7 +636,7 @@
         </nav>
     </div>
 
-    <div id="main-modal" class="modal-overlay flex-modal">
+    <div id="main-modal" class="modal-overlay flex-modal" id="main-modal">
         <div class="modal-box golden-border-anim" id="dynamic-modal-box">
             
             <div class="modal-header-container" id="common-header">
@@ -1042,7 +1062,7 @@
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
         let blockCorrect = 0; 
         let questionTimer;
-        let timeLeft = 72; // 72 सेकंड टाइमर
+        let timeLeft = 72;
 
         function isSubscriptionValid() {
             if (!localStorage.getItem(HAS_PAID_KEY)) return false;
@@ -1325,7 +1345,7 @@
         }
 
         function startTimerLogic(correctIndex, qObj) {
-            timeLeft = 72; // 72 सेकंड पर सेट
+            timeLeft = 72;
             document.getElementById('q-timer').innerText = timeLeft;
             
             questionTimer = setInterval(() => {
@@ -1391,7 +1411,7 @@
             const text = document.getElementById('expl-text');
             const box = document.getElementById('expl-box');
 
-            const explanation = qObj.explanation || "इस उत्तर का विस्तृत ऐतिहासिक संदर्भ वर्तमान में हमारे अभिलेखागार में अपडेट किया जा रहा है।";
+            const explanation = qObj.explanation || "इस उत्तर का विस्तृत संदर्भ वर्तमान में हमारे अभिलेखागार में अपडेट किया जा रहा है।";
 
             if(isCorrect) {
                 icon.innerHTML = "";
@@ -1924,6 +1944,66 @@
             initProfileView();
             openCategory('ancient', document.getElementById('nav-ancient'));
         }
+
+        // ======================================================
+        // ट्रिपल टैप फीचर - हेडर/फुटर को छुपाने/दिखाने के लिए
+        // ======================================================
+        let tapCountTriple = 0;
+        let tapTimerTriple = null;
+        const headerElement = document.getElementById('main-header');
+        const footerWrapperElement = document.getElementById('dock-wrapper');
+        const modalOverlayElement = document.getElementById('main-modal');
+
+        function toggleHeaderFooter() {
+            if (!headerElement || !footerWrapperElement) return;
+            
+            const isHeaderHidden = headerElement.classList.contains('header-hidden');
+            
+            if (!isHeaderHidden) {
+                // हेडर और फुटर छुपाएं
+                headerElement.classList.add('header-hidden');
+                footerWrapperElement.classList.add('footer-hidden');
+                modalOverlayElement.classList.add('modal-expand');
+            } else {
+                // हेडर और फुटर दिखाएं
+                headerElement.classList.remove('header-hidden');
+                footerWrapperElement.classList.remove('footer-hidden');
+                modalOverlayElement.classList.remove('modal-expand');
+            }
+        }
+
+        function onTripleTapHandler(event) {
+            // उत्तर देते समय आकस्मिक टॉगल से बचने के लिए इंटरैक्टिव तत्वों को अनदेखा करें
+            const target = event.target;
+            if (target.closest('.option-btn') || 
+                target.closest('.sub-item') || 
+                target.closest('.dock-item') || 
+                target.closest('button') || 
+                target.closest('.plan-card-pro') || 
+                target.closest('.gold-input') ||
+                target.closest('.res-btn') ||
+                target.closest('.cp-btn') ||
+                target.closest('.grand-btn-primary') ||
+                target.closest('.grand-btn-secondary')) {
+                return;
+            }
+            
+            tapCountTriple++;
+            if (tapTimerTriple) clearTimeout(tapTimerTriple);
+            
+            if (tapCountTriple === 3) {
+                toggleHeaderFooter();
+                tapCountTriple = 0;
+            } else {
+                tapTimerTriple = setTimeout(() => {
+                    tapCountTriple = 0;
+                }, 500);
+            }
+        }
+
+        // पूरे बॉडी पर ट्रिपल टैप के लिए इवेंट लिस्नर जोड़ें
+        document.body.addEventListener('touchstart', onTripleTapHandler);
+        document.body.addEventListener('click', onTripleTapHandler);
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('app-main-title').innerText = APP_NAME;
