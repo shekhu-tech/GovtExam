@@ -71,6 +71,14 @@
             border-radius: 24px;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 20px; z-index: 3000;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        /* NEW: Hide header with animation */
+        .glass-header.header-hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-120%);
+            visibility: hidden;
+            pointer-events: none;
         }
         .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
         
@@ -88,7 +96,14 @@
         }
 
         /* --- DOCK (Footer) --- */
-        .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; }
+        .dock-wrapper { position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 5px; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s; }
+        /* NEW: Hide footer with animation */
+        .dock-wrapper.footer-hidden {
+            opacity: 0;
+            transform: translateY(120%);
+            visibility: hidden;
+            pointer-events: none;
+        }
         .glass-dock { 
             width: 100%; max-width: 700px; 
             height: var(--footer-height); 
@@ -129,6 +144,12 @@
             z-index: 2500; 
             display: flex; justify-content: center; align-items: center;
             padding: 0 10px; pointer-events: none; 
+            transition: top 0.3s ease, bottom 0.3s ease;
+        }
+        /* NEW: When header and footer hidden, expand modal to full screen */
+        .modal-overlay.modal-expand {
+            top: 10px !important;
+            bottom: 10px !important;
         }
 
         .modal-box { 
@@ -601,13 +622,13 @@
 
     <div id="universe-bg"></div>
 
-    <header class="glass-header golden-border-anim">
+    <header class="glass-header golden-border-anim" id="main-header">
         <img class="header-logo" src="sti.png" alt="Logo" onerror="this.style.display='none'">
         <div id="app-main-title" class="header-title-text">STISkilli</div>
         <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.style.display='none'">
     </header>
 
-    <div class="dock-wrapper">
+    <div class="dock-wrapper" id="dock-wrapper">
         <nav class="glass-dock golden-border-anim" id="dock-nav-container">
             <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
             <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-landmark section-icon"></i></div>
@@ -1916,6 +1937,65 @@
             initProfileView();
             openCategory('ancient', document.getElementById('nav-ancient'));
         }
+
+        // ======================================================
+        // TRIPLE TAP FEATURE - TOGGLE HEADER & FOOTER (ONLY ADDITION)
+        // ======================================================
+        let tapCountTriple = 0;
+        let tapTimerTriple = null;
+        const headerElement = document.getElementById('main-header');
+        const footerWrapperElement = document.getElementById('dock-wrapper');
+        const modalOverlayElement = document.getElementById('main-modal');
+
+        function toggleHeaderFooter() {
+            if (!headerElement || !footerWrapperElement) return;
+            const isHeaderHidden = headerElement.classList.contains('header-hidden');
+            
+            if (!isHeaderHidden) {
+                // Hide header and footer
+                headerElement.classList.add('header-hidden');
+                footerWrapperElement.classList.add('footer-hidden');
+                modalOverlayElement.classList.add('modal-expand');
+            } else {
+                // Show header and footer
+                headerElement.classList.remove('header-hidden');
+                footerWrapperElement.classList.remove('footer-hidden');
+                modalOverlayElement.classList.remove('modal-expand');
+            }
+        }
+
+        function onTripleTapHandler(event) {
+            // Ignore taps on interactive elements to avoid accidental toggling while answering
+            const target = event.target;
+            if (target.closest('.option-btn') || 
+                target.closest('.sub-item') || 
+                target.closest('.dock-item') || 
+                target.closest('button') || 
+                target.closest('.plan-card-pro') || 
+                target.closest('.gold-input') ||
+                target.closest('.res-btn') ||
+                target.closest('.cp-btn') ||
+                target.closest('.grand-btn-primary') ||
+                target.closest('.grand-btn-secondary')) {
+                return;
+            }
+            
+            tapCountTriple++;
+            if (tapTimerTriple) clearTimeout(tapTimerTriple);
+            
+            if (tapCountTriple === 3) {
+                toggleHeaderFooter();
+                tapCountTriple = 0;
+            } else {
+                tapTimerTriple = setTimeout(() => {
+                    tapCountTriple = 0;
+                }, 500);
+            }
+        }
+
+        // Add event listeners for triple tap on the whole body
+        document.body.addEventListener('touchstart', onTripleTapHandler);
+        document.body.addEventListener('click', onTripleTapHandler); // for desktop compatibility
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('app-main-title').innerText = APP_NAME;
