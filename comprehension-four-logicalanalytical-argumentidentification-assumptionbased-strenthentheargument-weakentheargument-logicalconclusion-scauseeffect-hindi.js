@@ -1,10 +1,10 @@
 // ======================================================
-// WORLD HISTORY QUIZ DATA (HINDI - FULL TRANSLATION)
+// WORLD HISTORY QUIZ DATA
 // ======================================================
 
 window.worldQuizData = [
    
-   {
+    {
   "name": "तर्क पहचान (संरचनात्मक तर्क)",
   "questions": [
     {
@@ -1838,4 +1838,4 @@ window.worldQuizData = [
 
 ];
 
-console.log("विश्व इतिहास डेटा सफलतापूर्वक लोड हुआ!");
+console.log("World History data loaded successfully! (3 units, 3 questions each)");
