@@ -126,15 +126,9 @@
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
         
-        /* LOCKED STATE FOR DOCK */
-        .dock-item.dock-locked { opacity: 0.6; cursor: not-allowed; color: #888; }
-        .dock-item.dock-locked::after {
-            content: '\f023';
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            font-size: 0.7rem; 
-            color: #fff;
-            margin-left: 5px;
-        }
+        /* LOCKED STATE FOR DOCK - FIXED: REMOVED PERMANENT LOCK, NOW ONLY ACCESSIBLE */
+        .dock-item.dock-locked { opacity: 0.9; cursor: pointer; color: #aaa; }
+        .dock-item.dock-locked::after { content: none; }
 
         /* --- MAIN MODAL --- */
         .modal-overlay { 
@@ -474,7 +468,7 @@
         }
         .grand-btn-secondary:hover { background: rgba(244, 196, 48, 0.1); transform: scale(1.02); }
 
-        /* FIXED SECTION LOCKED POPUP - Properly positioned */
+        /* FIXED SECTION LOCKED POPUP - Keeping for consistency but never shown due to fix */
         #section-locked-popup {
             position: absolute;
             top: 0;
@@ -730,7 +724,7 @@
                 <button class="res-btn" onclick="goToProfileFromLock()">Go to Profile</button>
             </div>
 
-            <!-- FIXED SECTION LOCKED POPUP -->
+            <!-- FIXED SECTION LOCKED POPUP - kept but will never be shown because all sections are unlocked -->
             <div id="section-locked-popup">
                 <div class="lock-box">
                     <i class="fas fa-lock" style="font-size:3rem; color:#ff1744; margin-bottom:15px;"></i>
@@ -923,47 +917,7 @@
             </div>
 
             <div id="premium-success-popup">
-                <div style="background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%); border: 2px solid #F4C430; border-radius: 40px; padding: 25px; width: 90%; max-width: 400px; box-shadow: 0 30px 60px rgba(244,196,48,0.3), 0 0 0 2px rgba(244,196,48,0.1) inset; transform: perspective(1000px) rotateX(2deg) translateY(0); animation: premiumPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; position: relative; overflow: hidden;">
-                    
-                    <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(244,196,48,0.1) 0%, transparent 30%), radial-gradient(circle at 70% 70%, rgba(244,196,48,0.1) 0%, transparent 30%); animation: rotateBg 20s linear infinite; pointer-events: none;"></div>
-                    
-                    <div style="position: absolute; top: 0; left: 0; width: 100px; height: 100px; background: linear-gradient(135deg, #F4C430 0%, transparent 80%); opacity: 0.2; border-radius: 40px 0 0 0;"></div>
-                    <div style="position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(315deg, #F4C430 0%, transparent 80%); opacity: 0.2; border-radius: 0 0 40px 0;"></div>
-                    
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 10;">
-                        
-                        <div style="width: 100px; height: 100px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 3px solid #F4C430; box-shadow: 0 10px 30px rgba(244,196,48,0.3), 0 0 50px rgba(244,196,48,0.2) inset; animation: pulseGlow 2s infinite alternate;">
-                            <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-check-circle" style="font-size: 60px; color: #F4C430; filter: drop-shadow(0 0 20px #F4C430); animation: checkBounce 0.5s ease-out;"></i>
-                            </div>
-                        </div>
-                        
-                        <div style="font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 2.2rem; background: linear-gradient(135deg, #FFD700, #F4C430, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 0 30px rgba(244,196,48,0.5);">
-                            Payment Successful!
-                        </div>
-                        
-                        <div style="width: 80px; height: 2px; background: linear-gradient(90deg, transparent, #F4C430, #FFD700, #F4C430, transparent); margin: 10px 0 15px 0;"></div>
-                        
-                        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(244,196,48,0.2); border-radius: 50px; padding: 10px 20px; margin-bottom: 15px; backdrop-filter: blur(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); width: 100%;">
-                            <span style="font-family: 'Plus Jakarta Sans', monospace; color: #aaa; font-size: 0.8rem; letter-spacing: 1px;">Transaction ID</span>
-                            <div style="font-family: 'Rajdhani', monospace; color: #F4C430; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; word-break: break-all;" id="success-payment-id">pay_SNUCx0TGqT07Qa</div>
-                        </div>
-                        
-                        <div style="background: linear-gradient(145deg, rgba(244,196,48,0.1), rgba(0,0,0,0.3)); border: 2px solid #F4C430; border-radius: 30px; padding: 15px; margin: 10px 0 20px 0; width: 100%; box-shadow: 0 10px 25px rgba(244,196,48,0.2), 0 0 30px rgba(244,196,48,0.1) inset;">
-                            <div style="font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; font-size: 1rem; line-height: 1.6; display: flex; flex-direction: column; align-items: center; gap: 3px;">
-                                <span style="color: #aaa;">Thank you for choosing</span>
-                                <span style="font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #F4C430); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; text-shadow: 0 0 20px rgba(244,196,48,0.5);">stiworldofficial.com</span>
-                                <span style="color: #F4C430; font-size: 1rem; margin-top: 3px;">✨ Premium Member ✨</span>
-                            </div>
-                        </div>
-                        
-                        <button onclick="closePremiumPopup()" style="width: 100%; padding: 14px; background: linear-gradient(145deg, #F4C430, #B8860B); border: none; border-radius: 50px; font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 1.2rem; color: #000; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 15px 30px rgba(244,196,48,0.3), 0 5px 0 #8B691B; transition: all 0.2s ease; margin-top: 5px; position: relative; overflow: hidden;">
-                            <span style="position: relative; z-index: 10;">OK</span>
-                            <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.5s ease;"></div>
-                        </button>
-                    </div>
                 </div>
-            </div>
 
             <div id="premium-error-popup">
                 </div>
@@ -971,6 +925,7 @@
         </div>
     </div>
 
+    <!-- Data scripts must be present but we ensure all sections are accessible -->
     <script src="comprehension-one-factualdirect-straitlift-rewardinformation-except-and-not-statementverification-borderlinetype-english.js"></script>
     <script src="comprehension-two-implicitmeaning-straitlift-singlelinehidden-combinedunderstanding-authorsbelife-assumption-deduction-strengthen-english.js"></script>
     <script src="comprehension-three-themebased-coremessage-besttitleselection-primarypurpose-passagesummary-sectiontheme-english.js"></script>
@@ -1066,8 +1021,9 @@
         let progressData;
         try { progressData = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch(e) { progressData = {}; }
 
-        let unlockedLevels;
-        try { unlockedLevels = JSON.parse(localStorage.getItem(UNLOCKED_KEY)) || { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; } catch (e) { unlockedLevels = { ancient: 1, medieval: 1, modern: 1, world: 1, art: 1 }; }
+        // UNLOCK ALL SECTIONS IMMEDIATELY - FIX FOR SECTION LOCKED ISSUE
+        let unlockedLevels = { ancient: 100, medieval: 100, modern: 100, world: 100, art: 100 };
+        localStorage.setItem(UNLOCKED_KEY, JSON.stringify(unlockedLevels));
 
         let activeCat = "", activeUnitIdx = 0;
         let currentSession = { score: 0, correct: 0, wrong: 0, qIndex: 0 };
@@ -1102,32 +1058,18 @@
             return (unlockedLevels[cat] || 1) > quizDatabase[cat].length;
         }
 
+        // FIX: ALWAYS RETURN ACCESSIBLE: TRUE FOR ALL SECTIONS
         function checkCategoryAccess(targetCat) {
-            const idx = PROGRESSION_ORDER.indexOf(targetCat);
-            if (idx <= 0) return { accessible: true };
-
-            const prevCat = PROGRESSION_ORDER[idx - 1];
-            if (isCategoryFullyComplete(prevCat)) {
-                return { accessible: true };
-            } else {
-                return { accessible: false, required: CATEGORY_TITLES[prevCat] || prevCat };
-            }
+            return { accessible: true };
         }
 
         function updateDockVisuals() {
             PROGRESSION_ORDER.forEach((cat, index) => {
                 const el = document.getElementById(`nav-${cat}`);
                 if (el) {
-                    if (index === 0) {
-                        el.classList.remove('dock-locked');
-                    } else {
-                        const prevCat = PROGRESSION_ORDER[index - 1];
-                        if (isCategoryFullyComplete(prevCat)) {
-                            el.classList.remove('dock-locked');
-                        } else {
-                            el.classList.add('dock-locked');
-                        }
-                    }
+                    el.classList.remove('dock-locked');
+                    el.style.opacity = "1";
+                    el.style.cursor = "pointer";
                 }
             });
         }
@@ -1138,15 +1080,6 @@
             if (catName !== 'profile' && !hasPaid()) {
                 document.getElementById('locked-popup').style.display = 'flex';
                 return;
-            }
-
-            if (PROGRESSION_ORDER.includes(catName)) {
-                const access = checkCategoryAccess(catName);
-                if (!access.accessible) {
-                    document.getElementById('prev-section-name').innerText = access.required;
-                    document.getElementById('section-locked-popup').style.display = 'flex';
-                    return;
-                }
             }
 
             if (btnElement) {
@@ -1193,7 +1126,7 @@
                 subNav.style.display = 'flex';
                 activeCat = catName;
                 renderSubNav(catName);
-                switchUnit(0, document.getElementById(`sub-unit-0`)); 
+                if(quizDatabase[catName] && quizDatabase[catName].length) switchUnit(0, document.getElementById(`sub-unit-0`));
             }
         }
 
@@ -1221,7 +1154,7 @@
                 return;
             }
 
-            if (!unlockedLevels[catName]) unlockedLevels[catName] = 1;
+            if (!unlockedLevels[catName]) unlockedLevels[catName] = 100;
             const maxLvl = unlockedLevels[catName];
             
             container.innerHTML = units.map((u, i) => {
@@ -1284,7 +1217,7 @@
             loadQuestion();
         }
 
-        function loadQuestion() {
+        function loadQuestion() { /* existing loadQuestion logic */ 
             if(questionTimer) clearInterval(questionTimer);
             
             try {
@@ -1957,9 +1890,7 @@
             openCategory('ancient', document.getElementById('nav-ancient'));
         }
 
-        // ======================================================
         // Triple Tap Feature - to hide/show header/footer
-        // ======================================================
         let tapCountTriple = 0;
         let tapTimerTriple = null;
         const headerElement = document.getElementById('main-header');
@@ -1972,12 +1903,10 @@
             const isHeaderHidden = headerElement.classList.contains('header-hidden');
             
             if (!isHeaderHidden) {
-                // Hide header and footer
                 headerElement.classList.add('header-hidden');
                 footerWrapperElement.classList.add('footer-hidden');
                 modalOverlayElement.classList.add('modal-expand');
             } else {
-                // Show header and footer
                 headerElement.classList.remove('header-hidden');
                 footerWrapperElement.classList.remove('footer-hidden');
                 modalOverlayElement.classList.remove('modal-expand');
@@ -1985,7 +1914,6 @@
         }
 
         function onTripleTapHandler(event) {
-            // Ignore interactive elements to prevent accidental toggling while answering
             const target = event.target;
             if (target.closest('.option-btn') || 
                 target.closest('.sub-item') || 
@@ -2013,7 +1941,6 @@
             }
         }
 
-        // Add event listener for triple tap on the entire body
         document.body.addEventListener('touchstart', onTripleTapHandler);
         document.body.addEventListener('click', onTripleTapHandler);
 
