@@ -126,14 +126,21 @@
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
         
-        /* LOCKED STATE FOR DOCK */
-        .dock-item.dock-locked { opacity: 0.6; cursor: not-allowed; color: #888; }
+        /* LOCKED STATE FOR DOCK - NOW SHOWS LOCK ICON PROPERLY */
+        .dock-item.dock-locked { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            color: #888;
+            pointer-events: auto;
+        }
         .dock-item.dock-locked::after {
             content: '\f023';
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
+            font-family: "Font Awesome 6 Free"; 
+            font-weight: 900;
             font-size: 0.7rem; 
-            color: #fff;
+            color: #ff4444;
             margin-left: 5px;
+            display: inline-block;
         }
 
         /* --- MAIN MODAL --- */
@@ -1097,11 +1104,17 @@
 
         function hasPaid() { return isSubscriptionValid(); }
 
+        // FIXED: Check if a category is fully complete (all units unlocked means next level would be > length)
         function isCategoryFullyComplete(cat) {
             if (!quizDatabase[cat]) return false;
-            return (unlockedLevels[cat] || 1) > quizDatabase[cat].length;
+            const maxUnlocked = unlockedLevels[cat] || 1;
+            const totalUnits = quizDatabase[cat].length;
+            // Fully complete means all units are unlocked AND the last unit has been passed
+            // For progression: if maxUnlocked > totalUnits, that means last unit was completed and next would be beyond
+            return maxUnlocked > totalUnits;
         }
 
+        // FIXED: Check if a category is accessible (previous category must be fully complete)
         function checkCategoryAccess(targetCat) {
             const idx = PROGRESSION_ORDER.indexOf(targetCat);
             if (idx <= 0) return { accessible: true };
@@ -1114,22 +1127,28 @@
             }
         }
 
+        // FIXED: Update dock visuals - show lock icon on last section until previous 4 are complete
         function updateDockVisuals() {
-            PROGRESSION_ORDER.forEach((cat, index) => {
+            for (let i = 0; i < PROGRESSION_ORDER.length; i++) {
+                const cat = PROGRESSION_ORDER[i];
                 const el = document.getElementById(`nav-${cat}`);
-                if (el) {
-                    if (index === 0) {
-                        el.classList.remove('dock-locked');
-                    } else {
-                        const prevCat = PROGRESSION_ORDER[index - 1];
-                        if (isCategoryFullyComplete(prevCat)) {
-                            el.classList.remove('dock-locked');
-                        } else {
-                            el.classList.add('dock-locked');
-                        }
-                    }
+                if (!el) continue;
+                
+                if (i === 0) {
+                    // First section always unlocked (after payment)
+                    el.classList.remove('dock-locked');
+                    continue;
                 }
-            });
+                
+                const prevCat = PROGRESSION_ORDER[i - 1];
+                const prevComplete = isCategoryFullyComplete(prevCat);
+                
+                if (prevComplete) {
+                    el.classList.remove('dock-locked');
+                } else {
+                    el.classList.add('dock-locked');
+                }
+            }
         }
 
         function openCategory(catName, btnElement) {
@@ -1491,7 +1510,8 @@
             if (blockCorrect >= PASS_REQ) {
                 
                 const totalUnits = quizDatabase[activeCat].length;
-                if(activeUnitIdx + 1 === unlockedLevels[activeCat]) {
+                // FIXED: Unlock next unit only if this unit was previously locked
+                if(activeUnitIdx + 1 === (unlockedLevels[activeCat] || 1)) {
                     unlockedLevels[activeCat]++;
                     localStorage.setItem(UNLOCKED_KEY, JSON.stringify(unlockedLevels));
                     renderSubNav(activeCat);
@@ -1554,6 +1574,12 @@
 
         function restartJourney() {
             document.getElementById('grand-completion-overlay').style.display = 'none';
+            // Reset all unlocked levels to 1
+            for (let cat of PROGRESSION_ORDER) {
+                unlockedLevels[cat] = 1;
+            }
+            localStorage.setItem(UNLOCKED_KEY, JSON.stringify(unlockedLevels));
+            updateDockVisuals();
             openCategory('ancient', document.getElementById('nav-ancient'));
             if (progressData['ancient'] && progressData['ancient'][0]) {
                 progressData['ancient'][0] = { score: 0, correct: 0, wrong: 0, qIndex: 0, blockCorrect: 0, order: [] };
