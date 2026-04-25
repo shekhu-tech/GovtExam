@@ -665,7 +665,7 @@
         <a href="https://stiworldofficial.com" class="social-icon" target="_blank" title="Website">
             <i class="fas fa-globe"></i>
         </a>
-        <a href="https://wa.me/918395913829" class="social-icon whatsapp-icon" target="_blank" title="WhatsApp">
+        <a href="https://wa.me/917027921650" class="social-icon whatsapp-icon" target="_blank" title="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
         <a href="https://x.com/stiworldoff3" class="social-icon" target="_blank" title="Twitter/X">
