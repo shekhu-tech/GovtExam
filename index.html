@@ -1477,22 +1477,26 @@
         });
 
 
-        <script>document.getElementById("cf-button").addEventListener("click", async () => {
+      // ===== CASHFREE PAYMENT BUTTON =====
+document.getElementById("cf-button").addEventListener("click", async () => {
   try {
-    const res = await fetch("https://cashfree-backend-2f8tz317p-shekhar-tyagis-projects-26cc6535.vercel.app/api/create-order", {
+
+    const res = await fetch("https://cashfree-backend.vercel.app/api/create-order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: document.getElementById("user-name").value,
-        email: document.getElementById("user-email").value,
-        phone: document.getElementById("user-number").value,
+        name: document.getElementById("user-name")?.value || "Test User",
+        email: document.getElementById("user-email")?.value || "test@test.com",
+        phone: document.getElementById("user-number")?.value || "9999999999",
         amount: 51
       }),
     });
 
     const data = await res.json();
+
+    console.log("API RESPONSE:", data);
 
     const cashfree = Cashfree({
       mode: "production"
@@ -1504,10 +1508,10 @@
     });
 
   } catch (err) {
+    console.error(err);
     alert("Payment error: " + err.message);
   }
 });
-        </script>
 
     </script>
     
