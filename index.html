@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Cashfree JS SDK -->
-    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <!-- Razorpay JS SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     
     <style>
         /* --- THEME VARIABLES --- */
@@ -464,11 +464,9 @@
             background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
         }
-
-        /* --- FIX FOR CASHFREE OVERLAY --- */
-        .cf-checkout-modal, #cf-checkout-modal {
-            z-index: 2147483647 !important;
-        }
+        
+        /* Razorpay modal high z-index assurance */
+        .razorpay-checkout-frame { z-index: 2147483647 !important; }
 
     </style>
 </head>
@@ -642,7 +640,7 @@
                     <div id="final-price-display" style="font-size:2.5rem; color:var(--primary); font-family:'Rajdhani'; font-weight:800; margin-bottom:10px; text-shadow:0 0 20px rgba(244,196,48,0.3);">₹51.00</div>
                     <div id="timer" style="color:#fff; font-weight:bold; font-size:1.2rem; margin-bottom:30px; background:rgba(30,30,30,0.9); padding:8px 20px; border-radius:50px; border:1px solid #444;">05:00</div>
                     
-                    <button id="cf-button" class="btn-pro">Pay with Cashfree</button>
+                    <button id="rzp-button" class="btn-pro">Pay with Razorpay</button>
                 </div>
 
                 <div id="step-4" style="display:none; width:100%; justify-content:center;">
@@ -1274,96 +1272,94 @@
         }
 
         // =================================================================
-        // CASHFREE PAYMENT GATEWAY INTEGRATION
+        // RAZORPAY PAYMENT GATEWAY INTEGRATION
         // =================================================================
-        document.getElementById('cf-button').addEventListener('click', async () => {
+        document.getElementById("rzp-button").addEventListener("click", async () => {
             if (!selectedPlanPrice) {
                 selectedPlanPrice = 51;
                 selectedPlanLabel = 'Lifetime Access (₹51)';
             }
 
-            const btn = document.getElementById('cf-button');
+            const btn = document.getElementById('rzp-button');
+            const originalText = btn.innerText;
             btn.innerText = "Processing...";
 
-            // ⚠️ CRITICAL NOTE FOR CASHFREE ⚠️
-            // Unlike Razorpay, Cashfree strictly requires a `paymentSessionId` which CAN ONLY be 
-            // generated from a backend server making a direct API call.
-            // Replace the URL below with your actual server endpoint where you handle Cashfree order creation.
-            const BACKEND_CREATE_ORDER_URL = ""; // Example: "https://your-domain.com/api/create-cf-order"
-            
-            if (BACKEND_CREATE_ORDER_URL) {
-                try {
-                    const response = await fetch(BACKEND_CREATE_ORDER_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            customer_name: userData.name || document.getElementById('user-name')?.value || "Customer",
-                            customer_phone: userData.number || document.getElementById('user-number')?.value || "9999999999",
-                            customer_email: userData.email || document.getElementById('user-email')?.value || "customer@example.com",
-                            order_amount: selectedPlanPrice,
-                            order_currency: "INR"
-                        })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (!data.payment_session_id) {
-                        throw new Error("Invalid payment_session_id received from server.");
-                    }
-
-                    // Initialize Cashfree SDK
-                    const cashfree = Cashfree({ mode: "production" }); // use "sandbox" for testing
-
-                    let checkoutOptions = {
-                        paymentSessionId: data.payment_session_id,
-                        redirectTarget: "_modal", // Opens checkout in a modal overlay
-                    };
-
-                    cashfree.checkout(checkoutOptions).then((result) => {
-                        if (result.error) {
-                            showPremiumErrorPopup(result.error.message);
-                            btn.innerText = "Pay with Cashfree";
-                            setTimeout(() => { showStep(2); }, 2000);
-                        }
-                        if (result.paymentDetails) {
-                            // Payment Successful
-                            userData.txn = "cf_txn_" + new Date().getTime(); // Can also be fetched from your backend
-                            userData.planAmount = selectedPlanPrice;
-                            userData.planName = selectedPlanLabel;
-                            
-                            // --- SEND PAYMENT DATA TO SHEET ---
-                            sendToSheet('payment');
-                            
-                            completeTxn();
-                            showPremiumSuccessPopup(userData.txn);
-                        }
-                    });
-
-                } catch (error) {
-                    console.error("Cashfree API Error:", error);
-                    showPremiumErrorPopup("Failed to initialize payment. Please try again.");
-                    btn.innerText = "Pay with Cashfree";
-                    setTimeout(() => { showStep(2); }, 2000);
-                }
-            } else {
-                // ==============================================================
-                // DEMO MODE / FALLBACK (For when Backend URL is empty)
-                // Remove this else block once your backend URL is properly set!
-                // ==============================================================
-                if (tInt) clearInterval(tInt);
-                console.warn("Cashfree backend URL is missing! Simulating a successful payment to demonstrate UI flow.");
+            try {
+                // ⚠️ CRITICAL NOTE FOR RAZORPAY ⚠️
+                // You should generate an `order_id` from your backend using Razorpay's API.
+                // Replace `backendCreateOrderUrl` below with your actual backend endpoint.
                 
-                setTimeout(() => {
-                    const mockTxnId = "cf_sim_" + Math.floor(Math.random() * 100000000);
-                    userData.txn = mockTxnId;
-                    userData.planAmount = selectedPlanPrice;
-                    userData.planName = selectedPlanLabel;
-                    
-                    sendToSheet('payment');
-                    completeTxn();
-                    showPremiumSuccessPopup(mockTxnId);
-                    btn.innerText = "Pay with Cashfree";
-                }, 1500);
+                const backendCreateOrderUrl = ""; // e.g. "https://your-razorpay-backend.vercel.app/api/create-order"
+                
+                let orderId = undefined; // Will remain undefined if no backend is set (relies on orderless checkout for testing)
+                
+                if (backendCreateOrderUrl) {
+                    const res = await fetch(backendCreateOrderUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            amount: selectedPlanPrice,
+                            currency: "INR"
+                        }),
+                    });
+                    const data = await res.json();
+                    orderId = data.order_id;
+                    console.log("Razorpay Order ID generated:", orderId);
+                } else {
+                    console.warn("No backend URL provided for Razorpay order generation. Proceeding with client-side initialization (ensure your Razorpay account allows orderless checkouts or add a backend).");
+                }
+
+                // Initialize Razorpay
+                const rzpOptions = {
+                    "key": "rzp_live_SLy447saTnXqbZ", // ⚠️ Replace with your actual Razorpay Key ID
+                    "amount": selectedPlanPrice * 100, // Razorpay works in subunits (paise)
+                    "currency": "INR",
+                    "name": "STISkilli",
+                    "description": selectedPlanLabel,
+                    "image": "sti.png",
+                    "handler": function (response) {
+                        // Payment Successful
+                        userData.txn = response.razorpay_payment_id;
+                        userData.planAmount = selectedPlanPrice;
+                        userData.planName = selectedPlanLabel;
+                        
+                        // --- SEND PAYMENT DATA TO SHEET ---
+                        sendToSheet('payment');
+                        
+                        completeTxn();
+                        showPremiumSuccessPopup(userData.txn);
+                        btn.innerText = originalText;
+                    },
+                    "prefill": {
+                        "name": document.getElementById("user-name")?.value || userData.name || "",
+                        "email": document.getElementById("user-email")?.value || userData.email || "",
+                        "contact": document.getElementById("user-number")?.value || userData.number || ""
+                    },
+                    "theme": {
+                        "color": "#F4C430"
+                    }
+                };
+
+                if (orderId) {
+                    rzpOptions.order_id = orderId; 
+                }
+
+                const rzp = new Razorpay(rzpOptions);
+                
+                rzp.on('payment.failed', function (response){
+                    console.error("Razorpay Payment Failed:", response.error);
+                    showPremiumErrorPopup(response.error.description || "Payment Failed");
+                    btn.innerText = originalText;
+                    setTimeout(() => { showStep(2); }, 2000);
+                });
+
+                rzp.open();
+
+            } catch (err) {
+                console.error("Payment error:", err);
+                showPremiumErrorPopup("Failed to initialize payment. Please try again.");
+                btn.innerText = originalText;
+                setTimeout(() => { showStep(2); }, 2000);
             }
         });
 
@@ -1475,46 +1471,6 @@
             if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
             else openCategory('profile', document.getElementById('nav-profile'));
         });
-
-
-      // ===== CASHFREE PAYMENT BUTTON =====
-document.getElementById("cf-button").addEventListener("click", async () => {
-  try {
-
-    const res = await fetch("https://cashfree-backend.vercel.app/api/create-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: document.getElementById("user-name")?.value || "Test User",
-        email: document.getElementById("user-email")?.value || "test@test.com",
-        phone: document.getElementById("user-number")?.value || "9999999999",
-        amount: 51
-      }),
-    });
-
-    const data = await res.json();
-
-    console.log("API RESPONSE:", data);
-
-    const cashfree = Cashfree({
-      mode: "production"
-    });
-
-    cashfree.checkout({
-      paymentSessionId: data.payment_session_id,
-      redirectTarget: "_modal"
-    });
-
-  } catch (err) {
-    console.error(err);
-    alert("Payment error: " + err.message);
-  }
-});
-
     </script>
-    
-
 </body>
 </html>
