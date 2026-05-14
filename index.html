@@ -812,33 +812,21 @@
         // ======================================================
         async function sendToSheet(actionType, scoreData = 0, historyData = "") {
             const url = 'https://script.google.com/macros/s/AKfycbyFxKZanYXqKhDOiNsDhD4RjUqXgHFF9_jlQxpEIX-T_OJVLP9vZR9_ge3MWK_UelvUPQ/exec';
-            
-            // JSON Payload setup, properly formatted. No CORS blocking since we are sending it via proper headers.
-            const payload = {
-                action: actionType,
-                name: userData.name || '',
-                number: userData.number || '',
-                email: userData.email || '',
-                amount: userData.planAmount || '',
-                plan_name: userData.planName || '',
-                transaction_id: userData.txn || '',
-                total_score: scoreData,
-                question_data: historyData,
-                timestamp: new Date().toISOString(),
-                app_package: APP_PACKAGE_NAME
-            };
-            
-            // For simple Google Apps Script setups, it's safer to send it as form data using URL encoding
-            const formBody = Object.keys(payload).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(payload[key])).join('&');
+            const fd = new FormData();
+            fd.append('action', actionType); // Send action type directly
+            fd.append('name', userData.name || '');
+            fd.append('number', userData.number || '');
+            fd.append('email', userData.email || '');
+            fd.append('amount', userData.planAmount || '');
+            fd.append('plan_name', userData.planName || '');
+            fd.append('transaction_id', userData.txn || '');
+            fd.append('total_score', scoreData);
+            fd.append('question_data', historyData);
+            fd.append('timestamp', new Date().toISOString());
+            fd.append('app_package', APP_PACKAGE_NAME);
             
             try { 
-                await fetch(url, { 
-                    method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
-                    body: formBody
-                });
+                await fetch(url, { method: 'POST', body: fd, mode: 'no-cors' });
                 console.log("Data synced successfully for action:", actionType);
             } catch(e) { 
                 console.error("Sheet Error:", e);
