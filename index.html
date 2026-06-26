@@ -2,1470 +2,1036 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <script src="redirect.js?v=99"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>StiSkilli App – HSSC CET Group D Preparation</title>
+    <meta name="description" content="Ultimate tracker and preparation app for Haryana HSSC CET Group D Exam. Get latest notifications, syllabus, mock tests, Haryana GK, and previous year questions.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Cashfree JS SDK -->
-    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- THEME VARIABLES --- */
         :root {
-            --primary: #F4C430;       
-            --primary-glow: #FFD700; 
-            --dark-glass: rgba(10, 10, 10, 0.85);
+            --primary: #00E5FF; 
+            --primary-glow: rgba(0, 229, 255, 0.5);
+            --secondary: #B400FF; 
+            --secondary-glow: rgba(180, 0, 255, 0.5);
+            --tertiary: #FF0055; 
+            --bg-dark: #07070C; 
+            --glass-bg: rgba(15, 15, 25, 0.75);
+            --glass-border: rgba(0, 229, 255, 0.15);
+            --header-offset: calc(15px + env(safe-area-inset-top));
             --header-height: 70px; 
+            --footer-offset: calc(25px + env(safe-area-inset-bottom));
             --footer-height: 75px; 
-            --correct: #00e676;
-            --wrong: #ff1744;
+            --text-light: #F8FAFC; 
+            --text-muted: #94A3B8;
+            --success: #00FF88;
+            --warning: #FFD700;
+            
+            --brand-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --card-gradient: linear-gradient(160deg, rgba(30, 30, 45, 0.8) 0%, rgba(10, 10, 15, 0.95) 100%);
         }
 
-        /* --- GLOBAL RESET --- */
-        html, body {
-            margin: 0; padding: 0;
-            width: 100%; height: 100dvh;
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
             overflow: hidden; 
-            position: fixed; 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #000;
-            color: #fff;
-            overscroll-behavior: none;
-            user-select: none;
+            height: 100vh;
+            width: 100vw;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- UNIVERSE BACKGROUND --- */
-        #universe-bg {
-            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
-            z-index: -10;
-            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2072&auto=format&fit=crop');
-            background-size: cover;
-            filter: contrast(120%) brightness(40%);
-            animation: galaxyMove 60s linear infinite alternate;
+        #fixed-media-background {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -10; background-size: cover; background-position: center;
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
+            filter: brightness(12%) saturate(180%) blur(5px);
+            opacity: 0.9;
         }
-        @keyframes galaxyMove { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
+        .bg-orb {
+            position: absolute; border-radius: 50%; filter: blur(90px); z-index: -9;
+            animation: float 25s infinite alternate ease-in-out;
+            opacity: 0.6;
+        }
+        .orb-1 { top: -15%; left: -10%; width: 55vw; height: 55vw; background: var(--primary); }
+        .orb-2 { bottom: -15%; right: -10%; width: 65vw; height: 65vw; background: var(--secondary); animation-delay: -7s;}
+        .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: var(--tertiary); filter: blur(120px); animation-delay: -3s; opacity: 0.3;}
 
-        /* --- GOLDEN BORDER ANIMATION --- */
-        .golden-border-anim {
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-            animation: borderPulse 3s infinite alternate;
-        }
-        @keyframes borderPulse {
-            0% { box-shadow: 0 0 10px rgba(244, 196, 48, 0.2); border-color: #bfa128; }
-            100% { box-shadow: 0 0 20px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(244, 196, 48, 0.2); border-color: #ffd700; }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            100% { transform: translate(15%, 20%) scale(1.3) rotate(20deg); }
         }
 
-        /* --- HEADER --- */
-        .glass-header {
-            position: fixed; top: calc(15px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
-            width: 94%; max-width: 800px; height: var(--header-height);
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(25px);
-            border-radius: 24px;
+        .iphone-header {
+            position: fixed; top: var(--header-offset); left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 600px; height: var(--header-height);
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; z-index: 3000;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            padding: 0 15px; z-index: 3000; box-shadow: 0 10px 40px rgba(0,229,255,0.1);
         }
-        .glass-header.header-hidden {
-            opacity: 0;
-            transform: translateX(-50%) translateY(-120%);
-            visibility: hidden;
-            pointer-events: none;
+        .header-left img { 
+            width: 42px; height: 42px; border-radius: 14px; 
+            border: 2px solid transparent; 
+            background-image: linear-gradient(var(--bg-dark), var(--bg-dark)), var(--brand-gradient);
+            background-origin: border-box; background-clip: content-box, border-box;
+            object-fit: cover; box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
-        .header-logo { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--primary); object-fit: cover; box-shadow: 0 0 10px var(--primary-glow); }
+        .header-center { 
+            font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 900; 
+            background: var(--brand-gradient); -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; letter-spacing: 1.2px; 
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
         
-        .header-title-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(to bottom, #FFD700, #B8860B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            filter: drop-shadow(0 0 5px rgba(244, 196, 48, 0.5));
-            text-align: center;
+        /* Cute Language Button */
+        .lang-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 1px solid var(--primary); color: var(--primary);
+            padding: 8px 12px; border-radius: 14px; font-size: 0.85rem; font-weight: 800;
+            display: flex; align-items: center; gap: 6px; cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); transition: all 0.3s;
+            font-family: 'Outfit', sans-serif;
         }
+        .lang-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.05); }
 
-        /* --- DOCK (Footer) --- */
-        .dock-wrapper { 
-            position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; 
-            display: flex; justify-content: center; z-index: 3000; padding: 0 5px;
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        .iphone-dock-wrapper { 
+            position: fixed; bottom: var(--footer-offset); 
+            left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 15px; 
         }
-        .dock-wrapper.footer-hidden {
-            opacity: 0;
-            transform: translateY(120%);
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .glass-dock { 
-            width: 100%; max-width: 700px; 
-            height: var(--footer-height); 
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(30px);
-            border-radius: 24px; 
+        .iphone-dock { 
+            width: 100%; max-width: 500px; height: var(--footer-height); 
+            background: rgba(5, 5, 8, 0.9); backdrop-filter: blur(30px); 
+            border-radius: 35px; border: 1px solid rgba(255,255,255,0.1); 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.05); 
+            padding: 0 12px; 
         }
-        .dock-item { 
-            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; 
-            color: rgba(255, 255, 255, 0.3); cursor: pointer; position: relative;
-            transition: all 0.3s ease; border-radius: 16px; flex: 1;
-        }
-        .dock-item i { font-size: 1.4rem; transition: 0.3s; }
-        .dock-item.active { 
-            color: var(--primary-glow); 
-            background: radial-gradient(circle, rgba(244, 196, 48, 0.2) 0%, transparent 70%);
-            text-shadow: 0 0 20px var(--primary);
-        }
-        .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
         
-        /* LOCKED STATE FOR DOCK */
-        .dock-item.dock-locked { opacity: 0.6; cursor: not-allowed; color: #888; }
-        .dock-item.dock-locked::after {
-            content: '\f023';
-            font-family: "Font Awesome 6 Free"; font-weight: 900;
-            font-size: 0.7rem; 
-            color: #fff;
-            margin-left: 5px;
+        .nav-item { 
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: var(--text-muted); cursor: pointer; height: 100%; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
+        .nav-item .icon-box {
+            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+            border-radius: 16px; transition: all 0.4s; margin-bottom: 2px;
+        }
+        .nav-item i { font-size: 1.35rem; transition: 0.3s; }
+        .nav-item span { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-family: 'Outfit'; text-align: center; line-height: 1.1; }
 
-        /* --- MAIN MODAL --- */
+        .nav-item.locked { opacity: 0.4; pointer-events: none; filter: grayscale(100%); }
+        .nav-item.active { color: #fff; opacity: 1; pointer-events: auto; filter: none; }
+        .nav-item.active .icon-box {
+            background: var(--brand-gradient); 
+            color: #fff;
+            transform: translateY(-10px) scale(1.1); 
+            box-shadow: 0 10px 25px var(--primary-glow);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .nav-item.active span { opacity: 1; color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+
         .modal-overlay { 
             position: fixed; 
-            top: calc(var(--header-height) + 30px + env(safe-area-inset-top)); 
-            bottom: calc(var(--footer-height) + 35px + env(safe-area-inset-bottom)); 
-            left: 0; right: 0; 
-            z-index: 2500; 
-            display: flex; justify-content: center; align-items: center;
-            padding: 0 10px; pointer-events: none;
-            transition: top 0.3s ease, bottom 0.3s ease;
+            top: calc(var(--header-offset) + var(--header-height) + 15px);
+            bottom: calc(var(--footer-offset) + var(--footer-height) + 15px);
+            left: 0; right: 0; z-index: 2500; 
+            display: none; justify-content: center; padding: 0 15px; pointer-events: none;
         }
-        .modal-overlay.modal-expand {
-            top: calc(15px + env(safe-area-inset-top)) !important;
-            bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+        .modal-overlay.active { display: flex !important; animation: modalFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .modal-box { 
-            pointer-events: auto; 
-            background-color: #111; 
-            background-size: cover; background-position: center; background-repeat: no-repeat;
-            border-radius: 30px; 
-            width: 100%; max-width: 1400px; height: 100%; padding: 15px; 
-            display: flex; flex-direction: column; overflow: hidden;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.9);
-            position: relative; 
+            pointer-events: auto; background: var(--glass-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 36px; width: 100%; max-width: 650px; height: 100%; 
+            padding: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 229, 255, 0.05); 
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
 
-        /* HEADER INSIDE MODAL */
-        .modal-header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; flex-shrink: 0; }
-        .modal-header { text-align: center; background: rgba(0,0,0,0.6); padding: 8px 25px; border-radius: 50px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; width: fit-content; min-width: 180px; }
-        .modal-header h2 { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); margin: 0; letter-spacing: 1px; text-transform: uppercase; }
+        @media (min-width: 768px) { .modal-box { max-width: 90%; min-width: 600px; padding: 30px; } }
+        @media (min-width: 1024px) { .modal-box { max-width: 80%; } }
+
+        .scroll-content { flex-grow: 1; overflow-y: auto; padding-right: 8px; -webkit-overflow-scrolling: touch; }
+        .scroll-content::-webkit-scrollbar { width: 6px; }
+        .scroll-content::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
+        .scroll-content::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        .cet-container { color: var(--text-light); }
+        .cet-heading { 
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.8rem;
+            background: linear-gradient(to right, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 20px; display: inline-block; position: relative; letter-spacing: -0.5px;
+        }
+        .cet-heading::after {
+            content: ''; position: absolute; left: 0; bottom: -8px; height: 4px; width: 50px;
+            background: var(--brand-gradient); border-radius: 4px; box-shadow: 0 0 10px var(--primary-glow);
+        }
         
-        /* --- QUIZ INTERFACE --- */
-        #quiz-interface { flex-grow: 1; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
+        .info-card {
+            background: var(--card-gradient); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px; padding: 25px; margin-bottom: 22px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+        }
+        .info-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: var(--brand-gradient); opacity: 0; transition: 0.4s;
+        }
+        .info-card:hover { transform: translateY(-5px); border-color: rgba(0, 229, 255, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .info-card:hover::before { opacity: 1; }
         
-        .quiz-stats-bar {
+        .info-card-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .info-card-icon {
+            width: 48px; height: 48px; border-radius: 14px; background: rgba(0, 229, 255, 0.1);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            color: var(--primary); margin-right: 15px; border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        .info-card-title { font-family: 'Outfit'; font-size: 1.3rem; font-weight: 800; color: #fff; }
+
+        .cet-btn {
+            background: var(--brand-gradient); color: #fff; padding: 14px 24px; border-radius: 16px;
+            font-weight: 800; font-size: 1rem; cursor: pointer; border: none;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 15px; width: 100%; box-shadow: 0 8px 25px var(--primary-glow);
+            font-family: 'Outfit', sans-serif; letter-spacing: 0.5px; position: relative; overflow: hidden;
+        }
+        .cet-btn::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        .cet-btn:hover::after { left: 100%; }
+        .cet-btn:active { transform: scale(0.96); box-shadow: 0 4px 15px var(--primary-glow); }
+        
+        .flowchart-flex { display: flex; flex-direction: column; align-items: center; gap: 15px; margin: 25px 0; }
+        @media(min-width: 600px) { .flowchart-flex { flex-direction: row; justify-content: center; } }
+        .flowchart-step {
+            width: 130px; height: 130px; border-radius: 50%; 
+            background: linear-gradient(145deg, #151520, #0a0a0f); border: 2px solid var(--primary);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            font-weight: 800; color: #fff; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), inset 0 0 15px rgba(0,0,0,0.8); flex-shrink: 0; font-family: 'Outfit';
+        }
+        .flowchart-step:hover { 
+            border-color: var(--secondary); box-shadow: 0 0 35px var(--secondary-glow); 
+            transform: scale(1.05) translateY(-5px); 
+        }
+        .arrow-down { font-size: 1.8rem; color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        @media(min-width: 600px) { .arrow-down { transform: rotate(-90deg); } }
+
+        .cet-sub-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 2, 5, 0.85); backdrop-filter: blur(15px); z-index: 4000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 15px;
+        }
+        .cet-sub-modal.active { opacity: 1; visibility: visible; }
+        .cet-sub-modal.active .sub-modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        
+        .sub-modal-content {
+            background: linear-gradient(160deg, #12121c 0%, #08080c 100%); 
+            border: 1px solid rgba(0, 229, 255, 0.3); 
+            width: 100%; max-width: 650px; max-height: 88vh; overflow-y: auto; 
+            border-radius: 32px; padding: 35px; position: relative; color: #fff; 
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9), inset 0 2px 10px rgba(255,255,255,0.05);
+            transform: scale(0.95) translateY(20px); opacity: 0; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sub-modal-content::-webkit-scrollbar { width: 8px; }
+        .sub-modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 10px; margin: 10px; }
+        .sub-modal-content::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--secondary)); border-radius: 10px; }
+
+        .close-sub-btn {
+            position: absolute; top: 25px; right: 25px; width: 40px; height: 40px;
+            background: rgba(255,255,255,0.05); border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: #fff; cursor: pointer; z-index: 10; transition: all 0.3s;
+        }
+        .close-sub-btn:hover { background: var(--tertiary); border-color: var(--tertiary); transform: rotate(90deg) scale(1.1); box-shadow: 0 0 15px var(--tertiary); }
+
+        .popup-title { font-family: 'Outfit'; font-size: 1.8rem; font-weight: 900; color: var(--primary); margin-bottom: 20px; line-height: 1.2; text-shadow: 0 0 15px var(--primary-glow); border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 15px;}
+        .popup-subtitle { font-size: 1rem; color: var(--warning); font-weight: 700; margin-top: 20px; margin-bottom: 10px; font-family: 'Outfit';}
+        .popup-text { font-size: 0.95rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 15px; }
+        
+        .modern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; margin-top: 25px; }
+        @media (min-width: 768px) { .modern-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); } }
+
+        .modern-card {
+            background: rgba(20, 20, 30, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 24px;
+            padding: 25px 15px; text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; position: relative; overflow: hidden;
+        }
+        .modern-card:hover {
+            transform: translateY(-8px) scale(1.02); border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(0,229,255,0.2); background: rgba(30, 30, 45, 0.8);
+        }
+        .modern-icon {
+            width: 64px; height: 64px; background: rgba(0,0,0,0.3); border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px; font-size: 2rem; color: var(--primary);
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 0 2px 10px rgba(0,229,255,0.1);
+        }
+        .modern-title { font-family: 'Outfit'; font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .modern-subtitle { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 15px; height: 2.8em; }
+        .modern-meta {
             display: flex; justify-content: space-between; align-items: center;
-            background: #0f0f0f;
-            border-radius: 12px;
-            padding: 10px 15px; margin-bottom: 15px; 
-            border: 1px solid rgba(244, 196, 48, 0.4);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-            flex-shrink: 0;
-        }
-        .stat-item { font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem; color: #ddd; letter-spacing: 1px; }
-        .stat-val { color: var(--primary); font-size: 1.1rem; margin-left: 5px; }
-
-        .passage-box {
-            background: rgba(25, 25, 30, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #4da6ff;
-            font-size: 0.9rem;
-            color: #dcdcdc;
-            line-height: 1.5;
-            display: none;
-            max-height: 28vh;
-            width: 100%;
-            box-sizing: border-box;
-            overflow-y: auto;
-            overflow-x: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            flex-shrink: 0;
-            -webkit-overflow-scrolling: touch;
-        }
-        .passage-box::-webkit-scrollbar { width: 5px; }
-        .passage-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
-        .passage-box::-webkit-scrollbar-thumb { background: #4da6ff; border-radius: 4px; }
-        .passage-title {
-            font-size: 0.8rem;
-            color: #4da6ff;
-            text-transform: uppercase;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .question-box {
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-            border-radius: 16px; padding: 20px; margin-bottom: 15px;
-            border-left: 3px solid var(--primary);
-            flex-shrink: 0;
-        }
-        .q-text { font-size: 1.1rem; line-height: 1.4; font-weight: 600; color: #fff; }
-
-        .options-list { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
-        .option-btn {
-            background: rgba(30, 30, 30, 0.9); border: 1px solid #444;
-            padding: 14px 18px; border-radius: 12px; color: #eee;
-            font-weight: 500; cursor: pointer; transition: 0.2s;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.95rem;
-        }
-        .option-btn:active { transform: scale(0.98); }
-        .option-btn.correct { background: rgba(0, 230, 118, 0.15); border-color: var(--correct); color: var(--correct); }
-        .option-btn.wrong { background: rgba(255, 23, 68, 0.15); border-color: var(--wrong); color: var(--wrong); }
-
-        .overlay-popup {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(5, 5, 5, 0.98); z-index: 50;
-            display: none; 
-            flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 30px; text-align: center;
-            padding: 20px;
-        }
-        .res-emoji { font-size: 4rem; margin-bottom: 15px; }
-        .res-title { font-family: 'Rajdhani'; font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 15px; line-height: 1.1; }
-        .res-btn { padding: 14px 35px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.1rem; border-radius: 50px; border: none; cursor: pointer; background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); margin-top: 10px; transition: 0.3s; width: 100%; max-width: 200px; }
-        .res-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 25px var(--primary); }
-
-        .welcome-text { color: #ccc; margin-bottom: 20px; font-size: 1rem; max-width: 80%; line-height: 1.5; }
-        .user-highlight { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
-
-        #profile-section { 
-            width: 100%; 
-            height: 100%; 
-            display: none; 
-            flex-direction: column; 
-            align-items: center; 
-            overflow-y: auto; 
-            padding: 10px 5px;
-            position: relative;
+            font-size: 0.75rem; color: var(--success); padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);
+            font-weight: 700;
         }
         
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.7); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            border-radius: 24px; 
-            padding: 30px 25px;
-            width: 100%; 
-            max-width: 500px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
+        .earn-badge {
+            background: linear-gradient(90deg, #FF0055, #FF5500); color: #fff;
+            padding: 4px 10px; border-radius: 12px; font-size: 0.65rem; font-weight: 900;
+            position: absolute; top: 12px; right: 12px; box-shadow: 0 4px 10px rgba(255,0,85,0.4);
+            letter-spacing: 0.5px;
         }
+
+        .styled-list { background: rgba(0,0,0,0.2); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .styled-list li { margin-bottom: 15px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; }
+        .styled-list li:last-child { margin-bottom: 0; }
+        .styled-list li span.icon { margin-right: 15px; color: var(--success); font-size: 1.2rem; margin-top: 2px;}
         
-        .gold-input-group { width: 100%; margin-bottom: 20px; text-align: left; }
-        .gold-label { font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-left: 10px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
-        .gold-input {
-            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255, 215, 0, 0.2);
-            padding: 15px; border-radius: 12px; color: #fff; font-size: 1rem; transition: 0.3s; outline: none;
+        .news-card {
+            display: block; text-decoration: none; background: rgba(20,20,30,0.6); 
+            border-left: 5px solid var(--secondary); padding: 22px; margin-bottom: 18px; 
+            border-radius: 0 20px 20px 0; transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .gold-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(244, 196, 48, 0.2); background: rgba(0,0,0,0.6); }
-        
-        .btn-pro {
-            width: 100%; background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
-            color: #000; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            padding: 16px; border-radius: 16px; border: none; cursor: pointer; position: relative; overflow: hidden;
-            box-shadow: 0 5px 20px rgba(244, 196, 48, 0.3); transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-pro:active { transform: scale(0.98); }
-        
-        .single-plan-card {
-            background: rgba(30, 30, 30, 0.6); 
-            border: 2px solid var(--primary);
-            border-radius: 20px; 
-            padding: 25px; 
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: 0.3s; 
-            text-align: center;
-        }
-        .single-plan-card.selected { 
-            background: rgba(244, 196, 48, 0.2); 
-            box-shadow: 0 0 30px rgba(244, 196, 48, 0.3);
-            border: 2px solid var(--primary);
-        }
-        .plan-price { font-size: 2.2rem; color: var(--primary); font-family: 'Rajdhani'; font-weight: 800; margin: 10px 0; }
-        .plan-duration { font-size: 1rem; color: #ddd; font-weight: 600; }
-        .plan-desc { font-size: 0.8rem; color: #aaa; margin-top: 8px; }
+        .news-card:hover { background: rgba(30,30,45,0.8); transform: translateX(10px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(0,229,255,0.15); }
+        .news-title { color: #fff; font-weight: 800; margin-bottom: 10px; font-size: 1.15rem; font-family: 'Outfit'; line-height: 1.3;}
+        .news-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .news-date { color: var(--primary); font-size: 0.8rem; margin-top: 12px; display: inline-block; font-weight: 700; background: rgba(0,229,255,0.1); padding: 4px 10px; border-radius: 8px;}
 
-        .dashboard-container { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 20px; }
-        .membership-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); border: 1px solid #333;
-            border-radius: 24px; padding: 25px; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: space-between;
-            min-height: 200px;
+        /* Language Modal Specific */
+        .lang-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;}
+        .lang-option {
+            background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+            padding: 20px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s;
         }
-        .mc-header { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
-        .mc-chip { width: 45px; height: 30px; background: linear-gradient(45deg, #FFD700, #FDB931); border-radius: 6px; position: relative; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.3); }
-        .mc-plan-badge { background: rgba(244, 196, 48, 0.2); border: 1px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .mc-user { z-index: 2; margin-top: auto; }
-        .mc-name { font-family: 'Rajdhani'; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
-        .mc-email { color: #888; font-size: 0.9rem; margin-top: -2px; }
-        .expiry-text { font-size: 0.7rem; color: #00e676; margin-top: 5px; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .stat-box { background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .sb-icon { font-size: 1.2rem; color: #ccc; margin-bottom: 5px; } 
-        .sb-val { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 800; color: #fff; }
-        .sb-label { font-size: 0.7rem; color: #ddd; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        .pro-progress-header { font-family: 'Rajdhani'; font-size: 1.3rem; color: #fff; font-weight: 800; margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .pp-item { background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(30,30,30,0.9) 100%); border-left: 4px solid var(--primary); border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .pp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .pp-title { font-size: 0.9rem; font-weight: 700; color: #ddd; }
-        .pp-score { background: rgba(244, 196, 48, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani'; }
-        .pp-bar-bg { width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
-        .pp-bar-fill { height: 100%; background: linear-gradient(90deg, #F4C430, #FFD700); border-radius: 10px; box-shadow: 0 0 10px var(--primary); transition: width 1s ease; }
-        .pp-meta { display: flex; justify-content: flex-end; gap: 15px; font-size: 0.75rem; color: #666; margin-top: 8px; }
-
-        #news-section { width: 100%; height: 100%; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
-        .news-container { display: flex; flex-direction: column; gap: 15px; padding: 0 5px; }
-        .news-card { background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.3s; }
-        .news-card:active { transform: scale(0.98); }
-        .news-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #333; }
-        .news-body { padding: 15px; }
-        .news-tag { font-size: 0.7rem; color: #000; background: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: 800; display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani'; }
-        .news-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; font-family: 'Plus Jakarta Sans'; }
-        .news-desc { font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .news-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 8px 15px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; width: 100%; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 5px; transition: 0.3s; }
-
-        #grand-completion-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.95); z-index: 4000; 
-            display: none;
-            justify-content: center; align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(15px);
-            animation: fadeInGrand 1s ease-out;
+        .lang-option:hover, .lang-option.selected {
+            background: rgba(0, 229, 255, 0.1); border-color: var(--primary); box-shadow: 0 10px 25px var(--primary-glow);
         }
-        @keyframes fadeInGrand { from { opacity: 0; } to { opacity: 1; } }
-
-        .grand-box {
-            background: linear-gradient(180deg, rgba(20, 20, 20, 0.98) 0%, rgba(5, 5, 5, 0.98) 100%);
-            border: 2px solid var(--primary);
-            border-radius: 30px;
-            padding: 40px 25px;
-            width: 100%; max-width: 600px;
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            box-shadow: 0 0 60px rgba(244, 196, 48, 0.25), inset 0 0 20px rgba(244, 196, 48, 0.1);
-            position: relative;
-            transform: translateY(0);
-            animation: slideUpGrand 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        @keyframes slideUpGrand { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .grand-icon { font-size: 4rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--primary)); animation: floatIcon 3s ease-in-out infinite; }
-        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        .grand-title { 
-            font-family: 'Cinzel', serif; font-weight: 900; font-size: 2.2rem; 
-            background: linear-gradient(to right, #FFD700, #FDB931, #FFD700); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 5px; letter-spacing: 2px; text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .grand-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; color: #aaa; margin-bottom: 15px; letter-spacing: 1px; text-transform: uppercase; }
-
-        /* DATA SYNC & SCORE DISPLAY */
-        #final-score-display {
-            font-size: 2.5rem; color: #00e676; font-family: 'Rajdhani'; font-weight: 900; 
-            margin-bottom: 5px; text-shadow: 0 0 15px rgba(0,230,118,0.4);
-        }
-        #data-sync-msg {
-            color: #aaa; font-size: 0.95rem; margin-bottom: 20px; font-weight: bold;
-        }
-
-        .grand-scroll-container {
-            width: 100%; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.15); border-radius: 16px;
-            padding: 20px; margin-bottom: 30px;
-            max-height: 250px; overflow-y: auto;
-            text-align: justify;
-            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; color: #ddd; line-height: 1.7;
-        }
-        
-        .grand-scroll-container::-webkit-scrollbar { width: 6px; }
-        .grand-scroll-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 4px; }
-        .grand-scroll-container::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-
-        .grand-btn-group { width: 100%; display: flex; flex-direction: column; gap: 15px; }
-
-        .grand-btn-primary {
-            width: 100%; padding: 16px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            background: var(--primary); color: #000; border: none; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 0 25px rgba(244, 196, 48, 0.4); text-transform: uppercase; letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-        .grand-btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 40px rgba(244, 196, 48, 0.6); }
-
-        .grand-btn-secondary {
-            width: 100%; padding: 16px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 50px; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
-        }
-        .grand-btn-secondary:hover { background: rgba(244, 196, 48, 0.1); transform: scale(1.02); }
-
-        /* FIXED SECTION LOCKED POPUP */
-        #section-locked-popup {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.92); z-index: 3500;
-            display: none; justify-content: center; align-items: center;
-            padding: 20px; backdrop-filter: blur(10px); border-radius: 30px;
-        }
-        .lock-box {
-            background: rgba(25, 25, 25, 0.95); border: 2px solid #ff1744; border-radius: 24px;
-            padding: 30px; width: 100%; max-width: 450px; display: flex; flex-direction: column;
-            align-items: center; text-align: center; box-shadow: 0 0 40px rgba(255, 23, 68, 0.3);
-            animation: shake 0.5s ease-in-out;
-        }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-
-        .trial-badge {
-            background: #ff1744; color: white; font-size: 0.6rem; padding: 2px 6px;
-            border-radius: 4px; margin-left: 5px; font-weight: 800; text-transform: uppercase;
-        }
-        .warning-small {
-            font-size: 0.8rem; color: #ffffff; font-weight: bold; background: rgba(255,0,0,0.2);
-            border-radius: 6px; padding: 8px; margin-top: 10px;
-        }
-
-        #premium-success-popup {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
-        }
-
-        #premium-error-popup {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
-        }
-
+        .lang-option i { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; display: block; }
+        .lang-option span { font-size: 1.2rem; font-weight: 800; font-family: 'Outfit'; color: #fff; }
     </style>
 </head>
 <body>
+    
+    <div id="fixed-media-background"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
 
-    <div id="universe-bg"></div>
-
-    <header class="glass-header golden-border-anim" id="main-header">
-        <img class="header-logo" src="sti.png" alt="Logo" onerror="this.style.display='none'">
-        <div id="app-main-title" class="header-title-text">STISkilli</div>
-        <img class="header-logo" src="ytglogo.png" alt="Logo" onerror="this.style.display='none'">
+    <header class="iphone-header">
+        <div class="header-left"><img src="https://placehold.co/100x100/00E5FF/07070C?text=CET" alt="Logo"></div>
+        <div class="header-center">HSSC CET-D</div>
+        <div class="header-right" onclick="showLangModal()">
+            <div class="lang-btn">
+                <i class="fas fa-language"></i> <span id="current-lang-display">EN</span>
+            </div>
+        </div>
     </header>
 
-    <div class="dock-wrapper" id="dock-wrapper">
-        <nav class="glass-dock golden-border-anim" id="dock-nav-container">
-            <div id="nav-profile" class="dock-item" onclick="openCategory('profile', this)"><i class="fas fa-user-circle"></i></div>
-            <div id="nav-ancient" class="dock-item" onclick="openCategory('ancient', this)"><i class="fas fa-landmark section-icon"></i></div>
-            <div id="nav-medieval" class="dock-item" onclick="openCategory('medieval', this)"><i class="fas fa-monument section-icon"></i></div>
-            <div id="nav-modern" class="dock-item" onclick="openCategory('modern', this)"><i class="fas fa-flag section-icon"></i></div>
-            <div id="nav-world" class="dock-item" onclick="openCategory('world', this)"><i class="fas fa-globe section-icon"></i></div>
-            <div id="nav-art" class="dock-item" onclick="openCategory('art', this)"><i class="fas fa-palette section-icon"></i></div>
+    <div class="iphone-dock-wrapper">
+        <nav class="iphone-dock">
+            <div class="nav-item active" id="nav-tests" onclick="activateTab(this, 'tests')">
+                <div class="icon-box"><i class="fas fa-file-signature"></i></div><span data-i18n="nav_tests">PYQ Tests</span>
+            </div>
+            <div class="nav-item locked" id="nav-syllabus" onclick="activateTab(this, 'syllabus')">
+                <div class="icon-box"><i class="fas fa-book-open"></i></div><span data-i18n="nav_syllabus">Syllabus</span>
+            </div>
+            <div class="nav-item locked" id="nav-info" onclick="activateTab(this, 'info')">
+                <div class="icon-box"><i class="fas fa-info-circle"></i></div><span data-i18n="nav_info">Get Info</span>
+            </div>
+            <div class="nav-item locked" id="nav-earn" onclick="activateTab(this, 'earn')">
+                <div class="icon-box"><i class="fas fa-coins"></i></div><span data-i18n="nav_earn">Earn</span>
+            </div>
+            <div class="nav-item locked" id="nav-news" onclick="activateTab(this, 'news')">
+                <div class="icon-box"><i class="fas fa-bell"></i></div><span data-i18n="nav_updates">Updates</span>
+            </div>
         </nav>
     </div>
 
-    <div id="main-modal" class="modal-overlay flex-modal">
-        <div class="modal-box golden-border-anim" id="dynamic-modal-box">
-            
-            <div class="modal-header-container" id="common-header">
-                <div class="modal-header">
-                    <h2 id="cat-title">Profile</h2>
-                </div>
-            </div>
+    <div id="modal-tests" class="modal-overlay">
+        <div class="modal-box">
+            <div class="scroll-content cet-container">
+                <h2 class="cet-heading" data-i18n="test_heading">Mock Tests & PYQs 🎯</h2>
+                <p class="text-[var(--text-muted)] text-[0.95rem] mb-6" data-i18n="test_desc">Master the HSSC pattern with actual previous year questions and full-length NTA pattern mock tests.</p>
 
-            <div id="news-section">
-                <div class="news-container" id="news-feed"></div>
-            </div>
-
-            <div id="quiz-interface" style="display: none;">
-                <div class="quiz-stats-bar">
-                    <div class="stat-item"><span id="unit-name-display" style="color:#fff; font-weight:800; font-family:'Rajdhani';">PYQ</span></div>
-                    <div class="stat-item" style="color:#ff1744; font-weight:800;"><i class="fas fa-clock"></i> <span id="q-timer">25</span> sec</div>
-                    <div class="stat-item">Question: <span id="q-num-display" style="color:#fff;">1/10</span></div>
-                </div>
-                
-                <div id="passage-box" class="passage-box">
-                    <div class="passage-title"><i class="fas fa-book-open"></i> Passage</div>
-                    <div id="passage-text"></div>
-                </div>
-
-                <div class="question-box">
-                    <div id="q-text" class="q-text">Loading...</div>
-                </div>
-                <div id="options-list" class="options-list"></div>
-            </div>
-
-            <div id="welcome-popup" class="overlay-popup">
-                <div class="res-emoji">👑</div>
-                <div class="res-title" style="color:var(--primary);">Welcome!</div>
-                <div class="welcome-text">
-                    Hello <span id="wel-user" class="user-highlight">User</span>, <br>
-                    You are now a <span id="plan-name-display">Premium</span> member of <span style="color:var(--primary)">STISkilli</span>. <br>
-                    <span id="validity-message"></span>
-                </div>
-                <div class="warning-small" id="uninstall-warning">
-                    ⚠️ If you uninstall the app, your membership will expire immediately and you will have to purchase it again.
-                </div>
-                <button class="res-btn" onclick="closeWelcome()">Get Started</button>
-            </div>
-
-            <div id="locked-popup" class="overlay-popup">
-                <div class="res-emoji">🔒</div>
-                <div class="res-title" style="color:#ff1744;">Content Locked</div>
-                <div class="welcome-text">
-                    This content is for Premium members only.<br>
-                    Please upgrade your plan to access all units and quizzes.
-                </div>
-                <button class="res-btn" onclick="goToProfileFromLock()">Go to Profile</button>
-            </div>
-
-            <div id="section-locked-popup">
-                <div class="lock-box">
-                    <i class="fas fa-lock" style="font-size:3rem; color:#ff1744; margin-bottom:15px;"></i>
-                    <h2 style="font-family:'Rajdhani'; font-size:2rem; font-weight:900; color:#fff; margin-bottom:10px;">Section Locked</h2>
-                    <p style="color:#ccc; margin-bottom:20px; font-size:1rem; line-height:1.5;">
-                        To unlock this level, you must complete the <br>
-                        <span id="prev-section-name" style="color:var(--primary); font-weight:800; text-transform:uppercase;">previous section</span>.
-                    </p>
-                    <button class="res-btn" onclick="closeSectionLock()">OK</button>
-                </div>
-            </div>
-
-            <div id="grand-completion-overlay">
-                <div class="grand-box">
-                    
-                    <div class="grand-subtitle">WellDone</div>
-                    <div id="final-score-display">Total Points: 0</div>
-                    <div id="data-sync-msg"><i class="fas fa-spinner fa-spin"></i> Saving your progress to server...</div>
-                    <div class="grand-scroll-container">
-                        <p><strong>Congratulations!For Attempt This Quiz</strong>Result Will Be Live 15-June-2026,Our Team Will Contact You On Whatsapp </p>
-                    </div>
-
-                    <div class="grand-btn-group">
-                        
-                        <button class="grand-btn-secondary" onclick="window.location.href='main.html'">Home</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="profile-section" style="display: none;">
-                <div id="step-1" class="glass-panel">
-                    <div style="width:70px; height:70px; background:rgba(0,0,0,0.5); border-radius:50%; border:2px solid var(--primary); display:flex; align-items:center; justify-content:center; margin-bottom:20px; box-shadow:0 0 20px var(--primary-glow);">
-                        <i class="fas fa-crown" style="color:var(--primary); font-size:2rem;"></i>
-                    </div>
-                    <h2 style="font-family:'Rajdhani'; font-size:2rem; margin-bottom:5px; color:#fff; font-weight:800;">Get-Scholership</h2>
-                    <p style="color:#888; margin-bottom:25px; font-size:0.9rem;">Answer 50 Questions Non-Stop</p>
-                    
-                    <form id="details-form" style="width:100%;">
-                        <div class="gold-input-group">
-                            <label class="gold-label">Full Name</label>
-                            <input type="text" id="user-name" class="gold-input" placeholder="e.g., Rahul Kumar" required>
-                        </div>
-                        <div class="gold-input-group">
-                            <label class="gold-label">Mobile Number</label>
-                            <input type="tel" id="user-number" class="gold-input" placeholder="+91 XXXXX XXXXX" required>
-                        </div>
-                        <div class="gold-input-group">
-                            <label class="gold-label">Email Address</label>
-                            <input type="email" id="user-email" class="gold-input" placeholder="name@example.com" required>
-                        </div>
-                        <button type="submit" class="btn-pro">Start<i class="fas fa-arrow-right" style="margin-left:10px;"></i></button>
-                    </form>
-                </div>
-
-                <div id="step-2" class="glass-panel" style="display:none; max-width:600px;"> 
-                    <div class="single-plan-card selected" onclick="selectPlan(51, 'Lifetime Access (₹51)')" id="single-plan-card"> 
-                       <div class="plan-desc">---: Conditions :---</div>
-                       <div class="plan-desc">1-✓-Answer-Gives-2-Point</div>
-                       <div class="plan-desc">1.75-Negative-Marking-On</div>
-                       <div class="plan-desc">✓ Test-Total-Marks-is-100</div>
-                       <div class="plan-desc">✓ Top-Rank-Will-Be-Winner</div>
-                       <div class="plan-desc">✓ Refund-With-70%-Marks</div>
-                       <div class="plan-desc">✓ This-Test-Has-5-Section</div>          
-                       <div class="plan-desc">✓ Has-10-Questions-Each</div>
-                       <div class="plan-desc">✓ See-Progress-In-Profile</div>
-                       <div class="plan-desc">✓ Double-Tap-On-Screen</div>
-                       <div class="plan-desc">✓ Result-Day-27-May-2026</div>
-                       <div class="plan-desc">✓ Result-YouTube-Channel</div>
-                    </div>
-                    
-                    <div id="secret-code-section" style="display:none; width:100%; margin-bottom:15px;">
-                        <input type="text" id="secret-code" class="gold-input" style="text-align:center; margin-bottom:10px;" placeholder="Enter secret code">
-                        <button id="secret-ok-btn" class="btn-pro" style="display:none;">Verify Code</button>
-                    </div>
-                    
-                    <button id="go-to-pay-btn" class="btn-pro">Start Quiz Now</button>
-                </div>
-
-                <div id="step-3" class="glass-panel" style="display:none;">
-                    <div style="width:60px; height:60px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
-                        <i class="fas fa-lock" style="font-size:1.5rem; color:#aaa;"></i>
-                    </div>
-                    <h2 style="font-family:'Rajdhani'; font-size:1.8rem; margin-bottom:5px; color:#fff;">Secure Payment</h2>
-                    <div style="font-size:0.9rem; color:#888; margin-bottom:20px;">Complete your transaction within this timeframe</div>
-                    
-                    <div id="final-price-display" style="font-size:2.5rem; color:var(--primary); font-family:'Rajdhani'; font-weight:800; margin-bottom:10px; text-shadow:0 0 20px rgba(244,196,48,0.3);">₹51.00</div>
-                    <div id="timer" style="color:#fff; font-weight:bold; font-size:1.2rem; margin-bottom:30px; background:rgba(30,30,30,0.9); padding:8px 20px; border-radius:50px; border:1px solid #444;">05:00</div>
-                    
-                    <button id="cf-button" class="btn-pro">Pay with Cashfree</button>
-                </div>
-
-                <div id="step-4" style="display:none; width:100%; justify-content:center;">
-                    <div class="dashboard-container">
-                        
-                        <div style="color: #ffffff; font-weight: bold; font-size: 0.85rem; text-align: center; background: rgba(255, 23, 68, 0.2); padding: 12px; border-radius: 12px; border: 1px solid #ff1744; margin-bottom: 5px;">
-                            ⚠️ If you uninstall the app, your membership will expire immediately and you will have to purchase it again.
-                        </div>
-
-                        <div class="membership-card">
-                            <div class="mc-header">
-                                <div class="mc-chip"></div>
-                                <div class="mc-plan-badge" id="disp-plan">Plan</div>
-                            </div>
-                            <div class="mc-user">
-                                <div class="mc-name" id="disp-name">Username</div>
-                                <div class="mc-email" id="disp-email">email@example.com</div>
-                                <div id="expiry-display" class="expiry-text" style="color:#00e676;">Lifetime Access (Never expires)</div>
-                            </div>
-                        </div>
-
-                        <div class="stats-grid">
-                            <div class="stat-box">
-                                <i class="fas fa-trophy sb-icon"></i>
-                                <div class="sb-val" id="total-score-display">0</div>
-                                <div class="sb-label">Total Points</div>
-                            </div>
-                            <div class="stat-box">
-                                <i class="fas fa-chart-line sb-icon"></i>
-                                <div class="sb-val" id="units-played-display">0</div>
-                                <div class="sb-label">Sections Cleared</div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="pro-progress-header"><span>Performance Log</span></div>
-                            <div id="progress-container" style="padding-bottom:50px;"></div>
+                <h3 class="text-xl font-black text-white mt-4 mb-3 font-['Outfit']"><i class="fas fa-fire text-[var(--tertiary)] mr-2"></i><span data-i18n="test_sec1">Full Length Mocks</span></h3>
+                <div class="modern-grid mb-8">
+                    <div class="modern-card">
+                        <div class="modern-icon"><i class="fas fa-stopwatch"></i></div>
+                        <div class="modern-title" data-i18n="test_c1_t">NTA Pattern Mock 1</div>
+                        <div class="modern-subtitle" data-i18n="test_c1_s">100 Qs • 90 Mins • Strict NTA Pattern</div>
+                        <div class="modern-meta">
+                            <span><i class="fas fa-users"></i> <span data-i18n="test_att1">15k+ Attempted</span></span>
+                            <span class="bg-[var(--success)] text-black px-2 py-1 rounded font-bold" data-i18n="test_free">FREE</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="premium-success-popup">
-                <div style="background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%); border: 2px solid #F4C430; border-radius: 40px; padding: 25px; width: 90%; max-width: 400px; box-shadow: 0 30px 60px rgba(244,196,48,0.3), 0 0 0 2px rgba(244,196,48,0.1) inset; transform: perspective(1000px) rotateX(2deg) translateY(0); animation: premiumPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 30%, rgba(244,196,48,0.1) 0%, transparent 30%), radial-gradient(circle at 70% 70%, rgba(244,196,48,0.1) 0%, transparent 30%); animation: rotateBg 20s linear infinite; pointer-events: none;"></div>
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 10;">
-                        <div style="width: 100px; height: 100px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 3px solid #F4C430; box-shadow: 0 10px 30px rgba(244,196,48,0.3), 0 0 50px rgba(244,196,48,0.2) inset; animation: pulseGlow 2s infinite alternate;">
-                            <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-check-circle" style="font-size: 60px; color: #F4C430; filter: drop-shadow(0 0 20px #F4C430); animation: checkBounce 0.5s ease-out;"></i>
-                            </div>
-                        </div>
-                        <div style="font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 2.2rem; background: linear-gradient(135deg, #FFD700, #F4C430, #B8860B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; letter-spacing: 2px; text-shadow: 0 0 30px rgba(244,196,48,0.5);">
-                            Payment Successful!
-                        </div>
-                        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(244,196,48,0.2); border-radius: 50px; padding: 10px 20px; margin-bottom: 15px; width: 100%;">
-                            <span style="font-family: 'Plus Jakarta Sans', monospace; color: #aaa; font-size: 0.8rem;">Transaction ID</span>
-                            <div style="font-family: 'Rajdhani', monospace; color: #F4C430; font-size: 1.1rem; font-weight: 700; word-break: break-all;" id="success-payment-id">pay_123456</div>
-                        </div>
-                        <button onclick="closePremiumPopup()" style="width: 100%; padding: 14px; background: linear-gradient(145deg, #F4C430, #B8860B); border: none; border-radius: 50px; font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 1.2rem; color: #000; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 15px 30px rgba(244,196,48,0.3), 0 5px 0 #8B691B;">
-                            OK
-                        </button>
+                <h3 class="text-xl font-black text-white mt-4 mb-3 font-['Outfit']"><i class="fas fa-history text-[var(--warning)] mr-2"></i><span data-i18n="test_sec2">Subject-wise PYQs</span></h3>
+                <div class="modern-grid">
+                    <div class="modern-card">
+                        <div class="modern-icon" style="color: #00E5FF; background: rgba(0, 229, 255, 0.1);"><i class="fas fa-map-marked-alt"></i></div>
+                        <div class="modern-title" data-i18n="test_c2_t">Haryana GK PYQs</div>
+                        <div class="modern-subtitle" data-i18n="test_c2_s">Last 10 Years HSSC Papers</div>
+                        <div class="modern-meta"><span data-i18n="test_avail1">50+ Sets Available</span></div>
+                    </div>
+                    <div class="modern-card">
+                        <div class="modern-icon" style="color: #B400FF; background: rgba(180, 0, 255, 0.1);"><i class="fas fa-calculator"></i></div>
+                        <div class="modern-title" data-i18n="test_c3_t">Maths & Reasoning</div>
+                        <div class="modern-subtitle" data-i18n="test_c3_s">With short trick solutions</div>
+                        <div class="modern-meta"><span data-i18n="test_avail2">30+ Sets Available</span></div>
                     </div>
                 </div>
             </div>
-
-            <div id="premium-error-popup"></div>
-
         </div>
     </div>
 
-    <script src="quiz-india-for-scholership-one-first-file.js"></script>
-    <script src="quiz-india-for-scholership-two-second-file.js"></script>
-    <script src="quiz-india-for-scholership-three-third-file.js"></script>
-    <script src="quiz-india-for-scholership-four-fourth-file.js"></script>
-    <script src="quiz-india-for-scholership-five-fifth-file.js"></script>
-    
+    <div id="modal-syllabus" class="modal-overlay">
+        <div class="modal-box">
+            <div class="scroll-content cet-container">
+                <h2 class="cet-heading" data-i18n="syl_heading">Syllabus Breakdown 📚</h2>
+                <p class="text-[var(--text-muted)] text-[0.95rem] mb-6" data-i18n="syl_desc">Click on any subject card to view the extremely detailed NTA syllabus topics specifically curated for HSSC CET Group D.</p>
+
+                <div class="modern-grid pb-8">
+                    <div class="modern-card" onclick="openDynamicModal('syl-haryana')">
+                        <div class="modern-icon" style="color: #00E5FF; border-color: #00E5FF;"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="modern-title" data-i18n="syl_c1_t">Haryana GK</div>
+                        <div class="modern-subtitle" data-i18n="syl_c1_s">History, Geo, Culture, Current Affairs.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem]">25%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-awareness')">
+                        <div class="modern-icon" style="color: #FF9800; border-color: #FF9800;"><i class="fas fa-globe"></i></div>
+                        <div class="modern-title" data-i18n="syl_c2_t">General Awareness</div>
+                        <div class="modern-subtitle" data-i18n="syl_c2_s">India GK, Polity, History, Art.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#FF9800]">15%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-science')">
+                        <div class="modern-icon" style="color: #4CAF50; border-color: #4CAF50;"><i class="fas fa-flask"></i></div>
+                        <div class="modern-title" data-i18n="syl_c3_t">General Science</div>
+                        <div class="modern-subtitle" data-i18n="syl_c3_s">Physics, Chem, Bio (10th Std).</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#4CAF50]">15%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-maths')">
+                        <div class="modern-icon" style="color: #F44336; border-color: #F44336;"><i class="fas fa-square-root-alt"></i></div>
+                        <div class="modern-title" data-i18n="syl_c4_t">Maths (Quant)</div>
+                        <div class="modern-subtitle" data-i18n="syl_c4_s">Arithmetic, Number System, Mensuration.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#F44336]">15%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-reasoning')">
+                        <div class="modern-icon" style="color: #9C27B0; border-color: #9C27B0;"><i class="fas fa-brain"></i></div>
+                        <div class="modern-title" data-i18n="syl_c5_t">Reasoning</div>
+                        <div class="modern-subtitle" data-i18n="syl_c5_s">Logic, Series, Blood Relations.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#9C27B0]">10%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-english')">
+                        <div class="modern-icon" style="color: #2196F3; border-color: #2196F3;"><i class="fas fa-font"></i></div>
+                        <div class="modern-title" data-i18n="syl_c6_t">English Language</div>
+                        <div class="modern-subtitle" data-i18n="syl_c6_s">Grammar, Vocab, Error Spotting.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#2196F3]">10%</span></div>
+                    </div>
+                    <div class="modern-card" onclick="openDynamicModal('syl-hindi')">
+                        <div class="modern-icon" style="color: #E91E63; border-color: #E91E63;"><i class="fas fa-om"></i></div>
+                        <div class="modern-title" data-i18n="syl_c7_t">Hindi Language</div>
+                        <div class="modern-subtitle" data-i18n="syl_c7_s">Vyakaran, Sandhi, Paryayvachi.</div>
+                        <div class="modern-meta"><span class="text-white font-normal" data-i18n="syl_weight">Weightage:</span> <span class="text-[1.1rem] text-[#E91E63]">10%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-info" class="modal-overlay">
+        <div class="modal-box">
+            <div class="scroll-content cet-container">
+                <h2 class="cet-heading" data-i18n="info_heading">Complete HSSC Info 🧠</h2>
+                <p class="text-[var(--text-muted)] text-[0.95rem] mb-6" data-i18n="info_desc">Everything you need to know about the HSSC CET Group D recruitment process, from notification to joining.</p>
+
+                <!-- Step 1 -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon"><i class="fas fa-question-circle"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_1_t">1. What is CET Group D?</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_1_d">Common Eligibility Test (CET) for Group D is a single-window exam for recruitment to massive posts like Peon, Beldar, Animal Attendant, etc. across Haryana Government Departments.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-1')"><span data-i18n="info_1_btn">View Job Profiles & Salary</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--secondary); border-color: var(--secondary);"><i class="fas fa-sitemap"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_2_t">2. Selection Process</h2>
+                    </div>
+                    <div class="flowchart-flex mb-4">
+                        <div class="flowchart-step">
+                            <i class="fas fa-edit mb-2 text-2xl text-[var(--primary)]"></i>
+                            <div><span data-i18n="info_2_f1">Written Exam</span><br><span class="text-white text-sm" data-i18n="info_2_f1m">95 Marks</span></div>
+                        </div>
+                        <div class="arrow-down"><i class="fas fa-plus"></i></div>
+                        <div class="flowchart-step">
+                            <i class="fas fa-home mb-2 text-2xl text-[var(--secondary)]"></i>
+                            <div><span data-i18n="info_2_f2">Socio-Econ</span><br><span class="text-white text-sm" data-i18n="info_2_f2m">5 Marks</span></div>
+                        </div>
+                        <div class="arrow-down"><i class="fas fa-equals"></i></div>
+                        <div class="flowchart-step" style="border-color: var(--success); box-shadow: 0 0 30px rgba(0,255,136,0.2);">
+                            <i class="fas fa-trophy mb-2 text-2xl text-[var(--success)]"></i>
+                            <div><span data-i18n="info_2_f3">Final Merit</span><br><span class="text-[var(--success)] text-sm" data-i18n="info_2_f3m">100 Marks</span></div>
+                        </div>
+                    </div>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-2')"><span data-i18n="info_2_btn">Detailed Selection Rules</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--success); border-color: var(--success);"><i class="fas fa-check-double"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_3_t">3. Eligibility Criteria</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_3_d">Minimum 10th pass is required. Age limit is 18-42 years. Knowledge of Hindi/Sanskrit up to Matric is mandatory.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-3')"><span data-i18n="info_3_btn">Check Age Relaxations</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--warning); border-color: var(--warning);"><i class="fas fa-chart-pie"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_4_t">4. Exact Exam Pattern</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_4_d">100 Questions, 95 Marks total (0.95 marks per question). Duration is 1 hour 45 minutes.</p>
+                    <div class="h-56 w-full mb-4 bg-[rgba(0,0,0,0.3)] rounded-xl p-2 border border-[rgba(255,255,255,0.05)]">
+                        <canvas id="marksChart"></canvas>
+                    </div>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-4')"><span data-i18n="info_4_btn">Negative Marking Rules</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: #FF0055; border-color: #FF0055;"><i class="fas fa-users-cog"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_5_t">5. Socio-Economic 5 Marks</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_5_d">The most crucial deciding factor in HSSC. 5 extra marks are awarded based on family income, govt job status, etc.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-5')"><span data-i18n="info_5_btn">Complete Rules</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 6 (Previously 8) -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--success); border-color: var(--success);"><i class="fas fa-list-ol"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_6_t">6. Post Preferences Portal</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_6_d">After the exam, HSSC opens a portal to fill your preferred job roles. Choosing wrongly can land you a tough field job.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-6')"><span data-i18n="info_6_btn">Best Posts Guide</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 7 (Previously 9) -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--warning); border-color: var(--warning);"><i class="fas fa-file-signature"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_7_t">7. Document Verification (DV)</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_7_d">Many candidates are rejected at the final stage due to wrong Parivar Pehchan Patra (PPP) data or missing certificates.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-7')"><span data-i18n="info_7_btn">List of Required Docs</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <!-- Step 8 (Previously 10) -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon" style="color: var(--primary); border-color: var(--primary);"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="info-card-title" data-i18n="info_8_t">8. Career Growth & Promos</h2>
+                    </div>
+                    <p class="text-sm text-gray-300 mb-4 leading-relaxed" data-i18n="info_8_d">A Group D job is not the end. Understand how you can get promoted to Group C (Clerk) via departmental exams.</p>
+                    <button class="cet-btn" onclick="openDynamicModal('info-step-8')"><span data-i18n="info_8_btn">Promotion Hierarchy</span> <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-earn" class="modal-overlay">
+        <div class="modal-box">
+            <div class="scroll-content cet-container">
+                <h2 class="cet-heading" data-i18n="earn_heading">Earn Rewards 💰</h2>
+                <p class="text-[var(--text-muted)] text-[0.95rem] mb-6" data-i18n="earn_desc">Complete tasks, invite friends, and unlock premium Mock Tests and PDFs for free by earning StiCoins.</p>
+                
+                <div class="modern-grid">
+                    <div class="modern-card" onclick="openExternal('refer-and-earn')">
+                        <span class="earn-badge">HOT</span>
+                        <div class="modern-icon" style="color: #FFD700; background: rgba(255, 215, 0, 0.1); border-color: #FFD700;"><i class="fas fa-user-plus"></i></div>
+                        <div class="modern-title" data-i18n="earn_c1_t">Refer & Earn</div>
+                        <div class="modern-subtitle" data-i18n="earn_c1_s">Invite friends to install and get coins per referral.</div>
+                        <div class="modern-meta"><span><i class="fas fa-coins text-yellow-400"></i> +500 Coins</span></div>
+                    </div>
+                    
+                    <div class="modern-card" onclick="openExternal('daily-spin-wheel')">
+                        <div class="modern-icon" style="color: #E91E63; background: rgba(233, 30, 99, 0.1); border-color: #E91E63;"><i class="fas fa-dharmachakra"></i></div>
+                        <div class="modern-title" data-i18n="earn_c2_t">Daily Spin</div>
+                        <div class="modern-subtitle" data-i18n="earn_c2_s">Spin the wheel every 24 hours to win free test passes.</div>
+                        <div class="modern-meta"><span class="text-pink-400"><i class="fas fa-gift"></i> <span data-i18n="earn_free">Free Entry</span></span></div>
+                    </div>
+
+                    <div class="modern-card" onclick="openExternal('watch-video-ads')">
+                        <div class="modern-icon" style="color: #4CAF50; background: rgba(76, 175, 80, 0.1); border-color: #4CAF50;"><i class="fas fa-play-circle"></i></div>
+                        <div class="modern-title" data-i18n="earn_c3_t">Watch & Learn</div>
+                        <div class="modern-subtitle" data-i18n="earn_c3_s">Watch quick educational ads to earn coins instantly.</div>
+                        <div class="modern-meta"><span><i class="fas fa-coins text-yellow-400"></i> +50 / video</span></div>
+                    </div>
+
+                    <div class="modern-card" onclick="openExternal('take-surveys')">
+                        <div class="modern-icon" style="color: #2196F3; background: rgba(33, 150, 243, 0.1); border-color: #2196F3;"><i class="fas fa-poll-h"></i></div>
+                        <div class="modern-title" data-i18n="earn_c4_t">Quick Surveys</div>
+                        <div class="modern-subtitle" data-i18n="earn_c4_s">Answer 3-minute surveys regarding exam prep.</div>
+                        <div class="modern-meta"><span><i class="fas fa-coins text-yellow-400"></i> +200 Coins</span></div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-6 rounded-3xl bg-gradient-to-br from-[#12121c] to-[#08080c] border border-[rgba(255,215,0,0.3)] text-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--warning)] opacity-10 rounded-full filter blur-2xl"></div>
+                    <h3 class="text-white font-black text-xl mb-2 font-['Outfit']" data-i18n="earn_wallet">Your Wallet Balance</h3>
+                    <div class="text-5xl font-black text-yellow-400 font-['Outfit'] mb-4 tracking-tight text-shadow-md"><i class="fas fa-coins mr-3 text-3xl"></i>0</div>
+                    <button class="cet-btn !w-auto !px-10 !py-3 !text-lg" style="background: linear-gradient(135deg, #FFD700, #FF8C00); color: #000; box-shadow: 0 10px 20px rgba(255, 140, 0, 0.3);" onclick="openExternal('redeem-store')" data-i18n="earn_redeem">Redeem Store</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-news" class="modal-overlay">
+        <div class="modal-box">
+            <div class="scroll-content cet-container">
+                <h2 class="cet-heading" data-i18n="news_heading">Latest HSSC Updates 📰</h2>
+                
+                <a href="#" class="news-card">
+                    <div class="news-title" data-i18n="news_1_t">Supreme Court Ruling: 5 Marks Socio-Economic Criteria Quashed</div>
+                    <div class="news-desc" data-i18n="news_1_d">In a massive update, the Supreme Court has upheld the Punjab & Haryana High Court decision to scrap the 5 socio-economic marks policy in Haryana CET. The new merit list for Group D will now be formed entirely out of the 95 marks written exam.</div>
+                    <span class="news-date" data-i18n="news_1_dt">Latest Ruling • HSSC Official / Court</span>
+                </a>
+
+                <a href="#" class="news-card" style="border-left-color: var(--primary);">
+                    <div class="news-title" data-i18n="news_2_t">New HSSC Calendar Expected Soon</div>
+                    <div class="news-desc" data-i18n="news_2_d">Following the state elections, the Haryana Government has directed HSSC to expedite the recruitment process for 50,000 vacant posts, out of which roughly 15,000 will be Group D posts. A fresh CET notification is highly anticipated.</div>
+                    <span class="news-date" data-i18n="news_2_dt">Recruitment Process • Haryana Govt</span>
+                </a>
+                
+                <a href="#" class="news-card" style="border-left-color: var(--success);">
+                    <div class="news-title" data-i18n="news_3_t">NTA Normalization Formula Confirmation</div>
+                    <div class="news-desc" data-i18n="news_3_d">NTA will continue using the equi-percentile normalization method if the exam is conducted in multiple shifts. Focus on minimizing negative (blank 5th bubble) marks to maintain a good raw score.</div>
+                    <span class="news-date" data-i18n="news_3_dt">Exam Pattern • NTA Notice</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="dynamic-detail-modal" class="cet-sub-modal">
+        <div class="sub-modal-content">
+            <button class="close-sub-btn" onclick="closeDynamicModal()"><i class="fas fa-times"></i></button>
+            <h3 id="modal-dynamic-title" class="popup-title"></h3>
+            <div id="modal-dynamic-content" class="mt-4">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Selection Modal -->
+    <div id="lang-modal" class="cet-sub-modal">
+        <div class="sub-modal-content !max-w-[400px]">
+            <button class="close-sub-btn" onclick="closeLangModal()"><i class="fas fa-times"></i></button>
+            <h3 class="popup-title !text-center !border-none !mb-0">Select Language <br><span class="text-[1.2rem] text-white">भाषा चुनें</span></h3>
+            
+            <div class="lang-options-grid">
+                <div class="lang-option" id="lang-en" onclick="setLanguage('en')">
+                    <i class="fas fa-font"></i>
+                    <span>English</span>
+                </div>
+                <div class="lang-option" id="lang-hi" onclick="setLanguage('hi')">
+                    <i class="fas fa-om"></i>
+                    <span>हिन्दी</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ======================================================
-        // UNIQUE PRODUCT ID - EDITABLE
-        // ======================================================
-        const PRODUCT_ID = "GS+CSAT-LAST-35-YEARS-PYQ-ENGLISH";
-        
-        const HAS_PAID_KEY = 'hasPaid_' + PRODUCT_ID;
-        const EXPIRY_KEY = 'subscriptionExpiry_' + PRODUCT_ID;
-        const PLAN_NAME_KEY = 'userPlanName_' + PRODUCT_ID;
-        const PLAN_AMOUNT_KEY = 'userPlanAmount_' + PRODUCT_ID;
-        const PURCHASE_TIME_KEY = 'purchaseTime_' + PRODUCT_ID;
-        const TXN_KEY = 'userTxn_' + PRODUCT_ID;
-        
-        // NEW STATE TRACKING (Section based, 1 attempt, auto-flow)
-        const SECTION_STATE_KEY = 'sectionStates_' + PRODUCT_ID;
+        let currentLang = 'en';
 
-        // COMBINED QUIZ DATABASE
-        const quizDatabase = {
-            ancient: window.ancientQuizData || [],
-            medieval: window.medievalQuizData || [],
-            modern: window.modernQuizData || [],
-            world: window.worldQuizData || [],
-            art: window.artQuizData || []
-        };
-        
-        // --- 1. CONFIGURATION ---
-        const APP_NAME = "STISkilli"; 
-        const APP_PACKAGE_NAME = "STISkilli-English";
+        // MASSIVE BILINGUAL DATA OBJECT
+        const appData = {
+            // --- SYLLABUS DATA ---
+            'syl-haryana': {
+                title_en: 'Haryana GK (25% Weightage)',
+                title_hi: 'हरियाणा सामान्य ज्ञान (25% वेटेज)',
+                content_en: `
+                    <div class="popup-subtitle"><i class="fas fa-bullseye text-[var(--primary)] mr-2"></i> The Deciding Factor</div>
+                    <p class="popup-text">With 25 questions dedicated solely to Haryana, this section guarantees selection. NTA asks deeply factual questions here.</p>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>History:</strong> Battles of Panipat, Revolt of 1857 in Haryana, Prajamandal Movement, formation of Haryana (1 Nov 1966).</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Geography:</strong> Rivers (Ghaggar, Yamuna), Canals (WJC), Soils, National Parks, Wildlife Sanctuaries.</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Economy:</strong> Major crops, industrial hubs (Gurugram, Faridabad, Panipat), SEZs.</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Culture:</strong> Folk dances (Saang, Khoria), local festivals (Teej), traditional attire, ornaments.</li>
+                    </ul>`,
+                content_hi: `
+                    <div class="popup-subtitle"><i class="fas fa-bullseye text-[var(--primary)] mr-2"></i> निर्णायक विषय</div>
+                    <p class="popup-text">केवल हरियाणा को समर्पित 25 प्रश्नों के साथ, यह अनुभाग चयन की गारंटी देता है। NTA यहाँ गहरे तथ्यात्मक प्रश्न पूछता है।</p>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>इतिहास:</strong> पानीपत का युद्ध, हरियाणा में 1857 का विद्रोह, प्रजामंडल आंदोलन, हरियाणा का गठन।</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>भूगोल:</strong> नदियाँ (घग्गर, यमुना), नहरें, मिट्टी, राष्ट्रीय उद्यान, वन्यजीव अभयारण्य।</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>अर्थव्यवस्था:</strong> प्रमुख फसलें, औद्योगिक केंद्र (गुरुग्राम, फरीदाबाद, पानीपत), SEZ।</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>संस्कृति:</strong> लोक नृत्य (सांग, खोरिया), स्थानीय त्योहार (तीज), पारंपरिक पोशाक, आभूषण।</li>
+                    </ul>`
+            },
+            'syl-awareness': {
+                title_en: 'General Awareness (15% Weightage)',
+                title_hi: 'सामान्य जागरूकता (15% वेटेज)',
+                content_en: `
+                    <p class="popup-text">A vast section, but NTA focuses mainly on Static GK and recent National current affairs.</p>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Current Affairs:</strong> National events (Last 6 months), Appointments, Awards.</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>History:</strong> Indian National Movement, Buddhism, Jainism, Delhi Sultanate.</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Polity:</strong> Fundamental Rights, Parliament, President, Important Articles.</li>
+                    </ul>`,
+                content_hi: `
+                    <p class="popup-text">एक विशाल खंड, लेकिन NTA मुख्य रूप से स्टेटिक GK और हाल के राष्ट्रीय करंट अफेयर्स पर केंद्रित है।</p>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>करेंट अफेयर्स:</strong> राष्ट्रीय घटनाक्रम (पिछले 6 महीने), नियुक्तियां, पुरस्कार।</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>इतिहास:</strong> भारतीय राष्ट्रीय आंदोलन, बौद्ध धर्म, जैन धर्म, दिल्ली सल्तनत।</li>
+                        <li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>राजव्यवस्था:</strong> मौलिक अधिकार, संसद, राष्ट्रपति, महत्वपूर्ण अनुच्छेद।</li>
+                    </ul>`
+            },
+            'syl-science': {
+                title_en: 'General Science (15% Weightage)',
+                title_hi: 'सामान्य विज्ञान (15% वेटेज)',
+                content_en: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Physics:</strong> Light, Electricity, Work, Energy.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Chemistry:</strong> Acids, Bases, Metals, Non-metals.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>Biology:</strong> Life processes, Nutrition, Diseases.</li></ul>`,
+                content_hi: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>भौतिकी:</strong> प्रकाश, बिजली, कार्य, ऊर्जा।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>रसायन विज्ञान:</strong> अम्ल, क्षार, धातु, अधातु।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span><strong>जीव विज्ञान:</strong> जीवन प्रक्रियाएं, पोषण, रोग।</li></ul>`
+            },
+            'syl-maths': {
+                title_en: 'Maths / Quant (15% Weightage)',
+                title_hi: 'गणित (15% वेटेज)',
+                content_en: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>Number System, Simplification, LCM, HCF.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Percentage, Ratio, Profit & Loss, SI & CI.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Time & Work, Mensuration (2D/3D shapes).</li></ul>`,
+                content_hi: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>संख्या प्रणाली, सरलीकरण, LCM, HCF।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>प्रतिशत, अनुपात, लाभ-हानि, SI और CI।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>समय और कार्य, क्षेत्रमिति (2D/3D आकार)।</li></ul>`
+            },
+            'syl-reasoning': {
+                title_en: 'Reasoning (10% Weightage)',
+                title_hi: 'तर्कशक्ति (10% वेटेज)',
+                content_en: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>Series, Coding-Decoding, Direction.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Blood Relations, Analogy, Classification.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Syllogism, Venn Diagrams, Non-Verbal (Mirror image).</li></ul>`,
+                content_hi: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>श्रृंखला, कोडिंग-डिकोडिंग, दिशा।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>रक्त संबंध, सादृश्य, वर्गीकरण।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>सिलोगिज्म, वेन आरेख, नॉन-वर्बल (दर्पण छवि)।</li></ul>`
+            },
+            'syl-english': {
+                title_en: 'English Language (10% Weightage)',
+                title_hi: 'अंग्रेजी भाषा (10% वेटेज)',
+                content_en: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>Grammar: Parts of speech, Tenses, Articles.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Vocabulary: Synonyms, Antonyms, Idioms.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Usage: Active/Passive Voice, Spotting Error.</li></ul>`,
+                content_hi: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>Grammar: Parts of speech, Tenses, Articles.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Vocabulary: Synonyms, Antonyms, Idioms.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Usage: Active/Passive Voice, Spotting Error.</li></ul>`
+            },
+            'syl-hindi': {
+                title_en: 'Hindi Language (10% Weightage)',
+                title_hi: 'हिंदी भाषा (10% वेटेज)',
+                content_en: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>Vyakaran: Sangya, Sarvanam, Visheshan, Ling, Vachan.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Shabd Rachna: Sandhi, Samas, Upsarg, Pratyay.</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>Vocab: Paryayvachi, Vilom, Muhavare.</li></ul>`,
+                content_hi: `<ul class="styled-list"><li><span class="icon"><i class="fas fa-check-circle"></i></span>व्याकरण: संज्ञा, सर्वनाम, विशेषण, लिंग, वचन।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>शब्द रचना: संधि, समास, उपसर्ग, प्रत्यय।</li><li><span class="icon"><i class="fas fa-check-circle"></i></span>शब्दावली: पर्यायवाची, विलोम, मुहावरे।</li></ul>`
+            },
 
-        const CATEGORY_TITLES = {
-            ancient: "Genral History",
-            medieval: "Genral Study",
-            modern: "Genral Mathematics",
-            world: "Current Affairs",
-            art: "OverAll Maping",
-            profile: "User Profile"
-        };
-        
-        const PROGRESSION_ORDER = ['ancient', 'medieval', 'modern', 'world', 'art'];
-        const STATIC_HEADER_TEXT = "PYQ";
-
-        const categoryBackgrounds = {
-            profile: 'history.webp', ancient: 'history.webp', medieval: 'history.webp',
-            modern: 'history.webp', world: 'history.webp', art: 'history.webp'
-        };
-
-        const QUESTIONS_PER_SECTION = 10;
-
-        // --- STATE MANAGEMENT ---
-        let userData = {
-            name: localStorage.getItem('userName') || '',
-            number: localStorage.getItem('userMobile') || '',
-            email: localStorage.getItem('userEmail') || '',
-            txn: localStorage.getItem(TXN_KEY) || '',
-            planAmount: localStorage.getItem(PLAN_AMOUNT_KEY) || '',
-            planName: localStorage.getItem(PLAN_NAME_KEY) || '',
-            expiry: localStorage.getItem(EXPIRY_KEY) || null,
-            purchaseTime: localStorage.getItem(PURCHASE_TIME_KEY) || null
-        };
-        
-        let selectedPlanPrice = 0, selectedPlanLabel = "";
-        
-        let sectionStates;
-        try {
-            sectionStates = JSON.parse(localStorage.getItem(SECTION_STATE_KEY));
-            if(!sectionStates) throw new Error("No state");
-        } catch(e) {
-            sectionStates = {
-                ancient: { unlocked: true, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                medieval: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                modern: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                world: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                art: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] }
-            };
-        }
-
-        let activeCat = "";
-        let questionTimer;
-        let timeLeft = 25;
-
-        // Helper function to flatten questions across all units for a given category
-        function getFlattenedQuestions(cat) {
-            let db = [];
-            if(quizDatabase[cat]) {
-                quizDatabase[cat].forEach(unit => {
-                    if(unit.questions && Array.isArray(unit.questions)) {
-                        db = db.concat(unit.questions);
-                    }
-                });
+            // --- INFO DATA ---
+            'info-step-1': {
+                title_en: 'What is CET Group D?', title_hi: 'CET ग्रुप D क्या है?',
+                content_en: `
+                    <div class="popup-subtitle">Job Profiles & Responsibilities</div>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-briefcase"></i></span><strong>Top Posts:</strong> Beldar, Peon, Animal Attendant, Helper, Chowkidar.</li>
+                        <li><span class="icon"><i class="fas fa-money-bill-wave"></i></span><strong>Salary:</strong> Basic Pay ₹16,900. In hand salary after DA, HRA comes to around ₹25,000 - ₹28,000 initially.</li>
+                    </ul>`,
+                content_hi: `
+                    <div class="popup-subtitle">कार्य प्रोफ़ाइल और जिम्मेदारियां</div>
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-briefcase"></i></span><strong>शीर्ष पद:</strong> बेलदार, चपरासी, एनिमल अटेंडेंट, हेल्पर, चौकीदार।</li>
+                        <li><span class="icon"><i class="fas fa-money-bill-wave"></i></span><strong>वेतन:</strong> मूल वेतन ₹16,900। DA, HRA के बाद इन-हैंड वेतन लगभग ₹25,000 - ₹28,000 मिलता है।</li>
+                    </ul>`
+            },
+            'info-step-2': {
+                title_en: 'Detailed Selection Process', title_hi: 'विस्तृत चयन प्रक्रिया',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-pen-alt"></i></span><strong>Stage 1:</strong> OMR based offline test. 100 questions. Total 95 Marks.</li>
+                        <li><span class="icon"><i class="fas fa-home"></i></span><strong>Stage 2:</strong> 5 Marks Socio-Economic criteria.</li>
+                        <li><span class="icon"><i class="fas fa-trophy"></i></span><strong>Final Merit:</strong> Out of 100 Marks.</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-pen-alt"></i></span><strong>चरण 1:</strong> OMR आधारित ऑफलाइन टेस्ट। 100 प्रश्न। कुल 95 अंक।</li>
+                        <li><span class="icon"><i class="fas fa-home"></i></span><strong>चरण 2:</strong> 5 अंक सामाजिक-आर्थिक मानदंड।</li>
+                        <li><span class="icon"><i class="fas fa-trophy"></i></span><strong>अंतिम मेरिट:</strong> 100 अंकों में से।</li>
+                    </ul>`
+            },
+            'info-step-3': {
+                title_en: 'Eligibility Criteria', title_hi: 'पात्रता मानदंड',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-graduation-cap"></i></span><strong>Education:</strong> Matriculation (10th Pass).</li>
+                        <li><span class="icon"><i class="fas fa-language"></i></span><strong>Language:</strong> Hindi/Sanskrit up to 10th.</li>
+                        <li><span class="icon"><i class="fas fa-birthday-cake"></i></span><strong>Age:</strong> 18 to 42 years (Relaxations: SC/BC +5 Yrs).</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-graduation-cap"></i></span><strong>शिक्षा:</strong> 10वीं पास।</li>
+                        <li><span class="icon"><i class="fas fa-language"></i></span><strong>भाषा:</strong> 10वीं तक हिंदी/संस्कृत।</li>
+                        <li><span class="icon"><i class="fas fa-birthday-cake"></i></span><strong>आयु:</strong> 18 से 42 वर्ष (छूट: SC/BC +5 वर्ष)।</li>
+                    </ul>`
+            },
+            'info-step-4': {
+                title_en: 'Exam Pattern & Negative Marking', title_hi: 'परीक्षा पैटर्न और नेगेटिव मार्किंग',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-clock"></i></span><strong>Time:</strong> 1 hour 45 minutes.</li>
+                        <li><span class="icon"><i class="fas fa-exclamation-triangle"></i></span><strong>The Penalty Rule:</strong> OMR sheets will have 5 options. If you leave a question entirely blank, 0.95 marks will be deducted. Fill the 5th bubble if you don't know the answer.</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-clock"></i></span><strong>समय:</strong> 1 घंटा 45 मिनट।</li>
+                        <li><span class="icon"><i class="fas fa-exclamation-triangle"></i></span><strong>पेनल्टी नियम:</strong> OMR शीट में 5 विकल्प होंगे। यदि आप किसी प्रश्न को पूरी तरह से खाली छोड़ देते हैं, तो 0.95 अंक काट लिए जाएंगे। यदि उत्तर नहीं पता है तो 5वां बुलबुला भरें।</li>
+                    </ul>`
+            },
+            'info-step-5': {
+                title_en: 'Socio-Economic Criteria (5 Marks)', title_hi: 'सामाजिक-आर्थिक मानदंड (5 अंक)',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-rupee-sign"></i></span><strong>Condition 1:</strong> No family member in regular Govt. Job.</li>
+                        <li><span class="icon"><i class="fas fa-file-invoice"></i></span><strong>Condition 2:</strong> Gross annual family income less than ₹1,80,000 (verified via PPP).</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-rupee-sign"></i></span><strong>शर्त 1:</strong> परिवार का कोई भी सदस्य नियमित सरकारी नौकरी में नहीं होना चाहिए।</li>
+                        <li><span class="icon"><i class="fas fa-file-invoice"></i></span><strong>शर्त 2:</strong> सकल वार्षिक पारिवारिक आय ₹1,80,000 से कम (PPP के माध्यम से सत्यापित)।</li>
+                    </ul>`
+            },
+            'info-step-6': {
+                title_en: 'Post Preferences', title_hi: 'पद प्राथमिकताएं (Preferences)',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-star"></i></span><strong>Top Preferences:</strong> Beldar (Irrigation/PWD), Peon (Secretariat), Library Attendant. Good working hours.</li>
+                        <li><span class="icon"><i class="fas fa-exclamation"></i></span><strong>Warning:</strong> If you don't fill preferences, HSSC allots randomly.</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-star"></i></span><strong>शीर्ष प्राथमिकताएं:</strong> बेलदार (सिंचाई/PWD), चपरासी (सचिवालय), लाइब्रेरी अटेंडेंट। काम के घंटे अच्छे हैं।</li>
+                        <li><span class="icon"><i class="fas fa-exclamation"></i></span><strong>चेतावनी:</strong> यदि आप प्राथमिकताएं नहीं भरते हैं, तो HSSC यादृच्छिक रूप से आवंटित करता है।</li>
+                    </ul>`
+            },
+            'info-step-7': {
+                title_en: 'Document Verification (DV)', title_hi: 'दस्तावेज़ सत्यापन (DV)',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-id-card"></i></span><strong>PPP:</strong> Parivar Pehchan Patra is mandatory.</li>
+                        <li><span class="icon"><i class="fas fa-file-contract"></i></span><strong>Caste:</strong> SC/BCA/BCB/EWS strictly on Haryana Govt format.</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-id-card"></i></span><strong>PPP:</strong> परिवार पहचान पत्र अनिवार्य है।</li>
+                        <li><span class="icon"><i class="fas fa-file-contract"></i></span><strong>जाति प्रमाण पत्र:</strong> SC/BCA/BCB/EWS सख्ती से हरियाणा सरकार के प्रारूप पर।</li>
+                    </ul>`
+            },
+            'info-step-8': {
+                title_en: 'Career Growth & Promotions', title_hi: 'करियर विकास और पदोन्नति',
+                content_en: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-level-up-alt"></i></span><strong>Group C:</strong> After 3-5 years, eligible for promotion to Clerk via departmental exam.</li>
+                        <li><span class="icon"><i class="fas fa-graduation-cap"></i></span><strong>Studies:</strong> Fixed 9-to-5 hours allow preparation for higher exams.</li>
+                    </ul>`,
+                content_hi: `
+                    <ul class="styled-list">
+                        <li><span class="icon"><i class="fas fa-level-up-alt"></i></span><strong>ग्रुप C:</strong> 3-5 वर्षों के बाद, विभागीय परीक्षा के माध्यम से क्लर्क के रूप में पदोन्नति के लिए पात्र।</li>
+                        <li><span class="icon"><i class="fas fa-graduation-cap"></i></span><strong>अध्ययन:</strong> निश्चित 9-से-5 घंटे उच्च परीक्षाओं की तैयारी की अनुमति देते हैं।</li>
+                    </ul>`
             }
-            return db;
-        }
+        };
 
-        // ======================================================
-        // DATA SYNC WITH GOOGLE SHEET (Registration, Payment, Completion)
-        // ======================================================
-        async function sendToSheet(actionType, scoreData = 0, historyData = "") {
-            const url = 'https://script.google.com/macros/s/AKfycbyFxKZanYXqKhDOiNsDhD4RjUqXgHFF9_jlQxpEIX-T_OJVLP9vZR9_ge3MWK_UelvUPQ/exec';
-            const fd = new FormData();
-            fd.append('action', actionType); // Send action type directly
-            fd.append('name', userData.name || '');
-            fd.append('number', userData.number || '');
-            fd.append('email', userData.email || '');
-            fd.append('amount', userData.planAmount || '');
-            fd.append('plan_name', userData.planName || '');
-            fd.append('transaction_id', userData.txn || '');
-            fd.append('total_score', scoreData);
-            fd.append('question_data', historyData);
-            fd.append('timestamp', new Date().toISOString());
-            fd.append('app_package', APP_PACKAGE_NAME);
+        // UI TRANSLATIONS
+        const i18n = {
+            en: {
+                "nav_tests": "PYQ Tests", "nav_syllabus": "Syllabus", "nav_info": "Get Info", "nav_earn": "Earn", "nav_updates": "Updates",
+                "test_heading": "Mock Tests & PYQs 🎯", "test_desc": "Master the HSSC pattern with actual previous year questions and full-length NTA pattern mock tests.",
+                "test_sec1": "Full Length Mocks", "test_c1_t": "NTA Pattern Mock 1", "test_c1_s": "100 Qs • 90 Mins • Strict NTA Pattern", "test_att1": "15k+ Attempted", "test_free": "FREE",
+                "test_sec2": "Subject-wise PYQs", "test_c2_t": "Haryana GK PYQs", "test_c2_s": "Last 10 Years HSSC Papers", "test_c3_t": "Maths & Reasoning", "test_c3_s": "With short trick solutions", "test_avail1": "50+ Sets Available", "test_avail2": "30+ Sets Available",
+                "syl_heading": "Syllabus Breakdown 📚", "syl_desc": "Click on any subject card to view the extremely detailed NTA syllabus topics specifically curated for HSSC CET Group D.",
+                "syl_c1_t": "Haryana GK", "syl_c1_s": "History, Geo, Culture, Current Affairs.", "syl_c2_t": "General Awareness", "syl_c2_s": "India GK, Polity, History, Art.",
+                "syl_c3_t": "General Science", "syl_c3_s": "Physics, Chem, Bio (10th Std).", "syl_c4_t": "Maths (Quant)", "syl_c4_s": "Arithmetic, Number System, Mensuration.",
+                "syl_c5_t": "Reasoning", "syl_c5_s": "Logic, Series, Blood Relations.", "syl_c6_t": "English Language", "syl_c6_s": "Grammar, Vocab, Error Spotting.",
+                "syl_c7_t": "Hindi Language", "syl_c7_s": "Vyakaran, Sandhi, Paryayvachi.", "syl_weight": "Weightage:",
+                "info_heading": "Complete HSSC Info 🧠", "info_desc": "Everything you need to know about the HSSC CET Group D recruitment process, from notification to joining.",
+                "info_1_t": "1. What is CET Group D?", "info_1_d": "Common Eligibility Test (CET) for Group D is a single-window exam for recruitment to massive posts like Peon, Beldar, Animal Attendant, etc.", "info_1_btn": "View Job Profiles & Salary",
+                "info_2_t": "2. Selection Process", "info_2_f1": "Written Exam", "info_2_f1m": "95 Marks", "info_2_f2": "Socio-Econ", "info_2_f2m": "5 Marks", "info_2_f3": "Final Merit", "info_2_f3m": "100 Marks", "info_2_btn": "Detailed Selection Rules",
+                "info_3_t": "3. Eligibility Criteria", "info_3_d": "Minimum 10th pass is required. Age limit is 18-42 years. Knowledge of Hindi/Sanskrit up to Matric is mandatory.", "info_3_btn": "Check Age Relaxations",
+                "info_4_t": "4. Exact Exam Pattern", "info_4_d": "100 Questions, 95 Marks total (0.95 marks per question). Duration is 1 hour 45 minutes.", "info_4_btn": "Negative Marking Rules",
+                "info_5_t": "5. Socio-Economic 5 Marks", "info_5_d": "The most crucial deciding factor in HSSC. 5 extra marks are awarded based on family income, govt job status, etc.", "info_5_btn": "Complete Rules",
+                "info_6_t": "6. Post Preferences Portal", "info_6_d": "After the exam, HSSC opens a portal to fill your preferred job roles. Choosing wrongly can land you a tough field job.", "info_6_btn": "Best Posts Guide",
+                "info_7_t": "7. Document Verification (DV)", "info_7_d": "Many candidates are rejected at the final stage due to wrong Parivar Pehchan Patra (PPP) data or missing certificates.", "info_7_btn": "List of Required Docs",
+                "info_8_t": "8. Career Growth & Promos", "info_8_d": "A Group D job is not the end. Understand how you can get promoted to Group C (Clerk) via departmental exams.", "info_8_btn": "Promotion Hierarchy",
+                "earn_heading": "Earn Rewards 💰", "earn_desc": "Complete tasks, invite friends, and unlock premium Mock Tests and PDFs for free by earning StiCoins.",
+                "earn_c1_t": "Refer & Earn", "earn_c1_s": "Invite friends to install and get coins per referral.", "earn_c2_t": "Daily Spin", "earn_c2_s": "Spin the wheel every 24 hours to win free test passes.", "earn_free": "Free Entry",
+                "earn_c3_t": "Watch & Learn", "earn_c3_s": "Watch quick educational ads to earn coins instantly.", "earn_c4_t": "Quick Surveys", "earn_c4_s": "Answer 3-minute surveys regarding exam prep.",
+                "earn_wallet": "Your Wallet Balance", "earn_redeem": "Redeem Store",
+                "news_heading": "Latest HSSC Updates 📰",
+                "news_1_t": "Supreme Court Ruling: 5 Marks Socio-Economic Criteria Quashed", "news_1_d": "In a massive update, the Supreme Court has upheld the Punjab & Haryana High Court decision to scrap the 5 socio-economic marks policy in Haryana CET.", "news_1_dt": "Latest Ruling • HSSC Official / Court",
+                "news_2_t": "New HSSC Calendar Expected Soon", "news_2_d": "Haryana Government has directed HSSC to expedite the recruitment process for 50,000 vacant posts, out of which roughly 15,000 will be Group D posts.", "news_2_dt": "Recruitment Process • Haryana Govt",
+                "news_3_t": "NTA Normalization Formula Confirmation", "news_3_d": "NTA will continue using the equi-percentile normalization method if the exam is conducted in multiple shifts.", "news_3_dt": "Exam Pattern • NTA Notice"
+            },
+            hi: {
+                "nav_tests": "PYQ टेस्ट", "nav_syllabus": "पाठ्यक्रम", "nav_info": "जानकारी", "nav_earn": "कमाएं", "nav_updates": "अपडेट",
+                "test_heading": "मॉक टेस्ट और PYQ 🎯", "test_desc": "वास्तविक पिछले वर्ष के प्रश्नों और पूर्ण-लंबाई NTA पैटर्न मॉक टेस्ट के साथ HSSC पैटर्न में महारत हासिल करें।",
+                "test_sec1": "पूर्ण-लंबाई मॉक", "test_c1_t": "NTA पैटर्न मॉक 1", "test_c1_s": "100 प्रश्न • 90 मिनट • NTA पैटर्न", "test_att1": "15k+ प्रयास", "test_free": "मुफ्त",
+                "test_sec2": "विषयवार PYQ", "test_c2_t": "हरियाणा GK PYQ", "test_c2_s": "पिछले 10 वर्षों के HSSC पेपर", "test_c3_t": "गणित और रीजनिंग", "test_c3_s": "शॉर्ट ट्रिक समाधान के साथ", "test_avail1": "50+ सेट उपलब्ध", "test_avail2": "30+ सेट उपलब्ध",
+                "syl_heading": "पाठ्यक्रम विवरण 📚", "syl_desc": "HSSC CET ग्रुप D के लिए विशेष रूप से तैयार किए गए अत्यधिक विस्तृत NTA पाठ्यक्रम विषयों को देखने के लिए किसी भी विषय कार्ड पर क्लिक करें।",
+                "syl_c1_t": "हरियाणा GK", "syl_c1_s": "इतिहास, भूगोल, संस्कृति, करंट अफेयर्स।", "syl_c2_t": "सामान्य जागरूकता", "syl_c2_s": "इंडिया GK, राजव्यवस्था, इतिहास।",
+                "syl_c3_t": "सामान्य विज्ञान", "syl_c3_s": "भौतिकी, रसायन, जीव विज्ञान (10वीं)।", "syl_c4_t": "गणित (Quant)", "syl_c4_s": "अंकगणित, संख्या प्रणाली, क्षेत्रमिति।",
+                "syl_c5_t": "तर्कशक्ति", "syl_c5_s": "तर्क, श्रृंखला, रक्त संबंध।", "syl_c6_t": "अंग्रेजी भाषा", "syl_c6_s": "व्याकरण, शब्दावली, त्रुटि खोजना।",
+                "syl_c7_t": "हिंदी भाषा", "syl_c7_s": "व्याकरण, संधि, पर्यायवाची।", "syl_weight": "वेटेज:",
+                "info_heading": "संपूर्ण HSSC जानकारी 🧠", "info_desc": "HSSC CET ग्रुप D भर्ती प्रक्रिया के बारे में आपको जो कुछ भी जानने की आवश्यकता है, अधिसूचना से लेकर जॉइनिंग तक।",
+                "info_1_t": "1. CET ग्रुप D क्या है?", "info_1_d": "ग्रुप D के लिए CET चपरासी, बेलदार, एनिमल अटेंडेंट आदि जैसे विशाल पदों पर भर्ती के लिए एक सिंगल-विंडो परीक्षा है।", "info_1_btn": "जॉब प्रोफाइल और वेतन देखें",
+                "info_2_t": "2. चयन प्रक्रिया", "info_2_f1": "लिखित परीक्षा", "info_2_f1m": "95 अंक", "info_2_f2": "सामाजिक-आर्थिक", "info_2_f2m": "5 अंक", "info_2_f3": "अंतिम मेरिट", "info_2_f3m": "100 अंक", "info_2_btn": "विस्तृत चयन नियम",
+                "info_3_t": "3. पात्रता मानदंड", "info_3_d": "न्यूनतम 10वीं पास आवश्यक है। आयु सीमा 18-42 वर्ष है। 10वीं तक हिंदी/संस्कृत का ज्ञान अनिवार्य है।", "info_3_btn": "आयु छूट की जांच करें",
+                "info_4_t": "4. सटीक परीक्षा पैटर्न", "info_4_d": "100 प्रश्न, कुल 95 अंक (0.95 अंक प्रति प्रश्न)। अवधि 1 घंटा 45 मिनट है।", "info_4_btn": "नेगेटिव मार्किंग नियम",
+                "info_5_t": "5. सामाजिक-आर्थिक 5 अंक", "info_5_d": "HSSC में सबसे महत्वपूर्ण निर्णायक कारक। पारिवारिक आय, सरकारी नौकरी की स्थिति आदि के आधार पर 5 अतिरिक्त अंक दिए जाते हैं।", "info_5_btn": "पूर्ण नियम",
+                "info_6_t": "6. पद प्राथमिकता पोर्टल", "info_6_d": "परीक्षा के बाद, HSSC आपकी पसंदीदा नौकरी भूमिकाओं को भरने के लिए एक पोर्टल खोलता है।", "info_6_btn": "सर्वश्रेष्ठ पदों की मार्गदर्शिका",
+                "info_7_t": "7. दस्तावेज़ सत्यापन (DV)", "info_7_d": "कई उम्मीदवारों को अंतिम चरण में गलत परिवार पहचान पत्र (PPP) डेटा या लापता प्रमाण पत्रों के कारण खारिज कर दिया जाता है।", "info_7_btn": "आवश्यक दस्तावेजों की सूची",
+                "info_8_t": "8. करियर विकास और पदोन्नति", "info_8_d": "ग्रुप D की नौकरी अंत नहीं है। समझें कि आप विभागीय परीक्षाओं के माध्यम से ग्रुप C (क्लर्क) में कैसे पदोन्नत हो सकते हैं।", "info_8_btn": "पदोन्नति पदानुक्रम",
+                "earn_heading": "इनाम कमाएं 💰", "earn_desc": "कार्य पूरे करें, दोस्तों को आमंत्रित करें, और StiCoins कमाकर मुफ्त में प्रीमियम मॉक टेस्ट और PDF अनलॉक करें।",
+                "earn_c1_t": "रेफर करें और कमाएं", "earn_c1_s": "दोस्तों को इंस्टॉल करने के लिए आमंत्रित करें और प्रति रेफरल सिक्के प्राप्त करें।", "earn_c2_t": "डेली स्पिन", "earn_c2_s": "मुफ्त टेस्ट पास जीतने के लिए हर 24 घंटे में पहिया घुमाएं।", "earn_free": "मुफ्त प्रवेश",
+                "earn_c3_t": "देखें और सीखें", "earn_c3_s": "तुरंत सिक्के कमाने के लिए त्वरित शैक्षिक विज्ञापन देखें।", "earn_c4_t": "त्वरित सर्वेक्षण", "earn_c4_s": "परीक्षा की तैयारी के संबंध में 3 मिनट के सर्वेक्षण का उत्तर दें।",
+                "earn_wallet": "आपका वॉलेट बैलेंस", "earn_redeem": "रिडीम स्टोर",
+                "news_heading": "नवीनतम HSSC अपडेट 📰",
+                "news_1_t": "सुप्रीम कोर्ट का फैसला: 5 अंक सामाजिक-आर्थिक मानदंड रद्द", "news_1_d": "सुप्रीम कोर्ट ने हरियाणा CET में 5 सामाजिक-आर्थिक अंकों की नीति को रद्द करने के पंजाब और हरियाणा हाईकोर्ट के फैसले को बरकरार रखा है।", "news_1_dt": "नवीनतम फैसला • HSSC आधिकारिक / कोर्ट",
+                "news_2_t": "नया HSSC कैलेंडर जल्द आने की उम्मीद", "news_2_d": "हरियाणा सरकार ने HSSC को 50,000 रिक्त पदों के लिए भर्ती प्रक्रिया में तेजी लाने का निर्देश दिया है, जिनमें से लगभग 15,000 ग्रुप D के पद होंगे।", "news_2_dt": "भर्ती प्रक्रिया • हरियाणा सरकार",
+                "news_3_t": "NTA नॉर्मलाइजेशन फॉर्मूला की पुष्टि", "news_3_d": "यदि परीक्षा कई पालियों में आयोजित की जाती है तो NTA सम-प्रतिशत नॉर्मलाइजेशन पद्धति का उपयोग करना जारी रखेगा।", "news_3_dt": "परीक्षा पैटर्न • NTA नोटिस"
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Unlock nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('locked'));
             
-            try { 
-                await fetch(url, { method: 'POST', body: fd, mode: 'no-cors' });
-                console.log("Data synced successfully for action:", actionType);
-            } catch(e) { 
-                console.error("Sheet Error:", e);
+            // Activate Info tab by default
+            activateTab(document.getElementById('nav-info'), 'info');
+            initCharts();
+            
+            // Set initial language UI
+            updateUI();
+        });
+
+        function showLangModal() { document.getElementById('lang-modal').classList.add('active'); }
+        function closeLangModal() { document.getElementById('lang-modal').classList.remove('active'); }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById(`lang-${lang}`).classList.add('selected');
+            document.getElementById('current-lang-display').innerText = lang === 'en' ? 'EN' : 'HI';
+            
+            updateUI();
+            setTimeout(closeLangModal, 300); // Close modal automatically after brief delay
+        }
+
+        function updateUI() {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) {
+                    el.innerHTML = i18n[currentLang][key];
+                }
+            });
+            // Update currently open popup content if any
+            if(document.getElementById('dynamic-detail-modal').classList.contains('active')){
+                 // Re-trigger with current ID to refresh language
+                 const titleText = document.getElementById('modal-dynamic-title').innerText;
+                 for (const [key, value] of Object.entries(appData)) {
+                     if(value.title_en === titleText || value.title_hi === titleText){
+                         openDynamicModal(key);
+                         break;
+                     }
+                 }
             }
         }
 
-        function saveSectionStates() {
-            localStorage.setItem(SECTION_STATE_KEY, JSON.stringify(sectionStates));
+        // External Link Logic for BILINGUAL HTML FILES
+        function openExternal(baseFileName) {
+            // E.g. baseFileName = 'refer-and-earn'
+            // English opens 'refer-and-earn-en.html', Hindi opens 'refer-and-earn-hi.html'
+            const suffix = currentLang === 'hi' ? '-hi' : '-en';
+            window.open(`${baseFileName}${suffix}.html`, '_blank');
         }
 
-        function isSubscriptionValid() {
-            if (!localStorage.getItem(HAS_PAID_KEY)) return false;
-            return true;
+        function activateTab(element, tabId) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(`modal-${tabId}`);
+            if(target) {
+                target.classList.add('active');
+            }
         }
 
-        function hasPaid() { return isSubscriptionValid(); }
-
-        function checkCategoryAccess(targetCat) {
-            return { accessible: sectionStates[targetCat].unlocked };
+        function openDynamicModal(dataId) {
+            const data = appData[dataId];
+            if(data) {
+                document.getElementById('modal-dynamic-title').innerText = currentLang === 'hi' ? data.title_hi : data.title_en;
+                document.getElementById('modal-dynamic-content').innerHTML = currentLang === 'hi' ? data.content_hi : data.content_en;
+                document.getElementById('dynamic-detail-modal').classList.add('active');
+            }
+        }
+        
+        function closeDynamicModal() { 
+            document.getElementById('dynamic-detail-modal').classList.remove('active'); 
         }
 
-        function updateDockVisuals() {
-            PROGRESSION_ORDER.forEach((cat) => {
-                const el = document.getElementById(`nav-${cat}`);
-                if (el) {
-                    if (sectionStates[cat].unlocked) {
-                        el.classList.remove('dock-locked');
-                    } else {
-                        el.classList.add('dock-locked');
+        // Close sub-modals on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('cet-sub-modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        function initCharts() {
+            Chart.defaults.color = '#94A3B8';
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+
+            // Marks Chart (Pie) matching EXACT syllabus constraints
+            const ctxMarks = document.getElementById('marksChart').getContext('2d');
+            new Chart(ctxMarks, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Haryana GK', 'Gen Awareness', 'Gen Science', 'Maths', 'Reasoning', 'English', 'Hindi'],
+                    datasets: [{
+                        data: [25, 15, 15, 15, 10, 10, 10],
+                        backgroundColor: ['#00E5FF', '#FF9800', '#4CAF50', '#F44336', '#9C27B0', '#2196F3', '#E91E63'],
+                        borderWidth: 2,
+                        borderColor: '#07070C' 
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#fff', font: { size: 10, family: 'Outfit' } } },
+                        tooltip: { 
+                            callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.raw}%` },
+                            backgroundColor: 'rgba(0,0,0,0.9)', titleColor: '#00E5FF', padding: 10, borderColor: '#00E5FF', borderWidth: 1
+                        }
                     }
                 }
             });
         }
-
-        function openCategory(catName, btnElement) {
-            if(questionTimer) clearInterval(questionTimer);
-
-            if (catName !== 'profile' && !hasPaid()) {
-                document.getElementById('locked-popup').style.display = 'flex';
-                return;
-            }
-
-            if (PROGRESSION_ORDER.includes(catName)) {
-                if (!sectionStates[catName].unlocked) {
-                    const idx = PROGRESSION_ORDER.indexOf(catName);
-                    const prevCatTitle = idx > 0 ? CATEGORY_TITLES[PROGRESSION_ORDER[idx-1]] : "previous section";
-                    document.getElementById('prev-section-name').innerText = prevCatTitle;
-                    document.getElementById('section-locked-popup').style.display = 'flex';
-                    return;
-                }
-            }
-
-            if (btnElement) {
-                document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
-                btnElement.classList.add('active');
-            }
-
-            const modalBox = document.getElementById('dynamic-modal-box');
-            modalBox.style.backgroundImage = `url('${categoryBackgrounds[catName] || 'skilligovtbck.png'}')`;
-            
-            let dispTitle = CATEGORY_TITLES[catName] || catName.toUpperCase();
-            document.getElementById('cat-title').innerText = dispTitle;
-
-            const quizUI = document.getElementById('quiz-interface');
-            const profileUI = document.getElementById('profile-section');
-            const newsUI = document.getElementById('news-section');
-
-            quizUI.style.display = 'none';
-            profileUI.style.display = 'none';
-            newsUI.style.display = 'none';
-            
-            document.getElementById('locked-popup').style.display = 'none';
-            document.getElementById('grand-completion-overlay').style.display = 'none';
-            document.getElementById('section-locked-popup').style.display = 'none';
-            document.getElementById('premium-success-popup').style.display = 'none';
-
-            if (catName === 'profile') {
-                profileUI.style.display = 'flex';
-                initProfileView();
-            } else if (catName === 'news') {
-                newsUI.style.display = 'flex';
-            } else {
-                quizUI.style.display = 'flex';
-                activeCat = catName;
-                startQuiz();
-            }
-        }
-
-        function closeSectionLock() {
-            document.getElementById('section-locked-popup').style.display = 'none';
-        }
-
-        function startQuiz() {
-            if(questionTimer) clearInterval(questionTimer);
-            document.getElementById('unit-name-display').innerText = STATIC_HEADER_TEXT;
-
-            // Enforce single attempt rule
-            if (sectionStates[activeCat].completed) {
-                document.getElementById('q-num-display').innerText = "10 / 10";
-                document.getElementById('q-text').innerHTML = `<span style="color:#00e676; font-size:1.5rem;"><i class="fas fa-check-circle"></i> Completed</span><br><br>Aap is section ke sabhi questions attempt kar chuke hain. Kripya aage badhein.`;
-                document.getElementById('passage-box').style.display = 'none';
-                document.getElementById('options-list').innerHTML = '';
-                return;
-            }
-
-            let db = getFlattenedQuestions(activeCat);
-
-            if(db.length === 0) {
-                document.getElementById('q-text').innerText = "Questions abhi available nahi hain.";
-                document.getElementById('passage-box').style.display = 'none';
-                return;
-            }
-
-            // Setup randomization for first time across the entire extracted array
-            if (!sectionStates[activeCat].order || sectionStates[activeCat].order.length === 0) {
-                let arr = Array.from({length: db.length}, (_, i) => i);
-                // Shuffle ALL available questions
-                for (let i = arr.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [arr[i], arr[j]] = [arr[j], arr[i]];
-                }
-                // Only take the first 10 for this specific device
-                sectionStates[activeCat].order = arr.slice(0, QUESTIONS_PER_SECTION);
-                saveSectionStates();
-            }
-
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            if(questionTimer) clearInterval(questionTimer);
-            
-            let qIdx = sectionStates[activeCat].qIndex;
-            let orderArr = sectionStates[activeCat].order;
-            
-            // Check if 10 questions done
-            if (qIdx >= orderArr.length || qIdx >= QUESTIONS_PER_SECTION) {
-                handleSectionComplete();
-                return;
-            }
-
-            let db = getFlattenedQuestions(activeCat);
-            const actualQ = db[orderArr[qIdx]];
-            
-            document.getElementById('q-num-display').innerText = `${qIdx + 1} / ${Math.min(orderArr.length, QUESTIONS_PER_SECTION)}`;
-            document.getElementById('q-text').innerText = actualQ.q;
-
-            const passageBox = document.getElementById('passage-box');
-            const passageText = document.getElementById('passage-text');
-            
-            if (actualQ.passage && actualQ.passage.trim() !== "") {
-                passageText.innerText = actualQ.passage;
-                passageBox.style.display = 'block';
-            } else {
-                passageText.innerText = "";
-                passageBox.style.display = 'none';
-            }
-
-            const list = document.getElementById('options-list');
-            list.innerHTML = '';
-            actualQ.options.forEach((opt, i) => {
-                const btn = document.createElement('div');
-                btn.className = 'option-btn';
-                btn.innerHTML = `<span>${opt}</span> <i class="far fa-circle"></i>`;
-                btn.onclick = () => handleAnswer(i, actualQ.ans, btn);
-                list.appendChild(btn);
-            });
-
-            startTimerLogic(actualQ.ans);
-        }
-
-        function startTimerLogic(correctIndex) {
-            timeLeft = 25;
-            document.getElementById('q-timer').innerText = timeLeft;
-            
-            questionTimer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('q-timer').innerText = timeLeft;
-                if(timeLeft <= 0) {
-                    clearInterval(questionTimer);
-                    handleTimeOut(correctIndex);
-                }
-            }, 1000);
-        }
-
-        function handleTimeOut(correctIndex) {
-            document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
-            const btns = document.querySelectorAll('.option-btn');
-            if(btns[correctIndex]) btns[correctIndex].classList.add('correct');
-            
-            let db = getFlattenedQuestions(activeCat);
-            let qIdx = sectionStates[activeCat].qIndex;
-            let orderArr = sectionStates[activeCat].order;
-            let actualQ = db[orderArr[qIdx]];
-            
-            // Log history
-            if (!sectionStates[activeCat].history) sectionStates[activeCat].history = [];
-            sectionStates[activeCat].history.push({
-                q: actualQ.q,
-                sel: "Time Out",
-                cor: actualQ.options[correctIndex],
-                isCorrect: false
-            });
-
-            sectionStates[activeCat].wrong++;
-            sectionStates[activeCat].qIndex++;
-            saveSectionStates();
-            
-            setTimeout(() => { checkNext(); }, 800);
-        }
-
-        function handleAnswer(sel, cor, btn) {
-            clearInterval(questionTimer);
-            document.querySelectorAll('.option-btn').forEach(b => b.onclick = null);
-
-            let db = getFlattenedQuestions(activeCat);
-            let qIdx = sectionStates[activeCat].qIndex;
-            let orderArr = sectionStates[activeCat].order;
-            let actualQ = db[orderArr[qIdx]];
-
-            // Log history
-            if (!sectionStates[activeCat].history) sectionStates[activeCat].history = [];
-            sectionStates[activeCat].history.push({
-                q: actualQ.q,
-                sel: actualQ.options[sel],
-                cor: actualQ.options[cor],
-                isCorrect: sel === cor
-            });
-
-            if(sel === cor) {
-                btn.classList.add('correct');
-                sectionStates[activeCat].correct++;
-                sectionStates[activeCat].score += 2;
-            } else {
-                btn.classList.add('wrong');
-                sectionStates[activeCat].wrong++;
-                sectionStates[activeCat].score -= 1.75; // <-- Updated negative marking to 1.75
-                const allBtns = document.querySelectorAll('.option-btn');
-                if(allBtns[cor]) allBtns[cor].classList.add('correct');
-            }
-
-            sectionStates[activeCat].qIndex++;
-            saveSectionStates();
-
-            setTimeout(() => { checkNext(); }, 800);
-        }
-
-        function checkNext() {
-            let qIdx = sectionStates[activeCat].qIndex;
-            let orderArr = sectionStates[activeCat].order;
-            
-            if (qIdx >= orderArr.length || qIdx >= QUESTIONS_PER_SECTION) {
-                handleSectionComplete();
-            } else {
-                loadQuestion();
-            }
-        }
-
-        // KEY FUNCTION: Auto Unlock & Jump Without Score Display
-        function handleSectionComplete() {
-            sectionStates[activeCat].completed = true;
-            saveSectionStates();
-
-            const catIndex = PROGRESSION_ORDER.indexOf(activeCat);
-            
-            if (catIndex >= 0 && catIndex < PROGRESSION_ORDER.length - 1) {
-                // Unlock Next Section
-                const nextCat = PROGRESSION_ORDER[catIndex + 1];
-                sectionStates[nextCat].unlocked = true;
-                saveSectionStates();
-                updateDockVisuals();
-
-                // Instantly Jump to Next Section
-                const targetDock = document.getElementById(`nav-${nextCat}`);
-                openCategory(nextCat, targetDock);
-            } else {
-                // Final completion - Sabhi 50 questions attempt ho chuke
-                let grandTotal = 0;
-                let historyText = "";
-                
-                for (const cat of PROGRESSION_ORDER) {
-                    if (sectionStates[cat].score > 0) grandTotal += sectionStates[cat].score;
-                    if (sectionStates[cat].history && sectionStates[cat].history.length > 0) {
-                        historyText += "\n--- " + CATEGORY_TITLES[cat].toUpperCase() + " ---\n";
-                        sectionStates[cat].history.forEach((h, i) => {
-                            historyText += "Q" + (i+1) + ": " + h.q + "\nYour Ans: " + h.sel + "\nCorrect: " + h.cor + "\nResult: " + (h.isCorrect ? "Correct" : "Wrong") + "\n\n";
-                        });
-                    }
-                }
-                
-                document.getElementById('final-score-display').innerText = `Total Points: ${grandTotal.toFixed(1)}`;
-                document.getElementById('data-sync-msg').innerHTML = `<i class="fas fa-spinner fa-spin"></i> Saving your progress to server...`;
-                document.getElementById('grand-completion-overlay').style.display = 'flex';
-
-                // SEND FINAL DATA TO SHEET
-                sendToSheet('completion', grandTotal.toFixed(1), historyText).then(() => {
-                    document.getElementById('data-sync-msg').innerHTML = `<i class="fas fa-check-circle" style="color:#00e676"></i> Data saved successfully!`;
-                });
-            }
-        }
-
-        function restartJourney() {
-            // Reset everything for fresh start
-            sectionStates = {
-                ancient: { unlocked: true, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                medieval: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                modern: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                world: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] },
-                art: { unlocked: false, completed: false, qIndex: 0, order: [], score: 0, correct: 0, wrong: 0, history: [] }
-            };
-            saveSectionStates();
-            updateDockVisuals();
-            
-            document.getElementById('grand-completion-overlay').style.display = 'none';
-            openCategory('ancient', document.getElementById('nav-ancient'));
-        }
-
-        function initProfileView() {
-            if (hasPaid()) {
-                showStep(4);
-                document.getElementById('disp-name').innerText = userData.name || 'User';
-                document.getElementById('disp-email').innerText = userData.email || 'user@example.com';
-                document.getElementById('disp-plan').innerText = userData.planName || 'Lifetime Access';
-                
-                document.getElementById('expiry-display').innerHTML = '<span style="color:#00e676;">✓ Lifetime Access (Never expires)</span>';
-                
-                renderProgressReport();
-            } else { 
-                showStep(1); 
-            }
-        }
-
-        function renderProgressReport() {
-            const container = document.getElementById('progress-container');
-            container.innerHTML = '';
-            let hasData = false;
-            let grandTotal = 0;
-            let sectionsCleared = 0;
-
-            for (const cat of PROGRESSION_ORDER) {
-                const d = sectionStates[cat];
-                if(d.qIndex > 0) {
-                    hasData = true;
-                    if(d.completed) sectionsCleared++;
-                    grandTotal += (d.score > 0 ? d.score : 0);
-
-                    const total = d.correct + d.wrong;
-                    const correctPct = total === 0 ? 0 : (d.correct / total) * 100;
-                    const displayCategoryName = CATEGORY_TITLES[cat];
-                    
-                    container.innerHTML += `
-                    <div class="pp-item">
-                        <div class="pp-top">
-                            <span class="pp-title">${displayCategoryName} ${d.completed ? ' <i class="fas fa-check-circle" style="color:#00e676"></i>' : ''}</span>
-                            <span class="pp-score">${d.score.toFixed(1)} Points</span>
-                        </div>
-                        <div class="pp-bar-bg">
-                            <div class="pp-bar-fill" style="width:${correctPct}%"></div>
-                        </div>
-                        <div class="pp-meta">
-                            <span><i class="fas fa-check" style="color:var(--correct)"></i> ${d.correct}</span>
-                            <span><i class="fas fa-times" style="color:var(--wrong)"></i> ${d.wrong}</span>
-                        </div>
-                    </div>`;
-                }
-            }
-            if(!hasData) container.innerHTML = '<div style="color:#555; text-align:center; padding-top:20px;">Abhi tak koi attempt nahi kiya gaya hai.</div>';
-            
-            try {
-                document.getElementById('total-score-display').innerText = grandTotal.toFixed(0);
-                document.getElementById('units-played-display').innerText = sectionsCleared;
-            } catch(e) {}
-        }
-
-        function goToProfileFromLock() {
-            document.getElementById('locked-popup').style.display = 'none';
-            openCategory('profile', document.getElementById('nav-profile'));
-        }
-
-        function showStep(n) { 
-            [1,2,3,4].forEach(i=>document.getElementById(`step-${i}`).style.display='none'); 
-            document.getElementById(`step-${n}`).style.display = 'flex'; 
-        }
-
-        document.getElementById('details-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            userData.name = document.getElementById('user-name').value;
-            userData.number = document.getElementById('user-number').value;
-            userData.email = document.getElementById('user-email').value;
-
-            // --- STEP 1: IMMEDIATELY SEND REGISTRATION DATA TO SHEET ---
-            sendToSheet('registration');
-
-            const last = userData.name.toLowerCase().split(' ').pop();
-            if(['insa','insha','insan'].includes(last)) { 
-                document.getElementById('secret-code-section').style.display='block'; 
-                document.getElementById('go-to-pay-btn').style.display='none'; 
-            }
-            selectedPlanPrice = 51;
-            selectedPlanLabel = 'Lifetime Access (₹51)';
-            document.getElementById('single-plan-card').classList.add('selected');
-            showStep(2);
-        });
-
-        function selectPlan(p, l) { 
-            selectedPlanPrice = p; 
-            selectedPlanLabel = l; 
-            document.querySelectorAll('.single-plan-card').forEach(c=>c.classList.add('selected'));
-        }
-        
-        document.getElementById('secret-code').addEventListener('input', (e)=>{ if(e.target.value==='MSGMSGMSG') document.getElementById('secret-ok-btn').style.display='block'; });
-        document.getElementById('secret-ok-btn').addEventListener('click', ()=>{ 
-            userData.planName='Lifetime VIP'; 
-            userData.txn='MSG-FREE'; 
-            userData.planAmount='0'; 
-            sendToSheet('payment'); 
-            completeTxn(); 
-        });
-
-        document.getElementById('go-to-pay-btn').addEventListener('click', () => {
-            if(!selectedPlanPrice) {
-                selectedPlanPrice = 51;
-                selectedPlanLabel = 'Lifetime Access (₹51)';
-            }
-            document.getElementById('final-price-display').innerText = `₹${selectedPlanPrice}.00`;
-            showStep(3); 
-            startTimer();
-        });
-
-        let tInt;
-        function startTimer() { 
-            let t=720; 
-            if(tInt) clearInterval(tInt); 
-            tInt=setInterval(()=>{ 
-                let m=Math.floor(t/60),s=t%60; 
-                document.getElementById('timer').innerText=`${m}:${s<10?'0'+s:s}`; 
-                t--; 
-                if(t<0) { clearInterval(tInt); alert("Time's up"); showStep(1); } 
-            },1000); 
-        }
-
-        // =================================================================
-        // CASHFREE PAYMENT GATEWAY INTEGRATION
-        // =================================================================
-        document.getElementById("cf-button").addEventListener("click", async () => {
-            if (!selectedPlanPrice) {
-                selectedPlanPrice = 51;
-                selectedPlanLabel = 'Lifetime Access (₹51)';
-            }
-
-            const btn = document.getElementById('cf-button');
-            const originalText = btn.innerText;
-            btn.innerText = "Processing...";
-
-            try {
-                // ⚠️ CRITICAL NOTE FOR CASHFREE ⚠️
-                // Cashfree strictly requires a `paymentSessionId` to open the checkout modal.
-                // This ID MUST be generated via a Server-to-Server API call to your backend.
-                
-                const backendCreateOrderUrl = "https://stiskilli-cashfree-backend.vercel.app/api/create-order"; 
-                
-                let paymentSessionId = undefined;
-                let orderId = undefined;
-                
-                if (backendCreateOrderUrl) {
-                    const res = await fetch(backendCreateOrderUrl, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            amount: selectedPlanPrice,
-                            currency: "INR",
-                            customer_id: userData.number || "guest_user",
-                            customer_phone: userData.number || "9999999999",
-                            customer_name: userData.name || "User",
-                            customer_email: userData.email || "user@example.com"
-                        }),
-                    });
-                    
-                    const data = await res.json();
-                    
-                    // Added error handling if backend fails to return payment session ID
-                    if (!res.ok || !data.payment_session_id) {
-                         throw new Error(data.error || "Failed to generate payment session. Check Vercel/Cashfree keys.");
-                    }
-
-                    paymentSessionId = data.payment_session_id;
-                    orderId = data.order_id;
-                    console.log("Cashfree Session ID generated.");
-                } else {
-                     throw new Error("Backend URL missing!");
-                }
-
-                // Initialize Cashfree in PRODUCTION mode
-                const cashfree = Cashfree({
-                    mode: "production" // <-- Changed to production
-                });
-
-                let checkoutOptions = {
-                    paymentSessionId: paymentSessionId,
-                    redirectTarget: "_modal",
-                };
-
-                cashfree.checkout(checkoutOptions).then((result) => {
-                    if (result.error) {
-                        console.error("Cashfree Payment Failed:", result.error);
-                        showPremiumErrorPopup(result.error.message || "Payment Failed");
-                        btn.innerText = originalText;
-                        setTimeout(() => { showStep(2); }, 2000);
-                    }
-                    if (result.redirect) {
-                        console.log("Payment will be redirected");
-                    }
-                    if (result.paymentDetails) {
-                        console.log("Payment completed successfully");
-                        
-                        // Payment Successful
-                        userData.txn = orderId || "cf_txn_" + Math.floor(Math.random() * 100000000);
-                        userData.planAmount = selectedPlanPrice;
-                        userData.planName = selectedPlanLabel;
-                        
-                        // --- SEND PAYMENT DATA TO SHEET ---
-                        sendToSheet('payment');
-                        
-                        completeTxn();
-                        showPremiumSuccessPopup(userData.txn);
-                        btn.innerText = originalText;
-                    }
-                });
-
-            } catch (err) {
-                console.error("Payment error:", err);
-                showPremiumErrorPopup(err.message || "Failed to initialize payment. Please check your backend configuration.");
-                btn.innerText = originalText;
-                setTimeout(() => { showStep(2); }, 2000);
-            }
-        });
-
-        function showPremiumSuccessPopup(paymentId) {
-            const popup = document.getElementById('premium-success-popup');
-            const paymentIdElement = document.getElementById('success-payment-id');
-            if (paymentIdElement) paymentIdElement.textContent = paymentId;
-            popup.style.display = 'flex';
-        }
-
-        function showPremiumErrorPopup(errorMessage) {
-            const errUI = document.getElementById('premium-error-popup');
-            errUI.innerHTML = `<div style="background:#1a1a1a; padding:20px; border:2px solid red; border-radius:15px; text-align:center;">
-                <h2 style="color:red; font-family:'Rajdhani';">Payment Failed</h2>
-                <p style="color:white; font-size:0.9rem;">${errorMessage}</p>
-                <button onclick="document.getElementById('premium-error-popup').style.display='none'" style="margin-top:15px; padding:10px 20px; background:red; color:white; border-radius:20px;">Try Again</button>
-            </div>`;
-            errUI.style.display = 'flex';
-        }
-
-        function closePremiumPopup() {
-            document.getElementById('premium-success-popup').style.display = 'none';
-            initProfileView();
-            openCategory('ancient', document.getElementById('nav-ancient'));
-        }
-
-        function completeTxn() {
-            if(tInt) clearInterval(tInt);
-            let now = new Date();
-            
-            localStorage.setItem(HAS_PAID_KEY, 'true'); 
-            localStorage.setItem('userName', userData.name);
-            localStorage.setItem('userEmail', userData.email);
-            localStorage.setItem('userMobile', userData.number);
-            localStorage.setItem(TXN_KEY, userData.txn); 
-            localStorage.setItem(PLAN_NAME_KEY, userData.planName);
-            localStorage.setItem(PLAN_AMOUNT_KEY, selectedPlanPrice.toString());
-            localStorage.setItem(PURCHASE_TIME_KEY, now.toISOString());
-            
-            let validityMsg = `You have Lifetime Access! Your subscription never expires.`;
-            document.getElementById('wel-user').innerText = userData.name || "User";
-            document.getElementById('plan-name-display').innerText = selectedPlanLabel;
-            document.getElementById('validity-message').innerText = validityMsg;
-            document.getElementById('welcome-popup').style.display = 'flex';
-            
-            showStep(4);
-        }
-
-        function closeWelcome() {
-            document.getElementById('welcome-popup').style.display = 'none';
-            initProfileView();
-            openCategory('ancient', document.getElementById('nav-ancient'));
-        }
-
-        function toggleHeaderFooter() {
-            const headerElement = document.getElementById('main-header');
-            const footerWrapperElement = document.getElementById('dock-wrapper');
-            const modalOverlayElement = document.getElementById('main-modal');
-            
-            if (!headerElement.classList.contains('header-hidden')) {
-                headerElement.classList.add('header-hidden');
-                footerWrapperElement.classList.add('footer-hidden');
-                modalOverlayElement.classList.add('modal-expand');
-            } else {
-                headerElement.classList.remove('header-hidden');
-                footerWrapperElement.classList.remove('footer-hidden');
-                modalOverlayElement.classList.remove('modal-expand');
-            }
-        }
-
-        let tapCountTriple = 0;
-        let tapTimerTriple = null;
-        
-        function onTripleTapHandler(event) {
-            const target = event.target;
-            if (target.closest('.option-btn') || 
-                target.closest('.dock-item') || 
-                target.closest('button') || 
-                target.closest('.gold-input') ||
-                target.closest('.res-btn') ||
-                target.closest('.cp-btn') ||
-                target.closest('.grand-btn-primary') ||
-                target.closest('.grand-btn-secondary')) {
-                return;
-            }
-            
-            tapCountTriple++;
-            if (tapTimerTriple) clearTimeout(tapTimerTriple);
-            
-            if (tapCountTriple === 3) {
-                toggleHeaderFooter();
-                tapCountTriple = 0;
-            } else {
-                tapTimerTriple = setTimeout(() => {
-                    tapCountTriple = 0;
-                }, 500);
-            }
-        }
-
-        document.body.addEventListener('touchstart', onTripleTapHandler);
-        document.body.addEventListener('click', onTripleTapHandler);
-
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('app-main-title').innerText = APP_NAME;
-            document.title = APP_NAME + " - History PYQ";
-            
-            updateDockVisuals();
-
-            if(hasPaid()) openCategory('ancient', document.getElementById('nav-ancient'));
-            else openCategory('profile', document.getElementById('nav-profile'));
-        });
     </script>
 </body>
 </html>
