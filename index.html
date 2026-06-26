@@ -23,12 +23,14 @@
             --glass-bg: rgba(15, 15, 25, 0.75);
             --glass-border: rgba(0, 229, 255, 0.15);
             
-            /* EXACT FIXED POSITIONING FOR WEBVIEW & IPHONE MINI */
-            --header-top: 10px;
+            /* EXACT FIXED POSITIONING FOR WEBVIEW */
+            /* Increased top/bottom margins slightly to prevent status/nav bar overlap in Android */
+            --header-top: 15px; 
             --header-height: 60px;
-            --footer-bottom: 10px;
+            --footer-bottom: 15px; 
             --footer-height: 70px;
-            /* Safe bounds calculate exact space strictly BETWEEN header and footer */
+            
+            /* Safe bounds strictly lock ALL popups/content BETWEEN header and footer */
             --safe-top-bound: calc(var(--header-top) + var(--header-height) + 12px);
             --safe-bottom-bound: calc(var(--footer-bottom) + var(--footer-height) + 12px);
             
@@ -39,6 +41,10 @@
             
             --brand-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
             --card-gradient: linear-gradient(160deg, rgba(30, 30, 45, 0.8) 0%, rgba(10, 10, 15, 0.95) 100%);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         html { scroll-behavior: smooth; }
@@ -54,7 +60,7 @@
         }
 
         #fixed-media-background {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             z-index: -10; background-size: cover; background-position: center;
             background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
             filter: brightness(12%) saturate(180%) blur(5px);
@@ -77,12 +83,13 @@
 
         /* --- FIXED HEADER --- */
         .iphone-header {
-            position: absolute; top: var(--header-top); left: 50%; transform: translateX(-50%);
+            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            top: var(--header-top); left: 50%; transform: translateX(-50%);
             width: 92%; max-width: 600px; height: var(--header-height);
             background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border); border-radius: 20px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 15px; z-index: 3000; box-shadow: 0 10px 40px rgba(0,229,255,0.1);
+            padding: 0 15px; z-index: 5000; box-shadow: 0 10px 40px rgba(0,229,255,0.1);
         }
         .header-left img { 
             width: 38px; height: 38px; border-radius: 12px; 
@@ -110,8 +117,9 @@
 
         /* --- FIXED FOOTER --- */
         .iphone-dock-wrapper { 
-            position: absolute; bottom: var(--footer-bottom); 
-            left: 0; width: 100%; display: flex; justify-content: center; z-index: 3000; padding: 0 15px; 
+            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            bottom: var(--footer-bottom); 
+            left: 0; width: 100%; display: flex; justify-content: center; z-index: 5000; padding: 0 15px; 
         }
         .iphone-dock { 
             width: 100%; max-width: 500px; height: var(--footer-height); 
@@ -146,7 +154,7 @@
 
         /* --- CONTENT AREA (STRICTLY BETWEEN HEADER AND FOOTER) --- */
         .modal-overlay { 
-            position: absolute; 
+            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
             top: var(--safe-top-bound);
             bottom: var(--safe-bottom-bound);
             left: 0; right: 0; z-index: 2500; 
@@ -180,7 +188,6 @@
             margin-bottom: 15px; display: inline-block; position: relative; letter-spacing: -0.5px;
         }
         
-        /* Grid optimized for iPhone 12 Mini */
         .modern-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); 
@@ -205,9 +212,9 @@
             font-size: 0.7rem; color: var(--success); padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); font-weight: 700;
         }
 
-        /* --- POPUP MODALS (ALSO RESTRICTED STRICTLY BETWEEN HEADER & FOOTER) --- */
+        /* --- POPUP MODALS (STRICTLY FIXED BETWEEN HEADER & FOOTER) --- */
         .cet-sub-modal {
-            position: absolute; 
+            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
             top: var(--safe-top-bound);
             bottom: var(--safe-bottom-bound);
             left: 0; width: 100%;
@@ -243,7 +250,6 @@
         #modal-dynamic-content::-webkit-scrollbar { width: 4px; }
         #modal-dynamic-content::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
 
-        /* Other reused styles adapted for mobile */
         .popup-title { font-family: 'Outfit'; font-size: 1.4rem; font-weight: 900; color: var(--primary); margin-bottom: 10px; line-height: 1.2; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; padding-right: 35px;}
         .popup-subtitle { font-size: 0.95rem; color: var(--warning); font-weight: 700; margin-top: 15px; margin-bottom: 8px; font-family: 'Outfit';}
         .popup-text { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px; }
@@ -624,7 +630,7 @@
         </div>
     </div>
 
-    <!-- DYNAMIC POPUP MODAL (Strictly between Header/Footer) -->
+    <!-- DYNAMIC POPUP MODAL (Strictly fixed between Header/Footer) -->
     <div id="dynamic-detail-modal" class="cet-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeDynamicModal()"><i class="fas fa-times"></i></button>
@@ -635,7 +641,7 @@
         </div>
     </div>
 
-    <!-- Language Selection Modal (Strictly between Header/Footer) -->
+    <!-- Language Selection Modal (Strictly fixed between Header/Footer) -->
     <div id="lang-modal" class="cet-sub-modal">
         <div class="sub-modal-content !max-w-[320px]">
             <button class="close-sub-btn" onclick="closeLangModal()"><i class="fas fa-times"></i></button>
