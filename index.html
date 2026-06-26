@@ -23,15 +23,15 @@
             --glass-bg: rgba(15, 15, 25, 0.75);
             --glass-border: rgba(0, 229, 255, 0.15);
             
-            /* EXACT FIXED POSITIONING FOR WEBVIEW (FIXED STATUS BAR & NAV BAR OVERLAP) */
-            /* max() ensures that even if env() fails in WebView, minimum 45px/40px is applied */
+            /* EXACT FIXED POSITIONING FOR WEBVIEW */
             --header-top: max(45px, env(safe-area-inset-top)); 
             --header-height: 60px;
             --footer-bottom: max(40px, env(safe-area-inset-bottom)); 
             --footer-height: 70px;
             
             /* Safe bounds strictly lock ALL popups/content BETWEEN header and footer */
-            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 15px);
+            /* Added extra 45px to top bound to accommodate the new floating language button */
+            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 60px);
             --safe-bottom-bound: calc(var(--footer-bottom) + var(--footer-height) + 15px);
             
             --text-light: #F8FAFC; 
@@ -88,7 +88,7 @@
 
         /* --- FIXED HEADER --- */
         .iphone-header {
-            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            position: fixed; 
             top: var(--header-top); left: 50%; transform: translateX(-50%);
             width: 92%; max-width: 600px; height: var(--header-height);
             background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(25px);
@@ -96,7 +96,7 @@
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 15px; z-index: 5000; box-shadow: 0 10px 40px rgba(0,229,255,0.1);
         }
-        .header-left img { 
+        .header-left img, .header-right img { 
             width: 38px; height: 38px; border-radius: 12px; 
             border: 2px solid transparent; 
             background-image: linear-gradient(var(--bg-dark), var(--bg-dark)), var(--brand-gradient);
@@ -109,20 +109,30 @@
             -webkit-text-fill-color: transparent; letter-spacing: 1px; 
             text-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
         }
+
+        /* --- FLOATING CONTROLS (Below Header) --- */
+        .top-controls {
+            position: fixed;
+            top: calc(var(--header-top) + var(--header-height) + 12px);
+            left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 600px;
+            display: flex; justify-content: flex-end;
+            padding: 0; z-index: 4500; pointer-events: none;
+        }
         
         .lang-btn {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            background: rgba(15, 15, 25, 0.85); backdrop-filter: blur(15px);
             border: 1px solid var(--primary); color: var(--primary);
-            padding: 6px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 800;
+            padding: 6px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: 800;
             display: flex; align-items: center; gap: 6px; cursor: pointer;
             box-shadow: 0 0 15px rgba(0, 229, 255, 0.2); transition: all 0.3s;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', sans-serif; pointer-events: auto;
         }
         .lang-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.05); }
 
         /* --- FIXED FOOTER --- */
         .iphone-dock-wrapper { 
-            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            position: fixed; 
             bottom: var(--footer-bottom); 
             left: 0; width: 100%; display: flex; justify-content: center; z-index: 5000; padding: 0 15px; 
         }
@@ -159,7 +169,7 @@
 
         /* --- CONTENT AREA (STRICTLY BETWEEN HEADER AND FOOTER) --- */
         .modal-overlay { 
-            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            position: fixed; 
             top: var(--safe-top-bound);
             bottom: var(--safe-bottom-bound);
             left: 0; right: 0; z-index: 2500; 
@@ -219,7 +229,7 @@
 
         /* --- POPUP MODALS (STRICTLY FIXED BETWEEN HEADER & FOOTER) --- */
         .cet-sub-modal {
-            position: fixed; /* STRICTLY FIXED FOR WEBVIEW */
+            position: fixed; 
             top: var(--safe-top-bound);
             bottom: var(--safe-bottom-bound);
             left: 0; width: 100%;
@@ -234,8 +244,8 @@
             background: linear-gradient(160deg, #12121c 0%, #08080c 100%); 
             border: 1px solid rgba(0, 229, 255, 0.3); 
             width: 100%; max-width: 650px; 
-            max-height: 100%; /* Prevents growing outside bounds */
-            display: flex; flex-direction: column; /* Keeps header fixed, scrolls content */
+            max-height: 100%; 
+            display: flex; flex-direction: column; 
             border-radius: 24px; padding: 20px; position: relative; color: #fff; 
             box-shadow: 0 20px 60px rgba(0,0,0,0.9);
             transform: scale(0.95) translateY(15px); opacity: 0; transition: 0.3s;
@@ -335,12 +345,14 @@
     <header class="iphone-header">
         <div class="header-left"><img src="https://placehold.co/100x100/00E5FF/07070C?text=CET" alt="Logo"></div>
         <div class="header-center">HSSC CET-D</div>
-        <div class="header-right" onclick="showLangModal()">
-            <div class="lang-btn">
-                <i class="fas fa-language"></i> <span id="current-lang-display">EN</span>
-            </div>
-        </div>
+        <div class="header-right"><img src="https://placehold.co/100x100/00E5FF/07070C?text=CET" alt="Logo"></div>
     </header>
+
+    <div class="top-controls">
+        <div class="lang-btn" onclick="showLangModal()">
+            <i class="fas fa-language"></i> <span id="current-lang-display">EN</span>
+        </div>
+    </div>
 
     <div class="iphone-dock-wrapper">
         <nav class="iphone-dock">
