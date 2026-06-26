@@ -23,16 +23,16 @@
             --glass-bg: rgba(15, 15, 25, 0.75);
             --glass-border: rgba(0, 229, 255, 0.15);
             
-            /* EXACT FIXED POSITIONING FOR WEBVIEW */
-            /* Increased top/bottom margins slightly to prevent status/nav bar overlap in Android */
-            --header-top: 15px; 
+            /* EXACT FIXED POSITIONING FOR WEBVIEW (FIXED STATUS BAR & NAV BAR OVERLAP) */
+            /* max() ensures that even if env() fails in WebView, minimum 45px/40px is applied */
+            --header-top: max(45px, env(safe-area-inset-top)); 
             --header-height: 60px;
-            --footer-bottom: 15px; 
+            --footer-bottom: max(40px, env(safe-area-inset-bottom)); 
             --footer-height: 70px;
             
             /* Safe bounds strictly lock ALL popups/content BETWEEN header and footer */
-            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 12px);
-            --safe-bottom-bound: calc(var(--footer-bottom) + var(--footer-height) + 12px);
+            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 15px);
+            --safe-bottom-bound: calc(var(--footer-bottom) + var(--footer-height) + 15px);
             
             --text-light: #F8FAFC; 
             --text-muted: #94A3B8;
@@ -47,20 +47,25 @@
             box-sizing: border-box;
         }
 
-        html { scroll-behavior: smooth; }
-        body {
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
             font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
-            margin: 0;
-            /* Fix for WebView to prevent body scrolling/bouncing */
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            /* Strict lock for WebView to prevent body scrolling/bouncing */
+            position: fixed; 
+            top: 0; left: 0; right: 0; bottom: 0;
             overflow: hidden; 
+            overscroll-behavior: none;
             -webkit-tap-highlight-color: transparent;
         }
 
         #fixed-media-background {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
             z-index: -10; background-size: cover; background-position: center;
             background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
             filter: brightness(12%) saturate(180%) blur(5px);
