@@ -30,7 +30,8 @@
             --footer-height: 70px;
             
             /* Safe bounds strictly lock ALL popups/content BETWEEN header and footer */
-            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 10px);
+            /* Adjusted safe top bound to account for the new 50/50 button bar below the header */
+            --safe-top-bound: calc(var(--header-top) + var(--header-height) + 65px);
             --safe-bottom-bound: calc(var(--footer-bottom) + var(--footer-height) + 15px);
             
             --text-light: #F8FAFC; 
@@ -94,49 +95,35 @@
             -webkit-text-fill-color: transparent; letter-spacing: 1px; text-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
         }
 
-        /* --- SIDE CONTROLS (Leta kar chipka hue) --- */
-        .side-action-btn {
+        /* --- STREAMING_CHUNK:Styling the new 50/50 action buttons --- */
+        .top-action-bar {
             position: fixed;
-            top: 50%;
-            height: 25px; /* Fixed height for exact calculation */
-            background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(15px);
-            font-size: 0.65rem; font-weight: 800; font-family: 'Outfit', sans-serif;
-            padding: 0 15px;
-            display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
-            transition: all 0.3s; z-index: 2600;
-            white-space: nowrap; letter-spacing: 0.5px;
+            top: calc(var(--header-top) + var(--header-height) + 12px);
+            left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 600px;
+            display: flex; gap: 10px; z-index: 2600;
         }
+        
+        .action-btn-half {
+            flex: 1;
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(15px);
+            height: 42px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            font-size: 0.75rem; font-weight: 800; font-family: 'Outfit', sans-serif;
+            cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            white-space: nowrap; overflow: hidden; padding: 0 6px;
+        }
+        
+        .action-btn-half.lang-btn {
+            border: 1px solid var(--primary); color: var(--primary);
+        }
+        .action-btn-half.lang-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow); }
 
-        /* Left Side Button (Language) */
-        .side-action-btn.left-side {
-            left: 0;
-            /* Move center to (0,50%), shift right by half-height (20px) to align top edge with screen edge, then rotate -90 */
-            transform: translate(-50%, -50%) translateX(20px) rotate(-90deg);
-            border: 1px solid var(--primary);
-            border-top: none; /* Flat against the screen edge */
-            color: var(--primary);
-            border-radius: 0 0 14px 14px; /* Rounded corners facing inwards */
-            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.15);
+        .action-btn-half.review-btn {
+            border: 1px solid var(--warning); color: var(--warning);
         }
-        .side-action-btn.left-side:hover {
-            background: var(--primary); color: #000; box-shadow: 0 0 20px var(--primary-glow);
-        }
-
-        /* Right Side Button (Review) */
-        .side-action-btn.right-side {
-            left: 100%; /* Anchor to absolute right edge */
-            /* Move center to (100%,50%), shift left by half-height (20px) to align top edge with screen edge, then rotate +90 */
-            transform: translate(-50%, -50%) translateX(-20px) rotate(90deg);
-            border: 1px solid var(--warning);
-            border-top: none; /* Flat against the screen edge */
-            color: var(--warning);
-            border-radius: 0 0 14px 14px; /* Rounded corners facing inwards */
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.15);
-        }
-        .side-action-btn.right-side:hover {
-            background: var(--warning); color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
+        .action-btn-half.review-btn:hover { background: var(--warning); color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
 
         /* --- FIXED FOOTER (All 5 Icons Restored) --- */
         .iphone-dock-wrapper { 
@@ -170,7 +157,7 @@
         }
         .nav-item.active span { opacity: 1; color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 
-        /* --- CONTENT AREA & MODALS --- */
+        /* --- STREAMING_CHUNK:Styling the content area and modals --- */
         .modal-overlay { 
             position: fixed; top: var(--safe-top-bound); bottom: var(--safe-bottom-bound);
             left: 0; right: 0; z-index: 2500; display: none; justify-content: center; padding: 0 12px; pointer-events: none;
@@ -241,7 +228,7 @@
             padding: 3px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 900; position: absolute; top: 10px; right: 10px;
         }
 
-        /* --- POPUP SUB-MODALS --- */
+        /* --- STREAMING_CHUNK:Styling the Sub-Modals (Reviews, Forms) --- */
         .cet-sub-modal {
             position: fixed; top: var(--safe-top-bound); bottom: var(--safe-bottom-bound);
             left: 0; width: 100%; background: rgba(2, 2, 5, 0.85); backdrop-filter: blur(10px); z-index: 4000;
@@ -359,27 +346,27 @@
         <div class="header-right"><img src="ytglogo.png" alt="Logo" onerror="this.src='https://placehold.co/100x100/FF0055/ffffff?text=YT'"></div>
     </header>
 
-    <!-- FIXED SIDE CONTROLS (Leta kar chipka hue) -->
-    <div class="side-action-btn left-side" onclick="showLangModal()">
-        <i class="fas fa-language text-lg"></i> 
-        <span data-i18n="btn_lang">Change Language</span> (<span id="current-lang-display">EN</span>)
+    <div class="top-action-bar">
+        <div class="action-btn-half lang-btn" onclick="showLangModal()">
+            <i class="fas fa-language text-lg"></i> 
+            <span><span data-i18n="btn_lang">Change Language</span> (<span id="current-lang-display">EN</span>)</span>
+        </div>
+        <div class="action-btn-half review-btn" onclick="openReviewsModal()">
+            <span data-i18n="btn_reviews">See & Write Review</span> 
+            <i class="fas fa-star text-lg"></i>
+        </div>
     </div>
 
-    <div class="side-action-btn right-side" onclick="openReviewsModal()">
-        <span data-i18n="btn_reviews">See & Write Review</span> 
-        <i class="fas fa-star text-lg"></i>
-    </div>
-
-    <!-- 5 ICONS FOOTER DOCK RESTORED -->
+    <!-- 5 ICONS FOOTER DOCK RESTORED (Info is default) -->
     <div class="iphone-dock-wrapper">
         <nav class="iphone-dock">
-            <div class="nav-item active" id="nav-tests" onclick="activateTab(this, 'tests')">
+            <div class="nav-item" id="nav-tests" onclick="activateTab(this, 'tests')">
                 <div class="icon-box"><i class="fas fa-file-signature"></i></div><span data-i18n="nav_tests">PYQ Tests</span>
             </div>
             <div class="nav-item" id="nav-syllabus" onclick="activateTab(this, 'syllabus')">
                 <div class="icon-box"><i class="fas fa-book-open"></i></div><span data-i18n="nav_syllabus">Syllabus</span>
             </div>
-            <div class="nav-item" id="nav-info" onclick="activateTab(this, 'info')">
+            <div class="nav-item active" id="nav-info" onclick="activateTab(this, 'info')">
                 <div class="icon-box"><i class="fas fa-info-circle"></i></div><span data-i18n="nav_info">Get Info</span>
             </div>
             <div class="nav-item" id="nav-earn" onclick="activateTab(this, 'earn')">
@@ -392,7 +379,7 @@
     </div>
 
     <!-- MODAL 1: TESTS (Original Content) -->
-    <div id="modal-tests" class="modal-overlay active">
+    <div id="modal-tests" class="modal-overlay">
         <div class="modal-box">
             <div class="scroll-content cet-container">
                 <h2 class="cet-heading" data-i18n="test_heading">Mock Tests & PYQs 🎯</h2>
@@ -484,8 +471,8 @@
         </div>
     </div>
 
-    <!-- MODAL 3: INFO (Original Content Restored with Canvas) -->
-    <div id="modal-info" class="modal-overlay">
+    <!-- MODAL 3: INFO (Original Content Restored with Canvas - NOW DEFAULT) -->
+    <div id="modal-info" class="modal-overlay active">
         <div class="modal-box">
             <div class="scroll-content cet-container">
                 <h2 class="cet-heading" data-i18n="info_heading">Complete HSSC Info 🧠</h2>
@@ -705,8 +692,8 @@
             <button class="close-sub-btn" onclick="closeLangModal()"><i class="fas fa-times"></i></button>
             <h3 class="popup-title !text-center !border-none !mb-0 !pr-0">Select Language <br><span class="text-[1.1rem] text-white font-normal mt-1 block">भाषा चुनें</span></h3>
             <div class="lang-options-grid">
-                <div class="lang-option" id="lang-en" onclick="setLanguage('en')"><i class=""></i><span>English</span></div>
-                <div class="lang-option" id="lang-hi" onclick="setLanguage('hi')"><i class=""></i><span>हिन्दी</span></div>
+                <div class="lang-option" id="lang-en" onclick="setLanguage('en')"><i class="fas fa-font"></i><span>English</span></div>
+                <div class="lang-option" id="lang-hi" onclick="setLanguage('hi')"><i class="fas fa-om"></i><span>हिन्दी</span></div>
             </div>
         </div>
     </div>
@@ -1090,11 +1077,15 @@
             }).catch(err => console.log("Review sync error:", err));
         };
 
-        // Initialize App
+        // Initialize App on DOM Load
         document.addEventListener("DOMContentLoaded", () => {
             updateUI();
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => item.classList.remove('locked'));
+            
+            // Initialize chart immediately since "Get Info" is now the default tab
+            initCharts();
+            window.chartInitialized = true;
         });
     </script>
 </body>
