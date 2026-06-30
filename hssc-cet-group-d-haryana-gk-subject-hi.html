@@ -12,13 +12,12 @@
     <script src="redirect.js?v=99"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- CASHFREE V3 SDK FOR REAL PAYMENT -->
     <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
     
     <style>
-        /* --- थीम वेरिएबल्स --- */
         :root {
             --primary: #F4C430;       
             --primary-glow: #FFD700; 
@@ -27,6 +26,11 @@
             --footer-height: 75px; 
             --correct: #00e676;
             --wrong: #ff1744;
+            /* Added from index.html for Reviews */
+            --warning: #FFD700;
+            --success: #00FF88;
+            --text-muted: #94A3B8;
+            --brand-gradient: linear-gradient(135deg, var(--primary), var(--primary-glow));
         }
 
         /* --- ग्लोबल रीसेट --- */
@@ -111,13 +115,13 @@
         .action-btn-half {
             flex: 1; background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(15px);
             height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;
-            font-size: 0.85rem; font-weight: 800; font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
+            font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani', sans-serif; text-transform: uppercase;
             cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             white-space: nowrap; overflow: hidden; padding: 0 10px;
         }
         .action-btn-half.home-btn { border: 1px solid #00E5FF; color: #00E5FF; }
         .action-btn-half.home-btn:hover { background: #00E5FF; color: #000; box-shadow: 0 0 20px rgba(0,229,255,0.5); }
-        .action-btn-half.review-btn { border: 1px solid var(--warning); color: var(--warning); }
+        .action-btn-half.review-btn { border: 1px solid var(--warning); color: var(--warning); font-family: 'Outfit', sans-serif; text-transform: none; font-size: 0.75rem;}
         .action-btn-half.review-btn:hover { background: var(--warning); color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
 
         /* --- डॉक (फुटर) --- */
@@ -153,7 +157,6 @@
         }
         .dock-item.active i { transform: scale(1.1); filter: drop-shadow(0 0 5px var(--primary)); }
         
-        /* डॉक के लिए लॉक किया गया स्टेट */
         .dock-item.dock-locked { opacity: 0.6; cursor: not-allowed; color: #888; }
         .dock-item.dock-locked::after {
             content: '\f023';
@@ -324,7 +327,6 @@
         .expl-text::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 4px; }
         .expl-text::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
 
-        /* --- MODERN POPUP & CARDS SYTLING (MATCHING IMAGE & INDEX.HTML) --- */
         .overlay-popup, .custom-popup-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(5, 5, 5, 0.95); z-index: 50; display: none; 
@@ -535,19 +537,19 @@
             z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
         }
         
-        /* --- REVIEW SYSTEM MODALS --- */
+        /* --- REVIEW SYSTEM MODALS (Ported EXACTLY from index.html) --- */
         .cet-sub-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(2, 2, 5, 0.9); backdrop-filter: blur(10px); z-index: 4000;
+            background: rgba(2, 2, 5, 0.85); backdrop-filter: blur(10px); z-index: 4000;
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden; transition: 0.3s; padding: 15px;
+            opacity: 0; visibility: hidden; transition: 0.3s; padding: 0 12px;
         }
         .cet-sub-modal.active { opacity: 1; visibility: visible; }
         .cet-sub-modal.active .sub-modal-content { transform: scale(1) translateY(0); opacity: 1; }
         
         .sub-modal-content {
             background: linear-gradient(160deg, #12121c 0%, #08080c 100%); 
-            border: 1px solid rgba(244, 196, 48, 0.3); width: 100%; max-width: 650px; max-height: 90vh; 
+            border: 1px solid rgba(0, 229, 255, 0.3); width: 100%; max-width: 650px; max-height: 100%; 
             display: flex; flex-direction: column; border-radius: 24px; padding: 20px; position: relative; color: #fff; 
             box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: scale(0.95) translateY(15px); opacity: 0; transition: 0.3s;
         }
@@ -558,6 +560,8 @@
         }
         .close-sub-btn:active { transform: scale(0.9); background: rgba(255,0,85,0.5); border-color: var(--wrong); }
 
+        .rev-popup-title { font-family: 'Outfit'; font-size: 1.4rem; font-weight: 900; color: #00E5FF; margin-bottom: 10px; line-height: 1.2; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; padding-right: 35px; text-align: left; background: none; -webkit-text-fill-color: initial;}
+        
         .review-filters-wrapper { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .review-filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; -ms-overflow-style: none; scrollbar-width: none; }
         .review-filters::-webkit-scrollbar { display: none; }
@@ -565,7 +569,7 @@
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 14px; 
             border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #cbd5e1; cursor: pointer; white-space: nowrap; transition: 0.2s;
         }
-        .filter-chip.active { background: var(--warning); color: #000; border-color: var(--warning); font-weight: 800; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .filter-chip.active { background: #00E5FF; color: #000; border-color: #00E5FF; font-weight: 800; box-shadow: 0 0 10px rgba(0,229,255,0.5); }
 
         .review-card {
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
@@ -573,29 +577,49 @@
         }
         .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
         .reviewer-profile { display: flex; gap: 10px; align-items: center; }
-        .reviewer-avatar { width: 35px; height: 35px; background: linear-gradient(135deg, var(--warning), #ff9800); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0;}
-        .review-name { font-family: 'Rajdhani'; font-weight: 800; font-size: 1rem; color: #fff; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;}
+        .reviewer-avatar { width: 35px; height: 35px; background: linear-gradient(135deg, #00E5FF, #B400FF); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; flex-shrink: 0;}
+        .review-name { font-family: 'Outfit'; font-weight: 800; font-size: 0.95rem; color: #fff; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;}
         .reviewer-phone-mask { font-size: 0.75rem; color: var(--text-muted); font-weight: normal; font-family: 'Plus Jakarta Sans';}
         .review-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;}
         .review-date-time { font-size: 0.75rem; color: #888; text-align: right; min-width: 65px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;}
-        .live-badge { background: rgba(0, 255, 136, 0.1); color: var(--correct); font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 1px solid rgba(0, 255, 136, 0.3);}
+        .live-badge { background: rgba(0, 255, 136, 0.1); color: var(--success); font-size: 0.6rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 1px solid rgba(0, 255, 136, 0.3);}
         .review-text { font-size: 0.85rem; color: #cbd5e1; line-height: 1.5; font-style: italic; }
         .review-stars { color: var(--warning); font-size: 0.8rem; margin-bottom: 8px; }
         
-        #reviews-list-container { flex-grow: 1; overflow-y: auto; padding-right: 5px; margin-bottom: 15px; }
+        #reviews-list-container { flex-grow: 1; overflow-y: auto; padding-right: 5px; margin-bottom: 15px; -webkit-overflow-scrolling: touch; }
+        #reviews-list-container::-webkit-scrollbar { width: 4px; }
+        #reviews-list-container::-webkit-scrollbar-thumb { background: var(--warning); border-radius: 10px; }
         
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-weight: 600;}
-        .form-input {
-            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
-            color: #fff; padding: 12px 15px; border-radius: 12px; font-size: 0.9rem; outline: none; transition: 0.3s;
-        }
-        .form-input:focus { border-color: var(--warning); box-shadow: 0 0 10px rgba(255,215,0,0.2); }
-        textarea.form-input { resize: none; height: 100px; }
-        .star-rating-input { display: flex; gap: 10px; font-size: 2rem; color: rgba(255,255,255,0.2); cursor: pointer; justify-content: center; margin: 5px 0 10px; }
-        .star-rating-input i.active { color: var(--warning); }
+        .scroll-content { flex-grow: 1; overflow-y: auto; padding-right: 5px; -webkit-overflow-scrolling: touch; }
+        .scroll-content::-webkit-scrollbar { width: 4px; }
+        .scroll-content::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 10px; }
 
-        .toast-notification { position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(0,0,0,0.9); color: #FFF; padding: 12px 24px; border-radius: 12px; font-size: 0.9rem; border: 1px solid var(--warning); z-index: 6000; opacity: 0; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); font-weight: 600;}
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-family: 'Outfit'; font-weight: 600;}
+        .form-input {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 12px 15px; border-radius: 12px; font-size: 0.9rem; outline: none; transition: 0.3s; font-family: inherit;
+        }
+        .form-input:focus { border-color: #00E5FF; box-shadow: 0 0 10px rgba(0,229,255,0.1); }
+        textarea.form-input { resize: none; height: 100px; }
+        
+        .star-rating-input { display: flex; gap: 10px; font-size: 2rem; color: rgba(255,255,255,0.2); cursor: pointer; justify-content: center; margin: 5px 0 10px; -webkit-tap-highlight-color: transparent; }
+        .star-rating-input i { transition: color 0.2s; padding: 5px; }
+        .star-rating-input i.active { color: var(--warning); }
+        .star-rating-input i:active { transform: scale(0.85); }
+
+        .loader-spinner { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #00E5FF; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .cet-btn {
+            background: linear-gradient(135deg, #00E5FF, #B400FF); color: #fff; padding: 12px 20px; border-radius: 14px;
+            font-weight: 800; font-size: 0.9rem; border: none; width: 100%;
+            display: inline-flex; align-items: center; justify-content: center;
+            margin-top: 10px; font-family: 'Outfit', sans-serif; cursor: pointer; transition: 0.2s;
+        }
+        .cet-btn:active { transform: scale(0.98); }
+
+        .toast-notification { position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(0,0,0,0.9); color: #FFF; padding: 12px 24px; border-radius: 12px; font-size: 0.9rem; border: 1px solid #00E5FF; z-index: 6000; opacity: 0; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3); font-family: 'Outfit'; font-weight: 600; white-space: nowrap;}
         .toast-notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     </style>
@@ -614,8 +638,10 @@
         <div class="action-btn-half home-btn" onclick="window.location.href='index.html'">
             <i class="fas fa-home"></i> <span>होम पेज</span>
         </div>
+        <!-- Identical to index.html structure -->
         <div class="action-btn-half review-btn" onclick="openReviewsModal()">
-            <span>उपयोगकर्ता समीक्षाएं</span> <i class="fas fa-star"></i>
+            <span>समीक्षा देखें और लिखें</span> 
+            <i class="fas fa-star"></i>
         </div>
     </div>
 
@@ -941,22 +967,25 @@
     <div id="modal-reviews" class="cet-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeReviewsModal()"><i class="fas fa-times"></i></button>
-            <h3 class="popup-title" style="border:none; text-align:left;"><i class="fas fa-star text-yellow-400 mr-2"></i> उपयोगकर्ता समीक्षाएं</h3>
+            <h3 class="rev-popup-title"><i class="fas fa-star text-yellow-400 mr-2"></i> <span>उपयोगकर्ता समीक्षाएं</span></h3>
             
             <div class="review-filters-wrapper">
                 <div class="review-filters">
                     <button type="button" class="filter-chip active" data-val="all" onclick="filterReviews('all')">सभी समीक्षाएं</button>
                     <button type="button" class="filter-chip" data-val="5" onclick="filterReviews(5)">5 <i class="fas fa-star" style="font-size:0.7rem; color: var(--warning)"></i></button>
                     <button type="button" class="filter-chip" data-val="4" onclick="filterReviews(4)">4 <i class="fas fa-star" style="font-size:0.7rem; color: var(--warning)"></i></button>
+                    <button type="button" class="filter-chip" data-val="3" onclick="filterReviews(3)">3 <i class="fas fa-star" style="font-size:0.7rem; color: var(--warning)"></i></button>
+                    <button type="button" class="filter-chip" data-val="2" onclick="filterReviews(2)">2 <i class="fas fa-star" style="font-size:0.7rem; color: var(--warning)"></i></button>
+                    <button type="button" class="filter-chip" data-val="1" onclick="filterReviews(1)">1 <i class="fas fa-star" style="font-size:0.7rem; color: var(--warning)"></i></button>
                 </div>
             </div>
 
             <div id="reviews-list-container">
-                <div style="text-align:center; padding: 20px; color: #888;">लोड हो रहा है...</div>
+                <div class="loader-spinner" id="review-loader"></div>
             </div>
             
             <div class="mt-2 pt-3 border-t border-[rgba(255,255,255,0.1)] text-center">
-                <button class="res-btn !bg-[var(--warning)] !text-black shadow-[0_5px_15px_rgba(255,215,0,0.3)] hover:scale-105" onclick="openWriteReviewModal()">
+                <button class="cet-btn !bg-[var(--warning)] !text-black shadow-[0_5px_15px_rgba(255,215,0,0.3)] hover:scale-105" onclick="openWriteReviewModal()">
                     <i class="fas fa-pen mr-2"></i> <span class="font-black">अपनी समीक्षा लिखें</span>
                 </button>
             </div>
@@ -967,12 +996,12 @@
     <div id="modal-write-review" class="cet-sub-modal" style="z-index: 4100;">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeWriteReviewModal()"><i class="fas fa-arrow-left"></i></button>
-            <h3 class="popup-title text-[var(--warning)]" style="border:none; text-align:left;">समीक्षा लिखें</h3>
+            <h3 class="rev-popup-title text-[var(--warning)] border-[var(--warning)]"><span>समीक्षा लिखें</span></h3>
             
-            <div style="overflow-y:auto; flex-grow:1; margin-top:10px;">
+            <div class="scroll-content mt-3">
                 <form id="addReviewForm" onsubmit="submitNewReview(event)">
                     <div class="form-group text-center">
-                        <label class="form-label !mb-0">अपना अनुभव बताएं (टैप करें)</label>
+                        <label class="form-label !mb-0">अपना अनुभव बताएं (आधा/पूरा स्टार के लिए टैप करें)</label>
                         <div class="star-rating-input" id="starRatingInput">
                             <i class="fas fa-star active" data-val="1"></i>
                             <i class="fas fa-star active" data-val="2"></i>
@@ -981,6 +1010,7 @@
                             <i class="fas fa-star active" data-val="5"></i>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="form-label">आपका नाम</label>
                         <input type="text" id="revName" required class="form-input" placeholder="जैसे: राहुल">
@@ -990,15 +1020,15 @@
                         <input type="tel" id="revPhone" required pattern="[0-9]{10}" class="form-input" placeholder="10 अंकों का नंबर">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">शहर / गांव</label>
-                        <input type="text" id="revLocation" required class="form-input" placeholder="जैसे: रोहतक">
+                        <label class="form-label">शहर / स्थान</label>
+                        <input type="text" id="revLocation" required class="form-input" placeholder="जैसे: रोहतक, हिसार">
                     </div>
                     <div class="form-group">
                         <label class="form-label">आपकी समीक्षा</label>
                         <textarea id="revText" required class="form-input" placeholder="आपका अनुभव कैसा रहा?..."></textarea>
                     </div>
                     
-                    <button type="submit" id="submitReviewBtn" class="res-btn !bg-[#00e676] !text-black shadow-[0_5px_15px_rgba(0,230,118,0.3)] mt-2">
+                    <button type="submit" id="submitReviewBtn" class="cet-btn !bg-[var(--success)] !text-black shadow-[0_5px_15px_rgba(0,255,136,0.3)] mt-2">
                         <span id="submitReviewText">समीक्षा जमा करें</span>
                     </button>
                 </form>
@@ -1437,7 +1467,8 @@
         // ======================================================
         // REVIEWS SYSTEM LOGIC
         // ======================================================
-        let reviewsData = [], currentReviewFilter = 'all'; 
+        let reviewsData = []; 
+        let currentReviewFilter = 'all'; 
 
         async function fetchLiveReviews() {
             try {
@@ -1452,72 +1483,164 @@
                         })).reverse();
                         renderReviews();
                     }
-                } catch(e) {}
+                } catch(parseErr) {}
             } catch(e) {}
         }
+        
         fetchLiveReviews();
         
-        function openReviewsModal() { renderReviews(); document.getElementById('modal-reviews').classList.add('active'); }
-        function closeReviewsModal() { document.getElementById('modal-reviews').classList.remove('active'); }
-        function openWriteReviewModal() { document.getElementById('modal-write-review').classList.add('active'); }
-        function closeWriteReviewModal() { document.getElementById('modal-write-review').classList.remove('active'); }
+        function openReviewsModal() {
+            renderReviews();
+            const overlay = document.getElementById('modal-reviews'); 
+            if(overlay) overlay.classList.add('active'); 
+        }
+        function closeReviewsModal() {
+            const overlay = document.getElementById('modal-reviews'); 
+            if(overlay) overlay.classList.remove('active'); 
+        }
+        function openWriteReviewModal() { 
+            const overlay = document.getElementById('modal-write-review'); 
+            if(overlay) overlay.classList.add('active'); 
+        }
+        function closeWriteReviewModal() { 
+            const overlay = document.getElementById('modal-write-review'); 
+            if(overlay) overlay.classList.remove('active'); 
+        }
 
         window.filterReviews = function(ratingFilter) {
             currentReviewFilter = ratingFilter;
-            document.querySelectorAll('.filter-chip').forEach(c => { c.classList.remove('active'); if(c.getAttribute('data-val') == ratingFilter) c.classList.add('active'); });
+            document.querySelectorAll('.filter-chip').forEach(chip => { 
+                chip.classList.remove('active'); 
+                if(chip.getAttribute('data-val') == ratingFilter) chip.classList.add('active'); 
+            });
             renderReviews();
+        }
+
+        function formatReviewDate(timestamp) { 
+            const dt = new Date(timestamp);
+            const dateStr = dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); 
+            const timeStr = dt.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+            return `<span style="color: #cbd5e1;">${dateStr}</span><span style="font-size: 0.65rem; color: #94a3b8;">${timeStr}</span>`; 
         }
 
         function renderReviews() {
             const container = document.getElementById('reviews-list-container'); 
             if(!container) return; container.innerHTML = '';
-            let filteredList = currentReviewFilter === 'all' ? reviewsData : reviewsData.filter(r => Math.floor(r.rating) === parseInt(currentReviewFilter));
-            if(filteredList.length === 0) { container.innerHTML = '<div style="text-align:center; padding: 40px 10px; color: #888;">कोई समीक्षा नहीं मिली।</div>'; return; }
+            
+            let filteredList = reviewsData; 
+            if(currentReviewFilter !== 'all') {
+                let fVal = parseInt(currentReviewFilter);
+                filteredList = reviewsData.filter(r => Math.floor(r.rating) === fVal);
+            }
+
+            if(filteredList.length === 0) { 
+                container.innerHTML = '<div style="text-align:center; padding: 40px 10px; color: #888; font-family: Outfit;"><i class="fas fa-folder-open text-3xl mb-3 text-[var(--warning)] opacity-50 block"></i><p>कोई समीक्षा नहीं मिली।</p></div>'; 
+                return; 
+            }
 
             filteredList.forEach(review => {
                 let starsHtml = ''; 
-                for(let i=1; i<=5; i++) starsHtml += (review.rating >= i) ? '<i class="fas fa-star"></i>' : ((review.rating >= i - 0.5) ? '<i class="fas fa-star-half-alt"></i>' : '<i class="far fa-star" style="color: rgba(255,255,255,0.2);"></i>');
-                const dt = new Date(review.date);
+                for(let i=1; i<=5; i++) { 
+                    if(review.rating >= i) starsHtml += '<i class="fas fa-star"></i>'; 
+                    else if(review.rating >= i - 0.5) starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                    else starsHtml += '<i class="far fa-star" style="color: rgba(255,255,255,0.2);"></i>'; 
+                }
+                const initial = review.name.charAt(0).toUpperCase(); 
+                const displayPhone = review.phoneLast4 || "XXXX";
+                const liveBadge = review.isLive ? '<span class="live-badge"><i class="fas fa-check"></i> Verified</span>' : '';
+
                 const html = `
                     <div class="review-card">
                         <div class="review-header">
                             <div class="reviewer-profile">
-                                <div class="reviewer-avatar">${review.name.charAt(0).toUpperCase()}</div>
+                                <div class="reviewer-avatar">${initial}</div>
                                 <div>
-                                    <h4 class="review-name">${review.name} <span class="reviewer-phone-mask">(+91 xxxxxx${review.phoneLast4})</span></h4>
-                                    <p class="review-meta"><i class="fas fa-map-marker-alt text-[#00FF88]"></i> ${review.location}</p>
+                                    <h4 class="review-name">${review.name} <span class="reviewer-phone-mask">(+91 xxxxxx${displayPhone})</span></h4>
+                                    <p class="review-meta"><i class="fas fa-map-marker-alt text-[var(--success)]"></i> ${review.location}</p>
                                 </div>
                             </div>
-                            <div class="review-date-time">${review.isLive ? '<span class="live-badge"><i class="fas fa-check"></i> Verified</span>' : ''}<span style="color:#cbd5e1;">${dt.toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})}</span><span style="font-size:0.65rem; color:#94a3b8;">${dt.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',hour12:true})}</span></div>
+                            <div class="review-date-time">${liveBadge}${formatReviewDate(review.date)}</div>
                         </div>
                         <div class="review-stars">${starsHtml}</div>
                         <p class="review-text">"${review.text}"</p>
-                    </div>`;
+                    </div>
+                `;
                 container.insertAdjacentHTML('beforeend', html);
             });
         }
 
         let selectedStarRating = 5.0;
-        document.getElementById('starRatingInput')?.addEventListener('click', function(e) {
-            if (e.target.tagName === 'I') {
-                const rect = e.target.getBoundingClientRect(); const isHalf = (e.clientX - rect.left) < (rect.width / 2); 
-                const index = parseInt(e.target.getAttribute('data-val')); selectedStarRating = isHalf ? index - 0.5 : index;
-                this.querySelectorAll('i').forEach((star, idx) => {
-                    const starVal = idx + 1; star.className = (selectedStarRating >= starVal) ? 'fas fa-star active' : ((selectedStarRating >= starVal - 0.5) ? 'fas fa-star-half-alt active' : 'far fa-star');
-                });
-            }
-        });
+        const starContainer = document.getElementById('starRatingInput');
+        if (starContainer) {
+            starContainer.addEventListener('click', function(e) {
+                if (e.target.tagName === 'I') {
+                    const rect = e.target.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const isHalf = x < (rect.width / 2); 
+                    const index = parseInt(e.target.getAttribute('data-val'));
+                    
+                    selectedStarRating = isHalf ? index - 0.5 : index;
+                    
+                    const stars = starContainer.querySelectorAll('i');
+                    stars.forEach((star, idx) => {
+                        const starVal = idx + 1;
+                        star.className = ''; 
+                        if (selectedStarRating >= starVal) { star.className = 'fas fa-star active'; } 
+                        else if (selectedStarRating >= starVal - 0.5) { star.className = 'fas fa-star-half-alt active'; } 
+                        else { star.className = 'far fa-star'; }
+                    });
+                }
+            });
+        }
 
         window.submitNewReview = function(e) {
             e.preventDefault();
-            const name = document.getElementById('revName').value.trim(), phoneStr = document.getElementById('revPhone').value.trim(), location = document.getElementById('revLocation').value.trim(), text = document.getElementById('revText').value.trim();
-            if(!name || !phoneStr || !location || !text) return;
-            document.getElementById('submitReviewText').innerText = "Posting...";
-            reviewsData.unshift({ name, location, phoneLast4: phoneStr.slice(-4), rating: selectedStarRating, date: Date.now(), text, isLive: true });
-            filterReviews('all'); document.getElementById('addReviewForm').reset();
-            setTimeout(() => { document.getElementById('submitReviewText').innerText = "समीक्षा जमा करें"; closeWriteReviewModal(); const t = document.getElementById('uiToast'); t.innerText = "समीक्षा पोस्ट की गई!"; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000); }, 500);
-            fetch(REVIEW_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'submitReview', name, phone: phoneStr, location, rating: selectedStarRating, text, date: new Date().toISOString() }) });
+            const name = document.getElementById('revName').value.trim(); 
+            const phoneStr = document.getElementById('revPhone').value.trim(); 
+            const location = document.getElementById('revLocation').value.trim(); 
+            const text = document.getElementById('revText').value.trim();
+            const btnText = document.getElementById('submitReviewText');
+
+            if(!name || !phoneStr || !location || !text) { showNotification("कृपया सभी फ़ील्ड भरें।"); return; }
+            
+            const originalBtnText = btnText.innerText;
+            btnText.innerText = "Posting...";
+            const phoneLast4 = phoneStr.length >= 4 ? phoneStr.slice(-4) : "XXXX";
+
+            reviewsData.unshift({ 
+                name: name, location: location, phoneLast4: phoneLast4, 
+                rating: selectedStarRating, date: Date.now(), text: text, isLive: true 
+            });
+            
+            filterReviews('all');
+            const reviewsContainer = document.getElementById('reviews-list-container'); 
+            if(reviewsContainer) reviewsContainer.scrollTop = 0;
+
+            document.getElementById('addReviewForm').reset(); selectedStarRating = 5.0;
+            const stars = starContainer.querySelectorAll('i');
+            stars.forEach(s => { s.classList.add('active', 'fas'); s.classList.remove('far', 'fa-star-half-alt'); });
+            
+            setTimeout(() => {
+                btnText.innerText = originalBtnText;
+                closeWriteReviewModal(); 
+                showNotification("समीक्षा पोस्ट की गई!");
+            }, 500);
+
+            const reviewSheetData = { 
+                action: 'submitReview', name: name, phone: phoneStr, location: location, 
+                rating: selectedStarRating, text: text, date: new Date().toISOString() 
+            };
+            
+            fetch(REVIEW_SCRIPT_URL, { 
+                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, 
+                body: JSON.stringify(reviewSheetData) 
+            }).catch(err => console.log("Review sync error:", err));
         };
+
+        function showNotification(message) {
+            const toast = document.getElementById('uiToast');
+            if(toast) { toast.innerText = message; toast.classList.add('show'); setTimeout(() => { toast.classList.remove('show'); }, 3500); }
+        }
 
         let tapCountTriple = 0, tapTimerTriple = null;
         function onTripleTapHandler(e) {
