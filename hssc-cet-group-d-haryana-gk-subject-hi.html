@@ -26,14 +26,12 @@
             --footer-height: 75px; 
             --correct: #00e676;
             --wrong: #ff1744;
-            /* Added from index.html for Reviews */
             --warning: #FFD700;
             --success: #00FF88;
             --text-muted: #94A3B8;
             --brand-gradient: linear-gradient(135deg, var(--primary), var(--primary-glow));
         }
 
-        /* --- ग्लोबल रीसेट --- */
         html, body {
             margin: 0; padding: 0;
             width: 100%; height: 100dvh;
@@ -47,7 +45,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- यूनिवर्स बैकग्राउंड --- */
         #universe-bg {
             position: fixed; top: -10%; left: -10%; width: 120%; height: 120%;
             z-index: -10;
@@ -58,7 +55,6 @@
         }
         @keyframes galaxyMove { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        /* --- गोल्डन बॉर्डर एनिमेशन --- */
         .golden-border-anim {
             border: 2px solid var(--primary);
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
@@ -69,14 +65,13 @@
             100% { box-shadow: 0 0 20px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(244, 196, 48, 0.2); border-color: #ffd700; }
         }
 
-        /* --- हेडर --- */
         .glass-header {
             position: fixed; top: calc(15px + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
             width: 94%; max-width: 800px; height: var(--header-height);
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(25px);
             border-radius: 24px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 20px; z-index: 3000;
+            padding: 0 20px; z-index: 2147483647 !important; /* Forces header strictly above Cashfree Modal */
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
         }
         .glass-header.header-hidden {
@@ -100,13 +95,13 @@
             text-align: center;
         }
 
-        /* --- TOP ACTION BAR (HOME & REVIEWS) --- */
         .top-action-bar {
             position: fixed;
             top: calc(var(--header-height) + env(safe-area-inset-top) + 25px);
             left: 50%; transform: translateX(-50%);
             width: 92%; max-width: 600px;
-            display: flex; gap: 10px; z-index: 2600;
+            display: none; /* Hidden by default, only shown via JS on Profile */
+            gap: 10px; z-index: 2600;
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .top-action-bar.header-hidden {
@@ -124,10 +119,10 @@
         .action-btn-half.review-btn { border: 1px solid var(--warning); color: var(--warning); font-family: 'Outfit', sans-serif; text-transform: none; font-size: 0.75rem;}
         .action-btn-half.review-btn:hover { background: var(--warning); color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
 
-        /* --- डॉक (फुटर) --- */
         .dock-wrapper { 
             position: fixed; bottom: calc(20px + env(safe-area-inset-bottom)); left: 0; width: 100%; 
-            display: flex; justify-content: center; z-index: 3000; padding: 0 5px;
+            display: flex; justify-content: center; z-index: 2147483647 !important; /* Forces footer above Cashfree */
+            padding: 0 5px;
             transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
         }
         .dock-wrapper.footer-hidden {
@@ -166,10 +161,9 @@
             margin-left: 5px;
         }
 
-        /* --- मुख्य मोडल - हेडर और फुटर की सीमाओं के भीतर तय --- */
         .modal-overlay { 
             position: fixed; 
-            top: calc(var(--header-height) + 75px + env(safe-area-inset-top)); 
+            top: calc(var(--header-height) + 15px + env(safe-area-inset-top)); 
             bottom: calc(var(--footer-height) + 35px + env(safe-area-inset-bottom)); 
             left: 0; right: 0; 
             z-index: 2500; 
@@ -177,6 +171,9 @@
             padding: 0 10px; 
             pointer-events: none; 
             transition: top 0.3s ease, bottom 0.3s ease;
+        }
+        .modal-overlay.with-action-bar {
+            top: calc(var(--header-height) + 75px + env(safe-area-inset-top));
         }
         .modal-overlay.modal-expand {
             top: calc(15px + env(safe-area-inset-top)) !important;
@@ -194,7 +191,16 @@
             position: relative; 
         }
 
-        /* मोडल के अंदर हेडर */
+        /* Force any dynamically injected Cashfree iframe/modal to be constrained */
+        .cf-checkout-modal, #cf-checkout-modal, iframe[src*="cashfree.com"] {
+            top: calc(var(--header-height) + 75px + env(safe-area-inset-top)) !important;
+            bottom: calc(var(--footer-height) + 35px + env(safe-area-inset-bottom)) !important;
+            height: auto !important;
+            border-radius: 24px !important;
+            overflow: hidden !important;
+            z-index: 3500 !important;
+        }
+
         .modal-header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; flex-shrink: 0; }
         .modal-header { text-align: center; background: rgba(0,0,0,0.6); padding: 8px 25px; border-radius: 50px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; width: fit-content; min-width: 180px; }
         .modal-header h2 { font-family: 'Rajdhani'; font-weight: 900; font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); margin: 0; letter-spacing: 1px; text-transform: uppercase; }
@@ -218,7 +224,6 @@
         .sub-item.active { background: var(--primary); color: #000; border-color: var(--primary-glow); box-shadow: 0 0 20px rgba(244, 196, 48, 0.4); font-weight: 800; }
         .sub-item.locked { opacity: 0.5; cursor: not-allowed; background: #222; border: 1px solid #444; }
 
-        /* --- क्विज इंटरफेस --- */
         #quiz-interface { flex-grow: 1; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
         
         .quiz-stats-bar {
@@ -348,9 +353,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase;
         }
         
-        .popup-subtitle {
-            font-size: 1.1rem; color: #FFD700; font-weight: 800; margin-bottom: 15px; font-family: 'Rajdhani'; text-align: center;
-        }
+        .popup-subtitle { font-size: 1.1rem; color: #FFD700; font-weight: 800; margin-bottom: 15px; font-family: 'Rajdhani'; text-align: center; }
 
         .detail-card-modern {
             background: linear-gradient(145deg, rgba(30, 30, 35, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%);
@@ -358,7 +361,6 @@
             border-radius: 16px; padding: 16px; margin-bottom: 14px; position: relative;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5); transition: all 0.3s ease; text-align: left;
         }
-        .detail-card-modern:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.15); box-shadow: 0 12px 30px rgba(0,0,0,0.7); }
         .detail-card-title {
             color: #fff; font-weight: 800; font-family: 'Rajdhani'; font-size: 1.3rem; margin-bottom: 8px;
             display: flex; align-items: center; gap: 10px; letter-spacing: 1px; text-transform: uppercase;
@@ -441,115 +443,31 @@
             min-height: 200px;
         }
         .mc-header { display: flex; justify-content: space-between; align-items: flex-start; z-index: 2; }
-        .mc-chip { width: 45px; height: 30px; background: linear-gradient(45deg, #FFD700, #FDB931); border-radius: 6px; position: relative; overflow: hidden; box-shadow: inset 0 0 5px rgba(0,0,0,0.3); }
-        .mc-chip::after { content: ''; position: absolute; top:0; left:50%; width:1px; height:100%; background:rgba(0,0,0,0.2); }
-        .mc-plan-badge { background: rgba(244, 196, 48, 0.2); border: 1px solid var(--primary); color: var(--primary); padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .mc-user { z-index: 2; margin-top: auto; }
         .mc-name { font-family: 'Rajdhani'; font-size: 1.8rem; font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .mc-email { color: #888; font-size: 0.9rem; margin-top: -2px; }
-        .expiry-text { font-size: 0.7rem; color: #ffaa00; margin-top: 5px; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .stat-box { background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .sb-icon { font-size: 1.2rem; color: #ccc; margin-bottom: 5px; } 
-        .sb-val { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 800; color: #fff; }
-        .sb-label { font-size: 0.7rem; color: #ddd; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        .pro-progress-header { font-family: 'Rajdhani'; font-size: 1.3rem; color: #fff; font-weight: 800; margin-top: 10px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .pp-item { background: linear-gradient(90deg, rgba(20,20,20,0.9) 0%, rgba(30,30,30,0.9) 100%); border-left: 4px solid var(--primary); border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .pp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .pp-title { font-size: 0.9rem; font-weight: 700; color: #ddd; }
-        .pp-score { background: rgba(244, 196, 48, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 800; font-family: 'Rajdhani'; }
-        .pp-bar-bg { width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden; position: relative; }
-        .pp-bar-fill { height: 100%; background: linear-gradient(90deg, #F4C430, #FFD700); border-radius: 10px; box-shadow: 0 0 10px var(--primary); transition: width 1s ease; }
-        .pp-meta { display: flex; justify-content: flex-end; gap: 15px; font-size: 0.75rem; color: #666; margin-top: 8px; }
 
-        #news-section { width: 100%; height: 100%; display: none; flex-direction: column; overflow-y: auto; padding-bottom: 20px; }
-        .news-container { display: flex; flex-direction: column; gap: 15px; padding: 0 5px; }
-        .news-card { background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.3s; }
-        .news-card:active { transform: scale(0.98); }
-        .news-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #333; }
-        .news-body { padding: 15px; }
-        .news-tag { font-size: 0.7rem; color: #000; background: var(--primary); padding: 2px 8px; border-radius: 4px; font-weight: 800; display: inline-block; margin-bottom: 8px; font-family: 'Rajdhani'; }
-        .news-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; font-family: 'Plus Jakarta Sans'; }
-        .news-desc { font-size: 0.85rem; color: #aaa; margin-bottom: 12px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        #grand-completion-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.95); z-index: 4000; display: none;
-            justify-content: center; align-items: center; padding: 20px;
-            backdrop-filter: blur(15px); border-radius: 30px; animation: fadeInGrand 1s ease-out;
-        }
-        @keyframes fadeInGrand { from { opacity: 0; } to { opacity: 1; } }
-
-        .grand-box {
-            background: linear-gradient(180deg, rgba(20, 20, 20, 0.98) 0%, rgba(5, 5, 5, 0.98) 100%);
-            border: 2px solid var(--primary); border-radius: 30px; padding: 40px 25px;
-            width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; text-align: center;
-            box-shadow: 0 0 60px rgba(244, 196, 48, 0.25), inset 0 0 20px rgba(244, 196, 48, 0.1);
-            position: relative; transform: translateY(0); animation: slideUpGrand 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        @keyframes slideUpGrand { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .grand-icon { font-size: 4rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); animation: floatIcon 3s ease-in-out infinite; }
-        @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        .grand-title { 
-            font-family: 'Cinzel', serif; font-weight: 900; font-size: 2.2rem; 
-            background: linear-gradient(to right, #FFD700, #FDB931, #FFD700); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .grand-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; color: #aaa; margin-bottom: 25px; letter-spacing: 1px; text-transform: uppercase; }
-
-        .grand-scroll-container {
-            width: 100%; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 30px;
-            max-height: 250px; overflow-y: auto; text-align: justify;
-            font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; color: #ddd; line-height: 1.7;
-        }
-        
-        .grand-btn-group { width: 100%; display: flex; flex-direction: column; gap: 15px; }
-
-        .grand-btn-primary {
-            width: 100%; padding: 16px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            background: var(--primary); color: #000; border: none; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 0 25px rgba(244, 196, 48, 0.4); text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
-        }
-        .grand-btn-primary:hover { transform: scale(1.02); box-shadow: 0 0 40px rgba(244, 196, 48, 0.6); }
-
-        .grand-btn-secondary {
-            width: 100%; padding: 16px; font-family: 'Rajdhani'; font-weight: 800; font-size: 1.2rem;
-            background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 50px; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;
-        }
-        .grand-btn-secondary:hover { background: rgba(244, 196, 48, 0.1); transform: scale(1.02); }
-
-        .trial-badge {
-            background: #ff1744; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; margin-left: 5px; font-weight: 800; text-transform: uppercase;
-        }
-        .warning-small {
-            font-size: 0.8rem; color: #ffffff; font-weight: bold; background: rgba(255,0,0,0.2); border-radius: 6px; padding: 8px; margin-top: 10px;
-        }
-
-        #premium-success-popup, #premium-error-popup {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
-        }
-        
-        /* --- REVIEW SYSTEM MODALS (Ported EXACTLY from index.html) --- */
         .cet-sub-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(2, 2, 5, 0.85); backdrop-filter: blur(10px); z-index: 4000;
+            position: fixed; 
+            /* Top offset matches main modal on Profile Page (below Top Action Bar) */
+            top: calc(var(--header-height) + 75px + env(safe-area-inset-top)); 
+            bottom: calc(var(--footer-height) + 35px + env(safe-area-inset-bottom)); 
+            left: 0; right: 0; 
+            background: rgba(2, 2, 5, 0.95); backdrop-filter: blur(10px); z-index: 4000;
             display: flex; align-items: center; justify-content: center;
-            opacity: 0; visibility: hidden; transition: 0.3s; padding: 0 12px;
+            opacity: 0; visibility: hidden; transition: top 0.3s ease, bottom 0.3s ease, opacity 0.3s; padding: 0 10px;
         }
         .cet-sub-modal.active { opacity: 1; visibility: visible; }
+        .cet-sub-modal.modal-expand {
+            top: calc(15px + env(safe-area-inset-top)) !important;
+            bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+        }
         .cet-sub-modal.active .sub-modal-content { transform: scale(1) translateY(0); opacity: 1; }
         
         .sub-modal-content {
             background: linear-gradient(160deg, #12121c 0%, #08080c 100%); 
-            border: 1px solid rgba(0, 229, 255, 0.3); width: 100%; max-width: 650px; max-height: 100%; 
+            border: 1px solid rgba(0, 229, 255, 0.3); width: 100%; max-width: 650px; height: 100%; max-height: 100%; 
             display: flex; flex-direction: column; border-radius: 24px; padding: 20px; position: relative; color: #fff; 
             box-shadow: 0 20px 60px rgba(0,0,0,0.9); transform: scale(0.95) translateY(15px); opacity: 0; transition: 0.3s;
         }
@@ -606,8 +524,7 @@
         .star-rating-input { display: flex; gap: 10px; font-size: 2rem; color: rgba(255,255,255,0.2); cursor: pointer; justify-content: center; margin: 5px 0 10px; -webkit-tap-highlight-color: transparent; }
         .star-rating-input i { transition: color 0.2s; padding: 5px; }
         .star-rating-input i.active { color: var(--warning); }
-        .star-rating-input i:active { transform: scale(0.85); }
-
+        
         .loader-spinner { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #00E5FF; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
@@ -617,11 +534,43 @@
             display: inline-flex; align-items: center; justify-content: center;
             margin-top: 10px; font-family: 'Outfit', sans-serif; cursor: pointer; transition: 0.2s;
         }
-        .cet-btn:active { transform: scale(0.98); }
-
         .toast-notification { position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(0,0,0,0.9); color: #FFF; padding: 12px 24px; border-radius: 12px; font-size: 0.9rem; border: 1px solid #00E5FF; z-index: 6000; opacity: 0; pointer-events: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3); font-family: 'Outfit'; font-weight: 600; white-space: nowrap;}
         .toast-notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+        #grand-completion-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95); z-index: 4000; display: none;
+            justify-content: center; align-items: center; padding: 20px;
+            backdrop-filter: blur(15px); border-radius: 30px; animation: fadeInGrand 1s ease-out;
+        }
+        @keyframes fadeInGrand { from { opacity: 0; } to { opacity: 1; } }
+
+        .grand-box {
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.98) 0%, rgba(5, 5, 5, 0.98) 100%);
+            border: 2px solid var(--primary); border-radius: 30px; padding: 40px 25px;
+            width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 0 60px rgba(244, 196, 48, 0.25), inset 0 0 20px rgba(244, 196, 48, 0.1);
+        }
+        .grand-icon { font-size: 4rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary)); }
+        .grand-title { 
+            font-family: 'Cinzel', serif; font-weight: 900; font-size: 2.2rem; 
+            background: linear-gradient(to right, #FFD700, #FDB931, #FFD700); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .grand-scroll-container {
+            width: 100%; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 30px;
+            max-height: 250px; overflow-y: auto; text-align: justify;
+        }
+        .warning-small {
+            font-size: 0.8rem; color: #ffffff; font-weight: bold; background: rgba(255,0,0,0.2); border-radius: 6px; padding: 8px; margin-top: 10px;
+        }
+        #premium-success-popup, #premium-error-popup {
+            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            z-index: 10000; align-items: center; justify-content: center; border-radius: 30px;
+        }
     </style>
 </head>
 <body>
@@ -638,7 +587,6 @@
         <div class="action-btn-half home-btn" onclick="window.location.href='index.html'">
             <i class="fas fa-home"></i> <span>होम पेज</span>
         </div>
-        <!-- Identical to index.html structure -->
         <div class="action-btn-half review-btn" onclick="openReviewsModal()">
             <span>समीक्षा देखें और लिखें</span> 
             <i class="fas fa-star"></i>
@@ -697,6 +645,7 @@
                 </div>
             </div>
 
+            <!-- Quiz Result, Locks, Success Prompts Popups -->
             <div id="result-overlay" class="overlay-popup">
                 <div id="res-emoji" class="res-emoji">🎉</div>
                 <div id="res-title" class="res-title">यूनिट पास!</div>
@@ -754,38 +703,7 @@
                         <div class="detail-card-title"><div class="detail-card-icon" style="color: #00E5FF;"><i class="fas fa-bullseye"></i></div> 1. विस्तृत बोध प्रश्न</div>
                         <p class="detail-card-text">तथ्यात्मक और सीधे प्रश्नों के माध्यम से इतिहास की गहरी समझ।</p>
                     </div>
-                    <div class="detail-card-modern" style="border-left-color: #B400FF;">
-                        <div class="detail-card-title"><div class="detail-card-icon" style="color: #B400FF;"><i class="fas fa-brain"></i></div> 2. अवधारणा एवं तर्क जांच</div>
-                        <p class="detail-card-text">विश्लेषणात्मक प्रश्नों के माध्यम से आपकी वैचारिक स्पष्टता का परीक्षण।</p>
-                    </div>
-                    <div class="detail-card-modern" style="border-left-color: #00FF88;">
-                        <div class="detail-card-title"><div class="detail-card-icon" style="color: #00FF88;"><i class="fas fa-stopwatch"></i></div> 3. पठन गति एवं सटीकता</div>
-                        <p class="detail-card-text">समय सीमा के भीतर सटीकता के साथ उत्तर देने का अभ्यास।</p>
-                    </div>
-
                     <button class="cp-btn" onclick="beginUnitQuestions()">क्विज़ शुरू करें</button>
-                </div>
-            </div>
-
-            <div id="subscribe-index-popup" class="custom-popup-overlay">
-                <div class="custom-popup-box">
-                    <div class="popup-title">पाठ्यक्रम अनलॉक!</div>
-                    <div class="popup-subtitle" style="color: #FFD700; text-align: center;">चयन में सबसे महत्वपूर्ण विषय</div>
-                    
-                    <div class="detail-card-modern" style="border-left-color: #00E5FF;">
-                        <div class="detail-card-title"><div class="detail-card-icon" style="color: #00E5FF;"><i class="fas fa-check-double"></i></div> 1. तथ्यात्मक प्रश्न</div>
-                        <p class="detail-card-text">सीधे उत्तर, तथ्य जांच और सटीक सूचना पुनर्प्राप्ति।</p>
-                    </div>
-                    <div class="detail-card-modern" style="border-left-color: #B400FF;">
-                        <div class="detail-card-title"><div class="detail-card-icon" style="color: #B400FF;"><i class="fas fa-lightbulb"></i></div> 2. अनुमानात्मक प्रश्न</div>
-                        <p class="detail-card-text">अंतर्निहित अर्थ, धारणाएँ और निष्कर्ष आधारित विश्लेषण।</p>
-                    </div>
-                    <div class="detail-card-modern" style="border-left-color: #FFD700;">
-                        <div class="detail-card-title"><div class="detail-card-icon" style="color: #FFD700;"><i class="fas fa-cogs"></i></div> 3. तार्किक व विश्लेषणात्मक</div>
-                        <p class="detail-card-text">तर्क मूल्यांकन, कारण और प्रभाव को समझने की क्षमता।</p>
-                    </div>
-
-                    <button class="cp-btn" onclick="closeSubscribeIndex()">बहुत बढ़िया, चलिए चलते हैं!</button>
                 </div>
             </div>
 
@@ -797,8 +715,6 @@
                             आपने यह अनुभाग सफलतापूर्वक पूरा कर लिया है।
                         </div>
                     </div>
-                    <div class="quote-text" id="sc-quote" style="color:var(--warning); font-style: italic; margin: 15px 0; font-weight: bold; font-size: 1.1rem;">"पढ़ना मन के लिए वैसा ही है जैसा व्यायाम शरीर के लिए।"</div>
-                    
                     <div class="detail-card-modern" style="border-left-color: var(--primary); text-align:center;">
                         <div class="detail-card-title" style="justify-content:center;">अगला: <span id="sc-next-title" style="color:var(--primary); margin-left:8px;">अनुभाग</span></div>
                         <p class="detail-card-text" id="sc-next-index">अगली पठन चुनौतियों के लिए तैयार हो जाइए।</p>
@@ -877,11 +793,6 @@
                             <div class="pc-price">₹799</div>
                         </div>
                     </div>
-
-                    <div id="secret-code-section" style="display:none; width:100%; margin-bottom:15px;">
-                        <input type="text" id="secret-code" class="gold-input" style="text-align:center; margin-bottom:10px;" placeholder="गुप्त कोड दर्ज करें">
-                        <button id="secret-ok-btn" class="btn-pro" style="display:none;">कोड सत्यापित करें</button>
-                    </div>
                     
                     <button id="go-to-pay-btn" class="btn-pro">भुगतान के लिए आगे बढ़ें</button>
                 </div>
@@ -938,7 +849,7 @@
             <!-- PAYMENTS SUCCESS/ERROR -->
             <div id="premium-success-popup" class="overlay-popup">
                 <div style="background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%); border: 2px solid #F4C430; border-radius: 40px; padding: 25px; width: 90%; max-width: 400px; box-shadow: 0 30px 60px rgba(244,196,48,0.3), 0 0 0 2px rgba(244,196,48,0.1) inset; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; text-align: center;">
-                    <div style="width: 100px; height: 100px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 3px solid #F4C430; box-shadow: 0 10px 30px rgba(244,196,48,0.3);">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(145deg, #2a2a2a, #1a1a1a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 3px solid #F4C430;">
                         <i class="fas fa-check-circle" style="font-size: 60px; color: #F4C430;"></i>
                     </div>
                     <div style="font-family: 'Rajdhani', sans-serif; font-weight: 900; font-size: 2.2rem; background: linear-gradient(135deg, #FFD700, #F4C430); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px;">भुगतान सफल!</div>
@@ -963,7 +874,7 @@
         </div>
     </div>
 
-    <!-- REVIEWS MODAL -->
+    <!-- REVIEWS MODAL (Now bounded between header and footer) -->
     <div id="modal-reviews" class="cet-sub-modal">
         <div class="sub-modal-content">
             <button class="close-sub-btn" onclick="closeReviewsModal()"><i class="fas fa-times"></i></button>
@@ -1046,9 +957,7 @@
     <script src="pyq-art-culture-data-pyq-hindi.js"></script>
     
     <script>
-        // ======================================================
         // GOOGLE SCRIPT URLs & APP SETTINGS
-        // ======================================================
         const PAYMENT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOET0tOiJTHgYVDlBWyz6-rAHMQqd32_ezqmQa13HSQv-DVo3ZvQtNppPZgHcISApXhw/exec';
         const REVIEW_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjc6MIJGwNN2CuCjMhTkyY3HKoh7h3QWyk_sMA87oQMA5cdQNigq8yxquW0IPnBuNe/exec"; 
 
@@ -1135,15 +1044,26 @@
                 document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active')); btnElement.classList.add('active');
             }
             document.getElementById('cat-title').innerText = CATEGORY_TITLES[catName] || catName.toUpperCase();
+            
+            // Hide everything first
             document.getElementById('quiz-interface').style.display = 'none';
             document.getElementById('profile-section').style.display = 'none';
             document.getElementById('news-section').style.display = 'none';
             document.getElementById('sub-nav-container').style.display = 'none';
-            
             document.querySelectorAll('.overlay-popup, .custom-popup-overlay').forEach(el => el.style.display = 'none');
 
-            if (catName === 'profile') { document.getElementById('profile-section').style.display = 'flex'; initProfileView(); } 
-            else {
+            const modalOverlay = document.getElementById('main-modal');
+            const actionBar = document.getElementById('action-bar');
+
+            // Show Action Bar only if Profile is opened
+            if (catName === 'profile') { 
+                actionBar.style.display = 'flex';
+                modalOverlay.classList.add('with-action-bar');
+                document.getElementById('profile-section').style.display = 'flex'; 
+                initProfileView(); 
+            } else {
+                actionBar.style.display = 'none';
+                modalOverlay.classList.remove('with-action-bar');
                 document.getElementById('quiz-interface').style.display = 'flex';
                 document.getElementById('sub-nav-container').style.display = 'flex';
                 activeCat = catName; renderSubNav(catName); switchUnit(0, document.getElementById(`sub-unit-0`)); 
@@ -1317,7 +1237,6 @@
             document.getElementById('final-price-display').innerText = `₹${selectedPlanPrice}.00`; 
             showStep(3);
             
-            // Start 5-min timer for payment
             let t = 300; 
             if(tInt) clearInterval(tInt); 
             tInt = setInterval(() => { 
@@ -1328,106 +1247,74 @@
             }, 1000); 
         });
 
-        // ==========================================
-        // REAL CASHFREE V3 INTEGRATION LOGIC
-        // ==========================================
         document.getElementById('cashfree-button').addEventListener('click', async () => {
-            if (!selectedPlanPrice) {
-                alert("कृपया पहले एक योजना चुनें।");
-                return;
-            }
-
+            if (!selectedPlanPrice) { alert("कृपया पहले एक योजना चुनें।"); return; }
             const btn = document.getElementById('cashfree-button');
             const originalText = btn.innerText;
-            btn.innerText = "सर्वर से कनेक्ट हो रहा है...";
-            btn.style.opacity = "0.7";
-            btn.style.pointerEvents = "none";
+            btn.innerText = "सर्वर से कनेक्ट हो रहा है..."; btn.style.opacity = "0.7"; btn.style.pointerEvents = "none";
 
             try {
-                // कोशिश 1: /api/create-order को कॉल करें (Webhook के अनुसार Vercel API फोल्डर)
                 let response = await fetch("https://stiskilli-cashfree-backend.vercel.app/api/create-order", {
-                    method: "POST",
-                    headers: { 
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        amount: selectedPlanPrice,
-                        customer_name: userData.name || "Customer",
-                        customer_phone: userData.number || "9999999999",
-                        customer_email: userData.email || "test@example.com"
-                    })
+                    method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({ amount: selectedPlanPrice, customer_name: userData.name || "Customer", customer_phone: userData.number || "9999999999", customer_email: userData.email || "test@example.com" })
                 });
 
-                // अगर /api/ काम नहीं करता है, तो रूट /create-order पर Fallback करें
                 if (!response.ok) {
-                    console.log("/api/create-order failed, trying /create-order fallback...");
                     response = await fetch("https://stiskilli-cashfree-backend.vercel.app/create-order", {
-                        method: "POST",
-                        headers: { 
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        body: JSON.stringify({
-                            amount: selectedPlanPrice,
-                            customer_name: userData.name || "Customer",
-                            customer_phone: userData.number || "9999999999",
-                            customer_email: userData.email || "test@example.com"
-                        })
+                        method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                        body: JSON.stringify({ amount: selectedPlanPrice, customer_name: userData.name || "Customer", customer_phone: userData.number || "9999999999", customer_email: userData.email || "test@example.com" })
                     });
                 }
 
-                if (!response.ok) {
-                    throw new Error(`Server returned HTTP ${response.status}`);
-                }
-
+                if (!response.ok) throw new Error(`Server returned HTTP ${response.status}`);
                 const orderData = await response.json();
-                
-                if (!orderData.payment_session_id) {
-                    throw new Error("Payment session ID backend से प्राप्त नहीं हुआ।");
-                }
+                if (!orderData.payment_session_id) throw new Error("Payment session ID backend से प्राप्त नहीं हुआ।");
 
-                // Cashfree V3 SDK Initialize
                 const cashfree = Cashfree({ mode: "production" }); 
-                
-                let checkoutOptions = {
-                    paymentSessionId: orderData.payment_session_id,
-                    redirectTarget: "_modal"
-                };
+                let checkoutOptions = { paymentSessionId: orderData.payment_session_id, redirectTarget: "_modal" };
                 
                 cashfree.checkout(checkoutOptions).then((result) => {
-                    if(result.error){
-                        showPremiumErrorPopup("भुगतान विफल या रद्द: " + result.error.message);
-                    }
+                    if(result.error){ showPremiumErrorPopup("भुगतान विफल या रद्द: " + result.error.message); }
                     if(result.paymentDetails){
-                        // Payment Successful
                         userData.txn = orderData.order_id || "CF_SUCCESS_" + Date.now();
-                        userData.planAmount = selectedPlanPrice; 
-                        userData.planName = selectedPlanLabel; 
-                        
-                        sendToSheet();
-                        completeTxn();
-                        showPremiumSuccessPopup(userData.txn);
+                        userData.planAmount = selectedPlanPrice; userData.planName = selectedPlanLabel; 
+                        sendToSheet(); completeTxn(); showPremiumSuccessPopup(userData.txn);
                     }
                 });
 
             } catch (err) {
                 console.error("Cashfree API Fetch Error:", err);
-                
-                // Detailed error diagnostic
                 let errorDiagnostics = err.message;
-                if (err.message.includes('Failed to fetch')) {
-                    errorDiagnostics = "नेटवर्क त्रुटि या CORS नीति (CORS Policy) आपके Vercel सर्वर पर ब्लॉक कर रही है। कृपया सुनिश्चित करें कि बैकएंड सही तरह से डिप्लॉय है।";
-                }
-
+                if (err.message.includes('Failed to fetch')) errorDiagnostics = "नेटवर्क त्रुटि या CORS नीति (CORS Policy) आपके Vercel सर्वर पर ब्लॉक कर रही है। कृपया सुनिश्चित करें कि बैकएंड सही तरह से डिप्लॉय है।";
                 showPremiumErrorPopup(errorDiagnostics);
-                
             } finally {
-                btn.innerText = originalText;
-                btn.style.opacity = "1";
-                btn.style.pointerEvents = "auto";
+                btn.innerText = originalText; btn.style.opacity = "1"; btn.style.pointerEvents = "auto";
             }
         });
+
+        // Setup observer for Cashfree SDK Modal to constrain it between header and footer
+        const cashfreeObserver = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1 && node.tagName === 'DIV') {
+                        // Checking if the node is Cashfree wrapper. SDKs use high z-index, fixed pos, and iframes
+                        const htmlString = node.innerHTML ? node.innerHTML.toLowerCase() : "";
+                        const isCashfree = (node.id && (node.id.includes('cf') || node.id.includes('cashfree'))) || 
+                                           htmlString.includes('cashfree.com');
+                        
+                        if (isCashfree && window.getComputedStyle(node).position === 'fixed') {
+                            node.style.setProperty('top', 'calc(var(--header-height) + 75px + env(safe-area-inset-top))', 'important');
+                            node.style.setProperty('bottom', 'calc(var(--footer-height) + 35px + env(safe-area-inset-bottom))', 'important');
+                            node.style.setProperty('height', 'auto', 'important');
+                            node.style.setProperty('border-radius', '24px', 'important');
+                            node.style.setProperty('overflow', 'hidden', 'important');
+                            node.style.setProperty('z-index', '3500', 'important'); // Safe bounding index
+                        }
+                    }
+                });
+            });
+        });
+        cashfreeObserver.observe(document.body, { childList: true });
 
         function showPremiumSuccessPopup(paymentId) {
             const popup = document.getElementById('premium-success-popup');
@@ -1464,9 +1351,6 @@
         
         function closeWelcome() { document.getElementById('welcome-popup').style.display = 'none'; openCategory('ancient', document.getElementById('nav-ancient')); }
 
-        // ======================================================
-        // REVIEWS SYSTEM LOGIC
-        // ======================================================
         let reviewsData = []; 
         let currentReviewFilter = 'all'; 
 
@@ -1650,7 +1534,9 @@
                 document.getElementById('main-header')?.classList.toggle('header-hidden'); 
                 document.getElementById('dock-wrapper')?.classList.toggle('footer-hidden'); 
                 document.getElementById('action-bar')?.classList.toggle('header-hidden');
-                document.getElementById('main-modal')?.classList.toggle('modal-expand'); 
+                document.getElementById('main-modal')?.classList.toggle('modal-expand');
+                // Expand review modals along with main layout
+                document.querySelectorAll('.cet-sub-modal').forEach(el => el.classList.toggle('modal-expand'));
                 tapCountTriple = 0; 
             } else { tapTimerTriple = setTimeout(() => tapCountTriple = 0, 500); }
         }
